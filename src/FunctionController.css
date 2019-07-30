@@ -1,0 +1,9 @@
+.gui .controller.function {
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .gui .controller.function:hover { 
+        background: #000;
+    }
+}

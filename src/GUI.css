@@ -1,0 +1,123 @@
+/* css vars */
+
+.gui {
+    --width: auto;
+    --background-color: #1a1a1a;
+    --color: #eee;
+    --font-family: system-ui;
+    --font-size: 11px;
+    --line-height: 11px;
+    --name-width: 90px;
+    --row-height: 24px;
+    --widget-height: 20px;
+    --padding: 6px;
+    --widget-color: #3c3c3c;
+    --number-color: #00adff;
+    --string-color: #1ed36f;
+    --widget-border-radius: 3px;
+}
+
+/* base styles */
+
+.gui, .gui * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.gui {
+    width: var(--width);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    font-family: var(--font-family);
+    font-weight: normal;
+    font-style: normal;
+    background-color: var(--background-color);
+    color: var(--color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: left;
+}
+
+.gui.autoPlace {
+    position: fixed;
+    top: 0;
+    right: 20px;
+    z-index: 1001;
+    max-height: var(--window-height);
+}
+
+.gui.root {
+    overflow-y: scroll;
+}
+
+/* folders, children, titles */
+
+.gui .title {
+    height: var(--row-height);
+    padding: 0 var(--padding);
+    line-height: var(--row-height);
+    font-weight: bold;
+    border-bottom: 1px solid rgb(63, 63, 63);
+}
+
+.gui .children {
+    padding: var(--padding) 0;
+}
+
+.gui:not(.root) {
+    margin-left: var(--padding);
+}
+
+.gui.closed .children {
+    display: none;
+}
+
+/* global form control styles */
+
+.gui input {
+    border: 0;
+    outline: none;
+    font-size: var(--font-size);
+    border-radius: var(--widget-border-radius);
+}
+
+.gui select {
+    outline: none;
+}
+
+.gui input[type=text], 
+.gui input[type=number] {
+    height: var(--widget-height);
+    font-family: var(--font-family);
+    line-height: var(--widget-height);
+    background: var(--widget-color);
+    color: var(--color);
+    padding: 0 2px;
+    width: 100%;
+}
+
+/* mobile styles */
+
+@media (max-width: 700px) {
+    .gui {
+        --name-width: 80px;
+        --row-height: 34px;
+        --widget-height: 28px;
+        --padding: 8px;
+    }
+    .gui.autoPlace {
+        right: auto;
+        left: 0;
+        width: 100%;
+        max-height: calc(var(--window-height) * .4);
+    }
+    .gui input, 
+    .gui select {
+        /* prevents zoom on mobile safari */
+        font-size: 16px !important;
+    }
+}

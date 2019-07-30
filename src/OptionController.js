@@ -1,10 +1,10 @@
-import { Controller } from '../Controller.js';
+import { Controller } from './Controller.js';
 
 export class OptionController extends Controller {
 
     constructor( params, options ) {
 
-        super( { ...params, className: 'option', tagName: 'label' } );
+        super( params, 'option', 'label' );
 
         this.$select = document.createElement( 'select' );
 

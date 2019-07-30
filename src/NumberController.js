@@ -1,12 +1,11 @@
-import { Controller } from '../Controller.js';
-
-const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
+import { Controller } from './Controller.js';
+import { map } from './utils/map.js';
 
 export class NumberController extends Controller {
 
     constructor( params, min, max, step ) {
 
-        super( { ...params, className: 'number' } );
+        super( params, 'number' );
 
         this._createInput();
 

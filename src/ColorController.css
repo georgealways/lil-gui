@@ -1,0 +1,6 @@
+.gui .controller.color input {
+    background: var(--widget-color);
+    height: var(--widget-height);
+    width: 100%;
+    padding: 0;
+}

@@ -1,10 +1,10 @@
-import { Controller } from '../Controller.js';
+import { Controller } from './Controller.js';
 
 export class BooleanController extends Controller {
 
     constructor( params ) {
 
-        super( { ...params, className: 'boolean', tagName: 'label' } );
+        super( params, 'boolean', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'checkbox' );

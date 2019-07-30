@@ -1,10 +1,10 @@
-import { Controller } from '../Controller.js';
+import { Controller } from './Controller.js';
 
 export class StringController extends Controller {
 
     constructor( params ) {
 
-        super( { ...params, className: 'string', tagName: 'label' } );
+        super( params, 'string', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'text' );

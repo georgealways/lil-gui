@@ -1,11 +1,33 @@
-import { BooleanController } from './controllers/BooleanController.js';
-import { StringController } from './controllers/StringController.js';
-import { FunctionController } from './controllers/FunctionController.js';
-import { NumberController } from './controllers/NumberController.js';
-import { OptionController } from './controllers/OptionController.js';
-import { ColorController } from './controllers/ColorController.js';
+import { BooleanController } from './BooleanController.js';
+import { ColorController } from './ColorController.js';
+import { FunctionController } from './FunctionController.js';
+import { NumberController } from './NumberController.js';
+import { OptionController } from './OptionController.js';
+import { StringController } from './StringController.js';
 
-import { isObject, isBoolean, isString, isFunction, isNumber } from './is.js';
+import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
+
+import { injectStyles } from './utils/injectStyles.js';
+
+import stylesGUI from './GUI.css';
+import stylesController from './Controller.css';
+import stylesBoolean from './BooleanController.css';
+import stylesColor from './ColorController.css';
+import stylesNumber from './NumberController.css';
+import stylesFunction from './FunctionController.css';
+import stylesOption from './OptionController.css';
+import stylesString from './StringController.css';
+
+injectStyles( [
+    stylesGUI,
+    stylesController,
+    stylesBoolean,
+    stylesColor,
+    stylesNumber,
+    stylesFunction,
+    stylesOption,
+    stylesString
+].join( '\n' ), 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 export class GUI {
 

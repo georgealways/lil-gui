@@ -1,0 +1,3 @@
+.gui .controller.string input {
+    color: var(--string-color);
+}

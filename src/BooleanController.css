@@ -1,0 +1,9 @@
+.gui .controller.boolean {
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .gui .controller.boolean:hover { 
+        background: #000;
+    }
+}

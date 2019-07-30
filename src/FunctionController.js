@@ -1,10 +1,10 @@
-import { Controller } from '../Controller.js';
+import { Controller } from './Controller.js';
 
 export class FunctionController extends Controller {
 
     constructor( params ) {
 
-        super( { ...params, className: 'function' } );
+        super( params, 'function' );
 
         this.domElement.addEventListener( 'click', () => {
             this.getValue()();

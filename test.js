@@ -1,4 +1,4 @@
-import { GUI } from './src/GUI.js';
+import { GUI } from './build/gui.module.js';
 
 const gui = new GUI();
 
