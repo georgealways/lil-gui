@@ -2,9 +2,9 @@ import { Controller } from './Controller.js';
 
 export class BooleanController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'boolean', 'label' );
+        super( parent, object, property, 'boolean', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'checkbox' );

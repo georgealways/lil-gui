@@ -1,6 +1,6 @@
 class Controller {
 
-    constructor( { object, property, parent }, className, tagName = 'div' ) {
+    constructor( parent, object, property, className, tagName = 'div' ) {
 
         this.parent = parent;
 
@@ -90,9 +90,9 @@ class Controller {
 
 class BooleanController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'boolean', 'label' );
+        super( parent, object, property, 'boolean', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'checkbox' );
@@ -115,9 +115,9 @@ class BooleanController extends Controller {
 
 class ColorController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'color', 'label' );
+        super( parent, object, property, 'color', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );
@@ -140,9 +140,9 @@ class ColorController extends Controller {
 
 class FunctionController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'function' );
+        super( parent, object, property, 'function' );
 
         this.domElement.addEventListener( 'click', () => {
             this.getValue()();
@@ -156,9 +156,9 @@ const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
 
 class NumberController extends Controller {
 
-    constructor( params, min, max, step ) {
+    constructor( parent, object, property, min, max, step ) {
 
-        super( params, 'number' );
+        super( parent, object, property, 'number' );
 
         this._createInput();
 
@@ -352,9 +352,9 @@ class NumberController extends Controller {
 
 class OptionController extends Controller {
 
-    constructor( params, options ) {
+    constructor( parent, object, property, options ) {
 
-        super( params, 'option', 'label' );
+        super( parent, object, property, 'option', 'label' );
 
         this.$select = document.createElement( 'select' );
 
@@ -388,9 +388,9 @@ class OptionController extends Controller {
 
 class StringController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'string', 'label' );
+        super( parent, object, property, 'string', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'text' );
@@ -546,29 +546,27 @@ class GUI {
             throw new Error( `Property "${property}" of ${object} is undefined.` );
         }
 
-        const params = { object, property, parent: this };
-
         let controller;
 
         if ( Array.isArray( $1 ) || isObject( $1 ) ) {
 
-            controller = new OptionController( params, $1 );
+            controller = new OptionController( this, object, property, $1 );
 
         } else if ( isBoolean( initialValue ) ) {
 
-            controller = new BooleanController( params );
+            controller = new BooleanController( this, object, property );
 
         } else if ( isString( initialValue ) ) {
 
-            controller = new StringController( params );
+            controller = new StringController( this, object, property );
 
         } else if ( isFunction( initialValue ) ) {
 
-            controller = new FunctionController( params );
+            controller = new FunctionController( this, object, property );
 
         } else if ( isNumber( initialValue ) ) {
 
-            controller = new NumberController( params, $1, $2, $3 );
+            controller = new NumberController( this, object, property, $1, $2, $3 );
 
         } else {
 
@@ -585,7 +583,7 @@ class GUI {
     }
 
     addColor( object, property ) {
-        return new ColorController( { object, property, parent: this } );
+        return new ColorController( this, object, property );
     }
 
     name( name ) {

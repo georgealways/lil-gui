@@ -3,9 +3,9 @@ import { map } from './utils/map.js';
 
 export class NumberController extends Controller {
 
-    constructor( params, min, max, step ) {
+    constructor( parent, object, property, min, max, step ) {
 
-        super( params, 'number' );
+        super( parent, object, property, 'number' );
 
         this._createInput();
 

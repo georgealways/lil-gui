@@ -2,9 +2,9 @@ import { Controller } from './Controller.js';
 
 export class StringController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'string', 'label' );
+        super( parent, object, property, 'string', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'text' );

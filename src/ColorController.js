@@ -2,9 +2,9 @@ import { Controller } from './Controller.js';
 
 export class ColorController extends Controller {
 
-    constructor( params ) {
+    constructor( parent, object, property ) {
 
-        super( params, 'color', 'label' );
+        super( parent, object, property, 'color', 'label' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );

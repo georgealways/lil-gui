@@ -2,9 +2,9 @@ import { Controller } from './Controller.js';
 
 export class OptionController extends Controller {
 
-    constructor( params, options ) {
+    constructor( parent, object, property, options ) {
 
-        super( params, 'option', 'label' );
+        super( parent, object, property, 'option', 'label' );
 
         this.$select = document.createElement( 'select' );
 

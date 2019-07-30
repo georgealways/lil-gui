@@ -1,6 +1,6 @@
 export class Controller {
 
-    constructor( { object, property, parent }, className, tagName = 'div' ) {
+    constructor( parent, object, property, className, tagName = 'div' ) {
 
         this.parent = parent;
 

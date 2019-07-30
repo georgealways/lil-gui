@@ -109,29 +109,27 @@ export class GUI {
             throw new Error( `Property "${property}" of ${object} is undefined.` );
         }
 
-        const params = { object, property, parent: this };
-
         let controller;
 
         if ( Array.isArray( $1 ) || isObject( $1 ) ) {
 
-            controller = new OptionController( params, $1 );
+            controller = new OptionController( this, object, property, $1 );
 
         } else if ( isBoolean( initialValue ) ) {
 
-            controller = new BooleanController( params );
+            controller = new BooleanController( this, object, property );
 
         } else if ( isString( initialValue ) ) {
 
-            controller = new StringController( params );
+            controller = new StringController( this, object, property );
 
         } else if ( isFunction( initialValue ) ) {
 
-            controller = new FunctionController( params );
+            controller = new FunctionController( this, object, property );
 
         } else if ( isNumber( initialValue ) ) {
 
-            controller = new NumberController( params, $1, $2, $3 );
+            controller = new NumberController( this, object, property, $1, $2, $3 );
 
         } else {
 
@@ -148,7 +146,7 @@ export class GUI {
     }
 
     addColor( object, property ) {
-        return new ColorController( { object, property, parent: this } );
+        return new ColorController( this, object, property );
     }
 
     name( name ) {
