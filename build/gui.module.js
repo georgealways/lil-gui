@@ -435,7 +435,7 @@ function injectStyles( cssContent, fallbackURL ) {
     try {
         head.appendChild( injected );
     } catch ( e ) {
-
+        console.warn( `Failed to inject styles. Manually include the stylesheet at ${fallbackURL}` );
     }
 }
 
@@ -464,7 +464,7 @@ injectStyles( [
     stylesFunction,
     stylesOption,
     stylesString
-].join( '\n' ));
+].join( '\n' ), 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 class GUI {
 
