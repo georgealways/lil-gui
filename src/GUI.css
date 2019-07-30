@@ -35,9 +35,6 @@
     color: var(--color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     text-align: left;
 }
@@ -45,13 +42,28 @@
 .gui.autoPlace {
     position: fixed;
     top: 0;
-    right: 20px;
+    right: 15px;
     z-index: 1001;
     max-height: var(--window-height);
 }
 
 .gui.root {
     overflow-y: scroll;
+}
+
+.gui.root::-webkit-scrollbar { 
+    width: 5px;
+    background: var(--background-color);
+}
+
+.gui.root::-webkit-scrollbar-corner {
+    height: 0;
+    display: none;
+}
+
+.gui.root::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: var(--widget-color);
 }
 
 /* folders, children, titles */
@@ -87,6 +99,7 @@
 
 .gui select {
     outline: none;
+    font-size: var(--font-size);
 }
 
 .gui input[type=text], 
@@ -102,22 +115,18 @@
 
 /* mobile styles */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     .gui {
-        --name-width: 80px;
+        --name-width: 115px;
         --row-height: 34px;
         --widget-height: 28px;
         --padding: 8px;
+        --font-size: 16px;
     }
     .gui.autoPlace {
         right: auto;
         left: 0;
         width: 100%;
         max-height: calc(var(--window-height) * .4);
-    }
-    .gui input, 
-    .gui select {
-        /* prevents zoom on mobile safari */
-        font-size: 16px !important;
     }
 }
