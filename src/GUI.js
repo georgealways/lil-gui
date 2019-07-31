@@ -39,10 +39,14 @@ export class GUI {
 
         if ( this.parent ) {
 
+            this.root = this.parent.root;
+
             this.parent.children.push( this );
             this.parent.$children.appendChild( this.domElement );
 
         } else {
+
+            this.root = this;
 
             this.width( width );
             this.domElement.classList.add( 'root' );
@@ -52,17 +56,18 @@ export class GUI {
                 this.domElement.classList.add( 'autoPlace' );
                 document.body.appendChild( this.domElement );
 
+                this.onResize = () => {
+                    this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+                };
+
+                window.addEventListener( 'resize', this.onResize );
+
             }
 
         }
 
         this.domElement.appendChild( this.$title );
         this.domElement.appendChild( this.$children );
-
-        this.onResize = this.onResize.bind( this );
-        this.onResize();
-
-        window.addEventListener( 'resize', this.onResize );
 
         this.name( name );
 
@@ -77,7 +82,9 @@ export class GUI {
             this.parent.$children.removeChild( this.domElement );
         }
 
-        window.removeEventListener( 'resize', this.onResize );
+        if ( this.onResize ) {
+            window.removeEventListener( 'resize', this.onResize );
+        }
 
     }
 
@@ -158,10 +165,6 @@ export class GUI {
         this.__closed = true;
         this.domElement.classList.add( 'closed' );
         return this;
-    }
-
-    onResize() {
-        this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
     }
 
 }

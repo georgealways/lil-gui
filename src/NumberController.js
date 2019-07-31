@@ -40,12 +40,12 @@ export class NumberController extends Controller {
         } );
 
         this.$input.addEventListener( 'blur', () => {
-            this._changeFinished();
+            this._callOnFinishedChange();
         } );
 
         this.$input.addEventListener( 'keydown', e => {
             if ( e.keyCode === 13 ) {
-                this._changeFinished();
+                this._callOnFinishedChange();
             }
         } );
 
@@ -102,26 +102,76 @@ export class NumberController extends Controller {
         };
 
         const mouseUp = () => {
-            this._changeFinished();
+            this._callOnFinishedChange();
             window.removeEventListener( 'mousemove', mouseMove );
             window.removeEventListener( 'mouseup', mouseUp );
         };
 
         // Bind touch listeners
 
+        let testingForScroll = false, prevClientX, prevClientY;
+
         this.$slider.addEventListener( 'touchstart', e => {
+
             if ( e.touches.length > 1 ) return;
-            setValue( e.touches[ 0 ].clientX );
-            window.addEventListener( 'touchmove', touchMove );
+
+            const root = this.parent.root.$children;
+            const scrollbarPresent = root.scrollHeight > root.clientHeight;
+
+            if ( !scrollbarPresent ) {
+
+                // If we're not in a scrollable container, we can set the value
+                // straight away on touchstart.
+                setValue( e.touches[ 0 ].clientX );
+                testingForScroll = false;
+
+            } else {
+
+                // Otherwise, we should wait for a for the first touchmove to 
+                // see if the user is trying to move horizontally or vertically.
+                prevClientX = e.touches[ 0 ].clientX;
+                prevClientY = e.touches[ 0 ].clientY;
+                testingForScroll = true;
+
+            }
+
+            window.addEventListener( 'touchmove', touchMove, { passive: false } );
             window.addEventListener( 'touchend', touchEnd );
+
         } );
 
         const touchMove = e => {
-            setValue( e.touches[ 0 ].clientX );
+
+            if ( !testingForScroll ) {
+
+                e.preventDefault();
+                setValue( e.touches[ 0 ].clientX );
+
+            } else {
+
+                const dx = e.touches[ 0 ].clientX - prevClientX;
+                const dy = e.touches[ 0 ].clientY - prevClientY;
+
+                if ( Math.abs( dx ) > Math.abs( dy ) ) {
+
+                    // We moved horizontally, set the value and stop checking.
+                    setValue( e.touches[ 0 ].clientX );
+                    testingForScroll = false;
+
+                } else {
+
+                    // This was, in fact, an attempt to scroll. Abort.
+                    window.removeEventListener( 'touchmove', touchMove );
+                    window.removeEventListener( 'touchend', touchEnd );
+
+                }
+
+            }
+
         };
 
         const touchEnd = () => {
-            this._changeFinished();
+            this._callOnFinishedChange();
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };

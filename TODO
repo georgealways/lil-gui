@@ -1,5 +1,6 @@
 todo
 
+[x] slider touch scroll
 [ ] fuck label, all controllers back to div
 [ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
 [ ] headers?

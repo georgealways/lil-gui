@@ -14,12 +14,12 @@ export class StringController extends Controller {
         } );
 
         this.$input.addEventListener( 'blur', () => {
-            this._changeFinished();
+            this._callOnFinishedChange();
         } );
 
         this.$input.addEventListener( 'keydown', e => {
             if ( e.keyCode === 13 ) {
-                this._changeFinished();
+                this._callOnFinishedChange();
             }
         } );
 

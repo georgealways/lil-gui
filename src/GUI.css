@@ -70,8 +70,8 @@
 
 @media (max-width: 600px) {
 	.gui {
-		--row-height: 34px;
-		--widget-height: 28px;
+		--row-height: 38px;
+		--widget-height: 32px;
 		--padding: 8px;
 		--font-size: 16px;
 	}
@@ -83,7 +83,7 @@
 		width: 100%;
 	}
 	.gui.autoPlace > .children { 
-		max-height: 300px;
+		max-height: 200px;
 	}
 }
 
@@ -113,9 +113,11 @@
 	width: 100%;
 }
 
-.gui input[type=text]:hover,
-.gui input[type=number]:hover {
-	background-color: red;
+@media (hover: hover) { 
+	.gui input[type=text]:hover,
+	.gui input[type=number]:hover {
+		background-color: red;
+	}
 }
 
 .gui input[type=text]:focus,
@@ -178,12 +180,12 @@
 	padding: var(--padding) 0;
 }
 
-.gui:not(.root) .children { 
-	margin-bottom: var(--padding);
+.gui:not(.root) { 
+	margin: var(--padding) 0;
 }
 
 .gui:not(.root):first-child {
-	margin-top: calc( -1 * var(--padding) );
+	margin-top: 0;
 }
 
 .gui:not(.root) .children { 

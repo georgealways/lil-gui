@@ -58,11 +58,11 @@ export class Controller {
     setValue( value, finished = true ) {
         this.object[ this.property ] = value;
         if ( this.__onChange !== undefined ) this.__onChange.call( this, value );
-        if ( finished ) this._changeFinished();
+        if ( finished ) this._callOnFinishedChange();
         this.updateDisplay();
     }
 
-    _changeFinished() {
+    _callOnFinishedChange() {
         if ( this.__onFinishChange !== undefined ) {
             this.__onFinishChange.call( this, this.getValue() );
         }
