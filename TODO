@@ -1,0 +1,26 @@
+todo
+
+[ ] fuck label, all controllers back to div
+[ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
+[ ] headers?
+[ ] rollup + livereload
+[ ] umd build
+
+changelog
+    
+    [+] mobile styles
+    [+] "headers"
+    [+] enable() / disable()
+    [+] color rgb range
+
+    [c] .remove( controller ) => controller.destroy()
+    [c] .removeFolder( folder ) => folder.destroy()
+
+    [c] built in color controller => input[type=color]
+    [c] folders open by default
+
+    [-] presets
+    [-] multiple autoPlace gui's
+    [-] fewer color interpretations
+    [-] .__controllers
+    [-] hide() / show()
