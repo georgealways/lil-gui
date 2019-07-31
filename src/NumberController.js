@@ -64,6 +64,9 @@ export class NumberController extends Controller {
         this.$fill.classList.add( 'fill' );
 
         this.$slider.appendChild( this.$fill );
+        this.$widget.insertBefore( this.$slider, this.$input );
+
+        this.domElement.classList.add( 'hasSlider' );
 
         const setValue = clientX => {
 
@@ -86,6 +89,8 @@ export class NumberController extends Controller {
 
         };
 
+        // Bind mouse listeners
+
         this.$slider.addEventListener( 'mousedown', e => {
             setValue( e.clientX );
             window.addEventListener( 'mousemove', mouseMove );
@@ -101,6 +106,8 @@ export class NumberController extends Controller {
             window.removeEventListener( 'mousemove', mouseMove );
             window.removeEventListener( 'mouseup', mouseUp );
         };
+
+        // Bind touch listeners
 
         this.$slider.addEventListener( 'touchstart', e => {
             if ( e.touches.length > 1 ) return;
@@ -119,8 +126,6 @@ export class NumberController extends Controller {
             window.removeEventListener( 'touchend', touchEnd );
         };
 
-        this.$widget.insertBefore( this.$slider, this.$input );
-
         // It doesn't make sense for our domElement to be a label anymore since
         // it contains more than one input. Make a new container and replace our
         // old element. I don't like this and it will break.
@@ -128,8 +133,6 @@ export class NumberController extends Controller {
         const domElement = document.createElement( 'div' );
 
         domElement.className = this.domElement.className;
-        domElement.classList.add( 'hasSlider' );
-
         domElement.appendChild( this.$name );
         domElement.appendChild( this.$widget );
 

@@ -2,15 +2,32 @@ import { GUI } from './build/gui.module.js';
 
 const gui = new GUI();
 
-gui.addColor( { color: '#ff00aa' }, 'color' );
-
-gui.add( { a: 0 }, 'a' )
-    .onChange( () => console.log( 'onChange' ) )
-    .onFinishChange( () => console.log( 'onFinishChange' ) );
+let folder;
+folder = gui.addFolder( 'folder' ).close();
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder = gui.addFolder( 'folder' ).close();
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder = gui.addFolder( 'folder' ).close();
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
+folder.add( { a: 0 }, 'a', 0, 1 );
 
 gui.add( { a: 0 }, 'a', 0, 1 )
     .onChange( () => console.log( 'onChange' ) )
     .onFinishChange( () => console.log( 'onFinishChange' ) );
+gui.add( { a: 0 }, 'a' )
+    .onChange( () => console.log( 'onChange' ) )
+    .onFinishChange( () => console.log( 'onFinishChange' ) );
+
+gui.addColor( { color: '#ff00aa' }, 'color' );
+
 
 gui.add( { a: 0 }, 'a', [ 0, 1, 2 ] )
     .onChange( () => console.log( 'onChange' ) )
@@ -33,11 +50,11 @@ gui.add( { 'number': 0.4 }, 'number', 0, 1 ).name( 'number min max' );
 gui.add( { 'number': 0.6 }, 'number' ).min( 0 ).max( 1 ).name( 'number min max methods' );
 gui.add( { 'number': 0.6 }, 'number', 0, 500, 73 );
 
-const folder = gui.addFolder( 'sup' );
-folder.add( { string: 'String' }, 'string' );
-folder.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
+const folder0 = gui.addFolder( 'sup' );
+folder0.add( { string: 'String' }, 'string' );
+folder0.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
 
-const folder2 = folder.addFolder( 'more' );
+const folder2 = folder0.addFolder( 'more' );
 folder2.add( { string: 'String' }, 'string' );
 folder2.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
 
@@ -51,7 +68,6 @@ gui.add( { function: () => alert( 'hi' ) }, 'function' );
 
 gui.add( { value: false }, 'value' ).name( 'A disabled value' ).disable();
 
-folder.add( { options: 3 }, 'options' ).name( 'dickhead options' ).options( { One: 1, Two: 2, Three: 3 } );
-
+folder0.add( { options: 3 }, 'options' ).name( 'dickhead options' ).options( { One: 1, Two: 2, Three: 3 } );
 
 console.log( gui );
