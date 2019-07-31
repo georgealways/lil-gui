@@ -9,25 +9,9 @@ import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.
 
 import { injectStyles } from './utils/injectStyles.js';
 
-import stylesGUI from './GUI.css';
-import stylesController from './Controller.css';
-import stylesBoolean from './BooleanController.css';
-import stylesColor from './ColorController.css';
-import stylesNumber from './NumberController.css';
-import stylesFunction from './FunctionController.css';
-import stylesOption from './OptionController.css';
-import stylesString from './StringController.css';
+import styles from './GUI.css';
 
-injectStyles( [
-    stylesGUI,
-    stylesController,
-    stylesBoolean,
-    stylesColor,
-    stylesNumber,
-    stylesFunction,
-    stylesOption,
-    stylesString
-].join( '\n' ), 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
+injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 export class GUI {
 

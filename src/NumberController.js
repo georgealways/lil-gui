@@ -121,7 +121,21 @@ export class NumberController extends Controller {
 
         this.$widget.insertBefore( this.$slider, this.$input );
 
-        this.domElement.classList.add( 'hasSlider' );
+        // It doesn't make sense for our domElement to be a label anymore since
+        // it contains more than one input. Make a new container and replace our
+        // old element. I don't like this and it will break.
+
+        const domElement = document.createElement( 'div' );
+
+        domElement.className = this.domElement.className;
+        domElement.classList.add( 'hasSlider' );
+
+        domElement.appendChild( this.$name );
+        domElement.appendChild( this.$widget );
+
+        this.parent.$children.replaceChild( domElement, this.domElement );
+
+        this.domElement = domElement;
 
     }
 

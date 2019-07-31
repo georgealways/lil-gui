@@ -4,7 +4,7 @@ export class ColorController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'color', 'label' );
+        super( parent, object, property, 'color' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );

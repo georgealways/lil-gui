@@ -1,6 +1,6 @@
 class Controller {
 
-    constructor( parent, object, property, className, tagName = 'div' ) {
+    constructor( parent, object, property, className, tagName = 'label' ) {
 
         this.parent = parent;
 
@@ -92,7 +92,7 @@ class BooleanController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'boolean', 'label' );
+        super( parent, object, property, 'boolean' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'checkbox' );
@@ -117,7 +117,7 @@ class ColorController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'color', 'label' );
+        super( parent, object, property, 'color' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );
@@ -274,7 +274,21 @@ class NumberController extends Controller {
 
         this.$widget.insertBefore( this.$slider, this.$input );
 
-        this.domElement.classList.add( 'hasSlider' );
+        // It doesn't make sense for our domElement to be a label anymore since
+        // it contains more than one input. Make a new container and replace our
+        // old element. I don't like this and it will break.
+
+        const domElement = document.createElement( 'div' );
+
+        domElement.className = this.domElement.className;
+        domElement.classList.add( 'hasSlider' );
+
+        domElement.appendChild( this.$name );
+        domElement.appendChild( this.$widget );
+
+        this.parent.$children.replaceChild( domElement, this.domElement );
+
+        this.domElement = domElement;
 
     }
 
@@ -354,7 +368,7 @@ class OptionController extends Controller {
 
     constructor( parent, object, property, options ) {
 
-        super( parent, object, property, 'option', 'label' );
+        super( parent, object, property, 'option' );
 
         this.$select = document.createElement( 'select' );
 
@@ -390,7 +404,7 @@ class StringController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'string', 'label' );
+        super( parent, object, property, 'string' );
 
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'text' );
@@ -439,32 +453,9 @@ function injectStyles( cssContent, fallbackURL ) {
     }
 }
 
-var stylesGUI = "/* css vars */\n\n.gui {\n    --width: auto;\n    --background-color: #1a1a1a;\n    --color: #eee;\n    --font-family: system-ui;\n    --font-size: 11px;\n    --line-height: 11px;\n    --name-width: 90px;\n    --row-height: 24px;\n    --widget-height: 20px;\n    --padding: 6px;\n    --widget-color: #3c3c3c;\n    --number-color: #00adff;\n    --string-color: #1ed36f;\n    --widget-border-radius: 3px;\n}\n\n/* base styles */\n\n.gui, .gui * {\n    box-sizing: border-box;\n    margin: 0;\n}\n\n.gui {\n    width: var(--width);\n    font-size: var(--font-size);\n    line-height: var(--line-height);\n    font-family: var(--font-family);\n    font-weight: normal;\n    font-style: normal;\n    background-color: var(--background-color);\n    color: var(--color);\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    user-select: none;\n    text-align: left;\n}\n\n.gui.autoPlace {\n    position: fixed;\n    top: 0;\n    right: 15px;\n    z-index: 1001;\n    max-height: var(--window-height);\n}\n\n.gui.root {\n    overflow-y: scroll;\n}\n\n.gui.root::-webkit-scrollbar { \n    width: 5px;\n    background: var(--background-color);\n}\n\n.gui.root::-webkit-scrollbar-corner {\n    height: 0;\n    display: none;\n}\n\n.gui.root::-webkit-scrollbar-thumb {\n    border-radius: 5px;\n    background: var(--widget-color);\n}\n\n/* folders, children, titles */\n\n.gui .title {\n    height: var(--row-height);\n    padding: 0 var(--padding);\n    line-height: var(--row-height);\n    font-weight: bold;\n    border-bottom: 1px solid rgb(63, 63, 63);\n}\n\n.gui .children {\n    padding: var(--padding) 0;\n}\n\n.gui:not(.root) {\n    margin-left: var(--padding);\n}\n\n.gui.closed .children {\n    display: none;\n}\n\n/* global form control styles */\n\n.gui input {\n    border: 0;\n    outline: none;\n    font-size: var(--font-size);\n    border-radius: var(--widget-border-radius);\n}\n\n.gui select {\n    outline: none;\n    font-size: var(--font-size);\n}\n\n.gui input[type=text], \n.gui input[type=number] {\n    height: var(--widget-height);\n    font-family: var(--font-family);\n    line-height: var(--widget-height);\n    background: var(--widget-color);\n    color: var(--color);\n    padding: 0 2px;\n    width: 100%;\n}\n\n/* mobile styles */\n\n@media (max-width: 600px) {\n    .gui {\n        --name-width: 115px;\n        --row-height: 34px;\n        --widget-height: 28px;\n        --padding: 8px;\n        --font-size: 16px;\n    }\n    .gui.autoPlace {\n        right: auto;\n        left: 0;\n        width: 100%;\n        max-height: calc(var(--window-height) * .4);\n    }\n}";
+var styles = ".gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 2px;\n\t--widget-border-radius: 3px;\n\t--widget-color: #3c3c3c;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\t-webkit-user-select: none;\n\t-moz-user-select: none;\n\t-ms-user-select: none;\n\tuser-select: none;\n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 34px;\n\t\t--widget-height: 28px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: 300px;\n\t}\n}\n\n/* \"widgets\" */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui select {\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui input[type=text], \n.gui input[type=number] {\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n.gui input[type=text]:hover,\n.gui input[type=number]:hover {\n\tbackground-color: red;\n}\n\n.gui input[type=text]:focus,\n.gui input[type=number]:focus { \n\tbackground-color: blue;\n\tcolor: var(--color);\n}\n\n.gui input[type=color] {\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\twidth: 100%;\n\tpadding: 0;\n}\n\n.gui input[type=text] {\n\tcolor: var(--string-color);\n}\n\n.gui input[type=number] {\n\tcolor: var(--number-color);\n}\n\n.gui input[type=number]::-webkit-inner-spin-button, \n.gui input[type=number]::-webkit-outer-spin-button {\n\t-webkit-appearance: none;\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tdisplay: flex;\n\talign-items: center;\n\tcursor: pointer;\n}\n\n.gui .title:before { \n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) {\n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* boolean and function get hover effects */\n\n/* .gui .controller.boolean, \n.gui .controller.function {\n\tcursor: pointer;\n}\n\n@media (hover: hover) {\n\t.gui .controller.boolean:hover, \n\t.gui .controller.function:hover {\n\t\tbackground: #000;\n\t}\n} */\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px);\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 30%;\n}\n\n/* big slider experiment */\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 18%;\n}\n*/";
 
-var stylesController = ".gui .controller {\n    padding: 0 var(--padding);\n    height: var(--row-height);\n    display: flex;\n    align-items: center;\n}\n\n.gui .controller.disabled {\n    opacity: 0.5;\n    pointer-events: none;\n}\n\n.gui .controller .name {\n    width: var(--name-width);\n    padding-right: var(--padding);\n    flex-shrink: 0;\n}\n\n.gui .controller .widget {\n    height: 100%;\n    width: 100%;\n    display: flex;\n    align-items: center;\n}";
-
-var stylesBoolean = ".gui .controller.boolean {\n    cursor: pointer;\n}\n\n@media (hover: hover) {\n    .gui .controller.boolean:hover { \n        background: #000;\n    }\n}";
-
-var stylesColor = ".gui .controller.color input {\n    background: var(--widget-color);\n    height: var(--widget-height);\n    width: 100%;\n    padding: 0;\n}";
-
-var stylesNumber = ".gui .controller.number input {\n    color: var(--number-color);\n}\n\n.gui .controller.number input::-webkit-inner-spin-button, \n.gui .controller.number input::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n}\n\n.gui .controller.number .slider {\n    width: 100%;\n    height: var(--widget-height);\n    margin-right: calc( var(--padding) - 2px);\n    background-color: var(--widget-color);\n    border-radius: var(--widget-border-radius);\n    /* border: 1px solid #333; */\n    overflow: hidden;\n}\n\n.gui .controller.number .fill {\n    height: 100%;\n    background-color: var(--number-color);\n    /* background-color: #666; */\n}\n\n.gui .controller.number.hasSlider input[type=number] {\n    width: 30%;\n}\n\n/* \n.gui .controller.number.hasSlider .name { \n  position: absolute;\n  pointer-events: none;\n  width: 80%;\n  padding-left: var(--padding);\n} \n\n.gui .controller.number.hasSlider input[type=number] {\n  width: 18%;\n}*/\n";
-
-var stylesFunction = ".gui .controller.function {\n    cursor: pointer;\n}\n\n@media (hover: hover) {\n    .gui .controller.function:hover { \n        background: #000;\n    }\n}";
-
-var stylesOption = "";
-
-var stylesString = ".gui .controller.string input {\n    color: var(--string-color);\n}";
-
-injectStyles( [
-    stylesGUI,
-    stylesController,
-    stylesBoolean,
-    stylesColor,
-    stylesNumber,
-    stylesFunction,
-    stylesOption,
-    stylesString
-].join( '\n' ), 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
+injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 class GUI {
 

@@ -4,7 +4,7 @@ export class OptionController extends Controller {
 
     constructor( parent, object, property, options ) {
 
-        super( parent, object, property, 'option', 'label' );
+        super( parent, object, property, 'option' );
 
         this.$select = document.createElement( 'select' );
 

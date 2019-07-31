@@ -1,132 +1,263 @@
-/* css vars */
-
 .gui {
-    --width: auto;
-    --background-color: #1a1a1a;
-    --color: #eee;
-    --font-family: system-ui;
-    --font-size: 11px;
-    --line-height: 11px;
-    --name-width: 90px;
-    --row-height: 24px;
-    --widget-height: 20px;
-    --padding: 6px;
-    --widget-color: #3c3c3c;
-    --number-color: #00adff;
-    --string-color: #1ed36f;
-    --widget-border-radius: 3px;
+	--width: auto;
+	--background-color: #1a1a1a;
+	--color: #eee;
+	--font-family: Arial, sans-serif;
+	--font-size: 11px;
+	--line-height: 11px;
+	--name-width: 35%;
+	--row-height: 24px;
+	--widget-height: 20px;
+	--widget-padding: 0 2px;
+	--widget-border-radius: 3px;
+	--widget-color: #3c3c3c;
+	--number-color: #00adff;
+	--string-color: #1ed36f;
+	--padding: 6px;
+	--scrollbar-width: 5px;
+	--title-color: #111;
 }
 
-/* base styles */
+.gui {
+	width: var(--width);
+	font-size: var(--font-size);
+	line-height: var(--line-height);
+	font-family: var(--font-family);
+	font-weight: normal;
+	font-style: normal;
+	background-color: var(--background-color);
+	color: var(--color);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	text-align: left;
+}
 
 .gui, .gui * {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.gui {
-    width: var(--width);
-    font-size: var(--font-size);
-    line-height: var(--line-height);
-    font-family: var(--font-family);
-    font-weight: normal;
-    font-style: normal;
-    background-color: var(--background-color);
-    color: var(--color);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    user-select: none;
-    text-align: left;
+	box-sizing: border-box;
+	margin: 0;
 }
 
 .gui.autoPlace {
-    position: fixed;
-    top: 0;
-    right: 15px;
-    z-index: 1001;
-    max-height: var(--window-height);
+	position: fixed;
+	top: 0;
+	right: 15px;
+	z-index: 1001;
 }
 
-.gui.root {
-    overflow-y: scroll;
+.gui.autoPlace > .children {
+	overflow-y: auto;
+	max-height: calc( var(--window-height) - var(--row-height) );
 }
 
-.gui.root::-webkit-scrollbar { 
-    width: 5px;
-    background: var(--background-color);
+.gui.autoPlace > .children::-webkit-scrollbar { 
+	width: var(--scrollbar-width);
+	background: var(--background-color);
 }
 
-.gui.root::-webkit-scrollbar-corner {
-    height: 0;
-    display: none;
+.gui.autoPlace > .children::-webkit-scrollbar-corner {
+	height: 0;
+	display: none;
 }
 
-.gui.root::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background: var(--widget-color);
+.gui.autoPlace > .children::-webkit-scrollbar-thumb {
+	border-radius: var(--scrollbar-width);
+	background: var(--widget-color);
 }
 
-/* folders, children, titles */
-
-.gui .title {
-    height: var(--row-height);
-    padding: 0 var(--padding);
-    line-height: var(--row-height);
-    font-weight: bold;
-    border-bottom: 1px solid rgb(63, 63, 63);
+@media (max-width: 600px) {
+	.gui {
+		--row-height: 34px;
+		--widget-height: 28px;
+		--padding: 8px;
+		--font-size: 16px;
+	}
+	.gui.autoPlace {
+		right: auto;
+		top: auto;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+	.gui.autoPlace > .children { 
+		max-height: 300px;
+	}
 }
 
-.gui .children {
-    padding: var(--padding) 0;
-}
-
-.gui:not(.root) {
-    margin-left: var(--padding);
-}
-
-.gui.closed .children {
-    display: none;
-}
-
-/* global form control styles */
+/* "widgets" */
 
 .gui input {
-    border: 0;
-    outline: none;
-    font-size: var(--font-size);
-    border-radius: var(--widget-border-radius);
+	border: 0;
+	outline: none;
+	font-family: var(--font-family);
+	font-size: var(--font-size);
 }
 
 .gui select {
-    outline: none;
-    font-size: var(--font-size);
+	outline: none;
+	font-family: var(--font-family);
+	font-size: var(--font-size);
 }
 
 .gui input[type=text], 
 .gui input[type=number] {
-    height: var(--widget-height);
-    font-family: var(--font-family);
-    line-height: var(--widget-height);
-    background: var(--widget-color);
-    color: var(--color);
-    padding: 0 2px;
-    width: 100%;
+	border-radius: var(--widget-border-radius);
+	height: var(--widget-height);
+	line-height: var(--widget-height);
+	background: var(--widget-color);
+	padding: var(--widget-padding);
+	color: var(--color);
+	width: 100%;
 }
 
-/* mobile styles */
-
-@media (max-width: 600px) {
-    .gui {
-        --name-width: 115px;
-        --row-height: 34px;
-        --widget-height: 28px;
-        --padding: 8px;
-        --font-size: 16px;
-    }
-    .gui.autoPlace {
-        right: auto;
-        left: 0;
-        width: 100%;
-        max-height: calc(var(--window-height) * .4);
-    }
+.gui input[type=text]:hover,
+.gui input[type=number]:hover {
+	background-color: red;
 }
+
+.gui input[type=text]:focus,
+.gui input[type=number]:focus { 
+	background-color: blue;
+	color: var(--color);
+}
+
+.gui input[type=color] {
+	border-radius: var(--widget-border-radius);
+	background: var(--widget-color);
+	height: var(--widget-height);
+	width: 100%;
+	padding: 0;
+}
+
+.gui input[type=text] {
+	color: var(--string-color);
+}
+
+.gui input[type=number] {
+	color: var(--number-color);
+}
+
+.gui input[type=number]::-webkit-inner-spin-button, 
+.gui input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+}
+
+/* titles and folders */
+
+.gui .title {
+	height: var(--row-height);
+	padding: 0 var(--padding);
+	line-height: var(--row-height);
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.gui .title:before { 
+	content: '▾';
+	width: 1em;
+}
+
+.gui.closed .children {
+	display: none;
+}
+
+.gui.closed .title:before {
+	content: '▸';
+}
+
+.gui .children {
+	padding: var(--padding) 0;
+}
+
+.gui:not(.root) {
+	margin: var(--padding) 0;
+}
+
+.gui:not(.root) .children { 
+	margin-left: var(--padding);
+	border-left: 2px solid #444;
+}
+
+/* controllers */
+
+.gui .controller {
+	padding: 0 var(--padding);
+	height: var(--row-height);
+	display: flex;
+	align-items: center;
+}
+
+.gui .controller.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.gui .controller .name {
+	width: var(--name-width);
+	padding-right: var(--padding);
+	flex-shrink: 0;
+}
+
+.gui .controller .widget {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+/* boolean and function get hover effects */
+
+/* .gui .controller.boolean, 
+.gui .controller.function {
+	cursor: pointer;
+}
+
+@media (hover: hover) {
+	.gui .controller.boolean:hover, 
+	.gui .controller.function:hover {
+		background: #000;
+	}
+} */
+
+/* number */
+
+.gui .controller.number .slider {
+	width: 100%;
+	height: var(--widget-height);
+	margin-right: calc( var(--padding) - 2px);
+	background-color: var(--widget-color);
+	border-radius: var(--widget-border-radius);
+	overflow: hidden;
+}
+
+.gui .controller.number .fill {
+	height: 100%;
+	background-color: var(--number-color);
+}
+
+.gui .controller.number.hasSlider input[type=number] {
+	width: 30%;
+}
+
+/* big slider experiment */
+
+/* 
+.gui .controller.number.hasSlider { 
+	position: relative;
+}
+
+.gui .controller.number.hasSlider .name { 
+	position: absolute;
+	pointer-events: none;
+	width: auto;
+	padding-left: var(--padding);
+} 
+.gui .controller.number.hasSlider input[type=number] {
+	width: 18%;
+}
+*/
