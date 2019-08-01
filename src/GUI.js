@@ -77,10 +77,10 @@ export class GUI {
     destroy() {
 
         this.children.forEach( c => c.destroy() );
+        this.domElement.parentElement.removeChild( this.domElement );
 
         if ( this.parent ) {
             this.parent.children.splice( this.parent.children.indexOf( this ) );
-            this.parent.$children.removeChild( this.domElement );
         }
 
         if ( this._onResize ) {

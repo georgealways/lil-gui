@@ -11,6 +11,8 @@
 	--widget-padding: 0 2px;
 	--widget-border-radius: 3px;
 	--widget-color: #3c3c3c;
+	--widget-color-hover: #494949;
+	--widget-color-focus: #5e5e5e;
 	--number-color: #00adff;
 	--string-color: #1ed36f;
 	--padding: 6px;
@@ -116,13 +118,13 @@
 @media (hover: hover) { 
 	.gui input[type=text]:hover,
 	.gui input[type=number]:hover {
-		background-color: red;
+		background-color: var(--widget-color-hover);
 	}
 }
 
 .gui input[type=text]:focus,
 .gui input[type=number]:focus { 
-	background-color: blue;
+	background-color: var(--widget-color-focus);
 	color: var(--color);
 }
 
@@ -140,11 +142,13 @@
 
 .gui input[type=number] {
 	color: var(--number-color);
+	-moz-appearance: textfield;
 }
 
 .gui input[type=number]::-webkit-inner-spin-button, 
 .gui input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* titles and folders */
@@ -241,7 +245,7 @@
 }
 
 /* big slider experiment */
-
+/* 
 .gui .controller.number.hasSlider { 
 	position: relative;
 }
@@ -254,4 +258,4 @@
 } 
 .gui .controller.number.hasSlider input[type=number] {
 	width: 18%;
-}
+} */
