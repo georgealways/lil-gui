@@ -56,11 +56,12 @@ export class GUI {
                 this.domElement.classList.add( 'autoPlace' );
                 document.body.appendChild( this.domElement );
 
-                this.onResize = () => {
+                this._onResize = () => {
                     this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
                 };
 
-                window.addEventListener( 'resize', this.onResize );
+                window.addEventListener( 'resize', this._onResize );
+                this._onResize();
 
             }
 
@@ -82,8 +83,8 @@ export class GUI {
             this.parent.$children.removeChild( this.domElement );
         }
 
-        if ( this.onResize ) {
-            window.removeEventListener( 'resize', this.onResize );
+        if ( this._onResize ) {
+            window.removeEventListener( 'resize', this._onResize );
         }
 
     }

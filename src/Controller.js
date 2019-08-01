@@ -1,15 +1,15 @@
 export class Controller {
 
-    constructor( parent, object, property, className, tagName = 'label' ) {
+    constructor( parent, object, property, className ) {
 
         this.parent = parent;
 
         this.object = object;
         this.property = property;
 
-        this.domElement = document.createElement( tagName );
-        this.domElement.classList.add( className );
+        this.domElement = document.createElement( 'div' );
         this.domElement.classList.add( 'controller' );
+        this.domElement.classList.add( className );
 
         this.$name = document.createElement( 'div' );
         this.$name.classList.add( 'name' );

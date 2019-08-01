@@ -1,15 +1,15 @@
 class Controller {
 
-    constructor( parent, object, property, className, tagName = 'label' ) {
+    constructor( parent, object, property, className ) {
 
         this.parent = parent;
 
         this.object = object;
         this.property = property;
 
-        this.domElement = document.createElement( tagName );
-        this.domElement.classList.add( className );
+        this.domElement = document.createElement( 'div' );
         this.domElement.classList.add( 'controller' );
+        this.domElement.classList.add( className );
 
         this.$name = document.createElement( 'div' );
         this.$name.classList.add( 'name' );
@@ -245,13 +245,13 @@ class NumberController extends Controller {
         // Bind mouse listeners
 
         this.$slider.addEventListener( 'mousedown', e => {
-            setValue( e.clientX );
+            setValue( e.clientX);
             window.addEventListener( 'mousemove', mouseMove );
             window.addEventListener( 'mouseup', mouseUp );
         } );
 
         const mouseMove = e => {
-            setValue( e.clientX );
+            setValue( e.clientX);
         };
 
         const mouseUp = () => {
@@ -275,7 +275,7 @@ class NumberController extends Controller {
 
                 // If we're not in a scrollable container, we can set the value
                 // straight away on touchstart.
-                setValue( e.touches[ 0 ].clientX );
+                setValue( e.touches[ 0 ].clientX);
                 testingForScroll = false;
 
             } else {
@@ -328,20 +328,6 @@ class NumberController extends Controller {
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };
-
-        // It doesn't make sense for our domElement to be a label anymore since
-        // it contains more than one input. Make a new container and replace our
-        // old element. I don't like this and it will break.
-
-        const domElement = document.createElement( 'div' );
-
-        domElement.className = this.domElement.className;
-        domElement.appendChild( this.$name );
-        domElement.appendChild( this.$widget );
-
-        this.parent.$children.replaceChild( domElement, this.domElement );
-
-        this.domElement = domElement;
 
     }
 
@@ -553,11 +539,12 @@ class GUI {
                 this.domElement.classList.add( 'autoPlace' );
                 document.body.appendChild( this.domElement );
 
-                this.onResize = () => {
+                this._onResize = () => {
                     this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
                 };
 
-                window.addEventListener( 'resize', this.onResize );
+                window.addEventListener( 'resize', this._onResize );
+                this._onResize();
 
             }
 
@@ -579,8 +566,8 @@ class GUI {
             this.parent.$children.removeChild( this.domElement );
         }
 
-        if ( this.onResize ) {
-            window.removeEventListener( 'resize', this.onResize );
+        if ( this._onResize ) {
+            window.removeEventListener( 'resize', this._onResize );
         }
 
     }

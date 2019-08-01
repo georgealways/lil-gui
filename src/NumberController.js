@@ -92,13 +92,13 @@ export class NumberController extends Controller {
         // Bind mouse listeners
 
         this.$slider.addEventListener( 'mousedown', e => {
-            setValue( e.clientX );
+            setValue( e.clientX, false );
             window.addEventListener( 'mousemove', mouseMove );
             window.addEventListener( 'mouseup', mouseUp );
         } );
 
         const mouseMove = e => {
-            setValue( e.clientX );
+            setValue( e.clientX, false );
         };
 
         const mouseUp = () => {
@@ -122,7 +122,7 @@ export class NumberController extends Controller {
 
                 // If we're not in a scrollable container, we can set the value
                 // straight away on touchstart.
-                setValue( e.touches[ 0 ].clientX );
+                setValue( e.touches[ 0 ].clientX, false );
                 testingForScroll = false;
 
             } else {
@@ -175,20 +175,6 @@ export class NumberController extends Controller {
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };
-
-        // It doesn't make sense for our domElement to be a label anymore since
-        // it contains more than one input. Make a new container and replace our
-        // old element. I don't like this and it will break.
-
-        const domElement = document.createElement( 'div' );
-
-        domElement.className = this.domElement.className;
-        domElement.appendChild( this.$name );
-        domElement.appendChild( this.$widget );
-
-        this.parent.$children.replaceChild( domElement, this.domElement );
-
-        this.domElement = domElement;
 
     }
 
