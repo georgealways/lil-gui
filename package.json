@@ -5,7 +5,7 @@
   "module": "build/gui.module.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"rollup -c -w\" live-server",
+    "dev": "concurrently -n rollup,server \"rollup -c -w\" \"live-server --watch=build,demo --open=demo\"",
     "build": "rollup -c"
   },
   "keywords": [],
@@ -17,5 +17,6 @@
     "live-server": "^1.2.1",
     "rollup": "^1.17.0",
     "rollup-plugin-string": "^3.0.0"
-  }
+  },
+  "eslintIgnore": ["build"]
 }
