@@ -5,7 +5,7 @@
   "module": "build/gui.module.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently -n rollup,server \"rollup -c -w\" \"live-server --watch=build,demo --open=demo\"",
+    "dev": "concurrently -n rollup,server \"rollup -c -w\" \"live-server --watch=build,demo --open=demo --wait=20\"",
     "build": "rollup -c"
   },
   "keywords": [],
