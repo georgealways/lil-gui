@@ -3,7 +3,7 @@ import { map } from './utils/map.js';
 
 export class NumberController extends Controller {
 
-    constructor( parent, object, property, min, max, step ) {
+    constructor( parent, object, property, min, max, step, decimals ) {
 
         super( parent, object, property, 'number' );
 
@@ -15,7 +15,31 @@ export class NumberController extends Controller {
         const stepExplicit = step !== undefined;
         this.step( stepExplicit ? step : this._getImplicitStep(), stepExplicit );
 
+        this.decimals( decimals );
+
         this.updateDisplay();
+
+    }
+
+    updateDisplay() {
+
+        const value = this.getValue();
+
+        if ( this.__hasSlider ) {
+            const percent = ( value - this.__min ) / ( this.__max - this.__min );
+            this.$fill.style.setProperty( 'width', percent * 100 + '%' );
+        }
+
+        let displayValue;
+
+        if ( this.__decimalsSuspended || this.__decimals === undefined ) {
+            displayValue = value;
+        } else {
+            const inverseDecimals = Math.pow( 10, this.__decimals );
+            displayValue = Math.round( value * inverseDecimals ) / inverseDecimals;
+        }
+
+        this.$input.value = displayValue;
 
     }
 
@@ -24,15 +48,23 @@ export class NumberController extends Controller {
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'number' );
 
-        this.$input.addEventListener( 'change', () => {
+        this.$input.addEventListener( 'focus', () => {
+            this.__decimalsSuspended = true;
+        } );
+
+        this.$input.addEventListener( 'input', () => {
 
             // Test if the string is a valid number
             let value = parseFloat( this.$input.value );
             if ( isNaN( value ) ) return;
 
-            // Input boxes clamp to max and min (if they're defined), but they
-            // don't snap to step, so you can be as precise as you want.
+            // Input boxes clamp to max and min if they're defined...
             value = this._clamp( value );
+
+            // ... but we only snap to step if it's been explicitly defined.
+            if ( this.__stepExplicit ) {
+                value = this._snap( value );
+            }
 
             // Set the value, but don't call onFinishedChange 
             this.setValue( value, false );
@@ -40,12 +72,13 @@ export class NumberController extends Controller {
         } );
 
         this.$input.addEventListener( 'blur', () => {
+            this.__decimalsSuspended = false;
             this._callOnFinishedChange();
         } );
 
         this.$input.addEventListener( 'keydown', e => {
             if ( e.keyCode === 13 ) {
-                this._callOnFinishedChange();
+                this.$input.blur();
             }
         } );
 
@@ -81,8 +114,7 @@ export class NumberController extends Controller {
 
             // Sliders always round to step. 
             // Using the inverse step avoids float precision issues.
-            const inverseStep = 1 / this.__step;
-            value = Math.round( value * inverseStep ) / inverseStep;
+            value = this._snap( value );
 
             // Set the value, but don't call onFinishedChange
             this.setValue( value, false );
@@ -93,6 +125,7 @@ export class NumberController extends Controller {
 
         this.$slider.addEventListener( 'mousedown', e => {
             setValue( e.clientX, false );
+            this.$slider.classList.add( 'active' );
             window.addEventListener( 'mousemove', mouseMove );
             window.addEventListener( 'mouseup', mouseUp );
         } );
@@ -103,6 +136,7 @@ export class NumberController extends Controller {
 
         const mouseUp = () => {
             this._callOnFinishedChange();
+            this.$slider.classList.remove( 'active' );
             window.removeEventListener( 'mousemove', mouseMove );
             window.removeEventListener( 'mouseup', mouseUp );
         };
@@ -123,6 +157,7 @@ export class NumberController extends Controller {
                 // If we're not in a scrollable container, we can set the value
                 // straight away on touchstart.
                 setValue( e.touches[ 0 ].clientX, false );
+                this.$slider.classList.add( 'active' );
                 testingForScroll = false;
 
             } else {
@@ -155,7 +190,8 @@ export class NumberController extends Controller {
                 if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
                     // We moved horizontally, set the value and stop checking.
-                    setValue( e.touches[ 0 ].clientX );
+                    setValue( e.touches[ 0 ].clientX, false );
+                    this.$slider.classList.add( 'active' );
                     testingForScroll = false;
 
                 } else {
@@ -172,6 +208,7 @@ export class NumberController extends Controller {
 
         const touchEnd = () => {
             this._callOnFinishedChange();
+            this.$slider.classList.remove( 'active' );
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };
@@ -199,17 +236,9 @@ export class NumberController extends Controller {
         return this;
     }
 
-    updateDisplay() {
-
-        const value = this.getValue();
-
-        if ( this.__hasSlider ) {
-            const percent = ( this.getValue() - this.__min ) / ( this.__max - this.__min );
-            this.$fill.style.setProperty( 'width', percent * 100 + '%' );
-        }
-
-        this.$input.value = value;
-
+    decimals( decimals ) {
+        this.__decimals = decimals;
+        return this;
     }
 
     _getImplicitStep() {
@@ -240,6 +269,11 @@ export class NumberController extends Controller {
 
         }
 
+    }
+
+    _snap( value ) {
+        const inverseStep = 1 / this.__step;
+        return Math.round( value * inverseStep ) / inverseStep;
     }
 
     _clamp( value ) {

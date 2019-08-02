@@ -156,7 +156,7 @@ const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
 
 class NumberController extends Controller {
 
-    constructor( parent, object, property, min, max, step ) {
+    constructor( parent, object, property, min, max, step, decimals ) {
 
         super( parent, object, property, 'number' );
 
@@ -168,7 +168,31 @@ class NumberController extends Controller {
         const stepExplicit = step !== undefined;
         this.step( stepExplicit ? step : this._getImplicitStep(), stepExplicit );
 
+        this.decimals( decimals );
+
         this.updateDisplay();
+
+    }
+
+    updateDisplay() {
+
+        const value = this.getValue();
+
+        if ( this.__hasSlider ) {
+            const percent = ( value - this.__min ) / ( this.__max - this.__min );
+            this.$fill.style.setProperty( 'width', percent * 100 + '%' );
+        }
+
+        let displayValue;
+
+        if ( this.__decimalsSuspended || this.__decimals === undefined ) {
+            displayValue = value;
+        } else {
+            const inverseDecimals = Math.pow( 10, this.__decimals );
+            displayValue = Math.round( value * inverseDecimals ) / inverseDecimals;
+        }
+
+        this.$input.value = displayValue;
 
     }
 
@@ -177,15 +201,23 @@ class NumberController extends Controller {
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'number' );
 
-        this.$input.addEventListener( 'change', () => {
+        this.$input.addEventListener( 'focus', () => {
+            this.__decimalsSuspended = true;
+        } );
+
+        this.$input.addEventListener( 'input', () => {
 
             // Test if the string is a valid number
             let value = parseFloat( this.$input.value );
             if ( isNaN( value ) ) return;
 
-            // Input boxes clamp to max and min (if they're defined), but they
-            // don't snap to step, so you can be as precise as you want.
+            // Input boxes clamp to max and min if they're defined...
             value = this._clamp( value );
+
+            // ... but we only snap to step if it's been explicitly defined.
+            if ( this.__stepExplicit ) {
+                value = this._snap( value );
+            }
 
             // Set the value, but don't call onFinishedChange 
             this.setValue( value, false );
@@ -193,12 +225,13 @@ class NumberController extends Controller {
         } );
 
         this.$input.addEventListener( 'blur', () => {
+            this.__decimalsSuspended = false;
             this._callOnFinishedChange();
         } );
 
         this.$input.addEventListener( 'keydown', e => {
             if ( e.keyCode === 13 ) {
-                this._callOnFinishedChange();
+                this.$input.blur();
             }
         } );
 
@@ -234,8 +267,7 @@ class NumberController extends Controller {
 
             // Sliders always round to step. 
             // Using the inverse step avoids float precision issues.
-            const inverseStep = 1 / this.__step;
-            value = Math.round( value * inverseStep ) / inverseStep;
+            value = this._snap( value );
 
             // Set the value, but don't call onFinishedChange
             this.setValue( value, false );
@@ -246,6 +278,7 @@ class NumberController extends Controller {
 
         this.$slider.addEventListener( 'mousedown', e => {
             setValue( e.clientX);
+            this.$slider.classList.add( 'active' );
             window.addEventListener( 'mousemove', mouseMove );
             window.addEventListener( 'mouseup', mouseUp );
         } );
@@ -256,6 +289,7 @@ class NumberController extends Controller {
 
         const mouseUp = () => {
             this._callOnFinishedChange();
+            this.$slider.classList.remove( 'active' );
             window.removeEventListener( 'mousemove', mouseMove );
             window.removeEventListener( 'mouseup', mouseUp );
         };
@@ -276,6 +310,7 @@ class NumberController extends Controller {
                 // If we're not in a scrollable container, we can set the value
                 // straight away on touchstart.
                 setValue( e.touches[ 0 ].clientX);
+                this.$slider.classList.add( 'active' );
                 testingForScroll = false;
 
             } else {
@@ -308,7 +343,8 @@ class NumberController extends Controller {
                 if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
                     // We moved horizontally, set the value and stop checking.
-                    setValue( e.touches[ 0 ].clientX );
+                    setValue( e.touches[ 0 ].clientX);
+                    this.$slider.classList.add( 'active' );
                     testingForScroll = false;
 
                 } else {
@@ -325,6 +361,7 @@ class NumberController extends Controller {
 
         const touchEnd = () => {
             this._callOnFinishedChange();
+            this.$slider.classList.remove( 'active' );
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };
@@ -352,17 +389,9 @@ class NumberController extends Controller {
         return this;
     }
 
-    updateDisplay() {
-
-        const value = this.getValue();
-
-        if ( this.__hasSlider ) {
-            const percent = ( this.getValue() - this.__min ) / ( this.__max - this.__min );
-            this.$fill.style.setProperty( 'width', percent * 100 + '%' );
-        }
-
-        this.$input.value = value;
-
+    decimals( decimals ) {
+        this.__decimals = decimals;
+        return this;
     }
 
     _getImplicitStep() {
@@ -393,6 +422,11 @@ class NumberController extends Controller {
 
         }
 
+    }
+
+    _snap( value ) {
+        const inverseStep = 1 / this.__step;
+        return Math.round( value * inverseStep ) / inverseStep;
     }
 
     _clamp( value ) {
@@ -492,7 +526,7 @@ function injectStyles( cssContent, fallbackURL ) {
     }
 }
 
-var styles = ".gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 2px;\n\t--widget-border-radius: 3px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\t-webkit-user-select: none;\n\t-moz-user-select: none;\n\t-ms-user-select: none;\n\tuser-select: none;\n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: 200px;\n\t}\n}\n\n/* \"widgets\" */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui select {\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui input[type=text], \n.gui input[type=number] {\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n@media (hover: hover) { \n\t.gui input[type=text]:hover,\n\t.gui input[type=number]:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input[type=text]:focus,\n.gui input[type=number]:focus { \n\tbackground-color: var(--widget-color-focus);\n\tcolor: var(--color);\n}\n\n.gui input[type=color] {\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\twidth: 100%;\n\tpadding: 0;\n}\n\n.gui input[type=text] {\n\tcolor: var(--string-color);\n}\n\n.gui input[type=number] {\n\tcolor: var(--number-color);\n\t-moz-appearance: textfield;\n}\n\n.gui input[type=number]::-webkit-inner-spin-button, \n.gui input[type=number]::-webkit-outer-spin-button {\n\t-webkit-appearance: none;\n\tmargin: 0;\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tdisplay: flex;\n\talign-items: center;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before { \n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px);\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 30%;\n}\n\n/* big slider experiment */\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 18%;\n} */";
+var styles = ".gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 2px;\n\t--widget-border-radius: 3px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\t-webkit-user-select: none;\n\t-moz-user-select: none;\n\t-ms-user-select: none;\n\tuser-select: none;\n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: calc( var(--row-height) * 6);\n\t}\n}\n\n/* \"widgets\" */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui select {\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n}\n\n.gui input[type=text], \n.gui input[type=number] {\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\t/* line-height: var(--widget-height); */\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n@media (hover: hover) { \n\t.gui input[type=text]:hover,\n\t.gui input[type=number]:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input[type=text]:focus,\n.gui input[type=number]:focus { \n\tbackground-color: var(--widget-color-focus);\n\tcolor: var(--color);\n}\n\n.gui input[type=color] {\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\twidth: 100%;\n\t-webkit-appearance: none;\n}\n\n.gui input[type=color]::-webkit-color-swatch-wrapper {\n\tpadding: 0;\n}\n\n.gui input[type=color]::-webkit-color-swatch {\n\tborder: 0;\n\tpadding: 0;\n\tmargin: 0;\n}\n\n.gui input[type=text] {\n\tcolor: var(--string-color);\n}\n\n.gui input[type=number] {\n\tcolor: var(--number-color);\n\t-moz-appearance: textfield;\n}\n\n.gui input[type=number]::-webkit-inner-spin-button, \n.gui input[type=number]::-webkit-outer-spin-button {\n\t-webkit-appearance: none;\n\tmargin: 0;\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tdisplay: flex;\n\talign-items: center;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before { \n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px);\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 28%;\n}\n\n@media (hover: hover) { \n\t.gui .controller.number .slider:hover { \n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui .controller.number .slider.active { \n\tbackground-color: var(--widget-color-focus);\n}\n\n/* big slider experiment */\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input[type=number] {\n\twidth: 18%;\n} */";
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 

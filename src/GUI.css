@@ -85,7 +85,7 @@
 		width: 100%;
 	}
 	.gui.autoPlace > .children { 
-		max-height: 200px;
+		max-height: calc( var(--row-height) * 6);
 	}
 }
 
@@ -108,7 +108,7 @@
 .gui input[type=number] {
 	border-radius: var(--widget-border-radius);
 	height: var(--widget-height);
-	line-height: var(--widget-height);
+	/* line-height: var(--widget-height); */
 	background: var(--widget-color);
 	padding: var(--widget-padding);
 	color: var(--color);
@@ -133,7 +133,17 @@
 	background: var(--widget-color);
 	height: var(--widget-height);
 	width: 100%;
+	-webkit-appearance: none;
+}
+
+.gui input[type=color]::-webkit-color-swatch-wrapper {
 	padding: 0;
+}
+
+.gui input[type=color]::-webkit-color-swatch {
+	border: 0;
+	padding: 0;
+	margin: 0;
 }
 
 .gui input[type=text] {
@@ -241,10 +251,21 @@
 }
 
 .gui .controller.number.hasSlider input[type=number] {
-	width: 30%;
+	width: 28%;
+}
+
+@media (hover: hover) { 
+	.gui .controller.number .slider:hover { 
+		background-color: var(--widget-color-hover);
+	}
+}
+
+.gui .controller.number .slider.active { 
+	background-color: var(--widget-color-focus);
 }
 
 /* big slider experiment */
+
 /* 
 .gui .controller.number.hasSlider { 
 	position: relative;

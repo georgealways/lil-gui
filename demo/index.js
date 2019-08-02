@@ -23,7 +23,7 @@ const GUIS = {
     'Typical': function( gui ) {
 
         gui.add( { mode: 0 }, 'mode', { 'Clamp': 0, 'Repeat': 1, 'Mirror': 2 } );
-        gui.add( { x: 0.45 }, 'x', 0, 1 );
+        gui.add( { x: 0.456 }, 'x', 0, 1 );
         gui.add( { y: 0.33 }, 'y', 0, 1 );
         gui.add( { frequency: 0 }, 'frequency', 0, 1 );
         gui.add( { enableCustom: true }, 'enableCustom' );

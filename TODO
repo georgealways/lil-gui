@@ -1,14 +1,16 @@
 todo
 
-[x] slider touch scroll
-[x] fuck label, all controllers back to div
-[ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
 [ ] headers
-[x] rollup + livereload
-[ ] hover for sliders
-[ ] umd build
 [ ] click row for bool
 [ ] button for function
+[ ] smaller names for mobile
+[ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
+[ ] hover for sliders
+[ ] umd build
+[x] decimals (eh)
+[x] slider touch scroll
+[x] rollup + livereload
+[x] fuck label, all controllers back to div
 
 changelog
     
