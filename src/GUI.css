@@ -53,6 +53,7 @@
 .gui.autoPlace > .children {
 	overflow-y: auto;
 	max-height: calc( var(--window-height) - var(--row-height) );
+	-webkit-overflow-scrolling: touch;
 }
 
 .gui.autoPlace > .children::-webkit-scrollbar { 

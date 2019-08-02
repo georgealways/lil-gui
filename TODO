@@ -1,12 +1,23 @@
 todo
 
 [ ] headers
-[ ] click row for bool
-[ ] button for function
+
+[ ] try opacity=0 for native inputs for more consistent styling
+    [ ] checbox
+    [ ] select
+    [ ] colorcontroller
+    [ ] function button
+
+[ ] strip comments from css / ...sass?
+
 [ ] smaller names for mobile
+
 [ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
+
 [ ] hover for sliders
+
 [ ] umd build
+
 [x] decimals (eh)
 [x] slider touch scroll
 [x] rollup + livereload
