@@ -2,7 +2,7 @@
 	--width: auto;
 	--background-color: #1a1a1a;
 	--color: #eee;
-	--font-family: Arial, sans-serif;
+	--font-family: 'Lucida Grande', Arial, sans-serif;
 	--font-size: 11px;
 	--line-height: 11px;
 	--name-width: 35%;
@@ -31,9 +31,6 @@
 	color: var(--color);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	text-align: left;
 }
@@ -77,6 +74,7 @@
 		--widget-height: 32px;
 		--padding: 8px;
 		--font-size: 16px;
+		--line-height: 14px;
 	}
 	.gui.autoPlace {
 		right: auto;
@@ -94,12 +92,6 @@
 
 .gui input {
 	border: 0;
-	outline: none;
-	font-family: var(--font-family);
-	font-size: var(--font-size);
-}
-
-.gui select {
 	outline: none;
 	font-family: var(--font-family);
 	font-size: var(--font-size);
@@ -127,24 +119,6 @@
 .gui input[type=number]:focus { 
 	background-color: var(--widget-color-focus);
 	color: var(--color);
-}
-
-.gui input[type=color] {
-	border-radius: var(--widget-border-radius);
-	background: var(--widget-color);
-	height: var(--widget-height);
-	width: 100%;
-	-webkit-appearance: none;
-}
-
-.gui input[type=color]::-webkit-color-swatch-wrapper {
-	padding: 0;
-}
-
-.gui input[type=color]::-webkit-color-swatch {
-	border: 0;
-	padding: 0;
-	margin: 0;
 }
 
 .gui input[type=text] {
@@ -280,4 +254,62 @@
 } 
 .gui .controller.number.hasSlider input[type=number] {
 	width: 18%;
-} */
+}
+*/
+
+/* color */
+
+.gui .controller.color .widget { 
+	position: relative;
+}
+
+.gui .controller.color input {
+	opacity: 0;
+	height: var(--widget-height);
+	width: 100%;
+	position: absolute;
+}
+
+.gui .controller.color .display { 
+	height: var(--widget-height);
+	width: 100%;
+	border-radius: var(--widget-border-radius);
+	pointer-events: none;
+}
+
+/* boolean */
+
+.gui .controller.boolean .checkbox { 
+	height: calc( 0.75 * var(--widget-height) );
+	width: calc( 0.75 * var(--widget-height) );
+	border-radius: var(--widget-border-radius);
+	background-color: var(--widget-color);
+}
+
+.gui .controller.boolean .checkbox.checked:before { 
+	content: '•';
+}
+
+/* option */
+
+.gui .controller.option .widget { 
+	position: relative;
+}
+.gui .controller.option select { 
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: var(--widget-height);
+	font-size: var(--font-size);
+}
+
+.gui .controller.option .display { 
+	background-color: var(--widget-color);
+	border-radius: var(--widget-border-radius);
+	width: 100%;
+	height: var(--widget-height);
+	line-height: var(--widget-height);
+	pointer-events: none;
+}
+
+/* function */

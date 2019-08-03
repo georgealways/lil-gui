@@ -18,6 +18,7 @@ todo
 
 [ ] umd build
 
+[ ] maybe kill input[type=number] because it's too silly to style
 [x] decimals (eh)
 [x] slider touch scroll
 [x] rollup + livereload

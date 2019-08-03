@@ -8,11 +8,13 @@ export class OptionController extends Controller {
 
         this.$select = document.createElement( 'select' );
 
+        this.$display = document.createElement( 'div' );
+        this.$display.classList.add( 'display' );
+
         this.__values = Array.isArray( options ) ? options : Object.values( options );
+        this.__names = Array.isArray( options ) ? options : Object.keys( options );
 
-        const names = Array.isArray( options ) ? options : Object.keys( options );
-
-        names.forEach( ( name, index ) => {
+        this.__names.forEach( ( name, index ) => {
             const $option = document.createElement( 'option' );
             $option.setAttribute( 'value', index );
             $option.innerHTML = name;
@@ -25,13 +27,22 @@ export class OptionController extends Controller {
         } );
 
         this.$widget.appendChild( this.$select );
+        this.$widget.appendChild( this.$display );
+
+        this.domElement.addEventListener( 'click', e => {
+            e.stopPropagation();
+            this.$select.click();
+        } );
 
         this.updateDisplay();
 
     }
 
     updateDisplay() {
-        this.$select.value = this.__values.indexOf( this.getValue() );
+        const value = this.getValue();
+        const index = this.__values.indexOf( value );
+        this.$select.value = index;
+        this.$display.innerHTML = index === -1 ? value : this.__names[ index ];
     }
 
 }

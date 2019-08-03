@@ -9,11 +9,15 @@ export class ColorController extends Controller {
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );
 
-        this.$widget.appendChild( this.$input );
-
         this.$input.addEventListener( 'change', () => {
             this.setValue( this.$input.value );
         } );
+
+        this.$display = document.createElement( 'div' );
+        this.$display.classList.add( 'display' );
+
+        this.$widget.appendChild( this.$input );
+        this.$widget.appendChild( this.$display );
 
         this.updateDisplay();
 
@@ -21,6 +25,7 @@ export class ColorController extends Controller {
 
     updateDisplay() {
         this.$input.value = this.getValue();
+        this.$display.style.backgroundColor = this.$input.value;
     }
 
 }

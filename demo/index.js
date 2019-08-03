@@ -139,4 +139,4 @@ for ( let name in GUIS ) {
     makeButton( name );
 }
 
-buildGUI( Object.values( GUIS )[ 0 ] );
+buildGUI( GUIS[ 'Old Kitchen Sink' ] );

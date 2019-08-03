@@ -6,13 +6,13 @@ export class BooleanController extends Controller {
 
         super( parent, object, property, 'boolean' );
 
-        this.$input = document.createElement( 'input' );
-        this.$input.setAttribute( 'type', 'checkbox' );
+        this.$checkbox = document.createElement( 'div' );
+        this.$checkbox.classList.add( 'checkbox' );
 
-        this.$widget.appendChild( this.$input );
+        this.$widget.appendChild( this.$checkbox );
 
-        this.$input.addEventListener( 'change', () => {
-            this.setValue( this.$input.checked );
+        this.domElement.addEventListener( 'click', () => {
+            this.setValue( !this.getValue() );
         } );
 
         this.updateDisplay();
@@ -20,7 +20,7 @@ export class BooleanController extends Controller {
     }
 
     updateDisplay() {
-        this.$input.checked = this.getValue();
+        this.$checkbox.classList.toggle( 'checked', this.getValue() );
     }
 
 }

@@ -6,9 +6,16 @@ export class FunctionController extends Controller {
 
         super( parent, object, property, 'function' );
 
-        this.domElement.addEventListener( 'click', () => {
+        this.$button = document.createElement( 'div' );
+        this.$button.classList.add( 'button' );
+
+        this.$button.innerHTML = 'Fire';
+
+        this.$button.addEventListener( 'click', () => {
             this.getValue()();
         } );
+
+        this.$widget.appendChild( this.$button );
 
     }
 
