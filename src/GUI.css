@@ -1,3 +1,8 @@
+@font-face { 
+	font-family: 'gui-icons';
+	src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgrzEz12NtYXAAAAFoAAAAbAAAAGxNEkghZ2FzcAAAAdQAAAAIAAAACAAAABBnbHlmAAAB3AAAAMQAAADEuhnoZmhlYWQAAAKgAAAANgAAADYVTE2SaGhlYQAAAtgAAAAkAAAAJAcZA8lobXR4AAAC/AAAACAAAAAgFgAEPGxvY2EAAAMcAAAAEgAAABIAzACYbWF4cAAAAzAAAAAgAAAAIAALAAhuYW1lAAADUAAAAZ4AAAGeoVFtJXBvc3QAAATwAAAAIAAAACAAAwAAAAMDmgGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAoCAAAAAAAAAAAAAAAAAAQAAAJxMDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAFAAAAAQABAAAwAAAAEAICGVJbglvicT//3//wAAAAAAICGVJbglvicT//3//wAB/+Peb9pN2kjY9AADAAEAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgD8AHcDBAMJAAIABQAAEwkBFQkB/AEEAQT+/P78AgUBBP78iv78AQQAAAABAYgAvAKMAsQAAgAACQIBiAEE/vwCxP78/vwAAQD8ATADBAI0AAIAAAkCAwT+/P78AjT+/AEEAAEAvADCA1cC0QAFAAAlJzcXARcBn+NXjAFhV8LiV4sBYVcAAAEAAAABAAAoWcw5Xw889QALBAAAAAAA2WuExgAAAADZa4TGAAAAAANXAwkAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA1cAAQAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAACAAAABAAA/AQAAYgEAAD8BAAAvAAAAAAACgAUAB4ANABCAFAAYgAAAAEAAAAIAAYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAJAAAAAQAAAAAAAgAHAHIAAQAAAAAAAwAJADwAAQAAAAAABAAJAIcAAQAAAAAABQALABsAAQAAAAAABgAJAFcAAQAAAAAACgAaAKIAAwABBAkAAQASAAkAAwABBAkAAgAOAHkAAwABBAkAAwASAEUAAwABBAkABAASAJAAAwABBAkABQAWACYAAwABBAkABgASAGAAAwABBAkACgA0ALxndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNSZWd1bGFyAFIAZQBnAHUAbABhAHJndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') format('woff');
+}
+
 .gui {
 	--width: auto;
 	--background-color: #1a1a1a;
@@ -9,7 +14,7 @@
 	--row-height: 24px;
 	--widget-height: 20px;
 	--widget-padding: 0 2px;
-	--widget-border-radius: 3px;
+	--widget-border-radius: 2px;
 	--widget-color: #3c3c3c;
 	--widget-color-hover: #494949;
 	--widget-color-focus: #5e5e5e;
@@ -32,6 +37,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	user-select: none;
+	-webkit-user-select: none; /* 2019 and safari is still being a dirtbag */
 	text-align: left;
 }
 
@@ -152,7 +158,8 @@
 	background: var(--title-color);
 }
 
-.gui .title:before { 
+.gui .title:before {
+	font-family: 'gui-icons';
 	content: '▾';
 	width: 1em;
 }
@@ -280,14 +287,18 @@
 /* boolean */
 
 .gui .controller.boolean .checkbox { 
-	height: calc( 0.75 * var(--widget-height) );
-	width: calc( 0.75 * var(--widget-height) );
+	--size: calc( 0.75 * var(--widget-height) );
+	height: var(--size);
+	width: var(--size);
 	border-radius: var(--widget-border-radius);
 	background-color: var(--widget-color);
 }
 
 .gui .controller.boolean .checkbox.checked:before { 
-	content: '•';
+	font-family: 'gui-icons';
+	content: '✓';
+	font-size: var(--size);
+	line-height: var(--size);
 }
 
 /* option */
@@ -310,6 +321,13 @@
 	height: var(--widget-height);
 	line-height: var(--widget-height);
 	pointer-events: none;
+	padding: var(--widget-padding);
+}
+
+.gui .controller.option .display:after { 
+	font-family: 'gui-icons';
+	content: '↕';
+	float: right;
 }
 
 /* function */
