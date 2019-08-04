@@ -20,19 +20,22 @@ const randomVariables = [
 
 const GUIS = {
 
-    'Typical': function( gui ) {
+    'Basic': function( gui ) {
 
-        gui.add( { mode: 0 }, 'mode', { 'Clamp': 0, 'Repeat': 1, 'Mirror': 2 } );
-        gui.add( { x: 0.456 }, 'x', 0, 1 );
-        gui.add( { y: 0.33 }, 'y', 0, 1 );
-        gui.add( { frequency: 0 }, 'frequency', 0, 1 );
-        gui.add( { enableCustom: true }, 'enableCustom' );
+        gui.add( { example: 'Basic' }, 'example', [ 'Basic', 'Headers', 'Folders' ] );
+        gui.add( { number: 0.456 }, 'number', 0 );
+        gui.add( { slider: 0.33 }, 'slider', 0, 1 );
+        gui.add( { step: 0 }, 'step', 0, 1, 0.001 );
+        gui.add( { boolean: true }, 'boolean' );
+        gui.add( { string: 'string' }, 'string' );
+        gui.add( { function: () => alert( 'sup' ) }, 'function' );
+        gui.addColor( { color: '#eeaaff' }, 'color' );
 
     },
 
     'One Slider': function( gui ) {
 
-        gui.add( { strength: 0 }, 'strength', 0, 1 );
+        gui.add( { strength: 0 }, 'strength', 0, 1, 0.1 );
 
     },
 
@@ -41,12 +44,12 @@ const GUIS = {
         let folder;
         folder = gui.addFolder( 'folder' );
         folder.add( { a: Math.random() }, 'a', 0, 1 );
-        folder.add( { a: Math.random() }, 'a', 0, 1 );
-        folder.add( { a: Math.random() }, 'a', 0, 1 );
-        folder.add( { a: Math.random() }, 'a', 0, 1 );
+        folder.add( { a: Math.random() }, 'a', -1, 1 );
+        folder.add( { a: Math.random() }, 'a', 0, 100 );
+        folder.add( { a: Math.random() }, 'a', 0, 32, 1 );
 
         folder = gui.addFolder( 'folder' );
-        folder.add( { a: Math.random() }, 'a', 0, 1 );
+        folder.add( { a: Math.random() }, 'a', 0, 1000 );
         folder.add( { a: Math.random() }, 'a', 0, 1 );
         folder.add( { a: Math.random() }, 'a', 0, 1 );
         folder.add( { a: Math.random() }, 'a', 0, 1 );
@@ -139,4 +142,4 @@ for ( let name in GUIS ) {
     makeButton( name );
 }
 
-buildGUI( GUIS[ 'Old Kitchen Sink' ] );
+buildGUI( GUIS[ 'Basic' ] );

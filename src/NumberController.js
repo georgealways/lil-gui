@@ -3,7 +3,7 @@ import { map } from './utils/map.js';
 
 export class NumberController extends Controller {
 
-    constructor( parent, object, property, min, max, step, decimals ) {
+    constructor( parent, object, property, min, max, step ) {
 
         super( parent, object, property, 'number' );
 
@@ -14,8 +14,6 @@ export class NumberController extends Controller {
 
         const stepExplicit = step !== undefined;
         this.step( stepExplicit ? step : this._getImplicitStep(), stepExplicit );
-
-        this.decimals( decimals );
 
         this.updateDisplay();
 
@@ -30,26 +28,21 @@ export class NumberController extends Controller {
             this.$fill.style.setProperty( 'width', percent * 100 + '%' );
         }
 
-        let displayValue;
-
-        if ( this.__decimalsSuspended || this.__decimals === undefined ) {
-            displayValue = value;
-        } else {
-            const inverseDecimals = Math.pow( 10, this.__decimals );
-            displayValue = Math.round( value * inverseDecimals ) / inverseDecimals;
+        if ( !this.__inputFocused ) {
+            this.$input.value = value;
         }
-
-        this.$input.value = displayValue;
 
     }
 
     _createInput() {
 
         this.$input = document.createElement( 'input' );
-        this.$input.setAttribute( 'type', 'number' );
+        this.$input.setAttribute( 'type', 'text' );
+        this.$input.setAttribute( 'inputmode', 'numeric' );
 
         this.$input.addEventListener( 'focus', () => {
-            this.__decimalsSuspended = true;
+            this.__inputFocused = true;
+            window.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
         } );
 
         this.$input.addEventListener( 'input', () => {
@@ -61,7 +54,6 @@ export class NumberController extends Controller {
             // Input boxes clamp to max and min if they're defined...
             value = this._clamp( value );
 
-            // ... but we only snap to step if it's been explicitly defined.
             if ( this.__stepExplicit ) {
                 value = this._snap( value );
             }
@@ -72,15 +64,41 @@ export class NumberController extends Controller {
         } );
 
         this.$input.addEventListener( 'blur', () => {
-            this.__decimalsSuspended = false;
+            this.__inputFocused = false;
             this._callOnFinishedChange();
+            this.updateDisplay();
+            window.removeEventListener( 'mousewheel', onMouseWheel );
         } );
+
 
         this.$input.addEventListener( 'keydown', e => {
             if ( e.keyCode === 13 ) {
                 this.$input.blur();
             }
+            if ( e.keyCode === 38 ) {
+                e.preventDefault();
+                increment( this.__step );
+            }
+            if ( e.keyCode === 40 ) {
+                e.preventDefault();
+                increment( -this.__step );
+            }
         } );
+
+        const increment = delta => {
+            let value = parseFloat( this.$input.value );
+            if ( isNaN( value ) ) return;
+            value += delta;
+            value = this._clamp( value );
+            value = this._snap( value );
+            this.setValue( value, false );
+            this.$input.value = this.getValue(); // urgh.
+        };
+
+        const onMouseWheel = e => {
+            e.preventDefault();
+            increment( ( e.deltaX + -e.deltaY ) * this.__step );
+        };
 
         this.$widget.appendChild( this.$input );
 
@@ -113,7 +131,6 @@ export class NumberController extends Controller {
             value = this._clamp( value );
 
             // Sliders always round to step. 
-            // Using the inverse step avoids float precision issues.
             value = this._snap( value );
 
             // Set the value, but don't call onFinishedChange
@@ -217,14 +234,12 @@ export class NumberController extends Controller {
 
     min( min ) {
         this.__min = min;
-        this.$input.setAttribute( 'min', min );
         this._onUpdateMinMax();
         return this;
     }
 
     max( max ) {
         this.__max = max;
-        this.$input.setAttribute( 'max', max );
         this._onUpdateMinMax();
         return this;
     }
@@ -232,19 +247,13 @@ export class NumberController extends Controller {
     step( step, explicit = true ) {
         this.__step = step;
         this.__stepExplicit = explicit;
-        this.$input.setAttribute( 'step', step );
-        return this;
-    }
-
-    decimals( decimals ) {
-        this.__decimals = decimals;
         return this;
     }
 
     _getImplicitStep() {
 
         if ( this.__min !== undefined && this.__max !== undefined ) {
-            return ( this.__max - this.__min ) / 100;
+            return ( this.__max - this.__min ) / 1000;
         }
 
         return 1;
@@ -272,6 +281,7 @@ export class NumberController extends Controller {
     }
 
     _snap( value ) {
+        // Using the inverse step avoids float precision issues.
         const inverseStep = 1 / this.__step;
         return Math.round( value * inverseStep ) / inverseStep;
     }

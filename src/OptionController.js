@@ -16,14 +16,12 @@ export class OptionController extends Controller {
 
         this.__names.forEach( ( name, index ) => {
             const $option = document.createElement( 'option' );
-            $option.setAttribute( 'value', index );
             $option.innerHTML = name;
             this.$select.appendChild( $option );
         } );
 
         this.$select.addEventListener( 'change', () => {
-            const index = parseInt( this.$select.value );
-            this.setValue( this.__values[ index ] );
+            this.setValue( this.__values[ this.$select.selectedIndex ] );
         } );
 
         this.$widget.appendChild( this.$select );

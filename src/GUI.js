@@ -19,7 +19,7 @@ export class GUI {
         parent,
         name = 'Controls',
         autoPlace = true,
-        width = 245
+        width = 250
     } = {} ) {
 
         this.parent = parent;
@@ -89,7 +89,7 @@ export class GUI {
 
     }
 
-    add( object, property, $1, $2, $3 ) {
+    add( object, property, $1, $2, $3, $4 ) {
 
         if ( !object.hasOwnProperty( property ) ) {
             throw new Error( `${object} has no property called "${property}"` );
@@ -121,7 +121,7 @@ export class GUI {
 
         } else if ( isNumber( initialValue ) ) {
 
-            controller = new NumberController( this, object, property, $1, $2, $3 );
+            controller = new NumberController( this, object, property, $1, $2, $3, $4 );
 
         } else {
 
