@@ -2,11 +2,14 @@ todo
 
 [ ] headers
 
-[ ] try opacity=0 for native inputs for more consistent styling
-    [ ] checbox
-    [ ] select
-    [ ] colorcontroller
-    [ ] function button
+[ ] firefox disagrees about hasSlider input widths
+[ ] numberkeyup / mousewheel for number inputs?
+
+[x] try opacity=0 for native inputs for more consistent styling
+    [x] checbox
+    [x] select
+    [x] colorcontroller
+    [x] function button
 
 [ ] strip comments from css / ...sass?
 

@@ -22,11 +22,13 @@ const GUIS = {
 
     'Basic': function( gui ) {
 
+        gui.addHeader( 'Header' );
         gui.add( { example: 'Basic' }, 'example', [ 'Basic', 'Headers', 'Folders' ] );
         gui.add( { number: 0.456 }, 'number', 0 );
         gui.add( { slider: 0.33 }, 'slider', 0, 1 );
         gui.add( { step: 0 }, 'step', 0, 1, 0.001 );
         gui.add( { boolean: true }, 'boolean' );
+        gui.addHeader( 'Header' );
         gui.add( { string: 'string' }, 'string' );
         gui.add( { function: () => alert( 'sup' ) }, 'function' );
         gui.addColor( { color: '#eeaaff' }, 'color' );

@@ -4,6 +4,7 @@ import { FunctionController } from './FunctionController.js';
 import { NumberController } from './NumberController.js';
 import { OptionController } from './OptionController.js';
 import { StringController } from './StringController.js';
+import { Header } from './Header.js';
 
 import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
 
@@ -139,6 +140,10 @@ export class GUI {
 
     addColor( object, property ) {
         return new ColorController( this, object, property );
+    }
+
+    addHeader( name ) {
+        return new Header( this, name );
     }
 
     name( name ) {

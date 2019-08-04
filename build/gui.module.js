@@ -216,12 +216,9 @@ class NumberController extends Controller {
             let value = parseFloat( this.$input.value );
             if ( isNaN( value ) ) return;
 
-            // Input boxes clamp to max and min if they're defined...
+            // Input boxes clamp to max and min if they're defined, but they
+            // don't snap to step, so you can be as precise as you want.
             value = this._clamp( value );
-
-            if ( this.__stepExplicit ) {
-                value = this._snap( value );
-            }
 
             // Set the value, but don't call onFinishedChange 
             this.setValue( value, false );
@@ -257,14 +254,19 @@ class NumberController extends Controller {
             value = this._clamp( value );
             value = this._snap( value );
             this.setValue( value, false );
-            this.$input.value = this.getValue(); // urgh.
+            // Manually update the input display because it's focused.
+            this.$input.value = this.getValue();
         };
 
         const onMouseWheel = e => {
-            e.preventDefault();
-            increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            if ( document.activeElement.tagName !== 'INPUT' ||
+                 document.activeElement === this.$input ) {
+                e.preventDefault();
+                increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            }
         };
 
+        this.$input.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
         this.$widget.appendChild( this.$input );
 
     }
@@ -395,6 +397,23 @@ class NumberController extends Controller {
             window.removeEventListener( 'touchend', touchEnd );
         };
 
+        const increment = delta => {
+            let value = this.getValue();
+            value += delta;
+            value = this._clamp( value );
+            value = this._snap( value );
+            this.setValue( value, false );
+        };
+
+        const onMouseWheel = e => {
+            if ( document.activeElement.tagName !== 'INPUT' ) {
+                e.preventDefault();
+                increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            }
+        };
+
+        this.$slider.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
+
     }
 
     min( min ) {
@@ -473,7 +492,7 @@ class OptionController extends Controller {
         this.__values = Array.isArray( options ) ? options : Object.values( options );
         this.__names = Array.isArray( options ) ? options : Object.keys( options );
 
-        this.__names.forEach( ( name, index ) => {
+        this.__names.forEach( name => {
             const $option = document.createElement( 'option' );
             $option.innerHTML = name;
             this.$select.appendChild( $option );
@@ -486,11 +505,6 @@ class OptionController extends Controller {
         this.$widget.appendChild( this.$select );
         this.$widget.appendChild( this.$display );
 
-        this.domElement.addEventListener( 'click', e => {
-            e.stopPropagation();
-            this.$select.click();
-        } );
-
         this.updateDisplay();
 
     }
@@ -498,7 +512,7 @@ class OptionController extends Controller {
     updateDisplay() {
         const value = this.getValue();
         const index = this.__values.indexOf( value );
-        this.$select.value = index;
+        this.$select.selectedIndex = index;
         this.$display.innerHTML = index === -1 ? value : this.__names[ index ];
     }
 
@@ -539,6 +553,34 @@ class StringController extends Controller {
 
 }
 
+class Header {
+
+    constructor( parent, name ) {
+
+        this.parent = parent;
+
+        this.domElement = document.createElement( 'div' );
+        this.domElement.classList.add( 'header' );
+
+        this.parent.children.push( this );
+        this.parent.$children.appendChild( this.domElement );
+
+        this.name( name );
+
+    }
+
+    name( name ) {
+        this.__name = name;
+        this.domElement.innerHTML = name;
+    }
+
+    destroy() {
+        this.parent.children.splice( this.parent.children.indexOf( this ) );
+        this.parent.$children.removeChild( this.domElement );
+    }
+
+}
+
 const isFunction = val => typeof val === 'function';
 const isString = val => typeof val === 'string';
 const isBoolean = val => typeof val === 'boolean';
@@ -557,7 +599,7 @@ function injectStyles( cssContent, fallbackURL ) {
     }
 }
 
-var styles = "@font-face { \n\tfont-family: 'gui-icons';\n\tsrc: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgrzEz12NtYXAAAAFoAAAAbAAAAGxNEkghZ2FzcAAAAdQAAAAIAAAACAAAABBnbHlmAAAB3AAAAMQAAADEuhnoZmhlYWQAAAKgAAAANgAAADYVTE2SaGhlYQAAAtgAAAAkAAAAJAcZA8lobXR4AAAC/AAAACAAAAAgFgAEPGxvY2EAAAMcAAAAEgAAABIAzACYbWF4cAAAAzAAAAAgAAAAIAALAAhuYW1lAAADUAAAAZ4AAAGeoVFtJXBvc3QAAATwAAAAIAAAACAAAwAAAAMDmgGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAoCAAAAAAAAAAAAAAAAAAQAAAJxMDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAFAAAAAQABAAAwAAAAEAICGVJbglvicT//3//wAAAAAAICGVJbglvicT//3//wAB/+Peb9pN2kjY9AADAAEAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgD8AHcDBAMJAAIABQAAEwkBFQkB/AEEAQT+/P78AgUBBP78iv78AQQAAAABAYgAvAKMAsQAAgAACQIBiAEE/vwCxP78/vwAAQD8ATADBAI0AAIAAAkCAwT+/P78AjT+/AEEAAEAvADCA1cC0QAFAAAlJzcXARcBn+NXjAFhV8LiV4sBYVcAAAEAAAABAAAoWcw5Xw889QALBAAAAAAA2WuExgAAAADZa4TGAAAAAANXAwkAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA1cAAQAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAACAAAABAAA/AQAAYgEAAD8BAAAvAAAAAAACgAUAB4ANABCAFAAYgAAAAEAAAAIAAYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAJAAAAAQAAAAAAAgAHAHIAAQAAAAAAAwAJADwAAQAAAAAABAAJAIcAAQAAAAAABQALABsAAQAAAAAABgAJAFcAAQAAAAAACgAaAKIAAwABBAkAAQASAAkAAwABBAkAAgAOAHkAAwABBAkAAwASAEUAAwABBAkABAASAJAAAwABBAkABQAWACYAAwABBAkABgASAGAAAwABBAkACgA0ALxndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNSZWd1bGFyAFIAZQBnAHUAbABhAHJndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') format('woff');\n}\n\n.gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: 'Lucida Grande', Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 0 0 2px;\n\t--widget-border-radius: 2px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\tuser-select: none;\n\t/* 2019 and safari is still being a dirtbag */\n\t-webkit-user-select: none; \n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n\t/* force inertial scroll for ios */\n\t-webkit-overflow-scrolling: touch;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t\t--line-height: 14px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: calc( var(--row-height) * 6);\n\t}\n}\n\n/* base input */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n@media (hover: hover) { \n\t.gui input:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input:focus { \n\tbackground-color: var(--widget-color-focus);\n\tcolor: var(--color);\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tdisplay: flex;\n\talign-items: center;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before {\n\tfont-family: 'gui-icons';\n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px );\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number input { \n\tcolor: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input {\n\twidth: 33%;\n}\n\n@media (hover: hover) { \n\t.gui .controller.number .slider:hover { \n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui .controller.number .slider.active { \n\tbackground-color: var(--widget-color-focus);\n}\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n}\n*/\n\n/* string */\n\n.gui .controller.string input { \n\tcolor: var(--string-color);\n}\n\n/* color */\n\n.gui .controller.color .widget { \n\tposition: relative;\n}\n\n.gui .controller.color input {\n\topacity: 0;\n\theight: var(--widget-height);\n\twidth: 100%;\n\tposition: absolute;\n}\n\n.gui .controller.color .display { \n\theight: var(--widget-height);\n\twidth: 100%;\n\tborder-radius: var(--widget-border-radius);\n\tpointer-events: none;\n}\n\n/* boolean */\n\n.gui .controller.boolean .checkbox { \n\t--size: calc( 0.75 * var(--widget-height) );\n\theight: var(--size);\n\twidth: var(--size);\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n}\n\n.gui .controller.boolean .checkbox.checked:before { \n\tfont-family: 'gui-icons';\n\tcontent: '✓';\n\tfont-size: var(--size);\n\tline-height: var(--size);\n}\n\n/* option */\n\n.gui .controller.option .widget { \n\tposition: relative;\n}\n\n.gui .controller.option select { \n\topacity: 0;\n\tposition: absolute;\n\twidth: 100%;\n\theight: var(--widget-height);\n\tfont-size: var(--font-size);\n}\n\n.gui .controller.option .display { \n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpointer-events: none;\n\tpadding: 0 var(--padding);\n}\n\n.gui .controller.option .display:after { \n\tfont-family: 'gui-icons';\n\tcontent: '↕';\n\tvertical-align: middle;\n\tmargin-left: var(--padding);\n}\n\n/* function */\n\n.gui .controller.function .button { \n\tbackground: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpadding: 0 var(--padding);\n}";
+var styles = "@font-face { \n\tfont-family: 'gui-icons';\n\tsrc: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgrzEz12NtYXAAAAFoAAAAbAAAAGxNEkghZ2FzcAAAAdQAAAAIAAAACAAAABBnbHlmAAAB3AAAAMQAAADEuhnoZmhlYWQAAAKgAAAANgAAADYVTE2SaGhlYQAAAtgAAAAkAAAAJAcZA8lobXR4AAAC/AAAACAAAAAgFgAEPGxvY2EAAAMcAAAAEgAAABIAzACYbWF4cAAAAzAAAAAgAAAAIAALAAhuYW1lAAADUAAAAZ4AAAGeoVFtJXBvc3QAAATwAAAAIAAAACAAAwAAAAMDmgGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAoCAAAAAAAAAAAAAAAAAAQAAAJxMDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAFAAAAAQABAAAwAAAAEAICGVJbglvicT//3//wAAAAAAICGVJbglvicT//3//wAB/+Peb9pN2kjY9AADAAEAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgD8AHcDBAMJAAIABQAAEwkBFQkB/AEEAQT+/P78AgUBBP78iv78AQQAAAABAYgAvAKMAsQAAgAACQIBiAEE/vwCxP78/vwAAQD8ATADBAI0AAIAAAkCAwT+/P78AjT+/AEEAAEAvADCA1cC0QAFAAAlJzcXARcBn+NXjAFhV8LiV4sBYVcAAAEAAAABAAAoWcw5Xw889QALBAAAAAAA2WuExgAAAADZa4TGAAAAAANXAwkAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA1cAAQAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAACAAAABAAA/AQAAYgEAAD8BAAAvAAAAAAACgAUAB4ANABCAFAAYgAAAAEAAAAIAAYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAJAAAAAQAAAAAAAgAHAHIAAQAAAAAAAwAJADwAAQAAAAAABAAJAIcAAQAAAAAABQALABsAAQAAAAAABgAJAFcAAQAAAAAACgAaAKIAAwABBAkAAQASAAkAAwABBAkAAgAOAHkAAwABBAkAAwASAEUAAwABBAkABAASAJAAAwABBAkABQAWACYAAwABBAkABgASAGAAAwABBAkACgA0ALxndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNSZWd1bGFyAFIAZQBnAHUAbABhAHJndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') format('woff');\n}\n\n.gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: 'Lucida Grande', Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 0 0 2px;\n\t--widget-border-radius: 2px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\tuser-select: none;\n\t/* 2019 and safari is still being a dirtbag */\n\t-webkit-user-select: none; \n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n\t/* force inertial scroll for ios */\n\t-webkit-overflow-scrolling: touch;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t\t--line-height: 14px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: calc( var(--row-height) * 6);\n\t}\n}\n\n/* base input */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n@media (hover: hover) { \n\t.gui input:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input:focus { \n\tbackground-color: var(--widget-color-focus);\n\tcolor: var(--color);\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before {\n\tfont-family: 'gui-icons';\n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* headers */\n\n.gui .header { \n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tborder-bottom: 1px solid rgba(255,255,255,0.1);\n\tmargin: var(--padding) 0;\n}\n\n.gui .header:first-child {\n\tmargin-top: 0;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px );\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number input { \n\tcolor: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input {\n\twidth: 33%;\n}\n\n@media (hover: hover) { \n\t.gui .controller.number .slider:hover { \n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui .controller.number .slider.active { \n\tbackground-color: var(--widget-color-focus);\n}\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n}\n*/\n\n/* string */\n\n.gui .controller.string input { \n\tcolor: var(--string-color);\n}\n\n/* color */\n\n.gui .controller.color .widget { \n\tposition: relative;\n}\n\n.gui .controller.color input {\n\topacity: 0;\n\theight: var(--widget-height);\n\twidth: 100%;\n\tposition: absolute;\n}\n\n.gui .controller.color .display { \n\theight: var(--widget-height);\n\twidth: 100%;\n\tborder-radius: var(--widget-border-radius);\n\tpointer-events: none;\n}\n\n/* boolean */\n\n.gui .controller.boolean .checkbox { \n\t--size: calc( 0.75 * var(--widget-height) );\n\theight: var(--size);\n\twidth: var(--size);\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n}\n\n.gui .controller.boolean .checkbox.checked:before { \n\tfont-family: 'gui-icons';\n\tcontent: '✓';\n\tfont-size: var(--size);\n\tline-height: var(--size);\n}\n\n/* option */\n\n.gui .controller.option .widget { \n\tposition: relative;\n}\n\n.gui .controller.option select { \n\topacity: 0;\n\tposition: absolute;\n\twidth: 100%;\n\theight: var(--widget-height);\n\tfont-size: var(--font-size);\n}\n\n.gui .controller.option .display { \n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpointer-events: none;\n\tpadding: 0 var(--padding);\n}\n\n.gui .controller.option .display:after { \n\tfont-family: 'gui-icons';\n\tcontent: '↕';\n\tvertical-align: middle;\n\tmargin-left: var(--padding);\n}\n\n/* function */\n\n.gui .controller.function .button { \n\tbackground: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpadding: 0 var(--padding);\n}";
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
@@ -687,6 +729,10 @@ class GUI {
 
     addColor( object, property ) {
         return new ColorController( this, object, property );
+    }
+
+    addHeader( name ) {
+        return new Header( this, name );
     }
 
     name( name ) {

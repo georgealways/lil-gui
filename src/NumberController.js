@@ -51,12 +51,9 @@ export class NumberController extends Controller {
             let value = parseFloat( this.$input.value );
             if ( isNaN( value ) ) return;
 
-            // Input boxes clamp to max and min if they're defined...
+            // Input boxes clamp to max and min if they're defined, but they
+            // don't snap to step, so you can be as precise as you want.
             value = this._clamp( value );
-
-            if ( this.__stepExplicit ) {
-                value = this._snap( value );
-            }
 
             // Set the value, but don't call onFinishedChange 
             this.setValue( value, false );
@@ -92,14 +89,19 @@ export class NumberController extends Controller {
             value = this._clamp( value );
             value = this._snap( value );
             this.setValue( value, false );
-            this.$input.value = this.getValue(); // urgh.
+            // Manually update the input display because it's focused.
+            this.$input.value = this.getValue();
         };
 
         const onMouseWheel = e => {
-            e.preventDefault();
-            increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            if ( document.activeElement.tagName !== 'INPUT' ||
+                 document.activeElement === this.$input ) {
+                e.preventDefault();
+                increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            }
         };
 
+        this.$input.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
         this.$widget.appendChild( this.$input );
 
     }
@@ -229,6 +231,23 @@ export class NumberController extends Controller {
             window.removeEventListener( 'touchmove', touchMove );
             window.removeEventListener( 'touchend', touchEnd );
         };
+
+        const increment = delta => {
+            let value = this.getValue();
+            value += delta;
+            value = this._clamp( value );
+            value = this._snap( value );
+            this.setValue( value, false );
+        };
+
+        const onMouseWheel = e => {
+            if ( document.activeElement.tagName !== 'INPUT' ) {
+                e.preventDefault();
+                increment( ( e.deltaX + -e.deltaY ) * this.__step );
+            }
+        };
+
+        this.$slider.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
 
     }
 

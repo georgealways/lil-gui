@@ -14,7 +14,7 @@ export class OptionController extends Controller {
         this.__values = Array.isArray( options ) ? options : Object.values( options );
         this.__names = Array.isArray( options ) ? options : Object.keys( options );
 
-        this.__names.forEach( ( name, index ) => {
+        this.__names.forEach( name => {
             const $option = document.createElement( 'option' );
             $option.innerHTML = name;
             this.$select.appendChild( $option );
@@ -27,11 +27,6 @@ export class OptionController extends Controller {
         this.$widget.appendChild( this.$select );
         this.$widget.appendChild( this.$display );
 
-        this.domElement.addEventListener( 'click', e => {
-            e.stopPropagation();
-            this.$select.click();
-        } );
-
         this.updateDisplay();
 
     }
@@ -39,7 +34,7 @@ export class OptionController extends Controller {
     updateDisplay() {
         const value = this.getValue();
         const index = this.__values.indexOf( value );
-        this.$select.value = index;
+        this.$select.selectedIndex = index;
         this.$display.innerHTML = index === -1 ? value : this.__names[ index ];
     }
 

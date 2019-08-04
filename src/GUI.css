@@ -129,8 +129,6 @@
 	padding: 0 var(--padding);
 	line-height: var(--row-height);
 	font-weight: bold;
-	display: flex;
-	align-items: center;
 	cursor: pointer;
 }
 
@@ -167,6 +165,21 @@
 .gui:not(.root) .children { 
 	margin-left: var(--padding);
 	border-left: 2px solid #444;
+}
+
+/* headers */
+
+.gui .header { 
+	height: var(--row-height);
+	padding: 0 var(--padding);
+	line-height: var(--row-height);
+	font-weight: bold;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+	margin: var(--padding) 0;
+}
+
+.gui .header:first-child {
+	margin-top: 0;
 }
 
 /* controllers */
