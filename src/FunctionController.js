@@ -6,9 +6,7 @@ export class FunctionController extends Controller {
 
         super( parent, object, property, 'function' );
 
-        this.$button = document.createElement( 'div' );
-        this.$button.classList.add( 'button' );
-
+        this.$button = document.createElement( 'button' );
         this.$button.innerHTML = 'Fire';
 
         this.$button.addEventListener( 'click', () => {

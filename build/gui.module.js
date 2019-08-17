@@ -1,13 +1,13 @@
 class Controller {
 
-    constructor( parent, object, property, className ) {
+    constructor( parent, object, property, className, tagName = 'div' ) {
 
         this.parent = parent;
 
         this.object = object;
         this.property = property;
 
-        this.domElement = document.createElement( 'div' );
+        this.domElement = document.createElement( tagName );
         this.domElement.classList.add( 'controller' );
         this.domElement.classList.add( className );
 
@@ -92,15 +92,15 @@ class BooleanController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'boolean' );
+        super( parent, object, property, 'boolean', 'label' );
 
-        this.$checkbox = document.createElement( 'div' );
-        this.$checkbox.classList.add( 'checkbox' );
+        this.$input = document.createElement( 'input' );
+        this.$input.setAttribute( 'type', 'checkbox' );
 
-        this.$widget.appendChild( this.$checkbox );
+        this.$widget.appendChild( this.$input );
 
-        this.domElement.addEventListener( 'click', () => {
-            this.setValue( !this.getValue() );
+        this.$input.addEventListener( 'change', () => {
+            this.setValue( this.$input.checked );
         } );
 
         this.updateDisplay();
@@ -108,7 +108,7 @@ class BooleanController extends Controller {
     }
 
     updateDisplay() {
-        this.$checkbox.classList.toggle( 'checked', this.getValue() );
+        this.$input.checked = this.getValue();
     }
 
 }
@@ -149,9 +149,7 @@ class FunctionController extends Controller {
 
         super( parent, object, property, 'function' );
 
-        this.$button = document.createElement( 'div' );
-        this.$button.classList.add( 'button' );
-
+        this.$button = document.createElement( 'button' );
         this.$button.innerHTML = 'Fire';
 
         this.$button.addEventListener( 'click', () => {
@@ -207,7 +205,6 @@ class NumberController extends Controller {
 
         this.$input.addEventListener( 'focus', () => {
             this.__inputFocused = true;
-            window.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
         } );
 
         this.$input.addEventListener( 'input', () => {
@@ -229,21 +226,21 @@ class NumberController extends Controller {
             this.__inputFocused = false;
             this._callOnFinishedChange();
             this.updateDisplay();
-            window.removeEventListener( 'mousewheel', onMouseWheel );
         } );
 
 
         this.$input.addEventListener( 'keydown', e => {
+            console.log( e );
             if ( e.keyCode === 13 ) {
                 this.$input.blur();
             }
             if ( e.keyCode === 38 ) {
                 e.preventDefault();
-                increment( this.__step );
+                increment( this.__step * ( e.shiftKey ? 10 : 1 ) );
             }
             if ( e.keyCode === 40 ) {
                 e.preventDefault();
-                increment( -this.__step );
+                increment( -1 * this.__step * ( e.shiftKey ? 10 : 1 ) );
             }
         } );
 
@@ -259,14 +256,11 @@ class NumberController extends Controller {
         };
 
         const onMouseWheel = e => {
-            if ( document.activeElement.tagName !== 'INPUT' ||
-                 document.activeElement === this.$input ) {
-                e.preventDefault();
-                increment( ( e.deltaX + -e.deltaY ) * this.__step );
-            }
+            e.preventDefault();
+            increment( ( e.deltaX + -e.deltaY ) * this.__step );
         };
 
-        this.$input.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
+        this.$input.addEventListener( 'wheel', onMouseWheel, { passive: false } );
         this.$widget.appendChild( this.$input );
 
     }
@@ -406,13 +400,11 @@ class NumberController extends Controller {
         };
 
         const onMouseWheel = e => {
-            if ( document.activeElement.tagName !== 'INPUT' ) {
-                e.preventDefault();
-                increment( ( e.deltaX + -e.deltaY ) * this.__step );
-            }
+            e.preventDefault();
+            increment( ( e.deltaX + -e.deltaY ) * ( this.__max - this.__min ) / 1000 );
         };
 
-        this.$slider.addEventListener( 'mousewheel', onMouseWheel, { passive: false } );
+        this.$slider.addEventListener( 'wheel', onMouseWheel, { passive: false } );
 
     }
 
@@ -500,6 +492,14 @@ class OptionController extends Controller {
 
         this.$select.addEventListener( 'change', () => {
             this.setValue( this.__values[ this.$select.selectedIndex ] );
+        } );
+
+        this.$select.addEventListener( 'focus', () => {
+            this.$display.classList.add( 'focus' );
+        } );
+
+        this.$select.addEventListener( 'blur', () => {
+            this.$display.classList.remove( 'focus' );
         } );
 
         this.$widget.appendChild( this.$select );
@@ -599,7 +599,7 @@ function injectStyles( cssContent, fallbackURL ) {
     }
 }
 
-var styles = "@font-face { \n\tfont-family: 'gui-icons';\n\tsrc: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgrzEz12NtYXAAAAFoAAAAbAAAAGxNEkghZ2FzcAAAAdQAAAAIAAAACAAAABBnbHlmAAAB3AAAAMQAAADEuhnoZmhlYWQAAAKgAAAANgAAADYVTE2SaGhlYQAAAtgAAAAkAAAAJAcZA8lobXR4AAAC/AAAACAAAAAgFgAEPGxvY2EAAAMcAAAAEgAAABIAzACYbWF4cAAAAzAAAAAgAAAAIAALAAhuYW1lAAADUAAAAZ4AAAGeoVFtJXBvc3QAAATwAAAAIAAAACAAAwAAAAMDmgGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAoCAAAAAAAAAAAAAAAAAAQAAAJxMDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAFAAAAAQABAAAwAAAAEAICGVJbglvicT//3//wAAAAAAICGVJbglvicT//3//wAB/+Peb9pN2kjY9AADAAEAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgD8AHcDBAMJAAIABQAAEwkBFQkB/AEEAQT+/P78AgUBBP78iv78AQQAAAABAYgAvAKMAsQAAgAACQIBiAEE/vwCxP78/vwAAQD8ATADBAI0AAIAAAkCAwT+/P78AjT+/AEEAAEAvADCA1cC0QAFAAAlJzcXARcBn+NXjAFhV8LiV4sBYVcAAAEAAAABAAAoWcw5Xw889QALBAAAAAAA2WuExgAAAADZa4TGAAAAAANXAwkAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA1cAAQAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAACAAAABAAA/AQAAYgEAAD8BAAAvAAAAAAACgAUAB4ANABCAFAAYgAAAAEAAAAIAAYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAJAAAAAQAAAAAAAgAHAHIAAQAAAAAAAwAJADwAAQAAAAAABAAJAIcAAQAAAAAABQALABsAAQAAAAAABgAJAFcAAQAAAAAACgAaAKIAAwABBAkAAQASAAkAAwABBAkAAgAOAHkAAwABBAkAAwASAEUAAwABBAkABAASAJAAAwABBAkABQAWACYAAwABBAkABgASAGAAAwABBAkACgA0ALxndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNSZWd1bGFyAFIAZQBnAHUAbABhAHJndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') format('woff');\n}\n\n.gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: 'Lucida Grande', Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 0 0 2px;\n\t--widget-border-radius: 2px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 5px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\tuser-select: none;\n\t/* 2019 and safari is still being a dirtbag */\n\t-webkit-user-select: none; \n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n\t/* force inertial scroll for ios */\n\t-webkit-overflow-scrolling: touch;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t\t--line-height: 14px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: calc( var(--row-height) * 6);\n\t}\n}\n\n/* base input */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tbackground: var(--widget-color);\n\tpadding: var(--widget-padding);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n@media (hover: hover) { \n\t.gui input:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input:focus { \n\tbackground-color: var(--widget-color-focus);\n\tcolor: var(--color);\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before {\n\tfont-family: 'gui-icons';\n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* headers */\n\n.gui .header { \n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tborder-bottom: 1px solid rgba(255,255,255,0.1);\n\tmargin: var(--padding) 0;\n}\n\n.gui .header:first-child {\n\tmargin-top: 0;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px );\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n}\n\n.gui .controller.number input { \n\tcolor: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input {\n\twidth: 33%;\n}\n\n@media (hover: hover) { \n\t.gui .controller.number .slider:hover { \n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui .controller.number .slider.active { \n\tbackground-color: var(--widget-color-focus);\n}\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n\tpadding-left: var(--padding);\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n}\n*/\n\n/* string */\n\n.gui .controller.string input { \n\tcolor: var(--string-color);\n}\n\n/* color */\n\n.gui .controller.color .widget { \n\tposition: relative;\n}\n\n.gui .controller.color input {\n\topacity: 0;\n\theight: var(--widget-height);\n\twidth: 100%;\n\tposition: absolute;\n}\n\n.gui .controller.color .display { \n\theight: var(--widget-height);\n\twidth: 100%;\n\tborder-radius: var(--widget-border-radius);\n\tpointer-events: none;\n}\n\n/* boolean */\n\n.gui .controller.boolean .checkbox { \n\t--size: calc( 0.75 * var(--widget-height) );\n\theight: var(--size);\n\twidth: var(--size);\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n}\n\n.gui .controller.boolean .checkbox.checked:before { \n\tfont-family: 'gui-icons';\n\tcontent: '✓';\n\tfont-size: var(--size);\n\tline-height: var(--size);\n}\n\n/* option */\n\n.gui .controller.option .widget { \n\tposition: relative;\n}\n\n.gui .controller.option select { \n\topacity: 0;\n\tposition: absolute;\n\twidth: 100%;\n\theight: var(--widget-height);\n\tfont-size: var(--font-size);\n}\n\n.gui .controller.option .display { \n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpointer-events: none;\n\tpadding: 0 var(--padding);\n}\n\n.gui .controller.option .display:after { \n\tfont-family: 'gui-icons';\n\tcontent: '↕';\n\tvertical-align: middle;\n\tmargin-left: var(--padding);\n}\n\n/* function */\n\n.gui .controller.function .button { \n\tbackground: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpadding: 0 var(--padding);\n}";
+var styles = "@font-face { \n\tfont-family: 'gui-icons';\n\tsrc: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgrzEz12NtYXAAAAFoAAAAbAAAAGxNEkghZ2FzcAAAAdQAAAAIAAAACAAAABBnbHlmAAAB3AAAAMQAAADEuhnoZmhlYWQAAAKgAAAANgAAADYVTE2SaGhlYQAAAtgAAAAkAAAAJAcZA8lobXR4AAAC/AAAACAAAAAgFgAEPGxvY2EAAAMcAAAAEgAAABIAzACYbWF4cAAAAzAAAAAgAAAAIAALAAhuYW1lAAADUAAAAZ4AAAGeoVFtJXBvc3QAAATwAAAAIAAAACAAAwAAAAMDmgGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAAQAAoCAAAAAAAAAAAAAAAAAAQAAAJxMDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEAFAAAAAQABAAAwAAAAEAICGVJbglvicT//3//wAAAAAAICGVJbglvicT//3//wAB/+Peb9pN2kjY9AADAAEAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAgD8AHcDBAMJAAIABQAAEwkBFQkB/AEEAQT+/P78AgUBBP78iv78AQQAAAABAYgAvAKMAsQAAgAACQIBiAEE/vwCxP78/vwAAQD8ATADBAI0AAIAAAkCAwT+/P78AjT+/AEEAAEAvADCA1cC0QAFAAAlJzcXARcBn+NXjAFhV8LiV4sBYVcAAAEAAAABAAAoWcw5Xw889QALBAAAAAAA2WuExgAAAADZa4TGAAAAAANXAwkAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA1cAAQAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAACAAAABAAA/AQAAYgEAAD8BAAAvAAAAAAACgAUAB4ANABCAFAAYgAAAAEAAAAIAAYAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAJAAAAAQAAAAAAAgAHAHIAAQAAAAAAAwAJADwAAQAAAAAABAAJAIcAAQAAAAAABQALABsAAQAAAAAABgAJAFcAAQAAAAAACgAaAKIAAwABBAkAAQASAAkAAwABBAkAAgAOAHkAAwABBAkAAwASAEUAAwABBAkABAASAJAAAwABBAkABQAWACYAAwABBAkABgASAGAAAwABBAkACgA0ALxndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNWZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNSZWd1bGFyAFIAZQBnAHUAbABhAHJndWktaWNvbnMAZwB1AGkALQBpAGMAbwBuAHNGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') format('woff');\n}\n\n.gui {\n\t--width: auto;\n\t--background-color: #1a1a1a;\n\t--color: #eee;\n\t--font-family: 'Lucida Grande', Arial, sans-serif;\n\t--font-size: 11px;\n\t--line-height: 11px;\n\t--name-width: 35%;\n\t--row-height: 24px;\n\t--widget-height: 20px;\n\t--widget-padding: 0 0 0 2px;\n\t--widget-border-radius: 2px;\n\t--widget-color: #3c3c3c;\n\t--widget-color-hover: #494949;\n\t--widget-color-focus: #5e5e5e;\n\t--number-color: #00adff;\n\t--string-color: #1ed36f;\n\t--padding: 6px;\n\t--scrollbar-width: 4px;\n\t--title-color: #111;\n}\n\n.gui {\n\twidth: var(--width);\n\tfont-size: var(--font-size);\n\tline-height: var(--line-height);\n\tfont-family: var(--font-family);\n\tfont-weight: normal;\n\tfont-style: normal;\n\tbackground-color: var(--background-color);\n\tcolor: var(--color);\n\t-webkit-font-smoothing: antialiased;\n\t-moz-osx-font-smoothing: grayscale;\n\tuser-select: none;\n\t/* 2019 and safari is still being a dirtbag */\n\t-webkit-user-select: none; \n\ttext-align: left;\n}\n\n.gui, .gui * {\n\tbox-sizing: border-box;\n\tmargin: 0;\n}\n\n.gui.autoPlace {\n\tposition: fixed;\n\ttop: 0;\n\tright: 15px;\n\tz-index: 1001;\n}\n\n.gui.autoPlace > .children {\n\toverflow-y: auto;\n\tmax-height: calc( var(--window-height) - var(--row-height) );\n\t/* force inertial scroll for ios */\n\t-webkit-overflow-scrolling: touch;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar { \n\twidth: var(--scrollbar-width);\n\tbackground: var(--background-color);\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n\theight: 0;\n\tdisplay: none;\n}\n\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n\tborder-radius: var(--scrollbar-width);\n\tbackground: var(--widget-color);\n}\n\n@media (max-width: 600px) {\n\t.gui {\n\t\t--row-height: 38px;\n\t\t--widget-height: 32px;\n\t\t--padding: 8px;\n\t\t--font-size: 16px;\n\t\t--line-height: 14px;\n\t}\n\t.gui.autoPlace {\n\t\tright: auto;\n\t\ttop: auto;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\twidth: 100%;\n\t}\n\t.gui.autoPlace > .children { \n\t\tmax-height: calc( var(--row-height) * 6);\n\t}\n}\n\n/* base input */\n\n.gui input {\n\tborder: 0;\n\toutline: none;\n\tfont-family: var(--font-family);\n\tfont-size: var(--font-size);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tbackground: var(--widget-color);\n\tcolor: var(--color);\n\twidth: 100%;\n}\n\n.gui input[type=text] {\n\tpadding: var(--widget-padding);\n}\n\n@media (hover: hover) { \n\t.gui input:hover {\n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui input:focus,\n.gui input:active { \n\tbackground: var(--widget-color-focus);\n}\n\n/* titles and folders */\n\n.gui .title {\n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tcursor: pointer;\n}\n\n.gui.root > .title { \n\tbackground: var(--title-color);\n}\n\n.gui .title:before {\n\tfont-family: 'gui-icons';\n\tcontent: '▾';\n\twidth: 1em;\n}\n\n.gui.closed .children {\n\tdisplay: none;\n}\n\n.gui.closed .title:before {\n\tcontent: '▸';\n}\n\n.gui .children {\n\tpadding: var(--padding) 0;\n}\n\n.gui:not(.root) { \n\tmargin: var(--padding) 0;\n}\n\n.gui:not(.root):first-child {\n\tmargin-top: 0;\n}\n\n.gui:not(.root) .children { \n\tmargin-left: var(--padding);\n\tborder-left: 2px solid #444;\n}\n\n/* headers */\n\n.gui .header { \n\theight: var(--row-height);\n\tpadding: 0 var(--padding);\n\tline-height: var(--row-height);\n\tfont-weight: bold;\n\tborder-bottom: 1px solid rgba(255,255,255,0.1);\n\tmargin: var(--padding) 0;\n}\n\n.gui .header:first-child {\n\tmargin-top: 0;\n}\n\n/* controllers */\n\n.gui .controller {\n\tpadding: 0 var(--padding);\n\theight: var(--row-height);\n\tdisplay: flex;\n\talign-items: center;\n}\n\n.gui .controller.disabled {\n\topacity: 0.5;\n\tpointer-events: none;\n}\n\n.gui .controller .name {\n\twidth: var(--name-width);\n\tpadding-right: var(--padding);\n\tflex-shrink: 0;\n}\n\n.gui .controller .widget {\n\theight: 100%;\n\twidth: 100%;\n\tdisplay: flex;\n\talign-items: center;\n}\n\n/* number */\n\n.gui .controller.number .slider {\n\twidth: 100%;\n\theight: var(--widget-height);\n\tmargin-right: calc( var(--padding) - 2px );\n\tbackground-color: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\toverflow: hidden;\n}\n\n.gui .controller.number .fill {\n\theight: 100%;\n\tbackground-color: var(--number-color);\n\tborder-right: 2px solid var(--color);\n}\n\n.gui .controller.number input:not(:focus) { \n\tcolor: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input {\n\twidth: 33%;\n\t/* firefox wants to make this bigger otherwise? */\n\tmin-width: 0;\n}\n\n@media (hover: hover) { \n\t.gui .controller.number .slider:hover { \n\t\tbackground-color: var(--widget-color-hover);\n\t}\n}\n\n.gui .controller.number .slider.active { \n\tbackground-color: var(--widget-color-focus);\n}\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n} */\n\n\n/* string */\n\n.gui .controller.string input:not(:focus) { \n\tcolor: var(--string-color);\n}\n\n/* color */\n\n.gui .controller.color .widget { \n\tposition: relative;\n}\n\n.gui .controller.color input {\n\topacity: 0;\n\theight: var(--widget-height);\n\twidth: 100%;\n\tposition: absolute;\n}\n\n.gui .controller.color .display { \n\theight: var(--widget-height);\n\twidth: 100%;\n\tborder-radius: var(--widget-border-radius);\n\tpointer-events: none;\n}\n\n/* boolean */\n\n.gui .controller.boolean input { \n\tappearance: none;\n\t-webkit-appearance: none;\n\t--size: calc( 0.75 * var(--widget-height) );\n\theight: var(--size);\n\twidth: var(--size);\n\tborder-radius: var(--widget-border-radius);\n\ttext-align: center;\n}\n\n.gui .controller.boolean input:checked:before { \n\tfont-family: 'gui-icons';\n\tcontent: '✓';\n\tfont-size: var(--size);\n\tline-height: var(--size);\n}\n\n/* option */\n\n.gui .controller.option .widget { \n\tposition: relative;\n}\n\n.gui .controller.option select { \n\t/* opacity: 0;\n\tposition: absolute;\n\twidth: 100%; */\n\toutline: none;\n\tappearance: none;\n\t-webkit-appearance: none;\n\tborder: none;\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\tbackground: var(--widget-color) url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='15'><text fill='rgba(255,255,255,0.25)' x='0' y='12'>▾</text></svg>\") right center no-repeat;\n\t\n\tcolor: var(--color);\n\tpadding: 0  0 var(--padding)calc( 3 * var(--padding) );\n\theight: var(--widget-height);\n\tfont-size: var(--font-size);\n\tfont-family: var(--font-family);\n}\n\n.gui .controller.option select:focus { \n\tbackground: var(--widget-color-focus);\n}\n\n.gui .controller.option .display.focus { \n\tbackground: var(--widget-color-focus);\n}\n\n.gui .controller.option .display { \n\tdisplay: none;\n\tborder-radius: var(--widget-border-radius);\n\tbackground: var(--widget-color);\n\theight: var(--widget-height);\n\tline-height: var(--widget-height);\n\tpointer-events: none;\n\tpadding: 0 var(--padding);\n}\n\n.gui .controller.option .display:after { \n\tfont-family: 'gui-icons';\n\tcontent: '↕';\n\tvertical-align: middle;\n\tmargin-left: var(--padding);\n}\n\n/* function */\n\n.gui .controller.function button {\n\toutline: none;\n\tborder: 0;\n\tfont-size: var(--font-size);\n\tcolor: var(--color);\n\tbackground: var(--widget-color);\n\tborder-radius: var(--widget-border-radius);\n\theight: var(--widget-height);\n\tpadding: 0 var(--padding);\n}\n.gui .controller.function button:focus { \n\tbackground-color: var(--widget-color-focus);\n}";
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 

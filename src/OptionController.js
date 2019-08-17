@@ -24,6 +24,14 @@ export class OptionController extends Controller {
             this.setValue( this.__values[ this.$select.selectedIndex ] );
         } );
 
+        this.$select.addEventListener( 'focus', () => {
+            this.$display.classList.add( 'focus' );
+        } );
+
+        this.$select.addEventListener( 'blur', () => {
+            this.$display.classList.remove( 'focus' );
+        } );
+
         this.$widget.appendChild( this.$select );
         this.$widget.appendChild( this.$display );
 

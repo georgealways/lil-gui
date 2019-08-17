@@ -4,15 +4,15 @@ export class BooleanController extends Controller {
 
     constructor( parent, object, property ) {
 
-        super( parent, object, property, 'boolean' );
+        super( parent, object, property, 'boolean', 'label' );
 
-        this.$checkbox = document.createElement( 'div' );
-        this.$checkbox.classList.add( 'checkbox' );
+        this.$input = document.createElement( 'input' );
+        this.$input.setAttribute( 'type', 'checkbox' );
 
-        this.$widget.appendChild( this.$checkbox );
+        this.$widget.appendChild( this.$input );
 
-        this.domElement.addEventListener( 'click', () => {
-            this.setValue( !this.getValue() );
+        this.$input.addEventListener( 'change', () => {
+            this.setValue( this.$input.checked );
         } );
 
         this.updateDisplay();
@@ -20,7 +20,7 @@ export class BooleanController extends Controller {
     }
 
     updateDisplay() {
-        this.$checkbox.classList.toggle( 'checked', this.getValue() );
+        this.$input.checked = this.getValue();
     }
 
 }

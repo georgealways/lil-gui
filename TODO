@@ -2,8 +2,8 @@ todo
 
 [ ] headers
 
-[ ] firefox disagrees about hasSlider input widths
 [ ] numberkeyup / mousewheel for number inputs?
+[x] firefox disagrees about hasSlider input widths
 
 [x] try opacity=0 for native inputs for more consistent styling
     [x] checbox
@@ -21,7 +21,7 @@ todo
 
 [ ] umd build
 
-[ ] maybe kill input[type=number] because it's too silly to style
+[x] maybe kill input[type=number] because it's too silly to style
 [x] decimals (eh)
 [x] slider touch scroll
 [x] rollup + livereload

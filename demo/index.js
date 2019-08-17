@@ -22,16 +22,14 @@ const GUIS = {
 
     'Basic': function( gui ) {
 
-        gui.addHeader( 'Header' );
-        gui.add( { example: 'Basic' }, 'example', [ 'Basic', 'Headers', 'Folders' ] );
-        gui.add( { number: 0.456 }, 'number', 0 );
-        gui.add( { slider: 0.33 }, 'slider', 0, 1 );
-        gui.add( { step: 0 }, 'step', 0, 1, 0.001 );
+        gui.add( { options: 'Basic' }, 'options', [ 'Basic', 'Headers', 'Folders' ] );
+        gui.add( { number: 0 }, 'number' );
+        gui.add( { slider: 0.5 }, 'slider', 0, 1 );
         gui.add( { boolean: true }, 'boolean' );
         gui.addHeader( 'Header' );
         gui.add( { string: 'string' }, 'string' );
-        gui.add( { function: () => alert( 'sup' ) }, 'function' );
         gui.addColor( { color: '#eeaaff' }, 'color' );
+        gui.add( { function: () => alert( 'sup' ) }, 'function' );
 
     },
 
@@ -95,7 +93,7 @@ const GUIS = {
         gui.add( { 'number': 0.2 }, 'number', 0 ).name( 'number min' );
         gui.add( { 'number': 0.4 }, 'number', 0, 1 ).name( 'number min max' );
         gui.add( { 'number': 0.6 }, 'number' ).min( 0 ).max( 1 ).name( 'number min max methods' );
-        gui.add( { 'number': 0.6 }, 'number', 0, 500, 73 );
+        gui.add( { 'number': 0.6 }, 'number', 0, 500, 73 ).disable();
 
         const folder0 = gui.addFolder( 'sup' );
         folder0.add( { string: 'String' }, 'string' );
