@@ -5,27 +5,27 @@
 }
 .gui {
   --width: auto;
-  --bg-color: #fdf6e3;
-  --fg-color: #657b83;
-  --widget-fg-color: #657b83;
-  --widget-bg-color: #eee8d5;
-  --widget-fg-color-focus: #eee8d5;
-  --widget-bg-color-focus: #657b83;
-  --number-color: #268bd2;
-  --string-color: #859900;
-  --title-bg-color: #eee8d5;
-  --header-rule-color: #eee8d5;
-  --folder-rule-color: #eee8d5;
+  --bg-color: #1a1a1a;
+  --fg-color: #eee;
+  --widget-fg-color: #eee;
+  --widget-bg-color: #3c3c3c;
+  --widget-fg-color-focus: #fff;
+  --widget-bg-color-focus: #4d4d4d;
+  --number-color: #00adff;
+  --string-color: #1ed36f;
+  --title-bg-color: #111;
+  --header-rule-color: rgba(255, 255, 255, 0.1);
+  --folder-rule-color: #444;
   --font-family: system-ui, sans-serif;
   --font-size: 11px;
-  --line-height: 11px;
+  --line-height: 1;
   --name-width: 35%;
   --row-height: 24px;
   --widget-height: 20px;
-  --padding: 6px;
+  --padding: 0.55em;
   --widget-padding: 0 0 0 0.25em;
   --widget-border-radius: 2px;
-  --scrollbar-width: 4px;
+  --scrollbar-width: 0.375em;
   width: var(--width);
   text-align: left;
   font-size: var(--font-size);
@@ -39,7 +39,6 @@
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
   -webkit-user-select: none;
-  /* titles and folders */
 }
 .gui, .gui * {
   box-sizing: border-box;
@@ -72,9 +71,7 @@
   .gui {
     --row-height: 38px;
     --widget-height: 32px;
-    --padding: 8px;
     --font-size: 16px;
-    --line-height: 14px;
   }
   .gui.autoPlace {
     right: auto;
@@ -84,7 +81,7 @@
     width: 100%;
   }
   .gui.autoPlace > .children {
-    max-height: calc(var(--row-height) * 6);
+    max-height: 200px;
   }
 }
 .gui input {
@@ -95,7 +92,7 @@
   border-radius: var(--widget-border-radius);
   height: var(--widget-height);
   background: var(--widget-bg-color);
-  color: var(--fg-color);
+  color: var(--widget-fg-color);
   width: 100%;
 }
 .gui input[type=text] {
@@ -104,7 +101,7 @@
 .gui input[type=checkbox] {
   appearance: none;
   -webkit-appearance: none;
-  --size: calc(0.75 * var(--widget-height));
+  --size: calc(.75*var(--widget-height));
   height: var(--size);
   width: var(--size);
   border-radius: var(--widget-border-radius);
@@ -121,7 +118,7 @@
   cursor: pointer;
   border: 0;
   font-size: var(--font-size);
-  color: var(--fg-color);
+  color: var(--widget-fg-color);
   background: var(--widget-bg-color);
   border-radius: var(--widget-border-radius);
   height: var(--widget-height);
@@ -163,7 +160,7 @@
   background: var(--title-bg-color);
 }
 .gui.root > .children {
-  padding: calc(0.5 * var(--padding)) 0;
+  padding: calc(.5*var(--padding)) 0;
 }
 .gui:not(.root) > .children {
   margin-left: 0.75em;
@@ -174,65 +171,92 @@
   padding: 0 var(--padding);
   font-weight: bold;
   border-bottom: 1px solid var(--header-rule-color);
-  margin-bottom: calc(0.5 * var(--padding));
+  margin-bottom: calc(.5*var(--padding));
   display: flex;
   align-items: center;
 }
-
-/* headers */
-/* controllers */
 .gui .controller {
+  display: flex;
+  align-items: center;
   padding: 0 var(--padding);
   height: var(--row-height);
-  display: flex;
-  align-items: center;
 }
-
 .gui .controller.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
-
 .gui .controller .name {
+  display: flex;
+  align-items: center;
   width: var(--name-width);
-  padding-right: var(--padding);
   height: 100%;
   flex-shrink: 0;
   overflow: hidden;
-  display: flex;
-  align-items: center;
 }
-
 .gui .controller .widget {
-  height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
-
-/* number */
+.gui .controller.number input:not(:focus) {
+  color: var(--number-color);
+}
+.gui .controller.number.hasSlider input {
+  width: 33%;
+  min-width: 0;
+}
 .gui .controller.number .slider {
+  position: relative;
   width: 100%;
   height: var(--widget-height);
   margin-right: calc(var(--padding) - 2px);
   background-color: var(--widget-bg-color);
   border-radius: var(--widget-border-radius);
   overflow: hidden;
-  position: relative;
 }
-
 .gui .controller.number .fill {
   height: 100%;
   background-color: var(--number-color);
 }
-
-.gui .controller.number input:not(:focus) {
-  color: var(--number-color);
+.gui .controller.string input:not(:focus) {
+  color: var(--string-color);
 }
-
-.gui .controller.number.hasSlider input {
-  width: 33%;
-  min-width: 0;
+.gui .controller.color .widget {
+  position: relative;
+}
+.gui .controller.color input {
+  opacity: 0;
+  height: var(--widget-height);
+  width: 100%;
+  position: absolute;
+}
+.gui .controller.color .display {
+  height: var(--widget-height);
+  width: 100%;
+  border-radius: var(--widget-border-radius);
+  pointer-events: none;
+}
+.gui .controller.option .widget {
+  position: relative;
+}
+.gui .controller.option select {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+}
+.gui .controller.option .display {
+  pointer-events: none;
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  line-height: var(--widget-height);
+  padding: 0 var(--padding);
+}
+.gui .controller.option .display:after {
+  font-family: "gui-icons";
+  content: "↕";
+  vertical-align: middle;
+  margin-left: var(--padding);
 }
 
 /* 
@@ -248,53 +272,16 @@
 .gui .controller.number.hasSlider input {
 	width: 18%;
 } */
-/* string */
-.gui .controller.string input:not(:focus) {
-  color: var(--string-color);
-}
-
-/* color */
-.gui .controller.color .widget {
-  position: relative;
-}
-
-.gui .controller.color input {
-  opacity: 0;
-  height: var(--widget-height);
-  width: 100%;
-  position: absolute;
-}
-
-.gui .controller.color .display {
-  height: var(--widget-height);
-  width: 100%;
-  border-radius: var(--widget-border-radius);
-  pointer-events: none;
-}
-
-/* boolean */
-/* option */
-.gui .controller.option .widget {
-  position: relative;
-}
-
-.gui .controller.option select {
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-}
-
-.gui .controller.option .display {
-  border-radius: var(--widget-border-radius);
-  height: var(--widget-height);
-  line-height: var(--widget-height);
-  pointer-events: none;
-  padding: 0 var(--padding);
-}
-
-.gui .controller.option .display:after {
-  font-family: "gui-icons";
-  content: "↕";
-  vertical-align: middle;
-  margin-left: var(--padding);
+.gui.solarized, .gui.solarized .gui {
+  --bg-color: #fdf6e3;
+  --fg-color: #657b83;
+  --widget-fg-color: #657b83;
+  --widget-bg-color: #eee8d5;
+  --widget-fg-color-focus: #eee8d5;
+  --widget-bg-color-focus: #657b83;
+  --number-color: #268bd2;
+  --string-color: #859900;
+  --title-bg-color: #eee8d5;
+  --header-rule-color: #eee8d5;
+  --folder-rule-color: #eee8d5;
 }

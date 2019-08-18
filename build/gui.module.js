@@ -57,9 +57,22 @@ class Controller {
 
     setValue( value, finished = true ) {
         this.object[ this.property ] = value;
-        if ( this.__onChange !== undefined ) this.__onChange.call( this, value );
+        this._callOnChange();
         if ( finished ) this._callOnFinishedChange();
         this.updateDisplay();
+    }
+
+    mutateValue( values, finished = true ) {
+        Object.assign( this.getValue(), values );
+        this._callOnChange();
+        if ( finished ) this._callOnFinishedChange();
+        this.updateDisplay();
+    }
+
+    _callOnChange() {
+        if ( this.__onChange !== undefined ) {
+            this.__onChange.call( this, this.getValue() );
+        }
     }
 
     _callOnFinishedChange() {
@@ -113,6 +126,81 @@ class BooleanController extends Controller {
 
 }
 
+const isFunction = val => typeof val === 'function';
+const isString = val => typeof val === 'string';
+const isBoolean = val => typeof val === 'boolean';
+const isNumber = val => typeof val === 'number';
+const isObject = val => Object( val ) === val;
+
+/**
+ * @typedef ColorFormat
+ * @property {boolean} isPrimitive false for Array and Object formats
+ * @property {function(*):boolean} match returns true if the value matches this format
+ * @property {function(string)} fromHexString converts from #FFFFFF to this format
+ * @property {function(*):string} toHexString converts from this format to #FFFFFF
+ */
+
+const STRING = {
+    isPrimitive: true,
+    match: isString,
+    fromHexString: string => string,
+    toHexString: value => value
+};
+
+const INT = {
+    isPrimitive: true,
+    match: isNumber,
+    fromHexString: string => parseInt( string.substring( 1 ), 16 ),
+    toHexString: value => '#' + value.toString( 16 ).padStart( 6, 0 )
+};
+
+const OBJECT = {
+    isPrimitive: false,
+    match: isObject,
+    fromHexString( string ) {
+        const int = INT.fromHexString( string );
+        return {
+            r: ( int >> 16 & 255 ) / 0xff,
+            g: ( int >> 8 & 255 ) / 0xff,
+            b: ( int & 255 ) / 0xff
+        };
+    },
+    toHexString( { r, g, b } ) {
+        const int = ( r * 0xff ) << 16
+                  ^ ( g * 0xff ) << 8
+                  ^ ( b * 0xff ) << 0;
+        return INT.toHexString( int );
+    }
+};
+
+const ARRAY = {
+    isPrimitive: false,
+    match: Array.isArray,
+    fromHexString( string ) {
+        const int = INT.fromHexString( string );
+        return [
+            ( int >> 16 & 255 ) / 0xff,
+            ( int >> 8 & 255 ) / 0xff,
+            ( int & 255 ) / 0xff
+        ];
+    },
+    toHexString( [ r, g, b ] ) {
+        const int = ( r * 0xff ) << 16
+                  ^ ( g * 0xff ) << 8
+                  ^ ( b * 0xff ) << 0;
+        return INT.toHexString( int );
+    }
+};
+
+const FORMATS = [ STRING, INT, ARRAY, OBJECT ];
+
+/**
+ * @returns {ColorFormat}
+ */
+function getColorFormat( value ) {
+    return FORMATS.find( format => format.match( value ) );
+}
+
 class ColorController extends Controller {
 
     constructor( parent, object, property ) {
@@ -122,22 +210,30 @@ class ColorController extends Controller {
         this.$input = document.createElement( 'input' );
         this.$input.setAttribute( 'type', 'color' );
 
-        this.$input.addEventListener( 'change', () => {
-            this.setValue( this.$input.value );
-        } );
-
         this.$display = document.createElement( 'div' );
         this.$display.classList.add( 'display' );
 
         this.$widget.appendChild( this.$input );
         this.$widget.appendChild( this.$display );
 
+        this.__colorFormat = getColorFormat( this.getValue() );
+
+        this.$input.addEventListener( 'change', () => {
+            const newValue = this.__colorFormat.fromHexString( this.$input.value );
+            if ( this.__colorFormat.isPrimitive ) {
+                this.setValue( newValue );
+            } else {
+                this.mutateValue( newValue );
+            }
+        } );
+
         this.updateDisplay();
+
 
     }
 
     updateDisplay() {
-        this.$input.value = this.getValue();
+        this.$input.value = this.__colorFormat.toHexString( this.getValue() );
         this.$display.style.backgroundColor = this.$input.value;
     }
 
@@ -581,12 +677,6 @@ class Header {
 
 }
 
-const isFunction = val => typeof val === 'function';
-const isString = val => typeof val === 'string';
-const isBoolean = val => typeof val === 'boolean';
-const isNumber = val => typeof val === 'number';
-const isObject = val => Object( val ) === val;
-
 function injectStyles( cssContent, fallbackURL ) {
     const injected = document.createElement( 'style' );
     injected.type = 'text/css';
@@ -599,7 +689,7 @@ function injectStyles( cssContent, fallbackURL ) {
     }
 }
 
-var styles = "@charset \"UTF-8\";\n@font-face {\n  font-family: \"gui-icons\";\n  src: url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAR0AAsAAAAABvAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAJgAAADID6HkjWhlYWQAAAKMAAAAJgAAADZfcj22aGhlYQAAArQAAAAYAAAAJAC5AGpobXR4AAACzAAAAA4AAAAUAZAAAGxvY2EAAALcAAAADAAAAAwAZgCWbWF4cAAAAugAAAAeAAAAIAERAB9uYW1lAAADCAAAAS4AAAIi1kTvxHBvc3QAAAQ4AAAAOQAAAEqHPh3zeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nEWOzQrCMBCEZzfRkkvFmDQNgkKrLZ6EUhoEoSdvelLf/1XsVsQ5zf58w4AhuuMJxgIYKfisjaJLjHmMcqX554o31kCqmn6ktumHbk+FW9Fyx4qdY6W5JCp5qzR5x1pNo6x+/IgbrPBn+sJp6Ga+PigqaKI2lvRsj+yFt1ZCPf87vPCQlqlNIYVTMHllYmHy2nwALu8NGnicY2BkYGAAYgX1qNp4fpuvDNwMKQzYQAhDKJDkYGACcQCJzgPiAAB4nGNgZGBgSGFggJMhDIwMqIAVABx5ASR4nGNgAIIUVAwADiQBkQAAAAAAAAASADIAVABkeJxjYGRgYGBlEGZgYgABEMkFhAwM/8F8BgAK2gExAAB4nG2QS07DMBRFb/pDtBKqQEJiZjFggpp+Bh10Ae28g87T1ElTJXHkuJW6AVbAGlgDK2DIGlgKN+apA8CW7POO73PkABjiAwGaEeDar81o4YrVD7dJQ+EO+UG4iwEehXv0I+E+njEXHuAOEW8IOs1tt3DCLdzgRbhN/yrcIb8Jd3GPd+Ee/adwHxt8CQ/wFMzTYzbKYlPWa50e88he6gtstK0zU6ppOLm4lS61jZzeqe1Z1ad05lyiEmsKtTSl03luVGXNQccu3DtXLcbjRHwYmwIpjsj45gwxDErUWEN7m/PF9p/zv2bDDss987XCFCEm/+RWzJU+G/EPauyY3eLMtcaJ+RmtQ8I6YcagIC19b5POOQ1N5c8ONDF9iL3vqrDAmDP5lQ/914tvdMhgegAAeJxjYGKAAEYG7ICVkYmRmZGFkZWRjYEjpSi/ICW/PI8tOSe/ODWFJb8gNY81OSM1OZuBAQCfaQnQAAAA\") format(\"woff\");\n}\n.gui {\n  --width: auto;\n  --bg-color: #fdf6e3;\n  --fg-color: #657b83;\n  --widget-fg-color: #657b83;\n  --widget-bg-color: #eee8d5;\n  --widget-fg-color-focus: #eee8d5;\n  --widget-bg-color-focus: #657b83;\n  --number-color: #268bd2;\n  --string-color: #859900;\n  --title-bg-color: #eee8d5;\n  --header-rule-color: #eee8d5;\n  --folder-rule-color: #eee8d5;\n  --font-family: system-ui, sans-serif;\n  --font-size: 11px;\n  --line-height: 11px;\n  --name-width: 35%;\n  --row-height: 24px;\n  --widget-height: 20px;\n  --padding: 6px;\n  --widget-padding: 0 0 0 0.25em;\n  --widget-border-radius: 2px;\n  --scrollbar-width: 4px;\n  width: var(--width);\n  text-align: left;\n  font-size: var(--font-size);\n  line-height: var(--line-height);\n  font-family: var(--font-family);\n  font-weight: normal;\n  font-style: normal;\n  background-color: var(--bg-color);\n  color: var(--fg-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  user-select: none;\n  -webkit-user-select: none;\n  /* titles and folders */\n}\n.gui, .gui * {\n  box-sizing: border-box;\n  margin: 0;\n}\n.gui.autoPlace {\n  position: fixed;\n  top: 0;\n  right: 15px;\n  z-index: 1001;\n}\n.gui.autoPlace > .children {\n  max-height: calc(var(--window-height) - var(--row-height));\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.gui.autoPlace > .children::-webkit-scrollbar {\n  width: var(--scrollbar-width);\n  background: var(--bg-color);\n}\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n  height: 0;\n  display: none;\n}\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n  border-radius: var(--scrollbar-width);\n  background: var(--widget-bg-color);\n}\n@media (max-width: 600px) {\n  .gui {\n    --row-height: 38px;\n    --widget-height: 32px;\n    --padding: 8px;\n    --font-size: 16px;\n    --line-height: 14px;\n  }\n  .gui.autoPlace {\n    right: auto;\n    top: auto;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n  }\n  .gui.autoPlace > .children {\n    max-height: calc(var(--row-height) * 6);\n  }\n}\n.gui input {\n  border: 0;\n  outline: none;\n  font-family: var(--font-family);\n  font-size: var(--font-size);\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  background: var(--widget-bg-color);\n  color: var(--fg-color);\n  width: 100%;\n}\n.gui input[type=text] {\n  padding: var(--widget-padding);\n}\n.gui input[type=checkbox] {\n  appearance: none;\n  -webkit-appearance: none;\n  --size: calc(0.75 * var(--widget-height));\n  height: var(--size);\n  width: var(--size);\n  border-radius: var(--widget-border-radius);\n  text-align: center;\n}\n.gui input[type=checkbox]:checked:before {\n  font-family: \"gui-icons\";\n  content: \"✓\";\n  font-size: var(--size);\n  line-height: var(--size);\n}\n.gui button {\n  outline: none;\n  cursor: pointer;\n  border: 0;\n  font-size: var(--font-size);\n  color: var(--fg-color);\n  background: var(--widget-bg-color);\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  padding: 0 var(--padding);\n}\n.gui input:focus, .gui input:active,\n.gui button:focus,\n.gui button:active {\n  background: var(--widget-bg-color-focus);\n  color: var(--widget-fg-color-focus);\n}\n.gui .display {\n  background: var(--widget-bg-color);\n}\n.gui .display.focus, .gui .display.active {\n  background: var(--widget-bg-color-focus);\n  color: var(--widget-fg-color-focus);\n}\n.gui .title {\n  height: var(--row-height);\n  padding: 0 var(--padding);\n  line-height: var(--row-height);\n  font-weight: bold;\n  cursor: pointer;\n}\n.gui .title:before {\n  font-family: \"gui-icons\";\n  content: \"▾\";\n  width: 1em;\n  vertical-align: middle;\n}\n.gui.closed .children {\n  display: none;\n}\n.gui.closed .title:before {\n  content: \"▸\";\n}\n.gui.root > .title {\n  background: var(--title-bg-color);\n}\n.gui.root > .children {\n  padding: calc(0.5 * var(--padding)) 0;\n}\n.gui:not(.root) > .children {\n  margin-left: 0.75em;\n  border-left: 2px solid var(--folder-rule-color);\n}\n.gui .header {\n  height: var(--row-height);\n  padding: 0 var(--padding);\n  font-weight: bold;\n  border-bottom: 1px solid var(--header-rule-color);\n  margin-bottom: calc(0.5 * var(--padding));\n  display: flex;\n  align-items: center;\n}\n\n/* headers */\n/* controllers */\n.gui .controller {\n  padding: 0 var(--padding);\n  height: var(--row-height);\n  display: flex;\n  align-items: center;\n}\n\n.gui .controller.disabled {\n  opacity: 0.5;\n  pointer-events: none;\n}\n\n.gui .controller .name {\n  width: var(--name-width);\n  padding-right: var(--padding);\n  height: 100%;\n  flex-shrink: 0;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n}\n\n.gui .controller .widget {\n  height: 100%;\n  width: 100%;\n  display: flex;\n  align-items: center;\n}\n\n/* number */\n.gui .controller.number .slider {\n  width: 100%;\n  height: var(--widget-height);\n  margin-right: calc(var(--padding) - 2px);\n  background-color: var(--widget-bg-color);\n  border-radius: var(--widget-border-radius);\n  overflow: hidden;\n  position: relative;\n}\n\n.gui .controller.number .fill {\n  height: 100%;\n  background-color: var(--number-color);\n}\n\n.gui .controller.number input:not(:focus) {\n  color: var(--number-color);\n}\n\n.gui .controller.number.hasSlider input {\n  width: 33%;\n  min-width: 0;\n}\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n} */\n/* string */\n.gui .controller.string input:not(:focus) {\n  color: var(--string-color);\n}\n\n/* color */\n.gui .controller.color .widget {\n  position: relative;\n}\n\n.gui .controller.color input {\n  opacity: 0;\n  height: var(--widget-height);\n  width: 100%;\n  position: absolute;\n}\n\n.gui .controller.color .display {\n  height: var(--widget-height);\n  width: 100%;\n  border-radius: var(--widget-border-radius);\n  pointer-events: none;\n}\n\n/* boolean */\n/* option */\n.gui .controller.option .widget {\n  position: relative;\n}\n\n.gui .controller.option select {\n  opacity: 0;\n  position: absolute;\n  width: 100%;\n}\n\n.gui .controller.option .display {\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  line-height: var(--widget-height);\n  pointer-events: none;\n  padding: 0 var(--padding);\n}\n\n.gui .controller.option .display:after {\n  font-family: \"gui-icons\";\n  content: \"↕\";\n  vertical-align: middle;\n  margin-left: var(--padding);\n}\n";
+var styles = "@charset \"UTF-8\";\n@font-face {\n  font-family: \"gui-icons\";\n  src: url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAR0AAsAAAAABvAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAJgAAADID6HkjWhlYWQAAAKMAAAAJgAAADZfcj22aGhlYQAAArQAAAAYAAAAJAC5AGpobXR4AAACzAAAAA4AAAAUAZAAAGxvY2EAAALcAAAADAAAAAwAZgCWbWF4cAAAAugAAAAeAAAAIAERAB9uYW1lAAADCAAAAS4AAAIi1kTvxHBvc3QAAAQ4AAAAOQAAAEqHPh3zeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nEWOzQrCMBCEZzfRkkvFmDQNgkKrLZ6EUhoEoSdvelLf/1XsVsQ5zf58w4AhuuMJxgIYKfisjaJLjHmMcqX554o31kCqmn6ktumHbk+FW9Fyx4qdY6W5JCp5qzR5x1pNo6x+/IgbrPBn+sJp6Ga+PigqaKI2lvRsj+yFt1ZCPf87vPCQlqlNIYVTMHllYmHy2nwALu8NGnicY2BkYGAAYgX1qNp4fpuvDNwMKQzYQAhDKJDkYGACcQCJzgPiAAB4nGNgZGBgSGFggJMhDIwMqIAVABx5ASR4nGNgAIIUVAwADiQBkQAAAAAAAAASADIAVABkeJxjYGRgYGBlEGZgYgABEMkFhAwM/8F8BgAK2gExAAB4nG2QS07DMBRFb/pDtBKqQEJiZjFggpp+Bh10Ae28g87T1ElTJXHkuJW6AVbAGlgDK2DIGlgKN+apA8CW7POO73PkABjiAwGaEeDar81o4YrVD7dJQ+EO+UG4iwEehXv0I+E+njEXHuAOEW8IOs1tt3DCLdzgRbhN/yrcIb8Jd3GPd+Ee/adwHxt8CQ/wFMzTYzbKYlPWa50e88he6gtstK0zU6ppOLm4lS61jZzeqe1Z1ad05lyiEmsKtTSl03luVGXNQccu3DtXLcbjRHwYmwIpjsj45gwxDErUWEN7m/PF9p/zv2bDDss987XCFCEm/+RWzJU+G/EPauyY3eLMtcaJ+RmtQ8I6YcagIC19b5POOQ1N5c8ONDF9iL3vqrDAmDP5lQ/914tvdMhgegAAeJxjYGKAAEYG7ICVkYmRmZGFkZWRjYEjpSi/ICW/PI8tOSe/ODWFJb8gNY81OSM1OZuBAQCfaQnQAAAA\") format(\"woff\");\n}\n.gui {\n  --width: auto;\n  --bg-color: #1a1a1a;\n  --fg-color: #eee;\n  --widget-fg-color: #eee;\n  --widget-bg-color: #3c3c3c;\n  --widget-fg-color-focus: #fff;\n  --widget-bg-color-focus: #4d4d4d;\n  --number-color: #00adff;\n  --string-color: #1ed36f;\n  --title-bg-color: #111;\n  --header-rule-color: rgba(255, 255, 255, 0.1);\n  --folder-rule-color: #444;\n  --font-family: system-ui, sans-serif;\n  --font-size: 11px;\n  --line-height: 1;\n  --name-width: 35%;\n  --row-height: 24px;\n  --widget-height: 20px;\n  --padding: 0.55em;\n  --widget-padding: 0 0 0 0.25em;\n  --widget-border-radius: 2px;\n  --scrollbar-width: 0.375em;\n  width: var(--width);\n  text-align: left;\n  font-size: var(--font-size);\n  line-height: var(--line-height);\n  font-family: var(--font-family);\n  font-weight: normal;\n  font-style: normal;\n  background-color: var(--bg-color);\n  color: var(--fg-color);\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  user-select: none;\n  -webkit-user-select: none;\n}\n.gui, .gui * {\n  box-sizing: border-box;\n  margin: 0;\n}\n.gui.autoPlace {\n  position: fixed;\n  top: 0;\n  right: 15px;\n  z-index: 1001;\n}\n.gui.autoPlace > .children {\n  max-height: calc(var(--window-height) - var(--row-height));\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.gui.autoPlace > .children::-webkit-scrollbar {\n  width: var(--scrollbar-width);\n  background: var(--bg-color);\n}\n.gui.autoPlace > .children::-webkit-scrollbar-corner {\n  height: 0;\n  display: none;\n}\n.gui.autoPlace > .children::-webkit-scrollbar-thumb {\n  border-radius: var(--scrollbar-width);\n  background: var(--widget-bg-color);\n}\n@media (max-width: 600px) {\n  .gui {\n    --row-height: 38px;\n    --widget-height: 32px;\n    --font-size: 16px;\n  }\n  .gui.autoPlace {\n    right: auto;\n    top: auto;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n  }\n  .gui.autoPlace > .children {\n    max-height: 200px;\n  }\n}\n.gui input {\n  border: 0;\n  outline: none;\n  font-family: var(--font-family);\n  font-size: var(--font-size);\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  background: var(--widget-bg-color);\n  color: var(--widget-fg-color);\n  width: 100%;\n}\n.gui input[type=text] {\n  padding: var(--widget-padding);\n}\n.gui input[type=checkbox] {\n  appearance: none;\n  -webkit-appearance: none;\n  --size: calc(.75*var(--widget-height));\n  height: var(--size);\n  width: var(--size);\n  border-radius: var(--widget-border-radius);\n  text-align: center;\n}\n.gui input[type=checkbox]:checked:before {\n  font-family: \"gui-icons\";\n  content: \"✓\";\n  font-size: var(--size);\n  line-height: var(--size);\n}\n.gui button {\n  outline: none;\n  cursor: pointer;\n  border: 0;\n  font-size: var(--font-size);\n  color: var(--widget-fg-color);\n  background: var(--widget-bg-color);\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  padding: 0 var(--padding);\n}\n.gui input:focus, .gui input:active,\n.gui button:focus,\n.gui button:active {\n  background: var(--widget-bg-color-focus);\n  color: var(--widget-fg-color-focus);\n}\n.gui .display {\n  background: var(--widget-bg-color);\n}\n.gui .display.focus, .gui .display.active {\n  background: var(--widget-bg-color-focus);\n  color: var(--widget-fg-color-focus);\n}\n.gui .title {\n  height: var(--row-height);\n  padding: 0 var(--padding);\n  line-height: var(--row-height);\n  font-weight: bold;\n  cursor: pointer;\n}\n.gui .title:before {\n  font-family: \"gui-icons\";\n  content: \"▾\";\n  width: 1em;\n  vertical-align: middle;\n}\n.gui.closed .children {\n  display: none;\n}\n.gui.closed .title:before {\n  content: \"▸\";\n}\n.gui.root > .title {\n  background: var(--title-bg-color);\n}\n.gui.root > .children {\n  padding: calc(.5*var(--padding)) 0;\n}\n.gui:not(.root) > .children {\n  margin-left: 0.75em;\n  border-left: 2px solid var(--folder-rule-color);\n}\n.gui .header {\n  height: var(--row-height);\n  padding: 0 var(--padding);\n  font-weight: bold;\n  border-bottom: 1px solid var(--header-rule-color);\n  margin-bottom: calc(.5*var(--padding));\n  display: flex;\n  align-items: center;\n}\n.gui .controller {\n  display: flex;\n  align-items: center;\n  padding: 0 var(--padding);\n  height: var(--row-height);\n}\n.gui .controller.disabled {\n  opacity: 0.5;\n  pointer-events: none;\n}\n.gui .controller .name {\n  display: flex;\n  align-items: center;\n  width: var(--name-width);\n  height: 100%;\n  flex-shrink: 0;\n  overflow: hidden;\n}\n.gui .controller .widget {\n  display: flex;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n}\n.gui .controller.number input:not(:focus) {\n  color: var(--number-color);\n}\n.gui .controller.number.hasSlider input {\n  width: 33%;\n  min-width: 0;\n}\n.gui .controller.number .slider {\n  position: relative;\n  width: 100%;\n  height: var(--widget-height);\n  margin-right: calc(var(--padding) - 2px);\n  background-color: var(--widget-bg-color);\n  border-radius: var(--widget-border-radius);\n  overflow: hidden;\n}\n.gui .controller.number .fill {\n  height: 100%;\n  background-color: var(--number-color);\n}\n.gui .controller.string input:not(:focus) {\n  color: var(--string-color);\n}\n.gui .controller.color .widget {\n  position: relative;\n}\n.gui .controller.color input {\n  opacity: 0;\n  height: var(--widget-height);\n  width: 100%;\n  position: absolute;\n}\n.gui .controller.color .display {\n  height: var(--widget-height);\n  width: 100%;\n  border-radius: var(--widget-border-radius);\n  pointer-events: none;\n}\n.gui .controller.option .widget {\n  position: relative;\n}\n.gui .controller.option select {\n  opacity: 0;\n  position: absolute;\n  width: 100%;\n}\n.gui .controller.option .display {\n  pointer-events: none;\n  border-radius: var(--widget-border-radius);\n  height: var(--widget-height);\n  line-height: var(--widget-height);\n  padding: 0 var(--padding);\n}\n.gui .controller.option .display:after {\n  font-family: \"gui-icons\";\n  content: \"↕\";\n  vertical-align: middle;\n  margin-left: var(--padding);\n}\n\n/* \n.gui .controller.number.hasSlider { \n\tposition: relative;\n}\n\n.gui .controller.number.hasSlider .name { \n\tposition: absolute;\n\tpointer-events: none;\n\twidth: auto;\n} \n.gui .controller.number.hasSlider input {\n\twidth: 18%;\n} */\n.gui.solarized, .gui.solarized .gui {\n  --bg-color: #fdf6e3;\n  --fg-color: #657b83;\n  --widget-fg-color: #657b83;\n  --widget-bg-color: #eee8d5;\n  --widget-fg-color-focus: #eee8d5;\n  --widget-bg-color-focus: #657b83;\n  --number-color: #268bd2;\n  --string-color: #859900;\n  --title-bg-color: #eee8d5;\n  --header-rule-color: #eee8d5;\n  --folder-rule-color: #eee8d5;\n}\n";
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 

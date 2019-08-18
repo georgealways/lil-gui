@@ -57,9 +57,22 @@ export class Controller {
 
     setValue( value, finished = true ) {
         this.object[ this.property ] = value;
-        if ( this.__onChange !== undefined ) this.__onChange.call( this, value );
+        this._callOnChange();
         if ( finished ) this._callOnFinishedChange();
         this.updateDisplay();
+    }
+
+    mutateValue( values, finished = true ) {
+        Object.assign( this.getValue(), values );
+        this._callOnChange();
+        if ( finished ) this._callOnFinishedChange();
+        this.updateDisplay();
+    }
+
+    _callOnChange() {
+        if ( this.__onChange !== undefined ) {
+            this.__onChange.call( this, this.getValue() );
+        }
     }
 
     _callOnFinishedChange() {
