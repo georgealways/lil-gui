@@ -2,19 +2,19 @@ import { Controller } from './Controller.js';
 
 export class FunctionController extends Controller {
 
-    constructor( parent, object, property ) {
+	constructor( parent, object, property ) {
 
-        super( parent, object, property, 'function' );
+		super( parent, object, property, 'function' );
 
-        this.$button = document.createElement( 'button' );
-        this.$button.innerHTML = 'Fire';
+		this.$button = document.createElement( 'button' );
+		this.$button.innerHTML = 'Fire';
 
-        this.$button.addEventListener( 'click', () => {
-            this.getValue()();
-        } );
+		this.$button.addEventListener( 'click', () => {
+			this.getValue()();
+		} );
 
-        this.$widget.appendChild( this.$button );
+		this.$widget.appendChild( this.$button );
 
-    }
+	}
 
 }

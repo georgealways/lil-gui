@@ -2,25 +2,25 @@ import { Controller } from './Controller.js';
 
 export class BooleanController extends Controller {
 
-    constructor( parent, object, property ) {
+	constructor( parent, object, property ) {
 
-        super( parent, object, property, 'boolean', 'label' );
+		super( parent, object, property, 'boolean', 'label' );
 
-        this.$input = document.createElement( 'input' );
-        this.$input.setAttribute( 'type', 'checkbox' );
+		this.$input = document.createElement( 'input' );
+		this.$input.setAttribute( 'type', 'checkbox' );
 
-        this.$widget.appendChild( this.$input );
+		this.$widget.appendChild( this.$input );
 
-        this.$input.addEventListener( 'change', () => {
-            this.setValue( this.$input.checked );
-        } );
+		this.$input.addEventListener( 'change', () => {
+			this.setValue( this.$input.checked );
+		} );
 
-        this.updateDisplay();
+		this.updateDisplay();
 
-    }
+	}
 
-    updateDisplay() {
-        this.$input.checked = this.getValue();
-    }
+	updateDisplay() {
+		this.$input.checked = this.getValue();
+	}
 
 }

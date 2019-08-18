@@ -1,8 +1,10 @@
 todo
 
-[ ] headers
+[ ] clean up number controller
 
-[ ] numberkeyup / mousewheel for number inputs?
+[x] headers
+
+[x] numberkeyup / mousewheel for number inputs?
 [x] firefox disagrees about hasSlider input widths
 
 [x] try opacity=0 for native inputs for more consistent styling
@@ -11,15 +13,12 @@ todo
     [x] colorcontroller
     [x] function button
 
-[ ] strip comments from css / ...sass?
+[x] strip comments from css / ...sass?
 
-[ ] smaller names for mobile
+[x] color interpreter: '#ffffff', { r, g, b }, 0xffffff
 
-[ ] color interpreter: '#ffffff', { r, g, b }, 0xffffff
-
-[ ] hover for sliders
-
-[ ] umd build
+[n] smaller names for mobile
+[n] hover for sliders
 
 [x] maybe kill input[type=number] because it's too silly to style
 [x] decimals (eh)

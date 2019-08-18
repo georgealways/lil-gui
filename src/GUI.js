@@ -16,158 +16,158 @@ injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 export class GUI {
 
-    constructor( {
-        parent,
-        name = 'Controls',
-        autoPlace = true,
-        width = 250
-    } = {} ) {
+	constructor( {
+		parent,
+		name = 'Controls',
+		autoPlace = true,
+		width = 250
+	} = {} ) {
 
-        this.parent = parent;
-        this.children = [];
+		this.parent = parent;
+		this.children = [];
 
-        this.domElement = document.createElement( 'div' );
-        this.domElement.classList.add( 'gui' );
+		this.domElement = document.createElement( 'div' );
+		this.domElement.classList.add( 'gui' );
 
-        this.$children = document.createElement( 'div' );
-        this.$children.classList.add( 'children' );
+		this.$children = document.createElement( 'div' );
+		this.$children.classList.add( 'children' );
 
-        this.$title = document.createElement( 'div' );
-        this.$title.classList.add( 'title' );
-        this.$title.setAttribute( 'tabindex', 0 );
-        this.$title.addEventListener( 'click', () => {
-            this.__closed ? this.open() : this.close();
-        } );
+		this.$title = document.createElement( 'div' );
+		this.$title.classList.add( 'title' );
+		this.$title.setAttribute( 'tabindex', 0 );
+		this.$title.addEventListener( 'click', () => {
+			this.__closed ? this.open() : this.close();
+		} );
 
-        if ( this.parent ) {
+		if ( this.parent ) {
 
-            this.root = this.parent.root;
+			this.root = this.parent.root;
 
-            this.parent.children.push( this );
-            this.parent.$children.appendChild( this.domElement );
+			this.parent.children.push( this );
+			this.parent.$children.appendChild( this.domElement );
 
-        } else {
+		} else {
 
-            this.root = this;
+			this.root = this;
 
-            this.width( width );
-            this.domElement.classList.add( 'root' );
+			this.width( width );
+			this.domElement.classList.add( 'root' );
 
-            if ( autoPlace ) {
+			if ( autoPlace ) {
 
-                this.domElement.classList.add( 'autoPlace' );
-                document.body.appendChild( this.domElement );
+				this.domElement.classList.add( 'autoPlace' );
+				document.body.appendChild( this.domElement );
 
-                this._onResize = () => {
-                    this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-                };
+				this._onResize = () => {
+					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+				};
 
-                window.addEventListener( 'resize', this._onResize );
-                this._onResize();
+				window.addEventListener( 'resize', this._onResize );
+				this._onResize();
 
-            }
+			}
 
-        }
+		}
 
-        this.domElement.appendChild( this.$title );
-        this.domElement.appendChild( this.$children );
+		this.domElement.appendChild( this.$title );
+		this.domElement.appendChild( this.$children );
 
-        this.name( name );
+		this.name( name );
 
-    }
+	}
 
-    destroy() {
+	destroy() {
 
-        this.children.forEach( c => c.destroy() );
-        this.domElement.parentElement.removeChild( this.domElement );
+		this.children.forEach( c => c.destroy() );
+		this.domElement.parentElement.removeChild( this.domElement );
 
-        if ( this.parent ) {
-            this.parent.children.splice( this.parent.children.indexOf( this ) );
-        }
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ) );
+		}
 
-        if ( this._onResize ) {
-            window.removeEventListener( 'resize', this._onResize );
-        }
+		if ( this._onResize ) {
+			window.removeEventListener( 'resize', this._onResize );
+		}
 
-    }
+	}
 
-    add( object, property, $1, $2, $3 ) {
+	add( object, property, $1, $2, $3 ) {
 
-        const initialValue = object[ property ];
+		const initialValue = object[ property ];
 
-        if ( initialValue === undefined ) {
-            throw new Error( `Property "${property}" of ${object} is undefined.` );
-        }
+		if ( initialValue === undefined ) {
+			throw new Error( `Property "${property}" of ${object} is undefined.` );
+		}
 
-        let controller;
+		let controller;
 
-        if ( Array.isArray( $1 ) || isObject( $1 ) ) {
+		if ( Array.isArray( $1 ) || isObject( $1 ) ) {
 
-            controller = new OptionController( this, object, property, $1 );
+			controller = new OptionController( this, object, property, $1 );
 
-        } else if ( isBoolean( initialValue ) ) {
+		} else if ( isBoolean( initialValue ) ) {
 
-            controller = new BooleanController( this, object, property );
+			controller = new BooleanController( this, object, property );
 
-        } else if ( isString( initialValue ) ) {
+		} else if ( isString( initialValue ) ) {
 
-            controller = new StringController( this, object, property );
+			controller = new StringController( this, object, property );
 
-        } else if ( isFunction( initialValue ) ) {
+		} else if ( isFunction( initialValue ) ) {
 
-            controller = new FunctionController( this, object, property );
+			controller = new FunctionController( this, object, property );
 
-        } else if ( isNumber( initialValue ) ) {
+		} else if ( isNumber( initialValue ) ) {
 
-            controller = new NumberController( this, object, property, $1, $2, $3 );
+			controller = new NumberController( this, object, property, $1, $2, $3 );
 
-        } else {
+		} else {
 
-            throw new Error( `No suitable controller type for ${initialValue}` );
+			throw new Error( `No suitable controller type for ${initialValue}` );
 
-        }
+		}
 
-        return controller;
+		return controller;
 
-    }
+	}
 
-    addFolder( name ) {
-        return new GUI( { name, parent: this } );
-    }
+	addFolder( name ) {
+		return new GUI( { name, parent: this } );
+	}
 
-    addColor( object, property ) {
-        return new ColorController( this, object, property );
-    }
+	addColor( object, property ) {
+		return new ColorController( this, object, property );
+	}
 
-    addHeader( name ) {
-        return new Header( this, name );
-    }
+	addHeader( name ) {
+		return new Header( this, name );
+	}
 
-    name( name ) {
-        this.__name = name;
-        this.$title.innerHTML = name;
-        return this;
-    }
+	name( name ) {
+		this.__name = name;
+		this.$title.innerHTML = name;
+		return this;
+	}
 
-    width( v ) {
-        this.__width = v;
-        if ( v === undefined ) {
-            this.domElement.style.setProperty( '--width', 'auto' );
-        } else {
-            this.domElement.style.setProperty( '--width', v + 'px' );
-        }
-    }
+	width( v ) {
+		this.__width = v;
+		if ( v === undefined ) {
+			this.domElement.style.setProperty( '--width', 'auto' );
+		} else {
+			this.domElement.style.setProperty( '--width', v + 'px' );
+		}
+	}
 
-    open( open = true ) {
-        this.__closed = !open;
-        this.domElement.classList.toggle( 'closed', this.__closed );
-        return this;
-    }
+	open( open = true ) {
+		this.__closed = !open;
+		this.domElement.classList.toggle( 'closed', this.__closed );
+		return this;
+	}
 
-    close() {
-        this.__closed = true;
-        this.domElement.classList.add( 'closed' );
-        return this;
-    }
+	close() {
+		this.__closed = true;
+		this.domElement.classList.add( 'closed' );
+		return this;
+	}
 
 }

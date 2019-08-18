@@ -8,7 +8,7 @@
     "icons": "node style/iconfont.js",
     "css": "sass style/main.scss build/gui.css --no-source-map",
     "js": "rollup -c",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
     "watch-css": "npm run css -- --watch",
     "watch-js": "npm run js -- -w",
     "dev": "concurrently -c magenta,blue,green npm:watch-css npm:watch-js npm:start",
@@ -29,5 +29,43 @@
   },
   "eslintIgnore": [
     "build"
-  ]
+  ],
+  "eslintConfig": {
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2015,
+        "sourceType": "module"
+    },
+    "rules": {
+        "array-bracket-spacing": [ "warn", "always" ],
+        "arrow-spacing": "warn",
+        "brace-style": [ "warn", "1tbs" ],
+        "comma-spacing": "warn",
+        "comma-dangle": [ "warn", "never" ],
+        "computed-property-spacing": [ "warn", "always" ],
+        "eqeqeq": [ "warn", "always" ],
+        "func-call-spacing": [ "warn", "never" ],
+        "indent": [ "warn", "tab", { "SwitchCase": 1 } ],
+        "key-spacing": [ "warn", { "mode": "minimum" } ],
+        "keyword-spacing": "warn",
+        "linebreak-style": [ "warn", "unix" ],
+        "new-parens": "warn",
+        "no-extra-semi": "warn",
+        "no-multiple-empty-lines": "warn",
+        "no-trailing-spaces": [ "warn" ],
+        "no-whitespace-before-property": "warn",
+        "no-undef": "error",
+        "no-var": "warn",
+        "object-curly-spacing": [ "warn", "always" ],
+        "quotes": [ "warn", "single" ],
+        "semi-spacing": "warn",
+        "semi": [ "warn", "always" ],
+        "space-before-function-paren": [ "warn", "never" ],
+        "space-in-parens": [ "warn", "always", { "exceptions": [ "empty" ] } ],
+        "space-infix-ops": "warn"
+    }
+  }
 }
