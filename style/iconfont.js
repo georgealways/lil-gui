@@ -24,6 +24,6 @@ webfont( {
             if ( err ) throw err;
         } );
     } )
-    .catch( error => {
-        throw error;
+    .catch( err => {
+        throw err;
     } );

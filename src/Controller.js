@@ -95,8 +95,6 @@ export class Controller {
         return this.object[ this.property ];
     }
 
-    updateDisplay() {
-        return this;
-    }
+    updateDisplay() {}
 
 }

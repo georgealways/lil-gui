@@ -95,9 +95,7 @@ class Controller {
         return this.object[ this.property ];
     }
 
-    updateDisplay() {
-        return this;
-    }
+    updateDisplay() {}
 
 }
 
@@ -135,8 +133,8 @@ const isObject = val => Object( val ) === val;
 /**
  * @typedef ColorFormat
  * @property {boolean} isPrimitive false for Array and Object formats
- * @property {function(*):boolean} match returns true if the value matches this format
- * @property {function(string)} fromHexString converts from #FFFFFF to this format
+ * @property {function(*):boolean} match returns true if a value matches this format
+ * @property {function(string):*} fromHexString converts from #FFFFFF to this format
  * @property {function(*):string} toHexString converts from this format to #FFFFFF
  */
 
@@ -154,25 +152,6 @@ const INT = {
     toHexString: value => '#' + value.toString( 16 ).padStart( 6, 0 )
 };
 
-const OBJECT = {
-    isPrimitive: false,
-    match: isObject,
-    fromHexString( string ) {
-        const int = INT.fromHexString( string );
-        return {
-            r: ( int >> 16 & 255 ) / 0xff,
-            g: ( int >> 8 & 255 ) / 0xff,
-            b: ( int & 255 ) / 0xff
-        };
-    },
-    toHexString( { r, g, b } ) {
-        const int = ( r * 0xff ) << 16
-                  ^ ( g * 0xff ) << 8
-                  ^ ( b * 0xff ) << 0;
-        return INT.toHexString( int );
-    }
-};
-
 const ARRAY = {
     isPrimitive: false,
     match: Array.isArray,
@@ -185,6 +164,25 @@ const ARRAY = {
         ];
     },
     toHexString( [ r, g, b ] ) {
+        const int = ( r * 0xff ) << 16
+                  ^ ( g * 0xff ) << 8
+                  ^ ( b * 0xff ) << 0;
+        return INT.toHexString( int );
+    }
+};
+
+const OBJECT = {
+    isPrimitive: false,
+    match: isObject,
+    fromHexString( string ) {
+        const int = INT.fromHexString( string );
+        return {
+            r: ( int >> 16 & 255 ) / 0xff,
+            g: ( int >> 8 & 255 ) / 0xff,
+            b: ( int & 255 ) / 0xff
+        };
+    },
+    toHexString( { r, g, b } ) {
         const int = ( r * 0xff ) << 16
                   ^ ( g * 0xff ) << 8
                   ^ ( b * 0xff ) << 0;
