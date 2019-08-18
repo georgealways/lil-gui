@@ -67,7 +67,6 @@ export class NumberController extends Controller {
 
 
 		this.$input.addEventListener( 'keydown', e => {
-			console.log( e );
 			if ( e.keyCode === 13 ) {
 				this.$input.blur();
 			}

@@ -1,6 +1,7 @@
 todo
 
-[ ] clean up number controller
+[ ] minified css strips utf8 charset declaration, breaking gui-font
+[ ] clean up number controller. shit ain't dry
 
 [x] headers
 

@@ -4,20 +4,19 @@
   "description": "",
   "module": "build/gui.module.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "icons": "node style/iconfont.js",
-    "css": "sass style/main.scss build/gui.css --no-source-map",
+    "css": "sass style/main.scss build/gui.css --style=compressed --no-charset --no-source-map",
     "js": "rollup -c",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "watch-css": "npm run css -- --watch",
     "watch-js": "npm run js -- -w",
     "dev": "concurrently -c magenta,blue,green npm:watch-css npm:watch-js npm:start",
     "start": "live-server --watch=build,demo --open=demo --wait=20",
-    "build": "npm run icons && npm run css && npm run js"
+    "build": "npm run lint && npm run icons && npm run css && npm run js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^4.1.1",
     "eslint": "^6.1.0",
@@ -59,6 +58,7 @@
         "no-whitespace-before-property": "warn",
         "no-undef": "error",
         "no-var": "warn",
+        "no-console": "warn",
         "object-curly-spacing": [ "warn", "always" ],
         "quotes": [ "warn", "single" ],
         "semi-spacing": "warn",

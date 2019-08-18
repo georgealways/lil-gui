@@ -6,6 +6,7 @@ export function injectStyles( cssContent, fallbackURL ) {
 	try {
 		head.appendChild( injected );
 	} catch ( e ) {
+		// eslint-disable-next-line no-console
 		console.warn( `Failed to inject styles. Manually include the stylesheet at ${fallbackURL}` );
 	}
 }

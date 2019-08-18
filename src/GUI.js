@@ -1,3 +1,4 @@
+import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
 import { BooleanController } from './BooleanController.js';
 import { ColorController } from './ColorController.js';
 import { FunctionController } from './FunctionController.js';
@@ -6,12 +7,8 @@ import { OptionController } from './OptionController.js';
 import { StringController } from './StringController.js';
 import { Header } from './Header.js';
 
-import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
-
 import { injectStyles } from './utils/injectStyles.js';
-
 import styles from '../build/gui.css';
-
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 export class GUI {

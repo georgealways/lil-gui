@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { GUI } from '../build/gui.module.js';
 
 const randomVariables = [
