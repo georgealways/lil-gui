@@ -5,13 +5,14 @@
   "module": "build/gui.module.js",
   "scripts": {
     "icons": "node style/iconfont.js",
+    "icons:watch": "onchange 'style/icons/*.svg' -- npm run icons",
     "css": "sass style/main.scss build/gui.css --style=compressed --no-charset --no-source-map",
+    "css:watch": "npm run css -- --watch",
     "js": "rollup -c",
+    "js:watch": "npm run js -- -w",
     "lint": "eslint . --fix",
-    "watch-css": "npm run css -- --watch",
-    "watch-js": "npm run js -- -w",
-    "dev": "concurrently -c magenta,blue,green npm:watch-css npm:watch-js npm:start",
-    "start": "live-server --watch=build,demo --open=demo --wait=20",
+    "dev": "concurrently npm:*:watch npm:server",
+    "server": "live-server --watch=build,demo --open=demo --wait=20",
     "build": "npm run lint && npm run icons && npm run css && npm run js"
   },
   "keywords": [],
