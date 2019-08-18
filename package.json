@@ -5,8 +5,15 @@
   "module": "build/gui.module.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently -n rollup,server \"rollup -c -w\" \"live-server --watch=build,demo --open=demo --wait=20\"",
-    "build": "rollup -c"
+    "dev": "concurrently -c yellow,magenta,blue,green npm:watch-icons npm:watch-css npm:watch-js npm:start",
+    "icons": "node style/iconfont.js",
+    "js": "rollup -c",
+    "css": "sass style/main.scss build/gui.css --no-source-map",
+    "watch-icons": "watch \"npm run icons\" style/icons",
+    "watch-css": "npm run css -- --watch",
+    "watch-js": "npm run js -- -w",
+    "start": "live-server --watch=build,demo --open=demo --wait=20",
+    "build": "npm run icons && npm run css && npm run js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +23,10 @@
     "eslint": "^6.1.0",
     "live-server": "^1.2.1",
     "rollup": "^1.17.0",
-    "rollup-plugin-string": "^3.0.0"
+    "rollup-plugin-string": "^3.0.0",
+    "sass": "^1.22.10",
+    "watch": "^1.0.2",
+    "webfont": "^9.0.0"
   },
   "eslintIgnore": [
     "build"

@@ -112,8 +112,9 @@ const GUIS = {
         gui.add( { function: () => alert( 'hi' ) }, 'function' );
 
         gui.add( { value: false }, 'value' ).name( 'A disabled value' ).disable();
+        gui.add( { value: false }, 'value' ).name( 'longunbreakablewordwhathappens' );
 
-        folder0.add( { options: 3 }, 'options' ).name( 'dickhead options' ).options( { One: 1, Two: 2, Three: 3 } );
+        folder0.add( { options: 3 }, 'options' ).name( 'options' ).options( { One: 1, Two: 2, Three: 3 } );
 
     }
 

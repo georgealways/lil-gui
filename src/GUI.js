@@ -10,7 +10,7 @@ import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.
 
 import { injectStyles } from './utils/injectStyles.js';
 
-import styles from './GUI.css';
+import styles from '../build/gui.css';
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
@@ -34,6 +34,7 @@ export class GUI {
 
         this.$title = document.createElement( 'div' );
         this.$title.classList.add( 'title' );
+        this.$title.setAttribute( 'tabindex', 0 );
         this.$title.addEventListener( 'click', () => {
             this.__closed ? this.open() : this.close();
         } );
@@ -90,11 +91,7 @@ export class GUI {
 
     }
 
-    add( object, property, $1, $2, $3, $4 ) {
-
-        if ( !object.hasOwnProperty( property ) ) {
-            throw new Error( `${object} has no property called "${property}"` );
-        }
+    add( object, property, $1, $2, $3 ) {
 
         const initialValue = object[ property ];
 
@@ -122,7 +119,7 @@ export class GUI {
 
         } else if ( isNumber( initialValue ) ) {
 
-            controller = new NumberController( this, object, property, $1, $2, $3, $4 );
+            controller = new NumberController( this, object, property, $1, $2, $3 );
 
         } else {
 
