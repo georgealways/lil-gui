@@ -19,12 +19,20 @@ export class ColorController extends Controller {
 		this.__colorFormat = getColorFormat( this.getValue() );
 
 		this.$input.addEventListener( 'change', () => {
-			const newValue = this.__colorFormat.fromHexString( this.$input.value );
+
 			if ( this.__colorFormat.isPrimitive ) {
+
+				const newValue = this.__colorFormat.fromHexString( this.$input.value );
 				this.setValue( newValue );
+
 			} else {
-				this.mutateValue( newValue );
+
+				const target = this.getValue();
+				this.__colorFormat.fromHexString( this.$input.value, target );
+				this._onSetValue();
+
 			}
+
 		} );
 
 		this.updateDisplay();

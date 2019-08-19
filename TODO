@@ -1,7 +1,10 @@
 todo
 
-[ ] minified css strips utf8 charset declaration, breaking gui-font
+[x] colorformat non primitive
+[ ] kill onfinishchange
 [ ] clean up number controller. shit ain't dry
+
+[x] minified css strips utf8 charset declaration, breaking gui-font
 
 [x] headers
 
@@ -32,7 +35,10 @@ changelog
     [+] mobile styles
     [+] "headers"
     [+] enable() / disable()
-    [+] color rgb range
+    [+] color object range to (0-1)
+        three.js - https://github.com/mrdoob/three.js/blob/dev/src/math/Color.js#L111
+        playcanvas - https://github.com/playcanvas/engine/blob/57a6a00e592575664002cb6dc98a98ff39d16d36/src/core/color.js#L7
+        Babylon.js - https://github.com/BabylonJS/Babylon.js/blob/c0f2f550cd1cc63f42bcd69e832e5bc93c56efa6/src/Maths/math.color.ts#L13
 
     [c] .remove( controller ) => controller.destroy()
     [c] .removeFolder( folder ) => folder.destroy()

@@ -63,13 +63,10 @@ class Controller {
 
 	setValue( value, finished = true ) {
 		this.object[ this.property ] = value;
-		this._callOnChange();
-		if ( finished ) this._callOnFinishedChange();
-		this.updateDisplay();
+		this._onSetValue( finished );
 	}
 
-	mutateValue( values, finished = true ) {
-		Object.assign( this.getValue(), values );
+	_onSetValue( finished = true ) {
 		this._callOnChange();
 		if ( finished ) this._callOnFinishedChange();
 		this.updateDisplay();
@@ -134,7 +131,7 @@ class BooleanController extends Controller {
  * @typedef ColorFormat
  * @property {boolean} isPrimitive false for Array and Object formats
  * @property {function(*):boolean} match returns true if a value matches this format
- * @property {function(string):*} fromHexString converts from #FFFFFF to this format
+ * @property {function(string,*):*} fromHexString converts from #FFFFFF to this format
  * @property {function(*):string} toHexString converts from this format to #FFFFFF
  */
 
@@ -152,41 +149,22 @@ const INT = {
 	toHexString: value => '#' + value.toString( 16 ).padStart( 6, 0 )
 };
 
-const ARRAY = {
-	isPrimitive: false,
-	match: Array.isArray,
-	fromHexString( string ) {
-		const int = INT.fromHexString( string );
-		return [
-			( int >> 16 & 255 ) / 0xff,
-			( int >> 8 & 255 ) / 0xff,
-			( int & 255 ) / 0xff
-		];
-	},
-	toHexString( [ r, g, b ] ) {
-		const int = ( r * 0xff ) << 16 ^ ( g * 0xff ) << 8 ^ ( b * 0xff ) << 0;
-		return INT.toHexString( int );
-	}
-};
-
 const OBJECT = {
 	isPrimitive: false,
 	match: isObject,
-	fromHexString( string ) {
+	fromHexString( string, target ) {
 		const int = INT.fromHexString( string );
-		return {
-			r: ( int >> 16 & 255 ) / 0xff,
-			g: ( int >> 8 & 255 ) / 0xff,
-			b: ( int & 255 ) / 0xff
-		};
+		target.r = ( int >> 16 & 255 ) / 255;
+		target.g = ( int >> 8 & 255 ) / 255;
+		target.b = ( int & 255 ) / 255;
 	},
 	toHexString( { r, g, b } ) {
-		const int = ( r * 0xff ) << 16 ^ ( g * 0xff ) << 8 ^ ( b * 0xff ) << 0;
+		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
 		return INT.toHexString( int );
 	}
 };
 
-const FORMATS = [ STRING, INT, ARRAY, OBJECT ];
+const FORMATS = [ STRING, INT, OBJECT ];
 
 /**
  * @returns {ColorFormat}
@@ -213,12 +191,20 @@ class ColorController extends Controller {
 		this.__colorFormat = getColorFormat( this.getValue() );
 
 		this.$input.addEventListener( 'change', () => {
-			const newValue = this.__colorFormat.fromHexString( this.$input.value );
+
 			if ( this.__colorFormat.isPrimitive ) {
+
+				const newValue = this.__colorFormat.fromHexString( this.$input.value );
 				this.setValue( newValue );
+
 			} else {
-				this.mutateValue( newValue );
+
+				const target = this.getValue();
+				this.__colorFormat.fromHexString( this.$input.value, target );
+				this._onSetValue();
+
 			}
+
 		} );
 
 		this.updateDisplay();

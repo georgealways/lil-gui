@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { GUI } from '../build/gui.module.min.js';
+import { GUI } from '../build/gui.module.js';
 
 const randomVariables = [
 	'x',
