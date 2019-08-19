@@ -23,14 +23,27 @@ const GUIS = {
 
 	'Basic': function( gui ) {
 
-		gui.add( { options: 'Basic' }, 'options', [ 'Basic', 'Headers', 'Folders' ] );
-		gui.add( { number: 0 }, 'number' );
-		gui.add( { slider: 0.5 }, 'slider', 0, 1 );
-		gui.add( { boolean: true }, 'boolean' );
-		gui.addHeader( 'Header' );
-		gui.add( { string: 'string' }, 'string' );
-		gui.addColor( { color: '#eeaaff' }, 'color' );
-		gui.add( { function: () => alert( 'sup' ) }, 'function' );
+		const object = {
+			number: 0.5,
+			boolean: true,
+			string: 'string',
+			options: 1,
+			button() {
+				alert( 'sup' );
+			},
+			color: {
+				r: 0,
+				g: 0.5,
+				b: 1
+			}
+		};
+
+		gui.add( object, 'number', 0, 1 );
+		gui.add( object, 'boolean' );
+		gui.add( object, 'string' );
+		gui.add( object, 'options', { One: 1, Two: 2, Three: 3 } );
+		gui.add( object, 'button' );
+		gui.addColor( object, 'color' );
 
 	},
 
