@@ -11,8 +11,18 @@ import { injectStyles } from './utils/injectStyles.js';
 import styles from '../build/gui.css';
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
+/**
+ * @typicalname gui
+ */
 export class GUI {
 
+	/**
+	 * 
+	 * @param {Object} [params]
+	 * @param {GUI} [params.parent]
+	 * @param {string} [params.name]
+	 * @param {number} [params.width]
+	 */
 	constructor( {
 		parent,
 		name = 'Controls',
@@ -20,15 +30,31 @@ export class GUI {
 		width = 250
 	} = {} ) {
 
+		/**
+		 * @type {GUI}
+		 */
 		this.parent = parent;
+
+		/**
+		 * @type {Array}
+		 */
 		this.children = [];
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'gui' );
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
 		this.$title.setAttribute( 'tabindex', 0 );
@@ -38,6 +64,9 @@ export class GUI {
 
 		if ( this.parent ) {
 
+			/**
+			 * @type {GUI}
+			 */
 			this.root = this.parent.root;
 
 			this.parent.children.push( this );
@@ -73,6 +102,9 @@ export class GUI {
 
 	}
 
+	/**
+	 * 
+	 */
 	destroy() {
 
 		this.children.forEach( c => c.destroy() );
@@ -88,6 +120,15 @@ export class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @param {*} $1 
+	 * @param {*} $2 
+	 * @param {*} $3 
+	 * @returns {Controller}
+	 */
 	add( object, property, $1, $2, $3 ) {
 
 		const initialValue = object[ property ];
@@ -128,14 +169,30 @@ export class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {GUI}
+	 */
 	addFolder( name ) {
 		return new GUI( { name, parent: this } );
 	}
 
+	/**
+	 * 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @returns {ColorController}
+	 */
 	addColor( object, property ) {
 		return new ColorController( this, object, property );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {Header}
+	 */
 	addHeader( name ) {
 		return new Header( this, name );
 	}

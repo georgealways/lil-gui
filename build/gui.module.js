@@ -4,22 +4,44 @@ const isBoolean = val => typeof val === 'boolean';
 const isNumber = val => typeof val === 'number';
 const isObject = val => Object( val ) === val;
 
+/**
+ * 
+ */
 class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
+		/**
+		 * @type {GUI}
+		 */
 		this.parent = parent;
 
+		/**
+		 * @type {Object}
+		 */
 		this.object = object;
+
+		/**
+		 * @type {string}
+		 */
 		this.property = property;
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.domElement = document.createElement( tagName );
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.$name = document.createElement( 'div' );
 		this.$name.classList.add( 'name' );
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.$widget = document.createElement( 'div' );
 		this.$widget.classList.add( 'widget' );
 
@@ -33,18 +55,44 @@ class Controller {
 
 	}
 
+	/**
+	 * 
+	 */
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ) );
 		this.parent.$children.removeChild( this.domElement );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {Controller} 
+	 */
 	name( name ) {
+		/**
+		 * @type {string}
+		 * @readonly
+		 */
 		this.__name = name;
 		this.$name.innerHTML = name;
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param {function} fnc 
+	 * @returns {Controller} 
+	 * 
+	 * @example
+	 * gui.add( object, 'property' ).onChange( v => {
+	 * 	console.log( 'The value is now ' + v );
+	 * } );
+	 */
 	onChange( fnc ) {
+		/**
+		 * @type {function}
+		 * @readonly
+		 */
 		this.__onChange = fnc;
 		return this;
 	}
@@ -84,20 +132,44 @@ class Controller {
 		}
 	}
 
+	/**
+	 * 
+	 * @param {boolean=} enable 
+	 * @returns {Controller} 
+	 * @example
+	 * controller.enable();
+	 * controller.enable( false ); // disable
+	 * controller.enable( controller.__disabled ); // toggle
+	 */
 	enable( enable = true ) {
+		/**
+		 * @type {boolean}
+		 */
 		this.__disabled = !enable;
 		this.domElement.classList.toggle( 'disabled', this.__disabled );
+		return this;
 	}
 
+	/**
+	 * 
+	 * @returns {Controller} 
+	 */
 	disable() {
 		this.__disabled = true;
 		this.domElement.classList.add( 'disabled' );
+		return this;
 	}
 
+	/**
+	 * 
+	 */
 	getValue() {
 		return this.object[ this.property ];
 	}
 
+	/**
+	 * 
+	 */
 	updateDisplay() {}
 
 }
@@ -133,6 +205,7 @@ class BooleanController extends Controller {
  * @property {function(*):boolean} match returns true if a value matches this format
  * @property {function(string,*):*} fromHexString converts from #FFFFFF to this format
  * @property {function(*):string} toHexString converts from this format to #FFFFFF
+ * @ignore
  */
 
 const STRING = {
@@ -168,6 +241,7 @@ const FORMATS = [ STRING, INT, OBJECT ];
 
 /**
  * @returns {ColorFormat}
+ * @ignore
  */
 function getColorFormat( value ) {
 	return FORMATS.find( format => format.match( value ) );
@@ -242,6 +316,15 @@ const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
 
 class NumberController extends Controller {
 
+	/**
+	 * 
+	 * @param {GUI} parent 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @param {number} [min] 
+	 * @param {number} [max] 
+	 * @param {number} [step] 
+	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );
@@ -628,6 +711,9 @@ class StringController extends Controller {
 
 }
 
+/**
+ * 
+ */
 class Header {
 
 	constructor( parent, name ) {
@@ -673,8 +759,18 @@ var styles = "@font-face{font-family:\"gui-icons\";src:url(\"data:application/fo
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
+/**
+ * @typicalname gui
+ */
 class GUI {
 
+	/**
+	 * 
+	 * @param {Object} [params]
+	 * @param {GUI} [params.parent]
+	 * @param {string} [params.name]
+	 * @param {number} [params.width]
+	 */
 	constructor( {
 		parent,
 		name = 'Controls',
@@ -682,15 +778,31 @@ class GUI {
 		width = 250
 	} = {} ) {
 
+		/**
+		 * @type {GUI}
+		 */
 		this.parent = parent;
+
+		/**
+		 * @type {Array}
+		 */
 		this.children = [];
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'gui' );
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
 		this.$title.setAttribute( 'tabindex', 0 );
@@ -700,6 +812,9 @@ class GUI {
 
 		if ( this.parent ) {
 
+			/**
+			 * @type {GUI}
+			 */
 			this.root = this.parent.root;
 
 			this.parent.children.push( this );
@@ -735,6 +850,9 @@ class GUI {
 
 	}
 
+	/**
+	 * 
+	 */
 	destroy() {
 
 		this.children.forEach( c => c.destroy() );
@@ -750,6 +868,15 @@ class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @param {*} $1 
+	 * @param {*} $2 
+	 * @param {*} $3 
+	 * @returns {Controller}
+	 */
 	add( object, property, $1, $2, $3 ) {
 
 		const initialValue = object[ property ];
@@ -790,14 +917,30 @@ class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {GUI}
+	 */
 	addFolder( name ) {
 		return new GUI( { name, parent: this } );
 	}
 
+	/**
+	 * 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @returns {ColorController}
+	 */
 	addColor( object, property ) {
 		return new ColorController( this, object, property );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {Header}
+	 */
 	addHeader( name ) {
 		return new Header( this, name );
 	}

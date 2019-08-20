@@ -1,19 +1,41 @@
+/**
+ * 
+ */
 export class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
+		/**
+		 * @type {GUI}
+		 */
 		this.parent = parent;
 
+		/**
+		 * @type {Object}
+		 */
 		this.object = object;
+
+		/**
+		 * @type {string}
+		 */
 		this.property = property;
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.domElement = document.createElement( tagName );
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.$name = document.createElement( 'div' );
 		this.$name.classList.add( 'name' );
 
+		/**
+		 * @type {HTMLElement}
+		 */
 		this.$widget = document.createElement( 'div' );
 		this.$widget.classList.add( 'widget' );
 
@@ -27,18 +49,44 @@ export class Controller {
 
 	}
 
+	/**
+	 * 
+	 */
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ) );
 		this.parent.$children.removeChild( this.domElement );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {Controller} 
+	 */
 	name( name ) {
+		/**
+		 * @type {string}
+		 * @readonly
+		 */
 		this.__name = name;
 		this.$name.innerHTML = name;
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param {function} fnc 
+	 * @returns {Controller} 
+	 * 
+	 * @example
+	 * gui.add( object, 'property' ).onChange( v => {
+	 * 	console.log( 'The value is now ' + v );
+	 * } );
+	 */
 	onChange( fnc ) {
+		/**
+		 * @type {function}
+		 * @readonly
+		 */
 		this.__onChange = fnc;
 		return this;
 	}
@@ -78,20 +126,44 @@ export class Controller {
 		}
 	}
 
+	/**
+	 * 
+	 * @param {boolean=} enable 
+	 * @returns {Controller} 
+	 * @example
+	 * controller.enable();
+	 * controller.enable( false ); // disable
+	 * controller.enable( controller.__disabled ); // toggle
+	 */
 	enable( enable = true ) {
+		/**
+		 * @type {boolean}
+		 */
 		this.__disabled = !enable;
 		this.domElement.classList.toggle( 'disabled', this.__disabled );
+		return this;
 	}
 
+	/**
+	 * 
+	 * @returns {Controller} 
+	 */
 	disable() {
 		this.__disabled = true;
 		this.domElement.classList.add( 'disabled' );
+		return this;
 	}
 
+	/**
+	 * 
+	 */
 	getValue() {
 		return this.object[ this.property ];
 	}
 
+	/**
+	 * 
+	 */
 	updateDisplay() {}
 
 }

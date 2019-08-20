@@ -3,6 +3,15 @@ import { map } from './utils/map.js';
 
 export class NumberController extends Controller {
 
+	/**
+	 * 
+	 * @param {GUI} parent 
+	 * @param {*} object 
+	 * @param {string} property 
+	 * @param {number} [min] 
+	 * @param {number} [max] 
+	 * @param {number} [step] 
+	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );

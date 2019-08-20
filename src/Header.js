@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 export class Header {
 
 	constructor( parent, name ) {

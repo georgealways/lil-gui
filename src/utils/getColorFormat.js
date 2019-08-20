@@ -6,6 +6,7 @@ import { isString, isNumber, isObject } from './is.js';
  * @property {function(*):boolean} match returns true if a value matches this format
  * @property {function(string,*):*} fromHexString converts from #FFFFFF to this format
  * @property {function(*):string} toHexString converts from this format to #FFFFFF
+ * @ignore
  */
 
 const STRING = {
@@ -41,6 +42,7 @@ const FORMATS = [ STRING, INT, OBJECT ];
 
 /**
  * @returns {ColorFormat}
+ * @ignore
  */
 export function getColorFormat( value ) {
 	return FORMATS.find( format => format.match( value ) );

@@ -1,6 +1,6 @@
 # @georgealways/gui
 
-Another dat.gui clone...by the dude who made dat.gui.
+Blah
 
 ```js
 import { GUI } from '@georgealways/gui';
@@ -25,6 +25,8 @@ gui.addColor( object, 'color' );
 ```
 
 Controller types are inferred by the property's initial value.
+
+# Basic Usage
 
 ## Sliders
 
@@ -67,9 +69,3 @@ gui.add( uniforms.specularStrength, 'value' ).name( 'Strength' );
 gui.add( uniforms.specularPower, 'value' ).name( 'Power' );
 gui.addColor( uniforms.specularColor, 'value' ).name( 'Color' );
 ```
-
-## Folders
-
-# Why?
-
-Motivated by one petty frustration or another, I've probably rewritten dat.gui once a year since it was published in 2012.
