@@ -1,160 +1,114 @@
 /* eslint-disable no-console */
 import { GUI } from '../build/gui.module.js';
 
-const randomVariables = [
-	'x',
-	'y',
-	'variance',
-	'speed',
-	'frequency',
-	'spread',
-	'jitter',
-	'velocity',
-	'damping',
-	'width',
-	'height',
-	'environment',
-	'multiplier',
-	'strength',
-	'delta'
-];
+class App {
+	constructor() {
+		this.demos = {};
+	}
+	set demo( name ) {
 
-const GUIS = {
+		this.__demo = name;
 
-	'Basic': function( gui ) {
+		history.replaceState( undefined, undefined, name === this.defaultDemo ? ' ' : '#' + name );
 
-		const object = {
-			number: 0.5,
-			boolean: true,
-			string: 'string',
-			options: 1,
-			button() {
-				alert( 'sup' );
-			},
-			color: {
-				r: 0,
-				g: 0.5,
-				b: 1
-			}
-		};
+		if ( this.gui ) {
+			this.gui.destroy();
+		}
 
-		gui.add( object, 'number', 0, 1 );
-		gui.add( object, 'boolean' );
-		gui.add( object, 'string' );
-		gui.add( object, 'options', { One: 1, Two: 2, Three: 3 } );
-		gui.add( object, 'button' );
-		gui.addColor( object, 'color' );
+		this.gui = new GUI();
+		this.gui.add( this, 'demo', Object.keys( this.demos ) );
 
-	},
-
-	'One Slider': function( gui ) {
-
-		gui.add( { strength: 0 }, 'strength', 0, 1, 0.1 );
-
-	},
-
-	'Folders': function( gui ) {
-
-		let folder;
-		folder = gui.addFolder( 'folder' );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', -1, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 100 );
-		folder.add( { a: Math.random() }, 'a', 0, 32, 1 );
-
-		folder = gui.addFolder( 'folder' );
-		folder.add( { a: Math.random() }, 'a', 0, 1000 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-
-		folder = gui.addFolder( 'folder' );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-		folder.add( { a: Math.random() }, 'a', 0, 1 );
-
-	},
-
-	'Old Kitchen Sink': function( gui ) {
-
-
-		gui.add( { a: 0 }, 'a', 0, 1 )
-			.onChange( () => console.log( 'onChange' ) )
-			.onFinishChange( () => console.log( 'onFinishChange' ) );
-		gui.add( { a: 0 }, 'a' )
-			.onChange( () => console.log( 'onChange' ) )
-			.onFinishChange( () => console.log( 'onFinishChange' ) );
-
-		gui.addColor( { color: '#ff00aa' }, 'color' );
-
-		gui.add( { a: 0 }, 'a', [ 0, 1, 2 ] )
-			.onChange( () => console.log( 'onChange' ) )
-			.onFinishChange( () => console.log( 'onFinishChange' ) );
-
-		gui.add( { a: 'a' }, 'a' )
-			.onChange( () => console.log( 'onChange' ) )
-			.onFinishChange( () => console.log( 'onFinishChange' ) );
-
-		gui.add( { a: true }, 'a' )
-			.onChange( () => console.log( 'onChange' ) )
-			.onFinishChange( () => console.log( 'onFinishChange' ) );
-
-		gui.add( { options: 'b' }, 'options', [ 'a', 'b', 'c' ] ).onChange( console.log );
-
-		const obj = { number: 0 };
-		gui.add( obj, 'number' ).onChange( console.log );
-		gui.add( { 'number': 0.2 }, 'number', 0 ).name( 'number min' );
-		gui.add( { 'number': 0.4 }, 'number', 0, 1 ).name( 'number min max' );
-		gui.add( { 'number': 0.6 }, 'number' ).min( 0 ).max( 1 ).name( 'number min max methods' );
-		gui.add( { 'number': 0.6 }, 'number', 0, 500, 73 ).disable();
-
-		const folder0 = gui.addFolder( 'sup' );
-		folder0.add( { string: 'String' }, 'string' );
-		folder0.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
-
-		const folder2 = folder0.addFolder( 'more' );
-		folder2.add( { string: 'String' }, 'string' );
-		folder2.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
-
-		const folder3 = folder2.addFolder( 'more more' );
-		folder3.add( { string: 'String' }, 'string' );
-		folder3.add( { options: 3 }, 'options', { One: 1, Two: 2, Three: 3 } ).onChange( console.log );
-
-
-		gui.add( { boolean: true }, 'boolean' );
-		gui.add( { function: () => alert( 'hi' ) }, 'function' );
-
-		gui.add( { value: false }, 'value' ).name( 'A disabled value' ).disable();
-		gui.add( { value: false }, 'value' ).name( 'longunbreakablewordwhathappens' );
-
-		folder0.add( { options: 3 }, 'options' ).name( 'options' ).options( { One: 1, Two: 2, Three: 3 } );
+		this.demos[ name ]( this.gui );
 
 	}
+	get demo() {
+		return this.__demo;
+	}
+}
+
+const app = new App();
+
+app.demos[ 'Basic' ] = function( gui ) {
+
+	gui.add( { number: 0.5 }, 'number', 0, 1 );
+	gui.addColor( { color: 0x6C44BE }, 'color' );
+	gui.add( { string: 'message' }, 'string' );
+	gui.add( { boolean: true }, 'boolean' );
+	gui.add( { button() { alert( 'sup' ); } }, 'button' );
 
 };
 
-let gui;
+app.demos[ 'Kitchen Sink' ] = function( gui ) {
 
-function buildGUI( builder ) {
-	if ( gui !== undefined ) {
-		gui.destroy();
-	}
-	gui = new GUI();
-	builder( gui );
+	gui.addHeader( 'Numbers' );
+
+	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
+	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
+	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
+
+	gui.addHeader( 'Ranges' );
+
+	gui.add( { x: 0.5 }, 'x', 0, 1 ).name( '[0,1]' );
+	gui.add( { x: 0 }, 'x', -1, 1 ).name( '[-1,1]' );
+	gui.add( { x: 50 }, 'x', 0, 100 ).name( '[0,100]' );
+	gui.add( { x: 8.5 }, 'x', 1, 16 ).name( '[1,16]' );
+
+	gui.addHeader( 'Step' );
+
+	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
+	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1 (default)' );
+	gui.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
+	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
+
+	gui.addHeader( 'Colors' );
+
+	gui.addColor( { x: '#6C44BE' }, 'x' ).name( 'Hex String' );
+	gui.addColor( { x: 0x6C44BE }, 'x' ).name( 'Hex Int' );
+	gui.addColor( { x: { r: 0, g: 1, b: 1 } }, 'x' ).name( 'RGB Object' );
+
+	gui.addHeader( 'Options' );
+
+	gui.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
+	gui.add( { x: 0 }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Object' );
+	gui.add( { x: -1 }, 'x', [ 0, 1, 2 ] ).name( 'Invalid initial' );
+
+	const longString = 'Anoptionorvaluewithaproblematicallylongname';
+	// gui.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long names' );
+
+	const folder1 = gui.addFolder( 'Folder' );
+
+	const addFiller = g => {
+		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
+		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
+		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
+	};
+
+	addFiller( folder1 );
+
+	const folder2 = gui.addFolder( 'Closed Folder' ).close();
+
+	addFiller( folder2 );
+
+	gui.addFolder( 'Empty Folder' );
+
+	const folder3 = gui.addFolder( 'Nested Folders' );
+
+	addFiller( folder3 );
+
+	const folder4 = folder3.addFolder( 'Don\'t go crazy now.' );
+
+	addFiller( folder4 );
+	folder4.addHeader( 'Nested header' );
+	addFiller( folder4 );
+
+
+};
+
+app.defaultDemo = Object.keys( app.demos )[ 0 ];
+
+const demo = decodeURIComponent( location.hash.substring( 1 ) );
+if ( demo && ( demo in app.demos ) ) {
+	app.demo = demo;
+} else {
+	app.demo = app.defaultDemo;
 }
-
-function makeButton( name ) {
-	const button = document.createElement( 'button' );
-	button.innerHTML = name;
-	button.addEventListener( 'click', () => {
-		buildGUI( GUIS[ name ] );
-	} );
-	document.body.appendChild( button );
-}
-
-for ( let name in GUIS ) {
-	makeButton( name );
-}
-
-buildGUI( GUIS[ 'Basic' ] );

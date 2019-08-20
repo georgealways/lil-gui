@@ -268,7 +268,7 @@ export class NumberController extends Controller {
 			return ( this.__max - this.__min ) / 1000;
 		}
 
-		return 1;
+		return 0.1;
 
 	}
 

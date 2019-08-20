@@ -1,0 +1,12 @@
+html { 
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+body {
+    background: #222;
+    color: #eee;
+    font: 14px/20px system-ui, sans-serif;
+}
+pre, code { 
+    font: 12px/18px Consolas, Monaco, monospace;
+}

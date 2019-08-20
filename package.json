@@ -43,7 +43,7 @@
     "rules": {
         "array-bracket-spacing": [ "warn", "always" ],
         "arrow-spacing": "warn",
-        "brace-style": [ "warn", "1tbs" ],
+        "brace-style": [ "warn", "1tbs", { "allowSingleLine": true } ],
         "comma-spacing": "warn",
         "comma-dangle": [ "warn", "never" ],
         "computed-property-spacing": [ "warn", "always" ],
