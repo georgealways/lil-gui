@@ -1,6 +1,8 @@
 html { 
     -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
+    
+    --color-gray: #555;
 }
 body {
     background: #222;
@@ -16,5 +18,14 @@ pre {
     padding: 0.5rem;
 }
 a { 
-    color: #ddd;
+    color: rgb(11, 164, 224);
+    text-decoration: none;
+}
+
+
+
+#api h3,
+#api h2 { 
+    border-top: 1px solid var(--color-gray);
+    padding-top: 1rem;
 }

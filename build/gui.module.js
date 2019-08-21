@@ -57,21 +57,12 @@ class Controller {
 
 	/**
 	 * 
-	 */
-	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ) );
-		this.parent.$children.removeChild( this.domElement );
-	}
-
-	/**
-	 * 
 	 * @param {string} name 
-	 * @returns {Controller} 
+	 * @chainable 
 	 */
 	name( name ) {
 		/**
 		 * @type {string}
-		 * @readonly
 		 */
 		this.__name = name;
 		this.$name.innerHTML = name;
@@ -81,7 +72,7 @@ class Controller {
 	/**
 	 * 
 	 * @param {function} fnc 
-	 * @returns {Controller} 
+	 * @chainable 
 	 * 
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
@@ -91,7 +82,6 @@ class Controller {
 	onChange( fnc ) {
 		/**
 		 * @type {function}
-		 * @readonly
 		 */
 		this.__onChange = fnc;
 		return this;
@@ -133,26 +123,23 @@ class Controller {
 	}
 
 	/**
-	 * 
-	 * @param {boolean=} enable 
-	 * @returns {Controller} 
+	 * Enables or sets the enabled state of this controller.
+	 * @param {boolean} [enable]
+	 * @chainable 
 	 * @example
 	 * controller.enable();
 	 * controller.enable( false ); // disable
 	 * controller.enable( controller.__disabled ); // toggle
 	 */
 	enable( enable = true ) {
-		/**
-		 * @type {boolean}
-		 */
 		this.__disabled = !enable;
 		this.domElement.classList.toggle( 'disabled', this.__disabled );
 		return this;
 	}
 
 	/**
-	 * 
-	 * @returns {Controller} 
+	 * Disables this controller.
+	 * @chainable `this`
 	 */
 	disable() {
 		this.__disabled = true;
@@ -161,7 +148,7 @@ class Controller {
 	}
 
 	/**
-	 * 
+	 * @returns {any} `this.object[ this.property ]`
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -171,6 +158,14 @@ class Controller {
 	 * 
 	 */
 	updateDisplay() {}
+
+	/**
+	 * 
+	 */
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ) );
+		this.parent.$children.removeChild( this.domElement );
+	}
 
 }
 
@@ -247,15 +242,25 @@ function getColorFormat( value ) {
 	return FORMATS.find( format => format.match( value ) );
 }
 
+/**
+ * @extends Controller
+ * @typicalname controller
+ */
 class ColorController extends Controller {
 
 	constructor( parent, object, property ) {
 
 		super( parent, object, property, 'color' );
 
+		/**
+		 * @type {HTMLInputElement}
+		 */
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
 
+		/**
+		 * @type {HTMLDivElement}
+		 */
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 
@@ -282,7 +287,6 @@ class ColorController extends Controller {
 		} );
 
 		this.updateDisplay();
-
 
 	}
 
@@ -766,10 +770,11 @@ class GUI {
 
 	/**
 	 * 
-	 * @param {Object} [params]
-	 * @param {GUI} [params.parent]
-	 * @param {string} [params.name]
-	 * @param {number} [params.width]
+	 * @param {Object=} params
+	 * @param {GUI=} params.parent
+	 * @param {string=} params.name=Controls
+	 * @param {boolean=} params.autoPlace=true
+	 * @param {number=} params.width=250
 	 */
 	constructor( {
 		parent,
@@ -779,29 +784,33 @@ class GUI {
 	} = {} ) {
 
 		/**
+		 * The parent GUI for folders, `undefined` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * @type {Array}
+		 * List of items in this GUI.
+		 * @type {Array<Controller|GUI|Header>}
 		 */
 		this.children = [];
 
 		/**
-		 * @type {HTMLDivElement}
+		 * The outermost container `div` for the GUI.
+		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'gui' );
 
 		/**
-		 * @type {HTMLDivElement}
+		 * The `div` that contains child elements.
+		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
 		/**
-		 * @type {HTMLDivElement}
+		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
@@ -813,6 +822,7 @@ class GUI {
 		if ( this.parent ) {
 
 			/**
+			 * Reference to the outermost GUI, `this` for the root GUI.
 			 * @type {GUI}
 			 */
 			this.root = this.parent.root;
@@ -847,24 +857,6 @@ class GUI {
 		this.domElement.appendChild( this.$children );
 
 		this.name( name );
-
-	}
-
-	/**
-	 * 
-	 */
-	destroy() {
-
-		this.children.forEach( c => c.destroy() );
-		this.domElement.parentElement.removeChild( this.domElement );
-
-		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ) );
-		}
-
-		if ( this._onResize ) {
-			window.removeEventListener( 'resize', this._onResize );
-		}
 
 	}
 
@@ -919,15 +911,6 @@ class GUI {
 
 	/**
 	 * 
-	 * @param {string} name 
-	 * @returns {GUI}
-	 */
-	addFolder( name ) {
-		return new GUI( { name, parent: this } );
-	}
-
-	/**
-	 * 
 	 * @param {*} object 
 	 * @param {string} property 
 	 * @returns {ColorController}
@@ -945,7 +928,24 @@ class GUI {
 		return new Header( this, name );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {GUI}
+	 */
+	addFolder( name ) {
+		return new GUI( { name, parent: this } );
+	}
+
+	/**
+	 * 
+	 * @param {string} name 
+	 * @chainable
+	 */
 	name( name ) {
+		/**
+		 * @type {string}
+		 */
 		this.__name = name;
 		this.$title.innerHTML = name;
 		return this;
@@ -960,16 +960,45 @@ class GUI {
 		}
 	}
 
+	/**
+	 * 
+	 * @param {boolean} [open]
+	 * @returns {GUI} 
+	 */
 	open( open = true ) {
+		/**
+		 * @type {boolean}
+		 */
 		this.__closed = !open;
 		this.domElement.classList.toggle( 'closed', this.__closed );
 		return this;
 	}
 
+	/**
+	 * @returns {GUI}
+	 */
 	close() {
 		this.__closed = true;
 		this.domElement.classList.add( 'closed' );
 		return this;
+	}
+
+	/**
+	 * 
+	 */
+	destroy() {
+
+		this.children.forEach( c => c.destroy() );
+		this.domElement.parentElement.removeChild( this.domElement );
+
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ) );
+		}
+
+		if ( this._onResize ) {
+			window.removeEventListener( 'resize', this._onResize );
+		}
+
 	}
 
 }

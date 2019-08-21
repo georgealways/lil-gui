@@ -28,6 +28,8 @@ const template = fs.readFileSync( TEMPLATE ).toString();
 let output = template;
 
 output = output.replace( '!=readme', md.render( readme ) );
-output = output.replace( '!=jsdoc', md.render( jsdoc2md.renderSync( { files: JSDOC_INPUT } ) ) );
+output = output.replace( '!=jsdoc', md.render( jsdoc2md.renderSync( {
+	files: JSDOC_INPUT
+} ) ) );
 
 fs.writeFileSync( DEST, output );

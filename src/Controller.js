@@ -51,21 +51,12 @@ export class Controller {
 
 	/**
 	 * 
-	 */
-	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ) );
-		this.parent.$children.removeChild( this.domElement );
-	}
-
-	/**
-	 * 
 	 * @param {string} name 
-	 * @returns {Controller} 
+	 * @chainable 
 	 */
 	name( name ) {
 		/**
 		 * @type {string}
-		 * @readonly
 		 */
 		this.__name = name;
 		this.$name.innerHTML = name;
@@ -75,7 +66,7 @@ export class Controller {
 	/**
 	 * 
 	 * @param {function} fnc 
-	 * @returns {Controller} 
+	 * @chainable 
 	 * 
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
@@ -85,7 +76,6 @@ export class Controller {
 	onChange( fnc ) {
 		/**
 		 * @type {function}
-		 * @readonly
 		 */
 		this.__onChange = fnc;
 		return this;
@@ -127,26 +117,23 @@ export class Controller {
 	}
 
 	/**
-	 * 
-	 * @param {boolean=} enable 
-	 * @returns {Controller} 
+	 * Enables or sets the enabled state of this controller.
+	 * @param {boolean} [enable]
+	 * @chainable 
 	 * @example
 	 * controller.enable();
 	 * controller.enable( false ); // disable
 	 * controller.enable( controller.__disabled ); // toggle
 	 */
 	enable( enable = true ) {
-		/**
-		 * @type {boolean}
-		 */
 		this.__disabled = !enable;
 		this.domElement.classList.toggle( 'disabled', this.__disabled );
 		return this;
 	}
 
 	/**
-	 * 
-	 * @returns {Controller} 
+	 * Disables this controller.
+	 * @chainable `this`
 	 */
 	disable() {
 		this.__disabled = true;
@@ -155,7 +142,7 @@ export class Controller {
 	}
 
 	/**
-	 * 
+	 * @returns {any} `this.object[ this.property ]`
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -165,5 +152,13 @@ export class Controller {
 	 * 
 	 */
 	updateDisplay() {}
+
+	/**
+	 * 
+	 */
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ) );
+		this.parent.$children.removeChild( this.domElement );
+	}
 
 }

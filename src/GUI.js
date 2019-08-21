@@ -1,4 +1,5 @@
 import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
+
 import { BooleanController } from './BooleanController.js';
 import { ColorController } from './ColorController.js';
 import { FunctionController } from './FunctionController.js';
@@ -8,7 +9,9 @@ import { StringController } from './StringController.js';
 import { Header } from './Header.js';
 
 import { injectStyles } from './utils/injectStyles.js';
+
 import styles from '../build/gui.css';
+
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 /**
@@ -18,10 +21,11 @@ export class GUI {
 
 	/**
 	 * 
-	 * @param {Object} [params]
-	 * @param {GUI} [params.parent]
-	 * @param {string} [params.name]
-	 * @param {number} [params.width]
+	 * @param {Object=} params
+	 * @param {GUI=} params.parent
+	 * @param {string=} params.name=Controls
+	 * @param {boolean=} params.autoPlace=true
+	 * @param {number=} params.width=250
 	 */
 	constructor( {
 		parent,
@@ -31,29 +35,33 @@ export class GUI {
 	} = {} ) {
 
 		/**
+		 * The parent GUI for folders, `undefined` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * @type {Array}
+		 * List of items in this GUI.
+		 * @type {Array<Controller|GUI|Header>}
 		 */
 		this.children = [];
 
 		/**
-		 * @type {HTMLDivElement}
+		 * The outermost container `div` for the GUI.
+		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'gui' );
 
 		/**
-		 * @type {HTMLDivElement}
+		 * The `div` that contains child elements.
+		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
 		/**
-		 * @type {HTMLDivElement}
+		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
@@ -65,6 +73,7 @@ export class GUI {
 		if ( this.parent ) {
 
 			/**
+			 * Reference to the outermost GUI, `this` for the root GUI.
 			 * @type {GUI}
 			 */
 			this.root = this.parent.root;
@@ -99,24 +108,6 @@ export class GUI {
 		this.domElement.appendChild( this.$children );
 
 		this.name( name );
-
-	}
-
-	/**
-	 * 
-	 */
-	destroy() {
-
-		this.children.forEach( c => c.destroy() );
-		this.domElement.parentElement.removeChild( this.domElement );
-
-		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ) );
-		}
-
-		if ( this._onResize ) {
-			window.removeEventListener( 'resize', this._onResize );
-		}
 
 	}
 
@@ -171,15 +162,6 @@ export class GUI {
 
 	/**
 	 * 
-	 * @param {string} name 
-	 * @returns {GUI}
-	 */
-	addFolder( name ) {
-		return new GUI( { name, parent: this } );
-	}
-
-	/**
-	 * 
 	 * @param {*} object 
 	 * @param {string} property 
 	 * @returns {ColorController}
@@ -197,7 +179,24 @@ export class GUI {
 		return new Header( this, name );
 	}
 
+	/**
+	 * 
+	 * @param {string} name 
+	 * @returns {GUI}
+	 */
+	addFolder( name ) {
+		return new GUI( { name, parent: this } );
+	}
+
+	/**
+	 * 
+	 * @param {string} name 
+	 * @chainable
+	 */
 	name( name ) {
+		/**
+		 * @type {string}
+		 */
 		this.__name = name;
 		this.$title.innerHTML = name;
 		return this;
@@ -212,16 +211,45 @@ export class GUI {
 		}
 	}
 
+	/**
+	 * 
+	 * @param {boolean} [open]
+	 * @returns {GUI} 
+	 */
 	open( open = true ) {
+		/**
+		 * @type {boolean}
+		 */
 		this.__closed = !open;
 		this.domElement.classList.toggle( 'closed', this.__closed );
 		return this;
 	}
 
+	/**
+	 * @returns {GUI}
+	 */
 	close() {
 		this.__closed = true;
 		this.domElement.classList.add( 'closed' );
 		return this;
+	}
+
+	/**
+	 * 
+	 */
+	destroy() {
+
+		this.children.forEach( c => c.destroy() );
+		this.domElement.parentElement.removeChild( this.domElement );
+
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ) );
+		}
+
+		if ( this._onResize ) {
+			window.removeEventListener( 'resize', this._onResize );
+		}
+
 	}
 
 }
