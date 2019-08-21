@@ -1,14 +1,13 @@
+import { GUIItem } from './GUIItem.js';
+
 /**
- * 
+ * @extends GUIItem
  */
-export class Controller {
+export class Controller extends GUIItem {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
-		/**
-		 * @type {GUI}
-		 */
-		this.parent = parent;
+		super( parent, tagName );
 
 		/**
 		 * @type {Object}
@@ -23,13 +22,6 @@ export class Controller {
 		/**
 		 * @type {HTMLElement}
 		 */
-		this.domElement = document.createElement( tagName );
-		this.domElement.classList.add( 'controller' );
-		this.domElement.classList.add( className );
-
-		/**
-		 * @type {HTMLElement}
-		 */
 		this.$name = document.createElement( 'div' );
 		this.$name.classList.add( 'name' );
 
@@ -39,13 +31,13 @@ export class Controller {
 		this.$widget = document.createElement( 'div' );
 		this.$widget.classList.add( 'widget' );
 
+		this.domElement.classList.add( 'controller' );
+		this.domElement.classList.add( className );
+
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
 
 		this.name( property );
-
-		this.parent.children.push( this );
-		this.parent.$children.appendChild( this.domElement );
 
 	}
 
@@ -117,31 +109,6 @@ export class Controller {
 	}
 
 	/**
-	 * Enables or sets the enabled state of this controller.
-	 * @param {boolean} [enable]
-	 * @chainable 
-	 * @example
-	 * controller.enable();
-	 * controller.enable( false ); // disable
-	 * controller.enable( controller.__disabled ); // toggle
-	 */
-	enable( enable = true ) {
-		this.__disabled = !enable;
-		this.domElement.classList.toggle( 'disabled', this.__disabled );
-		return this;
-	}
-
-	/**
-	 * Disables this controller.
-	 * @chainable `this`
-	 */
-	disable() {
-		this.__disabled = true;
-		this.domElement.classList.add( 'disabled' );
-		return this;
-	}
-
-	/**
 	 * @returns {any} `this.object[ this.property ]`
 	 */
 	getValue() {
@@ -152,13 +119,5 @@ export class Controller {
 	 * 
 	 */
 	updateDisplay() {}
-
-	/**
-	 * 
-	 */
-	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ) );
-		this.parent.$children.removeChild( this.domElement );
-	}
 
 }

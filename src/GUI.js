@@ -1,5 +1,7 @@
 import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
 
+import { GUIItem } from './GUIItem.js';
+
 import { BooleanController } from './BooleanController.js';
 import { ColorController } from './ColorController.js';
 import { FunctionController } from './FunctionController.js';
@@ -10,14 +12,15 @@ import { Header } from './Header.js';
 
 import { injectStyles } from './utils/injectStyles.js';
 
-import styles from '../build/gui.css';
+import styles from '../build/lil-gui.css';
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 /**
  * @typicalname gui
+ * @extends GUIItem
  */
-export class GUI {
+export class GUI extends GUIItem {
 
 	/**
 	 * 
@@ -26,7 +29,7 @@ export class GUI {
 	 * @param {string=} params.name=Controls
 	 * @param {boolean=} params.autoPlace=true
 	 * @param {number=} params.width=250
-	 */
+	 */ 
 	constructor( {
 		parent,
 		name = 'Controls',
@@ -34,24 +37,21 @@ export class GUI {
 		width = 250
 	} = {} ) {
 
+		super( parent, 'div' );
+
 		/**
-		 * The parent GUI for folders, `undefined` for the root GUI.
-		 * @type {GUI}
-		 */
-		this.parent = parent;
+         * Reference to the outermost GUI, `this` for the root GUI.
+         * @type {GUI}
+         */
+		this.root = parent ? parent.root : this;
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Array<Controller|GUI|Header>}
+		 * @type {Array<GUIItem>}
 		 */
 		this.children = [];
 
-		/**
-		 * The outermost container `div` for the GUI.
-		 * @type {HTMLElement}
-		 */
-		this.domElement = document.createElement( 'div' );
-		this.domElement.classList.add( 'gui' );
+		this.domElement.classList.add( 'lil-gui' );
 
 		/**
 		 * The `div` that contains child elements.
@@ -70,20 +70,7 @@ export class GUI {
 			this.__closed ? this.open() : this.close();
 		} );
 
-		if ( this.parent ) {
-
-			/**
-			 * Reference to the outermost GUI, `this` for the root GUI.
-			 * @type {GUI}
-			 */
-			this.root = this.parent.root;
-
-			this.parent.children.push( this );
-			this.parent.$children.appendChild( this.domElement );
-
-		} else {
-
-			this.root = this;
+		if ( !this.parent ) {
 
 			this.width( width );
 			this.domElement.classList.add( 'root' );
@@ -214,7 +201,7 @@ export class GUI {
 	/**
 	 * 
 	 * @param {boolean} [open]
-	 * @returns {GUI} 
+	 * @chainable 
 	 */
 	open( open = true ) {
 		/**
@@ -226,7 +213,7 @@ export class GUI {
 	}
 
 	/**
-	 * @returns {GUI}
+	 * @chainable
 	 */
 	close() {
 		this.__closed = true;
@@ -239,12 +226,9 @@ export class GUI {
 	 */
 	destroy() {
 
-		this.children.forEach( c => c.destroy() );
-		this.domElement.parentElement.removeChild( this.domElement );
+		super.destroy();
 
-		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ) );
-		}
+		this.children.forEach( c => c.destroy() );
 
 		if ( this._onResize ) {
 			window.removeEventListener( 'resize', this._onResize );

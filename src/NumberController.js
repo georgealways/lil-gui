@@ -1,6 +1,9 @@
 import { Controller } from './Controller.js';
 import { map } from './utils/map.js';
 
+/**
+ * @extends Controller
+ */
 export class NumberController extends Controller {
 
 	/**

@@ -2,7 +2,7 @@
 /* eslint-env node */
 
 const README = 'README.md';
-const JSDOC_INPUT = 'build/gui.module.js';
+const JSDOC_INPUT = require( '../package.json' ).module;
 const TEMPLATE = 'docs/template.html';
 const DEST = 'docs/index.html';
 
@@ -28,8 +28,38 @@ const template = fs.readFileSync( TEMPLATE ).toString();
 let output = template;
 
 output = output.replace( '!=readme', md.render( readme ) );
-output = output.replace( '!=jsdoc', md.render( jsdoc2md.renderSync( {
+
+const kind = [ 'function', 'member' ];
+
+let jsdocData = jsdoc2md.getTemplateDataSync( {
 	files: JSDOC_INPUT
+} );
+
+jsdocData = jsdocData.sort( ( a, b ) => {
+	const diff = kind.indexOf( a.kind ) - kind.indexOf( b.kind );
+	if ( diff === 0 ) {
+		return a.id.localeCompare( b.id );
+	}
+	return diff;
+} );
+
+const guiIndex = jsdocData.findIndex( i => {
+	return i.kind === 'class' && i.name === 'GUI';
+} );
+const guiClass = jsdocData.splice( guiIndex, 1 )[ 0 ];
+
+const controllerIndex = jsdocData.findIndex( i => {
+	return i.kind === 'class' && i.name === 'Controller';
+} );
+const controllerClass = jsdocData.splice( controllerIndex, 1 )[ 0 ];
+
+jsdocData.unshift( controllerClass );
+jsdocData.unshift( guiClass );
+
+
+// console.log(  );
+output = output.replace( '!=jsdoc', md.render( jsdoc2md.renderSync( {
+	data: jsdocData
 } ) ) );
 
 fs.writeFileSync( DEST, output );

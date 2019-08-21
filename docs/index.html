@@ -11,56 +11,48 @@
 
 <body>
 
-  <h1>@georgealways/gui</h1>
-<p>Blah</p>
-<pre><code class="language-js"><span class="hljs-keyword">import</span> { GUI } <span class="hljs-keyword">from</span> <span class="hljs-string">'@georgealways/gui'</span>;
+  <h1>lil-gui</h1>
+<p>Makes a floating panel with controllers for web demos.</p>
+<pre><code class="language-js"><span class="hljs-keyword">import</span> GUI <span class="hljs-keyword">from</span> <span class="hljs-string">'lil-gui'</span>;
 
-<span class="hljs-keyword">const</span> object = {
-    <span class="hljs-attr">number</span>: <span class="hljs-number">0.5</span>,
-    <span class="hljs-attr">boolean</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">string</span>: <span class="hljs-string">'string'</span>,
-    <span class="hljs-attr">options</span>: <span class="hljs-number">3</span>,
-    <span class="hljs-attr">button</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ alert( <span class="hljs-string">'sup'</span> ) },
-    <span class="hljs-attr">color</span>: { <span class="hljs-attr">r</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">1</span> }
+<span class="hljs-keyword">const</span> myObject = {
+    <span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">myFunction</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ ... },
+    <span class="hljs-attr">myString</span>: <span class="hljs-string">'lil-gui'</span>,
+    <span class="hljs-attr">myNumber</span>: <span class="hljs-number">1</span>
 };
 
 <span class="hljs-keyword">const</span> gui = <span class="hljs-keyword">new</span> GUI();
 
-gui.add( object, <span class="hljs-string">'number'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> );
-gui.add( object, <span class="hljs-string">'boolean'</span> );
-gui.add( object, <span class="hljs-string">'string'</span> );
-gui.add( object, <span class="hljs-string">'options'</span>, { <span class="hljs-attr">One</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Two</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">Three</span>: <span class="hljs-number">3</span> } );
-gui.add( object, <span class="hljs-string">'button'</span> );
-gui.addColor( object, <span class="hljs-string">'color'</span> );
-</code></pre>
-<p>Controller types are inferred by the property's initial value.</p>
-<h1>Basic Usage</h1>
-<h2>Sliders</h2>
-<p>Numbers with min and max become sliders.</p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span>, min, max, step );
-</code></pre>
-<h2>Dropdowns</h2>
-<p>Limit options to a list of selectable values by passing an Array or an Object to <code>gui.add</code>.</p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span>, [ <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span> ] );
-gui.add( object, <span class="hljs-string">'property'</span>, { <span class="hljs-string">'Label 1'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'Label 2'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'Label 3'</span>: <span class="hljs-number">3</span> } );
-</code></pre>
-<h2>Color Pickers</h2>
-<p>Use <code>gui.addColor</code> to create a color picker.</p>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> colors = {
-    <span class="hljs-attr">string</span>: <span class="hljs-string">'#ffffff'</span>,
-    <span class="hljs-attr">number</span>: <span class="hljs-number">0xffffff</span>,
-    <span class="hljs-attr">object</span>: { <span class="hljs-attr">r</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">1</span> }
-}
+gui.add( myObject, <span class="hljs-string">'myBoolean'</span> ); <span class="hljs-comment">// checkbox</span>
+gui.add( myObject, <span class="hljs-string">'myFunction'</span> ); <span class="hljs-comment">// button</span>
+gui.add( myObject, <span class="hljs-string">'myString'</span> ); <span class="hljs-comment">// text field</span>
+gui.add( myObject, <span class="hljs-string">'myNumber'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ); <span class="hljs-comment">// slider</span>
 
-gui.addColor( colors, <span class="hljs-string">'string'</span> );
-gui.addColor( colors, <span class="hljs-string">'number'</span> );
-gui.addColor( colors, <span class="hljs-string">'object'</span> );
-</code></pre>
-<h2>Headers</h2>
-<pre><code class="language-js">gui.addHeader( <span class="hljs-string">'Specular'</span> );
-gui.add( uniforms.specularStrength, <span class="hljs-string">'value'</span> ).name( <span class="hljs-string">'Strength'</span> );
-gui.add( uniforms.specularPower, <span class="hljs-string">'value'</span> ).name( <span class="hljs-string">'Power'</span> );
-gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> ).name( <span class="hljs-string">'Color'</span> );
+<span class="hljs-comment">// dropdowns</span>
+gui.add( myObject, <span class="hljs-string">'myNumber'</span>, [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ] );
+gui.add( myObject, <span class="hljs-string">'myNumber'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
+
+<span class="hljs-comment">// chainable methods</span>
+gui.add( myObject, <span class="hljs-string">'myProperty'</span> )
+    .name( <span class="hljs-string">'Custom Name'</span> )
+    .onChange( <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+        
+    } );
+
+<span class="hljs-keyword">const</span> colorFormats = {
+    <span class="hljs-attr">string</span>: <span class="hljs-string">'#ffffff'</span>,
+    <span class="hljs-attr">int</span>: <span class="hljs-number">0xffffff</span>,
+    <span class="hljs-attr">object</span>: { <span class="hljs-attr">r</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">1</span> },
+    <span class="hljs-attr">array</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span> ]
+};
+
+<span class="hljs-comment">// colors</span>
+gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
+
+<span class="hljs-comment">// folders</span>
+<span class="hljs-keyword">const</span> folder = gui.addFolder( <span class="hljs-string">'Title'</span> );
+folder.add( myObject, <span class="hljs-string">'myProperty'</span> );
 </code></pre>
 
   
@@ -69,366 +61,53 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
     <h1>API</h1>
     <h2>Classes</h2>
 <dl>
-<dt><a href="#Controller">Controller</a></dt>
+<dt><a href="#GUI">GUI</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
+<dd></dd>
+<dt><a href="#Controller">Controller</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
 <dd></dd>
 <dt><a href="#ColorController">ColorController</a> ⇐ <code><a href="#Controller">Controller</a></code></dt>
 <dd></dd>
-<dt><a href="#NumberController">NumberController</a></dt>
+<dt><a href="#GUIItem">GUIItem</a></dt>
 <dd></dd>
-<dt><a href="#Header">Header</a></dt>
+<dt><a href="#Header">Header</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
 <dd></dd>
-<dt><a href="#GUI">GUI</a></dt>
+<dt><a href="#NumberController">NumberController</a> ⇐ <code><a href="#Controller">Controller</a></code></dt>
 <dd></dd>
 </dl>
-<p><a name="Controller"></a></p>
-<h2>Controller</h2>
-<p><strong>Kind</strong>: global class</p>
-<ul>
-<li><a href="#Controller">Controller</a>
-<ul>
-<li><a href="#Controller+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
-<li><a href="#Controller+property">.property</a> : <code>string</code></li>
-<li><a href="#Controller+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
-<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
-<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
-<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
-<li><a href="#Controller+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#Controller+disable">.disable()</a> ↩︎</li>
-<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
-<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
-<li><a href="#Controller+destroy">.destroy()</a></li>
-</ul>
-</li>
-</ul>
-<p><a name="Controller+parent"></a></p>
-<h3>controller.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+object"></a></p>
-<h3>controller.object : <code>Object</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+property"></a></p>
-<h3>controller.property : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+domElement"></a></p>
-<h3>controller.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+$name"></a></p>
-<h3>controller.$name : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+$widget"></a></p>
-<h3>controller.$widget : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+__name"></a></p>
-<h3>controller.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+__onChange"></a></p>
-<h3>controller.__onChange : <code>function</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+name"></a></p>
-<h3>controller.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Controller+onChange"></a></p>
-<h3>controller.onChange(fnc) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fnc</td>
-<td><code>function</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<p><a name="Controller+enable"></a></p>
-<h3>controller.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this controller.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="Controller+disable"></a></p>
-<h3>controller.disable() ↩︎</h3>
-<p>Disables this controller.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong><br>
-<a name="Controller+getValue"></a></p>
-<h3>controller.getValue() ⇒ <code>any</code></h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
-<a name="Controller+updateDisplay"></a></p>
-<h3>controller.updateDisplay()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+destroy"></a></p>
-<h3>controller.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<a name="ColorController"></a></p>
-<h2>ColorController ⇐ <a href="#Controller"><code>Controller</code></a></h2>
+<h2>Interfaces</h2>
+<dl>
+<dt><a href="#ColorFormat">ColorFormat</a></dt>
+<dd><p>Defines a conversion between a color format and its 7 
+character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
+</dd>
+</dl>
+<p><a name="GUI"></a></p>
+<h2>GUI ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
 <p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#Controller"><code>Controller</code></a></p>
+<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
 <ul>
-<li><a href="#ColorController">ColorController</a> ⇐ <a href="#Controller"><code>Controller</code></a>
-<ul>
-<li><a href="#ColorController+$input">.$input</a> : <code>HTMLInputElement</code></li>
-<li><a href="#ColorController+$display">.$display</a> : <code>HTMLDivElement</code></li>
-<li><a href="#Controller+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
-<li><a href="#Controller+property">.property</a> : <code>string</code></li>
-<li><a href="#Controller+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
-<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
-<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
-<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
-<li><a href="#Controller+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#Controller+disable">.disable()</a> ↩︎</li>
-<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
-<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
-<li><a href="#Controller+destroy">.destroy()</a></li>
-</ul>
-</li>
-</ul>
-<p><a name="ColorController+$input"></a></p>
-<h3>controller.$input : <code>HTMLInputElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<a name="ColorController+$display"></a></p>
-<h3>controller.$display : <code>HTMLDivElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<a name="Controller+parent"></a></p>
-<h3>controller.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+parent"><code>parent</code></a><br>
-<a name="Controller+object"></a></p>
-<h3>controller.object : <code>Object</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+object"><code>object</code></a><br>
-<a name="Controller+property"></a></p>
-<h3>controller.property : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a><br>
-<a name="Controller+domElement"></a></p>
-<h3>controller.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+domElement"><code>domElement</code></a><br>
-<a name="Controller+$name"></a></p>
-<h3>controller.$name : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$name"><code>$name</code></a><br>
-<a name="Controller+$widget"></a></p>
-<h3>controller.$widget : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$widget"><code>$widget</code></a><br>
-<a name="Controller+__name"></a></p>
-<h3>controller.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__name"><code>__name</code></a><br>
-<a name="Controller+__onChange"></a></p>
-<h3>controller.__onChange : <code>function</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__onChange"><code>__onChange</code></a><br>
-<a name="Controller+name"></a></p>
-<h3>controller.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+name"><code>name</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Controller+onChange"></a></p>
-<h3>controller.onChange(fnc) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+onChange"><code>onChange</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fnc</td>
-<td><code>function</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<p><a name="Controller+enable"></a></p>
-<h3>controller.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this controller.</p>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="Controller+disable"></a></p>
-<h3>controller.disable() ↩︎</h3>
-<p>Disables this controller.</p>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+disable"><code>disable</code></a><br>
-<a name="Controller+getValue"></a></p>
-<h3>controller.getValue() ⇒ <code>any</code></h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+getValue"><code>getValue</code></a><br>
-<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
-<a name="Controller+updateDisplay"></a></p>
-<h3>controller.updateDisplay()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+updateDisplay"><code>updateDisplay</code></a><br>
-<a name="Controller+destroy"></a></p>
-<h3>controller.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+destroy"><code>destroy</code></a><br>
-<a name="NumberController"></a></p>
-<h2>NumberController</h2>
-<p><strong>Kind</strong>: global class<br>
-<a name="new_NumberController_new"></a></p>
-<h3>new NumberController(parent, object, property, [min], [max], [step])</h3>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>parent</td>
-<td><a href="#GUI"><code>GUI</code></a></td>
-</tr>
-<tr>
-<td>object</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>property</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td>[min]</td>
-<td><code>number</code></td>
-</tr>
-<tr>
-<td>[max]</td>
-<td><code>number</code></td>
-</tr>
-<tr>
-<td>[step]</td>
-<td><code>number</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Header"></a></p>
-<h2>Header</h2>
-<p><strong>Kind</strong>: global class<br>
-<a name="GUI"></a></p>
-<h2>GUI</h2>
-<p><strong>Kind</strong>: global class</p>
-<ul>
-<li><a href="#GUI">GUI</a>
+<li><a href="#GUI">GUI</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
 <ul>
 <li><a href="#new_GUI_new">new GUI([params])</a></li>
-<li><a href="#GUI+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+children">.children</a> : <code>Array.&lt;(Controller|GUI|Header)&gt;</code></li>
-<li><a href="#GUI+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#GUI+$children">.$children</a> : <code>HTMLElement</code></li>
-<li><a href="#GUI+$title">.$title</a> : <code>HTMLElement</code></li>
-<li><a href="#GUI+root">.root</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+__name">.__name</a> : <code>string</code></li>
-<li><a href="#GUI+__closed">.__closed</a> : <code>boolean</code></li>
 <li><a href="#GUI+add">.add(object, property, $1, $2, $3)</a> ⇒ <a href="#Controller"><code>Controller</code></a></li>
 <li><a href="#GUI+addColor">.addColor(object, property)</a> ⇒ <a href="#ColorController"><code>ColorController</code></a></li>
-<li><a href="#GUI+addHeader">.addHeader(name)</a> ⇒ <a href="#Header"><code>Header</code></a></li>
 <li><a href="#GUI+addFolder">.addFolder(name)</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+name">.name(name)</a> ↩︎</li>
-<li><a href="#GUI+open">.open([open])</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+close">.close()</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#GUI+addHeader">.addHeader(name)</a> ⇒ <a href="#Header"><code>Header</code></a></li>
+<li><a href="#GUI+close">.close()</a> ↩︎</li>
 <li><a href="#GUI+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#GUI+name">.name(name)</a> ↩︎</li>
+<li><a href="#GUI+open">.open([open])</a> ↩︎</li>
+<li><a href="#GUI+__closed">.__closed</a> : <code>boolean</code></li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#GUI+__name">.__name</a> : <code>string</code></li>
+<li><a href="#GUI+$children">.$children</a> : <code>HTMLElement</code></li>
+<li><a href="#GUI+$title">.$title</a> : <code>HTMLElement</code></li>
+<li><a href="#GUI+children">.children</a> : <a href="#GUIItem"><code>Array.&lt;GUIItem&gt;</code></a></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#GUI+root">.root</a> : <a href="#GUI"><code>GUI</code></a></li>
 </ul>
 </li>
 </ul>
@@ -470,36 +149,7 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tr>
 </tbody>
 </table>
-<p><a name="GUI+parent"></a></p>
-<h3>gui.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p>The parent GUI for folders, <code>undefined</code> for the root GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+children"></a></p>
-<h3>gui.children : <code>Array.&lt;(Controller|GUI|Header)&gt;</code></h3>
-<p>List of items in this GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+domElement"></a></p>
-<h3>gui.domElement : <code>HTMLElement</code></h3>
-<p>The outermost container <code>div</code> for the GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+$children"></a></p>
-<h3>gui.$children : <code>HTMLElement</code></h3>
-<p>The <code>div</code> that contains child elements.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+$title"></a></p>
-<h3>gui.$title : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+root"></a></p>
-<h3>gui.root : <a href="#GUI"><code>GUI</code></a></h3>
-<p>Reference to the outermost GUI, <code>this</code> for the root GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+__name"></a></p>
-<h3>gui.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+__closed"></a></p>
-<h3>gui.__closed : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+add"></a></p>
+<p><a name="GUI+add"></a></p>
 <h3>gui.add(object, property, $1, $2, $3) ⇒ <a href="#Controller"><code>Controller</code></a></h3>
 <p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
 <table>
@@ -553,23 +203,6 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tr>
 </tbody>
 </table>
-<p><a name="GUI+addHeader"></a></p>
-<h3>gui.addHeader(name) ⇒ <a href="#Header"><code>Header</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
 <p><a name="GUI+addFolder"></a></p>
 <h3>gui.addFolder(name) ⇒ <a href="#GUI"><code>GUI</code></a></h3>
 <p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
@@ -587,6 +220,64 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tr>
 </tbody>
 </table>
+<p><a name="GUI+addHeader"></a></p>
+<h3>gui.addHeader(name) ⇒ <a href="#Header"><code>Header</code></a></h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="GUI+close"></a></p>
+<h3>gui.close() ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Chainable</strong><br>
+<a name="GUI+destroy"></a></p>
+<h3>gui.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>gui.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
+<a name="GUIItem+enable"></a></p>
+<h3>gui.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
 <p><a name="GUI+name"></a></p>
 <h3>gui.name(name) ↩︎</h3>
 <p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
@@ -606,8 +297,9 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tbody>
 </table>
 <p><a name="GUI+open"></a></p>
-<h3>gui.open([open]) ⇒ <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
+<h3>gui.open([open]) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Chainable</strong></p>
 <table>
 <thead>
 <tr>
@@ -624,12 +316,732 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tr>
 </tbody>
 </table>
-<p><a name="GUI+close"></a></p>
-<h3>gui.close() ⇒ <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+destroy"></a></p>
-<h3>gui.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
+<p><a name="GUI+__closed"></a></p>
+<h3>gui.__closed : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="GUIItem+__disabled"></a></p>
+<h3>gui.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
+<a name="GUI+__name"></a></p>
+<h3>gui.__name : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="GUI+$children"></a></p>
+<h3>gui.$children : <code>HTMLElement</code></h3>
+<p>The <code>div</code> that contains child elements.</p>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="GUI+$title"></a></p>
+<h3>gui.$title : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="GUI+children"></a></p>
+<h3>gui.children : <a href="#GUIItem"><code>Array.&lt;GUIItem&gt;</code></a></h3>
+<p>List of items in this GUI.</p>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>gui.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>gui.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
+<a name="GUI+root"></a></p>
+<h3>gui.root : <a href="#GUI"><code>GUI</code></a></h3>
+<p>Reference to the outermost GUI, <code>this</code> for the root GUI.</p>
+<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
+<a name="Controller"></a></p>
+<h2>Controller ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
+<p><strong>Kind</strong>: global class<br>
+<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
+<ul>
+<li><a href="#Controller">Controller</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
+<ul>
+<li><a href="#GUIItem+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
+<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
+<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
+<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
+<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
+<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#Controller+property">.property</a> : <code>string</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="GUIItem+destroy"></a></p>
+<h3>controller.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>controller.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
+<a name="GUIItem+enable"></a></p>
+<h3>controller.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
+<p><a name="Controller+getValue"></a></p>
+<h3>controller.getValue() ⇒ <code>any</code></h3>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
+<a name="Controller+name"></a></p>
+<h3>controller.name(name) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Chainable</strong></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Controller+onChange"></a></p>
+<h3>controller.onChange(fnc) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Chainable</strong></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fnc</td>
+<td><code>function</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
+} );
+</code></pre>
+<p><a name="Controller+updateDisplay"></a></p>
+<h3>controller.updateDisplay()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
+<a name="GUIItem+__disabled"></a></p>
+<h3>controller.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
+<a name="Controller+__name"></a></p>
+<h3>controller.__name : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="Controller+__onChange"></a></p>
+<h3>controller.__onChange : <code>function</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="Controller+$name"></a></p>
+<h3>controller.$name : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="Controller+$widget"></a></p>
+<h3>controller.$widget : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>controller.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
+<a name="Controller+object"></a></p>
+<h3>controller.object : <code>Object</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>controller.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
+<a name="Controller+property"></a></p>
+<h3>controller.property : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
+<a name="ColorController"></a></p>
+<h2>ColorController ⇐ <a href="#Controller"><code>Controller</code></a></h2>
+<p><strong>Kind</strong>: global class<br>
+<strong>Extends</strong>: <a href="#Controller"><code>Controller</code></a></p>
+<ul>
+<li><a href="#ColorController">ColorController</a> ⇐ <a href="#Controller"><code>Controller</code></a>
+<ul>
+<li><a href="#GUIItem+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
+<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
+<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
+<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
+<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
+<li><a href="#ColorController+$display">.$display</a> : <code>HTMLDivElement</code></li>
+<li><a href="#ColorController+$input">.$input</a> : <code>HTMLInputElement</code></li>
+<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#Controller+property">.property</a> : <code>string</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="GUIItem+destroy"></a></p>
+<h3>colorController.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>colorController.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
+<a name="GUIItem+enable"></a></p>
+<h3>colorController.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
+<p><a name="Controller+getValue"></a></p>
+<h3>colorController.getValue() ⇒ <code>any</code></h3>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+getValue"><code>getValue</code></a><br>
+<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
+<a name="Controller+name"></a></p>
+<h3>colorController.name(name) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#Controller+name"><code>name</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Controller+onChange"></a></p>
+<h3>colorController.onChange(fnc) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#Controller+onChange"><code>onChange</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fnc</td>
+<td><code>function</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
+} );
+</code></pre>
+<p><a name="Controller+updateDisplay"></a></p>
+<h3>colorController.updateDisplay()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+updateDisplay"><code>updateDisplay</code></a><br>
+<a name="GUIItem+__disabled"></a></p>
+<h3>colorController.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
+<a name="Controller+__name"></a></p>
+<h3>colorController.__name : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+__name"><code>__name</code></a><br>
+<a name="Controller+__onChange"></a></p>
+<h3>colorController.__onChange : <code>function</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+__onChange"><code>__onChange</code></a><br>
+<a name="ColorController+$display"></a></p>
+<h3>colorController.$display : <code>HTMLDivElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<a name="ColorController+$input"></a></p>
+<h3>colorController.$input : <code>HTMLInputElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<a name="Controller+$name"></a></p>
+<h3>colorController.$name : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+$name"><code>$name</code></a><br>
+<a name="Controller+$widget"></a></p>
+<h3>colorController.$widget : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+$widget"><code>$widget</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>colorController.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
+<a name="Controller+object"></a></p>
+<h3>colorController.object : <code>Object</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+object"><code>object</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>colorController.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
+<a name="Controller+property"></a></p>
+<h3>colorController.property : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a><br>
+<a name="ColorFormat"></a></p>
+<h2>ColorFormat</h2>
+<p>Defines a conversion between a color format and its 7
+character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
+<p><strong>Kind</strong>: global interface</p>
+<ul>
+<li><a href="#ColorFormat">ColorFormat</a>
+<ul>
+<li><a href="#ColorFormat.fromHexString">.fromHexString(string, target)</a> ⇒</li>
+<li><a href="#ColorFormat.match">.match(value)</a> ⇒ <code>boolean</code></li>
+<li><a href="#ColorFormat.toHexString">.toHexString(value)</a> ⇒ <code>string</code></li>
+<li><a href="#ColorFormat.isPrimitive">.isPrimitive</a> : <code>boolean</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="ColorFormat.fromHexString"></a></p>
+<h3>ColorFormat.fromHexString(string, target) ⇒</h3>
+<p>Converts from &quot;#FFFFFF&quot; to this format</p>
+<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
+<strong>Returns</strong>: none</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td><code>string</code></td>
+<td>7 character CSS hex string</td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>Object</code></td>
+<td>Object to mutate if this isn't a primitive format</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ColorFormat.match"></a></p>
+<h3>ColorFormat.match(value) ⇒ <code>boolean</code></h3>
+<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> - true if the value matches this format</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td><code>*</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ColorFormat.toHexString"></a></p>
+<h3>ColorFormat.toHexString(value) ⇒ <code>string</code></h3>
+<p>Converts from this format to &quot;#FFFFFF&quot;</p>
+<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td><code>*</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ColorFormat.isPrimitive"></a></p>
+<h3>ColorFormat.isPrimitive : <code>boolean</code></h3>
+<p>If true, <code>fromHexString</code> returns a new value, otherwise it expects a
+second parameter to mutate.</p>
+<p><strong>Kind</strong>: static property of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
+<a name="GUIItem"></a></p>
+<h2>GUIItem</h2>
+<p><strong>Kind</strong>: global class</p>
+<ul>
+<li><a href="#GUIItem">GUIItem</a>
+<ul>
+<li><a href="#GUIItem+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+</ul>
+</li>
+</ul>
+<p><a name="GUIItem+destroy"></a></p>
+<h3>item.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>item.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<strong>Chainable</strong><br>
+<a name="GUIItem+enable"></a></p>
+<h3>item.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<strong>Chainable</strong></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
+<p><a name="GUIItem+__disabled"></a></p>
+<h3>item.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>item.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>item.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
+<a name="Header"></a></p>
+<h2>Header ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
+<p><strong>Kind</strong>: global class<br>
+<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
+<ul>
+<li><a href="#Header">Header</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
+<ul>
+<li><a href="#GUIItem+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+</ul>
+</li>
+</ul>
+<p><a name="GUIItem+destroy"></a></p>
+<h3>header.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>header.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
+<a name="GUIItem+enable"></a></p>
+<h3>header.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
+<p><a name="GUIItem+__disabled"></a></p>
+<h3>header.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>header.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>header.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
+<a name="NumberController"></a></p>
+<h2>NumberController ⇐ <a href="#Controller"><code>Controller</code></a></h2>
+<p><strong>Kind</strong>: global class<br>
+<strong>Extends</strong>: <a href="#Controller"><code>Controller</code></a></p>
+<ul>
+<li><a href="#NumberController">NumberController</a> ⇐ <a href="#Controller"><code>Controller</code></a>
+<ul>
+<li><a href="#new_NumberController_new">new NumberController(parent, object, property, [min], [max], [step])</a></li>
+<li><a href="#GUIItem+destroy">.destroy()</a></li>
+<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
+<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
+<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
+<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
+<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
+<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
+<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
+<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
+<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
+<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
+<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
+<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
+<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#Controller+property">.property</a> : <code>string</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_NumberController_new"></a></p>
+<h3>new NumberController(parent, object, property, [min], [max], [step])</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent</td>
+<td><a href="#GUI"><code>GUI</code></a></td>
+</tr>
+<tr>
+<td>object</td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td>property</td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td>[min]</td>
+<td><code>number</code></td>
+</tr>
+<tr>
+<td>[max]</td>
+<td><code>number</code></td>
+</tr>
+<tr>
+<td>[step]</td>
+<td><code>number</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="GUIItem+destroy"></a></p>
+<h3>numberController.destroy()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
+<a name="GUIItem+disable"></a></p>
+<h3>numberController.disable() ↩︎</h3>
+<p>Disables this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
+<a name="GUIItem+enable"></a></p>
+<h3>numberController.enable([enable]) ↩︎</h3>
+<p>Enables or sets the enabled state of this item.</p>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[enable]</td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">controller.enable();
+controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
+controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
+</code></pre>
+<p><a name="Controller+getValue"></a></p>
+<h3>numberController.getValue() ⇒ <code>any</code></h3>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+getValue"><code>getValue</code></a><br>
+<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
+<a name="Controller+name"></a></p>
+<h3>numberController.name(name) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#Controller+name"><code>name</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Controller+onChange"></a></p>
+<h3>numberController.onChange(fnc) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Chainable</strong><br>
+<strong>Overrides</strong>: <a href="#Controller+onChange"><code>onChange</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fnc</td>
+<td><code>function</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
+	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
+} );
+</code></pre>
+<p><a name="Controller+updateDisplay"></a></p>
+<h3>numberController.updateDisplay()</h3>
+<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+updateDisplay"><code>updateDisplay</code></a><br>
+<a name="GUIItem+__disabled"></a></p>
+<h3>numberController.__disabled : <code>boolean</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
+<a name="Controller+__name"></a></p>
+<h3>numberController.__name : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+__name"><code>__name</code></a><br>
+<a name="Controller+__onChange"></a></p>
+<h3>numberController.__onChange : <code>function</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+__onChange"><code>__onChange</code></a><br>
+<a name="Controller+$name"></a></p>
+<h3>numberController.$name : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+$name"><code>$name</code></a><br>
+<a name="Controller+$widget"></a></p>
+<h3>numberController.$widget : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+$widget"><code>$widget</code></a><br>
+<a name="GUIItem+domElement"></a></p>
+<h3>numberController.domElement : <code>HTMLElement</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
+<a name="Controller+object"></a></p>
+<h3>numberController.object : <code>Object</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+object"><code>object</code></a><br>
+<a name="GUIItem+parent"></a></p>
+<h3>numberController.parent : <a href="#GUI"><code>GUI</code></a></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
+<a name="Controller+property"></a></p>
+<h3>numberController.property : <code>string</code></h3>
+<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
+<strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a></p>
 
   </div>
 

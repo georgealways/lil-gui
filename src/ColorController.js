@@ -3,7 +3,6 @@ import { getColorFormat } from './utils/getColorFormat.js';
 
 /**
  * @extends Controller
- * @typicalname controller
  */
 export class ColorController extends Controller {
 

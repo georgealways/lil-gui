@@ -6,7 +6,7 @@
 	}
 }
 
-.gui {
+.lil-gui {
 	--width: auto;
 
 	--bg-color: #1a1a1a;
@@ -36,6 +36,8 @@
 	--widget-padding: 0 0 0 0.25em;
 	--widget-border-radius: 2px;
 	--scrollbar-width: 0.375em;
+
+	--icons-font-family: 'lil-gui';
 
 	width: var(--width);
 	text-align: left;
@@ -134,7 +136,7 @@
 		text-align: center;
 
 		&:checked:before {
-			font-family: 'gui-icons';
+			font-family: var(--icons-font-family);
 			content: '✓';
 			font-size: var(--size);
 			line-height: var(--size);
@@ -186,7 +188,7 @@
 		cursor: pointer;
 
 		&:before {
-			font-family: 'gui-icons';
+			font-family: var(--icons-font-family);
 			content: '▾';
 			width: 1em;
 			vertical-align: middle;
@@ -327,7 +329,7 @@
 			line-height: var(--widget-height);
 			padding: 0 var(--padding);
 			&:after {
-				font-family: 'gui-icons';
+				font-family: var(--icons-font-family);
 				content: '↕';
 				vertical-align: middle;
 				margin-left: var(--padding);
@@ -338,20 +340,20 @@
 }
 
 /* 
-.gui .controller.number.hasSlider { 
+.lil-gui .controller.number.hasSlider { 
 	position: relative;
 }
 
-.gui .controller.number.hasSlider .name { 
+.lil-gui .controller.number.hasSlider .name { 
 	position: absolute;
 	pointer-events: none;
 	width: auto;
 } 
-.gui .controller.number.hasSlider input {
+.lil-gui .controller.number.hasSlider input {
 	width: 18%;
 } */
 
-.gui.solarized {
+.lil-gui.solarized {
 	$base03: #002b36;
 	$base02: #073642;
 	$base01: #586e75;
@@ -370,7 +372,7 @@
 	$green: #859900;
 
 	&,
-	& .gui {
+	& .lil-gui {
 		--bg-color: #{$base3};
 		--fg-color: #{$base00};
 

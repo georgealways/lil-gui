@@ -1,71 +1,46 @@
-# @georgealways/gui
+# lil-gui
 
-Blah
+Makes a floating panel with controllers for web demos.
 
 ```js
-import { GUI } from '@georgealways/gui';
+import GUI from 'lil-gui';
 
-const object = {
-    number: 0.5,
-    boolean: true,
-    string: 'string',
-    options: 3,
-    button: function() { alert( 'sup' ) },
-    color: { r: 0, g: 0.5, b: 1 }
+const myObject = {
+    myBoolean: true,
+    myFunction: function() { ... },
+    myString: 'lil-gui',
+    myNumber: 1
 };
 
 const gui = new GUI();
 
-gui.add( object, 'number', 0, 1 );
-gui.add( object, 'boolean' );
-gui.add( object, 'string' );
-gui.add( object, 'options', { One: 1, Two: 2, Three: 3 } );
-gui.add( object, 'button' );
-gui.addColor( object, 'color' );
-```
+gui.add( myObject, 'myBoolean' ); // checkbox
+gui.add( myObject, 'myFunction' ); // button
+gui.add( myObject, 'myString' ); // text field
+gui.add( myObject, 'myNumber', 0, 1 ); // slider
 
-Controller types are inferred by the property's initial value.
+// dropdowns
+gui.add( myObject, 'myNumber', [ 0, 1, 2 ] );
+gui.add( myObject, 'myNumber', { Label1: 0, Label2: 1, Label3: 2 } );
 
-# Basic Usage
+// chainable methods
+gui.add( myObject, 'myProperty' )
+    .name( 'Custom Name' )
+    .onChange( value => {
+        
+    } );
 
-## Sliders
-
-Numbers with min and max become sliders.
-
-```js
-gui.add( object, 'property', min, max, step );
-```
-
-## Dropdowns
-
-Limit options to a list of selectable values by passing an Array or an Object to `gui.add`.
-
-```js
-gui.add( object, 'property', [ 'a', 'b', 'c' ] );
-gui.add( object, 'property', { 'Label 1': 1, 'Label 2': 2, 'Label 3': 3 } );
-```
-
-## Color Pickers
-
-Use `gui.addColor` to create a color picker.
-
-```js
-const colors = {
+const colorFormats = {
     string: '#ffffff',
-    number: 0xffffff,
-    object: { r: 1, g: 1, b: 1 }
-}
+    int: 0xffffff,
+    object: { r: 1, g: 1, b: 1 },
+    array: [ 1, 1, 1 ]
+};
 
-gui.addColor( colors, 'string' );
-gui.addColor( colors, 'number' );
-gui.addColor( colors, 'object' );
-```
+// colors
+gui.addColor( colorFormats, 'string' );
 
-## Headers
-
-```js
-gui.addHeader( 'Specular' );
-gui.add( uniforms.specularStrength, 'value' ).name( 'Strength' );
-gui.add( uniforms.specularPower, 'value' ).name( 'Power' );
-gui.addColor( uniforms.specularColor, 'value' ).name( 'Color' );
+// folders
+const folder = gui.addFolder( 'Title' );
+folder.add( myObject, 'myProperty' );
 ```
