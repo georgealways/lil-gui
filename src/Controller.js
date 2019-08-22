@@ -120,4 +120,9 @@ export class Controller extends GUIItem {
 	 */
 	updateDisplay() {}
 
+	listen() {
+		console.warn( 'fyi, listen() doesn\'t do anything right now' );
+		return this;
+	}
+
 }

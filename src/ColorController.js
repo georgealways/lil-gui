@@ -25,19 +25,18 @@ export class ColorController extends Controller {
 		this.$widget.appendChild( this.$input );
 		this.$widget.appendChild( this.$display );
 
-		this.__colorFormat = getColorFormat( this.getValue() );
+		this.__format = getColorFormat( this.getValue() );
 
 		this.$input.addEventListener( 'change', () => {
 
-			if ( this.__colorFormat.isPrimitive ) {
+			if ( this.__format.isPrimitive ) {
 
-				const newValue = this.__colorFormat.fromHexString( this.$input.value );
+				const newValue = this.__format.fromHexString( this.$input.value );
 				this.setValue( newValue );
 
 			} else {
 
-				const target = this.getValue();
-				this.__colorFormat.fromHexString( this.$input.value, target );
+				this.__format.fromHexString( this.$input.value, this.getValue() );
 				this._onSetValue();
 
 			}
@@ -49,7 +48,7 @@ export class ColorController extends Controller {
 	}
 
 	updateDisplay() {
-		this.$input.value = this.__colorFormat.toHexString( this.getValue() );
+		this.$input.value = this.__format.toHexString( this.getValue() );
 		this.$display.style.backgroundColor = this.$input.value;
 	}
 

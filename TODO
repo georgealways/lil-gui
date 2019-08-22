@@ -1,8 +1,12 @@
 todo
 
 [x] colorformat non primitive
+[ ] kill "GUIItem"
 [ ] kill onfinishchange
+[ ] move back to default exports internally
+[ ] header => label?
 [ ] clean up number controller. shit ain't dry
+[ ] button styles
 
 [x] minified css strips utf8 charset declaration, breaking gui-font
 

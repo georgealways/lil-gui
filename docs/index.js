@@ -64,6 +64,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 
 	gui.addColor( { x: '#6C44BE' }, 'x' ).name( 'Hex String' );
 	gui.addColor( { x: 0x6C44BE }, 'x' ).name( 'Hex Int' );
+	gui.addColor( { x: [ 0, 1, 1 ] }, 'x' ).name( 'RGB Array' );
 	gui.addColor( { x: { r: 0, g: 1, b: 1 } }, 'x' ).name( 'RGB Object' );
 
 	gui.addHeader( 'Options' );
@@ -73,7 +74,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	gui.add( { x: -1 }, 'x', [ 0, 1, 2 ] ).name( 'Invalid initial' );
 
 	const longString = 'Anoptionorvaluewithaproblematicallylongname';
-	// gui.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long names' );
+	gui.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long names' );
 
 	const folder1 = gui.addFolder( 'Folder' );
 

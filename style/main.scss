@@ -151,6 +151,8 @@
 		color: var(--widget-fg-color);
 		background: var(--bg-color);
 		font-weight: bold;
+		text-align: left;
+		text-transform: none;
 		// border-radius: var(--widget-border-radius);
 		// height: var(--widget-height);
 		// line-height: var(--widget-height);
@@ -313,6 +315,7 @@
 		}
 	}
 
+
 	.controller.option {
 		.widget {
 			position: relative;
@@ -320,19 +323,29 @@
 		select {
 			opacity: 0;
 			position: absolute;
-			width: 100%;
+			max-width: 100%;
 		}
 		.display {
 			pointer-events: none;
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
 			line-height: var(--widget-height);
-			padding: 0 var(--padding);
+			padding-left: var(--padding);
+			position: relative;
+			max-width: 100%;
+			overflow: hidden;
+			word-break: break-all;
+			padding-right: 1.75em;
 			&:after {
 				font-family: var(--icons-font-family);
 				content: '↕';
-				vertical-align: middle;
-				margin-left: var(--padding);
+				position: absolute;
+				display: flex;
+				align-items: center;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				padding-right: 0.375em;
 			}
 		}
 	}

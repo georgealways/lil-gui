@@ -74,13 +74,6 @@ folder.add( myObject, <span class="hljs-string">'myProperty'</span> );
 <dt><a href="#NumberController">NumberController</a> ⇐ <code><a href="#Controller">Controller</a></code></dt>
 <dd></dd>
 </dl>
-<h2>Interfaces</h2>
-<dl>
-<dt><a href="#ColorFormat">ColorFormat</a></dt>
-<dd><p>Defines a conversion between a color format and its 7 
-character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
-</dd>
-</dl>
 <p><a name="GUI"></a></p>
 <h2>GUI ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
 <p><strong>Kind</strong>: global class<br>
@@ -91,17 +84,17 @@ character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
 <li><a href="#new_GUI_new">new GUI([params])</a></li>
 <li><a href="#GUI+add">.add(object, property, $1, $2, $3)</a> ⇒ <a href="#Controller"><code>Controller</code></a></li>
 <li><a href="#GUI+addColor">.addColor(object, property)</a> ⇒ <a href="#ColorController"><code>ColorController</code></a></li>
-<li><a href="#GUI+addFolder">.addFolder(name)</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
+<li><a href="#GUI+addFolder">.addFolder(title)</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
 <li><a href="#GUI+addHeader">.addHeader(name)</a> ⇒ <a href="#Header"><code>Header</code></a></li>
 <li><a href="#GUI+close">.close()</a> ↩︎</li>
 <li><a href="#GUI+destroy">.destroy()</a></li>
 <li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
 <li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#GUI+name">.name(name)</a> ↩︎</li>
 <li><a href="#GUI+open">.open([open])</a> ↩︎</li>
+<li><a href="#GUI+title">.title(title)</a> ↩︎</li>
 <li><a href="#GUI+__closed">.__closed</a> : <code>boolean</code></li>
 <li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#GUI+__name">.__name</a> : <code>string</code></li>
+<li><a href="#GUI+__title">.__title</a> : <code>string</code></li>
 <li><a href="#GUI+$children">.$children</a> : <code>HTMLElement</code></li>
 <li><a href="#GUI+$title">.$title</a> : <code>HTMLElement</code></li>
 <li><a href="#GUI+children">.children</a> : <a href="#GUIItem"><code>Array.&lt;GUIItem&gt;</code></a></li>
@@ -133,7 +126,7 @@ character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
 <td></td>
 </tr>
 <tr>
-<td>[params.name]</td>
+<td>[params.title]</td>
 <td><code>string</code></td>
 <td><code>&quot;Controls&quot;</code></td>
 </tr>
@@ -204,7 +197,7 @@ character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
 </tbody>
 </table>
 <p><a name="GUI+addFolder"></a></p>
-<h3>gui.addFolder(name) ⇒ <a href="#GUI"><code>GUI</code></a></h3>
+<h3>gui.addFolder(title) ⇒ <a href="#GUI"><code>GUI</code></a></h3>
 <p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
 <table>
 <thead>
@@ -215,7 +208,7 @@ character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
 </thead>
 <tbody>
 <tr>
-<td>name</td>
+<td>title</td>
 <td><code>string</code></td>
 </tr>
 </tbody>
@@ -278,24 +271,6 @@ character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
 controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
 controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
 </code></pre>
-<p><a name="GUI+name"></a></p>
-<h3>gui.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
 <p><a name="GUI+open"></a></p>
 <h3>gui.open([open]) ↩︎</h3>
 <p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
@@ -316,6 +291,24 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 </tr>
 </tbody>
 </table>
+<p><a name="GUI+title"></a></p>
+<h3>gui.title(title) ↩︎</h3>
+<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
+<strong>Chainable</strong></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
 <p><a name="GUI+__closed"></a></p>
 <h3>gui.__closed : <code>boolean</code></h3>
 <p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
@@ -323,8 +316,8 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 <h3>gui.__disabled : <code>boolean</code></h3>
 <p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
 <strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="GUI+__name"></a></p>
-<h3>gui.__name : <code>string</code></h3>
+<a name="GUI+__title"></a></p>
+<h3>gui.__title : <code>string</code></h3>
 <p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
 <a name="GUI+$children"></a></p>
 <h3>gui.$children : <code>HTMLElement</code></h3>
@@ -649,88 +642,6 @@ controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle
 <h3>colorController.property : <code>string</code></h3>
 <p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
 <strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a><br>
-<a name="ColorFormat"></a></p>
-<h2>ColorFormat</h2>
-<p>Defines a conversion between a color format and its 7
-character CSS string representation, ie. <code>&quot;#FFFFFF&quot;</code></p>
-<p><strong>Kind</strong>: global interface</p>
-<ul>
-<li><a href="#ColorFormat">ColorFormat</a>
-<ul>
-<li><a href="#ColorFormat.fromHexString">.fromHexString(string, target)</a> ⇒</li>
-<li><a href="#ColorFormat.match">.match(value)</a> ⇒ <code>boolean</code></li>
-<li><a href="#ColorFormat.toHexString">.toHexString(value)</a> ⇒ <code>string</code></li>
-<li><a href="#ColorFormat.isPrimitive">.isPrimitive</a> : <code>boolean</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="ColorFormat.fromHexString"></a></p>
-<h3>ColorFormat.fromHexString(string, target) ⇒</h3>
-<p>Converts from &quot;#FFFFFF&quot; to this format</p>
-<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
-<strong>Returns</strong>: none</p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string</td>
-<td><code>string</code></td>
-<td>7 character CSS hex string</td>
-</tr>
-<tr>
-<td>target</td>
-<td><code>Object</code></td>
-<td>Object to mutate if this isn't a primitive format</td>
-</tr>
-</tbody>
-</table>
-<p><a name="ColorFormat.match"></a></p>
-<h3>ColorFormat.match(value) ⇒ <code>boolean</code></h3>
-<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
-<strong>Returns</strong>: <code>boolean</code> - true if the value matches this format</p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>value</td>
-<td><code>*</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="ColorFormat.toHexString"></a></p>
-<h3>ColorFormat.toHexString(value) ⇒ <code>string</code></h3>
-<p>Converts from this format to &quot;#FFFFFF&quot;</p>
-<p><strong>Kind</strong>: static method of <a href="#ColorFormat"><code>ColorFormat</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>value</td>
-<td><code>*</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="ColorFormat.isPrimitive"></a></p>
-<h3>ColorFormat.isPrimitive : <code>boolean</code></h3>
-<p>If true, <code>fromHexString</code> returns a new value, otherwise it expects a
-second parameter to mutate.</p>
-<p><strong>Kind</strong>: static property of <a href="#ColorFormat"><code>ColorFormat</code></a><br>
 <a name="GUIItem"></a></p>
 <h2>GUIItem</h2>
 <p><strong>Kind</strong>: global class</p>

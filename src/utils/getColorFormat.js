@@ -1,61 +1,5 @@
 import { isString, isNumber, isObject } from './is.js';
 
-/**
- * @interface ColorFormat
- * @description Defines a conversion between a color format and its 7 
- * character CSS string representation, ie. `"#FFFFFF"`
- */
-
-/**
- * @lends ColorFormat
- * @implements {ColorFormat}
- */
-const OBJECT = {
-
-	/**
-	 * If true, `fromHexString` returns a new value, otherwise it expects a 
-	 * second parameter to mutate.
-	 * @type {boolean}
-	 */
-	isPrimitive: false,
-
-	/**
-	 * @method
-	 * @param {*} value
-	 * @returns {boolean} true if the value matches this format
-	 */
-	match: isObject,
-
-	/**
-	 * Converts from "#FFFFFF" to this format
-	 * 
-	 * @method
-	 * @param {string} string 7 character CSS hex string
-	 * @param {Object} target Object to mutate if this isn't a primitive format
-	 * @returns none
-	 */
-	fromHexString( string, target ) {
-		const int = INT.fromHexString( string );
-		target.r = ( int >> 16 & 255 ) / 255;
-		target.g = ( int >> 8 & 255 ) / 255;
-		target.b = ( int & 255 ) / 255;
-	},
-
-	/**
-	 * Converts from this format to "#FFFFFF"
-	 * 
-	 * @method
-	 * @param {*} value
-	 * @returns {string}
-	 */
-	toHexString( { r, g, b } ) {
-		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
-		return INT.toHexString( int );
-	}
-
-};
-
-
 const STRING = {
 	isPrimitive: true,
 	match: isString,
@@ -80,6 +24,21 @@ const ARRAY = {
 		target[ 2 ] = ( int & 255 ) / 255;
 	},
 	toHexString( [ r, g, b ] ) {
+		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
+		return INT.toHexString( int );
+	}
+};
+
+const OBJECT = {
+	isPrimitive: false,
+	match: isObject,
+	fromHexString( string, target ) {
+		const int = INT.fromHexString( string );
+		target.r = ( int >> 16 & 255 ) / 255;
+		target.g = ( int >> 8 & 255 ) / 255;
+		target.b = ( int & 255 ) / 255;
+	},
+	toHexString( { r, g, b } ) {
 		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
 		return INT.toHexString( int );
 	}

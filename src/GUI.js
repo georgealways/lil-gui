@@ -26,13 +26,13 @@ export class GUI extends GUIItem {
 	 * 
 	 * @param {Object=} params
 	 * @param {GUI=} params.parent
-	 * @param {string=} params.name=Controls
+	 * @param {string=} params.title=Controls
 	 * @param {boolean=} params.autoPlace=true
 	 * @param {number=} params.width=250
 	 */ 
 	constructor( {
 		parent,
-		name = 'Controls',
+		title = 'Controls',
 		autoPlace = true,
 		width = 250
 	} = {} ) {
@@ -63,9 +63,9 @@ export class GUI extends GUIItem {
 		/**
 		 * @type {HTMLElement}
 		 */
-		this.$title = document.createElement( 'div' );
+		this.$title = document.createElement( 'button' );
 		this.$title.classList.add( 'title' );
-		this.$title.setAttribute( 'tabindex', 0 );
+		// this.$title.setAttribute( 'tabindex', 0 );
 		this.$title.addEventListener( 'click', () => {
 			this.__closed ? this.open() : this.close();
 		} );
@@ -94,7 +94,7 @@ export class GUI extends GUIItem {
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
 
-		this.name( name );
+		this.title( title );
 
 	}
 
@@ -168,24 +168,24 @@ export class GUI extends GUIItem {
 
 	/**
 	 * 
-	 * @param {string} name 
+	 * @param {string} title 
 	 * @returns {GUI}
 	 */
-	addFolder( name ) {
-		return new GUI( { name, parent: this } );
+	addFolder( title ) {
+		return new GUI( { title, parent: this } );
 	}
 
 	/**
 	 * 
-	 * @param {string} name 
+	 * @param {string} title 
 	 * @chainable
 	 */
-	name( name ) {
+	title( title ) {
 		/**
 		 * @type {string}
 		 */
-		this.__name = name;
-		this.$title.innerHTML = name;
+		this.__title = title;
+		this.$title.innerHTML = title;
 		return this;
 	}
 

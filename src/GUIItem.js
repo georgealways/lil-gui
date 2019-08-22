@@ -10,7 +10,6 @@ export class GUIItem {
          */
 		this.parent = parent;
 
-
 		/**
          * @type {HTMLElement}
          */
@@ -57,8 +56,10 @@ export class GUIItem {
      * 
      */
 	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ) );
-		this.parent.$children.removeChild( this.domElement );
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ) );
+		}
+		this.domElement.parentElement.removeChild( this.domElement );
 	}
 
 }
