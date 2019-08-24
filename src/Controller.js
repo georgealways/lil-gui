@@ -121,6 +121,7 @@ export class Controller extends GUIItem {
 	updateDisplay() {}
 
 	listen() {
+		// eslint-disable-next-line no-console
 		console.warn( 'fyi, listen() doesn\'t do anything right now' );
 		return this;
 	}

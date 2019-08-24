@@ -8,50 +8,63 @@ todo
 [ ] clean up number controller. shit ain't dry
 [ ] button styles
 
-[x] minified css strips utf8 charset declaration, breaking gui-font
-
-[x] headers
-
-[x] numberkeyup / mousewheel for number inputs?
-[x] firefox disagrees about hasSlider input widths
-
-[x] try opacity=0 for native inputs for more consistent styling
-    [x] checbox
-    [x] select
-    [x] colorcontroller
-    [x] function button
-
-[x] strip comments from css / ...sass?
-
-[x] color interpreter: '#ffffff', { r, g, b }, 0xffffff
-
-[n] smaller names for mobile
-[n] hover for sliders
-
-[x] maybe kill input[type=number] because it's too silly to style
-[x] decimals (eh)
-[x] slider touch scroll
-[x] rollup + livereload
-[x] fuck label, all controllers back to div
-
 changelog
-    
-    [+] mobile styles
-    [+] "headers"
-    [+] enable() / disable()
-    [+] color object range to (0-1)
-        three.js - https://github.com/mrdoob/three.js/blob/dev/src/math/Color.js#L111
-        playcanvas - https://github.com/playcanvas/engine/blob/57a6a00e592575664002cb6dc98a98ff39d16d36/src/core/color.js#L7
-        Babylon.js - https://github.com/BabylonJS/Babylon.js/blob/c0f2f550cd1cc63f42bcd69e832e5bc93c56efa6/src/Maths/math.color.ts#L13
 
-    [c] .remove( controller ) => controller.destroy()
-    [c] .removeFolder( folder ) => folder.destroy()
+	[?] onfinishchange?
+	[?] listen?
 
-    [c] built in color controller => input[type=color]
-    [c] folders open by default
+	[+] mobile styles
+	[+] "headers"
+	[+] controller.enable() / disable()
+	
+	[m] color objects and arrays expect rgb values in the range of 0 - 1, not 0 - 255.
+		three.js - https://github.com/mrdoob/three.js/blob/dev/src/math/Color.js#L111
+		playcanvas - https://github.com/playcanvas/engine/blob/57a6a00e592575664002cb6dc98a98ff39d16d36/src/core/color.js#L7
+		Babylon.js - https://github.com/BabylonJS/Babylon.js/blob/c0f2f550cd1cc63f42bcd69e832e5bc93c56efa6/src/Maths/math.color.ts#L13
 
-    [-] presets
-    [-] multiple autoPlace gui's
-    [-] fewer color interpretations
-    [-] .__controllers
-    [-] hide() / show()
+	[m] folders open by default
+
+	[m] controller.remove() => controller.destroy()
+	[m] gui.removeFolder( folder ) => folder.destroy()
+
+	[m] built in color controller => input[type=color]
+
+	[m] .__controllers => gui.children
+	[m] .__folders => gui.children
+	
+	[-] "presets", gui.remember(), etc.
+	[-] multiple autoPlace gui's
+	
+	[-] won't read hsl formats
+	[-] won't parse css strings aside from '#rrggbb'
+	
+	[-] gui.hide() / gui.show()
+	[-] press H / GUI.hideAll(), etc.
+
+archived todos
+
+	[x] minified css strips utf8 charset declaration, breaking gui-font
+
+	[x] headers
+
+	[x] numberkeyup / mousewheel for number inputs?
+	[x] firefox disagrees about hasSlider input widths
+
+	[x] try opacity=0 for native inputs for more consistent styling
+		[x] checbox
+		[x] select
+		[x] colorcontroller
+		[x] function button
+
+	[x] strip comments from css / ...sass?
+
+	[x] color interpreter: '#ffffff', { r, g, b }, 0xffffff
+
+	[n] smaller names for mobile
+	[n] hover for sliders
+
+	[x] maybe kill input[type=number] because it's too silly to style
+	[x] decimals (eh)
+	[x] slider touch scroll
+	[x] rollup + livereload
+	[x] fuck label, all controllers back to div

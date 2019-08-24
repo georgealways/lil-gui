@@ -27,7 +27,7 @@ gui.add( myObject, 'myNumber', { Label1: 0, Label2: 1, Label3: 2 } );
 gui.add( myObject, 'myProperty' )
     .name( 'Custom Name' )
     .onChange( value => {
-        
+        console.log( value );
     } );
 
 const colorFormats = {
@@ -40,7 +40,9 @@ const colorFormats = {
 // colors
 gui.addColor( colorFormats, 'string' );
 
-// folders
-const folder = gui.addFolder( 'Title' );
-folder.add( myObject, 'myProperty' );
+// headers
+gui.addHeader( 'Specular' );
+gui.add( uniforms.specularIntensity, 'value', 0, 1 ).name( 'Intensity' );
+gui.add( uniforms.specularPower, 'value', 1, 16 ).name( 'Power' );
+gui.addColor( uniforms.specularColor, 'value' ).name( 'Color' );
 ```

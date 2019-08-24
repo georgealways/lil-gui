@@ -37,7 +37,7 @@ gui.add( myObject, <span class="hljs-string">'myNumber'</span>, { <span class="h
 gui.add( myObject, <span class="hljs-string">'myProperty'</span> )
     .name( <span class="hljs-string">'Custom Name'</span> )
     .onChange( <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-        
+        <span class="hljs-built_in">console</span>.log( value );
     } );
 
 <span class="hljs-keyword">const</span> colorFormats = {
@@ -50,9 +50,11 @@ gui.add( myObject, <span class="hljs-string">'myProperty'</span> )
 <span class="hljs-comment">// colors</span>
 gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 
-<span class="hljs-comment">// folders</span>
-<span class="hljs-keyword">const</span> folder = gui.addFolder( <span class="hljs-string">'Title'</span> );
-folder.add( myObject, <span class="hljs-string">'myProperty'</span> );
+<span class="hljs-comment">// headers</span>
+gui.addHeader( <span class="hljs-string">'Specular'</span> );
+gui.add( uniforms.specularIntensity, <span class="hljs-string">'value'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ).name( <span class="hljs-string">'Intensity'</span> );
+gui.add( uniforms.specularPower, <span class="hljs-string">'value'</span>, <span class="hljs-number">1</span>, <span class="hljs-number">16</span> ).name( <span class="hljs-string">'Power'</span> );
+gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> ).name( <span class="hljs-string">'Color'</span> );
 </code></pre>
 
   

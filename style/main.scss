@@ -7,7 +7,6 @@
 }
 
 .lil-gui {
-	--width: auto;
 
 	--bg-color: #1a1a1a;
 	--fg-color: #eee;
@@ -28,7 +27,7 @@
 	--font-size: 11px;
 	--line-height: 1;
 
-	--name-width: 35%;
+	--name-width: 40%;
 	--row-height: 24px;
 	--widget-height: 20px;
 
@@ -39,7 +38,7 @@
 
 	--icons-font-family: 'lil-gui';
 
-	width: var(--width);
+	width: var(--width, auto);
 	text-align: left;
 
 	font-size: var(--font-size);
@@ -121,12 +120,12 @@
 		color: var(--widget-fg-color);
 		width: 100%;
 
-		&[type='text'] {
+		&[type=text] {
 			padding: var(--widget-padding);
 		}
 	}
 
-	input[type='checkbox'] {
+	input[type=checkbox] {
 		appearance: none;
 		-webkit-appearance: none;
 		--size: calc(.75*var(--widget-height));
@@ -276,7 +275,6 @@
 			min-width: 0;
 		}
 		.slider {
-			position: relative;
 			width: 100%;
 			height: var(--widget-height);
 			margin-right: calc(var(--padding) - 2px);
@@ -287,7 +285,6 @@
 		.fill {
 			height: 100%;
 			background-color: var(--number-color);
-			// border-right: 2px solid var(--fg-color);
 		}
 	}
 
@@ -308,13 +305,12 @@
 			position: absolute;
 		}
 		.display {
+			pointer-events: none;
 			height: var(--widget-height);
 			width: 100%;
 			border-radius: var(--widget-border-radius);
-			pointer-events: none;
 		}
 	}
-
 
 	.controller.option {
 		.widget {
