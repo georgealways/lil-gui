@@ -10,7 +10,7 @@ body {
     font: 14px/20px system-ui, sans-serif;
 }
 pre, code { 
-    font: 12px/18px Consolas, Monaco, monospace;
+    font-family: Consolas, Monaco, monospace;
 }
 pre { 
     background: #2b2b2b;
@@ -22,7 +22,10 @@ a {
     text-decoration: none;
 }
 
-
+pre, p code { 
+    font-size: 12px;
+    line-height: 18px;
+}
 
 #api h3,
 #api h2 { 

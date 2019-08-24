@@ -10,11 +10,10 @@ todo
 
 changelog
 
-	[?] onfinishchange?
-	[?] listen?
-
 	[+] mobile styles
+
 	[+] "headers"
+	
 	[+] controller.enable() / disable()
 	
 	[m] color objects and arrays expect rgb values in the range of 0 - 1, not 0 - 255.
@@ -35,11 +34,14 @@ changelog
 	[-] "presets", gui.remember(), etc.
 	[-] multiple autoPlace gui's
 	
-	[-] won't read hsl formats
-	[-] won't parse css strings aside from '#rrggbb'
+	[-] gui.addColor won't read hsl formats
+	[-] gui.addColor won't parse css strings aside from '#rrggbb'
 	
 	[-] gui.hide() / gui.show()
 	[-] press H / GUI.hideAll(), etc.
+
+	[?] onfinishchange?
+	[?] listen?
 
 archived todos
 

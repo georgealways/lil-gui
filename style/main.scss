@@ -300,9 +300,9 @@
 		}
 		input {
 			opacity: 0;
+			position: absolute;
 			height: var(--widget-height);
 			width: 100%;
-			position: absolute;
 		}
 		.display {
 			pointer-events: none;
