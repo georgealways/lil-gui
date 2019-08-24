@@ -1,1 +1,3 @@
-export const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
+export default function map( v, a, b, c, d ) {
+	return ( v - a ) / ( b - a ) * ( d - c ) + c;
+}

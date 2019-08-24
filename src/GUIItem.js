@@ -1,7 +1,4 @@
-/**
- * @typicalname item
- */
-export class GUIItem {
+export default class GUIItem {
 
 	constructor( parent, tagName = 'div' ) {
 

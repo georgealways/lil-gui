@@ -1,10 +1,21 @@
-import { GUIItem } from './GUIItem.js';
+/**
+ * @module Controller
+ */
+import GUIItem from './GUIItem.js';
 
 /**
- * @extends GUIItem
+ * 
  */
-export class Controller extends GUIItem {
+export default class Controller extends GUIItem {
 
+	/**
+	 * 
+	 * @param {GUI} parent 
+	 * @param {Object} object 
+	 * @param {string} property 
+	 * @param {string} className 
+	 * @param {string} tagName 
+	 */
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		super( parent, tagName );

@@ -2,9 +2,24 @@
 /* eslint-env node */
 
 const README = 'README.md';
-const JSDOC_INPUT = require( '../package.json' ).module;
+const SOURCE_PATH = 'https://github.com/georgealways/gui/blob/master';
+
+const JSDOC_INPUT = [
+	'src/GUI.js',
+	'src/Controller.js',
+	'src/BooleanController.js',
+	'src/ColorController.js',
+	'src/FunctionController.js',
+	'src/NumberController.js',
+	'src/OptionController.js',
+	'src/StringController.js',
+	'src/Header.js'
+];
+
 const TEMPLATE = 'docs/template.html';
 const DEST = 'docs/index.html';
+
+// render pretty readme
 
 const md = require( 'markdown-it' )( {
 	html: true,
@@ -18,6 +33,9 @@ const md = require( 'markdown-it' )( {
 		return ''; // use external default escaping
 	}
 } );
+
+// render docs
+
 const jsdoc2md = require( 'jsdoc-to-markdown' );
 
 const fs = require( 'fs' );
@@ -29,37 +47,29 @@ let output = template;
 
 output = output.replace( '!=readme', md.render( readme ) );
 
-const kind = [ 'function', 'member' ];
 
-let jsdocData = jsdoc2md.getTemplateDataSync( {
+// render docs
+
+const jsdoc = require( 'jsdoc-api' );
+
+const data = jsdoc.explainSync( {
 	files: JSDOC_INPUT
-} );
+} ).filter( v => v.undocumented !== true );
 
-jsdocData = jsdocData.sort( ( a, b ) => {
-	const diff = kind.indexOf( a.kind ) - kind.indexOf( b.kind );
-	if ( diff === 0 ) {
-		return a.id.localeCompare( b.id );
+const transformed = {};
+data.forEach( v => {
+	delete v.comment;
+	if ( v.meta ) {
+		v.meta.path = v.meta.path.replace( process.cwd(), SOURCE_PATH );
 	}
-	return diff;
+	transformed[ v.longname ] = v;
 } );
 
-const guiIndex = jsdocData.findIndex( i => {
-	return i.kind === 'class' && i.name === 'GUI';
-} );
-const guiClass = jsdocData.splice( guiIndex, 1 )[ 0 ];
+const json = JSON.stringify( transformed, null, '\t' );
 
-const controllerIndex = jsdocData.findIndex( i => {
-	return i.kind === 'class' && i.name === 'Controller';
-} );
-const controllerClass = jsdocData.splice( controllerIndex, 1 )[ 0 ];
-
-jsdocData.unshift( controllerClass );
-jsdocData.unshift( guiClass );
-
-
-// console.log(  );
-output = output.replace( '!=jsdoc', md.render( jsdoc2md.renderSync( {
-	data: jsdocData
-} ) ) );
+output = output.replace( '!=jsdoc',
+	`<pre>${json}</pre>
+	<script type="text/javascript">console.log(${json})</script>`
+);
 
 fs.writeFileSync( DEST, output );

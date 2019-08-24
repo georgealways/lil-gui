@@ -24,6 +24,7 @@
     "concurrently": "^4.1.1",
     "eslint": "^6.1.0",
     "highlight.js": "^9.15.10",
+    "jsdoc-api": "^5.0.2",
     "jsdoc-to-markdown": "^5.0.0",
     "live-server": "^1.2.1",
     "markdown-it": "^9.1.0",

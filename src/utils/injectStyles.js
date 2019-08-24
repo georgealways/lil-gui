@@ -1,4 +1,4 @@
-export function injectStyles( cssContent, fallbackURL ) {
+export default function injectStyles( cssContent, fallbackURL ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
 	const head = document.querySelector( 'head' );

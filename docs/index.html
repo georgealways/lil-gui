@@ -61,901 +61,2992 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
   <hr>
   <div id="api">
     <h1>API</h1>
-    <h2>Classes</h2>
-<dl>
-<dt><a href="#GUI">GUI</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
-<dd></dd>
-<dt><a href="#Controller">Controller</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
-<dd></dd>
-<dt><a href="#ColorController">ColorController</a> ⇐ <code><a href="#Controller">Controller</a></code></dt>
-<dd></dd>
-<dt><a href="#GUIItem">GUIItem</a></dt>
-<dd></dd>
-<dt><a href="#Header">Header</a> ⇐ <code><a href="#GUIItem">GUIItem</a></code></dt>
-<dd></dd>
-<dt><a href="#NumberController">NumberController</a> ⇐ <code><a href="#Controller">Controller</a></code></dt>
-<dd></dd>
-</dl>
-<p><a name="GUI"></a></p>
-<h2>GUI ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
-<p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
-<ul>
-<li><a href="#GUI">GUI</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
-<ul>
-<li><a href="#new_GUI_new">new GUI([params])</a></li>
-<li><a href="#GUI+add">.add(object, property, $1, $2, $3)</a> ⇒ <a href="#Controller"><code>Controller</code></a></li>
-<li><a href="#GUI+addColor">.addColor(object, property)</a> ⇒ <a href="#ColorController"><code>ColorController</code></a></li>
-<li><a href="#GUI+addFolder">.addFolder(title)</a> ⇒ <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+addHeader">.addHeader(name)</a> ⇒ <a href="#Header"><code>Header</code></a></li>
-<li><a href="#GUI+close">.close()</a> ↩︎</li>
-<li><a href="#GUI+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#GUI+open">.open([open])</a> ↩︎</li>
-<li><a href="#GUI+title">.title(title)</a> ↩︎</li>
-<li><a href="#GUI+__closed">.__closed</a> : <code>boolean</code></li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#GUI+__title">.__title</a> : <code>string</code></li>
-<li><a href="#GUI+$children">.$children</a> : <code>HTMLElement</code></li>
-<li><a href="#GUI+$title">.$title</a> : <code>HTMLElement</code></li>
-<li><a href="#GUI+children">.children</a> : <a href="#GUIItem"><code>Array.&lt;GUIItem&gt;</code></a></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#GUI+root">.root</a> : <a href="#GUI"><code>GUI</code></a></li>
-</ul>
-</li>
-</ul>
-<p><a name="new_GUI_new"></a></p>
-<h3>new GUI([params])</h3>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[params]</td>
-<td><code>Object</code></td>
-<td></td>
-</tr>
-<tr>
-<td>[params.parent]</td>
-<td><a href="#GUI"><code>GUI</code></a></td>
-<td></td>
-</tr>
-<tr>
-<td>[params.title]</td>
-<td><code>string</code></td>
-<td><code>&quot;Controls&quot;</code></td>
-</tr>
-<tr>
-<td>[params.autoPlace]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td>[params.width]</td>
-<td><code>number</code></td>
-<td><code>250</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+add"></a></p>
-<h3>gui.add(object, property, $1, $2, $3) ⇒ <a href="#Controller"><code>Controller</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>object</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>property</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td>$1</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>$2</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>$3</td>
-<td><code>*</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+addColor"></a></p>
-<h3>gui.addColor(object, property) ⇒ <a href="#ColorController"><code>ColorController</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>object</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>property</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+addFolder"></a></p>
-<h3>gui.addFolder(title) ⇒ <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>title</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+addHeader"></a></p>
-<h3>gui.addHeader(name) ⇒ <a href="#Header"><code>Header</code></a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+close"></a></p>
-<h3>gui.close() ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong><br>
-<a name="GUI+destroy"></a></p>
-<h3>gui.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>gui.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
-<a name="GUIItem+enable"></a></p>
-<h3>gui.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="GUI+open"></a></p>
-<h3>gui.open([open]) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[open]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+title"></a></p>
-<h3>gui.title(title) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>title</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUI+__closed"></a></p>
-<h3>gui.__closed : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUIItem+__disabled"></a></p>
-<h3>gui.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="GUI+__title"></a></p>
-<h3>gui.__title : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+$children"></a></p>
-<h3>gui.$children : <code>HTMLElement</code></h3>
-<p>The <code>div</code> that contains child elements.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+$title"></a></p>
-<h3>gui.$title : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUI+children"></a></p>
-<h3>gui.children : <a href="#GUIItem"><code>Array.&lt;GUIItem&gt;</code></a></h3>
-<p>List of items in this GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>gui.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>gui.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
-<a name="GUI+root"></a></p>
-<h3>gui.root : <a href="#GUI"><code>GUI</code></a></h3>
-<p>Reference to the outermost GUI, <code>this</code> for the root GUI.</p>
-<p><strong>Kind</strong>: instance property of <a href="#GUI"><code>GUI</code></a><br>
-<a name="Controller"></a></p>
-<h2>Controller ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
-<p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
-<ul>
-<li><a href="#Controller">Controller</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
-<ul>
-<li><a href="#GUIItem+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
-<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
-<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
-<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
-<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
-<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#Controller+property">.property</a> : <code>string</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="GUIItem+destroy"></a></p>
-<h3>controller.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>controller.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
-<a name="GUIItem+enable"></a></p>
-<h3>controller.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="Controller+getValue"></a></p>
-<h3>controller.getValue() ⇒ <code>any</code></h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
-<a name="Controller+name"></a></p>
-<h3>controller.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Controller+onChange"></a></p>
-<h3>controller.onChange(fnc) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fnc</td>
-<td><code>function</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<p><a name="Controller+updateDisplay"></a></p>
-<h3>controller.updateDisplay()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Controller"><code>Controller</code></a><br>
-<a name="GUIItem+__disabled"></a></p>
-<h3>controller.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="Controller+__name"></a></p>
-<h3>controller.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+__onChange"></a></p>
-<h3>controller.__onChange : <code>function</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+$name"></a></p>
-<h3>controller.$name : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="Controller+$widget"></a></p>
-<h3>controller.$widget : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>controller.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
-<a name="Controller+object"></a></p>
-<h3>controller.object : <code>Object</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>controller.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
-<a name="Controller+property"></a></p>
-<h3>controller.property : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Controller"><code>Controller</code></a><br>
-<a name="ColorController"></a></p>
-<h2>ColorController ⇐ <a href="#Controller"><code>Controller</code></a></h2>
-<p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#Controller"><code>Controller</code></a></p>
-<ul>
-<li><a href="#ColorController">ColorController</a> ⇐ <a href="#Controller"><code>Controller</code></a>
-<ul>
-<li><a href="#GUIItem+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
-<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
-<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
-<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
-<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
-<li><a href="#ColorController+$display">.$display</a> : <code>HTMLDivElement</code></li>
-<li><a href="#ColorController+$input">.$input</a> : <code>HTMLInputElement</code></li>
-<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#Controller+property">.property</a> : <code>string</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="GUIItem+destroy"></a></p>
-<h3>colorController.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>colorController.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
-<a name="GUIItem+enable"></a></p>
-<h3>colorController.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="Controller+getValue"></a></p>
-<h3>colorController.getValue() ⇒ <code>any</code></h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+getValue"><code>getValue</code></a><br>
-<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
-<a name="Controller+name"></a></p>
-<h3>colorController.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+name"><code>name</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Controller+onChange"></a></p>
-<h3>colorController.onChange(fnc) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+onChange"><code>onChange</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fnc</td>
-<td><code>function</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<p><a name="Controller+updateDisplay"></a></p>
-<h3>colorController.updateDisplay()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+updateDisplay"><code>updateDisplay</code></a><br>
-<a name="GUIItem+__disabled"></a></p>
-<h3>colorController.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="Controller+__name"></a></p>
-<h3>colorController.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__name"><code>__name</code></a><br>
-<a name="Controller+__onChange"></a></p>
-<h3>colorController.__onChange : <code>function</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__onChange"><code>__onChange</code></a><br>
-<a name="ColorController+$display"></a></p>
-<h3>colorController.$display : <code>HTMLDivElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<a name="ColorController+$input"></a></p>
-<h3>colorController.$input : <code>HTMLInputElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<a name="Controller+$name"></a></p>
-<h3>colorController.$name : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$name"><code>$name</code></a><br>
-<a name="Controller+$widget"></a></p>
-<h3>colorController.$widget : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$widget"><code>$widget</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>colorController.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
-<a name="Controller+object"></a></p>
-<h3>colorController.object : <code>Object</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+object"><code>object</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>colorController.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
-<a name="Controller+property"></a></p>
-<h3>colorController.property : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#ColorController"><code>ColorController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a><br>
-<a name="GUIItem"></a></p>
-<h2>GUIItem</h2>
-<p><strong>Kind</strong>: global class</p>
-<ul>
-<li><a href="#GUIItem">GUIItem</a>
-<ul>
-<li><a href="#GUIItem+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-</ul>
-</li>
-</ul>
-<p><a name="GUIItem+destroy"></a></p>
-<h3>item.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>item.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<strong>Chainable</strong><br>
-<a name="GUIItem+enable"></a></p>
-<h3>item.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<strong>Chainable</strong></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="GUIItem+__disabled"></a></p>
-<h3>item.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>item.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>item.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#GUIItem"><code>GUIItem</code></a><br>
-<a name="Header"></a></p>
-<h2>Header ⇐ <a href="#GUIItem"><code>GUIItem</code></a></h2>
-<p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#GUIItem"><code>GUIItem</code></a></p>
-<ul>
-<li><a href="#Header">Header</a> ⇐ <a href="#GUIItem"><code>GUIItem</code></a>
-<ul>
-<li><a href="#GUIItem+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-</ul>
-</li>
-</ul>
-<p><a name="GUIItem+destroy"></a></p>
-<h3>header.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>header.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
-<a name="GUIItem+enable"></a></p>
-<h3>header.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#Header"><code>Header</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="GUIItem+__disabled"></a></p>
-<h3>header.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>header.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>header.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#Header"><code>Header</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
-<a name="NumberController"></a></p>
-<h2>NumberController ⇐ <a href="#Controller"><code>Controller</code></a></h2>
-<p><strong>Kind</strong>: global class<br>
-<strong>Extends</strong>: <a href="#Controller"><code>Controller</code></a></p>
-<ul>
-<li><a href="#NumberController">NumberController</a> ⇐ <a href="#Controller"><code>Controller</code></a>
-<ul>
-<li><a href="#new_NumberController_new">new NumberController(parent, object, property, [min], [max], [step])</a></li>
-<li><a href="#GUIItem+destroy">.destroy()</a></li>
-<li><a href="#GUIItem+disable">.disable()</a> ↩︎</li>
-<li><a href="#GUIItem+enable">.enable([enable])</a> ↩︎</li>
-<li><a href="#Controller+getValue">.getValue()</a> ⇒ <code>any</code></li>
-<li><a href="#Controller+name">.name(name)</a> ↩︎</li>
-<li><a href="#Controller+onChange">.onChange(fnc)</a> ↩︎</li>
-<li><a href="#Controller+updateDisplay">.updateDisplay()</a></li>
-<li><a href="#GUIItem+__disabled">.__disabled</a> : <code>boolean</code></li>
-<li><a href="#Controller+__name">.__name</a> : <code>string</code></li>
-<li><a href="#Controller+__onChange">.__onChange</a> : <code>function</code></li>
-<li><a href="#Controller+$name">.$name</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+$widget">.$widget</a> : <code>HTMLElement</code></li>
-<li><a href="#GUIItem+domElement">.domElement</a> : <code>HTMLElement</code></li>
-<li><a href="#Controller+object">.object</a> : <code>Object</code></li>
-<li><a href="#GUIItem+parent">.parent</a> : <a href="#GUI"><code>GUI</code></a></li>
-<li><a href="#Controller+property">.property</a> : <code>string</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="new_NumberController_new"></a></p>
-<h3>new NumberController(parent, object, property, [min], [max], [step])</h3>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>parent</td>
-<td><a href="#GUI"><code>GUI</code></a></td>
-</tr>
-<tr>
-<td>object</td>
-<td><code>*</code></td>
-</tr>
-<tr>
-<td>property</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td>[min]</td>
-<td><code>number</code></td>
-</tr>
-<tr>
-<td>[max]</td>
-<td><code>number</code></td>
-</tr>
-<tr>
-<td>[step]</td>
-<td><code>number</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="GUIItem+destroy"></a></p>
-<h3>numberController.destroy()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+destroy"><code>destroy</code></a><br>
-<a name="GUIItem+disable"></a></p>
-<h3>numberController.disable() ↩︎</h3>
-<p>Disables this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+disable"><code>disable</code></a><br>
-<a name="GUIItem+enable"></a></p>
-<h3>numberController.enable([enable]) ↩︎</h3>
-<p>Enables or sets the enabled state of this item.</p>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#GUIItem+enable"><code>enable</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[enable]</td>
-<td><code>boolean</code></td>
-<td><code>true</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">controller.enable();
-controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
-controller.enable( controller.__disabled ); <span class="hljs-comment">// toggle</span>
-</code></pre>
-<p><a name="Controller+getValue"></a></p>
-<h3>numberController.getValue() ⇒ <code>any</code></h3>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+getValue"><code>getValue</code></a><br>
-<strong>Returns</strong>: <code>any</code> - <code>this.object[ this.property ]</code><br>
-<a name="Controller+name"></a></p>
-<h3>numberController.name(name) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+name"><code>name</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name</td>
-<td><code>string</code></td>
-</tr>
-</tbody>
-</table>
-<p><a name="Controller+onChange"></a></p>
-<h3>numberController.onChange(fnc) ↩︎</h3>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Chainable</strong><br>
-<strong>Overrides</strong>: <a href="#Controller+onChange"><code>onChange</code></a></p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fnc</td>
-<td><code>function</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<p><a name="Controller+updateDisplay"></a></p>
-<h3>numberController.updateDisplay()</h3>
-<p><strong>Kind</strong>: instance method of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+updateDisplay"><code>updateDisplay</code></a><br>
-<a name="GUIItem+__disabled"></a></p>
-<h3>numberController.__disabled : <code>boolean</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+__disabled"><code>__disabled</code></a><br>
-<a name="Controller+__name"></a></p>
-<h3>numberController.__name : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__name"><code>__name</code></a><br>
-<a name="Controller+__onChange"></a></p>
-<h3>numberController.__onChange : <code>function</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+__onChange"><code>__onChange</code></a><br>
-<a name="Controller+$name"></a></p>
-<h3>numberController.$name : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$name"><code>$name</code></a><br>
-<a name="Controller+$widget"></a></p>
-<h3>numberController.$widget : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+$widget"><code>$widget</code></a><br>
-<a name="GUIItem+domElement"></a></p>
-<h3>numberController.domElement : <code>HTMLElement</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+domElement"><code>domElement</code></a><br>
-<a name="Controller+object"></a></p>
-<h3>numberController.object : <code>Object</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+object"><code>object</code></a><br>
-<a name="GUIItem+parent"></a></p>
-<h3>numberController.parent : <a href="#GUI"><code>GUI</code></a></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#GUIItem+parent"><code>parent</code></a><br>
-<a name="Controller+property"></a></p>
-<h3>numberController.property : <code>string</code></h3>
-<p><strong>Kind</strong>: instance property of <a href="#NumberController"><code>NumberController</code></a><br>
-<strong>Overrides</strong>: <a href="#Controller+property"><code>property</code></a></p>
-
+    <pre>{
+	"module:GUI": {
+		"meta": {
+			"range": [
+				927,
+				2364
+			],
+			"filename": "GUI.js",
+			"lineno": 35,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000064",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					""
+				]
+			}
+		},
+		"name": "module:GUI",
+		"longname": "module:GUI",
+		"kind": "class",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"Object"
+					]
+				},
+				"optional": true,
+				"name": "params"
+			},
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"optional": true,
+				"name": "params.parent"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"optional": true,
+				"name": "params.title"
+			},
+			{
+				"type": {
+					"names": [
+						"boolean"
+					]
+				},
+				"optional": true,
+				"name": "params.autoPlace"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "params.width"
+			}
+		]
+	},
+	"module:GUI#root": {
+		"meta": {
+			"range": [
+				1159,
+				1198
+			],
+			"filename": "GUI.js",
+			"lineno": 48,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000091",
+				"name": "this.root",
+				"type": "ConditionalExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"description": "Reference to the outermost GUI, `this` for the root GUI.",
+		"type": {
+			"names": [
+				"GUI"
+			]
+		},
+		"name": "root",
+		"longname": "module:GUI#root",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#children": {
+		"meta": {
+			"range": [
+				1278,
+				1296
+			],
+			"filename": "GUI.js",
+			"lineno": 54,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000102",
+				"name": "this.children",
+				"type": "ArrayExpression",
+				"value": "[]",
+				"paramnames": []
+			}
+		},
+		"description": "List of items in this GUI.",
+		"type": {
+			"names": [
+				"Array.<Controller>"
+			]
+		},
+		"name": "children",
+		"longname": "module:GUI#children",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#$children": {
+		"meta": {
+			"range": [
+				1430,
+				1478
+			],
+			"filename": "GUI.js",
+			"lineno": 62,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000118",
+				"name": "this.$children",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"description": "The `div` that contains child elements.",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$children",
+		"longname": "module:GUI#$children",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#$title": {
+		"meta": {
+			"range": [
+				1566,
+				1614
+			],
+			"filename": "GUI.js",
+			"lineno": 68,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000138",
+				"name": "this.$title",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$title",
+		"longname": "module:GUI#$title",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#add": {
+		"meta": {
+			"range": [
+				2518,
+				3426
+			],
+			"filename": "GUI.js",
+			"lineno": 112,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000287",
+				"name": "add",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"object",
+					"property",
+					"$1",
+					"$2",
+					"$3"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$1"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$2"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$3"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"Controller"
+					]
+				}
+			}
+		],
+		"name": "add",
+		"longname": "module:GUI#add",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addColor": {
+		"meta": {
+			"range": [
+				3528,
+				3617
+			],
+			"filename": "GUI.js",
+			"lineno": 158,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000404",
+				"name": "addColor",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"object",
+					"property"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"ColorController"
+					]
+				}
+			}
+		],
+		"name": "addColor",
+		"longname": "module:GUI#addColor",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addHeader": {
+		"meta": {
+			"range": [
+				3683,
+				3740
+			],
+			"filename": "GUI.js",
+			"lineno": 167,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000416",
+				"name": "addHeader",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"Header"
+					]
+				}
+			}
+		],
+		"name": "addHeader",
+		"longname": "module:GUI#addHeader",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addFolder": {
+		"meta": {
+			"range": [
+				3804,
+				3872
+			],
+			"filename": "GUI.js",
+			"lineno": 176,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000426",
+				"name": "addFolder",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"title"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "title"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				}
+			}
+		],
+		"name": "addFolder",
+		"longname": "module:GUI#addFolder",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#title": {
+		"meta": {
+			"range": [
+				3932,
+				4055
+			],
+			"filename": "GUI.js",
+			"lineno": 185,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000439",
+				"name": "title",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"title"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "title"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "title",
+		"longname": "module:GUI#title",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#__title": {
+		"meta": {
+			"range": [
+				3983,
+				4003
+			],
+			"filename": "GUI.js",
+			"lineno": 189,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000445",
+				"name": "this.__title",
+				"type": "Identifier",
+				"value": "title",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "__title",
+		"longname": "module:GUI#__title",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#open": {
+		"meta": {
+			"range": [
+				4317,
+				4477
+			],
+			"filename": "GUI.js",
+			"lineno": 208,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000501",
+				"name": "open",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"open"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"boolean"
+					]
+				},
+				"optional": true,
+				"name": "open",
+				"defaultvalue": true
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "open",
+		"longname": "module:GUI#open",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#__closed": {
+		"meta": {
+			"range": [
+				4374,
+				4395
+			],
+			"filename": "GUI.js",
+			"lineno": 212,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000509",
+				"name": "this.__closed",
+				"type": "UnaryExpression",
+				"value": "!open",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"boolean"
+			]
+		},
+		"name": "__closed",
+		"longname": "module:GUI#__closed",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#close": {
+		"meta": {
+			"range": [
+				4505,
+				4601
+			],
+			"filename": "GUI.js",
+			"lineno": 220,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000530",
+				"name": "close",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "close",
+		"longname": "module:GUI#close",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI",
+		"params": []
+	},
+	"module:GUI#destroy": {
+		"meta": {
+			"range": [
+				4619,
+				4790
+			],
+			"filename": "GUI.js",
+			"lineno": 229,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000552",
+				"name": "destroy",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "destroy",
+		"longname": "module:GUI#destroy",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI",
+		"params": []
+	},
+	"module:Controller": {
+		"meta": {
+			"range": [
+				289,
+				978
+			],
+			"filename": "Controller.js",
+			"lineno": 19,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000599",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"parent",
+					"object",
+					"property",
+					"className",
+					"tagName"
+				]
+			}
+		},
+		"name": "module:Controller",
+		"longname": "module:Controller",
+		"kind": "class",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"name": "parent"
+			},
+			{
+				"type": {
+					"names": [
+						"Object"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "className"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "tagName",
+				"defaultvalue": "div"
+			}
+		]
+	},
+	"module:Controller#object": {
+		"meta": {
+			"range": [
+				423,
+				443
+			],
+			"filename": "Controller.js",
+			"lineno": 26,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000616",
+				"name": "this.object",
+				"type": "Identifier",
+				"value": "object",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"Object"
+			]
+		},
+		"name": "object",
+		"longname": "module:Controller#object",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#property": {
+		"meta": {
+			"range": [
+				480,
+				504
+			],
+			"filename": "Controller.js",
+			"lineno": 31,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000622",
+				"name": "this.property",
+				"type": "Identifier",
+				"value": "property",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "property",
+		"longname": "module:Controller#property",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#$name": {
+		"meta": {
+			"range": [
+				546,
+				590
+			],
+			"filename": "Controller.js",
+			"lineno": 36,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000628",
+				"name": "this.$name",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$name",
+		"longname": "module:Controller#$name",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#$widget": {
+		"meta": {
+			"range": [
+				670,
+				716
+			],
+			"filename": "Controller.js",
+			"lineno": 42,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000648",
+				"name": "this.$widget",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$widget",
+		"longname": "module:Controller#$widget",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#name": {
+		"meta": {
+			"range": [
+				1038,
+				1155
+			],
+			"filename": "Controller.js",
+			"lineno": 60,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000713",
+				"name": "name",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "name",
+		"longname": "module:Controller#name",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller"
+	},
+	"module:Controller#__name": {
+		"meta": {
+			"range": [
+				1087,
+				1105
+			],
+			"filename": "Controller.js",
+			"lineno": 64,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000719",
+				"name": "this.__name",
+				"type": "Identifier",
+				"value": "name",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "__name",
+		"longname": "module:Controller#__name",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#onChange": {
+		"meta": {
+			"range": [
+				1339,
+				1433
+			],
+			"filename": "Controller.js",
+			"lineno": 79,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000734",
+				"name": "onChange",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"fnc"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"function"
+					]
+				},
+				"name": "fnc"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"examples": [
+			"gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );"
+		],
+		"name": "onChange",
+		"longname": "module:Controller#onChange",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller"
+	},
+	"module:Controller#__onChange": {
+		"meta": {
+			"range": [
+				1393,
+				1414
+			],
+			"filename": "Controller.js",
+			"lineno": 83,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000740",
+				"name": "this.__onChange",
+				"type": "Identifier",
+				"value": "fnc",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"function"
+			]
+		},
+		"name": "__onChange",
+		"longname": "module:Controller#__onChange",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#getValue": {
+		"meta": {
+			"range": [
+				2251,
+				2305
+			],
+			"filename": "Controller.js",
+			"lineno": 125,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000890",
+				"name": "getValue",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"any"
+					]
+				},
+				"description": "`this.object[ this.property ]`"
+			}
+		],
+		"name": "getValue",
+		"longname": "module:Controller#getValue",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller",
+		"params": []
+	},
+	"module:Controller#updateDisplay": {
+		"meta": {
+			"range": [
+				2323,
+				2341
+			],
+			"filename": "Controller.js",
+			"lineno": 132,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000902",
+				"name": "updateDisplay",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "updateDisplay",
+		"longname": "module:Controller#updateDisplay",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller",
+		"params": []
+	},
+	"module:NumberController": {
+		"meta": {
+			"range": [
+				384,
+				701
+			],
+			"filename": "NumberController.js",
+			"lineno": 21,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100001268",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"parent",
+					"object",
+					"property",
+					"min",
+					"max",
+					"step"
+				]
+			}
+		},
+		"name": "module:NumberController",
+		"longname": "module:NumberController",
+		"kind": "class",
+		"augments": [
+			"module:Controller"
+		],
+		"params": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"name": "parent"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "min"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "max"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "step"
+			}
+		]
+	},
+	"module:NumberController#updateDisplay": {
+		"meta": {
+			"range": [
+				719,
+				1012
+			],
+			"filename": "NumberController.js",
+			"lineno": 40,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100001326",
+				"name": "updateDisplay",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "updateDisplay",
+		"longname": "module:NumberController#updateDisplay",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [],
+		"overrides": "module:Controller#updateDisplay"
+	},
+	"package:undefined": {
+		"kind": "package",
+		"longname": "package:undefined",
+		"files": [
+			"/Users/georgebrower/Sites/lil-gui/src/GUI.js",
+			"/Users/georgebrower/Sites/lil-gui/src/Controller.js",
+			"/Users/georgebrower/Sites/lil-gui/src/BooleanController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/ColorController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/FunctionController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/NumberController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/OptionController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/StringController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/Header.js"
+		]
+	},
+	"module:NumberController#object": {
+		"meta": {
+			"range": [
+				423,
+				443
+			],
+			"filename": "Controller.js",
+			"lineno": 26,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000616",
+				"name": "this.object",
+				"type": "Identifier",
+				"value": "object",
+				"paramnames": []
+			}
+		},
+		"name": "object",
+		"longname": "module:NumberController#object",
+		"kind": "member",
+		"type": {
+			"names": [
+				"Object"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#object",
+		"inherited": true,
+		"overrides": "module:Controller#object"
+	},
+	"module:NumberController#property": {
+		"meta": {
+			"range": [
+				480,
+				504
+			],
+			"filename": "Controller.js",
+			"lineno": 31,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000622",
+				"name": "this.property",
+				"type": "Identifier",
+				"value": "property",
+				"paramnames": []
+			}
+		},
+		"name": "property",
+		"longname": "module:NumberController#property",
+		"kind": "member",
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#property",
+		"inherited": true,
+		"overrides": "module:Controller#property"
+	},
+	"module:NumberController#$name": {
+		"meta": {
+			"range": [
+				546,
+				590
+			],
+			"filename": "Controller.js",
+			"lineno": 36,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000628",
+				"name": "this.$name",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"name": "$name",
+		"longname": "module:NumberController#$name",
+		"kind": "member",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#$name",
+		"inherited": true,
+		"overrides": "module:Controller#$name"
+	},
+	"module:NumberController#$widget": {
+		"meta": {
+			"range": [
+				670,
+				716
+			],
+			"filename": "Controller.js",
+			"lineno": 42,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000648",
+				"name": "this.$widget",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"name": "$widget",
+		"longname": "module:NumberController#$widget",
+		"kind": "member",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#$widget",
+		"inherited": true,
+		"overrides": "module:Controller#$widget"
+	},
+	"module:NumberController#name": {
+		"meta": {
+			"range": [
+				1038,
+				1155
+			],
+			"filename": "Controller.js",
+			"lineno": 60,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000713",
+				"name": "name",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "name",
+		"longname": "module:NumberController#name",
+		"kind": "function",
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"inherits": "module:Controller#name",
+		"inherited": true,
+		"overrides": "module:Controller#name"
+	},
+	"module:NumberController#__name": {
+		"meta": {
+			"range": [
+				1087,
+				1105
+			],
+			"filename": "Controller.js",
+			"lineno": 64,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000719",
+				"name": "this.__name",
+				"type": "Identifier",
+				"value": "name",
+				"paramnames": []
+			}
+		},
+		"name": "__name",
+		"longname": "module:NumberController#__name",
+		"kind": "member",
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#__name",
+		"inherited": true,
+		"overrides": "module:Controller#__name"
+	},
+	"module:NumberController#onChange": {
+		"meta": {
+			"range": [
+				1339,
+				1433
+			],
+			"filename": "Controller.js",
+			"lineno": 79,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000734",
+				"name": "onChange",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"fnc"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "onChange",
+		"longname": "module:NumberController#onChange",
+		"kind": "function",
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"examples": [
+			"gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );"
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"function"
+					]
+				},
+				"name": "fnc"
+			}
+		],
+		"inherits": "module:Controller#onChange",
+		"inherited": true,
+		"overrides": "module:Controller#onChange"
+	},
+	"module:NumberController#__onChange": {
+		"meta": {
+			"range": [
+				1393,
+				1414
+			],
+			"filename": "Controller.js",
+			"lineno": 83,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000740",
+				"name": "this.__onChange",
+				"type": "Identifier",
+				"value": "fnc",
+				"paramnames": []
+			}
+		},
+		"name": "__onChange",
+		"longname": "module:NumberController#__onChange",
+		"kind": "member",
+		"type": {
+			"names": [
+				"function"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#__onChange",
+		"inherited": true,
+		"overrides": "module:Controller#__onChange"
+	},
+	"module:NumberController#getValue": {
+		"meta": {
+			"range": [
+				2251,
+				2305
+			],
+			"filename": "Controller.js",
+			"lineno": 125,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000890",
+				"name": "getValue",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "getValue",
+		"longname": "module:NumberController#getValue",
+		"kind": "function",
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"any"
+					]
+				},
+				"description": "`this.object[ this.property ]`"
+			}
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"inherits": "module:Controller#getValue",
+		"inherited": true,
+		"overrides": "module:Controller#getValue"
+	}
+}</pre>
+	<script type="text/javascript">console.log({
+	"module:GUI": {
+		"meta": {
+			"range": [
+				927,
+				2364
+			],
+			"filename": "GUI.js",
+			"lineno": 35,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000064",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					""
+				]
+			}
+		},
+		"name": "module:GUI",
+		"longname": "module:GUI",
+		"kind": "class",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"Object"
+					]
+				},
+				"optional": true,
+				"name": "params"
+			},
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"optional": true,
+				"name": "params.parent"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"optional": true,
+				"name": "params.title"
+			},
+			{
+				"type": {
+					"names": [
+						"boolean"
+					]
+				},
+				"optional": true,
+				"name": "params.autoPlace"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "params.width"
+			}
+		]
+	},
+	"module:GUI#root": {
+		"meta": {
+			"range": [
+				1159,
+				1198
+			],
+			"filename": "GUI.js",
+			"lineno": 48,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000091",
+				"name": "this.root",
+				"type": "ConditionalExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"description": "Reference to the outermost GUI, `this` for the root GUI.",
+		"type": {
+			"names": [
+				"GUI"
+			]
+		},
+		"name": "root",
+		"longname": "module:GUI#root",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#children": {
+		"meta": {
+			"range": [
+				1278,
+				1296
+			],
+			"filename": "GUI.js",
+			"lineno": 54,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000102",
+				"name": "this.children",
+				"type": "ArrayExpression",
+				"value": "[]",
+				"paramnames": []
+			}
+		},
+		"description": "List of items in this GUI.",
+		"type": {
+			"names": [
+				"Array.<Controller>"
+			]
+		},
+		"name": "children",
+		"longname": "module:GUI#children",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#$children": {
+		"meta": {
+			"range": [
+				1430,
+				1478
+			],
+			"filename": "GUI.js",
+			"lineno": 62,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000118",
+				"name": "this.$children",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"description": "The `div` that contains child elements.",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$children",
+		"longname": "module:GUI#$children",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#$title": {
+		"meta": {
+			"range": [
+				1566,
+				1614
+			],
+			"filename": "GUI.js",
+			"lineno": 68,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000138",
+				"name": "this.$title",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$title",
+		"longname": "module:GUI#$title",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#add": {
+		"meta": {
+			"range": [
+				2518,
+				3426
+			],
+			"filename": "GUI.js",
+			"lineno": 112,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000287",
+				"name": "add",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"object",
+					"property",
+					"$1",
+					"$2",
+					"$3"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$1"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$2"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "$3"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"Controller"
+					]
+				}
+			}
+		],
+		"name": "add",
+		"longname": "module:GUI#add",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addColor": {
+		"meta": {
+			"range": [
+				3528,
+				3617
+			],
+			"filename": "GUI.js",
+			"lineno": 158,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000404",
+				"name": "addColor",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"object",
+					"property"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"ColorController"
+					]
+				}
+			}
+		],
+		"name": "addColor",
+		"longname": "module:GUI#addColor",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addHeader": {
+		"meta": {
+			"range": [
+				3683,
+				3740
+			],
+			"filename": "GUI.js",
+			"lineno": 167,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000416",
+				"name": "addHeader",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"Header"
+					]
+				}
+			}
+		],
+		"name": "addHeader",
+		"longname": "module:GUI#addHeader",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#addFolder": {
+		"meta": {
+			"range": [
+				3804,
+				3872
+			],
+			"filename": "GUI.js",
+			"lineno": 176,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000426",
+				"name": "addFolder",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"title"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "title"
+			}
+		],
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				}
+			}
+		],
+		"name": "addFolder",
+		"longname": "module:GUI#addFolder",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#title": {
+		"meta": {
+			"range": [
+				3932,
+				4055
+			],
+			"filename": "GUI.js",
+			"lineno": 185,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000439",
+				"name": "title",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"title"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "title"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "title",
+		"longname": "module:GUI#title",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#__title": {
+		"meta": {
+			"range": [
+				3983,
+				4003
+			],
+			"filename": "GUI.js",
+			"lineno": 189,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000445",
+				"name": "this.__title",
+				"type": "Identifier",
+				"value": "title",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "__title",
+		"longname": "module:GUI#__title",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#open": {
+		"meta": {
+			"range": [
+				4317,
+				4477
+			],
+			"filename": "GUI.js",
+			"lineno": 208,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000501",
+				"name": "open",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"open"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"boolean"
+					]
+				},
+				"optional": true,
+				"name": "open",
+				"defaultvalue": true
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "open",
+		"longname": "module:GUI#open",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI"
+	},
+	"module:GUI#__closed": {
+		"meta": {
+			"range": [
+				4374,
+				4395
+			],
+			"filename": "GUI.js",
+			"lineno": 212,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000509",
+				"name": "this.__closed",
+				"type": "UnaryExpression",
+				"value": "!open",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"boolean"
+			]
+		},
+		"name": "__closed",
+		"longname": "module:GUI#__closed",
+		"kind": "member",
+		"memberof": "module:GUI",
+		"scope": "instance"
+	},
+	"module:GUI#close": {
+		"meta": {
+			"range": [
+				4505,
+				4601
+			],
+			"filename": "GUI.js",
+			"lineno": 220,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000530",
+				"name": "close",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "close",
+		"longname": "module:GUI#close",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI",
+		"params": []
+	},
+	"module:GUI#destroy": {
+		"meta": {
+			"range": [
+				4619,
+				4790
+			],
+			"filename": "GUI.js",
+			"lineno": 229,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000552",
+				"name": "destroy",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "destroy",
+		"longname": "module:GUI#destroy",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:GUI",
+		"params": []
+	},
+	"module:Controller": {
+		"meta": {
+			"range": [
+				289,
+				978
+			],
+			"filename": "Controller.js",
+			"lineno": 19,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000599",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"parent",
+					"object",
+					"property",
+					"className",
+					"tagName"
+				]
+			}
+		},
+		"name": "module:Controller",
+		"longname": "module:Controller",
+		"kind": "class",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"name": "parent"
+			},
+			{
+				"type": {
+					"names": [
+						"Object"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "className"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "tagName",
+				"defaultvalue": "div"
+			}
+		]
+	},
+	"module:Controller#object": {
+		"meta": {
+			"range": [
+				423,
+				443
+			],
+			"filename": "Controller.js",
+			"lineno": 26,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000616",
+				"name": "this.object",
+				"type": "Identifier",
+				"value": "object",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"Object"
+			]
+		},
+		"name": "object",
+		"longname": "module:Controller#object",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#property": {
+		"meta": {
+			"range": [
+				480,
+				504
+			],
+			"filename": "Controller.js",
+			"lineno": 31,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000622",
+				"name": "this.property",
+				"type": "Identifier",
+				"value": "property",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "property",
+		"longname": "module:Controller#property",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#$name": {
+		"meta": {
+			"range": [
+				546,
+				590
+			],
+			"filename": "Controller.js",
+			"lineno": 36,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000628",
+				"name": "this.$name",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$name",
+		"longname": "module:Controller#$name",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#$widget": {
+		"meta": {
+			"range": [
+				670,
+				716
+			],
+			"filename": "Controller.js",
+			"lineno": 42,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000648",
+				"name": "this.$widget",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"name": "$widget",
+		"longname": "module:Controller#$widget",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#name": {
+		"meta": {
+			"range": [
+				1038,
+				1155
+			],
+			"filename": "Controller.js",
+			"lineno": 60,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000713",
+				"name": "name",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"name": "name",
+		"longname": "module:Controller#name",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller"
+	},
+	"module:Controller#__name": {
+		"meta": {
+			"range": [
+				1087,
+				1105
+			],
+			"filename": "Controller.js",
+			"lineno": 64,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000719",
+				"name": "this.__name",
+				"type": "Identifier",
+				"value": "name",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"name": "__name",
+		"longname": "module:Controller#__name",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#onChange": {
+		"meta": {
+			"range": [
+				1339,
+				1433
+			],
+			"filename": "Controller.js",
+			"lineno": 79,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000734",
+				"name": "onChange",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"fnc"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"params": [
+			{
+				"type": {
+					"names": [
+						"function"
+					]
+				},
+				"name": "fnc"
+			}
+		],
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"examples": [
+			"gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );"
+		],
+		"name": "onChange",
+		"longname": "module:Controller#onChange",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller"
+	},
+	"module:Controller#__onChange": {
+		"meta": {
+			"range": [
+				1393,
+				1414
+			],
+			"filename": "Controller.js",
+			"lineno": 83,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000740",
+				"name": "this.__onChange",
+				"type": "Identifier",
+				"value": "fnc",
+				"paramnames": []
+			}
+		},
+		"type": {
+			"names": [
+				"function"
+			]
+		},
+		"name": "__onChange",
+		"longname": "module:Controller#__onChange",
+		"kind": "member",
+		"memberof": "module:Controller",
+		"scope": "instance"
+	},
+	"module:Controller#getValue": {
+		"meta": {
+			"range": [
+				2251,
+				2305
+			],
+			"filename": "Controller.js",
+			"lineno": 125,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000890",
+				"name": "getValue",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"any"
+					]
+				},
+				"description": "`this.object[ this.property ]`"
+			}
+		],
+		"name": "getValue",
+		"longname": "module:Controller#getValue",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller",
+		"params": []
+	},
+	"module:Controller#updateDisplay": {
+		"meta": {
+			"range": [
+				2323,
+				2341
+			],
+			"filename": "Controller.js",
+			"lineno": 132,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000902",
+				"name": "updateDisplay",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "updateDisplay",
+		"longname": "module:Controller#updateDisplay",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:Controller",
+		"params": []
+	},
+	"module:NumberController": {
+		"meta": {
+			"range": [
+				384,
+				701
+			],
+			"filename": "NumberController.js",
+			"lineno": 21,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100001268",
+				"name": "module.exports",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"parent",
+					"object",
+					"property",
+					"min",
+					"max",
+					"step"
+				]
+			}
+		},
+		"name": "module:NumberController",
+		"longname": "module:NumberController",
+		"kind": "class",
+		"augments": [
+			"module:Controller"
+		],
+		"params": [
+			{
+				"type": {
+					"names": [
+						"GUI"
+					]
+				},
+				"name": "parent"
+			},
+			{
+				"type": {
+					"names": [
+						"*"
+					]
+				},
+				"name": "object"
+			},
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "property"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "min"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "max"
+			},
+			{
+				"type": {
+					"names": [
+						"number"
+					]
+				},
+				"optional": true,
+				"name": "step"
+			}
+		]
+	},
+	"module:NumberController#updateDisplay": {
+		"meta": {
+			"range": [
+				719,
+				1012
+			],
+			"filename": "NumberController.js",
+			"lineno": 40,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100001326",
+				"name": "updateDisplay",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "updateDisplay",
+		"longname": "module:NumberController#updateDisplay",
+		"kind": "function",
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [],
+		"overrides": "module:Controller#updateDisplay"
+	},
+	"package:undefined": {
+		"kind": "package",
+		"longname": "package:undefined",
+		"files": [
+			"/Users/georgebrower/Sites/lil-gui/src/GUI.js",
+			"/Users/georgebrower/Sites/lil-gui/src/Controller.js",
+			"/Users/georgebrower/Sites/lil-gui/src/BooleanController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/ColorController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/FunctionController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/NumberController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/OptionController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/StringController.js",
+			"/Users/georgebrower/Sites/lil-gui/src/Header.js"
+		]
+	},
+	"module:NumberController#object": {
+		"meta": {
+			"range": [
+				423,
+				443
+			],
+			"filename": "Controller.js",
+			"lineno": 26,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000616",
+				"name": "this.object",
+				"type": "Identifier",
+				"value": "object",
+				"paramnames": []
+			}
+		},
+		"name": "object",
+		"longname": "module:NumberController#object",
+		"kind": "member",
+		"type": {
+			"names": [
+				"Object"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#object",
+		"inherited": true,
+		"overrides": "module:Controller#object"
+	},
+	"module:NumberController#property": {
+		"meta": {
+			"range": [
+				480,
+				504
+			],
+			"filename": "Controller.js",
+			"lineno": 31,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000622",
+				"name": "this.property",
+				"type": "Identifier",
+				"value": "property",
+				"paramnames": []
+			}
+		},
+		"name": "property",
+		"longname": "module:NumberController#property",
+		"kind": "member",
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#property",
+		"inherited": true,
+		"overrides": "module:Controller#property"
+	},
+	"module:NumberController#$name": {
+		"meta": {
+			"range": [
+				546,
+				590
+			],
+			"filename": "Controller.js",
+			"lineno": 36,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000628",
+				"name": "this.$name",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"name": "$name",
+		"longname": "module:NumberController#$name",
+		"kind": "member",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#$name",
+		"inherited": true,
+		"overrides": "module:Controller#$name"
+	},
+	"module:NumberController#$widget": {
+		"meta": {
+			"range": [
+				670,
+				716
+			],
+			"filename": "Controller.js",
+			"lineno": 42,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000648",
+				"name": "this.$widget",
+				"type": "CallExpression",
+				"value": "",
+				"paramnames": []
+			}
+		},
+		"name": "$widget",
+		"longname": "module:NumberController#$widget",
+		"kind": "member",
+		"type": {
+			"names": [
+				"HTMLElement"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#$widget",
+		"inherited": true,
+		"overrides": "module:Controller#$widget"
+	},
+	"module:NumberController#name": {
+		"meta": {
+			"range": [
+				1038,
+				1155
+			],
+			"filename": "Controller.js",
+			"lineno": 60,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000713",
+				"name": "name",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"name"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "name",
+		"longname": "module:NumberController#name",
+		"kind": "function",
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"string"
+					]
+				},
+				"name": "name"
+			}
+		],
+		"inherits": "module:Controller#name",
+		"inherited": true,
+		"overrides": "module:Controller#name"
+	},
+	"module:NumberController#__name": {
+		"meta": {
+			"range": [
+				1087,
+				1105
+			],
+			"filename": "Controller.js",
+			"lineno": 64,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000719",
+				"name": "this.__name",
+				"type": "Identifier",
+				"value": "name",
+				"paramnames": []
+			}
+		},
+		"name": "__name",
+		"longname": "module:NumberController#__name",
+		"kind": "member",
+		"type": {
+			"names": [
+				"string"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#__name",
+		"inherited": true,
+		"overrides": "module:Controller#__name"
+	},
+	"module:NumberController#onChange": {
+		"meta": {
+			"range": [
+				1339,
+				1433
+			],
+			"filename": "Controller.js",
+			"lineno": 79,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000734",
+				"name": "onChange",
+				"type": "MethodDefinition",
+				"paramnames": [
+					"fnc"
+				]
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "onChange",
+		"longname": "module:NumberController#onChange",
+		"kind": "function",
+		"tags": [
+			{
+				"originalTitle": "chainable",
+				"title": "chainable",
+				"text": ""
+			}
+		],
+		"examples": [
+			"gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );"
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"params": [
+			{
+				"type": {
+					"names": [
+						"function"
+					]
+				},
+				"name": "fnc"
+			}
+		],
+		"inherits": "module:Controller#onChange",
+		"inherited": true,
+		"overrides": "module:Controller#onChange"
+	},
+	"module:NumberController#__onChange": {
+		"meta": {
+			"range": [
+				1393,
+				1414
+			],
+			"filename": "Controller.js",
+			"lineno": 83,
+			"columnno": 2,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000740",
+				"name": "this.__onChange",
+				"type": "Identifier",
+				"value": "fnc",
+				"paramnames": []
+			}
+		},
+		"name": "__onChange",
+		"longname": "module:NumberController#__onChange",
+		"kind": "member",
+		"type": {
+			"names": [
+				"function"
+			]
+		},
+		"memberof": "module:NumberController",
+		"scope": "instance",
+		"inherits": "module:Controller#__onChange",
+		"inherited": true,
+		"overrides": "module:Controller#__onChange"
+	},
+	"module:NumberController#getValue": {
+		"meta": {
+			"range": [
+				2251,
+				2305
+			],
+			"filename": "Controller.js",
+			"lineno": 125,
+			"columnno": 1,
+			"path": "https://github.com/georgealways/gui/blob/master/src",
+			"code": {
+				"id": "astnode100000890",
+				"name": "getValue",
+				"type": "MethodDefinition",
+				"paramnames": []
+			},
+			"vars": {
+				"": null
+			}
+		},
+		"name": "getValue",
+		"longname": "module:NumberController#getValue",
+		"kind": "function",
+		"returns": [
+			{
+				"type": {
+					"names": [
+						"any"
+					]
+				},
+				"description": "`this.object[ this.property ]`"
+			}
+		],
+		"scope": "instance",
+		"memberof": "module:NumberController",
+		"inherits": "module:Controller#getValue",
+		"inherited": true,
+		"overrides": "module:Controller#getValue"
+	}
+})</script>
   </div>
 
   <script type="module" src="index.js"></script>

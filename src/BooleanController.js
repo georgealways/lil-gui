@@ -1,6 +1,6 @@
-import { Controller } from './Controller.js';
+import Controller from './Controller.js';
 
-export class BooleanController extends Controller {
+export default class BooleanController extends Controller {
 
 	constructor( parent, object, property ) {
 

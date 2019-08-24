@@ -1,34 +1,36 @@
+/**
+ * @module GUI
+ */
 import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
 
-import { GUIItem } from './GUIItem.js';
+import GUIItem from './GUIItem.js';
 
-import { BooleanController } from './BooleanController.js';
-import { ColorController } from './ColorController.js';
-import { FunctionController } from './FunctionController.js';
-import { NumberController } from './NumberController.js';
-import { OptionController } from './OptionController.js';
-import { StringController } from './StringController.js';
-import { Header } from './Header.js';
+import BooleanController from './BooleanController.js';
+import ColorController from './ColorController.js';
+import FunctionController from './FunctionController.js';
+import NumberController from './NumberController.js';
+import OptionController from './OptionController.js';
+import StringController from './StringController.js';
+import Header from './Header.js';
 
-import { injectStyles } from './utils/injectStyles.js';
+import injectStyles from './utils/injectStyles.js';
 
 import styles from '../build/lil-gui.css';
 
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 /**
- * @typicalname gui
- * @extends GUIItem
+ * 
  */
-export class GUI extends GUIItem {
+export default class GUI extends GUIItem {
 
 	/**
 	 * 
 	 * @param {Object=} params
 	 * @param {GUI=} params.parent
-	 * @param {string=} params.title=Controls
-	 * @param {boolean=} params.autoPlace=true
-	 * @param {number=} params.width=250
+	 * @param {string=} params.title
+	 * @param {boolean=} params.autoPlace
+	 * @param {number=} params.width
 	 */ 
 	constructor( {
 		parent,
@@ -47,7 +49,7 @@ export class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Array<GUIItem>}
+		 * @type {Array<Controller>}
 		 */
 		this.children = [];
 

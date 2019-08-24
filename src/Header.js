@@ -1,9 +1,6 @@
-import { GUIItem } from './GUIItem.js';
+import GUIItem from './GUIItem.js';
 
-/**
- * @extends GUIItem
- */
-export class Header extends GUIItem {
+export default class Header extends GUIItem {
 
 	constructor( parent, name ) {
 
@@ -19,6 +16,5 @@ export class Header extends GUIItem {
 		this.__name = name;
 		this.domElement.innerHTML = name;
 	}
-
 
 }

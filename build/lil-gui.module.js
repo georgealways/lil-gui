@@ -4,9 +4,6 @@ const isBoolean = val => typeof val === 'boolean';
 const isNumber = val => typeof val === 'number';
 const isObject = val => Object( val ) === val;
 
-/**
- * @typicalname item
- */
 class GUIItem {
 
 	constructor( parent, tagName = 'div' ) {
@@ -71,10 +68,22 @@ class GUIItem {
 }
 
 /**
- * @extends GUIItem
+ * @module Controller
+ */
+
+/**
+ * 
  */
 class Controller extends GUIItem {
 
+	/**
+	 * 
+	 * @param {GUI} parent 
+	 * @param {Object} object 
+	 * @param {string} property 
+	 * @param {string} className 
+	 * @param {string} tagName 
+	 */
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		super( parent, tagName );
@@ -273,24 +282,15 @@ function getColorFormat( value ) {
 	return FORMATS.find( format => format.match( value ) );
 }
 
-/**
- * @extends Controller
- */
 class ColorController extends Controller {
 
 	constructor( parent, object, property ) {
 
 		super( parent, object, property, 'color' );
 
-		/**
-		 * @type {HTMLInputElement}
-		 */
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
 
-		/**
-		 * @type {HTMLDivElement}
-		 */
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 
@@ -345,10 +345,16 @@ class FunctionController extends Controller {
 
 }
 
-const map = ( v, a, b, c, d ) => ( v - a ) / ( b - a ) * ( d - c ) + c;
+function map( v, a, b, c, d ) {
+	return ( v - a ) / ( b - a ) * ( d - c ) + c;
+}
 
 /**
- * @extends Controller
+ * @module NumberController
+ */
+
+/**
+ * @extends module:Controller
  */
 class NumberController extends Controller {
 
@@ -357,9 +363,9 @@ class NumberController extends Controller {
 	 * @param {GUI} parent 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @param {number} [min] 
-	 * @param {number} [max] 
-	 * @param {number} [step] 
+	 * @param {number=} min 
+	 * @param {number=} max 
+	 * @param {number=} step 
 	 */
 	constructor( parent, object, property, min, max, step ) {
 
@@ -377,6 +383,9 @@ class NumberController extends Controller {
 
 	}
 
+	/**
+	 * 
+	 */
 	updateDisplay() {
 
 		const value = this.getValue();
@@ -747,9 +756,6 @@ class StringController extends Controller {
 
 }
 
-/**
- * @extends GUIItem
- */
 class Header extends GUIItem {
 
 	constructor( parent, name ) {
@@ -767,7 +773,6 @@ class Header extends GUIItem {
 		this.domElement.innerHTML = name;
 	}
 
-
 }
 
 function injectStyles( cssContent, fallbackURL ) {
@@ -784,11 +789,14 @@ function injectStyles( cssContent, fallbackURL ) {
 
 var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAARoAAsAAAAABtgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAJgAAADID53niWhlYWQAAAKMAAAAJwAAADZfcj22aGhlYQAAArQAAAAYAAAAJAC5AGpobXR4AAACzAAAAA4AAAAUAZAAAGxvY2EAAALcAAAADAAAAAwAZgCWbWF4cAAAAugAAAAeAAAAIAERAB9uYW1lAAADCAAAASIAAAIK9SUU/XBvc3QAAAQsAAAAOQAAAEqHPh3zeJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nEWOzQrCMBCEZzdRyaXSmDQNgkKrLZ6EUpuL0JM3xYu+/6vYrYhzmv35hgFDdMcTjAUwUvCrNoouMeYxypXmnyveyIFUNf1IbdMP3Z4Kt6bljhU7x0pzSVTyVmnyjrWaRln9+BE3WOHP9IXT0M18fVBU0ERtLOnZHtkLb62Eev53eOEhLVObQgqnYLLKxMJktfkAKz0NFXicY2BkYGAA4kf5XM7x/DZfGbgZUhiwgRCGUCDJwcAE4gAAodQEYgB4nGNgZGBgSGFggJMhDIwMqIAVABx5ASR4nGNgAIIUVAwADiQBkQAAAAAAAAASADIAVABkeJxjYGRgYGBlEGZgYgABEMkFhAwM/8F8BgAK2gExAAB4nF3QTUrDQBwF8Jd+YgNFEF2JzEoX0vRj2QO0+y4CLtN0kqZMM2EyLdQTeAJP4Ck8gHgsX8N/Y2ZI8ps3LwMJgFv8IMB1BBg29+vo0ENxlxqLe/S9uI8Qj+IB8xfxCK+IxCHu8MYTgt4NkzGMuEO/i7v0h7hHf4r7eMCXeMD8WzxCjF9xiOfgyRRmkp+Kjc5PJnGykkesXV3YUs2jmSRrXWqXeL1T24uqz/nC+0xlzh7VypZeG2NV5exBpz7ae18tp9NM8ii1R35BwWuCHCdqA93IIIFr7f1fxWw61JRFCYU5/9Gs1VmzUza9BJ7PHXtbXHivcWZnwdQj4zpjx+JIrZrzrm3DaZlUzd6BSco8wr55q8ISU86s1Y/Y4kl/ddRY3gAAeJxjYGKAAEYG7ICVkYmRmZGFkZWRjYEjpSi/ICW/PI8tOSe/ODWFJb8gNY81OSM1OZuBAQCfaQnQAAAA\") format(\"woff\")}.lil-gui{--bg-color: #1a1a1a;--fg-color: #eee;--widget-fg-color: #eee;--widget-bg-color: #3c3c3c;--widget-fg-color-focus: #fff;--widget-bg-color-focus: #4d4d4d;--number-color: #00adff;--string-color: #1ed36f;--title-bg-color: #111;--header-rule-color: rgba(255, 255, 255, 0.1);--folder-rule-color: #444;--font-family: system-ui, sans-serif;--font-size: 11px;--line-height: 1;--name-width: 40%;--row-height: 24px;--widget-height: 20px;--padding: 0.55em;--widget-padding: 0 0 0 0.25em;--widget-border-radius: 2px;--scrollbar-width: 0.375em;--icons-font-family: \"lil-gui\";width:var(--width, auto);text-align:left;font-size:var(--font-size);line-height:var(--line-height);font-family:var(--font-family);font-weight:normal;font-style:normal;background-color:var(--bg-color);color:var(--fg-color);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;user-select:none;-webkit-user-select:none}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--bg-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--widget-bg-color)}@media(max-width: 600px){.lil-gui{--row-height: 38px;--widget-height: 32px;--font-size: 16px}.lil-gui.autoPlace{right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:200px}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-bg-color);color:var(--widget-fg-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(.75*var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:var(--icons-font-family);content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{outline:none;cursor:pointer;border:0;font-size:var(--font-size);color:var(--widget-fg-color);background:var(--bg-color);font-weight:bold;text-align:left;text-transform:none;width:100%}.lil-gui button .name{width:100%}.lil-gui input:focus,.lil-gui input:active,.lil-gui button:focus,.lil-gui button:active{background:var(--widget-bg-color-focus);color:var(--widget-fg-color-focus)}.lil-gui .display{background:var(--widget-bg-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--widget-bg-color-focus);color:var(--widget-fg-color-focus)}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);line-height:var(--row-height);font-weight:bold;cursor:pointer}.lil-gui .title:before{font-family:var(--icons-font-family);content:\"▾\";width:1em;vertical-align:middle}.lil-gui.closed .children{display:none}.lil-gui.closed .title:before{content:\"▸\"}.lil-gui.root>.title{background:var(--title-bg-color)}.lil-gui.root>.children:not(:empty){padding:calc(.5*var(--padding)) 0}.lil-gui:not(.root)>.children{margin-left:.75em;border-left:2px solid var(--folder-rule-color)}.lil-gui:not(.root)>.children .header{padding-left:0;margin-left:var(--padding)}.lil-gui .header{height:var(--row-height);padding:0 var(--padding);font-weight:bold;border-bottom:1px solid var(--header-rule-color);margin-bottom:calc(.5*var(--padding));display:flex;align-items:center}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;width:var(--name-width);height:100%;flex-shrink:0;overflow:hidden}.lil-gui .controller .widget{display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input:not(:focus){color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:33%;min-width:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--padding) - 2px);background-color:var(--widget-bg-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input:not(:focus){color:var(--string-color)}.lil-gui .controller.color .widget{position:relative}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option .widget{position:relative}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);padding-left:var(--padding);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:var(--icons-font-family);content:\"↕\";position:absolute;display:flex;align-items:center;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui.solarized,.lil-gui.solarized .lil-gui{--bg-color: #fdf6e3;--fg-color: #657b83;--widget-fg-color: #657b83;--widget-bg-color: #eee8d5;--widget-fg-color-focus: #eee8d5;--widget-bg-color-focus: #657b83;--number-color: #268bd2;--string-color: #859900;--title-bg-color: #eee8d5;--header-rule-color: #eee8d5;--folder-rule-color: #eee8d5}\n";
 
+/**
+ * @module GUI
+ */
+
 injectStyles( styles);
 
 /**
- * @typicalname gui
- * @extends GUIItem
+ * 
  */
 class GUI extends GUIItem {
 
@@ -796,9 +804,9 @@ class GUI extends GUIItem {
 	 * 
 	 * @param {Object=} params
 	 * @param {GUI=} params.parent
-	 * @param {string=} params.title=Controls
-	 * @param {boolean=} params.autoPlace=true
-	 * @param {number=} params.width=250
+	 * @param {string=} params.title
+	 * @param {boolean=} params.autoPlace
+	 * @param {number=} params.width
 	 */ 
 	constructor( {
 		parent,
@@ -817,7 +825,7 @@ class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Array<GUIItem>}
+		 * @type {Array<Controller>}
 		 */
 		this.children = [];
 

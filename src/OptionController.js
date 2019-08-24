@@ -1,6 +1,6 @@
-import { Controller } from './Controller.js';
+import Controller from './Controller.js';
 
-export class OptionController extends Controller {
+export default class OptionController extends Controller {
 
 	constructor( parent, object, property, options ) {
 

@@ -1,14 +1,13 @@
-// Main class is exposed as both default and named module
-export { GUI as default } from './GUI.js';
-export { GUI } from './GUI.js';
+export { default as default } from './GUI.js';
 
-export { Controller } from './Controller.js';
+export { default as GUI } from './GUI.js';
+export { default as Controller } from './Controller.js';
 
-export { BooleanController } from './BooleanController.js';
-export { ColorController } from './ColorController.js';
-export { FunctionController } from './FunctionController.js';
-export { NumberController } from './NumberController.js';
-export { OptionController } from './OptionController.js';
-export { StringController } from './StringController.js';
+export { default as BooleanController } from './BooleanController.js';
+export { default as ColorController } from './ColorController.js';
+export { default as FunctionController } from './FunctionController.js';
+export { default as NumberController } from './NumberController.js';
+export { default as OptionController } from './OptionController.js';
+export { default as StringController } from './StringController.js';
 
-export { Header } from './Header.js';
+export { default as Header } from './Header.js';

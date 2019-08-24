@@ -1,6 +1,6 @@
-import { Controller } from './Controller.js';
+import Controller from './Controller.js';
 
-export class FunctionController extends Controller {
+export default class FunctionController extends Controller {
 
 	constructor( parent, object, property ) {
 

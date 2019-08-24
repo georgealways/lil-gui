@@ -1,24 +1,15 @@
-import { Controller } from './Controller.js';
-import { getColorFormat } from './utils/getColorFormat.js';
+import Controller from './Controller.js';
+import getColorFormat from './utils/getColorFormat.js';
 
-/**
- * @extends Controller
- */
-export class ColorController extends Controller {
+export default class ColorController extends Controller {
 
 	constructor( parent, object, property ) {
 
 		super( parent, object, property, 'color' );
 
-		/**
-		 * @type {HTMLInputElement}
-		 */
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
 
-		/**
-		 * @type {HTMLDivElement}
-		 */
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 

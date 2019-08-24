@@ -1,19 +1,22 @@
-import { Controller } from './Controller.js';
-import { map } from './utils/map.js';
+/**
+ * @module NumberController
+ */
+import Controller from './Controller.js';
+import map from './utils/map.js';
 
 /**
- * @extends Controller
+ * @extends module:Controller
  */
-export class NumberController extends Controller {
+export default class NumberController extends Controller {
 
 	/**
 	 * 
 	 * @param {GUI} parent 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @param {number} [min] 
-	 * @param {number} [max] 
-	 * @param {number} [step] 
+	 * @param {number=} min 
+	 * @param {number=} max 
+	 * @param {number=} step 
 	 */
 	constructor( parent, object, property, min, max, step ) {
 
@@ -31,6 +34,9 @@ export class NumberController extends Controller {
 
 	}
 
+	/**
+	 * 
+	 */
 	updateDisplay() {
 
 		const value = this.getValue();
