@@ -42,9 +42,9 @@ export default class GUI extends GUIItem {
 		super( parent, 'div' );
 
 		/**
-         * Reference to the outermost GUI, `this` for the root GUI.
-         * @type {GUI}
-         */
+		 * Reference to the outermost GUI, `this` for the root GUI.
+		 * @type {GUI}
+		 */
 		this.root = parent ? parent.root : this;
 
 		/**
