@@ -3,23 +3,23 @@ export default class GUIItem {
 	constructor( parent, tagName = 'div' ) {
 
 		/**
-         * @type {GUI}
-         */
+		 * @type {GUI}
+		 */
 		this.parent = parent;
 
 		/**
-         * @type {HTMLElement}
-         */
+		 * @type {HTMLElement}
+		 */
 		this.domElement = document.createElement( tagName );
 
 		if ( this.parent ) {
-			this.parent.children.push( this );
+			this.parent.children.add( this );
 			this.parent.$children.appendChild( this.domElement );
 		}
 
 		/**
-         * @type {boolean}
-         */
+		 * @type {boolean}
+		 */
 		this.__disabled = false;
 
 	}
@@ -50,11 +50,11 @@ export default class GUIItem {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	destroy() {
 		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ) );
+			this.parent.children.delete( this );
 		}
 		this.domElement.parentElement.removeChild( this.domElement );
 	}

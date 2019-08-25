@@ -9,23 +9,23 @@ class GUIItem {
 	constructor( parent, tagName = 'div' ) {
 
 		/**
-         * @type {GUI}
-         */
+		 * @type {GUI}
+		 */
 		this.parent = parent;
 
 		/**
-         * @type {HTMLElement}
-         */
+		 * @type {HTMLElement}
+		 */
 		this.domElement = document.createElement( tagName );
 
 		if ( this.parent ) {
-			this.parent.children.push( this );
+			this.parent.children.add( this );
 			this.parent.$children.appendChild( this.domElement );
 		}
 
 		/**
-         * @type {boolean}
-         */
+		 * @type {boolean}
+		 */
 		this.__disabled = false;
 
 	}
@@ -56,11 +56,11 @@ class GUIItem {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	destroy() {
 		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ) );
+			this.parent.children.delete( this );
 		}
 		this.domElement.parentElement.removeChild( this.domElement );
 	}
@@ -349,24 +349,8 @@ function map( v, a, b, c, d ) {
 	return ( v - a ) / ( b - a ) * ( d - c ) + c;
 }
 
-/**
- * @module NumberController
- */
-
-/**
- * @extends module:Controller
- */
 class NumberController extends Controller {
 
-	/**
-	 * 
-	 * @param {GUI} parent 
-	 * @param {*} object 
-	 * @param {string} property 
-	 * @param {number=} min 
-	 * @param {number=} max 
-	 * @param {number=} step 
-	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );
@@ -383,9 +367,6 @@ class NumberController extends Controller {
 
 	}
 
-	/**
-	 * 
-	 */
 	updateDisplay() {
 
 		const value = this.getValue();
@@ -825,9 +806,9 @@ class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Array<Controller>}
+		 * @type {Set}
 		 */
-		this.children = [];
+		this.children = new Set();
 
 		this.domElement.classList.add( 'lil-gui' );
 

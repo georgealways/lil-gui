@@ -11,7 +11,7 @@ rules:
   comma-spacing: warn
   comma-dangle: [ warn, never ]
   computed-property-spacing: [ warn, always ]
-  eqeqeq: [ warn, always ]
+  eqeqeq: [ warn, smart ]
   func-call-spacing: [ warn, never ]
   indent: [ warn, tab, { SwitchCase: 1 } ]
   key-spacing: [ warn, { mode: minimum } ]

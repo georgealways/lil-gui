@@ -49,9 +49,9 @@ export default class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Array<Controller>}
+		 * @type {Set}
 		 */
-		this.children = [];
+		this.children = new Set();
 
 		this.domElement.classList.add( 'lil-gui' );
 

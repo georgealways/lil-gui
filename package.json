@@ -9,7 +9,7 @@
     "docs": "node scripts/docs.js",
     "css": "sass style/main.scss build/lil-gui.css --style=compressed --no-charset --no-source-map",
     "js": "rollup -c",
-    "dev:docs": "onchange -i 'build/lil-gui.module.js' 'README.md' 'docs/template.html' -- npm run docs",
+    "dev:docs": "onchange -i 'build/lil-gui.module.js' 'README.md' 'scripts/docs.js' 'docs/template.html' -- npm run docs",
     "dev:icons": "onchange -i 'style/icons/*.svg' -- npm run icons",
     "dev:css": "npm run css -- --watch",
     "dev:js": "npm run js -- -w",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "concurrently": "^4.1.1",
     "eslint": "^6.1.0",
+    "handlebars": "^4.1.2",
     "highlight.js": "^9.15.10",
     "jsdoc-api": "^5.0.2",
     "jsdoc-to-markdown": "^5.0.0",
