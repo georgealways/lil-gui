@@ -108,7 +108,8 @@ class Controller extends GUIItem {
 
 	/**
 	 * 
-	 * @param {string} name 
+	 * @param {string} name
+	 * @returns {Controller} self
 	 * @chainable 
 	 */
 	name( name ) {
@@ -123,6 +124,7 @@ class Controller extends GUIItem {
 	/**
 	 * 
 	 * @param {function} callback 
+	 * @returns {Controller} self
 	 * @chainable 
 	 * 
 	 * @example
@@ -178,9 +180,12 @@ class Controller extends GUIItem {
 	}
 
 	/**
-	 * 
+	 * TODO
+	 * @chainable
 	 */
-	updateDisplay() {}
+	updateDisplay() {
+		return this;
+	}
 
 	listen() {
 		// eslint-disable-next-line no-console
@@ -756,7 +761,6 @@ var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font
 /**
  * @module GUI
  */
-
 injectStyles( styles);
 
 /**
@@ -903,7 +907,7 @@ class GUI extends GUIItem {
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @returns {ColorController}
+	 * @returns {Controller}
 	 */
 	addColor( object, property ) {
 		return new ColorController( this, object, property );
@@ -954,6 +958,7 @@ class GUI extends GUIItem {
 	 * Opens or closes a GUI or folder.
 	 * 
 	 * @param {boolean=} open Pass false to close
+	 * @chainable
 	 * @example
 	 * folder.open(); // open
 	 * folder.open( false ); // closed

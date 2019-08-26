@@ -1,6 +1,7 @@
 /**
  * @module GUI
  */
+
 import GUIItem from './GUIItem.js';
 
 import BooleanController from './BooleanController.js';
@@ -12,9 +13,7 @@ import StringController from './StringController.js';
 import Header from './Header.js';
 
 import injectStyles from './utils/injectStyles.js';
-
 import styles from '../build/lil-gui.css';
-
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 /**
@@ -161,7 +160,7 @@ export default class GUI extends GUIItem {
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @returns {ColorController}
+	 * @returns {Controller}
 	 */
 	addColor( object, property ) {
 		return new ColorController( this, object, property );
@@ -212,6 +211,7 @@ export default class GUI extends GUIItem {
 	 * Opens or closes a GUI or folder.
 	 * 
 	 * @param {boolean=} open Pass false to close
+	 * @chainable
 	 * @example
 	 * folder.open(); // open
 	 * folder.open( false ); // closed

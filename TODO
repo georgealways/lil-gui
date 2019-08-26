@@ -1,6 +1,7 @@
 todo
 
 [ ] children Set or Array? (write a test for destroy)
+
 [ ] kill "GUIItem"
 [ ] define blank methods for controller (min,max,step,options)
 [ ] kill onfinishchange?
@@ -19,10 +20,14 @@ style todo
 docs todo
 
 [ ] constructor in index
-[ ] all that bolding in the signatures is going to be lost if you use h3's
-[ ] viewsource link
-[ ] parameter formatting
+[ ] indication of kind 
+	be it by categories or something in the description
+	so far: ( constructor, instance method, instance property )
+[x] viewsource link
+[x] indextypes for chainable
+[x] parameter formatting
 [x] sort by [function, member] then [a-z$_]
+[x] all that bolding in the signatures is going to be lost if you use h3's
 
 changelog
 

@@ -1,3 +1,5 @@
+// shims just enough browser stuff to run in node
+
 const createElement = () => ( {
 	insertBefore() {},
 	classList: {

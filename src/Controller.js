@@ -46,7 +46,8 @@ export default class Controller extends GUIItem {
 
 	/**
 	 * 
-	 * @param {string} name 
+	 * @param {string} name
+	 * @returns {Controller} self
 	 * @chainable 
 	 */
 	name( name ) {
@@ -61,6 +62,7 @@ export default class Controller extends GUIItem {
 	/**
 	 * 
 	 * @param {function} callback 
+	 * @returns {Controller} self
 	 * @chainable 
 	 * 
 	 * @example
@@ -116,9 +118,12 @@ export default class Controller extends GUIItem {
 	}
 
 	/**
-	 * 
+	 * TODO
+	 * @chainable
 	 */
-	updateDisplay() {}
+	updateDisplay() {
+		return this;
+	}
 
 	listen() {
 		// eslint-disable-next-line no-console
