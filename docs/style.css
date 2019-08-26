@@ -30,6 +30,6 @@ p code {
 
 #api h3,
 #api h2 { 
-    border-top: 1px solid var(--color-gray);
-    padding-top: 1rem;
+    /* border-top: 1px solid var(--color-gray); */
+    /* padding-top: 1rem; */
 }

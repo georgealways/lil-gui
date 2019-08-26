@@ -25,7 +25,7 @@ export default class GUI extends GUIItem {
 	/**
 	 * 
 	 * @param {Object=} options
-	 * @param {GUI=} options.parent 
+	 * @param {GUI=} options.parent
 	 */
 	constructor( {
 		parent,
@@ -124,38 +124,36 @@ export default class GUI extends GUIItem {
 		const initialValue = object[ property ];
 
 		if ( initialValue === undefined ) {
-			throw new Error( `Property "${property}" of ${object} is undefined.` );
-		}
 
-		let controller;
+			throw new Error( `Property "${property}" of ${object} is undefined.` );
+
+		}
 
 		if ( Array.isArray( $1 ) || Object( $1 ) === $1 ) {
 
-			controller = new OptionController( this, object, property, $1 );
+			return new OptionController( this, object, property, $1 );
 
 		} else if ( typeof initialValue == 'boolean' ) {
 
-			controller = new BooleanController( this, object, property );
+			return new BooleanController( this, object, property );
 
 		} else if ( typeof initialValue == 'string' ) {
 
-			controller = new StringController( this, object, property );
+			return new StringController( this, object, property );
 
 		} else if ( typeof initialValue == 'function' ) {
 
-			controller = new FunctionController( this, object, property );
+			return new FunctionController( this, object, property );
 
 		} else if ( typeof initialValue == 'number' ) {
 
-			controller = new NumberController( this, object, property, $1, $2, $3 );
+			return new NumberController( this, object, property, $1, $2, $3 );
 
 		} else {
 
 			throw new Error( `No suitable controller type for ${initialValue}` );
 
 		}
-
-		return controller;
 
 	}
 

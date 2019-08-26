@@ -1,20 +1,24 @@
-# API
+# lil-gui docs
 
-{{#toplevel}}
+{{#jsdocData}}
 
 **{{indexname}}**
 
 {{#children}}
-- {{indexname}}
+- [{{indexname}}](#{{{longname}}})
 {{/children}}
 
-{{/toplevel}}
+{{/jsdocData}}
 
-***
+{{#jsdocData}}
 
-{{#data}}
+## {{indexname}}
 
-{{signature}} [#]({{viewsource}})
+{{{description}}}
+
+{{#children}}
+
+### <a name="{{{longname}}}" href="#{{{longname}}}">#</a> {{signature}}
 
 {{{description}}}
 
@@ -22,6 +26,7 @@
 ```js
 {{{.}}}
 ```
+
 {{/examples}}
 
 {{#with params}}
@@ -31,6 +36,8 @@
 {{/.}}
 {{/with}}
 
-{{/data}}
+[View source]({{{viewsource}}})
 
-<script type="text/javascript">console.log( 'jsdoc-api debug', {{{debug}}} )</script>
+{{/children}}
+
+{{/jsdocData}}

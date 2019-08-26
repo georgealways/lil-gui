@@ -83,18 +83,23 @@ data.forEach( v => {
 
 	} );
 
+	v.indexname = v.name;
 
 	if ( v.kind === 'function' && v.scope === 'instance' ) {
 
+		v.indexname = `**${v.indexname}**`;
+
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 		v.signature += paramsToSignature( v.params );
+
+		v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
 
 	} else if ( v.kind === 'class' ) {
 
 		if ( v.params ) {
 			v.signature = `**new** ${v.name}` + paramsToSignature( v.params );
 		} else {
-			// class documented, but the constructor isn't, eg. Controller
+			// class is documented, but the constructor isn't, eg. Controller
 			v.signature = `**${v.name}**`;
 		}
 
@@ -108,7 +113,6 @@ data.forEach( v => {
 
 	}
 
-	v.indexname = v.name;
 
 	// view source url
 
@@ -130,6 +134,29 @@ transformed.forEach( v => {
 	}
 } );
 
+const kindSort = [ 'class', 'function', 'member' ];
+const alphabetSort = 'abcdefghijklmnopqrstuvwxyz$_'.split( '' );
+const toplevelSort = [ 'GUI', 'Controller' ];
+
+const jsdocData = Object.values( toplevel );
+
+jsdocData.forEach( t => {
+	t.children.sort( customSort );
+} );
+
+function customSort( a, b ) {
+
+	const kindComparison = customComparison( kindSort, a.kind, b.kind );
+	if ( kindComparison !== 0 ) return kindComparison;
+
+	const alphabetComparison = customComparison( alphabetSort, a.name[ 0 ], b.name[ 0 ] );
+
+	if ( alphabetComparison !== 0 ) return alphabetComparison;
+
+	return a.name.localeCompare( b.name );
+
+}
+
 function forEachRecursive( object, callback, depth = 0 ) {
 	for ( let key in object ) {
 		const value = object[ key ];
@@ -141,29 +168,50 @@ function forEachRecursive( object, callback, depth = 0 ) {
 	}
 }
 
+function customComparison( ordering, a, b ) {
+	let ai = ordering.indexOf( a );
+	let bi = ordering.indexOf( b );
+	if ( ai === -1 ) ai = Infinity;
+	if ( bi === -1 ) bi = Infinity;
+	return ai - bi;
+}
+
+
 function paramsToSignature( params ) {
+
 	if ( params.length === 0 ) {
 		return '()';
 	}
+
 	const paramList = params
 		.filter( p => p.name.indexOf( '.' ) === -1 ) // eg options.autoPlace
 		.map( singleParamToSignature )
 		.join( ', ' );
+
 	return `( ${paramList} )`;
+
 }
 
 function singleParamToSignature( param ) {
 	return param.optional ? `[${param.name}]` : param.name;
 }
 
-let jsdocTemplate = hbs.compile( fs.readFileSync( 'scripts/api.hbs' ).toString() );
+const jsdocTemplate = hbs.compile( fs.readFileSync( 'scripts/api.hbs' ).toString() );
+let jsdocMD = jsdocTemplate( { jsdocData } );
 
-let jsdocMD = jsdocTemplate( {
-	data: transformed,
-	toplevel: Object.values( toplevel ),
-	debug: JSON.stringify( transformed ) } );
+// we need at most two newlines for markdown
+// let me be carefree about the whitespace in my template
+jsdocMD = jsdocMD.replace( /\n{2,}/g, '\n\n' );
+
+fs.writeFileSync( 'API.md', jsdocMD );
 
 let jsdocHTML = md.render( jsdocMD );
+
+// spit the jsdoc data out as a js object so i can play with it in console
+jsdocHTML += `<script type="text/javascript">
+const jsdoc = {{{debug}}};
+console.log( 'jsdoc-api debug', jsdoc);
+</script>`;
 
 output = output.replace( '!=jsdoc', jsdocHTML );
 

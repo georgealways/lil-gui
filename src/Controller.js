@@ -111,9 +111,6 @@ export default class Controller extends GUIItem {
 		}
 	}
 
-	/**
-	 * @returns {any} `this.object[ this.property ]`
-	 */
 	getValue() {
 		return this.object[ this.property ];
 	}

@@ -1,15 +1,13 @@
-import { isString, isNumber, isObject } from './is.js';
-
 const STRING = {
 	isPrimitive: true,
-	match: isString,
+	match: v => typeof v == 'string',
 	fromHexString: string => string,
 	toHexString: value => value
 };
 
 const INT = {
 	isPrimitive: true,
-	match: isNumber,
+	match: v => typeof v == 'number',
 	fromHexString: string => parseInt( string.substring( 1 ), 16 ),
 	toHexString: value => '#' + value.toString( 16 ).padStart( 6, 0 )
 };
@@ -31,7 +29,7 @@ const ARRAY = {
 
 const OBJECT = {
 	isPrimitive: false,
-	match: isObject,
+	match: v => Object( v ) === v,
 	fromHexString( string, target ) {
 		const int = INT.fromHexString( string );
 		target.r = ( int >> 16 & 255 ) / 255;

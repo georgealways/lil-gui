@@ -1,16 +1,28 @@
 todo
 
-[x] colorformat non primitive
+[ ] children Set or Array? (write a test for destroy)
 [ ] kill "GUIItem"
-[ ] kill onfinishchange
-[ ] move back to default exports internally
+[ ] define blank methods for controller (min,max,step,options)
+[ ] kill onfinishchange?
 [ ] header => label?
 [ ] clean up number controller. shit ain't dry
-[ ] button styles
+[x] kill is
+[x] colorformat non primitive
+[x] move back to default exports internally
+
+style todo 
+
+[ ] buttons are ugly
+[ ] folders are ugly
+[ ] it's all ugly
 
 docs todo
 
-[ ] 
+[ ] constructor in index
+[ ] all that bolding in the signatures is going to be lost if you use h3's
+[ ] viewsource link
+[ ] parameter formatting
+[x] sort by [function, member] then [a-z$_]
 
 changelog
 
@@ -36,6 +48,8 @@ changelog
 	[m] .__folders => gui.children
 	
 	[-] "presets", gui.remember(), etc.
+		(you can have two folders with the same name!)
+	
 	[-] multiple autoPlace gui's
 	
 	[-] gui.addColor won't read hsl formats
