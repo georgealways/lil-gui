@@ -1,6 +1,36 @@
+# API
+
+{{#toplevel}}
+
+**{{indexname}}**
+
+{{#children}}
+- {{indexname}}
+{{/children}}
+
+{{/toplevel}}
+
+***
+
 {{#data}}
-<p><strong>{{ nicename }}</strong> <a href="{{ viewsource }}">&lt;&gt;</a></p>
-<p></p>
+
+{{signature}} [#]({{viewsource}})
+
+{{{description}}}
+
+{{#examples}}
+```js
+{{{.}}}
+```
+{{/examples}}
+
+{{#with params}}
+**Parameters**
+{{#.}}
+- {{name}}
+{{/.}}
+{{/with}}
+
 {{/data}}
 
-<script type="text/javascript">console.log("JSDoc info:", {{{ json }}})</script>
+<script type="text/javascript">console.log( 'jsdoc-api debug', {{{debug}}} )</script>

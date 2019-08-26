@@ -4,18 +4,10 @@
 import GUIItem from './GUIItem.js';
 
 /**
- * 
+ * Classdesc? Where are you getting this intel. who told you.  
  */
 export default class Controller extends GUIItem {
 
-	/**
-	 * 
-	 * @param {GUI} parent 
-	 * @param {Object} object 
-	 * @param {string} property 
-	 * @param {string} className 
-	 * @param {string} tagName 
-	 */
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		super( parent, tagName );
@@ -68,7 +60,7 @@ export default class Controller extends GUIItem {
 
 	/**
 	 * 
-	 * @param {function} fnc 
+	 * @param {function} callback 
 	 * @chainable 
 	 * 
 	 * @example
@@ -76,11 +68,11 @@ export default class Controller extends GUIItem {
 	 * 	console.log( 'The value is now ' + v );
 	 * } );
 	 */
-	onChange( fnc ) {
+	onChange( callback ) {
 		/**
 		 * @type {function}
 		 */
-		this.__onChange = fnc;
+		this.__onChange = callback;
 		return this;
 	}
 

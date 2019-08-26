@@ -50,6 +50,7 @@ output = output.replace( '!=readme', md.render( readme ) );
 // render docs
 
 const transformed = [];
+const toplevel = {};
 const data = jsdoc.explainSync( {
 	files: JSDOC_INPUT
 } );
@@ -82,25 +83,32 @@ data.forEach( v => {
 
 	} );
 
-	// nicename
 
-	v.nicename = v.longname.replace( /(\w+)#/g, ( $0, $1 ) => {
-		return $1 + '.';
-	} );
+	if ( v.kind === 'function' && v.scope === 'instance' ) {
 
-	if ( v.scope === 'instance' ) {
-		v.nicename = v.nicename.replace( /(\w+)\./g, ( $0, $1 ) => {
-			return $1.toLowerCase() + '.';
-		} );
+		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+		v.signature += paramsToSignature( v.params );
+
+	} else if ( v.kind === 'class' ) {
+
+		if ( v.params ) {
+			v.signature = `**new** ${v.name}` + paramsToSignature( v.params );
+		} else {
+			// class documented, but the constructor isn't, eg. Controller
+			v.signature = `**${v.name}**`;
+		}
+
+		v.description = v.description || v.classdesc;
+
+		toplevel[ v.longname ] = v;
+
+	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
+
+		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+
 	}
 
-	if ( v.kind === 'function' ) {
-		// v.nicename += '𝑓';//v.params.length ? '(…)' : '()';
-	}
-
-	if ( v.kind === 'class' ) {
-		// v.nicename = 'new ' + v.nicename + '(…)';
-	}
+	v.indexname = v.name;
 
 	// view source url
 
@@ -110,6 +118,16 @@ data.forEach( v => {
 
 	transformed.push( v );
 
+} );
+
+transformed.forEach( v => {
+	if ( v.memberof && v.memberof in toplevel ) {
+		const parent = toplevel[ v.memberof ];
+		if ( !parent.children ) {
+			parent.children = [];
+		}
+		parent.children.push( v );
+	}
 } );
 
 function forEachRecursive( object, callback, depth = 0 ) {
@@ -123,9 +141,29 @@ function forEachRecursive( object, callback, depth = 0 ) {
 	}
 }
 
+function paramsToSignature( params ) {
+	if ( params.length === 0 ) {
+		return '()';
+	}
+	const paramList = params
+		.filter( p => p.name.indexOf( '.' ) === -1 ) // eg options.autoPlace
+		.map( singleParamToSignature )
+		.join( ', ' );
+	return `( ${paramList} )`;
+}
+
+function singleParamToSignature( param ) {
+	return param.optional ? `[${param.name}]` : param.name;
+}
+
 let jsdocTemplate = hbs.compile( fs.readFileSync( 'scripts/api.hbs' ).toString() );
 
-let jsdocHTML = jsdocTemplate( { data: transformed, json: JSON.stringify( transformed ) } );
+let jsdocMD = jsdocTemplate( {
+	data: transformed,
+	toplevel: Object.values( toplevel ),
+	debug: JSON.stringify( transformed ) } );
+
+let jsdocHTML = md.render( jsdocMD );
 
 output = output.replace( '!=jsdoc', jsdocHTML );
 

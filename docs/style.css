@@ -16,15 +16,16 @@ pre {
     background: #2b2b2b;
     overflow: auto;
     padding: 0.5rem;
+    font-size: 12px;
+    line-height: 18px;
 }
 a { 
     color: rgb(11, 164, 224);
     text-decoration: none;
 }
 
-pre, p code { 
-    font-size: 12px;
-    line-height: 18px;
+p code { 
+    font-size: 13px;
 }
 
 #api h3,

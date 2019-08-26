@@ -1,8 +1,6 @@
 /**
  * @module GUI
  */
-import { isObject, isBoolean, isString, isFunction, isNumber } from './utils/is.js';
-
 import GUIItem from './GUIItem.js';
 
 import BooleanController from './BooleanController.js';
@@ -20,18 +18,15 @@ import styles from '../build/lil-gui.css';
 injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
 
 /**
- * 
+ * Class description
  */
 export default class GUI extends GUIItem {
 
 	/**
 	 * 
-	 * @param {Object=} params
-	 * @param {GUI=} params.parent
-	 * @param {string=} params.title
-	 * @param {boolean=} params.autoPlace
-	 * @param {number=} params.width
-	 */ 
+	 * @param {Object=} options
+	 * @param {GUI=} options.parent 
+	 */
 	constructor( {
 		parent,
 		title = 'Controls',
@@ -63,13 +58,17 @@ export default class GUI extends GUIItem {
 		this.$children.classList.add( 'children' );
 
 		/**
+		 * @type {boolean}
+		 */
+		this.__closed = false;
+
+		/**
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'button' );
 		this.$title.classList.add( 'title' );
-		// this.$title.setAttribute( 'tabindex', 0 );
 		this.$title.addEventListener( 'click', () => {
-			this.__closed ? this.open() : this.close();
+			this.open( this.__closed );
 		} );
 
 		if ( !this.parent ) {
@@ -101,13 +100,24 @@ export default class GUI extends GUIItem {
 	}
 
 	/**
+	 * Adds a controller based on `typeof object[property]`. 
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @param {*} $1 
-	 * @param {*} $2 
-	 * @param {*} $3 
+	 * @param {*=} $1 
+	 * @param {*=} $2 
+	 * @param {*=} $3 
 	 * @returns {Controller}
+	 * 
+	 * @example 
+	 * gui.add( { myBoolean: false }, 'myBoolean' );
+	 * 
+	 * @example
+	 * gui.add( { myNumber: 0 }, 'myNumber', 0, 100, 1 );
+	 * 
+	 * @example
+	 * gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
+	 * gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 	 */
 	add( object, property, $1, $2, $3 ) {
 
@@ -119,23 +129,23 @@ export default class GUI extends GUIItem {
 
 		let controller;
 
-		if ( Array.isArray( $1 ) || isObject( $1 ) ) {
+		if ( Array.isArray( $1 ) || Object( $1 ) === $1 ) {
 
 			controller = new OptionController( this, object, property, $1 );
 
-		} else if ( isBoolean( initialValue ) ) {
+		} else if ( typeof initialValue == 'boolean' ) {
 
 			controller = new BooleanController( this, object, property );
 
-		} else if ( isString( initialValue ) ) {
+		} else if ( typeof initialValue == 'string' ) {
 
 			controller = new StringController( this, object, property );
 
-		} else if ( isFunction( initialValue ) ) {
+		} else if ( typeof initialValue == 'function' ) {
 
 			controller = new FunctionController( this, object, property );
 
-		} else if ( isNumber( initialValue ) ) {
+		} else if ( typeof initialValue == 'number' ) {
 
 			controller = new NumberController( this, object, property, $1, $2, $3 );
 
@@ -201,14 +211,15 @@ export default class GUI extends GUIItem {
 	}
 
 	/**
+	 * Opens or closes a GUI or folder.
 	 * 
-	 * @param {boolean} [open]
-	 * @chainable 
+	 * @param {boolean=} open Pass false to close
+	 * @example
+	 * folder.open(); // open
+	 * folder.open( false ); // closed
+	 * folder.open( folder.__closed ); // toggle
 	 */
 	open( open = true ) {
-		/**
-		 * @type {boolean}
-		 */
 		this.__closed = !open;
 		this.domElement.classList.toggle( 'closed', this.__closed );
 		return this;
