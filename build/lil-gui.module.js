@@ -13,7 +13,7 @@ class GUIItem {
 		this.domElement = document.createElement( tagName );
 
 		if ( this.parent ) {
-			this.parent.children.add( this );
+			this.parent.children.push( this );
 			this.parent.$children.appendChild( this.domElement );
 		}
 
@@ -54,7 +54,7 @@ class GUIItem {
 	 */
 	destroy() {
 		if ( this.parent ) {
-			this.parent.children.delete( this );
+			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		}
 		this.domElement.parentElement.removeChild( this.domElement );
 	}
@@ -761,7 +761,7 @@ var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font
 /**
  * @module GUI
  */
-injectStyles( styles);
+injectStyles( styles );
 
 /**
  * Class description
@@ -790,9 +790,9 @@ class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Set}
+		 * @type {Array}
 		 */
-		this.children = new Set();
+		this.children = [];
 
 		this.domElement.classList.add( 'lil-gui' );
 
@@ -846,7 +846,7 @@ class GUI extends GUIItem {
 	}
 
 	/**
-	 * Adds a controller based on `typeof object[property]`. 
+	 * Adds a controller. 
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
@@ -986,7 +986,7 @@ class GUI extends GUIItem {
 
 		super.destroy();
 
-		this.children.forEach( c => c.destroy() );
+		Array.from( this.children ).forEach( c => c.destroy() );
 
 		if ( this._onResize ) {
 			window.removeEventListener( 'resize', this._onResize );

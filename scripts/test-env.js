@@ -43,7 +43,7 @@ export default function testRunner( test ) {
 					console.log( '\x1b[31m✕ ' + e.message );
 					console.log( '\t' + e.stack.match( /[a-z_\-\\\/\.]+:\d+:\d+/i )[ 0 ] );
 				} else {
-					console.log( '\x1b[31m✕ Unexpected error in test: ' + name );
+					console.log( '\x1b[31m✕ Unexpected error in test: ' + this.name );
 					console.log();
 					console.log( e.stack );
 				}

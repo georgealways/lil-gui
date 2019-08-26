@@ -1,12 +1,11 @@
 todo
 
-[ ] children Set or Array? (write a test for destroy)
-
 [ ] kill "GUIItem"
 [ ] define blank methods for controller (min,max,step,options)
+[ ] clean up number controller. shit ain't dry
 [ ] kill onfinishchange?
 [ ] header => label?
-[ ] clean up number controller. shit ain't dry
+[x] children Set or Array? (write a test for destroy)
 [x] kill is
 [x] colorformat non primitive
 [x] move back to default exports internally

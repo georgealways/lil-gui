@@ -13,7 +13,7 @@ export default class GUIItem {
 		this.domElement = document.createElement( tagName );
 
 		if ( this.parent ) {
-			this.parent.children.add( this );
+			this.parent.children.push( this );
 			this.parent.$children.appendChild( this.domElement );
 		}
 
@@ -54,7 +54,7 @@ export default class GUIItem {
 	 */
 	destroy() {
 		if ( this.parent ) {
-			this.parent.children.delete( this );
+			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		}
 		this.domElement.parentElement.removeChild( this.domElement );
 	}

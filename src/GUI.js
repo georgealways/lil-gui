@@ -14,7 +14,7 @@ import Header from './Header.js';
 
 import injectStyles from './utils/injectStyles.js';
 import styles from '../build/lil-gui.css';
-injectStyles( styles, 'https://github.com/abc/xyz/blob/master/build/xyz.css' );
+injectStyles( styles );
 
 /**
  * Class description
@@ -43,9 +43,9 @@ export default class GUI extends GUIItem {
 
 		/**
 		 * List of items in this GUI.
-		 * @type {Set}
+		 * @type {Array}
 		 */
-		this.children = new Set();
+		this.children = [];
 
 		this.domElement.classList.add( 'lil-gui' );
 
@@ -99,7 +99,7 @@ export default class GUI extends GUIItem {
 	}
 
 	/**
-	 * Adds a controller based on `typeof object[property]`. 
+	 * Adds a controller. 
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
@@ -239,7 +239,7 @@ export default class GUI extends GUIItem {
 
 		super.destroy();
 
-		this.children.forEach( c => c.destroy() );
+		Array.from( this.children ).forEach( c => c.destroy() );
 
 		if ( this._onResize ) {
 			window.removeEventListener( 'resize', this._onResize );
