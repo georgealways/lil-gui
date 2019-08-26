@@ -16,10 +16,12 @@
     "dev:api": "onchange -i 'src/**/*.js' 'scripts/api.hbs' 'scripts/api.js' -- npm run api",
     "dev:docs": "onchange -i 'API.md' 'README.md' 'scripts/docs*' -- npm run docs",
     "dev:icons": "onchange -i 'style/icons/*.svg' 'scripts/icons.js' -- npm run icons",
-    "dev:test": "onchange -i 'build/lil-gui.module.js' 'scripts/test*' -- npm run test",
+    "dev:test": "onchange -i 'build/lil-gui.module.js' 'scripts/test*' -- npm run test -- --soft-fail",
     "dev:sass": "npm run sass -- --watch",
     "dev:rollup": "npm run rollup -- -w",
-    "dev:server": "live-server --watch=build,docs --no-browser"
+    "dev:server": "live-server --watch=build,docs --no-browser",
+    "prefake": "npm run build && npm run test",
+    "fake": "echo 'PUBLISHING!'"
   },
   "keywords": [],
   "author": "",
