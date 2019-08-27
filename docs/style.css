@@ -4,215 +4,251 @@
  *--------------------------------------------------------------------------------------------*/
 
 html {
-    --vscode-markdown-font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
-    --vscode-markdown-font-size: 14px;
-    --vscode-markdown-line-height: 1.6;
-    --vscode-editor-background: #1e1e1e;
-    --vscode-editor-foreground: #d4d4d4;
-    --vscode-font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
-    --vscode-font-size: 14px;
-    --vscode-font-weight: normal;
-    --vscode-textBlockQuote-background: rgba(127, 127, 127, 0.1);
-    --vscode-textBlockQuote-border: rgba(0, 122, 204, 0.5);
-    --vscode-textLink-activeForeground: #3794ff;
-    --vscode-textLink-foreground: #3794ff;
-    --vscode-textPreformat-foreground: #d7ba7d;
+	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback';
+	--font-size: 14px;
+	--line-height: 1.6;
+	--vscode-editor-background: #1e1e1e;
+	--vscode-editor-foreground: #d4d4d4;
+	--vscode-textBlockQuote-background: rgba(127, 127, 127, 0.1);
+	--vscode-textBlockQuote-border: rgba(0, 122, 204, 0.5);
+	--vscode-textLink-activeForeground: #3794ff;
+	--vscode-textLink-foreground: #3794ff;
+	--vscode-textPreformat-foreground: #d7ba7d;
 }
 
-html, body {
-    font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
-    font-size: var(--vscode-markdown-font-size, 14px);
-    padding: 0;
-    line-height: var(--vscode-markdown-line-height, 22px);
-    word-wrap: break-word;
-}
-
-hr {
-    border: 0;
-    height: 2px;
-    border-bottom: 2px solid;
-}
-
-h1 {
-    padding-bottom: 0.3em;
-    line-height: 1.2;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-}
-
-h1, h2, h3 {
-    font-weight: normal;
-}
-
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
-    line-height: auto;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-table>thead>tr>th, table>thead>tr>td, table>tbody>tr>th, table>tbody>tr>td {
-    padding: 5px 10px;
-}
-
-table>tbody>tr+tr>td {
-    border-top: 1px solid;
-}
-
-pre:not(.hljs), pre.hljs code>div {
-    padding: 16px;
-    border-radius: 3px;
-    overflow: auto;
-}
-
-pre code {
-    color: var(--vscode-editor-foreground);
-    tab-size: 4;
-}
-
-pre {
-    background-color: rgba(10, 10, 10, 0.4);
-}
-
-table>thead>tr>th {
-    text-align: left;
-    border-bottom: 1px solid;
-    border-color: rgba(255, 255, 255, 0.69);
-}
-
-h1, hr, table>tbody>tr+tr>td {
-    border-color: rgba(255, 255, 255, 0.18);
+html,
+body {
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	line-height: var(--line-height);
+	word-wrap: break-word;
+	padding: 0;
+	margin: 0;
 }
 
 body {
-    background-color: var(--vscode-editor-background);
-    color: var(--vscode-editor-foreground);
-    font-family: var(--vscode-font-family);
-    font-weight: var(--vscode-font-weight);
-    font-size: var(--vscode-font-size);
-    margin: 0;
-    padding: 0 20px;
+	background-color: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-weight: normal;
+	margin: 0;
+	padding: 0 20px;
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 a {
-    text-decoration: none;
-    color: var(--vscode-textLink-foreground);
+	text-decoration: none;
+	color: var(--vscode-textLink-foreground);
 }
 
 a:hover {
-    text-decoration: underline;
-    color: var(--vscode-textLink-activeForeground);
+	text-decoration: underline;
+	color: var(--vscode-textLink-activeForeground);
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	font-family: var(--font-family-code);
+	tab-size: 4;
+}
+
+pre {
+	background-color: rgba(10, 10, 10, 0.4);
 }
 
 code {
-    font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-    font-size: 1em;
-    line-height: 1.357em;
-    color: var(--vscode-textPreformat-foreground);
+	font-family: --font-family-code;
+	font-size: 1em;
+	line-height: 1.357em;
+	color: var(--vscode-textPreformat-foreground);
 }
 
 blockquote {
-    margin: 0 7px 0 5px;
-    padding: 0 16px 0 10px;
-    border-left-width: 5px;
-    border-left-style: solid;
-    background: var(--vscode-textBlockQuote-background);
-    border-color: var(--vscode-textBlockQuote-border);
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+	background: var(--vscode-textBlockQuote-background);
+	border-color: var(--vscode-textBlockQuote-border);
 }
 
 #container {
-    max-width: 900px;
-    margin: 0 auto;
+	max-width: 900px;
+	margin: 0 auto;
 }
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	line-height: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+h1,
+hr,
+table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
 
 .hljs {
-    display: block;
-    overflow-x: auto;
-    padding: .5em;
-    background: #1E1E1E;
-    color: #DCDCDC
+	display: block;
+	overflow-x: auto;
+	padding: 0.5em;
+	background: #1e1e1e;
+	color: #dcdcdc;
 }
 
-.hljs-keyword, .hljs-literal, .hljs-symbol, .hljs-name {
-    color: #569CD6
+.hljs-keyword,
+.hljs-literal,
+.hljs-symbol,
+.hljs-name {
+	color: #569cd6;
 }
 
 .hljs-link {
-    color: #569CD6;
-    text-decoration: underline
+	color: #569cd6;
+	text-decoration: underline;
 }
 
-.hljs-built_in, .hljs-type {
-    color: #4EC9B0
+.hljs-built_in,
+.hljs-type {
+	color: #4ec9b0;
 }
 
-.hljs-number, .hljs-class {
-    color: #B8D7A3
+.hljs-number,
+.hljs-class {
+	color: #b8d7a3;
 }
 
-.hljs-string, .hljs-meta-string {
-    color: #D69D85
+.hljs-string,
+.hljs-meta-string {
+	color: #d69d85;
 }
 
-.hljs-regexp, .hljs-template-tag {
-    color: #9A5334
+.hljs-regexp,
+.hljs-template-tag {
+	color: #9a5334;
 }
 
-.hljs-subst, .hljs-function, .hljs-title, .hljs-params, .hljs-formula {
-    color: #DCDCDC
+.hljs-subst,
+.hljs-function,
+.hljs-title,
+.hljs-params,
+.hljs-formula {
+	color: #dcdcdc;
 }
 
-.hljs-comment, .hljs-quote {
-    color: rgb(90, 90, 90);
-    /* font-style: italic */
+.hljs-comment,
+.hljs-quote {
+	color: rgb(90, 90, 90);
+	/* font-style: italic */
 }
 
 .hljs-doctag {
-    color: #608B4E
+	color: #608b4e;
 }
 
-.hljs-meta, .hljs-meta-keyword, .hljs-tag {
-    color: #9B9B9B
+.hljs-meta,
+.hljs-meta-keyword,
+.hljs-tag {
+	color: #9b9b9b;
 }
 
-.hljs-variable, .hljs-template-variable {
-    color: #BD63C5
+.hljs-variable,
+.hljs-template-variable {
+	color: #bd63c5;
 }
 
-.hljs-attr, .hljs-attribute, .hljs-builtin-name {
-    color: #9CDCFE
+.hljs-attr,
+.hljs-attribute,
+.hljs-builtin-name {
+	color: #9cdcfe;
 }
 
 .hljs-section {
-    color: gold
+	color: gold;
 }
 
 .hljs-emphasis {
-    font-style: italic
+	font-style: italic;
 }
 
 .hljs-strong {
-    font-weight: bold
+	font-weight: bold;
 }
 
-.hljs-bullet, .hljs-selector-tag, .hljs-selector-id, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo {
-    color: #D7BA7D
+.hljs-bullet,
+.hljs-selector-tag,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+	color: #d7ba7d;
 }
 
 .hljs-addition {
-    background-color: #144212;
-    display: inline-block;
-    width: 100%
+	background-color: #144212;
+	display: inline-block;
+	width: 100%;
 }
 
 .hljs-deletion {
-    background-color: #600;
-    display: inline-block;
-    width: 100%
+	background-color: #600;
+	display: inline-block;
+	width: 100%;
 }
