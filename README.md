@@ -45,4 +45,6 @@ gui.addHeader( 'Specular' );
 gui.add( uniforms.specularIntensity, 'value', 0, 1 ).name( 'Intensity' );
 gui.add( uniforms.specularPower, 'value', 1, 16 ).name( 'Power' );
 gui.addColor( uniforms.specularColor, 'value' ).name( 'Color' );
+
+/regexp/gi
 ```

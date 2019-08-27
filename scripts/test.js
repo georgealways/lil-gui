@@ -1,11 +1,12 @@
-import test from './test-env.js';
+import './test-shim.js';
+import test from './test-runner.js';
 import assert from 'assert';
 
 import GUI, { GUI as _GUI } from '../build/lil-gui.module';
 
-test( describe => {
+test( unit => {
 
-	describe( 'default import', () => {
+	unit( '', () => {
 
 		assert.strictEqual( GUI, _GUI, 'GUI is available as both default and named export' );
 
@@ -17,16 +18,17 @@ test( describe => {
 
 	} );
 
-	describe( 'name', () => {
+	unit( 'name', () => {
 
 		const gui = new GUI();
-		const controller = gui.add( { x: 0 }, 'x' ).name( 'jeremy' );
+		const name = 'david';
+		const controller = gui.add( { x: 0 }, 'x' ).name( name );
 
-		assert.strictEqual( controller.$name.innerHTML, 'jeremy', 'name sets innerHTML' );
+		assert.strictEqual( controller.$name.innerHTML, name, 'name sets innerHTML' );
 
 	} );
 
-	describe( 'destroy', () => {
+	unit( 'destroy', () => {
 
 		const gui = new GUI();
 		gui.add( { x: 0 }, 'x' );
@@ -71,7 +73,7 @@ test( describe => {
 
 	} );
 
-	describe( 'color', () => {
+	unit( 'color', () => {
 
 		const gui = new GUI();
 

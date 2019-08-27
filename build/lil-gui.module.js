@@ -850,9 +850,9 @@ class GUI extends GUIItem {
 	 * 
 	 * @param {*} object 
 	 * @param {string} property 
-	 * @param {*=} $1 
-	 * @param {*=} $2 
-	 * @param {*=} $3 
+	 * @param {*=} $1
+	 * @param {*=} max 
+	 * @param {*=} step 
 	 * @returns {Controller}
 	 * 
 	 * @example 
@@ -865,7 +865,7 @@ class GUI extends GUIItem {
 	 * gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 	 * gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 	 */
-	add( object, property, $1, $2, $3 ) {
+	add( object, property, $1, max, step ) {
 
 		const initialValue = object[ property ];
 
@@ -893,7 +893,7 @@ class GUI extends GUIItem {
 
 		} else if ( typeof initialValue == 'number' ) {
 
-			return new NumberController( this, object, property, $1, $2, $3 );
+			return new NumberController( this, object, property, $1, max, step );
 
 		} else {
 

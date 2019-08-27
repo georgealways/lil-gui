@@ -1,4 +1,4 @@
-import jsdocAPI from 'jsdoc-api';
+import jsdoc from 'jsdoc-api';
 import hbs from 'handlebars';
 import fs from 'fs';
 
@@ -39,7 +39,7 @@ const transformed = [];
 // then stored in this map by longname
 const topLevel = {};
 
-jsdocAPI.explainSync( { files: JSDOC_INPUT } )
+jsdoc.explainSync( { files: JSDOC_INPUT } )
 	.filter( v => v.undocumented !== true )
 	.filter( v => v.kind !== 'package' )
 	.filter( v => v.kind !== 'module' )
@@ -100,7 +100,7 @@ jsdocAPI.explainSync( { files: JSDOC_INPUT } )
 
 			v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
-			v.indextype = ': `' + v.type.names.join( '|' ) + '`';
+			v.indextype = ': ' + v.type.names.join( '|' ) + '';
 
 		}
 
@@ -130,20 +130,20 @@ transformed.forEach( v => {
 } );
 
 // done processing, get an array for handlebars
-const jsdoc = Object.values( topLevel );
+const jsdocData = Object.values( topLevel );
 
 // sort topLevel by explicit order
-jsdoc.sort( ( a, b ) => {
+jsdocData.sort( ( a, b ) => {
 	return customComparison( TOP_LEVEL_SORT, a.name, b.name );
 } );
 
 // sort children by kind, then alphabetically with special chars at the end
-jsdoc.forEach( t => {
+jsdocData.forEach( t => {
 	t.children.sort( childSort );
 } );
 
 const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
-	.call( undefined, { jsdoc } )
+	.call( undefined, { jsdocData } )
 	.replace( /\n{2,}/g, '\n\n' ); // clean up extra whitespace
 
 // bounce to mp3
