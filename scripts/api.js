@@ -32,74 +32,76 @@ jsdoc.explainSync( { files: JSDOC_INPUT } )
 	.filter( v => v.undocumented !== true )
 	.filter( v => v.kind !== 'package' )
 	.filter( v => v.kind !== 'module' )
-	.forEach( v => {
+	.forEach( transform );
 
-		forEachRecursive( v, ( object, key, value ) => {
+function transform( v ) {
 
-			if ( typeof value == 'string' ) {
+	forEachRecursive( v, ( object, key, value ) => {
 
-				// replace local directories with path to github
-				value = value.replace( process.cwd(), REPO.substr( 0, REPO.length - 1 ) );
+		if ( typeof value == 'string' ) {
 
-				// jsdoc gets a little too excited about modules
-				value = value.replace( /^module:/, '' );
+			// replace local directories with path to github
+			value = value.replace( process.cwd(), REPO.substr( 0, REPO.length - 1 ) );
 
-			}
-
-			object[ key ] = value;
-
-		} );
-
-		v.indexname = v.name;
-
-		if ( v.kind === 'function' && v.scope === 'instance' ) {
-
-			v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
-			v.signature += paramsToSignature( v.params );
-
-			v.indexname = `**${v.indexname}**`;
-
-			// functions with no required params get an empty signature in index
-			v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
-
-			if ( v.returns !== undefined ) {
-				v.indextype = '→ ' + v.returns[ 0 ].type.names[ 0 ];
-			}
-
-			if ( v.tags !== undefined && v.tags.find( v => v.title === 'chainable' ) ) {
-				v.indextype = '→ self';
-			}
-
-		} else if ( v.kind === 'class' ) {
-
-			if ( v.params !== undefined ) {
-				v.signature = `**new** ${v.name}` + paramsToSignature( v.params );
-			} else {
-				// class is documented, but the constructor isn't, eg. Controller
-				v.signature = `**${v.name}**`;
-			}
-
-			// sometimes get classdesc instead of regular desc for classes
-			v.description = v.description || v.classdesc;
-
-			// store classes for index
-			topLevel[ v.longname ] = v;
-
-		} else if ( v.kind === 'member' && v.scope === 'instance' ) {
-
-			v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
-
-			v.indextype = ': ' + v.type.names.join( '|' ) + '';
+			// jsdoc gets a little too excited about modules
+			value = value.replace( /^module:/, '' );
 
 		}
 
-		// view source url
-		const joined = v.meta.path + '/' + v.meta.filename;
-		v.viewsource = `${joined}#L${v.meta.lineno}`;
-		v.definedat = joined.replace( REPO, '' ) + ':' + v.meta.lineno;
-		transformed.push( v );
+		object[ key ] = value;
 
 	} );
+
+	v.indexname = v.name;
+
+	if ( v.kind === 'function' && v.scope === 'instance' ) {
+
+		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+		v.signature += paramsToSignature( v.params );
+
+		v.indexname = `**${v.indexname}**`;
+
+		// functions with no required params get an empty signature in index
+		v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
+
+		if ( v.returns !== undefined ) {
+			v.indextype = '→ ' + v.returns[ 0 ].type.names[ 0 ];
+		}
+
+		if ( v.tags !== undefined && v.tags.find( v => v.title === 'chainable' ) ) {
+			v.indextype = '→ self';
+		}
+
+	} else if ( v.kind === 'class' ) {
+
+		if ( v.params !== undefined ) {
+			v.signature = `**new** ${v.name}` + paramsToSignature( v.params );
+		} else {
+			// class is documented, but the constructor isn't, eg. Controller
+			v.signature = `**${v.name}**`;
+		}
+
+		// sometimes get classdesc instead of regular desc for classes
+		v.description = v.description || v.classdesc;
+
+		// store classes for index
+		topLevel[ v.longname ] = v;
+
+	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
+
+		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+
+		v.indextype = ': ' + v.type.names.join( '|' );
+
+	}
+
+	// view source url
+	const joined = v.meta.path + '/' + v.meta.filename;
+	v.viewsource = `${joined}#L${v.meta.lineno}`;
+	v.definedat = joined.replace( REPO, '' ) + ':' + v.meta.lineno;
+	transformed.push( v );
+
+}
 
 // associate transformed children with their memberof types
 transformed.forEach( v => {
