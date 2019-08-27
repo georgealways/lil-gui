@@ -39,7 +39,7 @@ function watch( config ) {
 		'yellow',
 		'magenta',
 		'cyan',
-		'black'
+		'gray'
 	];
 
 	const longest = getLongest( config );
