@@ -12,7 +12,7 @@
     "api": "node -r esm scripts/api.js",
     "docs": "node -r esm scripts/docs.js",
     "test": "node -r esm scripts/test.js",
-    "dev": "npm run build && node -r esm scripts/dev.js"
+    "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],
   "author": "",

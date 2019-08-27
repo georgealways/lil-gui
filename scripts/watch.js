@@ -32,7 +32,6 @@ function watch( config ) {
 
 	const commands = [];
 
-	let i = 0;
 	const colors = [
 		'green',
 		'white',
@@ -42,6 +41,8 @@ function watch( config ) {
 		'cyan',
 		'black'
 	];
+
+	const longest = getLongest( config );
 
 	for ( let name in config ) {
 
@@ -78,12 +79,22 @@ function watch( config ) {
 			command = './node_modules/.bin/' + arg;
 		}
 
-		commands.push( { command, name, prefixColor: colors[ i++ ] } );
+		name = name.padStart( longest, '·' );
+
+		commands.push( {
+			command,
+			name,
+			prefixColor: `${colors[ commands.length ]}.inverse`
+		} );
 
 	}
 
-	concurrently( commands ).catch( error => {
+	concurrently( commands, { prefix: '{name}' } ).catch( error => {
 		console.log( error );
 	} );
 
+}
+
+function getLongest( config ) {
+	return Object.keys( config ).reduce( ( a, b ) => a.length > b.length ? a : b ).length;
 }
