@@ -24,7 +24,6 @@ export default function( spec ) {
 					console.log( stackTraceToFileLink( e.stack ) );
 				} else {
 					console.log( red( `✕ Unexpected error in test: ${this.name}` ) );
-					console.log();
 					console.log( e.stack );
 				}
 			}
