@@ -15,6 +15,7 @@
 	--line-height: 1;
 
 	--name-width: 40%;
+	--slider-input-width: 27%;
 	--row-height: 24px;
 	--widget-height: 20px;
 
@@ -281,11 +282,11 @@
 			color: var(--number-color);
 		}
 		&.hasSlider input {
-			width: 33%;
+			width: var(--slider-input-width);
 			min-width: 0; // firefox wants to make this bigger otherwise?
 		}
 		.slider {
-			width: 100%;
+			width: calc( 100% - var(--slider-input-width ) );
 			height: var(--widget-height);
 			margin-right: calc(var(--padding) - 2px);
 			background-color: var(--widget-bg-color);

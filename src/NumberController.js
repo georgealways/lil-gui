@@ -84,8 +84,8 @@ export default class NumberController extends Controller {
 			let value = parseFloat( this.$input.value );
 			if ( isNaN( value ) ) return;
 			value += delta;
-			value = this._clamp( value );
 			value = this._snap( value );
+			value = this._clamp( value );
 			this.setValue( value, false );
 			// Manually update the input display because it's focused.
 			this.$input.value = this.getValue();
@@ -116,7 +116,7 @@ export default class NumberController extends Controller {
 
 		this.domElement.classList.add( 'hasSlider' );
 
-		const setValue = clientX => {
+		const setValueFromX = clientX => {
 
 			// Always poll rect because it's simpler than storing it
 			const rect = this.$slider.getBoundingClientRect();
@@ -124,11 +124,11 @@ export default class NumberController extends Controller {
 			// Map x position along slider to min and max values
 			let value = map( clientX, rect.left, rect.right, this.__min, this.__max );
 
-			// Clamp it, because it can exceed the bounding rect
-			value = this._clamp( value );
-
 			// Sliders always round to step.
 			value = this._snap( value );
+
+			// Clamp it, because it can exceed the bounding rect
+			value = this._clamp( value );
 
 			// Set the value, but don't call onFinishedChange
 			this.setValue( value, false );
@@ -138,14 +138,14 @@ export default class NumberController extends Controller {
 		// Bind mouse listeners
 
 		this.$slider.addEventListener( 'mousedown', e => {
-			setValue( e.clientX, false );
+			setValueFromX( e.clientX );
 			this.$slider.classList.add( 'active' );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		} );
 
 		const mouseMove = e => {
-			setValue( e.clientX, false );
+			setValueFromX( e.clientX );
 		};
 
 		const mouseUp = () => {
@@ -170,7 +170,7 @@ export default class NumberController extends Controller {
 
 				// If we're not in a scrollable container, we can set the value
 				// straight away on touchstart.
-				setValue( e.touches[ 0 ].clientX, false );
+				setValueFromX( e.touches[ 0 ].clientX );
 				this.$slider.classList.add( 'active' );
 				testingForScroll = false;
 
@@ -194,7 +194,7 @@ export default class NumberController extends Controller {
 			if ( !testingForScroll ) {
 
 				e.preventDefault();
-				setValue( e.touches[ 0 ].clientX );
+				setValueFromX( e.touches[ 0 ].clientX );
 
 			} else {
 
@@ -204,7 +204,7 @@ export default class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					setValue( e.touches[ 0 ].clientX, false );
+					setValueFromX( e.touches[ 0 ].clientX );
 					this.$slider.classList.add( 'active' );
 					testingForScroll = false;
 
@@ -230,8 +230,8 @@ export default class NumberController extends Controller {
 		const increment = delta => {
 			let value = this.getValue();
 			value += delta;
-			value = this._clamp( value );
 			value = this._snap( value );
+			value = this._clamp( value );
 			this.setValue( value, false );
 		};
 
@@ -293,9 +293,15 @@ export default class NumberController extends Controller {
 	}
 
 	_snap( value ) {
-		// Using the inverse step avoids float precision issues.
-		const inverseStep = 1 / this.__step;
-		return Math.round( value * inverseStep ) / inverseStep;
+
+		// The inverse step strategy solves some floating point precision / 
+		// flyway issues, but not all of them ...
+		// const inverseStep = 1 / this.__step;
+		// return Math.round( value * inverseStep ) / inverseStep;
+
+		const r = Math.round( value / this.__step ) * this.__step;
+		return parseFloat( r.toPrecision( 10 ) );
+
 	}
 
 	_clamp( value ) {
