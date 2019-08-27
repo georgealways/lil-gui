@@ -1,16 +1,18 @@
 /**
  * @module Controller
  */
-import GUIItem from './GUIItem.js';
 
 /**
  * Classdesc? Where are you getting this intel. who told you.  
  */
-export default class Controller extends GUIItem {
+export default class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
-		super( parent, tagName );
+		/**
+		 * @type {GUI}
+		 */
+		this.parent = parent;
 
 		/**
 		 * @type {Object}
@@ -21,6 +23,18 @@ export default class Controller extends GUIItem {
 		 * @type {string}
 		 */
 		this.property = property;
+
+		/**
+		 * @type {boolean}
+		 */
+		this.__disabled = false;
+
+		/**
+		 * @type {HTMLElement}
+		 */
+		this.domElement = document.createElement( tagName );
+		this.domElement.classList.add( 'controller' );
+		this.domElement.classList.add( className );
 
 		/**
 		 * @type {HTMLElement}
@@ -34,11 +48,11 @@ export default class Controller extends GUIItem {
 		this.$widget = document.createElement( 'div' );
 		this.$widget.classList.add( 'widget' );
 
-		this.domElement.classList.add( 'controller' );
-		this.domElement.classList.add( className );
-
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
+
+		this.parent.children.push( this );
+		this.parent.$children.appendChild( this.domElement );
 
 		this.name( property );
 
@@ -83,6 +97,10 @@ export default class Controller extends GUIItem {
 		return this;
 	}
 
+	/**
+	 * I'm not sure if I'm keeping this.
+	 * @param {*} options 
+	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
 		controller.name( this.__name );
@@ -93,6 +111,36 @@ export default class Controller extends GUIItem {
 	setValue( value, finished = true ) {
 		this.object[ this.property ] = value;
 		this._onSetValue( finished );
+	}
+
+	/**
+	 * Enables or sets the enabled state of this controller.
+	 * @param {boolean} [enable]
+	 * @chainable
+	 * @example
+	 * controller.enable();
+	 * controller.enable( false ); // disable
+	 * controller.enable( controller.__disabled ); // toggle
+	 */
+	enable( enable = true ) {
+		this.__disabled = !enable;
+		this.domElement.classList.toggle( 'disabled', this.__disabled );
+		return this;
+	}
+
+	/**
+	 * Disables this controller.
+	 * @chainable
+	 */
+	disable() {
+		this.__disabled = true;
+		this.domElement.classList.add( 'disabled' );
+		return this;
+	}
+
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.$children.removeChild( this.domElement );
 	}
 
 	_onSetValue( finished = true ) {

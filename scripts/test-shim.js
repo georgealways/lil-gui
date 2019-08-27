@@ -15,6 +15,7 @@ function createElement() {
 	return {
 		addEventListener() {},
 		appendChild() {},
+		removeChild() {},
 		insertBefore() {},
 		setAttribute() {},
 		classList: { add() {} },

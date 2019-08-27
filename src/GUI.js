@@ -2,8 +2,6 @@
  * @module GUI
  */
 
-import GUIItem from './GUIItem.js';
-
 import BooleanController from './BooleanController.js';
 import ColorController from './ColorController.js';
 import FunctionController from './FunctionController.js';
@@ -19,7 +17,7 @@ injectStyles( styles );
 /**
  * Class description
  */
-export default class GUI extends GUIItem {
+export default class GUI {
 
 	/**
 	 * 
@@ -33,7 +31,10 @@ export default class GUI extends GUIItem {
 		width = 250
 	} = {} ) {
 
-		super( parent, 'div' );
+		/**
+		 * @type {GUI}
+		 */
+		this.parent = parent;
 
 		/**
 		 * Reference to the outermost GUI, `this` for the root GUI.
@@ -47,6 +48,10 @@ export default class GUI extends GUIItem {
 		 */
 		this.children = [];
 
+		/**
+		 * @type {HTMLElement}
+		 */
+		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
@@ -70,7 +75,17 @@ export default class GUI extends GUIItem {
 			this.open( this.__closed );
 		} );
 
-		if ( !this.parent ) {
+		this.domElement.appendChild( this.$title );
+		this.domElement.appendChild( this.$children );
+
+		this.title( title );
+
+		if ( this.parent ) {
+
+			this.parent.children.push( this );
+			this.parent.$children.appendChild( this.domElement );
+
+		} else {
 
 			this.width( width );
 			this.domElement.classList.add( 'root' );
@@ -90,11 +105,6 @@ export default class GUI extends GUIItem {
 			}
 
 		}
-
-		this.domElement.appendChild( this.$title );
-		this.domElement.appendChild( this.$children );
-
-		this.title( title );
 
 	}
 
@@ -237,7 +247,11 @@ export default class GUI extends GUIItem {
 	 */
 	destroy() {
 
-		super.destroy();
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		}
+
+		this.domElement.parentElement.removeChild( this.domElement );
 
 		Array.from( this.children ).forEach( c => c.destroy() );
 

@@ -1,12 +1,14 @@
-import GUIItem from './GUIItem.js';
-
-export default class Header extends GUIItem {
+export default class Header {
 
 	constructor( parent, name ) {
 
-		super( parent );
+		this.parent = parent;
 
+		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'header' );
+
+		this.parent.children.push( this );
+		this.parent.$children.appendChild( this.domElement );
 
 		this.name( name );
 
@@ -15,6 +17,11 @@ export default class Header extends GUIItem {
 	name( name ) {
 		this.__name = name;
 		this.domElement.innerHTML = name;
+	}
+
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.$children.removeChild( this.domElement );
 	}
 
 }

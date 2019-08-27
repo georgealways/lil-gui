@@ -1,66 +1,3 @@
-class GUIItem {
-
-	constructor( parent, tagName = 'div' ) {
-
-		/**
-		 * @type {GUI}
-		 */
-		this.parent = parent;
-
-		/**
-		 * @type {HTMLElement}
-		 */
-		this.domElement = document.createElement( tagName );
-
-		if ( this.parent ) {
-			this.parent.children.push( this );
-			this.parent.$children.appendChild( this.domElement );
-		}
-
-		/**
-		 * @type {boolean}
-		 */
-		this.__disabled = false;
-
-	}
-
-	/**
-	 * Enables or sets the enabled state of this item.
-	 * @param {boolean} [enable]
-	 * @chainable
-	 * @example
-	 * controller.enable();
-	 * controller.enable( false ); // disable
-	 * controller.enable( controller.__disabled ); // toggle
-	 */
-	enable( enable = true ) {
-		this.__disabled = !enable;
-		this.domElement.classList.toggle( 'disabled', this.__disabled );
-		return this;
-	}
-
-	/**
-	 * Disables this item.
-	 * @chainable
-	 */
-	disable() {
-		this.__disabled = true;
-		this.domElement.classList.add( 'disabled' );
-		return this;
-	}
-
-	/**
-	 * 
-	 */
-	destroy() {
-		if ( this.parent ) {
-			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
-		}
-		this.domElement.parentElement.removeChild( this.domElement );
-	}
-
-}
-
 /**
  * @module Controller
  */
@@ -68,11 +5,14 @@ class GUIItem {
 /**
  * Classdesc? Where are you getting this intel. who told you.  
  */
-class Controller extends GUIItem {
+class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
-		super( parent, tagName );
+		/**
+		 * @type {GUI}
+		 */
+		this.parent = parent;
 
 		/**
 		 * @type {Object}
@@ -83,6 +23,18 @@ class Controller extends GUIItem {
 		 * @type {string}
 		 */
 		this.property = property;
+
+		/**
+		 * @type {boolean}
+		 */
+		this.__disabled = false;
+
+		/**
+		 * @type {HTMLElement}
+		 */
+		this.domElement = document.createElement( tagName );
+		this.domElement.classList.add( 'controller' );
+		this.domElement.classList.add( className );
 
 		/**
 		 * @type {HTMLElement}
@@ -96,11 +48,11 @@ class Controller extends GUIItem {
 		this.$widget = document.createElement( 'div' );
 		this.$widget.classList.add( 'widget' );
 
-		this.domElement.classList.add( 'controller' );
-		this.domElement.classList.add( className );
-
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
+
+		this.parent.children.push( this );
+		this.parent.$children.appendChild( this.domElement );
 
 		this.name( property );
 
@@ -145,6 +97,10 @@ class Controller extends GUIItem {
 		return this;
 	}
 
+	/**
+	 * I'm not sure if I'm keeping this.
+	 * @param {*} options 
+	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
 		controller.name( this.__name );
@@ -155,6 +111,36 @@ class Controller extends GUIItem {
 	setValue( value, finished = true ) {
 		this.object[ this.property ] = value;
 		this._onSetValue( finished );
+	}
+
+	/**
+	 * Enables or sets the enabled state of this controller.
+	 * @param {boolean} [enable]
+	 * @chainable
+	 * @example
+	 * controller.enable();
+	 * controller.enable( false ); // disable
+	 * controller.enable( controller.__disabled ); // toggle
+	 */
+	enable( enable = true ) {
+		this.__disabled = !enable;
+		this.domElement.classList.toggle( 'disabled', this.__disabled );
+		return this;
+	}
+
+	/**
+	 * Disables this controller.
+	 * @chainable
+	 */
+	disable() {
+		this.__disabled = true;
+		this.domElement.classList.add( 'disabled' );
+		return this;
+	}
+
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.$children.removeChild( this.domElement );
 	}
 
 	_onSetValue( finished = true ) {
@@ -725,13 +711,17 @@ class StringController extends Controller {
 
 }
 
-class Header extends GUIItem {
+class Header {
 
 	constructor( parent, name ) {
 
-		super( parent );
+		this.parent = parent;
 
+		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'header' );
+
+		this.parent.children.push( this );
+		this.parent.$children.appendChild( this.domElement );
 
 		this.name( name );
 
@@ -740,6 +730,11 @@ class Header extends GUIItem {
 	name( name ) {
 		this.__name = name;
 		this.domElement.innerHTML = name;
+	}
+
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.$children.removeChild( this.domElement );
 	}
 
 }
@@ -766,7 +761,7 @@ injectStyles( styles );
 /**
  * Class description
  */
-class GUI extends GUIItem {
+class GUI {
 
 	/**
 	 * 
@@ -780,7 +775,10 @@ class GUI extends GUIItem {
 		width = 250
 	} = {} ) {
 
-		super( parent, 'div' );
+		/**
+		 * @type {GUI}
+		 */
+		this.parent = parent;
 
 		/**
 		 * Reference to the outermost GUI, `this` for the root GUI.
@@ -794,6 +792,10 @@ class GUI extends GUIItem {
 		 */
 		this.children = [];
 
+		/**
+		 * @type {HTMLElement}
+		 */
+		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
@@ -817,7 +819,17 @@ class GUI extends GUIItem {
 			this.open( this.__closed );
 		} );
 
-		if ( !this.parent ) {
+		this.domElement.appendChild( this.$title );
+		this.domElement.appendChild( this.$children );
+
+		this.title( title );
+
+		if ( this.parent ) {
+
+			this.parent.children.push( this );
+			this.parent.$children.appendChild( this.domElement );
+
+		} else {
 
 			this.width( width );
 			this.domElement.classList.add( 'root' );
@@ -837,11 +849,6 @@ class GUI extends GUIItem {
 			}
 
 		}
-
-		this.domElement.appendChild( this.$title );
-		this.domElement.appendChild( this.$children );
-
-		this.title( title );
 
 	}
 
@@ -984,7 +991,11 @@ class GUI extends GUIItem {
 	 */
 	destroy() {
 
-		super.destroy();
+		if ( this.parent ) {
+			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		}
+
+		this.domElement.parentElement.removeChild( this.domElement );
 
 		Array.from( this.children ).forEach( c => c.destroy() );
 

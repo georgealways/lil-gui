@@ -36,6 +36,7 @@ test( unit => {
 		gui.add( { x: 0 }, 'x' );
 
 		const folder1 = gui.addFolder( 'folder' );
+		folder1.addHeader( 'header' );
 		folder1.add( { x: 0 }, 'x' );
 		folder1.add( { x: 0 }, 'x' );
 
@@ -65,6 +66,9 @@ test( unit => {
 
 		function spy( instance, methodName, spy ) {
 			const method = instance[ methodName ];
+			if ( typeof method != 'function' ) {
+				throw Error( `Tried to spy on "${methodName}" but it's not a function: ${method}` );
+			}
 			instance[ methodName ] = function() {
 				method.apply( this, arguments );
 				spy.apply( this, arguments );
