@@ -3,35 +3,32 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+* { 
+	box-sizing: border-box
+}
+
 html {
 	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
-	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', 'Courier New', monospace, 'Droid Sans Fallback';
+	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
 	--font-size: 14px;
 	--line-height: 1.6;
-	--vscode-editor-background: #1e1e1e;
-	--vscode-editor-foreground: #d4d4d4;
-	--vscode-textBlockQuote-background: rgba(127, 127, 127, 0.1);
-	--vscode-textBlockQuote-border: rgba(0, 122, 204, 0.5);
-	--vscode-textLink-activeForeground: #3794ff;
-	--vscode-textLink-foreground: #3794ff;
-	--vscode-textPreformat-foreground: #d7ba7d;
+	--background: #1e1e1e;
+	--foreground: #d4d4d4;
+	--link: #3794ff;
+	--code: #d7ba7d;
 }
 
 html,
 body {
 	font-family: var(--font-family);
 	font-size: var(--font-size);
-	line-height: var(--line-height);
 	word-wrap: break-word;
-	padding: 0;
-	margin: 0;
 }
 
 body {
-	background-color: var(--vscode-editor-background);
-	color: var(--vscode-editor-foreground);
+	background-color: var(--background);
+	color: var(--foreground);
 	font-weight: normal;
-	margin: 0;
 	padding: 0 20px;
 }
 
@@ -41,17 +38,16 @@ img {
 }
 
 a {
+	color: var(--link);
 	text-decoration: none;
-	color: var(--vscode-textLink-foreground);
 }
 
 a:hover {
 	text-decoration: underline;
-	color: var(--vscode-textLink-activeForeground);
 }
 
 pre code {
-	color: var(--vscode-editor-foreground);
+	color: var(--foreground);
 	font-family: var(--font-family-code);
 	tab-size: 4;
 }
@@ -61,19 +57,10 @@ pre {
 }
 
 code {
-	font-family: --font-family-code;
+	font-family: var(--font-family-code);
 	font-size: 1em;
 	line-height: 1.357em;
-	color: var(--vscode-textPreformat-foreground);
-}
-
-blockquote {
-	margin: 0 7px 0 5px;
-	padding: 0 16px 0 10px;
-	border-left-width: 5px;
-	border-left-style: solid;
-	background: var(--vscode-textBlockQuote-background);
-	border-color: var(--vscode-textBlockQuote-border);
+	color: var(--code);
 }
 
 #container {

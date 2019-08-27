@@ -78,8 +78,6 @@ export default class GUI {
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
 
-		this.title( title );
-
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
@@ -87,7 +85,6 @@ export default class GUI {
 
 		} else {
 
-			this.width( width );
 			this.domElement.classList.add( 'root' );
 
 			if ( autoPlace ) {
@@ -105,6 +102,9 @@ export default class GUI {
 			}
 
 		}
+
+		this.title( title );
+		this.width( width );
 
 	}
 
