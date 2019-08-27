@@ -2,20 +2,9 @@ import jsdoc from 'jsdoc-api';
 import hbs from 'handlebars';
 import fs from 'fs';
 
-const OUTPUT = 'API.md';
 const TEMPLATE = 'scripts/api.hbs';
-
-const JSDOC_INPUT = [
-	'src/GUI.js',
-	'src/Controller.js',
-	'src/BooleanController.js',
-	'src/ColorController.js',
-	'src/FunctionController.js',
-	'src/NumberController.js',
-	'src/OptionController.js',
-	'src/StringController.js',
-	'src/Header.js'
-];
+const OUTPUT = 'API.md';
+const JSDOC_INPUT = 'src/**/*.js';
 
 // url prefix for view source links, needs trailing slash
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
