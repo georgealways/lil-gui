@@ -5,10 +5,10 @@
   "module": "build/lil-gui.module.js",
   "scripts": {
     "build": "npm run icons && npm run sass && npm run rollup",
-    "icons": "node -r esm scripts/icons.js",
     "sass": "sass style/main.scss build/lil-gui.css --style=compressed --no-charset --no-source-map",
     "rollup": "rollup -c",
     "lint": "eslint .",
+    "icons": "node -r esm scripts/icons.js",
     "api": "node -r esm scripts/api.js",
     "docs": "node -r esm scripts/docs.js",
     "test": "node -r esm scripts/test.js",
