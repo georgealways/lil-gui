@@ -3,13 +3,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-* { 
-	box-sizing: border-box
+* {
+	box-sizing: border-box;
 }
 
 html {
-	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
-	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
+	--font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
+	--font-family-code: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
 	--font-size: 14px;
 	--line-height: 1.6;
 	--background: #1e1e1e;
@@ -118,7 +118,6 @@ pre.hljs code > div {
 	overflow: auto;
 }
 
-
 table > thead > tr > th {
 	text-align: left;
 	border-bottom: 1px solid;
@@ -130,7 +129,6 @@ hr,
 table > tbody > tr + tr > td {
 	border-color: rgba(255, 255, 255, 0.18);
 }
-
 
 .hljs {
 	display: block;

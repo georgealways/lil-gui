@@ -1,4 +1,4 @@
-@import 'icons';
+@import "icons";
 
 @mixin mobile {
 	@media (max-width: 600px) {
@@ -7,9 +7,10 @@
 }
 
 .lil-gui {
-	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
-	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+	// -------------------------------------------------------------------------
+	// Custom properties
+	// -------------------------------------------------------------------------
 
 	--font-size: 11px;
 	--line-height: 1;
@@ -38,7 +39,12 @@
 	--widget-border-radius: 2px;
 	--scrollbar-width: 0.375em;
 
-	--icons-font-family: 'lil-gui';
+	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
+	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol";
+
+	--icons-font-family: "lil-gui";
 
 	// -------------------------------------------------------------------------
 	// Base styles
@@ -90,7 +96,7 @@
 
 		&:before {
 			font-family: var(--icons-font-family);
-			content: '▾';
+			content: "▾";
 			width: 1em;
 			vertical-align: middle;
 		}
@@ -101,7 +107,7 @@
 			display: none;
 		}
 		.title:before {
-			content: '▸';
+			content: "▸";
 		}
 	}
 
@@ -182,13 +188,12 @@
 		background: var(--widget-bg-color);
 		color: var(--widget-fg-color);
 		width: 100%;
-
-		&[type='text'] {
+		&[type="text"] {
 			padding: var(--widget-padding);
 		}
 	}
 
-	input[type='checkbox'] {
+	input[type="checkbox"] {
 		appearance: none;
 		-webkit-appearance: none;
 		--size: calc(0.75 * var(--widget-height));
@@ -198,7 +203,7 @@
 		text-align: center;
 		&:checked:before {
 			font-family: var(--icons-font-family);
-			content: '✓';
+			content: "✓";
 			font-size: var(--size);
 			line-height: var(--size);
 		}
@@ -223,18 +228,19 @@
 		}
 	}
 
-	input,
-	button {
-		&:focus,
-		&:active {
-			background: var(--widget-bg-color-focus);
-			color: var(--widget-fg-color-focus);
-		}
-	}
 	.display {
 		background: var(--widget-bg-color);
 		&.focus,
 		&.active {
+			background: var(--widget-bg-color-focus);
+			color: var(--widget-fg-color-focus);
+		}
+	}
+
+	input,
+	button {
+		&:focus,
+		&:active {
 			background: var(--widget-bg-color-focus);
 			color: var(--widget-fg-color-focus);
 		}
@@ -341,7 +347,7 @@
 			padding-right: 1.75em;
 			&:after {
 				font-family: var(--icons-font-family);
-				content: '↕';
+				content: "↕";
 				position: absolute;
 				display: flex;
 				align-items: center;
