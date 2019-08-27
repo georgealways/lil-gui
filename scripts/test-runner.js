@@ -20,10 +20,10 @@ export default function( spec ) {
 			} catch ( e ) {
 				failures++;
 				if ( e instanceof AssertionError ) {
-					console.log( '\x1b[31m✕ ' + e.message );
-					console.log( '\t' + stackTraceToFileLink( e.stack ) );
+					console.log( red( `✕ ${e.message}` ) );
+					console.log( stackTraceToFileLink( e.stack ) );
 				} else {
-					console.log( '\x1b[31m✕ Unexpected error in test: ' + this.name );
+					console.log( red( `✕ Unexpected error in test: ${this.name}` ) );
 					console.log();
 					console.log( e.stack );
 				}
@@ -40,14 +40,17 @@ export default function( spec ) {
 	tests.forEach( t => t.run() );
 
 	if ( failures > 0 ) {
-		console.log( `\x1b[31m✕ ${failures}/${numTests} tests failed\x1b[0m` );
+		console.log( red( `✕ ${failures}/${numTests} tests failed` ) );
 		process.exit( SOFT_FAIL ? 0 : 1 );
 	} else {
-		console.log( `\x1b[32m✓ ${numTests}/${numTests} tests passed\x1b[0m` );
+		console.log( grn( `✓ ${numTests}/${numTests} tests passed` ) );
 		process.exit( 0 );
 	}
 
 }
+
+const red = str => `\x1b[31m${str}\x1b[0m`;
+const grn = str => `\x1b[32m${str}\x1b[0m`;
 
 function stackTraceToFileLink( stack ) {
 	return stack.match( /[a-z_\-\\\/\.]+:\d+:\d+/i )[ 0 ];
