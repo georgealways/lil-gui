@@ -7,7 +7,6 @@
 }
 
 .lil-gui {
-
 	// -------------------------------------------------------------------------
 	// Custom properties
 	// -------------------------------------------------------------------------
@@ -39,6 +38,8 @@
 	--widget-border-radius: 2px;
 	--scrollbar-width: 0.375em;
 
+	--mobile-max-height: 200px;
+
 	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
 	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -60,9 +61,6 @@
 
 	background-color: var(--bg-color);
 	color: var(--fg-color);
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 
 	user-select: none;
 	-webkit-user-select: none;
@@ -91,7 +89,7 @@
 		height: var(--row-height);
 		padding: 0 var(--padding);
 		line-height: var(--row-height);
-		font-weight: bold;
+		font-weight: 600;
 		cursor: pointer;
 
 		&:before {
@@ -119,7 +117,7 @@
 	.header {
 		height: var(--row-height);
 		padding: 0 var(--padding);
-		font-weight: bold;
+		font-weight: 600;
 		border-bottom: 1px solid var(--header-rule-color);
 		margin-bottom: calc(0.5 * var(--padding));
 		display: flex;
@@ -169,7 +167,7 @@
 			left: 0;
 			width: 100%;
 			& > .children {
-				max-height: 200px;
+				max-height: var(--mobile-max-height);
 			}
 		}
 	}
@@ -216,7 +214,7 @@
 		font-size: var(--font-size);
 		color: var(--widget-fg-color);
 		background: var(--bg-color);
-		font-weight: bold;
+		font-weight: 600;
 		text-align: left;
 		text-transform: none;
 		width: 100%;
@@ -284,8 +282,7 @@
 		}
 		&.hasSlider input {
 			width: 33%;
-			// firefox wants to make this bigger otherwise?
-			min-width: 0;
+			min-width: 0; // firefox wants to make this bigger otherwise?
 		}
 		.slider {
 			width: 100%;
