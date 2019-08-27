@@ -21,6 +21,7 @@ html {
 html,
 body {
 	font-family: var(--font-family);
+	line-height: var(--line-height);
 	font-size: var(--font-size);
 	word-wrap: break-word;
 }
