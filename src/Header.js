@@ -15,7 +15,7 @@ export default class Header {
 	}
 
 	name( name ) {
-		this.__name = name;
+		this._name = name;
 		this.domElement.innerHTML = name;
 	}
 

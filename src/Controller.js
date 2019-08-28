@@ -27,7 +27,7 @@ export default class Controller {
 		/**
 		 * @type {boolean}
 		 */
-		this.__disabled = false;
+		this._disabled = false;
 
 		/**
 		 * @type {HTMLElement}
@@ -68,7 +68,7 @@ export default class Controller {
 		/**
 		 * @type {string}
 		 */
-		this.__name = name;
+		this._name = name;
 		this.$name.innerHTML = name;
 		return this;
 	}
@@ -87,12 +87,12 @@ export default class Controller {
 		/**
 		 * @type {function}
 		 */
-		this.__onChange = callback;
+		this._onChange = callback;
 		return this;
 	}
 
 	onFinishChange( fnc ) {
-		this.__onFinishChange = fnc;
+		this._onFinishChange = fnc;
 		return this;
 	}
 
@@ -102,7 +102,7 @@ export default class Controller {
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
-		controller.name( this.__name );
+		controller.name( this._name );
 		this.destroy();
 		return controller;
 	}
@@ -118,7 +118,7 @@ export default class Controller {
 	 * @chainable 
 	 */
 	enable() {
-		this.__disabled = false;
+		this._disabled = false;
 		this.domElement.classList.remove( 'disabled' );
 		return this;
 	}
@@ -129,7 +129,7 @@ export default class Controller {
 	 * @chainable
 	 */
 	disable() {
-		this.__disabled = true;
+		this._disabled = true;
 		this.domElement.classList.add( 'disabled' );
 		return this;
 	}
@@ -160,14 +160,14 @@ export default class Controller {
 	}
 
 	_callOnChange() {
-		if ( this.__onChange !== undefined ) {
-			this.__onChange.call( this, this.getValue() );
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
 		}
 	}
 
 	_callOnFinishedChange() {
-		if ( this.__onFinishChange !== undefined ) {
-			this.__onFinishChange.call( this, this.getValue() );
+		if ( this._onFinishChange !== undefined ) {
+			this._onFinishChange.call( this, this.getValue() );
 		}
 	}
 

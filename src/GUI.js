@@ -63,7 +63,7 @@ export default class GUI {
 		this.$title = document.createElement( 'button' );
 		this.$title.classList.add( 'title' );
 		this.$title.addEventListener( 'click', () => {
-			this.open( this.__closed );
+			this.open( this._closed );
 		} );
 
 		/**
@@ -76,7 +76,7 @@ export default class GUI {
 		/**
 		 * @type {boolean}
 		 */
-		this.__closed = false;
+		this._closed = false;
 
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
@@ -206,13 +206,13 @@ export default class GUI {
 		/**
 		 * @type {string}
 		 */
-		this.__title = title;
+		this._title = title;
 		this.$title.innerHTML = title;
 		return this;
 	}
 
 	width( v ) {
-		this.__width = v;
+		this._width = v;
 		if ( v === undefined ) {
 			this.domElement.style.setProperty( '--width', 'auto' );
 		} else {
@@ -228,11 +228,11 @@ export default class GUI {
 	 * @example
 	 * folder.open(); // open
 	 * folder.open( false ); // closed
-	 * folder.open( folder.__closed ); // toggle
+	 * folder.open( folder._closed ); // toggle
 	 */
 	open( open = true ) {
-		this.__closed = !open;
-		this.domElement.classList.toggle( 'closed', this.__closed );
+		this._closed = !open;
+		this.domElement.classList.toggle( 'closed', this._closed );
 		return this;
 	}
 
@@ -240,7 +240,7 @@ export default class GUI {
 	 * @chainable
 	 */
 	close() {
-		this.__closed = true;
+		this._closed = true;
 		this.domElement.classList.add( 'closed' );
 		return this;
 	}

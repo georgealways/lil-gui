@@ -7,7 +7,7 @@ class App {
 	}
 	set demo( name ) {
 
-		this.__demo = name;
+		this._demo = name;
 
 		history.replaceState( undefined, undefined, name === this.defaultDemo ? ' ' : '#' + name );
 
@@ -22,7 +22,7 @@ class App {
 
 	}
 	get demo() {
-		return this.__demo;
+		return this._demo;
 	}
 }
 

@@ -136,8 +136,8 @@ test( unit => {
 
 				window.$callEventListener( 'mousemove', { clientX } );
 
-				const message = `float precision [${min},${max}] ${controller.__step} ${target.x}`;
-				assert( decimals( target.x ) <= decimals( controller.__step ), message );
+				const message = `float precision [${min},${max}] ${controller._step} ${target.x}`;
+				assert( decimals( target.x ) <= decimals( controller._step ), message );
 
 			}
 

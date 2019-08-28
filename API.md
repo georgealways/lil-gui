@@ -18,8 +18,8 @@
 - [root](#GUI#root) : GUI
 - [$children](#GUI#$children) : HTMLElement
 - [$title](#GUI#$title) : HTMLElement
-- [__closed](#GUI#__closed) : boolean
-- [__title](#GUI#__title) : string
+- [_closed](#GUI#_closed) : boolean
+- [_title](#GUI#_title) : string
 
 ## Controller
 
@@ -39,9 +39,9 @@
 - [property](#Controller#property) : string
 - [$name](#Controller#$name) : HTMLElement
 - [$widget](#Controller#$widget) : HTMLElement
-- [__disabled](#Controller#__disabled) : boolean
-- [__name](#Controller#__name) : string
-- [__onChange](#Controller#__onChange) : function
+- [_disabled](#Controller#_disabled) : boolean
+- [_name](#Controller#_name) : string
+- [_onChange](#Controller#_onChange) : function
 
 # GUI
 
@@ -109,7 +109,7 @@ Opens or closes a GUI or folder.
 ```js
 folder.open(); // open
 folder.open( false ); // closed
-folder.open( folder.__closed ); // toggle
+folder.open( folder._closed ); // toggle
 ```
 
 ## <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L205) gui.**title**( title ) → self
@@ -143,11 +143,11 @@ The `div` that contains child elements.
 
 The clickable title that collapses a GUI. 
 
-## <a name="GUI#__closed" href="#GUI#__closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L79) gui.**__closed** : boolean
+## <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L79) gui.**_closed** : boolean
 
  
 
-## <a name="GUI#__title" href="#GUI#__title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L209) gui.**__title** : string
+## <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L209) gui.**_title** : string
 
  
 
@@ -257,15 +257,15 @@ their values have been modified outside of the GUI.
 
  
 
-## <a name="Controller#__disabled" href="#Controller#__disabled"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L30) controller.**__disabled** : boolean
+## <a name="Controller#_disabled" href="#Controller#_disabled"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L30) controller.**_disabled** : boolean
 
  
 
-## <a name="Controller#__name" href="#Controller#__name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L71) controller.**__name** : string
+## <a name="Controller#_name" href="#Controller#_name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L71) controller.**_name** : string
 
  
 
-## <a name="Controller#__onChange" href="#Controller#__onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L90) controller.**__onChange** : function
+## <a name="Controller#_onChange" href="#Controller#_onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L90) controller.**_onChange** : function
 
  
 

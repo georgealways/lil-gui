@@ -11,17 +11,17 @@ export default class OptionController extends Controller {
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 
-		this.__values = Array.isArray( options ) ? options : Object.values( options );
-		this.__names = Array.isArray( options ) ? options : Object.keys( options );
+		this._values = Array.isArray( options ) ? options : Object.values( options );
+		this._names = Array.isArray( options ) ? options : Object.keys( options );
 
-		this.__names.forEach( name => {
+		this._names.forEach( name => {
 			const $option = document.createElement( 'option' );
 			$option.innerHTML = name;
 			this.$select.appendChild( $option );
 		} );
 
 		this.$select.addEventListener( 'change', () => {
-			this.setValue( this.__values[ this.$select.selectedIndex ] );
+			this.setValue( this._values[ this.$select.selectedIndex ] );
 		} );
 
 		this.$select.addEventListener( 'focus', () => {
@@ -41,9 +41,9 @@ export default class OptionController extends Controller {
 
 	updateDisplay() {
 		const value = this.getValue();
-		const index = this.__values.indexOf( value );
+		const index = this._values.indexOf( value );
 		this.$select.selectedIndex = index;
-		this.$display.innerHTML = index === -1 ? value : this.__names[ index ];
+		this.$display.innerHTML = index === -1 ? value : this._names[ index ];
 	}
 
 }

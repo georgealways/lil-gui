@@ -5,6 +5,8 @@ todo
 
 [ ] new GUI() injectStyles parameter?
 
+[x] kill double underscores?
+
 [x] define blank methods for controller (min,max,step,options)
 	that's done ... test it?
 

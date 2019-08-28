@@ -77,8 +77,8 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <li><a href="#GUI#root">root</a> : GUI</li>
 <li><a href="#GUI#$children">$children</a> : HTMLElement</li>
 <li><a href="#GUI#$title">$title</a> : HTMLElement</li>
-<li><a href="#GUI#__closed">__closed</a> : boolean</li>
-<li><a href="#GUI#__title">__title</a> : string</li>
+<li><a href="#GUI#_closed">_closed</a> : boolean</li>
+<li><a href="#GUI#_title">_title</a> : string</li>
 </ul>
 <h2>Controller</h2>
 <ul>
@@ -98,9 +98,9 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <li><a href="#Controller#property">property</a> : string</li>
 <li><a href="#Controller#$name">$name</a> : HTMLElement</li>
 <li><a href="#Controller#$widget">$widget</a> : HTMLElement</li>
-<li><a href="#Controller#__disabled">__disabled</a> : boolean</li>
-<li><a href="#Controller#__name">__name</a> : string</li>
-<li><a href="#Controller#__onChange">__onChange</a> : function</li>
+<li><a href="#Controller#_disabled">_disabled</a> : boolean</li>
+<li><a href="#Controller#_name">_name</a> : string</li>
+<li><a href="#Controller#_onChange">_onChange</a> : function</li>
 </ul>
 <h1>GUI</h1>
 <p>Class description</p>
@@ -147,7 +147,7 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 </ul>
 <pre><code class="language-js">folder.open(); <span class="hljs-comment">// open</span>
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
-folder.open( folder.__closed ); <span class="hljs-comment">// toggle</span>
+folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
 <h2><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L205">#</a> gui.<strong>title</strong>( title ) → self</h2>
 <p><strong>Parameters</strong></p>
@@ -166,8 +166,8 @@ folder.open( folder.__closed ); <span class="hljs-comment">// toggle</span>
 <p>The <code>div</code> that contains child elements.</p>
 <h2><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L63">#</a> gui.<strong>$title</strong> : HTMLElement</h2>
 <p>The clickable title that collapses a GUI.</p>
-<h2><a name="GUI#__closed" href="#GUI#__closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L79">#</a> gui.<strong>__closed</strong> : boolean</h2>
-<h2><a name="GUI#__title" href="#GUI#__title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L209">#</a> gui.<strong>__title</strong> : string</h2>
+<h2><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L79">#</a> gui.<strong>_closed</strong> : boolean</h2>
+<h2><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L209">#</a> gui.<strong>_title</strong> : string</h2>
 <h1>Controller</h1>
 <p>Classdesc? Where are you getting this intel. who told you.</p>
 <h2><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L151">#</a> controller.<strong>destroy</strong>()</h2>
@@ -233,9 +233,9 @@ their values have been modified outside of the GUI.</p>
 <h2><a name="Controller#property" href="#Controller#property"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L25">#</a> controller.<strong>property</strong> : string</h2>
 <h2><a name="Controller#$name" href="#Controller#$name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L42">#</a> controller.<strong>$name</strong> : HTMLElement</h2>
 <h2><a name="Controller#$widget" href="#Controller#$widget"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L48">#</a> controller.<strong>$widget</strong> : HTMLElement</h2>
-<h2><a name="Controller#__disabled" href="#Controller#__disabled"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30">#</a> controller.<strong>__disabled</strong> : boolean</h2>
-<h2><a name="Controller#__name" href="#Controller#__name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71">#</a> controller.<strong>__name</strong> : string</h2>
-<h2><a name="Controller#__onChange" href="#Controller#__onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L90">#</a> controller.<strong>__onChange</strong> : function</h2>
+<h2><a name="Controller#_disabled" href="#Controller#_disabled"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30">#</a> controller.<strong>_disabled</strong> : boolean</h2>
+<h2><a name="Controller#_name" href="#Controller#_name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71">#</a> controller.<strong>_name</strong> : string</h2>
+<h2><a name="Controller#_onChange" href="#Controller#_onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L90">#</a> controller.<strong>_onChange</strong> : function</h2>
  
 	</div>
 </div>

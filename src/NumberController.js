@@ -22,12 +22,12 @@ export default class NumberController extends Controller {
 
 		const value = this.getValue();
 
-		if ( this.__hasSlider ) {
-			const percent = ( value - this.__min ) / ( this.__max - this.__min );
+		if ( this._hasSlider ) {
+			const percent = ( value - this._min ) / ( this._max - this._min );
 			this.$fill.style.setProperty( 'width', percent * 100 + '%' );
 		}
 
-		if ( !this.__inputFocused ) {
+		if ( !this._inputFocused ) {
 			this.$input.value = value;
 		}
 
@@ -41,69 +41,74 @@ export default class NumberController extends Controller {
 
 		this.$widget.appendChild( this.$input );
 
-		this.$input.addEventListener( 'focus', () => {
-			this.__inputFocused = true;
-		} );
+		const onInput = () => {
 
-		this.$input.addEventListener( 'input', () => {
-
-			// Test if the string is a valid number
-			let value = parseFloat( this.$input.value );
+			const value = parseFloat( this.$input.value );
 			if ( isNaN( value ) ) return;
 
-			// Input boxes clamp to max and min if they're defined, but they
-			// don't snap to step, so you can be as precise as you want.
-			value = this._clamp( value );
-
 			// Set the value, but don't call onFinishedChange
-			this.setValue( value, false );
+			this.setValue( this._clamp( value ), false );
 
-		} );
+		};
 
-		this.$input.addEventListener( 'blur', () => {
-			this.__inputFocused = false;
-			this._callOnFinishedChange();
-			this.updateDisplay();
-		} );
+		// invoked on mousewheel or arrow key up/down
+		const increment = delta => {
 
+			const value = parseFloat( this.$input.value );
+			if ( isNaN( value ) ) return;
 
-		this.$input.addEventListener( 'keydown', e => {
+			this._snapClampSetValue( value + delta );
+
+			// Force the input to updateDisplay because it's focused
+			this.$input.value = this.getValue();
+
+		};
+
+		const onKeyDown = e => {
 			if ( e.keyCode === 13 ) {
 				this.$input.blur();
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this.__step * ( e.shiftKey ? 100 : 10 ) );
+				increment( this._step * ( e.shiftKey ? 100 : 10 ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this.__step * ( e.shiftKey ? 100 : 10 ) );
+				increment( -1 * this._step * ( e.shiftKey ? 100 : 10 ) );
 			}
-		} );
-
-		const increment = delta => {
-			let value = parseFloat( this.$input.value );
-			if ( isNaN( value ) ) return;
-			value += delta;
-			value = this._snap( value );
-			value = this._clamp( value );
-			this.setValue( value, false );
-			// Manually update the input display because it's focused ><
-			this.$input.value = this.getValue();
 		};
 
 		const onMouseWheel = e => {
-			e.preventDefault();
-			increment( ( e.deltaX + -e.deltaY ) * this.__step );
+			if ( this._inputFocused ) {
+				e.preventDefault();
+				increment( ( e.deltaX + -e.deltaY ) * this._step );
+			}
 		};
 
+		const onFocus = () => {
+			this._inputFocused = true;
+		};
+
+		const onBlur = () => {
+			this._inputFocused = false;
+			this._callOnFinishedChange();
+			this.updateDisplay();
+		};
+
+		this.$input.addEventListener( 'focus', onFocus );
+		this.$input.addEventListener( 'input', onInput );
+		this.$input.addEventListener( 'blur', onBlur );
+		this.$input.addEventListener( 'keydown', onKeyDown );
 		this.$input.addEventListener( 'wheel', onMouseWheel, { passive: false } );
 
 	}
 
 	_createSlider() {
 
-		this.__hasSlider = true;
+		this._hasSlider = true;
+
+		// Build DOM
+		// ---------------------------------------------------------------------
 
 		this.$slider = document.createElement( 'div' );
 		this.$slider.classList.add( 'slider' );
@@ -116,26 +121,28 @@ export default class NumberController extends Controller {
 
 		this.domElement.classList.add( 'hasSlider' );
 
+		// Map clientX to value
+		// ---------------------------------------------------------------------
+
 		const map = ( v, a, b, c, d ) => {
 			return ( v - a ) / ( b - a ) * ( d - c ) + c;
 		};
 
 		const setValueFromX = clientX => {
 			const rect = this.$slider.getBoundingClientRect();
-			let value = map( clientX, rect.left, rect.right, this.__min, this.__max );
-			value = this._snap( value );
-			value = this._clamp( value );
-			this.setValue( value, false );
+			let value = map( clientX, rect.left, rect.right, this._min, this._max );
+			this._snapClampSetValue( value );
 		};
 
 		// Bind mouse listeners
+		// ---------------------------------------------------------------------
 
-		this.$slider.addEventListener( 'mousedown', e => {
+		const mouseDown = e => {
 			setValueFromX( e.clientX );
 			this.$slider.classList.add( 'active' );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
-		} );
+		};
 
 		const mouseMove = e => {
 			setValueFromX( e.clientX );
@@ -148,15 +155,18 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
 
+		this.$slider.addEventListener( 'mousedown', mouseDown );
+
 		// Bind touch listeners
+		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
 
-		this.$slider.addEventListener( 'touchstart', e => {
+		const onTouchStart = e => {
 
 			if ( e.touches.length > 1 ) return;
 
-			// For the record, as of 2019, Android seems to take care of this
+			// For the record: as of 2019, Android seems to take care of this
 			// automatically. I'd like to remove this whole test if iOS ever 
 			// decided to do the same.
 
@@ -181,12 +191,12 @@ export default class NumberController extends Controller {
 
 			}
 
-			window.addEventListener( 'touchmove', touchMove, { passive: false } );
-			window.addEventListener( 'touchend', touchEnd );
+			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+			window.addEventListener( 'touchend', onTouchEnd );
 
-		} );
+		};
 
-		const touchMove = e => {
+		const onTouchMove = e => {
 
 			if ( !testingForScroll ) {
 
@@ -208,8 +218,8 @@ export default class NumberController extends Controller {
 				} else {
 
 					// This was, in fact, an attempt to scroll. Abort.
-					window.removeEventListener( 'touchmove', touchMove );
-					window.removeEventListener( 'touchend', touchEnd );
+					window.removeEventListener( 'touchmove', onTouchMove );
+					window.removeEventListener( 'touchend', onTouchEnd );
 
 				}
 
@@ -217,24 +227,22 @@ export default class NumberController extends Controller {
 
 		};
 
-		const touchEnd = () => {
+		const onTouchEnd = () => {
 			this._callOnFinishedChange();
 			this.$slider.classList.remove( 'active' );
-			window.removeEventListener( 'touchmove', touchMove );
-			window.removeEventListener( 'touchend', touchEnd );
+			window.removeEventListener( 'touchmove', onTouchMove );
+			window.removeEventListener( 'touchend', onTouchEnd );
 		};
 
-		const increment = delta => {
-			let value = this.getValue();
-			value += delta;
-			value = this._snap( value );
-			value = this._clamp( value );
-			this.setValue( value, false );
-		};
+		this.$slider.addEventListener( 'touchstart', onTouchStart );
+
+		// Bind wheel listeners
+		// ---------------------------------------------------------------------
 
 		const onMouseWheel = e => {
 			e.preventDefault();
-			increment( ( e.deltaX + -e.deltaY ) * ( this.__max - this.__min ) / 1000 );
+			const delta = ( e.deltaX + -e.deltaY ) * ( this._max - this._min ) / 1000;
+			this._snapClampSetValue( this.getValue() + delta );
 		};
 
 		this.$slider.addEventListener( 'wheel', onMouseWheel, { passive: false } );
@@ -242,27 +250,27 @@ export default class NumberController extends Controller {
 	}
 
 	min( min ) {
-		this.__min = min;
+		this._min = min;
 		this._onUpdateMinMax();
 		return this;
 	}
 
 	max( max ) {
-		this.__max = max;
+		this._max = max;
 		this._onUpdateMinMax();
 		return this;
 	}
 
 	step( step, explicit = true ) {
-		this.__step = step;
-		this.__stepExplicit = explicit;
+		this._step = step;
+		this._stepExplicit = explicit;
 		return this;
 	}
 
 	_getImplicitStep() {
 
 		if ( this._hasMin() && this._hasMax() ) {
-			return ( this.__max - this.__min ) / 1000;
+			return ( this._max - this._min ) / 1000;
 		}
 
 		return 0.1;
@@ -271,12 +279,13 @@ export default class NumberController extends Controller {
 
 	_onUpdateMinMax() {
 
-		if ( !this.__hasSlider && this._hasMin() && this._hasMax() ) {
+		if ( !this._hasSlider && this._hasMin() && this._hasMax() ) {
 
+			// Consider gui.add( ... ).step( 0.1 ).min( 0 ).max( 1 )
 			// If this is the first time we're hearing about min and max
 			// and we haven't explicitly stated what our step is, let's
 			// update that too.
-			if ( !this.__stepExplicit ) {
+			if ( !this._stepExplicit ) {
 				this.step( this._getImplicitStep(), false );
 			}
 
@@ -288,33 +297,36 @@ export default class NumberController extends Controller {
 	}
 
 	_hasMin() {
-		return this.__min !== undefined;
+		return this._min !== undefined;
 	}
 
 	_hasMax() {
-		return this.__max !== undefined;
+		return this._max !== undefined;
 	}
 
 	_snap( value ) {
 
 		// // This would be the logical way to do things, but floating point errors.
-		// return Math.round( value / this.__step ) * this.__step;
+		// return Math.round( value / this._step ) * this._step;
 
 		// // The inverse step strategy solves most floating point precision issues,
 		// // but not all of them ... 
-		// const inverseStep = 1 / this.__step;
+		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
-		// This makes me nauseous, but... works?
-		const r = Math.round( value / this.__step ) * this.__step;
-		return parseFloat( r.toPrecision( 15 ) );
+		const r = Math.round( value / this._step ) * this._step;
+		return parseFloat( r.toPrecision( 15 ) ); // o_O ?
 
 	}
 
 	_clamp( value ) {
-		const min = this._hasMin() ? this.__min : -Infinity;
-		const max = this._hasMax() ? this.__max : Infinity;
+		const min = this._hasMin() ? this._min : -Infinity;
+		const max = this._hasMax() ? this._max : Infinity;
 		return Math.max( min, Math.min( max, value ) );
+	}
+
+	_snapClampSetValue( value ) {
+		this.setValue( this._clamp( this._snap( value ) ) );
 	}
 
 }
