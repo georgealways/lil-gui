@@ -20,6 +20,8 @@ webfont( {
 		const data = result.woff.toString( 'base64' );
 		fs.writeFile( OUTPUT, template( data ), err => {
 			if ( err ) throw err;
+			const K = fs.statSync( OUTPUT ).size / 1000;
+			console.log( `${INPUT} → ${OUTPUT} [${K.toFixed( 2 )}K]` );
 		} );
 	} )
 	.catch( err => {
