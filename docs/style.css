@@ -18,6 +18,10 @@ html {
 	--code: #d7ba7d;
 }
 
+strong { 
+	font-weight: 600;
+}
+
 html,
 body {
 	font-family: var(--font-family);
