@@ -9,14 +9,11 @@ const API = 'API.md';
 
 const md = markdownit( {
 	html: true,
-	// https://github.com/markdown-it/markdown-it#syntax-highlighting
 	highlight: function( str, lang ) {
 		if ( lang && hljs.getLanguage( lang ) ) {
-			try {
-				return hljs.highlight( lang, str ).value;
-			} catch ( e ) {}
+			return hljs.highlight( lang, str ).value;
 		}
-		return ''; // use external default escaping
+		return '';
 	}
 } );
 

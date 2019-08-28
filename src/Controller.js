@@ -175,35 +175,35 @@ export default class Controller {
 		return this.object[ this.property ];
 	}
 
-	/**
-	 * Sets the minimum value. Only works on number controllers.
-	 * @param {number} min
-	 * @returns {Controller} self
-	 * @chainable
-	 */
-	min( min ) {
-		return this;
-	}
+	// /**
+	//  * Sets the minimum value. Only works on number controllers.
+	//  * @param {number} min
+	//  * @returns {Controller} self
+	//  * @chainable
+	//  */
+	// min( min ) {
+	// 	return this;
+	// }
 
-	/**
-	 * Sets the maximum value. Only works on number controllers.
-	 * @param {number} max
-	 * @returns {Controller} self
-	 * @chainable
-	 */
-	max( max ) {
-		return this;
-	}
+	// /**
+	//  * Sets the maximum value. Only works on number controllers.
+	//  * @param {number} max
+	//  * @returns {Controller} self
+	//  * @chainable
+	//  */
+	// max( max ) {
+	// 	return this;
+	// }
 
-	/**
-	 * Sets the step. Only works on number controllers.
-	 * @param {number} step
-	 * @returns {Controller} self
-	 * @chainable
-	 */
-	step( step ) {
-		return this;
-	}
+	// /**
+	//  * Sets the step. Only works on number controllers.
+	//  * @param {number} step
+	//  * @returns {Controller} self
+	//  * @chainable
+	//  */
+	// step( step ) {
+	// 	return this;
+	// }
 
 	/**
 	 * Updates the display to keep it in sync with the current value of 

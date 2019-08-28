@@ -52,5 +52,5 @@ const red = str => `\x1b[31m${str}\x1b[0m`;
 const grn = str => `\x1b[32m${str}\x1b[0m`;
 
 function stackTraceToFileLink( stack ) {
-	return stack.match( /[a-z_\-\\\/\.]+:\d+:\d+/i )[ 0 ];
+	return stack.match( /[a-z_\-/.\\]+:\d+:\d+/i )[ 0 ];
 }

@@ -85,12 +85,9 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <li><a href="#Controller#destroy"><strong>destroy</strong>()</a></li>
 <li><a href="#Controller#disable"><strong>disable</strong>()</a> → self</li>
 <li><a href="#Controller#enable"><strong>enable</strong>()</a> → self</li>
-<li><a href="#Controller#max"><strong>max</strong>(…)</a> → self</li>
-<li><a href="#Controller#min"><strong>min</strong>(…)</a> → self</li>
 <li><a href="#Controller#name"><strong>name</strong>(…)</a> → self</li>
 <li><a href="#Controller#onChange"><strong>onChange</strong>(…)</a> → self</li>
 <li><a href="#Controller#options"><strong>options</strong>(…)</a></li>
-<li><a href="#Controller#step"><strong>step</strong>(…)</a> → self</li>
 <li><a href="#Controller#updateDisplay"><strong>updateDisplay</strong>()</a> → self</li>
 <li><a href="#Controller#domElement">domElement</a> : HTMLElement</li>
 <li><a href="#Controller#object">object</a> : Object</li>
@@ -185,18 +182,6 @@ gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</s
 <p>Disables this controller.</p>
 <h2><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L120">#</a> controller.<strong>enable</strong>() → self</h2>
 <p>Enables this controller.</p>
-<h2><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L194">#</a> controller.<strong>max</strong>( max ) → self</h2>
-<p>Sets the maximum value. Only works on number controllers.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>max</li>
-</ul>
-<h2><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L184">#</a> controller.<strong>min</strong>( min ) → self</h2>
-<p>Sets the minimum value. Only works on number controllers.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>min</li>
-</ul>
 <h2><a name="Controller#name" href="#Controller#name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L67">#</a> controller.<strong>name</strong>( name ) → self</h2>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -216,12 +201,6 @@ gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</s
 <p><strong>Parameters</strong></p>
 <ul>
 <li>options</li>
-</ul>
-<h2><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L204">#</a> controller.<strong>step</strong>( step ) → self</h2>
-<p>Sets the step. Only works on number controllers.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>step</li>
 </ul>
 <h2><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L214">#</a> controller.<strong>updateDisplay</strong>() → self</h2>
 <p>Updates the display to keep it in sync with the current value of

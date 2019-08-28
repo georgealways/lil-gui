@@ -12,6 +12,7 @@
     "api": "node -r esm scripts/api.js",
     "docs": "node -r esm scripts/docs.js",
     "test": "node -r esm scripts/test.js",
+    "server": "live-server --watch=build,docs --no-browser",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],

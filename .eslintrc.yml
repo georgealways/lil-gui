@@ -4,6 +4,7 @@ env:
 parserOptions:
   ecmaVersion: 6
   sourceType: module
+extends: eslint:recommended
 rules:
   array-bracket-spacing: [ warn, always ]
   arrow-spacing: warn
@@ -23,7 +24,6 @@ rules:
   no-multiple-empty-lines: warn
   no-trailing-spaces: [ warn, { ignoreComments: true } ]
   no-whitespace-before-property: warn
-  no-undef: error
   no-var: warn
   object-curly-spacing: [ warn, always ]
   quotes: [ warn, single ]

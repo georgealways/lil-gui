@@ -26,12 +26,9 @@
 - [**destroy**()](#Controller#destroy) 
 - [**disable**()](#Controller#disable) → self
 - [**enable**()](#Controller#enable) → self
-- [**max**(…)](#Controller#max) → self
-- [**min**(…)](#Controller#min) → self
 - [**name**(…)](#Controller#name) → self
 - [**onChange**(…)](#Controller#onChange) → self
 - [**options**(…)](#Controller#options) 
-- [**step**(…)](#Controller#step) → self
 - [**updateDisplay**()](#Controller#updateDisplay) → self
 - [domElement](#Controller#domElement) : HTMLElement
 - [object](#Controller#object) : Object
@@ -179,20 +176,6 @@ Disables this controller.
 
 Enables this controller. 
 
-## <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L194) controller.**max**( max ) → self
-
-Sets the maximum value. Only works on number controllers. 
-
-**Parameters**
-- max
-
-## <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L184) controller.**min**( min ) → self
-
-Sets the minimum value. Only works on number controllers. 
-
-**Parameters**
-- min
-
 ## <a name="Controller#name" href="#Controller#name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L67) controller.**name**( name ) → self
 
  
@@ -219,13 +202,6 @@ I'm not sure if I'm keeping this.
 
 **Parameters**
 - options
-
-## <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L204) controller.**step**( step ) → self
-
-Sets the step. Only works on number controllers. 
-
-**Parameters**
-- step
 
 ## <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L214) controller.**updateDisplay**() → self
 

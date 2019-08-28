@@ -25,7 +25,7 @@ watch( {
 	},
 	sass: '--watch',
 	rollup: '-w',
-	server: 'live-server --watch=build,docs --no-browser'
+	server: ''
 } );
 
 function watch( config ) {
