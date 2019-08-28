@@ -41,23 +41,42 @@ app.demos[ 'Basic' ] = function( gui ) {
 app.demos[ 'Kitchen Sink' ] = function( gui ) {
 
 	gui.addHeader( 'Numbers' );
+	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
 	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
 	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
 
-	gui.addHeader( 'Ranges' );
+	gui.addHeader( 'Range, implicit step' );
+	// ------------------------------------
 
-	const rangeHelper = ( min, max ) => {
-		gui.add( { x: ( min + max ) / 2 }, 'x', min, max ).name( `[${min},${max}]` );
+	let rangeHelper = ( min, max ) => {
+		gui.add( { x: max }, 'x', min, max ).name( `[${min},${max}]` );
 	};
 
 	rangeHelper( 0, 1 );
-	rangeHelper( -1, 1 );
 	rangeHelper( 0, 100 );
+	rangeHelper( -1, 1 );
 	rangeHelper( 1, 16 );
+	rangeHelper( 0, 15 );
+	rangeHelper( 0, 1e32 );
 
-	gui.addHeader( 'Step' );
+	gui.addHeader( 'Range, explicit step' );
+	// ------------------------------------
+
+	rangeHelper = ( min, max, step, label = step ) => {
+		gui.add( { x: max }, 'x', min, max, step ).name( `[${min},${max}] step ${label}` );
+	};
+
+	rangeHelper( 0, 1, 0.1 );
+	rangeHelper( 0, 100, 1 );
+	rangeHelper( -1, 1, 0.25 );
+	rangeHelper( 1, 16, .01 );
+	rangeHelper( 0, 15, .015 );
+	rangeHelper( 0, 5, 1 / 3, '1/3' );
+
+	gui.addHeader( 'Explicit step, no range' );
+	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
 	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1 (default)' );
@@ -65,6 +84,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
 
 	gui.addHeader( 'Colors' );
+	// ------------------------------------
 
 	gui.addColor( { x: '#6C44BE' }, 'x' ).name( 'Hex String' );
 	gui.addColor( { x: 0x6C44BE }, 'x' ).name( 'Hex Int' );
@@ -72,6 +92,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	gui.addColor( { x: { r: 0, g: 1, b: 1 } }, 'x' ).name( 'RGB Object' );
 
 	gui.addHeader( 'Options' );
+	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
 	gui.add( { x: 0 }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Object' );
@@ -106,6 +127,17 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	folder4.addHeader( 'Nested header' );
 	addFiller( folder4 );
 
+	const folderNameWidth = gui.addFolder( '--name-width' );
+	// ------------------------------------
+
+	folderNameWidth.domElement.style.setProperty( '--name-width', '60%' );
+	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'justABunchOfBooleans' );
+	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'withReallyLongNames' );
+	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'chillingInAList' );
+	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( '🤓' ).domElement.style.setProperty( '--name-width', '10%' );
+
+
+	gui.add( { x: 0 }, 'x', 0, 1 ).domElement.style.setProperty( '--slider-input-width', '50%' );
 
 };
 

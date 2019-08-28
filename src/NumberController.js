@@ -294,13 +294,17 @@ export default class NumberController extends Controller {
 
 	_snap( value ) {
 
-		// The inverse step strategy solves some floating point precision / 
-		// flyway issues, but not all of them ...
+		// // This would be the logical way to do things, but floating point errors.
+		// Math.round( value / this.__step ) * this.__step
+
+		// // The inverse step strategy solves most floating point precision issues,
+		// // but not all of them ... 
 		// const inverseStep = 1 / this.__step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
+		// This makes me nauseous, but... works?
 		const r = Math.round( value / this.__step ) * this.__step;
-		return parseFloat( r.toPrecision( 10 ) );
+		return parseFloat( r.toPrecision( 15 ) );
 
 	}
 
