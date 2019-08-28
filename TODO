@@ -1,10 +1,14 @@
 todo
 
 
+[ ] clean up number controller. shit ain't dry
+
+[ ] new GUI() injectStyles parameter?
+
 [x] define blank methods for controller (min,max,step,options)
 	that's done ... test it?
 
-[ ] clean up number controller. shit ain't dry
+
 [ ] kill onfinishchange?
 [ ] header => label?
 

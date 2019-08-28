@@ -57,8 +57,13 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	rangeHelper( 0, 1 );
 	rangeHelper( 0, 100 );
 	rangeHelper( -1, 1 );
+	rangeHelper( 0, 2 );
+	rangeHelper( 0, 3 );
+	rangeHelper( 0, 5 );
+	rangeHelper( 0, 7 );
 	rangeHelper( 1, 16 );
 	rangeHelper( 0, 15 );
+	rangeHelper( 1, 100 );
 	rangeHelper( 0, 1e32 );
 
 	gui.addHeader( 'Range, explicit step' );

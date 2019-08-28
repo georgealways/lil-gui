@@ -99,4 +99,57 @@ test( unit => {
 
 	} );
 
+	unit( 'number', () => {
+
+		const gui = new GUI();
+		const controller1 = gui.add( { x: 0 }, 'x' );
+		const controller2 = gui.add( { x: 0 }, 'x', 0 );
+
+		assert.strictEqual( controller1.$slider, undefined, 'no sliders without range' );
+		assert.strictEqual( controller2.$slider, undefined, 'no sliders without range' );
+
+	} );
+
+	unit( 'slider', () => {
+
+		const gui = new GUI();
+
+		sliderTest( 0, 1 );
+		sliderTest( 0, 3 );
+		sliderTest( 0, 5 );
+		sliderTest( 0, 1000 / 3 );
+
+		function sliderTest( min, max ) {
+
+			const target = { x: 0 };
+			const controller = gui.add( target, 'x', min, max );
+
+			const rect = controller.$slider.getBoundingClientRect();
+
+			controller.$slider.$callEventListener( 'mousedown', {
+				clientX: Math.floor( rect.left )
+			} );
+
+			assert.strictEqual( target.x, 0 );
+
+			for ( let clientX = Math.floor( rect.left ); clientX < Math.ceil( rect.right ); clientX++ ) {
+
+				window.$callEventListener( 'mousemove', { clientX } );
+
+				const message = `float precision [${min},${max}] ${controller.__step} ${target.x}`;
+				assert( decimals( target.x ) <= decimals( controller.__step ), message );
+
+			}
+
+			window.$callEventListener( 'mouseup' );
+
+		}
+
+		function decimals( number ) {
+			const parts = number.toString().split( '.' );
+			return parts.length === 1 ? 0 : parts[ 1 ].length;
+		}
+
+	} );
+
 } );

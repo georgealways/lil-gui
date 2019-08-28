@@ -1,5 +1,4 @@
 import Controller from './Controller.js';
-import map from './utils/map.js';
 
 export default class NumberController extends Controller {
 
@@ -40,6 +39,8 @@ export default class NumberController extends Controller {
 		this.$input.setAttribute( 'type', 'text' );
 		this.$input.setAttribute( 'inputmode', 'numeric' );
 
+		this.$widget.appendChild( this.$input );
+
 		this.$input.addEventListener( 'focus', () => {
 			this.__inputFocused = true;
 		} );
@@ -72,11 +73,11 @@ export default class NumberController extends Controller {
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this.__step * ( e.shiftKey ? 10 : 1 ) );
+				increment( this.__step * ( e.shiftKey ? 100 : 10 ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this.__step * ( e.shiftKey ? 10 : 1 ) );
+				increment( -1 * this.__step * ( e.shiftKey ? 100 : 10 ) );
 			}
 		} );
 
@@ -87,7 +88,7 @@ export default class NumberController extends Controller {
 			value = this._snap( value );
 			value = this._clamp( value );
 			this.setValue( value, false );
-			// Manually update the input display because it's focused.
+			// Manually update the input display because it's focused ><
 			this.$input.value = this.getValue();
 		};
 
@@ -97,7 +98,6 @@ export default class NumberController extends Controller {
 		};
 
 		this.$input.addEventListener( 'wheel', onMouseWheel, { passive: false } );
-		this.$widget.appendChild( this.$input );
 
 	}
 
@@ -116,23 +116,16 @@ export default class NumberController extends Controller {
 
 		this.domElement.classList.add( 'hasSlider' );
 
+		const map = ( v, a, b, c, d ) => {
+			return ( v - a ) / ( b - a ) * ( d - c ) + c;
+		};
+
 		const setValueFromX = clientX => {
-
-			// Always poll rect because it's simpler than storing it
 			const rect = this.$slider.getBoundingClientRect();
-
-			// Map x position along slider to min and max values
 			let value = map( clientX, rect.left, rect.right, this.__min, this.__max );
-
-			// Sliders always round to step.
 			value = this._snap( value );
-
-			// Clamp it, because it can exceed the bounding rect
 			value = this._clamp( value );
-
-			// Set the value, but don't call onFinishedChange
 			this.setValue( value, false );
-
 		};
 
 		// Bind mouse listeners
@@ -162,6 +155,10 @@ export default class NumberController extends Controller {
 		this.$slider.addEventListener( 'touchstart', e => {
 
 			if ( e.touches.length > 1 ) return;
+
+			// For the record, as of 2019, Android seems to take care of this
+			// automatically. I'd like to remove this whole test if iOS ever 
+			// decided to do the same.
 
 			const root = this.parent.root.$children;
 			const scrollbarPresent = root.scrollHeight > root.clientHeight;
@@ -264,7 +261,7 @@ export default class NumberController extends Controller {
 
 	_getImplicitStep() {
 
-		if ( this.__min !== undefined && this.__max !== undefined ) {
+		if ( this._hasMin() && this._hasMax() ) {
 			return ( this.__max - this.__min ) / 1000;
 		}
 
@@ -274,9 +271,7 @@ export default class NumberController extends Controller {
 
 	_onUpdateMinMax() {
 
-		if ( !this.__hasSlider &&
-			this.__min !== undefined &&
-			this.__max !== undefined ) {
+		if ( !this.__hasSlider && this._hasMin() && this._hasMax() ) {
 
 			// If this is the first time we're hearing about min and max
 			// and we haven't explicitly stated what our step is, let's
@@ -292,10 +287,18 @@ export default class NumberController extends Controller {
 
 	}
 
+	_hasMin() {
+		return this.__min !== undefined;
+	}
+
+	_hasMax() {
+		return this.__max !== undefined;
+	}
+
 	_snap( value ) {
 
 		// // This would be the logical way to do things, but floating point errors.
-		// Math.round( value / this.__step ) * this.__step
+		// return Math.round( value / this.__step ) * this.__step;
 
 		// // The inverse step strategy solves most floating point precision issues,
 		// // but not all of them ... 
@@ -309,8 +312,8 @@ export default class NumberController extends Controller {
 	}
 
 	_clamp( value ) {
-		const min = this.__min === undefined ? -Infinity : this.__min;
-		const max = this.__max === undefined ? Infinity : this.__max;
+		const min = this._hasMin() ? this.__min : -Infinity;
+		const max = this._hasMax() ? this.__max : Infinity;
 		return Math.max( min, Math.min( max, value ) );
 	}
 
