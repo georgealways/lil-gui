@@ -7,21 +7,29 @@
 }
 
 .lil-gui {
+
+	--width: auto;
+
+	--bg-color: #1f1f1f;
+	--fg-color: #eee;
+
+	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
+	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol";
+
 	--font-size: 11px;
 	--line-height: 1;
 
 	--name-width: 40%;
 	--slider-input-width: 27%;
-	--row-height: 24px;
+	--row-height: 25px;
 	--widget-height: 20px;
 
-	--bg-color: #1a1a1a;
-	--fg-color: #eee;
-
 	--widget-fg-color: #eee;
-	--widget-bg-color: #3c3c3c;
+	--widget-bg-color: #424242;
 	--widget-fg-color-focus: #fff;
-	--widget-bg-color-focus: #4d4d4d;
+	--widget-bg-color-focus: #5a5a5a;
 
 	--number-color: #00adff;
 	--string-color: #1ed36f;
@@ -30,17 +38,12 @@
 	--header-rule-color: rgba(255, 255, 255, 0.1);
 	--folder-rule-color: #444;
 
-	--padding: 0.55em;
-	--widget-padding: 0 0 0 0.25em;
+	--padding: 6px;
+	--widget-padding: 0 0 0 3px;
 	--widget-border-radius: 2px;
-	--scrollbar-width: 0.375em;
+	--scrollbar-width: 5px;
 
 	--mobile-max-height: 200px;
-
-	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
-	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol";
 
 	--icons-font-family: "lil-gui";
 
@@ -71,12 +74,12 @@
 	// -------------------------------------------------------------------------
 
 	&.root {
-		width: var(--width, auto);
+		width: var(--width);
 		> .title {
 			background: var(--title-bg-color);
 		}
 		> .children:not(:empty) {
-			padding: calc(0.5 * var(--padding)) 0;
+			padding-top: calc(0.5 * var(--padding));
 		}
 	}
 
@@ -151,9 +154,14 @@
 	}
 
 	@include mobile {
+		
 		--row-height: 38px;
 		--widget-height: 32px;
 		--font-size: 16px;
+		--padding: 8px;
+		--widget-padding: 0 0 0 5px;
+		--scrollbar-width: 8px;
+
 		&.autoPlace {
 			right: auto;
 			top: auto;
@@ -164,6 +172,7 @@
 				max-height: var(--mobile-max-height);
 			}
 		}
+
 	}
 
 	// Shared "widget" styles
@@ -181,6 +190,11 @@
 		width: 100%;
 		&[type="text"] {
 			padding: var(--widget-padding);
+		}
+		&:focus,
+		&:active {
+			background: var(--widget-bg-color-focus);
+			color: var(--widget-fg-color-focus);
 		}
 	}
 
@@ -215,6 +229,11 @@
 		&:hover {
 			background: black;
 		}
+		&:focus,
+		&:active { 
+			outline: 1px dotted rgba(255,255,255,0.3);
+			outline-offset: -1px;
+		}
 		.name {
 			width: 100%;
 		}
@@ -229,14 +248,7 @@
 		}
 	}
 
-	input,
-	button {
-		&:focus,
-		&:active {
-			background: var(--widget-bg-color-focus);
-			color: var(--widget-fg-color-focus);
-		}
-	}
+	
 
 	// Controllers
 	// -------------------------------------------------------------------------
@@ -280,7 +292,7 @@
 		.slider {
 			width: calc( 100% - var(--slider-input-width ) );
 			height: var(--widget-height);
-			margin-right: calc(var(--padding) - 2px);
+			margin-right: calc(var(--row-height) - var(--widget-height));
 			background-color: var(--widget-bg-color);
 			border-radius: var(--widget-border-radius);
 			overflow: hidden;
@@ -348,6 +360,35 @@
 			}
 		}
 	}
+
+	// Nested GUI's respect custom parent properties
+	& & { 
+		--bg-color: inherit;
+		--fg-color: inherit;
+		--font-family: inherit;
+		--font-size: inherit;
+		--line-height: inherit;
+		--name-width: inherit;
+		--slider-input-width: inherit;
+		--row-height: inherit;
+		--widget-height: inherit;
+		--widget-fg-color: inherit;
+		--widget-bg-color: inherit;
+		--widget-fg-color-focus: inherit;
+		--widget-bg-color-focus: inherit;
+		--number-color: inherit;
+		--string-color: inherit;
+		--title-bg-color: inherit;
+		--header-rule-color: inherit;
+		--folder-rule-color: inherit;
+		--padding: inherit;
+		--widget-padding: inherit;
+		--widget-border-radius: inherit;
+		--scrollbar-width: inherit;
+		--mobile-max-height: inherit;
+		--icons-font-family: inherit;
+	}
+
 }
 
 /* 

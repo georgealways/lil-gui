@@ -12,9 +12,9 @@ html {
 	--font-family-code: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
 	--font-size: 14px;
 	--line-height: 1.6;
-	--background: #1e1e1e;
-	--foreground: #d4d4d4;
-	--link: #3794ff;
+	--background: #eee;
+	--foreground: #252525;
+	--link: #0077ff;
 	--code: #d7ba7d;
 }
 
@@ -58,7 +58,7 @@ pre code {
 }
 
 pre {
-	background-color: rgba(10, 10, 10, 0.4);
+	background-color: rgba(10, 10, 10, 0.055); 
 }
 
 code {

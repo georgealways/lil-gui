@@ -101,7 +101,7 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 </ul>
 <h1>GUI</h1>
 <p>Class description</p>
-<h2><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L134">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h2>
+<h2><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L135">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h2>
 <p>Adds a controller.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -118,25 +118,25 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-string">'small'</span> }, <span class="hljs-string">'myOptions'</span>, [ <span class="hljs-string">'big'</span>, <span class="hljs-string">'medium'</span>, <span class="hljs-string">'small'</span> ] );
 gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myOptions'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 </code></pre>
-<h2><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L178">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h2>
+<h2><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L179">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h2>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>object</li>
 <li>property</li>
 </ul>
-<h2><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L196">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h2>
+<h2><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L197">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h2>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
-<h2><a name="GUI#addHeader" href="#GUI#addHeader"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L187">#</a> gui.<strong>addHeader</strong>( name ) → Header</h2>
+<h2><a name="GUI#addHeader" href="#GUI#addHeader"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L188">#</a> gui.<strong>addHeader</strong>( name ) → Header</h2>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>name</li>
 </ul>
-<h2><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L242">#</a> gui.<strong>close</strong>() → self</h2>
-<h2><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L251">#</a> gui.<strong>destroy</strong>()</h2>
-<h2><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L233">#</a> gui.<strong>open</strong>( [open] ) → self</h2>
+<h2><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234">#</a> gui.<strong>close</strong>() → self</h2>
+<h2><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L243">#</a> gui.<strong>destroy</strong>()</h2>
+<h2><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L225">#</a> gui.<strong>open</strong>( [open] ) → self</h2>
 <p>Opens or closes a GUI or folder.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -146,7 +146,7 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
 folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
-<h2><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L205">#</a> gui.<strong>title</strong>( title ) → self</h2>
+<h2><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L206">#</a> gui.<strong>title</strong>( title ) → self</h2>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
@@ -164,7 +164,7 @@ folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 <h2><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L63">#</a> gui.<strong>$title</strong> : HTMLElement</h2>
 <p>The clickable title that collapses a GUI.</p>
 <h2><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L79">#</a> gui.<strong>_closed</strong> : boolean</h2>
-<h2><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L209">#</a> gui.<strong>_title</strong> : string</h2>
+<h2><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L210">#</a> gui.<strong>_title</strong> : string</h2>
 <h1>Controller</h1>
 <p>Classdesc? Where are you getting this intel. who told you.</p>
 <h2><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L151">#</a> controller.<strong>destroy</strong>()</h2>

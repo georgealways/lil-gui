@@ -44,7 +44,7 @@
 
 Class description
 
-## <a name="GUI#add" href="#GUI#add"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L134) gui.**add**( object, property, [$1], [max], [step] ) → Controller
+## <a name="GUI#add" href="#GUI#add"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L135) gui.**add**( object, property, [$1], [max], [step] ) → Controller
 
 Adds a controller. 
 
@@ -66,7 +66,7 @@ gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 ```
 
-## <a name="GUI#addColor" href="#GUI#addColor"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L178) gui.**addColor**( object, property ) → Controller
+## <a name="GUI#addColor" href="#GUI#addColor"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L179) gui.**addColor**( object, property ) → Controller
 
  
 
@@ -74,29 +74,29 @@ gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 - object
 - property
 
-## <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L196) gui.**addFolder**( title ) → GUI
+## <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L197) gui.**addFolder**( title ) → GUI
 
  
 
 **Parameters**
 - title
 
-## <a name="GUI#addHeader" href="#GUI#addHeader"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L187) gui.**addHeader**( name ) → Header
+## <a name="GUI#addHeader" href="#GUI#addHeader"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L188) gui.**addHeader**( name ) → Header
 
  
 
 **Parameters**
 - name
 
-## <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L242) gui.**close**() → self
+## <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L234) gui.**close**() → self
 
  
 
-## <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L251) gui.**destroy**() 
+## <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L243) gui.**destroy**() 
 
  
 
-## <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L233) gui.**open**( [open] ) → self
+## <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L225) gui.**open**( [open] ) → self
 
 Opens or closes a GUI or folder. 
 
@@ -109,7 +109,7 @@ folder.open( false ); // closed
 folder.open( folder._closed ); // toggle
 ```
 
-## <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L205) gui.**title**( title ) → self
+## <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L206) gui.**title**( title ) → self
 
  
 
@@ -144,7 +144,7 @@ The clickable title that collapses a GUI.
 
  
 
-## <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L209) gui.**_title** : string
+## <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L210) gui.**_title** : string
 
  
 

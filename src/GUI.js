@@ -89,6 +89,7 @@ export default class GUI {
 		} else {
 
 			this.domElement.classList.add( 'root' );
+			this.domElement.style.setProperty( '--width', width + 'px' );
 
 			if ( autoPlace ) {
 
@@ -102,12 +103,12 @@ export default class GUI {
 				window.addEventListener( 'resize', this._onResize );
 				this._onResize();
 
+
 			}
 
 		}
 
 		this.title( title );
-		this.width( width );
 
 	}
 
@@ -209,15 +210,6 @@ export default class GUI {
 		this._title = title;
 		this.$title.innerHTML = title;
 		return this;
-	}
-
-	width( v ) {
-		this._width = v;
-		if ( v === undefined ) {
-			this.domElement.style.setProperty( '--width', 'auto' );
-		} else {
-			this.domElement.style.setProperty( '--width', v + 'px' );
-		}
 	}
 
 	/**

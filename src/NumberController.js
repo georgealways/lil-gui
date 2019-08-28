@@ -70,11 +70,11 @@ export default class NumberController extends Controller {
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this._step * ( e.shiftKey ? 100 : 10 ) );
+				increment( this._step * ( e.shiftKey ? 100 : e.altKey ? 1 : 10 ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this._step * ( e.shiftKey ? 100 : 10 ) );
+				increment( -1 * this._step * ( e.shiftKey ? 100 : e.altKey ? 1 : 10 ) );
 			}
 		};
 
