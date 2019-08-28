@@ -78,7 +78,6 @@ class Controller {
 	 * @param {function} callback 
 	 * @returns {Controller} self
 	 * @chainable 
-	 * 
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -114,22 +113,19 @@ class Controller {
 	}
 
 	/**
-	 * Enables or sets the enabled state of this controller.
-	 * @param {boolean} [enable]
-	 * @chainable
-	 * @example
-	 * controller.enable();
-	 * controller.enable( false ); // disable
-	 * controller.enable( controller.__disabled ); // toggle
+	 * Enables this controller.
+	 * @returns {Controller} self
+	 * @chainable 
 	 */
-	enable( enable = true ) {
-		this.__disabled = !enable;
-		this.domElement.classList.toggle( 'disabled', this.__disabled );
+	enable() {
+		this.__disabled = false;
+		this.domElement.classList.remove( 'disabled' );
 		return this;
 	}
 
 	/**
 	 * Disables this controller.
+	 * @returns {Controller} self
 	 * @chainable
 	 */
 	disable() {
@@ -138,6 +134,20 @@ class Controller {
 		return this;
 	}
 
+	/**
+	 * Destroys this controller and removes it from the parent GUI.
+	 * 
+	 * @example 
+	 * const controller = gui.add( object, 'property' );
+	 * controller.destroy();
+	 * 
+	 * @example
+	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
+	 * gui.children.forEach( c => c.destroy() );
+	 * 
+	 * // Make a copy of the array first if you actually want to do that
+	 * Array.from( gui.children ).forEach( c => c.destroy() );
+	 */
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
@@ -166,7 +176,39 @@ class Controller {
 	}
 
 	/**
-	 * TODO
+	 * Sets the minimum value. Only works on number controllers.
+	 * @param {number} min
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	min( min ) {
+		return this;
+	}
+
+	/**
+	 * Sets the maximum value. Only works on number controllers.
+	 * @param {number} max
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	max( max ) {
+		return this;
+	}
+
+	/**
+	 * Sets the step. Only works on number controllers.
+	 * @param {number} step
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	step( step ) {
+		return this;
+	}
+
+	/**
+	 * Updates the display to keep it in sync with the current value of 
+	 * `this.object[ this.property ]`. Useful for updating your controllers if 
+	 * their values have been modified outside of the GUI.
 	 * @chainable
 	 */
 	updateDisplay() {
@@ -782,27 +824,39 @@ class GUI {
 	} = {} ) {
 
 		/**
+		 * The GUI this folder is nested in, or `undefined` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * Reference to the outermost GUI, `this` for the root GUI.
+		 * Reference to the outermost folder, or `this` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.root = parent ? parent.root : this;
 
 		/**
-		 * List of items in this GUI.
+		 * TODO
 		 * @type {Array}
 		 */
 		this.children = [];
 
 		/**
+		 * The outermost container `div`.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
+
+		/**
+		 * The clickable title that collapses a GUI.
+		 * @type {HTMLElement}
+		 */
+		this.$title = document.createElement( 'button' );
+		this.$title.classList.add( 'title' );
+		this.$title.addEventListener( 'click', () => {
+			this.open( this.__closed );
+		} );
 
 		/**
 		 * The `div` that contains child elements.
@@ -815,15 +869,6 @@ class GUI {
 		 * @type {boolean}
 		 */
 		this.__closed = false;
-
-		/**
-		 * @type {HTMLElement}
-		 */
-		this.$title = document.createElement( 'button' );
-		this.$title.classList.add( 'title' );
-		this.$title.addEventListener( 'click', () => {
-			this.open( this.__closed );
-		} );
 
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );

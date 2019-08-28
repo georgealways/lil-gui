@@ -1,7 +1,9 @@
 todo
 
 
-[ ] define blank methods for controller (min,max,step,options)
+[x] define blank methods for controller (min,max,step,options)
+	that's done ... test it?
+
 [ ] clean up number controller. shit ain't dry
 [ ] kill onfinishchange?
 [ ] header => label?

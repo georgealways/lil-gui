@@ -32,27 +32,39 @@ export default class GUI {
 	} = {} ) {
 
 		/**
+		 * The GUI this folder is nested in, or `undefined` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * Reference to the outermost GUI, `this` for the root GUI.
+		 * Reference to the outermost folder, or `this` for the root GUI.
 		 * @type {GUI}
 		 */
 		this.root = parent ? parent.root : this;
 
 		/**
-		 * List of items in this GUI.
+		 * TODO
 		 * @type {Array}
 		 */
 		this.children = [];
 
 		/**
+		 * The outermost container `div`.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
+
+		/**
+		 * The clickable title that collapses a GUI.
+		 * @type {HTMLElement}
+		 */
+		this.$title = document.createElement( 'button' );
+		this.$title.classList.add( 'title' );
+		this.$title.addEventListener( 'click', () => {
+			this.open( this.__closed );
+		} );
 
 		/**
 		 * The `div` that contains child elements.
@@ -65,15 +77,6 @@ export default class GUI {
 		 * @type {boolean}
 		 */
 		this.__closed = false;
-
-		/**
-		 * @type {HTMLElement}
-		 */
-		this.$title = document.createElement( 'button' );
-		this.$title.classList.add( 'title' );
-		this.$title.addEventListener( 'click', () => {
-			this.open( this.__closed );
-		} );
 
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );

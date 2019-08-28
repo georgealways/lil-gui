@@ -28,16 +28,9 @@
 
 {{#children}}
 
-### <a name="{{{longname}}}" href="#{{{longname}}}"></a> {{signature}} {{{indextype}}}
+## <a name="{{{longname}}}" href="#{{{longname}}}"></a> [#]({{{viewsource}}}) {{signature}} {{{indextype}}}
 
-{{{description}}}
-
-{{#examples}}
-```js
-{{{.}}}
-```
-
-{{/examples}}
+{{{description}}} 
 
 {{#with params}}
 **Parameters**
@@ -46,7 +39,13 @@
 {{/.}}
 {{/with}}
 
-[{{{definedat}}}]({{{viewsource}}})
+{{#examples}}
+```js
+{{{.}}}
+```
+{{/examples}}
+
+{{!-- [{{{definedat}}}]({{{viewsource}}}) --}}
 
 {{/children}}
 
