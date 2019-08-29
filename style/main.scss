@@ -1,4 +1,4 @@
-@import "icons";
+@import 'icons';
 
 @mixin mobile {
 	@media (max-width: 600px) {
@@ -6,46 +6,18 @@
 	}
 }
 
+@mixin vars($args) {
+	@each $name, $val in $args {
+		#{$name}: $val;
+	}
+	& & {
+		@each $name, $val in $args {
+			#{$name}: inherit;
+		}
+	}
+}
+
 .lil-gui {
-
-	--width: auto;
-
-	--bg-color: #1f1f1f;
-	--fg-color: #eee;
-
-	// https://getbootstrap.com/docs/4.0/content/reboot/#native-font-stack
-	--font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-		"Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol";
-
-	--font-size: 11px;
-	--line-height: 1;
-
-	--name-width: 40%;
-	--slider-input-width: 27%;
-	--row-height: 25px;
-	--widget-height: 20px;
-
-	--widget-fg-color: #eee;
-	--widget-bg-color: #424242;
-	--widget-fg-color-focus: #fff;
-	--widget-bg-color-focus: #5a5a5a;
-
-	--number-color: #00adff;
-	--string-color: #1ed36f;
-
-	--title-bg-color: #111;
-	--header-rule-color: rgba(255, 255, 255, 0.1);
-	--folder-rule-color: #444;
-
-	--padding: 6px;
-	--widget-padding: 0 0 0 3px;
-	--widget-border-radius: 2px;
-	--scrollbar-width: 5px;
-
-	--mobile-max-height: 200px;
-
-	--icons-font-family: "lil-gui";
 
 	// Base styles
 	// -------------------------------------------------------------------------
@@ -70,6 +42,50 @@
 		margin: 0;
 	}
 
+	// Custom properties
+	// -------------------------------------------------------------------------
+
+	@include vars(
+		(
+			--width: auto,
+			--bg-color: #1f1f1f,
+			--fg-color: #eee,
+			--font-family: (
+				-apple-system,
+				BlinkMacSystemFont,
+				'Segoe UI',
+				'Roboto',
+				'Helvetica Neue',
+				Arial,
+				sans-serif,
+				'Apple Color Emoji',
+				'Segoe UI Emoji',
+				'Segoe UI Symbol'
+			),
+			--font-size: 11px,
+			--line-height: 1,
+			--name-width: 40%,
+			--slider-input-width: 27%,
+			--row-height: 25px,
+			--widget-height: 20px,
+			--widget-fg-color: #eee,
+			--widget-bg-color: #424242,
+			--widget-fg-color-focus: #fff,
+			--widget-bg-color-focus: #5a5a5a,
+			--number-color: #00adff,
+			--string-color: #1ed36f,
+			--title-bg-color: #111,
+			--header-rule-color: rgba(255, 255, 255, 0.1),
+			--folder-rule-color: #444,
+			--padding: 6px,
+			--widget-padding: 0 0 0 3px,
+			--widget-border-radius: 2px,
+			--scrollbar-width: 5px,
+			--mobile-max-height: 200px,
+			--icons-font-family: 'lil-gui'
+		)
+	);
+
 	// Folders, titles, headers
 	// -------------------------------------------------------------------------
 
@@ -92,7 +108,7 @@
 
 		&:before {
 			font-family: var(--icons-font-family);
-			content: "▾";
+			content: '▾';
 			width: 1em;
 			vertical-align: middle;
 		}
@@ -103,7 +119,7 @@
 			display: none;
 		}
 		.title:before {
-			content: "▸";
+			content: '▸';
 		}
 	}
 
@@ -154,7 +170,6 @@
 	}
 
 	@include mobile {
-		
 		--row-height: 38px;
 		--widget-height: 32px;
 		--font-size: 16px;
@@ -172,7 +187,6 @@
 				max-height: var(--mobile-max-height);
 			}
 		}
-
 	}
 
 	// Shared "widget" styles
@@ -188,7 +202,7 @@
 		background: var(--widget-bg-color);
 		color: var(--widget-fg-color);
 		width: 100%;
-		&[type="text"] {
+		&[type='text'] {
 			padding: var(--widget-padding);
 		}
 		&:focus,
@@ -198,7 +212,7 @@
 		}
 	}
 
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		appearance: none;
 		-webkit-appearance: none;
 		--size: calc(0.75 * var(--widget-height));
@@ -208,7 +222,7 @@
 		text-align: center;
 		&:checked:before {
 			font-family: var(--icons-font-family);
-			content: "✓";
+			content: '✓';
 			font-size: var(--size);
 			line-height: var(--size);
 		}
@@ -230,8 +244,8 @@
 			background: black;
 		}
 		&:focus,
-		&:active { 
-			outline: 1px dotted rgba(255,255,255,0.3);
+		&:active {
+			outline: 1px dotted rgba(255, 255, 255, 0.3);
 			outline-offset: -1px;
 		}
 		.name {
@@ -247,8 +261,6 @@
 			color: var(--widget-fg-color-focus);
 		}
 	}
-
-	
 
 	// Controllers
 	// -------------------------------------------------------------------------
@@ -290,7 +302,7 @@
 			min-width: 0; // firefox wants to make this bigger otherwise?
 		}
 		.slider {
-			width: calc( 100% - var(--slider-input-width ) );
+			width: calc(100% - var(--slider-input-width));
 			height: var(--widget-height);
 			margin-right: calc(var(--row-height) - var(--widget-height));
 			background-color: var(--widget-bg-color);
@@ -349,7 +361,7 @@
 			padding-right: 1.75em;
 			&:after {
 				font-family: var(--icons-font-family);
-				content: "↕";
+				content: '↕';
 				position: absolute;
 				display: flex;
 				align-items: center;
@@ -360,35 +372,6 @@
 			}
 		}
 	}
-
-	// Nested GUI's respect custom parent properties
-	& & { 
-		--bg-color: inherit;
-		--fg-color: inherit;
-		--font-family: inherit;
-		--font-size: inherit;
-		--line-height: inherit;
-		--name-width: inherit;
-		--slider-input-width: inherit;
-		--row-height: inherit;
-		--widget-height: inherit;
-		--widget-fg-color: inherit;
-		--widget-bg-color: inherit;
-		--widget-fg-color-focus: inherit;
-		--widget-bg-color-focus: inherit;
-		--number-color: inherit;
-		--string-color: inherit;
-		--title-bg-color: inherit;
-		--header-rule-color: inherit;
-		--folder-rule-color: inherit;
-		--padding: inherit;
-		--widget-padding: inherit;
-		--widget-border-radius: inherit;
-		--scrollbar-width: inherit;
-		--mobile-max-height: inherit;
-		--icons-font-family: inherit;
-	}
-
 }
 
 /* 
