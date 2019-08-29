@@ -281,7 +281,6 @@ export default class NumberController extends Controller {
 
 		if ( !this._hasSlider && this._hasMin() && this._hasMax() ) {
 
-			// Consider gui.add( ... ).step( 0.1 ).min( 0 ).max( 1 )
 			// If this is the first time we're hearing about min and max
 			// and we haven't explicitly stated what our step is, let's
 			// update that too.

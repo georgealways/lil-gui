@@ -136,7 +136,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
-	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1 (default)' );
+	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
 	gui.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
 	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
 
