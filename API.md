@@ -120,7 +120,7 @@ folder.open( folder._closed ); // toggle
 
 TODO 
 
-## <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L56) gui.**domElement** : HTMLElement
+## <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L61) gui.**domElement** : HTMLElement
 
 The outermost container `div`. 
 
@@ -132,15 +132,15 @@ The GUI this folder is nested in, or `undefined` for the root GUI.
 
 Reference to the outermost folder, or `this` for the root GUI. 
 
-## <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L73) gui.**$children** : HTMLElement
+## <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L78) gui.**$children** : HTMLElement
 
 The `div` that contains child elements. 
 
-## <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L63) gui.**$title** : HTMLElement
+## <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L68) gui.**$title** : HTMLElement
 
 The clickable title that collapses a GUI. 
 
-## <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L79) gui.**_closed** : boolean
+## <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L55) gui.**_closed** : boolean
 
  
 

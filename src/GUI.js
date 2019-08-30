@@ -50,6 +50,11 @@ export default class GUI {
 		this.children = [];
 
 		/**
+		 * @type {boolean}
+		 */
+		this._closed = false;
+
+		/**
 		 * The outermost container `div`.
 		 * @type {HTMLElement}
 		 */
@@ -72,11 +77,6 @@ export default class GUI {
 		 */
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
-
-		/**
-		 * @type {boolean}
-		 */
-		this._closed = false;
 
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );

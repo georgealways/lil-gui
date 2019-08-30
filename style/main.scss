@@ -18,7 +18,6 @@
 }
 
 .lil-gui {
-
 	// Base styles
 	// -------------------------------------------------------------------------
 
@@ -167,22 +166,21 @@
 				background: var(--widget-bg-color);
 			}
 		}
-	}
 
-	@include mobile {
-		--row-height: 38px;
-		--widget-height: 32px;
-		--font-size: 16px;
-		--padding: 8px;
-		--widget-padding: 0 0 0 5px;
-		--scrollbar-width: 8px;
+		@include mobile {
+			--row-height: 38px;
+			--widget-height: 32px;
+			--font-size: 16px;
+			--padding: 8px;
+			--widget-padding: 0 0 0 5px;
+			--scrollbar-width: 7px;
 
-		&.autoPlace {
 			right: auto;
 			top: auto;
 			bottom: 0;
 			left: 0;
 			width: 100%;
+
 			& > .children {
 				max-height: var(--mobile-max-height);
 			}
@@ -374,53 +372,53 @@
 	}
 }
 
-/* 
-.lil-gui .controller.number.hasSlider { 
-	position: relative;
-}
 
-.lil-gui .controller.number.hasSlider .name { 
-	position: absolute;
-	pointer-events: none;
-	width: auto;
-} 
-.lil-gui .controller.number.hasSlider input {
-	width: 18%;
-} */
+// .lil-gui .controller.number.hasSlider { 
+// 	position: relative;
+// }
 
-.lil-gui.solarized {
-	$base03: #002b36;
-	$base02: #073642;
-	$base01: #586e75;
-	$base00: #657b83;
-	$base0: #839496;
-	$base1: #93a1a1;
-	$base2: #eee8d5;
-	$base3: #fdf6e3;
-	$yellow: #b58900;
-	$orange: #cb4b16;
-	$red: #dc322f;
-	$magenta: #d33682;
-	$violet: #6c71c4;
-	$blue: #268bd2;
-	$cyan: #2aa198;
-	$green: #859900;
+// .lil-gui .controller.number.hasSlider .name { 
+// 	position: absolute;
+// 	pointer-events: none;
+// 	width: auto;
+// } 
+// .lil-gui .controller.number.hasSlider input {
+// 	width: 18%;
+// }
 
-	&,
-	& .lil-gui {
-		--bg-color: #{$base3};
-		--fg-color: #{$base00};
+// .lil-gui.solarized {
+// 	$base03: #002b36;
+// 	$base02: #073642;
+// 	$base01: #586e75;
+// 	$base00: #657b83;
+// 	$base0: #839496;
+// 	$base1: #93a1a1;
+// 	$base2: #eee8d5;
+// 	$base3: #fdf6e3;
+// 	$yellow: #b58900;
+// 	$orange: #cb4b16;
+// 	$red: #dc322f;
+// 	$magenta: #d33682;
+// 	$violet: #6c71c4;
+// 	$blue: #268bd2;
+// 	$cyan: #2aa198;
+// 	$green: #859900;
 
-		--widget-fg-color: #{$base00};
-		--widget-bg-color: #{$base2};
-		--widget-fg-color-focus: #{$base2};
-		--widget-bg-color-focus: #{$base00};
+// 	&,
+// 	& .lil-gui {
+// 		--bg-color: #{$base3};
+// 		--fg-color: #{$base00};
 
-		--number-color: #{$blue};
-		--string-color: #{$green};
+// 		--widget-fg-color: #{$base00};
+// 		--widget-bg-color: #{$base2};
+// 		--widget-fg-color-focus: #{$base2};
+// 		--widget-bg-color-focus: #{$base00};
 
-		--title-bg-color: #{$base2};
-		--header-rule-color: #{$base2};
-		--folder-rule-color: #{$base2};
-	}
-}
+// 		--number-color: #{$blue};
+// 		--string-color: #{$green};
+
+// 		--title-bg-color: #{$base2};
+// 		--header-rule-color: #{$base2};
+// 		--folder-rule-color: #{$base2};
+// 	}
+// }
