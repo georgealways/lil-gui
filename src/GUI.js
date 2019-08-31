@@ -89,7 +89,7 @@ export default class GUI {
 		} else {
 
 			this.domElement.classList.add( 'root' );
-			this.domElement.style.setProperty( '--width', width + 'px' );
+			// this.domElement.style.setProperty( '--width', width + 'px' );
 
 			if ( autoPlace ) {
 

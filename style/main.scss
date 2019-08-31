@@ -46,7 +46,7 @@
 
 	@include vars(
 		(
-			--width: auto,
+			--width: 250px,
 			--bg-color: #1f1f1f,
 			--fg-color: #eee,
 			--font-family: (
@@ -70,10 +70,11 @@
 			--widget-fg-color: #eee,
 			--widget-bg-color: #424242,
 			--widget-fg-color-focus: #fff,
-			--widget-bg-color-focus: #5a5a5a,
+			--widget-bg-color-focus: #424242,
 			--number-color: #00adff,
 			--string-color: #1ed36f,
 			--title-bg-color: #111,
+			--button-hover-color: #313131,
 			--header-rule-color: rgba(255, 255, 255, 0.1),
 			--folder-rule-color: #444,
 			--padding: 6px,
@@ -94,7 +95,7 @@
 			background: var(--title-bg-color);
 		}
 		> .children:not(:empty) {
-			padding-top: calc(0.5 * var(--padding));
+			// padding-top: calc(0.5 * var(--padding));
 		}
 	}
 
@@ -239,15 +240,12 @@
 		text-transform: none;
 		width: 100%;
 		&:hover {
-			background: black;
+			background: var(--button-hover-color);
 		}
 		&:focus,
 		&:active {
 			outline: 1px dotted rgba(255, 255, 255, 0.3);
 			outline-offset: -1px;
-		}
-		.name {
-			width: 100%;
 		}
 	}
 
@@ -277,9 +275,9 @@
 		.name {
 			display: flex;
 			align-items: center;
-			width: var(--name-width);
+			min-width: var(--name-width);
+			padding-right: var(--padding);
 			height: 100%;
-			flex-shrink: 0;
 			overflow: hidden;
 		}
 
@@ -297,7 +295,9 @@
 		}
 		&.hasSlider input {
 			width: var(--slider-input-width);
-			min-width: 0; // firefox wants to make this bigger otherwise?
+			min-width: 38px;
+			// min-width: 0; // firefox wants to make this bigger otherwise?
+			flex-shrink: 0;
 		}
 		.slider {
 			width: calc(100% - var(--slider-input-width));
@@ -368,6 +368,14 @@
 				bottom: 0;
 				padding-right: 0.375em;
 			}
+		}
+	}
+
+	.controller.function {
+		.widget:before { 
+			content: '▶︎';
+			display: 'block';
+			// margin-right: var(--padding);
 		}
 	}
 }
