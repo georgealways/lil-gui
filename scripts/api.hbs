@@ -8,9 +8,12 @@
 
 ## {{indexname}}
 
-{{#children}}
-- [{{indexname}}](#{{{longname}}}) {{{indextype}}}
-{{/children}}
+{{#eachInMap categories}}
+- {{title}}
+	{{#children}}
+	- [{{indexname}}](#{{{longname}}}) {{{indextype}}}
+	{{/children}}
+{{/eachInMap}}
 
 {{/jsdocData}}
 
@@ -26,9 +29,13 @@
 
 {{! begin members }}
 
+{{#eachInMap categories}}
+
+## {{title}}
+
 {{#children}}
 
-## <a name="{{{longname}}}" href="#{{{longname}}}"></a> [#]({{{viewsource}}}) {{signature}} {{{indextype}}}
+### <a name="{{{longname}}}" href="#{{{longname}}}"></a> [#]({{{viewsource}}}) {{signature}} {{{indextype}}}
 
 {{{description}}} 
 
@@ -48,6 +55,10 @@
 {{!-- [{{{definedat}}}]({{{viewsource}}}) --}}
 
 {{/children}}
+
+{{! end category }}
+
+{{/eachInMap}}
 
 {{! end members }}
 

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import markdownit from 'markdown-it';
 import hljs from 'highlight.js';
+import jsdocData from './api.js';
 
 const OUTPUT = 'docs/index.html';
 const TEMPLATE = 'scripts/docs.html';
@@ -17,10 +18,16 @@ const md = markdownit( {
 	}
 } );
 
+const jsdocDebug = `<script type="text/javascript">
+window.jsdocDebug = ${JSON.stringify( jsdocData, null, '\t' )};
+console.log( "jsdocDebug", jsdocDebug );
+</script>`;
+
 fs.writeFileSync( OUTPUT,
 	read( TEMPLATE )
 		.replace( '!=readme', md.render( read( README ) ) )
 		.replace( '!=api', md.render( read( API ) ) )
+		.replace( '!=jsdocDebug', jsdocDebug )
 );
 
 function read( path ) {

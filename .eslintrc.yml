@@ -23,8 +23,9 @@ rules:
   no-extra-semi: warn
   no-multiple-empty-lines: warn
   no-trailing-spaces: [ warn, { ignoreComments: true } ]
-  no-whitespace-before-property: warn
+  no-unused-vars: warn
   no-var: warn
+  no-whitespace-before-property: warn
   object-curly-spacing: [ warn, always ]
   quotes: [ warn, single ]
   semi-spacing: warn

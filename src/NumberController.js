@@ -1,7 +1,20 @@
-import Controller from './Controller.js';
+/**
+ * @module NumberController
+ */
 
+import Controller from './Controller.js';
 export default class NumberController extends Controller {
 
+	/**
+	 * 
+	 * @extends module:Controller Putting this here tricks jsdoc, but leaves intellisense alone
+	 * @param {*} parent 
+	 * @param {*} object 
+	 * @param {*} property 
+	 * @param {*} min 
+	 * @param {*} max 
+	 * @param {*} step 
+	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );
@@ -18,6 +31,9 @@ export default class NumberController extends Controller {
 
 	}
 
+	/**
+	 * I'm technically an override.
+	 */
 	updateDisplay() {
 
 		const value = this.getValue();
@@ -30,7 +46,7 @@ export default class NumberController extends Controller {
 		if ( !this._inputFocused ) {
 			this.$input.value = value;
 		}
-
+		this;
 	}
 
 	_createInput() {
@@ -249,6 +265,10 @@ export default class NumberController extends Controller {
 
 	}
 
+	/**
+	 * I'm new.
+	 * @param {*} min 
+	 */
 	min( min ) {
 		this._min = min;
 		this._onUpdateMinMax();
@@ -269,7 +289,7 @@ export default class NumberController extends Controller {
 
 	_getImplicitStep() {
 
-		if ( this._hasMin() && this._hasMax() ) {
+		if ( this._hasMin && this._hasMax ) {
 			return ( this._max - this._min ) / 1000;
 		}
 
@@ -279,7 +299,7 @@ export default class NumberController extends Controller {
 
 	_onUpdateMinMax() {
 
-		if ( !this._hasSlider && this._hasMin() && this._hasMax() ) {
+		if ( !this._hasSlider && this._hasMin && this._hasMax ) {
 
 			// If this is the first time we're hearing about min and max
 			// and we haven't explicitly stated what our step is, let's
@@ -295,11 +315,11 @@ export default class NumberController extends Controller {
 
 	}
 
-	_hasMin() {
+	get _hasMin() {
 		return this._min !== undefined;
 	}
 
-	_hasMax() {
+	get _hasMax() {
 		return this._max !== undefined;
 	}
 
@@ -319,8 +339,8 @@ export default class NumberController extends Controller {
 	}
 
 	_clamp( value ) {
-		const min = this._hasMin() ? this._min : -Infinity;
-		const max = this._hasMax() ? this._max : Infinity;
+		const min = this._hasMin ? this._min : -Infinity;
+		const max = this._hasMax ? this._max : Infinity;
 		return Math.max( min, Math.min( max, value ) );
 	}
 

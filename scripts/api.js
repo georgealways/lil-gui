@@ -6,8 +6,16 @@ const TEMPLATE = 'scripts/api.hbs';
 const OUTPUT = 'API.md';
 const JSDOC_INPUT = 'src/**/*.js';
 
+const WRITE = !!process.argv.slice( 2 ).find( v => v === '--write' );
+
 // url prefix for view source links, needs trailing slash
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
+
+const CATEGORIES = {
+	constructor: 'Constructor',
+	instancemethod: 'Methods',
+	instanceproperty: 'Properties'
+};
 
 // sort by kind as opposed to the order of definition
 const KIND_SORT = [ 'class', 'function', 'member' ];
@@ -36,6 +44,7 @@ jsdoc.explainSync( { files: JSDOC_INPUT } )
 
 function transform( v ) {
 
+
 	forEachRecursive( v, ( object, key, value ) => {
 
 		if ( typeof value == 'string' ) {
@@ -57,12 +66,14 @@ function transform( v ) {
 	if ( v.kind === 'function' && v.scope === 'instance' ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
-		v.signature += paramsToSignature( v.params );
 
 		v.indexname = `**${v.indexname}**`;
 
+		if ( v.params ) {
 		// functions with no required params get an empty signature in index
-		v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
+			v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
+			v.signature += paramsToSignature( v.params );
+		}
 
 		if ( v.returns !== undefined ) {
 			v.indextype = '→ ' + v.returns[ 0 ].type.names[ 0 ];
@@ -85,7 +96,17 @@ function transform( v ) {
 		v.description = v.description || v.classdesc;
 
 		// store classes for index
+		v.categories = {};
+		for ( let name in CATEGORIES ) {
+			v.categories[ name ] = {
+				title: CATEGORIES[ name ],
+				children: []
+			};
+		}
+
+
 		topLevel[ v.longname ] = v;
+
 
 	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 
@@ -99,6 +120,11 @@ function transform( v ) {
 	const joined = v.meta.path + '/' + v.meta.filename;
 	v.viewsource = `${joined}#L${v.meta.lineno}`;
 	v.definedat = joined.replace( REPO, '' ) + ':' + v.meta.lineno;
+
+	// clogging up my debug
+	delete v.comment;
+	delete v.meta;
+
 	transformed.push( v );
 
 }
@@ -109,12 +135,15 @@ transformed.forEach( v => {
 	if ( v.memberof && v.memberof in topLevel ) {
 
 		const parent = topLevel[ v.memberof ];
+		let category;
 
-		if ( !parent.children ) {
-			parent.children = [];
+		if ( v.kind === 'function' && v.scope === 'instance' ) {
+			category = parent.categories.instancemethod;
+		} else if ( v.kind === 'member' && v.scope === 'instance' ) {
+			category = parent.categories.instanceproperty;
 		}
 
-		parent.children.push( v );
+		category.children.push( v );
 
 	}
 
@@ -130,7 +159,13 @@ jsdocData.sort( ( a, b ) => {
 
 // sort children by kind, then alphabetically with special chars at the end
 jsdocData.forEach( t => {
-	t.children.sort( childSort );
+	Object.values( t.categories ).forEach( c => {
+		c.children.sort( childSort );
+	} );
+} );
+
+hbs.registerHelper( 'eachInMap', ( map, block ) => {
+	return Object.values( map ).reduce( ( out, value ) => out + block.fn( value ), '' );
 } );
 
 const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
@@ -138,7 +173,12 @@ const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
 	.replace( /\n{2,}/g, '\n\n' ); // clean up extra whitespace
 
 // bounce to mp3
-fs.writeFileSync( OUTPUT, output );
+if ( WRITE ) {
+	fs.writeFileSync( OUTPUT, output );
+}
+
+// or tell docs.js what's up
+export default jsdocData;
 
 function childSort( a, b ) {
 

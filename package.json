@@ -9,7 +9,7 @@
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
-    "api": "node -r esm scripts/api.js",
+    "api": "node -r esm scripts/api.js --write",
     "docs": "node -r esm scripts/docs.js",
     "test": "node -r esm scripts/test.js",
     "server": "live-server --watch=build,docs --no-browser",
