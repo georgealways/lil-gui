@@ -7,6 +7,7 @@ const OUTPUT = 'docs/index.html';
 const TEMPLATE = 'scripts/docs.html';
 const README = 'README.md';
 const API = 'API.md';
+const snippets = 'snippets.md';
 
 const md = markdownit( {
 	html: true,
@@ -28,6 +29,7 @@ fs.writeFileSync( OUTPUT,
 		.replace( '!=readme', md.render( read( README ) ) )
 		.replace( '!=api', md.render( read( API ) ) )
 		.replace( '!=jsdocDebug', jsdocDebug )
+		.replace( '!=snippets', md.render( read( snippets ) ) )
 );
 
 function read( path ) {

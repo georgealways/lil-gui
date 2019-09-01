@@ -94,10 +94,10 @@ export default class NumberController extends Controller {
 			}
 		};
 
-		const onMouseWheel = e => {
+		const onWheel = e => {
 			if ( this._inputFocused ) {
 				e.preventDefault();
-				increment( ( e.deltaX + -e.deltaY ) * this._step );
+				increment( this._normalizeMouseWheel( e ) * this._step );
 			}
 		};
 
@@ -115,7 +115,7 @@ export default class NumberController extends Controller {
 		this.$input.addEventListener( 'input', onInput );
 		this.$input.addEventListener( 'blur', onBlur );
 		this.$input.addEventListener( 'keydown', onKeyDown );
-		this.$input.addEventListener( 'wheel', onMouseWheel, { passive: false } );
+		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
 
 	}
 
@@ -186,24 +186,21 @@ export default class NumberController extends Controller {
 			// automatically. I'd like to remove this whole test if iOS ever 
 			// decided to do the same.
 
-			const root = this.parent.root.$children;
-			const scrollbarPresent = root.scrollHeight > root.clientHeight;
+			if ( this._hasScrollBar ) {
 
-			if ( !scrollbarPresent ) {
-
-				// If we're not in a scrollable container, we can set the value
-				// straight away on touchstart.
-				setValueFromX( e.touches[ 0 ].clientX );
-				this.$slider.classList.add( 'active' );
-				testingForScroll = false;
-
-			} else {
-
-				// Otherwise, we should wait for a for the first touchmove to
-				// see if the user is trying to move horizontally or vertically.
+				// If we're in a scrollable container, we should wait for 
+				// the first touchmove to see if the user is trying to move 
+				// horizontally or vertically.
 				prevClientX = e.touches[ 0 ].clientX;
 				prevClientY = e.touches[ 0 ].clientY;
 				testingForScroll = true;
+
+			} else {
+
+				// Otherwise, we can set the value straight away on touchstart.
+				setValueFromX( e.touches[ 0 ].clientX );
+				this.$slider.classList.add( 'active' );
+				testingForScroll = false;
 
 			}
 
@@ -214,12 +211,7 @@ export default class NumberController extends Controller {
 
 		const onTouchMove = e => {
 
-			if ( !testingForScroll ) {
-
-				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
-
-			} else {
+			if ( testingForScroll ) {
 
 				const dx = e.touches[ 0 ].clientX - prevClientX;
 				const dy = e.touches[ 0 ].clientY - prevClientY;
@@ -239,6 +231,11 @@ export default class NumberController extends Controller {
 
 				}
 
+			} else {
+
+				e.preventDefault();
+				setValueFromX( e.touches[ 0 ].clientX );
+
 			}
 
 		};
@@ -255,13 +252,18 @@ export default class NumberController extends Controller {
 		// Bind wheel listeners
 		// ---------------------------------------------------------------------
 
-		const onMouseWheel = e => {
+		const onWheel = e => {
+
+			// Ignore mousewheel on the slider if we're in a scrollable container
+			if ( this._hasScrollBar ) return;
+
 			e.preventDefault();
-			const delta = ( e.deltaX + -e.deltaY ) * ( this._max - this._min ) / 1000;
+			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
+
 		};
 
-		this.$slider.addEventListener( 'wheel', onMouseWheel, { passive: false } );
+		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
 	}
 
@@ -315,12 +317,38 @@ export default class NumberController extends Controller {
 
 	}
 
+	get _hasScrollBar() {
+		const root = this.parent.root.$children;
+		return root.scrollHeight > root.clientHeight;
+	}
+
 	get _hasMin() {
 		return this._min !== undefined;
 	}
 
 	get _hasMax() {
 		return this._max !== undefined;
+	}
+
+	_normalizeMouseWheel( e ) {
+
+		let { deltaX, deltaY } = e;
+
+		// when e.deltaY is giving back non-integral values, it's usually
+		// a usb mouse plugged into a trackpad laptop. in that case fall back
+		// to wheel delta.
+		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
+			deltaX = 0;
+			deltaY = -e.wheelDelta / 120;
+			// give em a boost.
+			// deltaY *= 10;
+		}
+
+		const wheel = deltaX + -deltaY;
+		console.log( wheel );
+
+		return wheel;
+
 	}
 
 	_snap( value ) {

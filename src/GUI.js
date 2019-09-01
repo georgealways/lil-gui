@@ -25,10 +25,12 @@ export default class GUI {
 	 * @param {GUI=} options.parent
 	 */
 	constructor( {
-		parent,
 		title = 'Controls',
 		autoPlace = true,
-		width = 250
+		width = 250,
+		parent,
+		collapses = true,
+		closeOnTop = false
 	} = {} ) {
 
 		/**
@@ -61,15 +63,6 @@ export default class GUI {
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
-		/**
-		 * The clickable title that collapses a GUI.
-		 * @type {HTMLElement}
-		 */
-		this.$title = document.createElement( 'button' );
-		this.$title.classList.add( 'title' );
-		this.$title.addEventListener( 'click', () => {
-			this.open( this._closed );
-		} );
 
 		/**
 		 * The `div` that contains child elements.
@@ -78,13 +71,12 @@ export default class GUI {
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
-		this.domElement.appendChild( this.$title );
-		this.domElement.appendChild( this.$children );
 
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
 			this.parent.$children.appendChild( this.domElement );
+
 
 		} else {
 
@@ -103,12 +95,34 @@ export default class GUI {
 				window.addEventListener( 'resize', this._onResize );
 				this._onResize();
 
-
 			}
 
 		}
 
+
+		/**
+		 * 
+		 * @type {HTMLElement}
+		 */
+		this.$title = document.createElement( collapses ? 'button' : 'div' );
+		this.$title.classList.add( 'title' );
+
+		if ( collapses ) {
+			this.domElement.classList.add( 'collapses' );
+			this.$title.addEventListener( 'click', () => {
+				this.open( this._closed );
+			} );
+		}
+
+		this.domElement.appendChild( this.$title );
+		this.domElement.appendChild( this.$children );
+
+		if ( closeOnTop ) {
+			this.domElement.classList.add( 'closeOnTop' );
+		}
+
 		this.title( title );
+
 
 	}
 
@@ -194,8 +208,8 @@ export default class GUI {
 	 * @param {string} title 
 	 * @returns {GUI}
 	 */
-	addFolder( title ) {
-		return new GUI( { title, parent: this } );
+	addFolder( title, collapses = true ) {
+		return new GUI( { parent: this, title, collapses } );
 	}
 
 	/**

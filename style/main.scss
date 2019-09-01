@@ -23,14 +23,14 @@
 
 	font-family: var(--font-family);
 	font-size: var(--font-size);
-	line-height: var(--line-height);
+	line-height: 1;
 
 	font-weight: normal;
 	font-style: normal;
 	text-align: left;
 
-	background-color: var(--bg-color);
-	color: var(--fg-color);
+	background-color: var(--background-color);
+	color: var(--text-color);
 
 	user-select: none;
 	-webkit-user-select: none;
@@ -47,8 +47,14 @@
 	@include vars(
 		(
 			--width: 250px,
-			--bg-color: #1f1f1f,
-			--fg-color: #eee,
+			--text-color: #eee,
+			--background-color: #1f1f1f,
+			--widget-color: #424242,
+			--highlight-color: #525151,
+			--number-color: #00adff,
+			--string-color: #1ed36f,
+			--title-background-color: #111,
+			--font-size: 11px,
 			--font-family: (
 				-apple-system,
 				BlinkMacSystemFont,
@@ -61,28 +67,15 @@
 				'Segoe UI Emoji',
 				'Segoe UI Symbol'
 			),
-			--font-size: 11px,
-			--line-height: 1,
-			--name-width: 40%,
+			--name-width: 42%,
 			--slider-input-width: 27%,
-			--row-height: 25px,
+			--row-height: 24px,
 			--widget-height: 20px,
-			--widget-fg-color: #eee,
-			--widget-bg-color: #424242,
-			--widget-fg-color-focus: #fff,
-			--widget-bg-color-focus: #424242,
-			--number-color: #00adff,
-			--string-color: #1ed36f,
-			--title-bg-color: #111,
-			--button-hover-color: #313131,
-			--header-rule-color: rgba(255, 255, 255, 0.1),
-			--folder-rule-color: #444,
 			--padding: 6px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
 			--scrollbar-width: 5px,
-			--mobile-max-height: 200px,
-			--icons-font-family: 'lil-gui'
+			--mobile-max-height: 200px
 		)
 	);
 
@@ -91,30 +84,35 @@
 
 	&.root {
 		width: var(--width);
-		> .title {
-			background: var(--title-bg-color);
-		}
-		> .children:not(:empty) {
-			// padding-top: calc(0.5 * var(--padding));
+		> .title:not(:hover):not(:active) {
+			background: var(--title-background-color);
 		}
 	}
 
 	.title {
 		height: var(--row-height);
 		padding: 0 var(--padding);
-		line-height: var(--row-height);
-		font-weight: 600;
-		cursor: pointer;
+		font-weight: bold;
+		
+		// only for addFolder('', false).
+		display: flex;
+		align-items: center;
 
 		&:before {
-			font-family: var(--icons-font-family);
-			content: '▾';
+			font-family: 'lil-gui';
+			align-self: flex-end; // seems like my glyphs are too big
 			width: 1em;
-			vertical-align: middle;
+			margin-left: -0.18em;
 		}
 	}
 
-	&.closed {
+	&.collapses > .title {
+		&:before {
+			content: '▾';
+		}
+	}
+
+	&.collapses.closed {
 		.children {
 			display: none;
 		}
@@ -123,20 +121,43 @@
 		}
 	}
 
-	&:not(.root) > .children {
-		margin-left: 0.75em;
-		border-left: 2px solid var(--folder-rule-color);
+	& &.collapses > .children {
+		margin-left: var(--padding);
+		border-left: 2px solid var(--widget-color);
 	}
 
 	.header {
 		height: var(--row-height);
 		padding: 0 var(--padding);
-		font-weight: 600;
-		border-bottom: 1px solid var(--header-rule-color);
-		margin-bottom: calc(0.5 * var(--padding));
+		font-weight: bold;
 		display: flex;
 		align-items: center;
 	}
+
+	.header,
+	& &:not(.collapses) > .title {
+		position: relative;
+		&:after {
+			content: ' ';
+			display: block;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0.2em;
+			height: 1px;
+			background: var(--widget-color);
+		}
+	}
+
+	// &.collapses > .children:empty:before { 
+	// 	content: 'Empty';
+	// 	padding: 0 var(--padding);
+	// 	display: block;
+	// 	height: var(--row-height);
+	// 	font-style: italic;
+	// 	line-height: var(--row-height);
+	// 	color: var(--highlight-color);
+	// }
 
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
@@ -154,7 +175,7 @@
 
 			&::-webkit-scrollbar {
 				width: var(--scrollbar-width);
-				background: var(--bg-color);
+				background: var(--background-color);
 			}
 
 			&::-webkit-scrollbar-corner {
@@ -164,7 +185,7 @@
 
 			&::-webkit-scrollbar-thumb {
 				border-radius: var(--scrollbar-width);
-				background: var(--widget-bg-color);
+				background: var(--highlight-color);
 			}
 		}
 
@@ -198,16 +219,15 @@
 		font-size: var(--font-size);
 		border-radius: var(--widget-border-radius);
 		height: var(--widget-height);
-		background: var(--widget-bg-color);
-		color: var(--widget-fg-color);
+		background: var(--widget-color);
+		color: var(--text-color);
 		width: 100%;
 		&[type='text'] {
 			padding: var(--widget-padding);
 		}
 		&:focus,
 		&:active {
-			background: var(--widget-bg-color-focus);
-			color: var(--widget-fg-color-focus);
+			background: var(--highlight-color);
 		}
 	}
 
@@ -220,7 +240,7 @@
 		border-radius: var(--widget-border-radius);
 		text-align: center;
 		&:checked:before {
-			font-family: var(--icons-font-family);
+			font-family: 'lil-gui';
 			content: '✓';
 			font-size: var(--size);
 			line-height: var(--size);
@@ -228,33 +248,31 @@
 	}
 
 	button {
+		-webkit-tap-highlight-color: transparent;
 		outline: none;
 		cursor: pointer;
 		border: 0;
 		font-family: var(--font-family);
 		font-size: var(--font-size);
-		color: var(--widget-fg-color);
-		background: var(--bg-color);
-		font-weight: 600;
+		color: var(--text-color);
+		background: var(--background-color);
+		// font-weight: bold;
 		text-align: left;
 		text-transform: none;
 		width: 100%;
 		&:hover {
-			background: var(--button-hover-color);
+			background: var(--widget-color);
 		}
-		&:focus,
 		&:active {
-			outline: 1px dotted rgba(255, 255, 255, 0.3);
-			outline-offset: -1px;
+			background: var(--highlight-color);
 		}
 	}
 
 	.display {
-		background: var(--widget-bg-color);
+		background: var(--widget-color);
 		&.focus,
 		&.active {
-			background: var(--widget-bg-color-focus);
-			color: var(--widget-fg-color-focus);
+			background: var(--highlight-color);
 		}
 	}
 
@@ -276,12 +294,14 @@
 			display: flex;
 			align-items: center;
 			min-width: var(--name-width);
+			flex-shrink: 0;
 			padding-right: var(--padding);
 			height: 100%;
 			overflow: hidden;
 		}
 
 		.widget {
+			position: relative; // some pos: absolute inside
 			display: flex;
 			align-items: center;
 			width: 100%;
@@ -290,22 +310,27 @@
 	}
 
 	.controller.number {
-		input:not(:focus) {
+		input {
 			color: var(--number-color);
 		}
 		&.hasSlider input {
 			width: var(--slider-input-width);
 			min-width: 38px;
-			// min-width: 0; // firefox wants to make this bigger otherwise?
 			flex-shrink: 0;
 		}
 		.slider {
-			width: calc(100% - var(--slider-input-width));
+			width: 100%;
 			height: var(--widget-height);
 			margin-right: calc(var(--row-height) - var(--widget-height));
-			background-color: var(--widget-bg-color);
+			background-color: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			overflow: hidden;
+			&.active {
+				background-color: var(--highlight-color);
+				.fill {
+					opacity: 0.95;
+				}
+			}
 		}
 		.fill {
 			height: 100%;
@@ -314,15 +339,12 @@
 	}
 
 	.controller.string {
-		input:not(:focus) {
+		input {
 			color: var(--string-color);
 		}
 	}
 
 	.controller.color {
-		.widget {
-			position: relative;
-		}
 		input {
 			opacity: 0;
 			position: absolute;
@@ -338,9 +360,6 @@
 	}
 
 	.controller.option {
-		.widget {
-			position: relative;
-		}
 		select {
 			opacity: 0;
 			position: absolute;
@@ -351,18 +370,16 @@
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
 			line-height: var(--widget-height);
-			padding-left: var(--padding);
 			position: relative;
 			max-width: 100%;
 			overflow: hidden;
 			word-break: break-all;
+			padding-left: 0.55em;
 			padding-right: 1.75em;
 			&:after {
-				font-family: var(--icons-font-family);
+				font-family: 'lil-gui';
 				content: '↕';
 				position: absolute;
-				display: flex;
-				align-items: center;
 				top: 0;
 				right: 0;
 				bottom: 0;
@@ -372,29 +389,30 @@
 	}
 
 	.controller.function {
-		.widget:before { 
-			content: '▶︎';
-			display: 'block';
-			// margin-right: var(--padding);
+		.widget:before {
+			font-family: 'lil-gui';
+			content: '▶';
 		}
 	}
+
+	&.bigSlider .hasSlider,
+	.bigSlider.hasSlider { 
+		position: relative;
+		.name { 
+			position: absolute;
+			pointer-events: none;
+			width: auto;
+			z-index: 1;
+			padding-left: var(--padding);
+		}
+		input { 
+			width: 18%;
+		}
+	}
+
 }
 
-
-// .lil-gui .controller.number.hasSlider { 
-// 	position: relative;
-// }
-
-// .lil-gui .controller.number.hasSlider .name { 
-// 	position: absolute;
-// 	pointer-events: none;
-// 	width: auto;
-// } 
-// .lil-gui .controller.number.hasSlider input {
-// 	width: 18%;
-// }
-
-// .lil-gui.solarized {
+// .lil-gui {
 // 	$base03: #002b36;
 // 	$base02: #073642;
 // 	$base01: #586e75;
@@ -412,21 +430,20 @@
 // 	$cyan: #2aa198;
 // 	$green: #859900;
 
-// 	&,
-// 	& .lil-gui {
-// 		--bg-color: #{$base3};
-// 		--fg-color: #{$base00};
+// 	// --background-color: #{$base3};
+// 	// --text-color: #{$base00};
+// 	// --title-background-color: #{$base2};
+// 	// --widget-color: #{$base2};
+// 	// --highlight-color: #e4dcc5;
+// 	// --number-color: #{$blue};
+// 	// --string-color: #{$green};
 
-// 		--widget-fg-color: #{$base00};
-// 		--widget-bg-color: #{$base2};
-// 		--widget-fg-color-focus: #{$base2};
-// 		--widget-bg-color-focus: #{$base00};
+// 	// --background-color: #{$base03};
+// 	// --text-color: #{$base0};
+// 	// --title-background-color: #{$base02};
+// 	// --widget-color: #{$base02};
+// 	// --highlight-color: #0a414e;
+// 	// --number-color: #{$blue};
+// 	// --string-color: #{$green};
 
-// 		--number-color: #{$blue};
-// 		--string-color: #{$green};
-
-// 		--title-bg-color: #{$base2};
-// 		--header-rule-color: #{$base2};
-// 		--folder-rule-color: #{$base2};
-// 	}
 // }

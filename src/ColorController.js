@@ -33,6 +33,14 @@ export default class ColorController extends Controller {
 
 		} );
 
+		this.$input.addEventListener( 'focus', () => {
+			this.$display.classList.add( 'focus' );
+		} );
+
+		this.$input.addEventListener( 'blur', () => {
+			this.$display.classList.remove( 'focus' );
+		} );
+
 		this.updateDisplay();
 
 	}

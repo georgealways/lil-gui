@@ -1,9 +1,11 @@
 todo
 
+[ ] header => folder('name', headerMode=false) ?
 
 [ ] clean up number controller. shit ain't dry
 
 [ ] new GUI() injectStyles parameter?
+[ ] kill onfinishchange?
 
 [x] kill double underscores?
 
@@ -11,8 +13,7 @@ todo
 	that's done ... test it?
 
 
-[ ] kill onfinishchange?
-[ ] header => label?
+
 
 [x] kill "GUIItem"
 [x] children Set or Array? (write a test for destroy)

@@ -9,8 +9,7 @@ watch( {
 	],
 	docs: [
 		'scripts/docs*',
-		'API.md',
-		'README.md'
+		'*.md'
 	],
 	icons: [
 		'style/icons/*.svg',

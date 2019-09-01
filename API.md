@@ -77,7 +77,7 @@ Class description
 
 ## Methods
 
-### <a name="GUI#add" href="#GUI#add"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L135) gui.**add**( object, property, [$1], [max], [step] ) → Controller
+### <a name="GUI#add" href="#GUI#add"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L149) gui.**add**( object, property, [$1], [max], [step] ) → Controller
 
 Adds a controller. 
 
@@ -99,7 +99,7 @@ gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 ```
 
-### <a name="GUI#addColor" href="#GUI#addColor"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L179) gui.**addColor**( object, property ) → Controller
+### <a name="GUI#addColor" href="#GUI#addColor"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L193) gui.**addColor**( object, property ) → Controller
 
  
 
@@ -107,29 +107,29 @@ gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 - object
 - property
 
-### <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L197) gui.**addFolder**( title ) → GUI
+### <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L211) gui.**addFolder**( title ) → GUI
 
  
 
 **Parameters**
 - title
 
-### <a name="GUI#addHeader" href="#GUI#addHeader"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L188) gui.**addHeader**( name ) → Header
+### <a name="GUI#addHeader" href="#GUI#addHeader"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L202) gui.**addHeader**( name ) → Header
 
  
 
 **Parameters**
 - name
 
-### <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L234) gui.**close**() → self
+### <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L248) gui.**close**() → self
 
  
 
-### <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L243) gui.**destroy**() 
+### <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L257) gui.**destroy**() 
 
  
 
-### <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L225) gui.**open**( [open] ) → self
+### <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L239) gui.**open**( [open] ) → self
 
 Opens or closes a GUI or folder. 
 
@@ -142,7 +142,7 @@ folder.open( false ); // closed
 folder.open( folder._closed ); // toggle
 ```
 
-### <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L206) gui.**title**( title ) → self
+### <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L220) gui.**title**( title ) → self
 
  
 
@@ -151,35 +151,35 @@ folder.open( folder._closed ); // toggle
 
 ## Properties
 
-### <a name="GUI#children" href="#GUI#children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L50) gui.**children** : Array
+### <a name="GUI#children" href="#GUI#children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L52) gui.**children** : Array
 
 TODO 
 
-### <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L61) gui.**domElement** : HTMLElement
+### <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L63) gui.**domElement** : HTMLElement
 
 The outermost container `div`. 
 
-### <a name="GUI#parent" href="#GUI#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L38) gui.**parent** : GUI
+### <a name="GUI#parent" href="#GUI#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L40) gui.**parent** : GUI
 
 The GUI this folder is nested in, or `undefined` for the root GUI. 
 
-### <a name="GUI#root" href="#GUI#root"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L44) gui.**root** : GUI
+### <a name="GUI#root" href="#GUI#root"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L46) gui.**root** : GUI
 
 Reference to the outermost folder, or `this` for the root GUI. 
 
-### <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L78) gui.**$children** : HTMLElement
+### <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L71) gui.**$children** : HTMLElement
 
 The `div` that contains child elements. 
 
-### <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L68) gui.**$title** : HTMLElement
-
-The clickable title that collapses a GUI. 
-
-### <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L55) gui.**_closed** : boolean
+### <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L107) gui.**$title** : HTMLElement
 
  
 
-### <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L210) gui.**_title** : string
+### <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L57) gui.**_closed** : boolean
+
+ 
+
+### <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L224) gui.**_title** : string
 
  
 
@@ -316,7 +316,7 @@ Disables this controller.
 
 Enables this controller. 
 
-### <a name="NumberController#min" href="#NumberController#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/NumberController.js#L272) numbercontroller.**min**( min ) 
+### <a name="NumberController#min" href="#NumberController#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/NumberController.js#L274) numbercontroller.**min**( min ) 
 
 I'm new. 
 

@@ -73,6 +73,7 @@ global.window = new EventTarget();
 
 global.document = {
 	body: createElement(),
+	head: createElement(),
 	createElement: createElement,
 	querySelector: createElement
 };
