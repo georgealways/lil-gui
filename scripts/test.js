@@ -152,4 +152,66 @@ test( unit => {
 
 	} );
 
+	unit( 'forEachController', () => {
+
+		const gui = new GUI();
+
+		gui.add( { x: 0 }, 'x' );
+		gui.add( { x: 0 }, 'x' );
+		gui.add( { x: 0 }, 'x' );
+
+		const folder1 = gui.addFolder( 'title' );
+		folder1.add( { x: 0 }, 'x' );
+		folder1.add( { x: 0 }, 'x' );
+		folder1.add( { x: 0 }, 'x' );
+
+		const folder2 = folder1.addFolder( 'title' );
+		folder2.add( { x: 0 }, 'x' );
+		folder2.add( { x: 0 }, 'x' );
+		folder2.add( { x: 0 }, 'x' );
+
+		const folder3 = gui.addFolder( 'title' );
+		folder3.add( { x: 0 }, 'x' );
+		folder3.add( { x: 0 }, 'x' );
+
+		let controllersVisited;
+		const visit = c => {
+			assert.strictEqual( controllersVisited.indexOf( c ), -1, 'forEachController visits each controller exactly once' );
+			controllersVisited.push( c );
+		};
+
+		controllersVisited = [];
+		gui.forEachController( visit );
+		assert.strictEqual( controllersVisited.length, 3, 'recursive defaults to false' );
+
+		controllersVisited = [];
+		gui.forEachController( visit, true );
+		assert.strictEqual( controllersVisited.length, 11, 'recursive' );
+
+		controllersVisited = [];
+		folder1.forEachController( visit );
+		assert.strictEqual( controllersVisited.length, 3 );
+
+		controllersVisited = [];
+		folder1.forEachController( visit, true );
+		assert.strictEqual( controllersVisited.length, 6 );
+
+		controllersVisited = [];
+		folder2.forEachController( visit );
+		assert.strictEqual( controllersVisited.length, 3 );
+
+		controllersVisited = [];
+		folder2.forEachController( visit, true );
+		assert.strictEqual( controllersVisited.length, 3 );
+
+		controllersVisited = [];
+		folder3.forEachController( visit );
+		assert.strictEqual( controllersVisited.length, 2 );
+
+		controllersVisited = [];
+		folder3.forEachController( visit, true );
+		assert.strictEqual( controllersVisited.length, 2 );
+
+	} );
+
 } );

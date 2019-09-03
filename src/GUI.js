@@ -2,6 +2,7 @@
  * @module GUI
  */
 
+import Controller from './Controller.js';
 import BooleanController from './BooleanController.js';
 import ColorController from './ColorController.js';
 import FunctionController from './FunctionController.js';
@@ -25,18 +26,15 @@ export default class GUI {
 	 * @param {GUI=} options.parent
 	 */
 	constructor( {
-		title = 'Controls',
-		autoPlace = true,
-		width = 250,
 		parent,
-		collapses = true,
-		closeOnTop = false
+		autoPlace = parent === undefined,
+		title = 'Controls',
+		width = 250,
+		mobileMaxHeight = 200,
+		collapses = true
 	} = {} ) {
 
-		/**
-		 * The GUI this folder is nested in, or `undefined` for the root GUI.
-		 * @type {GUI}
-		 */
+		/** * description short @type {GUI} */
 		this.parent = parent;
 
 		/**
@@ -63,45 +61,7 @@ export default class GUI {
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
-
 		/**
-		 * The `div` that contains child elements.
-		 * @type {HTMLElement}
-		 */
-		this.$children = document.createElement( 'div' );
-		this.$children.classList.add( 'children' );
-
-
-		if ( this.parent ) {
-
-			this.parent.children.push( this );
-			this.parent.$children.appendChild( this.domElement );
-
-
-		} else {
-
-			this.domElement.classList.add( 'root' );
-			// this.domElement.style.setProperty( '--width', width + 'px' );
-
-			if ( autoPlace ) {
-
-				this.domElement.classList.add( 'autoPlace' );
-				document.body.appendChild( this.domElement );
-
-				this._onResize = () => {
-					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-				};
-
-				window.addEventListener( 'resize', this._onResize );
-				this._onResize();
-
-			}
-
-		}
-
-
-		/**
-		 * 
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( collapses ? 'button' : 'div' );
@@ -114,12 +74,68 @@ export default class GUI {
 			} );
 		}
 
+		/**
+		 * @type {HTMLElement}
+		 */
+		this.$children = document.createElement( 'div' );
+		this.$children.classList.add( 'children' );
+
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
 
-		if ( closeOnTop ) {
-			this.domElement.classList.add( 'closeOnTop' );
+		if ( this.parent ) {
+
+			this.parent.children.push( this );
+			this.parent.$children.appendChild( this.domElement );
+
+		} else {
+
+			this.domElement.classList.add( 'root' );
+			this.domElement.style.setProperty( '--width', width + 'px' );
+
 		}
+
+		if ( autoPlace ) {
+
+			this.domElement.classList.add( 'autoPlace' );
+
+			this._onResize = () => {
+				this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+			};
+
+			window.addEventListener( 'resize', this._onResize );
+			this._onResize();
+
+			this.mobileMaxHeight = mobileMaxHeight;
+
+			let prevClientY;
+
+			const onTouchStart = e => {
+				if ( e.touches.length > 1 ) return;
+				prevClientY = e.touches[ 0 ].clientY;
+				window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+				window.addEventListener( 'touchend', onTouchEnd );
+			};
+
+			const onTouchMove = e => {
+				e.preventDefault();
+				const deltaY = e.touches[ 0 ].clientY - prevClientY;
+				prevClientY = e.touches[ 0 ].clientY;
+				this.mobileMaxHeight -= deltaY;
+			};
+
+			const onTouchEnd = () => {
+				window.removeEventListener( 'touchmove', onTouchMove );
+				window.removeEventListener( 'touchend', onTouchEnd );
+			};
+
+
+			this.$title.addEventListener( 'touchstart', onTouchStart );
+
+			document.body.appendChild( this.domElement );
+
+		}
+
 
 		this.title( title );
 
@@ -268,6 +284,25 @@ export default class GUI {
 			window.removeEventListener( 'resize', this._onResize );
 		}
 
+	}
+
+	forEachController( callback, recursive = false ) {
+		this.children.forEach( c => {
+			if ( c instanceof Controller ) {
+				callback( c );
+			} else if ( recursive && c instanceof GUI ) {
+				c.forEachController( callback, true );
+			}
+		} );
+	}
+
+	get mobileMaxHeight() {
+		return this._mobileMaxHeight;
+	}
+
+	set mobileMaxHeight( v ) {
+		this._mobileMaxHeight = v;
+		this.domElement.style.setProperty( '--mobile-max-height', v + 'px' );
 	}
 
 }

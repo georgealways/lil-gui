@@ -340,12 +340,9 @@ export default class NumberController extends Controller {
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
 			deltaY = -e.wheelDelta / 120;
-			// give em a boost.
-			// deltaY *= 10;
 		}
 
 		const wheel = deltaX + -deltaY;
-		console.log( wheel );
 
 		return wheel;
 

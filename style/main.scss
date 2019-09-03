@@ -6,6 +6,14 @@
 	}
 }
 
+@mixin hover {
+	@media (hover: hover) { 
+		&:hover { 
+			@content;
+		}
+	}
+}
+
 @mixin vars($args) {
 	@each $name, $val in $args {
 		#{$name}: $val;
@@ -84,7 +92,7 @@
 
 	&.root {
 		width: var(--width);
-		> .title:not(:hover):not(:active) {
+		> .title {
 			background: var(--title-background-color);
 		}
 	}
@@ -204,7 +212,7 @@
 			width: 100%;
 
 			& > .children {
-				max-height: var(--mobile-max-height);
+				max-height: calc(var(--mobile-max-height) - var(--row-height));
 			}
 		}
 	}
@@ -260,7 +268,7 @@
 		text-align: left;
 		text-transform: none;
 		width: 100%;
-		&:hover {
+		@include hover {
 			background: var(--widget-color);
 		}
 		&:active {

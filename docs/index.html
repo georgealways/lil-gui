@@ -172,7 +172,7 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <p>Class description</p>
 <h2>Constructor</h2>
 <h2>Methods</h2>
-<h3><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L149">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h3>
+<h3><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L166">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h3>
 <p>Adds a controller.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -189,25 +189,25 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-string">'small'</span> }, <span class="hljs-string">'myOptions'</span>, [ <span class="hljs-string">'big'</span>, <span class="hljs-string">'medium'</span>, <span class="hljs-string">'small'</span> ] );
 gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myOptions'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 </code></pre>
-<h3><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L193">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h3>
+<h3><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L210">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>object</li>
 <li>property</li>
 </ul>
-<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L211">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
+<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L228">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
-<h3><a name="GUI#addHeader" href="#GUI#addHeader"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L202">#</a> gui.<strong>addHeader</strong>( name ) → Header</h3>
+<h3><a name="GUI#addHeader" href="#GUI#addHeader"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L219">#</a> gui.<strong>addHeader</strong>( name ) → Header</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>name</li>
 </ul>
-<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L248">#</a> gui.<strong>close</strong>() → self</h3>
-<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257">#</a> gui.<strong>destroy</strong>()</h3>
-<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L239">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
+<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L265">#</a> gui.<strong>close</strong>() → self</h3>
+<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274">#</a> gui.<strong>destroy</strong>()</h3>
+<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L256">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
 <p>Opens or closes a GUI or folder.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -217,25 +217,24 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
 folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
-<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L220">#</a> gui.<strong>title</strong>( title ) → self</h3>
+<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L237">#</a> gui.<strong>title</strong>( title ) → self</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
 <h2>Properties</h2>
-<h3><a name="GUI#children" href="#GUI#children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L52">#</a> gui.<strong>children</strong> : Array</h3>
+<h3><a name="GUI#children" href="#GUI#children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L51">#</a> gui.<strong>children</strong> : Array</h3>
 <p>TODO</p>
-<h3><a name="GUI#domElement" href="#GUI#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L63">#</a> gui.<strong>domElement</strong> : HTMLElement</h3>
+<h3><a name="GUI#domElement" href="#GUI#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L62">#</a> gui.<strong>domElement</strong> : HTMLElement</h3>
 <p>The outermost container <code>div</code>.</p>
-<h3><a name="GUI#parent" href="#GUI#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L40">#</a> gui.<strong>parent</strong> : GUI</h3>
-<p>The GUI this folder is nested in, or <code>undefined</code> for the root GUI.</p>
-<h3><a name="GUI#root" href="#GUI#root"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L46">#</a> gui.<strong>root</strong> : GUI</h3>
+<h3><a name="GUI#parent" href="#GUI#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L39">#</a> gui.<strong>parent</strong> : GUI</h3>
+<p>description short</p>
+<h3><a name="GUI#root" href="#GUI#root"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L45">#</a> gui.<strong>root</strong> : GUI</h3>
 <p>Reference to the outermost folder, or <code>this</code> for the root GUI.</p>
-<h3><a name="GUI#$children" href="#GUI#$children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L71">#</a> gui.<strong>$children</strong> : HTMLElement</h3>
-<p>The <code>div</code> that contains child elements.</p>
-<h3><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L107">#</a> gui.<strong>$title</strong> : HTMLElement</h3>
-<h3><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L57">#</a> gui.<strong>_closed</strong> : boolean</h3>
-<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L224">#</a> gui.<strong>_title</strong> : string</h3>
+<h3><a name="GUI#$children" href="#GUI#$children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81">#</a> gui.<strong>$children</strong> : HTMLElement</h3>
+<h3><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L68">#</a> gui.<strong>$title</strong> : HTMLElement</h3>
+<h3><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L56">#</a> gui.<strong>_closed</strong> : boolean</h3>
+<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L241">#</a> gui.<strong>_title</strong> : string</h3>
 <h1>Controller</h1>
 <p>Classdesc? Where are you getting this intel. who told you.</p>
 <h2>Constructor</h2>
@@ -456,8 +455,8 @@ window.jsdocDebug = [
 						"indexname": "**add**(…)",
 						"signature": "gui.**add**( object, property, [$1], [max], [step] )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L149",
-						"definedat": "src/GUI.js:149"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L166",
+						"definedat": "src/GUI.js:166"
 					},
 					{
 						"params": [
@@ -495,8 +494,8 @@ window.jsdocDebug = [
 						"indexname": "**addColor**(…)",
 						"signature": "gui.**addColor**( object, property )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L193",
-						"definedat": "src/GUI.js:193"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L210",
+						"definedat": "src/GUI.js:210"
 					},
 					{
 						"params": [
@@ -526,8 +525,8 @@ window.jsdocDebug = [
 						"indexname": "**addFolder**(…)",
 						"signature": "gui.**addFolder**( title )",
 						"indextype": "→ GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L211",
-						"definedat": "src/GUI.js:211"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L228",
+						"definedat": "src/GUI.js:228"
 					},
 					{
 						"params": [
@@ -557,8 +556,8 @@ window.jsdocDebug = [
 						"indexname": "**addHeader**(…)",
 						"signature": "gui.**addHeader**( name )",
 						"indextype": "→ Header",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L202",
-						"definedat": "src/GUI.js:202"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L219",
+						"definedat": "src/GUI.js:219"
 					},
 					{
 						"tags": [
@@ -577,8 +576,8 @@ window.jsdocDebug = [
 						"indexname": "**close**()",
 						"signature": "gui.**close**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L248",
-						"definedat": "src/GUI.js:248"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L265",
+						"definedat": "src/GUI.js:265"
 					},
 					{
 						"name": "destroy",
@@ -589,8 +588,8 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "gui.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L257",
-						"definedat": "src/GUI.js:257"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L274",
+						"definedat": "src/GUI.js:274"
 					},
 					{
 						"description": "Opens or closes a GUI or folder.",
@@ -625,8 +624,8 @@ window.jsdocDebug = [
 						"indexname": "**open**()",
 						"signature": "gui.**open**( [open] )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L239",
-						"definedat": "src/GUI.js:239"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L256",
+						"definedat": "src/GUI.js:256"
 					},
 					{
 						"params": [
@@ -654,8 +653,8 @@ window.jsdocDebug = [
 						"indexname": "**title**(…)",
 						"signature": "gui.**title**( title )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L220",
-						"definedat": "src/GUI.js:220"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L237",
+						"definedat": "src/GUI.js:237"
 					}
 				]
 			},
@@ -677,8 +676,8 @@ window.jsdocDebug = [
 						"indexname": "children",
 						"signature": "gui.**children**",
 						"indextype": ": Array",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L52",
-						"definedat": "src/GUI.js:52"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L51",
+						"definedat": "src/GUI.js:51"
 					},
 					{
 						"description": "The outermost container `div`.",
@@ -695,11 +694,11 @@ window.jsdocDebug = [
 						"indexname": "domElement",
 						"signature": "gui.**domElement**",
 						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L63",
-						"definedat": "src/GUI.js:63"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L62",
+						"definedat": "src/GUI.js:62"
 					},
 					{
-						"description": "The GUI this folder is nested in, or `undefined` for the root GUI.",
+						"description": "description short",
 						"type": {
 							"names": [
 								"GUI"
@@ -713,8 +712,8 @@ window.jsdocDebug = [
 						"indexname": "parent",
 						"signature": "gui.**parent**",
 						"indextype": ": GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L40",
-						"definedat": "src/GUI.js:40"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L39",
+						"definedat": "src/GUI.js:39"
 					},
 					{
 						"description": "Reference to the outermost folder, or `this` for the root GUI.",
@@ -731,11 +730,10 @@ window.jsdocDebug = [
 						"indexname": "root",
 						"signature": "gui.**root**",
 						"indextype": ": GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L46",
-						"definedat": "src/GUI.js:46"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L45",
+						"definedat": "src/GUI.js:45"
 					},
 					{
-						"description": "The `div` that contains child elements.",
 						"type": {
 							"names": [
 								"HTMLElement"
@@ -749,8 +747,8 @@ window.jsdocDebug = [
 						"indexname": "$children",
 						"signature": "gui.**$children**",
 						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L71",
-						"definedat": "src/GUI.js:71"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L81",
+						"definedat": "src/GUI.js:81"
 					},
 					{
 						"type": {
@@ -766,8 +764,8 @@ window.jsdocDebug = [
 						"indexname": "$title",
 						"signature": "gui.**$title**",
 						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L107",
-						"definedat": "src/GUI.js:107"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L68",
+						"definedat": "src/GUI.js:68"
 					},
 					{
 						"type": {
@@ -783,8 +781,8 @@ window.jsdocDebug = [
 						"indexname": "_closed",
 						"signature": "gui.**_closed**",
 						"indextype": ": boolean",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L57",
-						"definedat": "src/GUI.js:57"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L56",
+						"definedat": "src/GUI.js:56"
 					},
 					{
 						"type": {
@@ -800,14 +798,14 @@ window.jsdocDebug = [
 						"indexname": "_title",
 						"signature": "gui.**_title**",
 						"indextype": ": string",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L224",
-						"definedat": "src/GUI.js:224"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L241",
+						"definedat": "src/GUI.js:241"
 					}
 				]
 			}
 		},
-		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L27",
-		"definedat": "src/GUI.js:27"
+		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L28",
+		"definedat": "src/GUI.js:28"
 	},
 	{
 		"name": "Controller",
