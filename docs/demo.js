@@ -169,7 +169,7 @@ app.demos[ 'Style' ] = function( gui ) {
 	const folder4 = folder3.addFolder( 'Don\'t go crazy now.' );
 
 	addFiller( folder4 );
-	folder4.addHeader( 'Nested header' );
+	folder4.addFolder( 'Nested "header"', false );
 	addFiller( folder4 );
 };
 
@@ -193,7 +193,7 @@ app.demos[ 'Hall of Sliders' ] = function( gui ) {
 	implicitStep( 1, 100 );
 	implicitStep( 0, 1e32 );
 
-	gui.addHeader( 'Explicit step' );
+	gui.addFolder( 'Explicit step', false );
 
 	const explicitStep = ( min, max, step, label = step ) => {
 		gui.add( { x: max }, 'x', min, max, step ).name( `[${min},${max}] step ${label}` );
@@ -215,7 +215,7 @@ app.demos[ 'Numbers Unbound' ] = function( gui ) {
 	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
 	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
 
-	gui.addHeader( 'Explicit step, no range' );
+	gui.addFolder( 'Explicit step, no range', false );
 	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
@@ -228,7 +228,7 @@ app.demos[ 'Numbers Unbound' ] = function( gui ) {
 app.demos[ 'Kitchen Sink' ] = function( gui ) {
 
 
-	gui.addHeader( 'Colors' );
+	gui.addFolder( 'Colors', false );
 	// ------------------------------------
 
 	gui.addColor( { x: '#6C44BE' }, 'x' ).name( 'Hex String' );
@@ -236,7 +236,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	gui.addColor( { x: [ 0, 1, 1 ] }, 'x' ).name( 'RGB Array' );
 	gui.addColor( { x: { r: 0, g: 1, b: 1 } }, 'x' ).name( 'RGB Object' );
 
-	gui.addHeader( 'Options' );
+	gui.addFolder( 'Options', false );
 	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
@@ -269,7 +269,7 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	const folder4 = folder3.addFolder( 'Don\'t go crazy now.' );
 
 	addFiller( folder4 );
-	folder4.addHeader( 'Nested header' );
+	folder4.addFolder( 'Nested "header"', false );
 	addFiller( folder4 );
 
 	const folderNameWidth = gui.addFolder( '--name-width' );

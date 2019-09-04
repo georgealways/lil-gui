@@ -1,20 +1,7 @@
-/**
- * @module NumberController
- */
-
 import Controller from './Controller.js';
+
 export default class NumberController extends Controller {
 
-	/**
-	 * 
-	 * @extends module:Controller Putting this here tricks jsdoc, but leaves intellisense alone
-	 * @param {*} parent 
-	 * @param {*} object 
-	 * @param {*} property 
-	 * @param {*} min 
-	 * @param {*} max 
-	 * @param {*} step 
-	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );
@@ -31,9 +18,24 @@ export default class NumberController extends Controller {
 
 	}
 
-	/**
-	 * I'm technically an override.
-	 */
+	min( min ) {
+		this._min = min;
+		this._onUpdateMinMax();
+		return this;
+	}
+
+	max( max ) {
+		this._max = max;
+		this._onUpdateMinMax();
+		return this;
+	}
+
+	step( step, explicit = true ) {
+		this._step = step;
+		this._stepExplicit = explicit;
+		return this;
+	}
+
 	updateDisplay() {
 
 		const value = this.getValue();
@@ -182,9 +184,9 @@ export default class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// For the record: as of 2019, Android seems to take care of this
-			// automatically. I'd like to remove this whole test if iOS ever 
-			// decided to do the same.
+			// As of 2019, Android seems to take care of this automatically. 
+			// I'd like to remove this whole test if iOS ever decided to do the 
+			// same.
 
 			if ( this._hasScrollBar ) {
 
@@ -254,10 +256,10 @@ export default class NumberController extends Controller {
 
 		const onWheel = e => {
 
-			// Ignore mousewheel on the slider if we're in a scrollable container
 			if ( this._hasScrollBar ) return;
 
 			e.preventDefault();
+
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
@@ -265,28 +267,6 @@ export default class NumberController extends Controller {
 
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
-	}
-
-	/**
-	 * I'm new.
-	 * @param {*} min 
-	 */
-	min( min ) {
-		this._min = min;
-		this._onUpdateMinMax();
-		return this;
-	}
-
-	max( max ) {
-		this._max = max;
-		this._onUpdateMinMax();
-		return this;
-	}
-
-	step( step, explicit = true ) {
-		this._step = step;
-		this._stepExplicit = explicit;
-		return this;
 	}
 
 	_getImplicitStep() {
@@ -358,8 +338,9 @@ export default class NumberController extends Controller {
 		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
+		// Not happy about this but haven't seen it break.
 		const r = Math.round( value / this._step ) * this._step;
-		return parseFloat( r.toPrecision( 15 ) ); // o_O ?
+		return parseFloat( r.toPrecision( 15 ) );
 
 	}
 

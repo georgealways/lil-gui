@@ -44,7 +44,6 @@ jsdoc.explainSync( { files: JSDOC_INPUT } )
 
 function transform( v ) {
 
-
 	forEachRecursive( v, ( object, key, value ) => {
 
 		if ( typeof value == 'string' ) {
@@ -104,15 +103,15 @@ function transform( v ) {
 			};
 		}
 
-
 		topLevel[ v.longname ] = v;
-
 
 	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
-		v.indextype = ': ' + v.type.names.join( '|' );
+		if ( v.types ) {
+			v.indextype = ': ' + v.type.names.join( '|' );
+		}
 
 	}
 
@@ -143,7 +142,11 @@ transformed.forEach( v => {
 			category = parent.categories.instanceproperty;
 		}
 
-		category.children.push( v );
+		if ( category ) {
+
+			category.children.push( v );
+
+		}
 
 	}
 

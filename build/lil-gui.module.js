@@ -98,7 +98,8 @@ class Controller {
 
 	/**
 	 * I'm not sure if I'm keeping this.
-	 * @param {*} options 
+	 * @param {*} options
+	 * @param {Controller} newController
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -175,35 +176,38 @@ class Controller {
 		return this.object[ this.property ];
 	}
 
-	// /**
-	//  * Sets the minimum value. Only works on number controllers.
-	//  * @param {number} min
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// min( min ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the minimum value. Only works on number controllers.
+	 * @param {number} min
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	min( min ) {
+		return this;
+	}
 
-	// /**
-	//  * Sets the maximum value. Only works on number controllers.
-	//  * @param {number} max
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// max( max ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the maximum value. Only works on number controllers.
+	 * @param {number} max
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	max( max ) {
+		return this;
+	}
 
-	// /**
-	//  * Sets the step. Only works on number controllers.
-	//  * @param {number} step
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// step( step ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the step. Only works on number controllers.
+	 * @param {number} step
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	step( step ) {
+		return this;
+	}
 
 	/**
 	 * Updates the display to keep it in sync with the current value of 
@@ -369,21 +373,8 @@ class FunctionController extends Controller {
 
 }
 
-/**
- * @module NumberController
- */
 class NumberController extends Controller {
 
-	/**
-	 * 
-	 * @extends module:Controller Putting this here tricks jsdoc, but leaves intellisense alone
-	 * @param {*} parent 
-	 * @param {*} object 
-	 * @param {*} property 
-	 * @param {*} min 
-	 * @param {*} max 
-	 * @param {*} step 
-	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );
@@ -400,9 +391,24 @@ class NumberController extends Controller {
 
 	}
 
-	/**
-	 * I'm technically an override.
-	 */
+	min( min ) {
+		this._min = min;
+		this._onUpdateMinMax();
+		return this;
+	}
+
+	max( max ) {
+		this._max = max;
+		this._onUpdateMinMax();
+		return this;
+	}
+
+	step( step, explicit = true ) {
+		this._step = step;
+		this._stepExplicit = explicit;
+		return this;
+	}
+
 	updateDisplay() {
 
 		const value = this.getValue();
@@ -550,9 +556,9 @@ class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// For the record: as of 2019, Android seems to take care of this
-			// automatically. I'd like to remove this whole test if iOS ever 
-			// decided to do the same.
+			// As of 2019, Android seems to take care of this automatically. 
+			// I'd like to remove this whole test if iOS ever decided to do the 
+			// same.
 
 			if ( this._hasScrollBar ) {
 
@@ -622,10 +628,10 @@ class NumberController extends Controller {
 
 		const onWheel = e => {
 
-			// Ignore mousewheel on the slider if we're in a scrollable container
 			if ( this._hasScrollBar ) return;
 
 			e.preventDefault();
+
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
@@ -633,28 +639,6 @@ class NumberController extends Controller {
 
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
-	}
-
-	/**
-	 * I'm new.
-	 * @param {*} min 
-	 */
-	min( min ) {
-		this._min = min;
-		this._onUpdateMinMax();
-		return this;
-	}
-
-	max( max ) {
-		this._max = max;
-		this._onUpdateMinMax();
-		return this;
-	}
-
-	step( step, explicit = true ) {
-		this._step = step;
-		this._stepExplicit = explicit;
-		return this;
 	}
 
 	_getImplicitStep() {
@@ -726,8 +710,9 @@ class NumberController extends Controller {
 		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
+		// Not happy about this but haven't seen it break.
 		const r = Math.round( value / this._step ) * this._step;
-		return parseFloat( r.toPrecision( 15 ) ); // o_O ?
+		return parseFloat( r.toPrecision( 15 ) );
 
 	}
 
@@ -826,34 +811,6 @@ class StringController extends Controller {
 
 }
 
-class Header {
-
-	constructor( parent, name ) {
-
-		this.parent = parent;
-
-		this.domElement = document.createElement( 'div' );
-		this.domElement.classList.add( 'header' );
-
-		this.parent.children.push( this );
-		this.parent.$children.appendChild( this.domElement );
-
-		this.name( name );
-
-	}
-
-	name( name ) {
-		this._name = name;
-		this.domElement.innerHTML = name;
-	}
-
-	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
-		this.parent.$children.removeChild( this.domElement );
-	}
-
-}
-
 function injectStyles( cssContent ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
@@ -865,7 +822,7 @@ function injectStyles( cssContent ) {
 	}
 }
 
-var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAASkAAsAAAAABzgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAALIAAAD0z0XwmmhlYWQAAAK0AAAAJwAAADZfcj24aGhlYQAAAtwAAAAYAAAAJAC5AGtobXR4AAAC9AAAAA4AAAAYAfQAAGxvY2EAAAMEAAAADgAAAA4A1gCUbWF4cAAAAxQAAAAeAAAAIAESAB5uYW1lAAADNAAAASIAAAIK9SUU/XBvc3QAAARYAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nD2PYQrCMAyFk3RWijB1dO1WGMKEDZkgjLKCILuA+yEOvP9NTCcuEHgveR8kQBDrCTMQbABGtPm2LWPdnTs4F7e4ZF7whh1AaBtZoTYjDn7qhJSiE8GhSPpEoCO55j184Mj5uvEjto0f+hMavUdpSJDWJBIqEAuqWLBluqCE+88/+KqFv+EPDkO/8DVRHuksY4gMXtmyYMvDfOVnmOJHoQ022ItVaa1Ko9Kz+gIOtBCUAAB4nGNgZGBgAGKmPQF28fw2Xxm4GVIYsIEQhnAgycHABOIAAJJkBBIAeJxjYGRgYEhhYICTIQyMDKiADQAcegEleJxjYACCFEwMABWUAfUAAAAAAAAAEgAqAEoAagB6AAB4nGNgZGBgYGMQYmBiAAEQyQWEDAz/wXwGAArcATEAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HQQ5AMBAF0PloNRFHcaqZaYhmpini+hYsvd2jjl6gfxEdegwIiBgpSfMqflvKl/G5uc3Zi2hbuPihMn3zqhZ4Vd6JHgdmEqcA\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width:250px;--text-color:#eee;--background-color:#1f1f1f;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--title-background-color:#111;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--widget-padding:0 0 0 3px;--widget-border-radius:2px;--scrollbar-width:5px;--mobile-max-height:200px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui .lil-gui{--width:inherit;--text-color:inherit;--background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--title-background-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--widget-padding:inherit;--widget-border-radius:inherit;--scrollbar-width:inherit;--mobile-max-height:inherit}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .title:before{font-family:\"lil-gui\";align-self:flex-end;width:1em;margin-left:-0.18em}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--padding);border-left:2px solid var(--widget-color)}.lil-gui .header{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .header,.lil-gui .lil-gui:not(.collapses)>.title{position:relative}.lil-gui .header:after,.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}.lil-gui.bigSlider .hasSlider,.lil-gui .bigSlider.hasSlider{position:relative}.lil-gui.bigSlider .hasSlider .name,.lil-gui .bigSlider.hasSlider .name{position:absolute;pointer-events:none;width:auto;z-index:1;padding-left:var(--padding)}.lil-gui.bigSlider .hasSlider input,.lil-gui .bigSlider.hasSlider input{width:18%}\n";
+var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAASkAAsAAAAABzgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAALIAAAD0z0XwmmhlYWQAAAK0AAAAJwAAADZfcj24aGhlYQAAAtwAAAAYAAAAJAC5AGtobXR4AAAC9AAAAA4AAAAYAfQAAGxvY2EAAAMEAAAADgAAAA4A1gCUbWF4cAAAAxQAAAAeAAAAIAESAB5uYW1lAAADNAAAASIAAAIK9SUU/XBvc3QAAARYAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nD2PYQrCMAyFk3RWijB1dO1WGMKEDZkgjLKCILuA+yEOvP9NTCcuEHgveR8kQBDrCTMQbABGtPm2LWPdnTs4F7e4ZF7whh1AaBtZoTYjDn7qhJSiE8GhSPpEoCO55j184Mj5uvEjto0f+hMavUdpSJDWJBIqEAuqWLBluqCE+88/+KqFv+EPDkO/8DVRHuksY4gMXtmyYMvDfOVnmOJHoQ022ItVaa1Ko9Kz+gIOtBCUAAB4nGNgZGBgAGKmPQF28fw2Xxm4GVIYsIEQhnAgycHABOIAAJJkBBIAeJxjYGRgYEhhYICTIQyMDKiADQAcegEleJxjYACCFEwMABWUAfUAAAAAAAAAEgAqAEoAagB6AAB4nGNgZGBgYGMQYmBiAAEQyQWEDAz/wXwGAArcATEAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HQQ5AMBAF0PloNRFHcaqZaYhmpini+hYsvd2jjl6gfxEdegwIiBgpSfMqflvKl/G5uc3Zi2hbuPihMn3zqhZ4Vd6JHgdmEqcA\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width:250px;--text-color:#eee;--background-color:#1f1f1f;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--title-background-color:#111;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--widget-padding:0 0 0 3px;--widget-border-radius:2px;--scrollbar-width:5px;--mobile-max-height:200px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .lil-gui{--width:inherit;--text-color:inherit;--background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--title-background-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--widget-padding:inherit;--widget-border-radius:inherit;--scrollbar-width:inherit;--mobile-max-height:inherit}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .title:before{font-family:\"lil-gui\";align-self:flex-end;width:1em;margin-left:-0.18em}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--padding);border-left:2px solid var(--widget-color)}.lil-gui .lil-gui:not(.collapses)>.title{position:relative}.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.collapses>.children:empty:before{content:\"Empty\";padding:0 var(--padding);display:block;height:var(--row-height);font-style:italic;line-height:var(--row-height);color:var(--widget-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}.lil-gui.bigSlider .hasSlider,.lil-gui .bigSlider.hasSlider{position:relative}.lil-gui.bigSlider .hasSlider .name,.lil-gui .bigSlider.hasSlider .name{position:absolute;pointer-events:none;width:auto;z-index:1;padding-left:var(--padding)}.lil-gui.bigSlider .hasSlider input,.lil-gui .bigSlider.hasSlider input{width:18%}\n";
 
 /**
  * @module GUI
@@ -891,7 +848,9 @@ class GUI {
 		collapses = true
 	} = {} ) {
 
-		/** * description short @type {GUI} */
+		/** 
+		 * desc
+		 * @type {GUI} */
 		this.parent = parent;
 
 		/**
@@ -1069,15 +1028,6 @@ class GUI {
 
 	/**
 	 * 
-	 * @param {string} name 
-	 * @returns {Header}
-	 */
-	addHeader( name ) {
-		return new Header( this, name );
-	}
-
-	/**
-	 * 
 	 * @param {string} title 
 	 * @returns {GUI}
 	 */
@@ -1143,6 +1093,11 @@ class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {function} callback 
+	 * @param {boolean=} recursive 
+	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {
 			if ( c instanceof Controller ) {
@@ -1165,4 +1120,4 @@ class GUI {
 }
 
 export default GUI;
-export { BooleanController, ColorController, Controller, FunctionController, GUI, Header, NumberController, OptionController, StringController };
+export { BooleanController, ColorController, Controller, FunctionController, GUI, NumberController, OptionController, StringController };

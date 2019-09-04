@@ -9,5 +9,3 @@ export { default as FunctionController } from './FunctionController.js';
 export { default as NumberController } from './NumberController.js';
 export { default as OptionController } from './OptionController.js';
 export { default as StringController } from './StringController.js';
-
-export { default as Header } from './Header.js';

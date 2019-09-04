@@ -36,7 +36,6 @@ test( unit => {
 		gui.add( { x: 0 }, 'x' );
 
 		const folder1 = gui.addFolder( 'folder' );
-		folder1.addHeader( 'header' );
 		folder1.add( { x: 0 }, 'x' );
 		folder1.add( { x: 0 }, 'x' );
 

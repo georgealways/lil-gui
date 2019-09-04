@@ -15,10 +15,10 @@
 <pre><code class="language-js"><span class="hljs-keyword">import</span> GUI <span class="hljs-keyword">from</span> <span class="hljs-string">'lil-gui'</span>;
 
 <span class="hljs-keyword">const</span> myObject = {
-    <span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">myFunction</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ ... },
-    <span class="hljs-attr">myString</span>: <span class="hljs-string">'lil-gui'</span>,
-    <span class="hljs-attr">myNumber</span>: <span class="hljs-number">1</span>
+	<span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">true</span>,
+	<span class="hljs-attr">myFunction</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ ... },
+	<span class="hljs-attr">myString</span>: <span class="hljs-string">'lil-gui'</span>,
+	<span class="hljs-attr">myNumber</span>: <span class="hljs-number">1</span>
 };
 
 <span class="hljs-keyword">const</span> gui = <span class="hljs-keyword">new</span> GUI();
@@ -34,26 +34,20 @@ gui.add( myObject, <span class="hljs-string">'myNumber'</span>, { <span class="h
 
 <span class="hljs-comment">// chainable methods</span>
 gui.add( myObject, <span class="hljs-string">'myProperty'</span> )
-    .name( <span class="hljs-string">'Custom Name'</span> )
-    .onChange( <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log( value );
-    } );
+	.name( <span class="hljs-string">'Custom Name'</span> )
+	.onChange( <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+		<span class="hljs-built_in">console</span>.log( value );
+	} );
 
 <span class="hljs-keyword">const</span> colorFormats = {
-    <span class="hljs-attr">string</span>: <span class="hljs-string">'#ffffff'</span>,
-    <span class="hljs-attr">int</span>: <span class="hljs-number">0xffffff</span>,
-    <span class="hljs-attr">object</span>: { <span class="hljs-attr">r</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">1</span> },
-    <span class="hljs-attr">array</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span> ]
+	<span class="hljs-attr">string</span>: <span class="hljs-string">'#ffffff'</span>,
+	<span class="hljs-attr">int</span>: <span class="hljs-number">0xffffff</span>,
+	<span class="hljs-attr">object</span>: { <span class="hljs-attr">r</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">g</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">1</span> },
+	<span class="hljs-attr">array</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span> ]
 };
 
 <span class="hljs-comment">// colors</span>
 gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
-
-<span class="hljs-comment">// headers</span>
-gui.addHeader( <span class="hljs-string">'Specular'</span> );
-gui.add( uniforms.specularIntensity, <span class="hljs-string">'value'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ).name( <span class="hljs-string">'Intensity'</span> );
-gui.add( uniforms.specularPower, <span class="hljs-string">'value'</span>, <span class="hljs-number">1</span>, <span class="hljs-number">16</span> ).name( <span class="hljs-string">'Power'</span> );
-gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> ).name( <span class="hljs-string">'Color'</span> );
 </code></pre>
 
 	</div>
@@ -91,23 +85,23 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <li><a href="#GUI#add"><strong>add</strong>(…)</a> → Controller</li>
 <li><a href="#GUI#addColor"><strong>addColor</strong>(…)</a> → Controller</li>
 <li><a href="#GUI#addFolder"><strong>addFolder</strong>(…)</a> → GUI</li>
-<li><a href="#GUI#addHeader"><strong>addHeader</strong>(…)</a> → Header</li>
 <li><a href="#GUI#close"><strong>close</strong>()</a> → self</li>
 <li><a href="#GUI#destroy"><strong>destroy</strong>()</a></li>
+<li><a href="#GUI#forEachController"><strong>forEachController</strong>(…)</a></li>
 <li><a href="#GUI#open"><strong>open</strong>()</a> → self</li>
 <li><a href="#GUI#title"><strong>title</strong>(…)</a> → self</li>
 </ul>
 </li>
 <li>Properties
 <ul>
-<li><a href="#GUI#children">children</a> : Array</li>
-<li><a href="#GUI#domElement">domElement</a> : HTMLElement</li>
-<li><a href="#GUI#parent">parent</a> : GUI</li>
-<li><a href="#GUI#root">root</a> : GUI</li>
-<li><a href="#GUI#$children">$children</a> : HTMLElement</li>
-<li><a href="#GUI#$title">$title</a> : HTMLElement</li>
-<li><a href="#GUI#_closed">_closed</a> : boolean</li>
-<li><a href="#GUI#_title">_title</a> : string</li>
+<li><a href="#GUI#children">children</a></li>
+<li><a href="#GUI#domElement">domElement</a></li>
+<li><a href="#GUI#parent">parent</a></li>
+<li><a href="#GUI#root">root</a></li>
+<li><a href="#GUI#$children">$children</a></li>
+<li><a href="#GUI#$title">$title</a></li>
+<li><a href="#GUI#_closed">_closed</a></li>
+<li><a href="#GUI#_title">_title</a></li>
 </ul>
 </li>
 </ul>
@@ -119,52 +113,26 @@ gui.addColor( uniforms.specularColor, <span class="hljs-string">'value'</span> )
 <li><a href="#Controller#destroy"><strong>destroy</strong>()</a></li>
 <li><a href="#Controller#disable"><strong>disable</strong>()</a> → self</li>
 <li><a href="#Controller#enable"><strong>enable</strong>()</a> → self</li>
+<li><a href="#Controller#max"><strong>max</strong>(…)</a> → self</li>
+<li><a href="#Controller#min"><strong>min</strong>(…)</a> → self</li>
 <li><a href="#Controller#name"><strong>name</strong>(…)</a> → self</li>
 <li><a href="#Controller#onChange"><strong>onChange</strong>(…)</a> → self</li>
 <li><a href="#Controller#options"><strong>options</strong>(…)</a></li>
+<li><a href="#Controller#step"><strong>step</strong>(…)</a> → self</li>
 <li><a href="#Controller#updateDisplay"><strong>updateDisplay</strong>()</a> → self</li>
 </ul>
 </li>
 <li>Properties
 <ul>
-<li><a href="#Controller#domElement">domElement</a> : HTMLElement</li>
-<li><a href="#Controller#object">object</a> : Object</li>
-<li><a href="#Controller#parent">parent</a> : GUI</li>
-<li><a href="#Controller#property">property</a> : string</li>
-<li><a href="#Controller#$name">$name</a> : HTMLElement</li>
-<li><a href="#Controller#$widget">$widget</a> : HTMLElement</li>
-<li><a href="#Controller#_disabled">_disabled</a> : boolean</li>
-<li><a href="#Controller#_name">_name</a> : string</li>
-<li><a href="#Controller#_onChange">_onChange</a> : function</li>
-</ul>
-</li>
-</ul>
-<h2>NumberController</h2>
-<ul>
-<li>Constructor</li>
-<li>Methods
-<ul>
-<li><a href="#NumberController#destroy"><strong>destroy</strong></a></li>
-<li><a href="#NumberController#disable"><strong>disable</strong></a> → self</li>
-<li><a href="#NumberController#enable"><strong>enable</strong></a> → self</li>
-<li><a href="#NumberController#min"><strong>min</strong>(…)</a></li>
-<li><a href="#NumberController#name"><strong>name</strong>(…)</a> → self</li>
-<li><a href="#NumberController#onChange"><strong>onChange</strong>(…)</a> → self</li>
-<li><a href="#NumberController#options"><strong>options</strong>(…)</a></li>
-<li><a href="#NumberController#updateDisplay"><strong>updateDisplay</strong>()</a></li>
-</ul>
-</li>
-<li>Properties
-<ul>
-<li><a href="#NumberController#domElement">domElement</a> : HTMLElement</li>
-<li><a href="#NumberController#object">object</a> : Object</li>
-<li><a href="#NumberController#parent">parent</a> : GUI</li>
-<li><a href="#NumberController#property">property</a> : string</li>
-<li><a href="#NumberController#$name">$name</a> : HTMLElement</li>
-<li><a href="#NumberController#$widget">$widget</a> : HTMLElement</li>
-<li><a href="#NumberController#_disabled">_disabled</a> : boolean</li>
-<li><a href="#NumberController#_name">_name</a> : string</li>
-<li><a href="#NumberController#_onChange">_onChange</a> : function</li>
+<li><a href="#Controller#domElement">domElement</a></li>
+<li><a href="#Controller#object">object</a></li>
+<li><a href="#Controller#parent">parent</a></li>
+<li><a href="#Controller#property">property</a></li>
+<li><a href="#Controller#$name">$name</a></li>
+<li><a href="#Controller#$widget">$widget</a></li>
+<li><a href="#Controller#_disabled">_disabled</a></li>
+<li><a href="#Controller#_name">_name</a></li>
+<li><a href="#Controller#_onChange">_onChange</a></li>
 </ul>
 </li>
 </ul>
@@ -195,19 +163,20 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 <li>object</li>
 <li>property</li>
 </ul>
-<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L228">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
+<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L219">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
-<h3><a name="GUI#addHeader" href="#GUI#addHeader"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L219">#</a> gui.<strong>addHeader</strong>( name ) → Header</h3>
+<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L256">#</a> gui.<strong>close</strong>() → self</h3>
+<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L265">#</a> gui.<strong>destroy</strong>()</h3>
+<h3><a name="GUI#forEachController" href="#GUI#forEachController"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286">#</a> gui.<strong>forEachController</strong>( callback, [recursive] )</h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li>name</li>
+<li>callback</li>
+<li>recursive</li>
 </ul>
-<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L265">#</a> gui.<strong>close</strong>() → self</h3>
-<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274">#</a> gui.<strong>destroy</strong>()</h3>
-<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L256">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
+<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L247">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
 <p>Opens or closes a GUI or folder.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -217,29 +186,29 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
 folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
-<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L237">#</a> gui.<strong>title</strong>( title ) → self</h3>
+<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L228">#</a> gui.<strong>title</strong>( title ) → self</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
 <h2>Properties</h2>
-<h3><a name="GUI#children" href="#GUI#children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L51">#</a> gui.<strong>children</strong> : Array</h3>
+<h3><a name="GUI#children" href="#GUI#children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L51">#</a> gui.<strong>children</strong></h3>
 <p>TODO</p>
-<h3><a name="GUI#domElement" href="#GUI#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L62">#</a> gui.<strong>domElement</strong> : HTMLElement</h3>
+<h3><a name="GUI#domElement" href="#GUI#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L62">#</a> gui.<strong>domElement</strong></h3>
 <p>The outermost container <code>div</code>.</p>
-<h3><a name="GUI#parent" href="#GUI#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L39">#</a> gui.<strong>parent</strong> : GUI</h3>
-<p>description short</p>
-<h3><a name="GUI#root" href="#GUI#root"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L45">#</a> gui.<strong>root</strong> : GUI</h3>
+<h3><a name="GUI#parent" href="#GUI#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L39">#</a> gui.<strong>parent</strong></h3>
+<p>desc</p>
+<h3><a name="GUI#root" href="#GUI#root"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L45">#</a> gui.<strong>root</strong></h3>
 <p>Reference to the outermost folder, or <code>this</code> for the root GUI.</p>
-<h3><a name="GUI#$children" href="#GUI#$children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81">#</a> gui.<strong>$children</strong> : HTMLElement</h3>
-<h3><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L68">#</a> gui.<strong>$title</strong> : HTMLElement</h3>
-<h3><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L56">#</a> gui.<strong>_closed</strong> : boolean</h3>
-<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L241">#</a> gui.<strong>_title</strong> : string</h3>
+<h3><a name="GUI#$children" href="#GUI#$children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81">#</a> gui.<strong>$children</strong></h3>
+<h3><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L68">#</a> gui.<strong>$title</strong></h3>
+<h3><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L56">#</a> gui.<strong>_closed</strong></h3>
+<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L232">#</a> gui.<strong>_title</strong></h3>
 <h1>Controller</h1>
 <p>Classdesc? Where are you getting this intel. who told you.</p>
 <h2>Constructor</h2>
 <h2>Methods</h2>
-<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L151">#</a> controller.<strong>destroy</strong>()</h3>
+<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152">#</a> controller.<strong>destroy</strong>()</h3>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
 controller.destroy();
@@ -250,10 +219,22 @@ gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</s
 <span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
 <span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
 </code></pre>
-<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L131">#</a> controller.<strong>disable</strong>() → self</h3>
+<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L132">#</a> controller.<strong>disable</strong>() → self</h3>
 <p>Disables this controller.</p>
-<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L120">#</a> controller.<strong>enable</strong>() → self</h3>
+<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L121">#</a> controller.<strong>enable</strong>() → self</h3>
 <p>Enables this controller.</p>
+<h3><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197">#</a> controller.<strong>max</strong>( max ) → self</h3>
+<p>Sets the maximum value. Only works on number controllers.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>max</li>
+</ul>
+<h3><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L186">#</a> controller.<strong>min</strong>( min ) → self</h3>
+<p>Sets the minimum value. Only works on number controllers.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>min</li>
+</ul>
 <h3><a name="Controller#name" href="#Controller#name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L67">#</a> controller.<strong>name</strong>( name ) → self</h3>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -268,82 +249,33 @@ gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</s
 	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
 } );
 </code></pre>
-<h3><a name="Controller#options" href="#Controller#options"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L103">#</a> controller.<strong>options</strong>( options )</h3>
+<h3><a name="Controller#options" href="#Controller#options"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104">#</a> controller.<strong>options</strong>( options, newController )</h3>
 <p>I'm not sure if I'm keeping this.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>options</li>
+<li>newController</li>
 </ul>
-<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L214">#</a> controller.<strong>updateDisplay</strong>() → self</h3>
+<h3><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L208">#</a> controller.<strong>step</strong>( step ) → self</h3>
+<p>Sets the step. Only works on number controllers.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>step</li>
+</ul>
+<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L218">#</a> controller.<strong>updateDisplay</strong>() → self</h3>
 <p>Updates the display to keep it in sync with the current value of
 <code>this.object[ this.property ]</code>. Useful for updating your controllers if
 their values have been modified outside of the GUI.</p>
 <h2>Properties</h2>
-<h3><a name="Controller#domElement" href="#Controller#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L35">#</a> controller.<strong>domElement</strong> : HTMLElement</h3>
-<h3><a name="Controller#object" href="#Controller#object"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20">#</a> controller.<strong>object</strong> : Object</h3>
-<h3><a name="Controller#parent" href="#Controller#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L15">#</a> controller.<strong>parent</strong> : GUI</h3>
-<h3><a name="Controller#property" href="#Controller#property"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L25">#</a> controller.<strong>property</strong> : string</h3>
-<h3><a name="Controller#$name" href="#Controller#$name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L42">#</a> controller.<strong>$name</strong> : HTMLElement</h3>
-<h3><a name="Controller#$widget" href="#Controller#$widget"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L48">#</a> controller.<strong>$widget</strong> : HTMLElement</h3>
-<h3><a name="Controller#_disabled" href="#Controller#_disabled"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30">#</a> controller.<strong>_disabled</strong> : boolean</h3>
-<h3><a name="Controller#_name" href="#Controller#_name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71">#</a> controller.<strong>_name</strong> : string</h3>
-<h3><a name="Controller#_onChange" href="#Controller#_onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L90">#</a> controller.<strong>_onChange</strong> : function</h3>
-<h1>NumberController</h1>
-<h2>Constructor</h2>
-<h2>Methods</h2>
-<h3><a name="NumberController#destroy" href="#NumberController#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L151">#</a> numbercontroller.<strong>destroy</strong></h3>
-<p>Destroys this controller and removes it from the parent GUI.</p>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
-controller.destroy();
-</code></pre>
-<pre><code class="language-js"><span class="hljs-comment">// Won't destroy all the controllers because c.destroy() modifies gui.children</span>
-gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
-
-<span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
-<span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
-</code></pre>
-<h3><a name="NumberController#disable" href="#NumberController#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L131">#</a> numbercontroller.<strong>disable</strong> → self</h3>
-<p>Disables this controller.</p>
-<h3><a name="NumberController#enable" href="#NumberController#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L120">#</a> numbercontroller.<strong>enable</strong> → self</h3>
-<p>Enables this controller.</p>
-<h3><a name="NumberController#min" href="#NumberController#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/NumberController.js#L274">#</a> numbercontroller.<strong>min</strong>( min )</h3>
-<p>I'm new.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>min</li>
-</ul>
-<h3><a name="NumberController#name" href="#NumberController#name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L67">#</a> numbercontroller.<strong>name</strong>( name ) → self</h3>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>name</li>
-</ul>
-<h3><a name="NumberController#onChange" href="#NumberController#onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L86">#</a> numbercontroller.<strong>onChange</strong>( callback ) → self</h3>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>callback</li>
-</ul>
-<pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
-	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
-} );
-</code></pre>
-<h3><a name="NumberController#options" href="#NumberController#options"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L103">#</a> numbercontroller.<strong>options</strong>( options )</h3>
-<p>I'm not sure if I'm keeping this.</p>
-<p><strong>Parameters</strong></p>
-<ul>
-<li>options</li>
-</ul>
-<h3><a name="NumberController#updateDisplay" href="#NumberController#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/NumberController.js#L37">#</a> numbercontroller.<strong>updateDisplay</strong>()</h3>
-<p>I'm technically an override.</p>
-<h2>Properties</h2>
-<h3><a name="NumberController#domElement" href="#NumberController#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L35">#</a> numbercontroller.<strong>domElement</strong> : HTMLElement</h3>
-<h3><a name="NumberController#object" href="#NumberController#object"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20">#</a> numbercontroller.<strong>object</strong> : Object</h3>
-<h3><a name="NumberController#parent" href="#NumberController#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L15">#</a> numbercontroller.<strong>parent</strong> : GUI</h3>
-<h3><a name="NumberController#property" href="#NumberController#property"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L25">#</a> numbercontroller.<strong>property</strong> : string</h3>
-<h3><a name="NumberController#$name" href="#NumberController#$name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L42">#</a> numbercontroller.<strong>$name</strong> : HTMLElement</h3>
-<h3><a name="NumberController#$widget" href="#NumberController#$widget"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L48">#</a> numbercontroller.<strong>$widget</strong> : HTMLElement</h3>
-<h3><a name="NumberController#_disabled" href="#NumberController#_disabled"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30">#</a> numbercontroller.<strong>_disabled</strong> : boolean</h3>
-<h3><a name="NumberController#_name" href="#NumberController#_name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71">#</a> numbercontroller.<strong>_name</strong> : string</h3>
-<h3><a name="NumberController#_onChange" href="#NumberController#_onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L90">#</a> numbercontroller.<strong>_onChange</strong> : function</h3>
+<h3><a name="Controller#domElement" href="#Controller#domElement"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L35">#</a> controller.<strong>domElement</strong></h3>
+<h3><a name="Controller#object" href="#Controller#object"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20">#</a> controller.<strong>object</strong></h3>
+<h3><a name="Controller#parent" href="#Controller#parent"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L15">#</a> controller.<strong>parent</strong></h3>
+<h3><a name="Controller#property" href="#Controller#property"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L25">#</a> controller.<strong>property</strong></h3>
+<h3><a name="Controller#$name" href="#Controller#$name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L42">#</a> controller.<strong>$name</strong></h3>
+<h3><a name="Controller#$widget" href="#Controller#$widget"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L48">#</a> controller.<strong>$widget</strong></h3>
+<h3><a name="Controller#_disabled" href="#Controller#_disabled"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30">#</a> controller.<strong>_disabled</strong></h3>
+<h3><a name="Controller#_name" href="#Controller#_name"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71">#</a> controller.<strong>_name</strong></h3>
+<h3><a name="Controller#_onChange" href="#Controller#_onChange"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L90">#</a> controller.<strong>_onChange</strong></h3>
  
 	</div>
 </div>
@@ -525,37 +457,6 @@ window.jsdocDebug = [
 						"indexname": "**addFolder**(…)",
 						"signature": "gui.**addFolder**( title )",
 						"indextype": "→ GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L228",
-						"definedat": "src/GUI.js:228"
-					},
-					{
-						"params": [
-							{
-								"type": {
-									"names": [
-										"string"
-									]
-								},
-								"name": "name"
-							}
-						],
-						"returns": [
-							{
-								"type": {
-									"names": [
-										"Header"
-									]
-								}
-							}
-						],
-						"name": "addHeader",
-						"longname": "GUI#addHeader",
-						"kind": "function",
-						"scope": "instance",
-						"memberof": "GUI",
-						"indexname": "**addHeader**(…)",
-						"signature": "gui.**addHeader**( name )",
-						"indextype": "→ Header",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L219",
 						"definedat": "src/GUI.js:219"
 					},
@@ -576,8 +477,8 @@ window.jsdocDebug = [
 						"indexname": "**close**()",
 						"signature": "gui.**close**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L265",
-						"definedat": "src/GUI.js:265"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L256",
+						"definedat": "src/GUI.js:256"
 					},
 					{
 						"name": "destroy",
@@ -588,8 +489,39 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "gui.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L274",
-						"definedat": "src/GUI.js:274"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L265",
+						"definedat": "src/GUI.js:265"
+					},
+					{
+						"params": [
+							{
+								"type": {
+									"names": [
+										"function"
+									]
+								},
+								"name": "callback"
+							},
+							{
+								"type": {
+									"names": [
+										"boolean"
+									]
+								},
+								"optional": true,
+								"name": "recursive",
+								"defaultvalue": false
+							}
+						],
+						"name": "forEachController",
+						"longname": "GUI#forEachController",
+						"kind": "function",
+						"scope": "instance",
+						"memberof": "GUI",
+						"indexname": "**forEachController**(…)",
+						"signature": "gui.**forEachController**( callback, [recursive] )",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L286",
+						"definedat": "src/GUI.js:286"
 					},
 					{
 						"description": "Opens or closes a GUI or folder.",
@@ -624,8 +556,8 @@ window.jsdocDebug = [
 						"indexname": "**open**()",
 						"signature": "gui.**open**( [open] )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L256",
-						"definedat": "src/GUI.js:256"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L247",
+						"definedat": "src/GUI.js:247"
 					},
 					{
 						"params": [
@@ -653,8 +585,8 @@ window.jsdocDebug = [
 						"indexname": "**title**(…)",
 						"signature": "gui.**title**( title )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L237",
-						"definedat": "src/GUI.js:237"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L228",
+						"definedat": "src/GUI.js:228"
 					}
 				]
 			},
@@ -675,7 +607,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "children",
 						"signature": "gui.**children**",
-						"indextype": ": Array",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L51",
 						"definedat": "src/GUI.js:51"
 					},
@@ -693,12 +624,11 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "domElement",
 						"signature": "gui.**domElement**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L62",
 						"definedat": "src/GUI.js:62"
 					},
 					{
-						"description": "description short",
+						"description": "desc",
 						"type": {
 							"names": [
 								"GUI"
@@ -711,7 +641,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "parent",
 						"signature": "gui.**parent**",
-						"indextype": ": GUI",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L39",
 						"definedat": "src/GUI.js:39"
 					},
@@ -729,7 +658,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "root",
 						"signature": "gui.**root**",
-						"indextype": ": GUI",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L45",
 						"definedat": "src/GUI.js:45"
 					},
@@ -746,7 +674,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "$children",
 						"signature": "gui.**$children**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L81",
 						"definedat": "src/GUI.js:81"
 					},
@@ -763,7 +690,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "$title",
 						"signature": "gui.**$title**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L68",
 						"definedat": "src/GUI.js:68"
 					},
@@ -780,7 +706,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_closed",
 						"signature": "gui.**_closed**",
-						"indextype": ": boolean",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L56",
 						"definedat": "src/GUI.js:56"
 					},
@@ -797,15 +722,14 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_title",
 						"signature": "gui.**_title**",
-						"indextype": ": string",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L241",
-						"definedat": "src/GUI.js:241"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L232",
+						"definedat": "src/GUI.js:232"
 					}
 				]
 			}
 		},
-		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L28",
-		"definedat": "src/GUI.js:28"
+		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L27",
+		"definedat": "src/GUI.js:27"
 	},
 	{
 		"name": "Controller",
@@ -837,8 +761,8 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "controller.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L151",
-						"definedat": "src/Controller.js:151"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L152",
+						"definedat": "src/Controller.js:152"
 					},
 					{
 						"description": "Disables this controller.",
@@ -868,8 +792,8 @@ window.jsdocDebug = [
 						"indexname": "**disable**()",
 						"signature": "controller.**disable**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L131",
-						"definedat": "src/Controller.js:131"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L132",
+						"definedat": "src/Controller.js:132"
 					},
 					{
 						"description": "Enables this controller.",
@@ -899,8 +823,88 @@ window.jsdocDebug = [
 						"indexname": "**enable**()",
 						"signature": "controller.**enable**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L120",
-						"definedat": "src/Controller.js:120"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L121",
+						"definedat": "src/Controller.js:121"
+					},
+					{
+						"description": "Sets the maximum value. Only works on number controllers.",
+						"params": [
+							{
+								"type": {
+									"names": [
+										"number"
+									]
+								},
+								"name": "max"
+							}
+						],
+						"returns": [
+							{
+								"type": {
+									"names": [
+										"Controller"
+									]
+								},
+								"description": "self"
+							}
+						],
+						"tags": [
+							{
+								"originalTitle": "chainable",
+								"title": "chainable",
+								"text": ""
+							}
+						],
+						"name": "max",
+						"longname": "Controller#max",
+						"kind": "function",
+						"scope": "instance",
+						"memberof": "Controller",
+						"indexname": "**max**(…)",
+						"signature": "controller.**max**( max )",
+						"indextype": "→ self",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L197",
+						"definedat": "src/Controller.js:197"
+					},
+					{
+						"description": "Sets the minimum value. Only works on number controllers.",
+						"params": [
+							{
+								"type": {
+									"names": [
+										"number"
+									]
+								},
+								"name": "min"
+							}
+						],
+						"returns": [
+							{
+								"type": {
+									"names": [
+										"Controller"
+									]
+								},
+								"description": "self"
+							}
+						],
+						"tags": [
+							{
+								"originalTitle": "chainable",
+								"title": "chainable",
+								"text": ""
+							}
+						],
+						"name": "min",
+						"longname": "Controller#min",
+						"kind": "function",
+						"scope": "instance",
+						"memberof": "Controller",
+						"indexname": "**min**(…)",
+						"signature": "controller.**min**( min )",
+						"indextype": "→ self",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L186",
+						"definedat": "src/Controller.js:186"
 					},
 					{
 						"params": [
@@ -993,6 +997,14 @@ window.jsdocDebug = [
 									]
 								},
 								"name": "options"
+							},
+							{
+								"type": {
+									"names": [
+										"Controller"
+									]
+								},
+								"name": "newController"
 							}
 						],
 						"name": "options",
@@ -1001,9 +1013,49 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"memberof": "Controller",
 						"indexname": "**options**(…)",
-						"signature": "controller.**options**( options )",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L103",
-						"definedat": "src/Controller.js:103"
+						"signature": "controller.**options**( options, newController )",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L104",
+						"definedat": "src/Controller.js:104"
+					},
+					{
+						"description": "Sets the step. Only works on number controllers.",
+						"params": [
+							{
+								"type": {
+									"names": [
+										"number"
+									]
+								},
+								"name": "step"
+							}
+						],
+						"returns": [
+							{
+								"type": {
+									"names": [
+										"Controller"
+									]
+								},
+								"description": "self"
+							}
+						],
+						"tags": [
+							{
+								"originalTitle": "chainable",
+								"title": "chainable",
+								"text": ""
+							}
+						],
+						"name": "step",
+						"longname": "Controller#step",
+						"kind": "function",
+						"scope": "instance",
+						"memberof": "Controller",
+						"indexname": "**step**(…)",
+						"signature": "controller.**step**( step )",
+						"indextype": "→ self",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L208",
+						"definedat": "src/Controller.js:208"
 					},
 					{
 						"description": "Updates the display to keep it in sync with the current value of \n`this.object[ this.property ]`. Useful for updating your controllers if \ntheir values have been modified outside of the GUI.",
@@ -1023,8 +1075,8 @@ window.jsdocDebug = [
 						"indexname": "**updateDisplay**()",
 						"signature": "controller.**updateDisplay**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L214",
-						"definedat": "src/Controller.js:214"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L218",
+						"definedat": "src/Controller.js:218"
 					}
 				]
 			},
@@ -1044,7 +1096,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "domElement",
 						"signature": "controller.**domElement**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L35",
 						"definedat": "src/Controller.js:35"
 					},
@@ -1061,7 +1112,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "object",
 						"signature": "controller.**object**",
-						"indextype": ": Object",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L20",
 						"definedat": "src/Controller.js:20"
 					},
@@ -1078,7 +1128,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "parent",
 						"signature": "controller.**parent**",
-						"indextype": ": GUI",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L15",
 						"definedat": "src/Controller.js:15"
 					},
@@ -1095,7 +1144,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "property",
 						"signature": "controller.**property**",
-						"indextype": ": string",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L25",
 						"definedat": "src/Controller.js:25"
 					},
@@ -1112,7 +1160,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "$name",
 						"signature": "controller.**$name**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L42",
 						"definedat": "src/Controller.js:42"
 					},
@@ -1129,7 +1176,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "$widget",
 						"signature": "controller.**$widget**",
-						"indextype": ": HTMLElement",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L48",
 						"definedat": "src/Controller.js:48"
 					},
@@ -1146,7 +1192,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_disabled",
 						"signature": "controller.**_disabled**",
-						"indextype": ": boolean",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L30",
 						"definedat": "src/Controller.js:30"
 					},
@@ -1163,7 +1208,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_name",
 						"signature": "controller.**_name**",
-						"indextype": ": string",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L71",
 						"definedat": "src/Controller.js:71"
 					},
@@ -1180,7 +1224,6 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_onChange",
 						"signature": "controller.**_onChange**",
-						"indextype": ": function",
 						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L90",
 						"definedat": "src/Controller.js:90"
 					}
@@ -1189,482 +1232,6 @@ window.jsdocDebug = [
 		},
 		"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L10",
 		"definedat": "src/Controller.js:10"
-	},
-	{
-		"augments": [
-			"Controller"
-		],
-		"params": [
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "parent"
-			},
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "object"
-			},
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "property"
-			},
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "min"
-			},
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "max"
-			},
-			{
-				"type": {
-					"names": [
-						"*"
-					]
-				},
-				"name": "step"
-			}
-		],
-		"name": "NumberController",
-		"longname": "NumberController",
-		"kind": "class",
-		"indexname": "NumberController",
-		"signature": "**new** NumberController( parent, object, property, min, max, step )",
-		"categories": {
-			"constructor": {
-				"title": "Constructor",
-				"children": []
-			},
-			"instancemethod": {
-				"title": "Methods",
-				"children": [
-					{
-						"name": "destroy",
-						"longname": "NumberController#destroy",
-						"kind": "function",
-						"description": "Destroys this controller and removes it from the parent GUI.",
-						"examples": [
-							"const controller = gui.add( object, 'property' );\ncontroller.destroy();",
-							"// Won't destroy all the controllers because c.destroy() modifies gui.children\ngui.children.forEach( c => c.destroy() );\n\n// Make a copy of the array first if you actually want to do that\nArray.from( gui.children ).forEach( c => c.destroy() );"
-						],
-						"scope": "instance",
-						"memberof": "NumberController",
-						"inherits": "Controller#destroy",
-						"inherited": true,
-						"indexname": "**destroy**",
-						"signature": "numbercontroller.**destroy**",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L151",
-						"definedat": "src/Controller.js:151"
-					},
-					{
-						"name": "disable",
-						"longname": "NumberController#disable",
-						"kind": "function",
-						"description": "Disables this controller.",
-						"returns": [
-							{
-								"type": {
-									"names": [
-										"Controller"
-									]
-								},
-								"description": "self"
-							}
-						],
-						"tags": [
-							{
-								"originalTitle": "chainable",
-								"title": "chainable",
-								"text": ""
-							}
-						],
-						"scope": "instance",
-						"memberof": "NumberController",
-						"inherits": "Controller#disable",
-						"inherited": true,
-						"indexname": "**disable**",
-						"signature": "numbercontroller.**disable**",
-						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L131",
-						"definedat": "src/Controller.js:131"
-					},
-					{
-						"name": "enable",
-						"longname": "NumberController#enable",
-						"kind": "function",
-						"description": "Enables this controller.",
-						"returns": [
-							{
-								"type": {
-									"names": [
-										"Controller"
-									]
-								},
-								"description": "self"
-							}
-						],
-						"tags": [
-							{
-								"originalTitle": "chainable",
-								"title": "chainable",
-								"text": ""
-							}
-						],
-						"scope": "instance",
-						"memberof": "NumberController",
-						"inherits": "Controller#enable",
-						"inherited": true,
-						"indexname": "**enable**",
-						"signature": "numbercontroller.**enable**",
-						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L120",
-						"definedat": "src/Controller.js:120"
-					},
-					{
-						"description": "I'm new.",
-						"params": [
-							{
-								"type": {
-									"names": [
-										"*"
-									]
-								},
-								"name": "min"
-							}
-						],
-						"name": "min",
-						"longname": "NumberController#min",
-						"kind": "function",
-						"scope": "instance",
-						"memberof": "NumberController",
-						"indexname": "**min**(…)",
-						"signature": "numbercontroller.**min**( min )",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/NumberController.js#L274",
-						"definedat": "src/NumberController.js:274"
-					},
-					{
-						"name": "name",
-						"longname": "NumberController#name",
-						"kind": "function",
-						"returns": [
-							{
-								"type": {
-									"names": [
-										"Controller"
-									]
-								},
-								"description": "self"
-							}
-						],
-						"tags": [
-							{
-								"originalTitle": "chainable",
-								"title": "chainable",
-								"text": ""
-							}
-						],
-						"scope": "instance",
-						"memberof": "NumberController",
-						"params": [
-							{
-								"type": {
-									"names": [
-										"string"
-									]
-								},
-								"name": "name"
-							}
-						],
-						"inherits": "Controller#name",
-						"inherited": true,
-						"indexname": "**name**(…)",
-						"signature": "numbercontroller.**name**( name )",
-						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L67",
-						"definedat": "src/Controller.js:67"
-					},
-					{
-						"name": "onChange",
-						"longname": "NumberController#onChange",
-						"kind": "function",
-						"returns": [
-							{
-								"type": {
-									"names": [
-										"Controller"
-									]
-								},
-								"description": "self"
-							}
-						],
-						"tags": [
-							{
-								"originalTitle": "chainable",
-								"title": "chainable",
-								"text": ""
-							}
-						],
-						"examples": [
-							"gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );"
-						],
-						"scope": "instance",
-						"memberof": "NumberController",
-						"params": [
-							{
-								"type": {
-									"names": [
-										"function"
-									]
-								},
-								"name": "callback"
-							}
-						],
-						"inherits": "Controller#onChange",
-						"inherited": true,
-						"indexname": "**onChange**(…)",
-						"signature": "numbercontroller.**onChange**( callback )",
-						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L86",
-						"definedat": "src/Controller.js:86"
-					},
-					{
-						"name": "options",
-						"longname": "NumberController#options",
-						"kind": "function",
-						"description": "I'm not sure if I'm keeping this.",
-						"scope": "instance",
-						"memberof": "NumberController",
-						"params": [
-							{
-								"type": {
-									"names": [
-										"*"
-									]
-								},
-								"name": "options"
-							}
-						],
-						"inherits": "Controller#options",
-						"inherited": true,
-						"indexname": "**options**(…)",
-						"signature": "numbercontroller.**options**( options )",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L103",
-						"definedat": "src/Controller.js:103"
-					},
-					{
-						"description": "I'm technically an override.",
-						"name": "updateDisplay",
-						"longname": "NumberController#updateDisplay",
-						"kind": "function",
-						"scope": "instance",
-						"memberof": "NumberController",
-						"params": [],
-						"overrides": "Controller#updateDisplay",
-						"indexname": "**updateDisplay**()",
-						"signature": "numbercontroller.**updateDisplay**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/NumberController.js#L37",
-						"definedat": "src/NumberController.js:37"
-					}
-				]
-			},
-			"instanceproperty": {
-				"title": "Properties",
-				"children": [
-					{
-						"name": "domElement",
-						"longname": "NumberController#domElement",
-						"kind": "member",
-						"type": {
-							"names": [
-								"HTMLElement"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#domElement",
-						"inherited": true,
-						"indexname": "domElement",
-						"signature": "numbercontroller.**domElement**",
-						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L35",
-						"definedat": "src/Controller.js:35"
-					},
-					{
-						"name": "object",
-						"longname": "NumberController#object",
-						"kind": "member",
-						"type": {
-							"names": [
-								"Object"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#object",
-						"inherited": true,
-						"indexname": "object",
-						"signature": "numbercontroller.**object**",
-						"indextype": ": Object",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L20",
-						"definedat": "src/Controller.js:20"
-					},
-					{
-						"name": "parent",
-						"longname": "NumberController#parent",
-						"kind": "member",
-						"type": {
-							"names": [
-								"GUI"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#parent",
-						"inherited": true,
-						"indexname": "parent",
-						"signature": "numbercontroller.**parent**",
-						"indextype": ": GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L15",
-						"definedat": "src/Controller.js:15"
-					},
-					{
-						"name": "property",
-						"longname": "NumberController#property",
-						"kind": "member",
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#property",
-						"inherited": true,
-						"indexname": "property",
-						"signature": "numbercontroller.**property**",
-						"indextype": ": string",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L25",
-						"definedat": "src/Controller.js:25"
-					},
-					{
-						"name": "$name",
-						"longname": "NumberController#$name",
-						"kind": "member",
-						"type": {
-							"names": [
-								"HTMLElement"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#$name",
-						"inherited": true,
-						"indexname": "$name",
-						"signature": "numbercontroller.**$name**",
-						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L42",
-						"definedat": "src/Controller.js:42"
-					},
-					{
-						"name": "$widget",
-						"longname": "NumberController#$widget",
-						"kind": "member",
-						"type": {
-							"names": [
-								"HTMLElement"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#$widget",
-						"inherited": true,
-						"indexname": "$widget",
-						"signature": "numbercontroller.**$widget**",
-						"indextype": ": HTMLElement",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L48",
-						"definedat": "src/Controller.js:48"
-					},
-					{
-						"name": "_disabled",
-						"longname": "NumberController#_disabled",
-						"kind": "member",
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#_disabled",
-						"inherited": true,
-						"indexname": "_disabled",
-						"signature": "numbercontroller.**_disabled**",
-						"indextype": ": boolean",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L30",
-						"definedat": "src/Controller.js:30"
-					},
-					{
-						"name": "_name",
-						"longname": "NumberController#_name",
-						"kind": "member",
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#_name",
-						"inherited": true,
-						"indexname": "_name",
-						"signature": "numbercontroller.**_name**",
-						"indextype": ": string",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L71",
-						"definedat": "src/Controller.js:71"
-					},
-					{
-						"name": "_onChange",
-						"longname": "NumberController#_onChange",
-						"kind": "member",
-						"type": {
-							"names": [
-								"function"
-							]
-						},
-						"memberof": "NumberController",
-						"scope": "instance",
-						"inherits": "Controller#_onChange",
-						"inherited": true,
-						"indexname": "_onChange",
-						"signature": "numbercontroller.**_onChange**",
-						"indextype": ": function",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L90",
-						"definedat": "src/Controller.js:90"
-					}
-				]
-			}
-		},
-		"viewsource": "https://github.com/georgealways/gui/blob/master/src/NumberController.js#L18",
-		"definedat": "src/NumberController.js:18"
 	}
 ];
 console.log( "jsdocDebug", jsdocDebug );

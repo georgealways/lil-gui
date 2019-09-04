@@ -9,7 +9,6 @@ import FunctionController from './FunctionController.js';
 import NumberController from './NumberController.js';
 import OptionController from './OptionController.js';
 import StringController from './StringController.js';
-import Header from './Header.js';
 
 import injectStyles from './utils/injectStyles.js';
 import styles from '../build/lil-gui.css';
@@ -34,7 +33,9 @@ export default class GUI {
 		collapses = true
 	} = {} ) {
 
-		/** * description short @type {GUI} */
+		/** 
+		 * desc
+		 * @type {GUI} */
 		this.parent = parent;
 
 		/**
@@ -212,15 +213,6 @@ export default class GUI {
 
 	/**
 	 * 
-	 * @param {string} name 
-	 * @returns {Header}
-	 */
-	addHeader( name ) {
-		return new Header( this, name );
-	}
-
-	/**
-	 * 
 	 * @param {string} title 
 	 * @returns {GUI}
 	 */
@@ -286,6 +278,11 @@ export default class GUI {
 
 	}
 
+	/**
+	 * 
+	 * @param {function} callback 
+	 * @param {boolean=} recursive 
+	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {
 			if ( c instanceof Controller ) {

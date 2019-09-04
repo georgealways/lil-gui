@@ -9,20 +9,20 @@
 	- [**add**(…)](#GUI#add) → Controller
 	- [**addColor**(…)](#GUI#addColor) → Controller
 	- [**addFolder**(…)](#GUI#addFolder) → GUI
-	- [**addHeader**(…)](#GUI#addHeader) → Header
 	- [**close**()](#GUI#close) → self
 	- [**destroy**()](#GUI#destroy) 
+	- [**forEachController**(…)](#GUI#forEachController) 
 	- [**open**()](#GUI#open) → self
 	- [**title**(…)](#GUI#title) → self
 - Properties
-	- [children](#GUI#children) : Array
-	- [domElement](#GUI#domElement) : HTMLElement
-	- [parent](#GUI#parent) : GUI
-	- [root](#GUI#root) : GUI
-	- [$children](#GUI#$children) : HTMLElement
-	- [$title](#GUI#$title) : HTMLElement
-	- [_closed](#GUI#_closed) : boolean
-	- [_title](#GUI#_title) : string
+	- [children](#GUI#children) 
+	- [domElement](#GUI#domElement) 
+	- [parent](#GUI#parent) 
+	- [root](#GUI#root) 
+	- [$children](#GUI#$children) 
+	- [$title](#GUI#$title) 
+	- [_closed](#GUI#_closed) 
+	- [_title](#GUI#_title) 
 
 ## Controller
 
@@ -31,43 +31,23 @@
 	- [**destroy**()](#Controller#destroy) 
 	- [**disable**()](#Controller#disable) → self
 	- [**enable**()](#Controller#enable) → self
+	- [**max**(…)](#Controller#max) → self
+	- [**min**(…)](#Controller#min) → self
 	- [**name**(…)](#Controller#name) → self
 	- [**onChange**(…)](#Controller#onChange) → self
 	- [**options**(…)](#Controller#options) 
+	- [**step**(…)](#Controller#step) → self
 	- [**updateDisplay**()](#Controller#updateDisplay) → self
 - Properties
-	- [domElement](#Controller#domElement) : HTMLElement
-	- [object](#Controller#object) : Object
-	- [parent](#Controller#parent) : GUI
-	- [property](#Controller#property) : string
-	- [$name](#Controller#$name) : HTMLElement
-	- [$widget](#Controller#$widget) : HTMLElement
-	- [_disabled](#Controller#_disabled) : boolean
-	- [_name](#Controller#_name) : string
-	- [_onChange](#Controller#_onChange) : function
-
-## NumberController
-
-- Constructor
-- Methods
-	- [**destroy**](#NumberController#destroy) 
-	- [**disable**](#NumberController#disable) → self
-	- [**enable**](#NumberController#enable) → self
-	- [**min**(…)](#NumberController#min) 
-	- [**name**(…)](#NumberController#name) → self
-	- [**onChange**(…)](#NumberController#onChange) → self
-	- [**options**(…)](#NumberController#options) 
-	- [**updateDisplay**()](#NumberController#updateDisplay) 
-- Properties
-	- [domElement](#NumberController#domElement) : HTMLElement
-	- [object](#NumberController#object) : Object
-	- [parent](#NumberController#parent) : GUI
-	- [property](#NumberController#property) : string
-	- [$name](#NumberController#$name) : HTMLElement
-	- [$widget](#NumberController#$widget) : HTMLElement
-	- [_disabled](#NumberController#_disabled) : boolean
-	- [_name](#NumberController#_name) : string
-	- [_onChange](#NumberController#_onChange) : function
+	- [domElement](#Controller#domElement) 
+	- [object](#Controller#object) 
+	- [parent](#Controller#parent) 
+	- [property](#Controller#property) 
+	- [$name](#Controller#$name) 
+	- [$widget](#Controller#$widget) 
+	- [_disabled](#Controller#_disabled) 
+	- [_name](#Controller#_name) 
+	- [_onChange](#Controller#_onChange) 
 
 # GUI
 
@@ -107,29 +87,30 @@ gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 - object
 - property
 
-### <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L228) gui.**addFolder**( title ) → GUI
+### <a name="GUI#addFolder" href="#GUI#addFolder"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L219) gui.**addFolder**( title ) → GUI
 
  
 
 **Parameters**
 - title
 
-### <a name="GUI#addHeader" href="#GUI#addHeader"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L219) gui.**addHeader**( name ) → Header
+### <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L256) gui.**close**() → self
+
+ 
+
+### <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L265) gui.**destroy**() 
+
+ 
+
+### <a name="GUI#forEachController" href="#GUI#forEachController"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L286) gui.**forEachController**( callback, [recursive] ) 
 
  
 
 **Parameters**
-- name
+- callback
+- recursive
 
-### <a name="GUI#close" href="#GUI#close"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L265) gui.**close**() → self
-
- 
-
-### <a name="GUI#destroy" href="#GUI#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L274) gui.**destroy**() 
-
- 
-
-### <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L256) gui.**open**( [open] ) → self
+### <a name="GUI#open" href="#GUI#open"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L247) gui.**open**( [open] ) → self
 
 Opens or closes a GUI or folder. 
 
@@ -142,7 +123,7 @@ folder.open( false ); // closed
 folder.open( folder._closed ); // toggle
 ```
 
-### <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L237) gui.**title**( title ) → self
+### <a name="GUI#title" href="#GUI#title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L228) gui.**title**( title ) → self
 
  
 
@@ -151,35 +132,35 @@ folder.open( folder._closed ); // toggle
 
 ## Properties
 
-### <a name="GUI#children" href="#GUI#children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L51) gui.**children** : Array
+### <a name="GUI#children" href="#GUI#children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L51) gui.**children** 
 
 TODO 
 
-### <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L62) gui.**domElement** : HTMLElement
+### <a name="GUI#domElement" href="#GUI#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L62) gui.**domElement** 
 
 The outermost container `div`. 
 
-### <a name="GUI#parent" href="#GUI#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L39) gui.**parent** : GUI
+### <a name="GUI#parent" href="#GUI#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L39) gui.**parent** 
 
-description short 
+desc 
 
-### <a name="GUI#root" href="#GUI#root"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L45) gui.**root** : GUI
+### <a name="GUI#root" href="#GUI#root"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L45) gui.**root** 
 
 Reference to the outermost folder, or `this` for the root GUI. 
 
-### <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L81) gui.**$children** : HTMLElement
+### <a name="GUI#$children" href="#GUI#$children"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L81) gui.**$children** 
 
  
 
-### <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L68) gui.**$title** : HTMLElement
+### <a name="GUI#$title" href="#GUI#$title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L68) gui.**$title** 
 
  
 
-### <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L56) gui.**_closed** : boolean
+### <a name="GUI#_closed" href="#GUI#_closed"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L56) gui.**_closed** 
 
  
 
-### <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L241) gui.**_title** : string
+### <a name="GUI#_title" href="#GUI#_title"></a> [#](https://github.com/georgealways/gui/blob/master/src/GUI.js#L232) gui.**_title** 
 
  
 
@@ -191,7 +172,7 @@ Classdesc? Where are you getting this intel. who told you.
 
 ## Methods
 
-### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L151) controller.**destroy**() 
+### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L152) controller.**destroy**() 
 
 Destroys this controller and removes it from the parent GUI. 
 
@@ -207,13 +188,27 @@ gui.children.forEach( c => c.destroy() );
 Array.from( gui.children ).forEach( c => c.destroy() );
 ```
 
-### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L131) controller.**disable**() → self
+### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L132) controller.**disable**() → self
 
 Disables this controller. 
 
-### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L120) controller.**enable**() → self
+### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L121) controller.**enable**() → self
 
 Enables this controller. 
+
+### <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L197) controller.**max**( max ) → self
+
+Sets the maximum value. Only works on number controllers. 
+
+**Parameters**
+- max
+
+### <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L186) controller.**min**( min ) → self
+
+Sets the minimum value. Only works on number controllers. 
+
+**Parameters**
+- min
 
 ### <a name="Controller#name" href="#Controller#name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L67) controller.**name**( name ) → self
 
@@ -235,14 +230,22 @@ gui.add( object, 'property' ).onChange( v => {
 } );
 ```
 
-### <a name="Controller#options" href="#Controller#options"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L103) controller.**options**( options ) 
+### <a name="Controller#options" href="#Controller#options"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L104) controller.**options**( options, newController ) 
 
 I'm not sure if I'm keeping this. 
 
 **Parameters**
 - options
+- newController
 
-### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L214) controller.**updateDisplay**() → self
+### <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L208) controller.**step**( step ) → self
+
+Sets the step. Only works on number controllers. 
+
+**Parameters**
+- step
+
+### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L218) controller.**updateDisplay**() → self
 
 Updates the display to keep it in sync with the current value of 
 `this.object[ this.property ]`. Useful for updating your controllers if 
@@ -250,145 +253,39 @@ their values have been modified outside of the GUI.
 
 ## Properties
 
-### <a name="Controller#domElement" href="#Controller#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L35) controller.**domElement** : HTMLElement
+### <a name="Controller#domElement" href="#Controller#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L35) controller.**domElement** 
 
  
 
-### <a name="Controller#object" href="#Controller#object"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L20) controller.**object** : Object
+### <a name="Controller#object" href="#Controller#object"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L20) controller.**object** 
 
  
 
-### <a name="Controller#parent" href="#Controller#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L15) controller.**parent** : GUI
+### <a name="Controller#parent" href="#Controller#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L15) controller.**parent** 
 
  
 
-### <a name="Controller#property" href="#Controller#property"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L25) controller.**property** : string
+### <a name="Controller#property" href="#Controller#property"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L25) controller.**property** 
 
  
 
-### <a name="Controller#$name" href="#Controller#$name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L42) controller.**$name** : HTMLElement
+### <a name="Controller#$name" href="#Controller#$name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L42) controller.**$name** 
 
  
 
-### <a name="Controller#$widget" href="#Controller#$widget"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L48) controller.**$widget** : HTMLElement
+### <a name="Controller#$widget" href="#Controller#$widget"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L48) controller.**$widget** 
 
  
 
-### <a name="Controller#_disabled" href="#Controller#_disabled"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L30) controller.**_disabled** : boolean
+### <a name="Controller#_disabled" href="#Controller#_disabled"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L30) controller.**_disabled** 
 
  
 
-### <a name="Controller#_name" href="#Controller#_name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L71) controller.**_name** : string
+### <a name="Controller#_name" href="#Controller#_name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L71) controller.**_name** 
 
  
 
-### <a name="Controller#_onChange" href="#Controller#_onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L90) controller.**_onChange** : function
-
- 
-
-# NumberController
-
-## Constructor
-
-## Methods
-
-### <a name="NumberController#destroy" href="#NumberController#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L151) numbercontroller.**destroy** 
-
-Destroys this controller and removes it from the parent GUI. 
-
-```js
-const controller = gui.add( object, 'property' );
-controller.destroy();
-```
-```js
-// Won't destroy all the controllers because c.destroy() modifies gui.children
-gui.children.forEach( c => c.destroy() );
-
-// Make a copy of the array first if you actually want to do that
-Array.from( gui.children ).forEach( c => c.destroy() );
-```
-
-### <a name="NumberController#disable" href="#NumberController#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L131) numbercontroller.**disable** → self
-
-Disables this controller. 
-
-### <a name="NumberController#enable" href="#NumberController#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L120) numbercontroller.**enable** → self
-
-Enables this controller. 
-
-### <a name="NumberController#min" href="#NumberController#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/NumberController.js#L274) numbercontroller.**min**( min ) 
-
-I'm new. 
-
-**Parameters**
-- min
-
-### <a name="NumberController#name" href="#NumberController#name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L67) numbercontroller.**name**( name ) → self
-
- 
-
-**Parameters**
-- name
-
-### <a name="NumberController#onChange" href="#NumberController#onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L86) numbercontroller.**onChange**( callback ) → self
-
- 
-
-**Parameters**
-- callback
-
-```js
-gui.add( object, 'property' ).onChange( v => {
-	console.log( 'The value is now ' + v );
-} );
-```
-
-### <a name="NumberController#options" href="#NumberController#options"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L103) numbercontroller.**options**( options ) 
-
-I'm not sure if I'm keeping this. 
-
-**Parameters**
-- options
-
-### <a name="NumberController#updateDisplay" href="#NumberController#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/NumberController.js#L37) numbercontroller.**updateDisplay**() 
-
-I'm technically an override. 
-
-## Properties
-
-### <a name="NumberController#domElement" href="#NumberController#domElement"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L35) numbercontroller.**domElement** : HTMLElement
-
- 
-
-### <a name="NumberController#object" href="#NumberController#object"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L20) numbercontroller.**object** : Object
-
- 
-
-### <a name="NumberController#parent" href="#NumberController#parent"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L15) numbercontroller.**parent** : GUI
-
- 
-
-### <a name="NumberController#property" href="#NumberController#property"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L25) numbercontroller.**property** : string
-
- 
-
-### <a name="NumberController#$name" href="#NumberController#$name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L42) numbercontroller.**$name** : HTMLElement
-
- 
-
-### <a name="NumberController#$widget" href="#NumberController#$widget"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L48) numbercontroller.**$widget** : HTMLElement
-
- 
-
-### <a name="NumberController#_disabled" href="#NumberController#_disabled"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L30) numbercontroller.**_disabled** : boolean
-
- 
-
-### <a name="NumberController#_name" href="#NumberController#_name"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L71) numbercontroller.**_name** : string
-
- 
-
-### <a name="NumberController#_onChange" href="#NumberController#_onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L90) numbercontroller.**_onChange** : function
+### <a name="Controller#_onChange" href="#Controller#_onChange"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L90) controller.**_onChange** 
 
  
 

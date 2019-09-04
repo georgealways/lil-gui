@@ -98,7 +98,8 @@ export default class Controller {
 
 	/**
 	 * I'm not sure if I'm keeping this.
-	 * @param {*} options 
+	 * @param {*} options
+	 * @param {Controller} newController
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -175,35 +176,38 @@ export default class Controller {
 		return this.object[ this.property ];
 	}
 
-	// /**
-	//  * Sets the minimum value. Only works on number controllers.
-	//  * @param {number} min
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// min( min ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the minimum value. Only works on number controllers.
+	 * @param {number} min
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	min( min ) {
+		return this;
+	}
 
-	// /**
-	//  * Sets the maximum value. Only works on number controllers.
-	//  * @param {number} max
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// max( max ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the maximum value. Only works on number controllers.
+	 * @param {number} max
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	max( max ) {
+		return this;
+	}
 
-	// /**
-	//  * Sets the step. Only works on number controllers.
-	//  * @param {number} step
-	//  * @returns {Controller} self
-	//  * @chainable
-	//  */
-	// step( step ) {
-	// 	return this;
-	// }
+	/**
+	 * Sets the step. Only works on number controllers.
+	 * @param {number} step
+	 * @returns {Controller} self
+	 * @chainable
+	 */
+	// eslint-disable-next-line no-unused-vars
+	step( step ) {
+		return this;
+	}
 
 	/**
 	 * Updates the display to keep it in sync with the current value of 

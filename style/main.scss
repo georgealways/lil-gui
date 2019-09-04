@@ -49,6 +49,13 @@
 		margin: 0;
 	}
 
+	&.root {
+		width: var(--width);
+		> .title {
+			background: var(--title-background-color);
+		}
+	}
+
 	// Custom properties
 	// -------------------------------------------------------------------------
 
@@ -87,22 +94,15 @@
 		)
 	);
 
-	// Folders, titles, headers
+	// Titles & Folders
 	// -------------------------------------------------------------------------
-
-	&.root {
-		width: var(--width);
-		> .title {
-			background: var(--title-background-color);
-		}
-	}
 
 	.title {
 		height: var(--row-height);
 		padding: 0 var(--padding);
 		font-weight: bold;
 		
-		// only for addFolder('', false).
+		// only for addFolder('', false). :-\
 		display: flex;
 		align-items: center;
 
@@ -134,16 +134,9 @@
 		border-left: 2px solid var(--widget-color);
 	}
 
-	.header {
-		height: var(--row-height);
-		padding: 0 var(--padding);
-		font-weight: bold;
-		display: flex;
-		align-items: center;
-	}
-
-	.header,
 	& &:not(.collapses) > .title {
+		// border-bottom: 1px solid var(--widget-color);
+		// ... it was too close to the next controller
 		position: relative;
 		&:after {
 			content: ' ';
@@ -157,15 +150,15 @@
 		}
 	}
 
-	// &.collapses > .children:empty:before { 
-	// 	content: 'Empty';
-	// 	padding: 0 var(--padding);
-	// 	display: block;
-	// 	height: var(--row-height);
-	// 	font-style: italic;
-	// 	line-height: var(--row-height);
-	// 	color: var(--highlight-color);
-	// }
+	&.collapses > .children:empty:before { 
+		content: 'Empty';
+		padding: 0 var(--padding);
+		display: block;
+		height: var(--row-height);
+		font-style: italic;
+		line-height: var(--row-height);
+		color: var(--widget-color);
+	}
 
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
