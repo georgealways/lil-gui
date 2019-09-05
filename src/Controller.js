@@ -3,7 +3,7 @@
  */
 
 /**
- * 
+ *
  */
 export default class Controller {
 
@@ -28,6 +28,11 @@ export default class Controller {
 		 * @type {boolean}
 		 */
 		this._disabled = false;
+
+		/**
+		 *
+		 */
+		this.initialValue = this.getValue();
 
 		/**
 		 * @type {HTMLElement}
@@ -59,10 +64,10 @@ export default class Controller {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param {string} name
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 */
 	name( name ) {
 		/**
@@ -74,10 +79,10 @@ export default class Controller {
 	}
 
 	/**
-	 * 
-	 * @param {function} callback 
+	 *
+	 * @param {function} callback
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -91,8 +96,10 @@ export default class Controller {
 		return this;
 	}
 
-	onFinishChange( fnc ) {
-		this._onFinishChange = fnc;
+	onFinishChange( callback ) {
+		// eslint-disable-next-line no-console
+		console.warn( 'onFinishChange() is synonymous with onChange()' );
+		this._onChange = callback;
 		return this;
 	}
 
@@ -108,10 +115,15 @@ export default class Controller {
 		return controller;
 	}
 
+	/**
+	 *
+	 * @param {*} value
+	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
 		this._callOnChange();
 		this.updateDisplay();
+		return this;
 	}
 
 	_callOnChange() {
@@ -121,13 +133,21 @@ export default class Controller {
 	}
 
 	/**
+	 *
+	 */
+	reset() {
+		this.setValue( this.initialValue );
+		return this;
+	}
+
+	/**
 	 * Enables this controller.
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 */
-	enable() {
-		this._disabled = false;
-		this.domElement.classList.remove( 'disabled' );
+	enable( enabled = true ) {
+		this._disabled = !enabled;
+		this.domElement.classList.toggle( 'disabled', this._disabled );
 		return this;
 	}
 
@@ -144,15 +164,15 @@ export default class Controller {
 
 	/**
 	 * Destroys this controller and removes it from the parent GUI.
-	 * 
-	 * @example 
+	 *
+	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 * controller.destroy();
-	 * 
+	 *
 	 * @example
 	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
 	 * gui.forEachControler( c => c.destroy() );
-	 * 
+	 *
 	 * // Make a copy of the array first if you actually want to do that
 	 * Array.from( gui.children ).forEach( c => c.destroy() );
 	 */
@@ -161,6 +181,9 @@ export default class Controller {
 		this.parent.$children.removeChild( this.domElement );
 	}
 
+	/**
+	 *
+	 */
 	getValue() {
 		return this.object[ this.property ];
 	}
@@ -199,8 +222,8 @@ export default class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with the current value of 
-	 * `this.object[ this.property ]`. Useful for updating your controllers if 
+	 * Updates the display to keep it in sync with the current value of
+	 * `this.object[ this.property ]`. Useful for updating your controllers if
 	 * their values have been modified outside of the GUI.
 	 * @chainable
 	 */
@@ -210,7 +233,7 @@ export default class Controller {
 
 	listen() {
 		// eslint-disable-next-line no-console
-		console.warn( 'fyi, listen() doesn\'t do anything right now' );
+		console.warn( 'listen() is currently unimplemented' );
 		return this;
 	}
 

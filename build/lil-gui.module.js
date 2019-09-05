@@ -3,7 +3,7 @@
  */
 
 /**
- * 
+ *
  */
 class Controller {
 
@@ -28,6 +28,11 @@ class Controller {
 		 * @type {boolean}
 		 */
 		this._disabled = false;
+
+		/**
+		 *
+		 */
+		this.initialValue = this.getValue();
 
 		/**
 		 * @type {HTMLElement}
@@ -59,10 +64,10 @@ class Controller {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param {string} name
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 */
 	name( name ) {
 		/**
@@ -74,10 +79,10 @@ class Controller {
 	}
 
 	/**
-	 * 
-	 * @param {function} callback 
+	 *
+	 * @param {function} callback
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -91,8 +96,10 @@ class Controller {
 		return this;
 	}
 
-	onFinishChange( fnc ) {
-		this._onFinishChange = fnc;
+	onFinishChange( callback ) {
+		// eslint-disable-next-line no-console
+		console.warn( 'onFinishChange() is synonymous with onChange()' );
+		this._onChange = callback;
 		return this;
 	}
 
@@ -108,10 +115,15 @@ class Controller {
 		return controller;
 	}
 
+	/**
+	 *
+	 * @param {*} value
+	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
 		this._callOnChange();
 		this.updateDisplay();
+		return this;
 	}
 
 	_callOnChange() {
@@ -121,13 +133,21 @@ class Controller {
 	}
 
 	/**
+	 *
+	 */
+	reset() {
+		this.setValue( this.initialValue );
+		return this;
+	}
+
+	/**
 	 * Enables this controller.
 	 * @returns {Controller} self
-	 * @chainable 
+	 * @chainable
 	 */
-	enable() {
-		this._disabled = false;
-		this.domElement.classList.remove( 'disabled' );
+	enable( enabled = true ) {
+		this._disabled = !enabled;
+		this.domElement.classList.toggle( 'disabled', this._disabled );
 		return this;
 	}
 
@@ -144,15 +164,15 @@ class Controller {
 
 	/**
 	 * Destroys this controller and removes it from the parent GUI.
-	 * 
-	 * @example 
+	 *
+	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 * controller.destroy();
-	 * 
+	 *
 	 * @example
 	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
 	 * gui.forEachControler( c => c.destroy() );
-	 * 
+	 *
 	 * // Make a copy of the array first if you actually want to do that
 	 * Array.from( gui.children ).forEach( c => c.destroy() );
 	 */
@@ -161,6 +181,9 @@ class Controller {
 		this.parent.$children.removeChild( this.domElement );
 	}
 
+	/**
+	 *
+	 */
 	getValue() {
 		return this.object[ this.property ];
 	}
@@ -199,8 +222,8 @@ class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with the current value of 
-	 * `this.object[ this.property ]`. Useful for updating your controllers if 
+	 * Updates the display to keep it in sync with the current value of
+	 * `this.object[ this.property ]`. Useful for updating your controllers if
 	 * their values have been modified outside of the GUI.
 	 * @chainable
 	 */
@@ -210,7 +233,7 @@ class Controller {
 
 	listen() {
 		// eslint-disable-next-line no-console
-		console.warn( 'fyi, listen() doesn\'t do anything right now' );
+		console.warn( 'listen() is currently unimplemented' );
 		return this;
 	}
 
@@ -445,19 +468,17 @@ class NumberController extends Controller {
 
 		};
 
-		const keyMultiplier = e => e.shiftKey ? 100 : e.altKey ? 1 : 10;
-
 		const onKeyDown = e => {
 			if ( e.keyCode === 13 ) {
 				this.$input.blur();
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this._step * keyMultiplier( e ) );
+				increment( this._step * this._arrowKeyMultiplier( e ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this._step * keyMultiplier( e ) );
+				increment( -1 * this._step * this._arrowKeyMultiplier( e ) );
 			}
 		};
 
@@ -547,11 +568,11 @@ class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// 2019: Android seems to take care of this automatically. 
+			// 2019: Android seems to take care of this automatically.
 			// I'd like to remove this test if iOS ever decided to do the same.
 
-			// If we're in a scrollable container, we should wait for 
-			// the first touchmove to see if the user is trying to move 
+			// If we're in a scrollable container, we should wait for
+			// the first touchmove to see if the user is trying to move
 			// horizontally or vertically.
 			if ( this._hasScrollBar ) {
 
@@ -621,9 +642,7 @@ class NumberController extends Controller {
 
 			e.preventDefault();
 
-			const keyMultiplier = e.altKey ? 0.1 : 1;
-
-			const delta = this._normalizeMouseWheel( e ) * this._step * keyMultiplier;
+			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
 		};
@@ -660,25 +679,12 @@ class NumberController extends Controller {
 
 	}
 
-	get _hasScrollBar() {
-		const root = this.parent.root.$children;
-		return root.scrollHeight > root.clientHeight;
-	}
-
-	get _hasMin() {
-		return this._min !== undefined;
-	}
-
-	get _hasMax() {
-		return this._max !== undefined;
-	}
-
 	_normalizeMouseWheel( e ) {
 
 		let { deltaX, deltaY } = e;
 
-		// 2019: Safari and Chrome report weird non-integral values for an actual 
-		// mouse with a wheel connected to a macbook, but still expose actual 
+		// 2019: Safari and Chrome report weird non-integral values for an actual
+		// mouse with a wheel connected to a macbook, but still expose actual
 		// lines scrolled via wheelDelta.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
@@ -691,12 +697,25 @@ class NumberController extends Controller {
 
 	}
 
+	_arrowKeyMultiplier( e ) {
+
+		if ( this._stepExplicit ) {
+			return e.shiftKey ? 10 : 1;
+		} else if ( e.shiftKey ) {
+			return 100;
+		} else if ( e.altKey ) {
+			return 1;
+		}
+		return 10;
+
+	}
+
 	_snap( value ) {
 
 		// This would be the logical way to do things, but floating point errors.
 		// return Math.round( value / this._step ) * this._step;
 
-		// Using inverse step solves a lot of them, but not all 
+		// Using inverse step solves a lot of them, but not all
 		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
@@ -714,6 +733,19 @@ class NumberController extends Controller {
 
 	_snapClampSetValue( value ) {
 		this.setValue( this._clamp( this._snap( value ) ) );
+	}
+
+	get _hasScrollBar() {
+		const root = this.parent.root.$children;
+		return root.scrollHeight > root.clientHeight;
+	}
+
+	get _hasMin() {
+		return this._min !== undefined;
+	}
+
+	get _hasMax() {
+		return this._max !== undefined;
 	}
 
 }
@@ -798,9 +830,18 @@ class StringController extends Controller {
 
 }
 
-function injectStyles( cssContent ) {
+var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAASkAAsAAAAABzgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAALIAAAD0z0XwmmhlYWQAAAK0AAAAJwAAADZfcj24aGhlYQAAAtwAAAAYAAAAJAC5AGtobXR4AAAC9AAAAA4AAAAYAfQAAGxvY2EAAAMEAAAADgAAAA4A1gCUbWF4cAAAAxQAAAAeAAAAIAESAB5uYW1lAAADNAAAASIAAAIK9SUU/XBvc3QAAARYAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nD2PYQrCMAyFk3RWijB1dO1WGMKEDZkgjLKCILuA+yEOvP9NTCcuEHgveR8kQBDrCTMQbABGtPm2LWPdnTs4F7e4ZF7whh1AaBtZoTYjDn7qhJSiE8GhSPpEoCO55j184Mj5uvEjto0f+hMavUdpSJDWJBIqEAuqWLBluqCE+88/+KqFv+EPDkO/8DVRHuksY4gMXtmyYMvDfOVnmOJHoQ022ItVaa1Ko9Kz+gIOtBCUAAB4nGNgZGBgAGKmPQF28fw2Xxm4GVIYsIEQhnAgycHABOIAAJJkBBIAeJxjYGRgYEhhYICTIQyMDKiADQAcegEleJxjYACCFEwMABWUAfUAAAAAAAAAEgAqAEoAagB6AAB4nGNgZGBgYGMQYmBiAAEQyQWEDAz/wXwGAArcATEAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HQQ5AMBAF0PloNRFHcaqZaYhmpini+hYsvd2jjl6gfxEdegwIiBgpSfMqflvKl/G5uc3Zi2hbuPihMn3zqhZ4Vd6JHgdmEqcA\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width: 250px;--scrollbar-width: 5px;--mobile-max-height: 200px;--background-color:#1f1f1f;--text-color:#eee;--title-background-color:#111;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--widget-padding:0 0 0 3px;--widget-border-radius:2px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .lil-gui{--background-color:inherit;--text-color:inherit;--title-background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--widget-padding:inherit;--widget-border-radius:inherit}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .title:before{font-family:\"lil-gui\";align-self:flex-end;width:1em;margin-left:-0.18em}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--padding);border-left:2px solid var(--widget-color)}.lil-gui .lil-gui:not(.collapses)>.title{position:relative}.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.collapses>.children:empty:before{content:\"Empty\";padding:0 var(--padding);display:block;height:var(--row-height);font-style:italic;line-height:var(--row-height);color:var(--widget-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}.lil-gui.bigSlider .hasSlider,.lil-gui .bigSlider.hasSlider{position:relative}.lil-gui.bigSlider .hasSlider .name,.lil-gui .bigSlider.hasSlider .name{position:absolute;pointer-events:none;width:auto;z-index:1;padding-left:var(--padding)}.lil-gui.bigSlider .hasSlider input,.lil-gui .bigSlider.hasSlider input{width:18%}\n";
+
+/**
+ * @module GUI
+ */
+
+let stylesInjected = false;
+
+function inject( cssContent ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
+	// inject as the first (lowest priority) style sheet so you can override
 	const before = document.querySelector( 'head link[rel=stylesheet], head style' );
 	if ( before ) {
 		document.head.insertBefore( injected, before );
@@ -809,35 +850,36 @@ function injectStyles( cssContent ) {
 	}
 }
 
-var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAASkAAsAAAAABzgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAALIAAAD0z0XwmmhlYWQAAAK0AAAAJwAAADZfcj24aGhlYQAAAtwAAAAYAAAAJAC5AGtobXR4AAAC9AAAAA4AAAAYAfQAAGxvY2EAAAMEAAAADgAAAA4A1gCUbWF4cAAAAxQAAAAeAAAAIAESAB5uYW1lAAADNAAAASIAAAIK9SUU/XBvc3QAAARYAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nD2PYQrCMAyFk3RWijB1dO1WGMKEDZkgjLKCILuA+yEOvP9NTCcuEHgveR8kQBDrCTMQbABGtPm2LWPdnTs4F7e4ZF7whh1AaBtZoTYjDn7qhJSiE8GhSPpEoCO55j184Mj5uvEjto0f+hMavUdpSJDWJBIqEAuqWLBluqCE+88/+KqFv+EPDkO/8DVRHuksY4gMXtmyYMvDfOVnmOJHoQ022ItVaa1Ko9Kz+gIOtBCUAAB4nGNgZGBgAGKmPQF28fw2Xxm4GVIYsIEQhnAgycHABOIAAJJkBBIAeJxjYGRgYEhhYICTIQyMDKiADQAcegEleJxjYACCFEwMABWUAfUAAAAAAAAAEgAqAEoAagB6AAB4nGNgZGBgYGMQYmBiAAEQyQWEDAz/wXwGAArcATEAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HQQ5AMBAF0PloNRFHcaqZaYhmpini+hYsvd2jjl6gfxEdegwIiBgpSfMqflvKl/G5uc3Zi2hbuPihMn3zqhZ4Vd6JHgdmEqcA\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width:250px;--text-color:#eee;--background-color:#1f1f1f;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--title-background-color:#111;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--widget-padding:0 0 0 3px;--widget-border-radius:2px;--scrollbar-width:5px;--mobile-max-height:200px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .lil-gui{--width:inherit;--text-color:inherit;--background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--title-background-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--widget-padding:inherit;--widget-border-radius:inherit;--scrollbar-width:inherit;--mobile-max-height:inherit}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .title:before{font-family:\"lil-gui\";align-self:flex-end;width:1em;margin-left:-0.18em}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--padding);border-left:2px solid var(--widget-color)}.lil-gui .lil-gui:not(.collapses)>.title{position:relative}.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.collapses>.children:empty:before{content:\"Empty\";padding:0 var(--padding);display:block;height:var(--row-height);font-style:italic;line-height:var(--row-height);color:var(--widget-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}.lil-gui.bigSlider .hasSlider,.lil-gui .bigSlider.hasSlider{position:relative}.lil-gui.bigSlider .hasSlider .name,.lil-gui .bigSlider.hasSlider .name{position:absolute;pointer-events:none;width:auto;z-index:1;padding-left:var(--padding)}.lil-gui.bigSlider .hasSlider input,.lil-gui .bigSlider.hasSlider input{width:18%}\n";
-
 /**
- * @module GUI
+ * @typedef GUIOptions
+ * @property {GUI} [parent]
+ * @property {boolean} [autoPlace=true]
+ * @property {boolean} [injectStyles=true]
+ * @property {string} [title='Controls']
+ * @property {number} [width=250]
+ * @property {number} [mobileMaxHeight=200]
+ * @property {boolean} [collapses=true]
  */
-injectStyles( styles );
 
-/**
- * Class description
- */
 class GUI {
 
 	/**
-	 * 
-	 * @param {Object=} options
-	 * @param {GUI=} options.parent
+	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
+		injectStyles = autoPlace,
 		title = 'Controls',
 		width = 250,
 		mobileMaxHeight = 200,
 		collapses = true
 	} = {} ) {
 
-		/** 
-		 * desc
-		 * @type {GUI} */
+		/**
+		 *
+		 * @type {GUI}
+		 * */
 		this.parent = parent;
 
 		/**
@@ -898,6 +940,11 @@ class GUI {
 
 		}
 
+		if ( !stylesInjected && injectStyles ) {
+			inject( styles );
+			stylesInjected = true;
+		}
+
 		if ( autoPlace ) {
 
 			this.domElement.classList.add( 'autoPlace' );
@@ -909,55 +956,58 @@ class GUI {
 			window.addEventListener( 'resize', this._onResize );
 			this._onResize();
 
-			this.mobileMaxHeight = mobileMaxHeight;
+			// resizeable mobile
+			{
+				this.mobileMaxHeight = mobileMaxHeight;
 
-			let prevClientY;
+				let prevClientY;
 
-			const onTouchStart = e => {
-				if ( e.touches.length > 1 ) return;
-				prevClientY = e.touches[ 0 ].clientY;
-				window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
-				window.addEventListener( 'touchend', onTouchEnd );
-			};
+				const onTouchStart = e => {
+					if ( e.touches.length > 1 ) return;
+					prevClientY = e.touches[ 0 ].clientY;
+					window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+					window.addEventListener( 'touchend', onTouchEnd );
+				};
 
-			const onTouchMove = e => {
-				e.preventDefault();
-				const deltaY = e.touches[ 0 ].clientY - prevClientY;
-				prevClientY = e.touches[ 0 ].clientY;
-				this.mobileMaxHeight -= deltaY;
-			};
+				const onTouchMove = e => {
+					e.preventDefault();
+					const deltaY = e.touches[ 0 ].clientY - prevClientY;
+					prevClientY = e.touches[ 0 ].clientY;
+					this.mobileMaxHeight -= deltaY;
+				};
 
-			const onTouchEnd = () => {
-				window.removeEventListener( 'touchmove', onTouchMove );
-				window.removeEventListener( 'touchend', onTouchEnd );
-			};
+				const onTouchEnd = () => {
+					window.removeEventListener( 'touchmove', onTouchMove );
+					window.removeEventListener( 'touchend', onTouchEnd );
+				};
 
-			this.$title.addEventListener( 'touchstart', onTouchStart );
+				this.$title.addEventListener( 'touchstart', onTouchStart );
+			}
 
 			document.body.appendChild( this.domElement );
 
 		}
 
-		this.title( title );
+		this.title = title;
 
 	}
 
 	/**
-	 * Adds a controller. 
-	 * 
-	 * @param {*} object 
-	 * @param {string} property 
-	 * @param {*=} $1
-	 * @param {*=} max 
-	 * @param {*=} step 
+	 * Adds a controller.
+	 *
+	 * @param {*} object
+	 * @param {string} property
+	 * @param {*} [$1]
+	 * @param {*} [max]
+	 * @param {*} [step]
 	 * @returns {Controller}
-	 * 
-	 * @example 
+	 *
+	 * @example
 	 * gui.add( { myBoolean: false }, 'myBoolean' );
-	 * 
+	 *
 	 * @example
 	 * gui.add( { myNumber: 0 }, 'myNumber', 0, 100, 1 );
-	 * 
+	 *
 	 * @example
 	 * gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 	 * gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
@@ -1001,9 +1051,9 @@ class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {*} object 
-	 * @param {string} property 
+	 *
+	 * @param {*} object
+	 * @param {string} property
 	 * @returns {Controller}
 	 */
 	addColor( object, property ) {
@@ -1011,8 +1061,8 @@ class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {string} title 
+	 *
+	 * @param {string} title
 	 * @returns {GUI}
 	 */
 	addFolder( title, collapses = true ) {
@@ -1020,22 +1070,8 @@ class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {string} title 
-	 * @chainable
-	 */
-	title( title ) {
-		/**
-		 * @type {string}
-		 */
-		this._title = title;
-		this.$title.innerHTML = title;
-		return this;
-	}
-
-	/**
 	 * Opens or closes a GUI or folder.
-	 * 
+	 *
 	 * @param {boolean=} open Pass false to close
 	 * @chainable
 	 * @example
@@ -1059,7 +1095,7 @@ class GUI {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	destroy() {
 
@@ -1078,9 +1114,9 @@ class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {function} callback 
-	 * @param {boolean=} recursive 
+	 *
+	 * @param {function} callback
+	 * @param {boolean=} recursive
 	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {
@@ -1090,6 +1126,15 @@ class GUI {
 				c.forEachController( callback, true );
 			}
 		} );
+	}
+
+	get title() {
+		return this._title;
+	}
+
+	set title( title ) {
+		this._title = title;
+		this.$title.innerHTML = title;
 	}
 
 	get mobileMaxHeight() {

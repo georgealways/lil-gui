@@ -59,16 +59,19 @@
 	// Custom properties
 	// -------------------------------------------------------------------------
 
+	--width: 250px;
+	--scrollbar-width: 5px;
+	--mobile-max-height: 200px;
+
 	@include vars(
 		(
-			--width: 250px,
-			--text-color: #eee,
 			--background-color: #1f1f1f,
+			--text-color: #eee,
+			--title-background-color: #111,
 			--widget-color: #424242,
 			--highlight-color: #525151,
 			--number-color: #00adff,
 			--string-color: #1ed36f,
-			--title-background-color: #111,
 			--font-size: 11px,
 			--font-family: (
 				-apple-system,
@@ -88,9 +91,7 @@
 			--widget-height: 20px,
 			--padding: 6px,
 			--widget-padding: 0 0 0 3px,
-			--widget-border-radius: 2px,
-			--scrollbar-width: 5px,
-			--mobile-max-height: 200px
+			--widget-border-radius: 2px
 		)
 	);
 

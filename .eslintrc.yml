@@ -23,7 +23,7 @@ rules:
   no-console: warn
   no-extra-semi: warn
   no-multiple-empty-lines: [ warn, { max: 1, maxEOF: 1 } ]
-  no-trailing-spaces: [ warn, { ignoreComments: true } ]
+  no-trailing-spaces: [ warn ]
   no-unused-vars: warn
   no-var: warn
   no-whitespace-before-property: warn

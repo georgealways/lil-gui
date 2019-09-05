@@ -28,6 +28,39 @@ test( unit => {
 
 	} );
 
+	unit( 'number', () => {
+
+		const gui = new GUI();
+		const controller1 = gui.add( { x: 0 }, 'x' );
+		const controller2 = gui.add( { x: 0 }, 'x', 0 );
+
+		assert.strictEqual( controller1.$slider, undefined, 'no sliders without range' );
+		assert.strictEqual( controller2.$slider, undefined, 'no sliders without range' );
+
+	} );
+
+	unit( 'color', () => {
+
+		const gui = new GUI();
+
+		// 122 / 255, 38 / 255, 171 / 255
+		const obj = {
+			r: 0.47843137254901963,
+			g: 0.14901960784313725,
+			b: 0.6705882352941176
+		};
+
+		const arr = [ obj.r, obj.g, obj.b ];
+		const int = 0x7a26ab;
+		const string = '#7a26ab';
+
+		assert.strictEqual( gui.addColor( { obj }, 'obj' ).$input.value, string );
+		assert.strictEqual( gui.addColor( { arr }, 'arr' ).$input.value, string );
+		assert.strictEqual( gui.addColor( { int }, 'int' ).$input.value, string );
+		assert.strictEqual( gui.addColor( { string }, 'string' ).$input.value, string );
+
+	} );
+
 	unit( 'destroy', () => {
 
 		const gui = new GUI();
@@ -76,40 +109,7 @@ test( unit => {
 
 	} );
 
-	unit( 'color', () => {
-
-		const gui = new GUI();
-
-		// 122 / 255, 38 / 255, 171 / 255
-		const obj = {
-			r: 0.47843137254901963,
-			g: 0.14901960784313725,
-			b: 0.6705882352941176
-		};
-
-		const arr = [ obj.r, obj.g, obj.b ];
-		const int = 0x7a26ab;
-		const string = '#7a26ab';
-
-		assert.strictEqual( gui.addColor( { obj }, 'obj' ).$input.value, string );
-		assert.strictEqual( gui.addColor( { arr }, 'arr' ).$input.value, string );
-		assert.strictEqual( gui.addColor( { int }, 'int' ).$input.value, string );
-		assert.strictEqual( gui.addColor( { string }, 'string' ).$input.value, string );
-
-	} );
-
-	unit( 'number', () => {
-
-		const gui = new GUI();
-		const controller1 = gui.add( { x: 0 }, 'x' );
-		const controller2 = gui.add( { x: 0 }, 'x', 0 );
-
-		assert.strictEqual( controller1.$slider, undefined, 'no sliders without range' );
-		assert.strictEqual( controller2.$slider, undefined, 'no sliders without range' );
-
-	} );
-
-	unit( 'slider', () => {
+	unit( 'slider precision', () => {
 
 		const gui = new GUI();
 
@@ -135,7 +135,7 @@ test( unit => {
 
 				window.$callEventListener( 'mousemove', { clientX } );
 
-				const message = `float precision [${min},${max}] ${controller._step} ${target.x}`;
+				const message = `value never has more precision than step [${min},${max}] ${controller._step} ${target.x}`;
 				assert( decimals( target.x ) <= decimals( controller._step ), message );
 
 			}
@@ -151,36 +151,59 @@ test( unit => {
 
 	} );
 
-	unit( 'increment', () => {
+	unit( 'arrow keys and mousewheel', () => {
 
 		const gui = new GUI();
 
 		let controller;
 
+		// $input
+
+		controller = gui.add( { x: 0 }, 'x' );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		assert.strictEqual( controller.getValue(), 1, 'no params: one arrow key = 1' );
+
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
 		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
-		// 100 arrow keys to make the full range without explicit step
-		assert.strictEqual( controller.getValue(), 0.01 );
+		assert.strictEqual( controller.getValue(), 0.01, 'implicit step: 100 arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
 		controller.$input.$callEventListener( 'keydown', { keyCode: 38, shiftKey: true } );
-		// 10 shift arrow keys to make the full range without explicit step
-		assert.strictEqual( controller.getValue(), 0.1 );
+		assert.strictEqual( controller.getValue(), 0.1, 'implicit step: 10 shift arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
 		controller.$input.$callEventListener( 'keydown', { keyCode: 38, altKey: true } );
-		// 1000 alt arrow keys to make the full range without explicit step
-		assert.strictEqual( controller.getValue(), 0.001 );
+		assert.strictEqual( controller.getValue(), 0.001, 'implicit step: 1000 alt arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
 		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
-		// assert.strictEqual( controller.getValue(), 1 );
-		// TODO this should pass, but would involve testing for explicit step
+		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 arrow key = 1 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38, altKey: true } );
+		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 alt arrow key also = 1 step' );
+
+		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38, shiftKey: true } );
+		assert.strictEqual( controller.getValue(), 10, 'explicit step: 1 shift arrow key = 10 step' );
+
+		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
+		controller.$input.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
+		assert.strictEqual( controller.getValue(), 0, 'mousewheel on input only works when input is focused' );
+
 		controller.$input.$callEventListener( 'focus' );
 		controller.$input.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
-		assert.strictEqual( controller.getValue(), 1 );
+		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 line = 1 step' );
+
+		// $slider
+
+		controller = gui.add( { x: 0 }, 'x', 0, 1 );
+		controller.$slider.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
+		assert.strictEqual( controller.getValue(), 0.001, 'implicit step: 100 lines = full range' );
+
+		controller = gui.add( { x: 0 }, 'x', 0, 1, 0.1 );
+		controller.$slider.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
+		assert.strictEqual( controller.getValue(), 0.1, 'explicit step: 1 line = 1 step' );
 
 	} );
 

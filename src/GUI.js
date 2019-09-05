@@ -10,32 +10,52 @@ import NumberController from './NumberController.js';
 import OptionController from './OptionController.js';
 import StringController from './StringController.js';
 
-import injectStyles from './utils/injectStyles.js';
 import styles from '../build/lil-gui.css';
-injectStyles( styles );
+
+let stylesInjected = false;
+
+function inject( cssContent ) {
+	const injected = document.createElement( 'style' );
+	injected.innerHTML = cssContent;
+	// inject as the first (lowest priority) style sheet so you can override
+	const before = document.querySelector( 'head link[rel=stylesheet], head style' );
+	if ( before ) {
+		document.head.insertBefore( injected, before );
+	} else {
+		document.head.appendChild( injected );
+	}
+}
 
 /**
- * Class description
+ * @typedef GUIOptions
+ * @property {GUI} [parent]
+ * @property {boolean} [autoPlace=true]
+ * @property {boolean} [injectStyles=true]
+ * @property {string} [title='Controls']
+ * @property {number} [width=250]
+ * @property {number} [mobileMaxHeight=200]
+ * @property {boolean} [collapses=true]
  */
+
 export default class GUI {
 
 	/**
-	 * 
-	 * @param {Object=} options
-	 * @param {GUI=} options.parent
+	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
+		injectStyles = autoPlace,
 		title = 'Controls',
 		width = 250,
 		mobileMaxHeight = 200,
 		collapses = true
 	} = {} ) {
 
-		/** 
-		 * desc
-		 * @type {GUI} */
+		/**
+		 *
+		 * @type {GUI}
+		 * */
 		this.parent = parent;
 
 		/**
@@ -96,6 +116,11 @@ export default class GUI {
 
 		}
 
+		if ( !stylesInjected && injectStyles ) {
+			inject( styles );
+			stylesInjected = true;
+		}
+
 		if ( autoPlace ) {
 
 			this.domElement.classList.add( 'autoPlace' );
@@ -107,55 +132,58 @@ export default class GUI {
 			window.addEventListener( 'resize', this._onResize );
 			this._onResize();
 
-			this.mobileMaxHeight = mobileMaxHeight;
+			// resizeable mobile
+			{
+				this.mobileMaxHeight = mobileMaxHeight;
 
-			let prevClientY;
+				let prevClientY;
 
-			const onTouchStart = e => {
-				if ( e.touches.length > 1 ) return;
-				prevClientY = e.touches[ 0 ].clientY;
-				window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
-				window.addEventListener( 'touchend', onTouchEnd );
-			};
+				const onTouchStart = e => {
+					if ( e.touches.length > 1 ) return;
+					prevClientY = e.touches[ 0 ].clientY;
+					window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+					window.addEventListener( 'touchend', onTouchEnd );
+				};
 
-			const onTouchMove = e => {
-				e.preventDefault();
-				const deltaY = e.touches[ 0 ].clientY - prevClientY;
-				prevClientY = e.touches[ 0 ].clientY;
-				this.mobileMaxHeight -= deltaY;
-			};
+				const onTouchMove = e => {
+					e.preventDefault();
+					const deltaY = e.touches[ 0 ].clientY - prevClientY;
+					prevClientY = e.touches[ 0 ].clientY;
+					this.mobileMaxHeight -= deltaY;
+				};
 
-			const onTouchEnd = () => {
-				window.removeEventListener( 'touchmove', onTouchMove );
-				window.removeEventListener( 'touchend', onTouchEnd );
-			};
+				const onTouchEnd = () => {
+					window.removeEventListener( 'touchmove', onTouchMove );
+					window.removeEventListener( 'touchend', onTouchEnd );
+				};
 
-			this.$title.addEventListener( 'touchstart', onTouchStart );
+				this.$title.addEventListener( 'touchstart', onTouchStart );
+			}
 
 			document.body.appendChild( this.domElement );
 
 		}
 
-		this.title( title );
+		this.title = title;
 
 	}
 
 	/**
-	 * Adds a controller. 
-	 * 
-	 * @param {*} object 
-	 * @param {string} property 
-	 * @param {*=} $1
-	 * @param {*=} max 
-	 * @param {*=} step 
+	 * Adds a controller.
+	 *
+	 * @param {*} object
+	 * @param {string} property
+	 * @param {*} [$1]
+	 * @param {*} [max]
+	 * @param {*} [step]
 	 * @returns {Controller}
-	 * 
-	 * @example 
+	 *
+	 * @example
 	 * gui.add( { myBoolean: false }, 'myBoolean' );
-	 * 
+	 *
 	 * @example
 	 * gui.add( { myNumber: 0 }, 'myNumber', 0, 100, 1 );
-	 * 
+	 *
 	 * @example
 	 * gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 	 * gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
@@ -199,9 +227,9 @@ export default class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {*} object 
-	 * @param {string} property 
+	 *
+	 * @param {*} object
+	 * @param {string} property
 	 * @returns {Controller}
 	 */
 	addColor( object, property ) {
@@ -209,8 +237,8 @@ export default class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {string} title 
+	 *
+	 * @param {string} title
 	 * @returns {GUI}
 	 */
 	addFolder( title, collapses = true ) {
@@ -218,22 +246,8 @@ export default class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {string} title 
-	 * @chainable
-	 */
-	title( title ) {
-		/**
-		 * @type {string}
-		 */
-		this._title = title;
-		this.$title.innerHTML = title;
-		return this;
-	}
-
-	/**
 	 * Opens or closes a GUI or folder.
-	 * 
+	 *
 	 * @param {boolean=} open Pass false to close
 	 * @chainable
 	 * @example
@@ -257,7 +271,7 @@ export default class GUI {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	destroy() {
 
@@ -276,9 +290,9 @@ export default class GUI {
 	}
 
 	/**
-	 * 
-	 * @param {function} callback 
-	 * @param {boolean=} recursive 
+	 *
+	 * @param {function} callback
+	 * @param {boolean=} recursive
 	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {
@@ -288,6 +302,15 @@ export default class GUI {
 				c.forEachController( callback, true );
 			}
 		} );
+	}
+
+	get title() {
+		return this._title;
+	}
+
+	set title( title ) {
+		this._title = title;
+		this.$title.innerHTML = title;
 	}
 
 	get mobileMaxHeight() {

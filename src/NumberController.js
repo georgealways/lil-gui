@@ -83,19 +83,17 @@ export default class NumberController extends Controller {
 
 		};
 
-		const keyMultiplier = e => e.shiftKey ? 100 : e.altKey ? 1 : 10;
-
 		const onKeyDown = e => {
 			if ( e.keyCode === 13 ) {
 				this.$input.blur();
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this._step * keyMultiplier( e ) );
+				increment( this._step * this._arrowKeyMultiplier( e ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this._step * keyMultiplier( e ) );
+				increment( -1 * this._step * this._arrowKeyMultiplier( e ) );
 			}
 		};
 
@@ -185,11 +183,11 @@ export default class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// 2019: Android seems to take care of this automatically. 
+			// 2019: Android seems to take care of this automatically.
 			// I'd like to remove this test if iOS ever decided to do the same.
 
-			// If we're in a scrollable container, we should wait for 
-			// the first touchmove to see if the user is trying to move 
+			// If we're in a scrollable container, we should wait for
+			// the first touchmove to see if the user is trying to move
 			// horizontally or vertically.
 			if ( this._hasScrollBar ) {
 
@@ -259,9 +257,7 @@ export default class NumberController extends Controller {
 
 			e.preventDefault();
 
-			const keyMultiplier = e.altKey ? 0.1 : 1;
-
-			const delta = this._normalizeMouseWheel( e ) * this._step * keyMultiplier;
+			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
 		};
@@ -298,25 +294,12 @@ export default class NumberController extends Controller {
 
 	}
 
-	get _hasScrollBar() {
-		const root = this.parent.root.$children;
-		return root.scrollHeight > root.clientHeight;
-	}
-
-	get _hasMin() {
-		return this._min !== undefined;
-	}
-
-	get _hasMax() {
-		return this._max !== undefined;
-	}
-
 	_normalizeMouseWheel( e ) {
 
 		let { deltaX, deltaY } = e;
 
-		// 2019: Safari and Chrome report weird non-integral values for an actual 
-		// mouse with a wheel connected to a macbook, but still expose actual 
+		// 2019: Safari and Chrome report weird non-integral values for an actual
+		// mouse with a wheel connected to a macbook, but still expose actual
 		// lines scrolled via wheelDelta.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
@@ -329,12 +312,25 @@ export default class NumberController extends Controller {
 
 	}
 
+	_arrowKeyMultiplier( e ) {
+
+		if ( this._stepExplicit ) {
+			return e.shiftKey ? 10 : 1;
+		} else if ( e.shiftKey ) {
+			return 100;
+		} else if ( e.altKey ) {
+			return 1;
+		}
+		return 10;
+
+	}
+
 	_snap( value ) {
 
 		// This would be the logical way to do things, but floating point errors.
 		// return Math.round( value / this._step ) * this._step;
 
-		// Using inverse step solves a lot of them, but not all 
+		// Using inverse step solves a lot of them, but not all
 		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
@@ -352,6 +348,19 @@ export default class NumberController extends Controller {
 
 	_snapClampSetValue( value ) {
 		this.setValue( this._clamp( this._snap( value ) ) );
+	}
+
+	get _hasScrollBar() {
+		const root = this.parent.root.$children;
+		return root.scrollHeight > root.clientHeight;
+	}
+
+	get _hasMin() {
+		return this._min !== undefined;
+	}
+
+	get _hasMax() {
+		return this._max !== undefined;
 	}
 
 }
