@@ -232,4 +232,29 @@ export default class Controller {
 		return this;
 	}
 
+	// /**
+	//  *
+	//  * @param {boolean} [listen=true]
+	//  * @returns {Controller} self
+	//  */
+	// listen( listen ) {
+
+	// 	this._listening = listen;
+
+	// 	if ( this._listenCallback !== undefined ) {
+	// 		cancelAnimationFrame( this._listenCallback );
+	// 	}
+
+	// 	if ( this._listening ) {
+	// 		const callback = () => {
+	// 			this._listenCallback = requestAnimationFrame( callback );
+	// 			this.updateDisplay();
+	// 		};
+	// 		callback();
+	// 	}
+
+	// 	return this;
+
+	// }
+
 }

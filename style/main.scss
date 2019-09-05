@@ -158,7 +158,7 @@
 		height: var(--row-height);
 		font-style: italic;
 		line-height: var(--row-height);
-		color: var(--widget-color);
+		color: var(--highlight-color);
 	}
 
 	// autoPlace & mobile
@@ -397,55 +397,4 @@
 		}
 	}
 
-	&.bigSlider .hasSlider,
-	.bigSlider.hasSlider { 
-		position: relative;
-		.name { 
-			position: absolute;
-			pointer-events: none;
-			width: auto;
-			z-index: 1;
-			padding-left: var(--padding);
-		}
-		input { 
-			width: 18%;
-		}
-	}
-
 }
-
-// .lil-gui {
-// 	$base03: #002b36;
-// 	$base02: #073642;
-// 	$base01: #586e75;
-// 	$base00: #657b83;
-// 	$base0: #839496;
-// 	$base1: #93a1a1;
-// 	$base2: #eee8d5;
-// 	$base3: #fdf6e3;
-// 	$yellow: #b58900;
-// 	$orange: #cb4b16;
-// 	$red: #dc322f;
-// 	$magenta: #d33682;
-// 	$violet: #6c71c4;
-// 	$blue: #268bd2;
-// 	$cyan: #2aa198;
-// 	$green: #859900;
-
-// 	// --background-color: #{$base3};
-// 	// --text-color: #{$base00};
-// 	// --title-background-color: #{$base2};
-// 	// --widget-color: #{$base2};
-// 	// --highlight-color: #e4dcc5;
-// 	// --number-color: #{$blue};
-// 	// --string-color: #{$green};
-
-// 	// --background-color: #{$base03};
-// 	// --text-color: #{$base0};
-// 	// --title-background-color: #{$base02};
-// 	// --widget-color: #{$base02};
-// 	// --highlight-color: #0a414e;
-// 	// --number-color: #{$blue};
-// 	// --string-color: #{$green};
-
-// }

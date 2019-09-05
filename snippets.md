@@ -20,6 +20,15 @@
 }
 ```
 
-```js
-gui.domElement.classList.add( 'bigSlider' );
-``` 
+```css
+.lil-gui {
+	/* Solarized Dark */
+	--background-color: #073642;
+	--text-color: #9eafb1;
+	--title-background-color: #073642;
+	--widget-color: #002b36;
+	--highlight-color: #062229;
+	--number-color: #268bd2;
+	--string-color: #859900;
+}
+```

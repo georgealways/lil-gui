@@ -6,14 +6,9 @@ export default class FunctionController extends Controller {
 
 		super( parent, object, property, 'function', 'button' );
 
-		// this.$button = document.createElement( 'button' );
-		// this.$button.innerHTML = this._name;
-
 		this.domElement.addEventListener( 'click', () => {
 			this.getValue()();
 		} );
-
-		// this.$widget.appendChild( this.$button );
 
 	}
 
