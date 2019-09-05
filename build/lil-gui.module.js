@@ -1,3 +1,4 @@
+// lil-gui@0.1.0
 /**
  * @module Controller
  */
@@ -15,7 +16,7 @@ class Controller {
 		this.parent = parent;
 
 		/**
-		 * @type {Object}
+		 * @type {object}
 		 */
 		this.object = object;
 
@@ -67,7 +68,6 @@ class Controller {
 	 *
 	 * @param {string} name
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	name( name ) {
 		/**
@@ -80,9 +80,8 @@ class Controller {
 
 	/**
 	 *
-	 * @param {function} callback
+	 * @param {Function} callback
 	 * @returns {Controller} self
-	 * @chainable
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -90,7 +89,7 @@ class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * @type {function}
+		 * @type {Function}
 		 */
 		this._onChange = callback;
 		return this;
@@ -106,7 +105,7 @@ class Controller {
 	/**
 	 * I'm not sure if I'm keeping this.
 	 * @param {*} options
-	 * @param {Controller} newController
+	 * @returns {Controller} newController
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -118,6 +117,7 @@ class Controller {
 	/**
 	 *
 	 * @param {*} value
+	 * @returns {Controller} self
 	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
@@ -133,7 +133,7 @@ class Controller {
 	}
 
 	/**
-	 *
+	 * @returns {Controller} self
 	 */
 	reset() {
 		this.setValue( this.initialValue );
@@ -142,8 +142,8 @@ class Controller {
 
 	/**
 	 * Enables this controller.
+	 * @param {boolean} [enabled=false]
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	enable( enabled = true ) {
 		this._disabled = !enabled;
@@ -154,7 +154,6 @@ class Controller {
 	/**
 	 * Disables this controller.
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	disable() {
 		this._disabled = true;
@@ -164,7 +163,6 @@ class Controller {
 
 	/**
 	 * Destroys this controller and removes it from the parent GUI.
-	 *
 	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 * controller.destroy();
@@ -183,6 +181,7 @@ class Controller {
 
 	/**
 	 *
+	 * @returns {*} value
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -192,7 +191,6 @@ class Controller {
 	 * Sets the minimum value. Only works on number controllers.
 	 * @param {number} min
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
@@ -203,7 +201,6 @@ class Controller {
 	 * Sets the maximum value. Only works on number controllers.
 	 * @param {number} max
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
@@ -214,7 +211,6 @@ class Controller {
 	 * Sets the step. Only works on number controllers.
 	 * @param {number} step
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
@@ -225,7 +221,7 @@ class Controller {
 	 * Updates the display to keep it in sync with the current value of
 	 * `this.object[ this.property ]`. Useful for updating your controllers if
 	 * their values have been modified outside of the GUI.
-	 * @chainable
+	 * @returns {Controller} self
 	 */
 	updateDisplay() {
 		return this;
@@ -879,7 +875,7 @@ class GUI {
 		/**
 		 *
 		 * @type {GUI}
-		 * */
+		 */
 		this.parent = parent;
 
 		/**
@@ -994,7 +990,6 @@ class GUI {
 
 	/**
 	 * Adds a controller.
-	 *
 	 * @param {*} object
 	 * @param {string} property
 	 * @param {*} [$1]
@@ -1063,6 +1058,7 @@ class GUI {
 	/**
 	 *
 	 * @param {string} title
+	 * @param {boolean} [collapses=true]
 	 * @returns {GUI}
 	 */
 	addFolder( title, collapses = true ) {
@@ -1071,9 +1067,8 @@ class GUI {
 
 	/**
 	 * Opens or closes a GUI or folder.
-	 *
-	 * @param {boolean=} open Pass false to close
-	 * @chainable
+	 * @param {boolean} [open=true]
+	 * @returns {GUI} self
 	 * @example
 	 * folder.open(); // open
 	 * folder.open( false ); // closed
@@ -1086,7 +1081,7 @@ class GUI {
 	}
 
 	/**
-	 * @chainable
+	 * @returns {GUI} self
 	 */
 	close() {
 		this._closed = true;
@@ -1115,8 +1110,8 @@ class GUI {
 
 	/**
 	 *
-	 * @param {function} callback
-	 * @param {boolean=} recursive
+	 * @param {Function} callback
+	 * @param {boolean} [recursive=false]
 	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {

@@ -4,7 +4,11 @@ env:
 parserOptions:
   ecmaVersion: 6
   sourceType: module
-extends: eslint:recommended
+extends: 
+  - eslint:recommended
+  - plugin:jsdoc/recommended
+plugins: 
+  - jsdoc
 rules:
   array-bracket-spacing: [ warn, always ]
   arrow-spacing: warn
@@ -34,3 +38,7 @@ rules:
   space-before-function-paren: [ warn, never ]
   space-in-parens: [ warn, always, { exceptions: [ empty ] } ]
   space-infix-ops: warn
+  jsdoc/newline-after-description: [ warn, never ]
+  jsdoc/require-jsdoc: off
+  jsdoc/require-param-description: off
+  jsdoc/require-returns-description: off

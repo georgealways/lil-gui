@@ -55,7 +55,7 @@ export default class GUI {
 		/**
 		 *
 		 * @type {GUI}
-		 * */
+		 */
 		this.parent = parent;
 
 		/**
@@ -170,7 +170,6 @@ export default class GUI {
 
 	/**
 	 * Adds a controller.
-	 *
 	 * @param {*} object
 	 * @param {string} property
 	 * @param {*} [$1]
@@ -239,6 +238,7 @@ export default class GUI {
 	/**
 	 *
 	 * @param {string} title
+	 * @param {boolean} [collapses=true]
 	 * @returns {GUI}
 	 */
 	addFolder( title, collapses = true ) {
@@ -247,9 +247,8 @@ export default class GUI {
 
 	/**
 	 * Opens or closes a GUI or folder.
-	 *
-	 * @param {boolean=} open Pass false to close
-	 * @chainable
+	 * @param {boolean} [open=true]
+	 * @returns {GUI} self
 	 * @example
 	 * folder.open(); // open
 	 * folder.open( false ); // closed
@@ -262,7 +261,7 @@ export default class GUI {
 	}
 
 	/**
-	 * @chainable
+	 * @returns {GUI} self
 	 */
 	close() {
 		this._closed = true;
@@ -291,8 +290,8 @@ export default class GUI {
 
 	/**
 	 *
-	 * @param {function} callback
-	 * @param {boolean=} recursive
+	 * @param {Function} callback
+	 * @param {boolean} [recursive=false]
 	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {

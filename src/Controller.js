@@ -15,7 +15,7 @@ export default class Controller {
 		this.parent = parent;
 
 		/**
-		 * @type {Object}
+		 * @type {object}
 		 */
 		this.object = object;
 
@@ -67,7 +67,6 @@ export default class Controller {
 	 *
 	 * @param {string} name
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	name( name ) {
 		/**
@@ -80,9 +79,8 @@ export default class Controller {
 
 	/**
 	 *
-	 * @param {function} callback
+	 * @param {Function} callback
 	 * @returns {Controller} self
-	 * @chainable
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -90,7 +88,7 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * @type {function}
+		 * @type {Function}
 		 */
 		this._onChange = callback;
 		return this;
@@ -106,7 +104,7 @@ export default class Controller {
 	/**
 	 * I'm not sure if I'm keeping this.
 	 * @param {*} options
-	 * @param {Controller} newController
+	 * @returns {Controller} newController
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -118,6 +116,7 @@ export default class Controller {
 	/**
 	 *
 	 * @param {*} value
+	 * @returns {Controller} self
 	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
@@ -133,7 +132,7 @@ export default class Controller {
 	}
 
 	/**
-	 *
+	 * @returns {Controller} self
 	 */
 	reset() {
 		this.setValue( this.initialValue );
@@ -142,8 +141,8 @@ export default class Controller {
 
 	/**
 	 * Enables this controller.
+	 * @param {boolean} [enabled=false]
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	enable( enabled = true ) {
 		this._disabled = !enabled;
@@ -154,7 +153,6 @@ export default class Controller {
 	/**
 	 * Disables this controller.
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	disable() {
 		this._disabled = true;
@@ -164,7 +162,6 @@ export default class Controller {
 
 	/**
 	 * Destroys this controller and removes it from the parent GUI.
-	 *
 	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 * controller.destroy();
@@ -183,6 +180,7 @@ export default class Controller {
 
 	/**
 	 *
+	 * @returns {*} value
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -192,7 +190,6 @@ export default class Controller {
 	 * Sets the minimum value. Only works on number controllers.
 	 * @param {number} min
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
@@ -203,7 +200,6 @@ export default class Controller {
 	 * Sets the maximum value. Only works on number controllers.
 	 * @param {number} max
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
@@ -214,7 +210,6 @@ export default class Controller {
 	 * Sets the step. Only works on number controllers.
 	 * @param {number} step
 	 * @returns {Controller} self
-	 * @chainable
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
@@ -225,7 +220,7 @@ export default class Controller {
 	 * Updates the display to keep it in sync with the current value of
 	 * `this.object[ this.property ]`. Useful for updating your controllers if
 	 * their values have been modified outside of the GUI.
-	 * @chainable
+	 * @returns {Controller} self
 	 */
 	updateDisplay() {
 		return this;
