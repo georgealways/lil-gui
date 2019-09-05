@@ -1,5 +1,6 @@
 // shim just enough browser stuff to run in node
 
+// collects event listeners by name and exposes them for unit tests
 class EventTarget {
 
 	constructor() {
@@ -25,12 +26,12 @@ class EventTarget {
 		listeners.splice( index, 1 );
 	}
 
-	// expose event listeners by name for unit tests
-	$callEventListener( name, event ) {
+	$callEventListener( name, event = {} ) {
 		const listeners = this.__eventListeners[ name ];
 		if ( !listeners ) {
 			return;
 		}
+		event.preventDefault = function() {};
 		listeners.forEach( l => l( event ) );
 	}
 

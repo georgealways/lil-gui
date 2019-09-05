@@ -170,7 +170,7 @@ Reference to the outermost folder, or `this` for the root GUI.
 
 ## Methods
 
-### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L152) controller.**destroy**() 
+### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L159) controller.**destroy**() 
 
 Destroys this controller and removes it from the parent GUI. 
 
@@ -186,22 +186,22 @@ gui.forEachControler( c => c.destroy() );
 Array.from( gui.children ).forEach( c => c.destroy() );
 ```
 
-### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L132) controller.**disable**() → self
+### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L139) controller.**disable**() → self
 
 Disables this controller. 
 
-### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L121) controller.**enable**() → self
+### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L128) controller.**enable**() → self
 
 Enables this controller. 
 
-### <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L197) controller.**max**( max ) → self
+### <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L186) controller.**max**( max ) → self
 
 Sets the maximum value. Only works on number controllers. 
 
 **Parameters**
 - max
 
-### <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L186) controller.**min**( min ) → self
+### <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L175) controller.**min**( min ) → self
 
 Sets the minimum value. Only works on number controllers. 
 
@@ -236,14 +236,14 @@ I'm not sure if I'm keeping this.
 - options
 - newController
 
-### <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L208) controller.**step**( step ) → self
+### <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L197) controller.**step**( step ) → self
 
 Sets the step. Only works on number controllers. 
 
 **Parameters**
 - step
 
-### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L218) controller.**updateDisplay**() → self
+### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L207) controller.**updateDisplay**() → self
 
 Updates the display to keep it in sync with the current value of 
 `this.object[ this.property ]`. Useful for updating your controllers if 

@@ -13,13 +13,10 @@ export default class StringController extends Controller {
 			this.setValue( this.$input.value, false );
 		} );
 
-		this.$input.addEventListener( 'blur', () => {
-			this._callOnFinishedChange();
-		} );
-
 		this.$input.addEventListener( 'keydown', e => {
 			if ( e.keyCode === 13 ) {
-				this._callOnFinishedChange();
+				this.blur();
+				this._callOnChange();
 			}
 		} );
 

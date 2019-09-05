@@ -108,9 +108,16 @@ class Controller {
 		return controller;
 	}
 
-	setValue( value, finished = true ) {
+	setValue( value ) {
 		this.object[ this.property ] = value;
-		this._onSetValue( finished );
+		this._callOnChange();
+		this.updateDisplay();
+	}
+
+	_callOnChange() {
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
+		}
 	}
 
 	/**
@@ -152,24 +159,6 @@ class Controller {
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
-	}
-
-	_onSetValue( finished = true ) {
-		this._callOnChange();
-		if ( finished ) this._callOnFinishedChange();
-		this.updateDisplay();
-	}
-
-	_callOnChange() {
-		if ( this._onChange !== undefined ) {
-			this._onChange.call( this, this.getValue() );
-		}
-	}
-
-	_callOnFinishedChange() {
-		if ( this._onFinishChange !== undefined ) {
-			this._onFinishChange.call( this, this.getValue() );
-		}
 	}
 
 	getValue() {
@@ -421,6 +410,7 @@ class NumberController extends Controller {
 		if ( !this._inputFocused ) {
 			this.$input.value = value;
 		}
+
 	}
 
 	_createInput() {
@@ -437,12 +427,11 @@ class NumberController extends Controller {
 
 			if ( isNaN( value ) ) return;
 
-			// Set the value, but don't call onFinishedChange
-			this.setValue( this._clamp( value ), false );
+			this.setValue( this._clamp( value ) );
 
 		};
 
-		// invoked on mousewheel or arrow key up/down
+		// invoked on wheel or arrow key up/down
 		const increment = delta => {
 
 			const value = parseFloat( this.$input.value );
@@ -451,10 +440,12 @@ class NumberController extends Controller {
 
 			this._snapClampSetValue( value + delta );
 
-			// Force the input to updateDisplay because it's focused
+			// Force the input to updateDisplay when it's focused
 			this.$input.value = this.getValue();
 
 		};
+
+		const keyMultiplier = e => e.shiftKey ? 100 : e.altKey ? 1 : 10;
 
 		const onKeyDown = e => {
 			if ( e.keyCode === 13 ) {
@@ -462,11 +453,11 @@ class NumberController extends Controller {
 			}
 			if ( e.keyCode === 38 ) {
 				e.preventDefault();
-				increment( this._step * ( e.shiftKey ? 100 : e.altKey ? 1 : 10 ) );
+				increment( this._step * keyMultiplier( e ) );
 			}
 			if ( e.keyCode === 40 ) {
 				e.preventDefault();
-				increment( -1 * this._step * ( e.shiftKey ? 100 : e.altKey ? 1 : 10 ) );
+				increment( -1 * this._step * keyMultiplier( e ) );
 			}
 		};
 
@@ -483,7 +474,6 @@ class NumberController extends Controller {
 
 		const onBlur = () => {
 			this._inputFocused = false;
-			this._callOnFinishedChange();
 			this.updateDisplay();
 		};
 
@@ -541,7 +531,6 @@ class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this._callOnFinishedChange();
 			this.$slider.classList.remove( 'active' );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
@@ -558,15 +547,14 @@ class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// As of 2019, Android seems to take care of this automatically. 
-			// I'd like to remove this whole test if iOS ever decided to do the 
-			// same.
+			// 2019: Android seems to take care of this automatically. 
+			// I'd like to remove this test if iOS ever decided to do the same.
 
+			// If we're in a scrollable container, we should wait for 
+			// the first touchmove to see if the user is trying to move 
+			// horizontally or vertically.
 			if ( this._hasScrollBar ) {
 
-				// If we're in a scrollable container, we should wait for 
-				// the first touchmove to see if the user is trying to move 
-				// horizontally or vertically.
 				prevClientX = e.touches[ 0 ].clientX;
 				prevClientY = e.touches[ 0 ].clientY;
 				testingForScroll = true;
@@ -617,7 +605,6 @@ class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this._callOnFinishedChange();
 			this.$slider.classList.remove( 'active' );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
@@ -634,7 +621,9 @@ class NumberController extends Controller {
 
 			e.preventDefault();
 
-			const delta = this._normalizeMouseWheel( e ) * this._step;
+			const keyMultiplier = e.altKey ? 0.1 : 1;
+
+			const delta = this._normalizeMouseWheel( e ) * this._step * keyMultiplier;
 			this._snapClampSetValue( this.getValue() + delta );
 
 		};
@@ -688,9 +677,9 @@ class NumberController extends Controller {
 
 		let { deltaX, deltaY } = e;
 
-		// when e.deltaY is giving back non-integral values, it's usually
-		// a usb mouse plugged into a trackpad laptop. in that case fall back
-		// to wheel delta.
+		// 2019: Safari and Chrome report weird non-integral values for an actual 
+		// mouse with a wheel connected to a macbook, but still expose actual 
+		// lines scrolled via wheelDelta.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
 			deltaY = -e.wheelDelta / 120;
@@ -704,15 +693,14 @@ class NumberController extends Controller {
 
 	_snap( value ) {
 
-		// // This would be the logical way to do things, but floating point errors.
+		// This would be the logical way to do things, but floating point errors.
 		// return Math.round( value / this._step ) * this._step;
 
-		// // The inverse step strategy solves most floating point precision issues,
-		// // but not all of them ... 
+		// Using inverse step solves a lot of them, but not all 
 		// const inverseStep = 1 / this._step;
 		// return Math.round( value * inverseStep ) / inverseStep;
 
-		// Not happy about this but haven't seen it break.
+		// Not happy about this, but haven't seen it break.
 		const r = Math.round( value / this._step ) * this._step;
 		return parseFloat( r.toPrecision( 15 ) );
 
@@ -791,13 +779,10 @@ class StringController extends Controller {
 			this.setValue( this.$input.value, false );
 		} );
 
-		this.$input.addEventListener( 'blur', () => {
-			this._callOnFinishedChange();
-		} );
-
 		this.$input.addEventListener( 'keydown', e => {
 			if ( e.keyCode === 13 ) {
-				this._callOnFinishedChange();
+				this.blur();
+				this._callOnChange();
 			}
 		} );
 

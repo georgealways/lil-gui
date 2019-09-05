@@ -108,9 +108,16 @@ export default class Controller {
 		return controller;
 	}
 
-	setValue( value, finished = true ) {
+	setValue( value ) {
 		this.object[ this.property ] = value;
-		this._onSetValue( finished );
+		this._callOnChange();
+		this.updateDisplay();
+	}
+
+	_callOnChange() {
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
+		}
 	}
 
 	/**
@@ -152,24 +159,6 @@ export default class Controller {
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
-	}
-
-	_onSetValue( finished = true ) {
-		this._callOnChange();
-		if ( finished ) this._callOnFinishedChange();
-		this.updateDisplay();
-	}
-
-	_callOnChange() {
-		if ( this._onChange !== undefined ) {
-			this._onChange.call( this, this.getValue() );
-		}
-	}
-
-	_callOnFinishedChange() {
-		if ( this._onFinishChange !== undefined ) {
-			this._onFinishChange.call( this, this.getValue() );
-		}
 	}
 
 	getValue() {

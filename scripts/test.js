@@ -151,6 +151,39 @@ test( unit => {
 
 	} );
 
+	unit( 'increment', () => {
+
+		const gui = new GUI();
+
+		let controller;
+
+		controller = gui.add( { x: 0 }, 'x', 0, 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		// 100 arrow keys to make the full range without explicit step
+		assert.strictEqual( controller.getValue(), 0.01 );
+
+		controller = gui.add( { x: 0 }, 'x', 0, 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38, shiftKey: true } );
+		// 10 shift arrow keys to make the full range without explicit step
+		assert.strictEqual( controller.getValue(), 0.1 );
+
+		controller = gui.add( { x: 0 }, 'x', 0, 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38, altKey: true } );
+		// 1000 alt arrow keys to make the full range without explicit step
+		assert.strictEqual( controller.getValue(), 0.001 );
+
+		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
+		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		// assert.strictEqual( controller.getValue(), 1 );
+		// TODO this should pass, but would involve testing for explicit step
+
+		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
+		controller.$input.$callEventListener( 'focus' );
+		controller.$input.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
+		assert.strictEqual( controller.getValue(), 1 );
+
+	} );
+
 	unit( 'forEachController', () => {
 
 		const gui = new GUI();

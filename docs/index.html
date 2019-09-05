@@ -207,7 +207,7 @@ folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 <h1>Controller</h1>
 <h2>Constructor</h2>
 <h2>Methods</h2>
-<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152">#</a> controller.<strong>destroy</strong>()</h3>
+<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L159">#</a> controller.<strong>destroy</strong>()</h3>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
 controller.destroy();
@@ -218,17 +218,17 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 <span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
 <span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
 </code></pre>
-<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L132">#</a> controller.<strong>disable</strong>() → self</h3>
+<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L139">#</a> controller.<strong>disable</strong>() → self</h3>
 <p>Disables this controller.</p>
-<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L121">#</a> controller.<strong>enable</strong>() → self</h3>
+<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L128">#</a> controller.<strong>enable</strong>() → self</h3>
 <p>Enables this controller.</p>
-<h3><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197">#</a> controller.<strong>max</strong>( max ) → self</h3>
+<h3><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L186">#</a> controller.<strong>max</strong>( max ) → self</h3>
 <p>Sets the maximum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>max</li>
 </ul>
-<h3><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L186">#</a> controller.<strong>min</strong>( min ) → self</h3>
+<h3><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L175">#</a> controller.<strong>min</strong>( min ) → self</h3>
 <p>Sets the minimum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -255,13 +255,13 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 <li>options</li>
 <li>newController</li>
 </ul>
-<h3><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L208">#</a> controller.<strong>step</strong>( step ) → self</h3>
+<h3><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197">#</a> controller.<strong>step</strong>( step ) → self</h3>
 <p>Sets the step. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>step</li>
 </ul>
-<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L218">#</a> controller.<strong>updateDisplay</strong>() → self</h3>
+<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L207">#</a> controller.<strong>updateDisplay</strong>() → self</h3>
 <p>Updates the display to keep it in sync with the current value of
 <code>this.object[ this.property ]</code>. Useful for updating your controllers if
 their values have been modified outside of the GUI.</p>
@@ -758,8 +758,8 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "controller.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L152",
-						"definedat": "src/Controller.js:152"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L159",
+						"definedat": "src/Controller.js:159"
 					},
 					{
 						"description": "Disables this controller.",
@@ -789,8 +789,8 @@ window.jsdocDebug = [
 						"indexname": "**disable**()",
 						"signature": "controller.**disable**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L132",
-						"definedat": "src/Controller.js:132"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L139",
+						"definedat": "src/Controller.js:139"
 					},
 					{
 						"description": "Enables this controller.",
@@ -820,8 +820,8 @@ window.jsdocDebug = [
 						"indexname": "**enable**()",
 						"signature": "controller.**enable**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L121",
-						"definedat": "src/Controller.js:121"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L128",
+						"definedat": "src/Controller.js:128"
 					},
 					{
 						"description": "Sets the maximum value. Only works on number controllers.",
@@ -860,8 +860,8 @@ window.jsdocDebug = [
 						"indexname": "**max**(…)",
 						"signature": "controller.**max**( max )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L197",
-						"definedat": "src/Controller.js:197"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L186",
+						"definedat": "src/Controller.js:186"
 					},
 					{
 						"description": "Sets the minimum value. Only works on number controllers.",
@@ -900,8 +900,8 @@ window.jsdocDebug = [
 						"indexname": "**min**(…)",
 						"signature": "controller.**min**( min )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L186",
-						"definedat": "src/Controller.js:186"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L175",
+						"definedat": "src/Controller.js:175"
 					},
 					{
 						"params": [
@@ -1051,8 +1051,8 @@ window.jsdocDebug = [
 						"indexname": "**step**(…)",
 						"signature": "controller.**step**( step )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L208",
-						"definedat": "src/Controller.js:208"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L197",
+						"definedat": "src/Controller.js:197"
 					},
 					{
 						"description": "Updates the display to keep it in sync with the current value of \n`this.object[ this.property ]`. Useful for updating your controllers if \ntheir values have been modified outside of the GUI.",
@@ -1072,8 +1072,8 @@ window.jsdocDebug = [
 						"indexname": "**updateDisplay**()",
 						"signature": "controller.**updateDisplay**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L218",
-						"definedat": "src/Controller.js:218"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L207",
+						"definedat": "src/Controller.js:207"
 					}
 				]
 			},
