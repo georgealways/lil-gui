@@ -36,7 +36,6 @@ class EventTarget {
 
 }
 
-
 class Element extends EventTarget {
 	constructor() {
 		super();

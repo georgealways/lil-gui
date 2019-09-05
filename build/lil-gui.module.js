@@ -3,7 +3,7 @@
  */
 
 /**
- * Classdesc? Where are you getting this intel. who told you.  
+ * 
  */
 class Controller {
 
@@ -945,16 +945,13 @@ class GUI {
 				window.removeEventListener( 'touchend', onTouchEnd );
 			};
 
-
 			this.$title.addEventListener( 'touchstart', onTouchStart );
 
 			document.body.appendChild( this.domElement );
 
 		}
 
-
 		this.title( title );
-
 
 	}
 

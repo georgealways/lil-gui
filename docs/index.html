@@ -140,7 +140,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <p>Class description</p>
 <h2>Constructor</h2>
 <h2>Methods</h2>
-<h3><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L166">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h3>
+<h3><a name="GUI#add" href="#GUI#add"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L163">#</a> gui.<strong>add</strong>( object, property, [$1], [max], [step] ) → Controller</h3>
 <p>Adds a controller.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -157,26 +157,26 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-string">'small'</span> }, <span class="hljs-string">'myOptions'</span>, [ <span class="hljs-string">'big'</span>, <span class="hljs-string">'medium'</span>, <span class="hljs-string">'small'</span> ] );
 gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myOptions'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 </code></pre>
-<h3><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L210">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h3>
+<h3><a name="GUI#addColor" href="#GUI#addColor"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L207">#</a> gui.<strong>addColor</strong>( object, property ) → Controller</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>object</li>
 <li>property</li>
 </ul>
-<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L219">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
+<h3><a name="GUI#addFolder" href="#GUI#addFolder"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L216">#</a> gui.<strong>addFolder</strong>( title ) → GUI</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
 </ul>
-<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L256">#</a> gui.<strong>close</strong>() → self</h3>
-<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L265">#</a> gui.<strong>destroy</strong>()</h3>
-<h3><a name="GUI#forEachController" href="#GUI#forEachController"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286">#</a> gui.<strong>forEachController</strong>( callback, [recursive] )</h3>
+<h3><a name="GUI#close" href="#GUI#close"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L253">#</a> gui.<strong>close</strong>() → self</h3>
+<h3><a name="GUI#destroy" href="#GUI#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L262">#</a> gui.<strong>destroy</strong>()</h3>
+<h3><a name="GUI#forEachController" href="#GUI#forEachController"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L283">#</a> gui.<strong>forEachController</strong>( callback, [recursive] )</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>callback</li>
 <li>recursive</li>
 </ul>
-<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L247">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
+<h3><a name="GUI#open" href="#GUI#open"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244">#</a> gui.<strong>open</strong>( [open] ) → self</h3>
 <p>Opens or closes a GUI or folder.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -186,7 +186,7 @@ gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
 folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
-<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L228">#</a> gui.<strong>title</strong>( title ) → self</h3>
+<h3><a name="GUI#title" href="#GUI#title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L225">#</a> gui.<strong>title</strong>( title ) → self</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>title</li>
@@ -203,9 +203,8 @@ folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 <h3><a name="GUI#$children" href="#GUI#$children"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81">#</a> gui.<strong>$children</strong></h3>
 <h3><a name="GUI#$title" href="#GUI#$title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L68">#</a> gui.<strong>$title</strong></h3>
 <h3><a name="GUI#_closed" href="#GUI#_closed"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L56">#</a> gui.<strong>_closed</strong></h3>
-<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L232">#</a> gui.<strong>_title</strong></h3>
+<h3><a name="GUI#_title" href="#GUI#_title"></a> <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L229">#</a> gui.<strong>_title</strong></h3>
 <h1>Controller</h1>
-<p>Classdesc? Where are you getting this intel. who told you.</p>
 <h2>Constructor</h2>
 <h2>Methods</h2>
 <h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152">#</a> controller.<strong>destroy</strong>()</h3>
@@ -387,8 +386,8 @@ window.jsdocDebug = [
 						"indexname": "**add**(…)",
 						"signature": "gui.**add**( object, property, [$1], [max], [step] )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L166",
-						"definedat": "src/GUI.js:166"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L163",
+						"definedat": "src/GUI.js:163"
 					},
 					{
 						"params": [
@@ -426,8 +425,8 @@ window.jsdocDebug = [
 						"indexname": "**addColor**(…)",
 						"signature": "gui.**addColor**( object, property )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L210",
-						"definedat": "src/GUI.js:210"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L207",
+						"definedat": "src/GUI.js:207"
 					},
 					{
 						"params": [
@@ -457,8 +456,8 @@ window.jsdocDebug = [
 						"indexname": "**addFolder**(…)",
 						"signature": "gui.**addFolder**( title )",
 						"indextype": "→ GUI",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L219",
-						"definedat": "src/GUI.js:219"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L216",
+						"definedat": "src/GUI.js:216"
 					},
 					{
 						"tags": [
@@ -477,8 +476,8 @@ window.jsdocDebug = [
 						"indexname": "**close**()",
 						"signature": "gui.**close**()",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L256",
-						"definedat": "src/GUI.js:256"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L253",
+						"definedat": "src/GUI.js:253"
 					},
 					{
 						"name": "destroy",
@@ -489,8 +488,8 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "gui.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L265",
-						"definedat": "src/GUI.js:265"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L262",
+						"definedat": "src/GUI.js:262"
 					},
 					{
 						"params": [
@@ -520,8 +519,8 @@ window.jsdocDebug = [
 						"memberof": "GUI",
 						"indexname": "**forEachController**(…)",
 						"signature": "gui.**forEachController**( callback, [recursive] )",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L286",
-						"definedat": "src/GUI.js:286"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L283",
+						"definedat": "src/GUI.js:283"
 					},
 					{
 						"description": "Opens or closes a GUI or folder.",
@@ -556,8 +555,8 @@ window.jsdocDebug = [
 						"indexname": "**open**()",
 						"signature": "gui.**open**( [open] )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L247",
-						"definedat": "src/GUI.js:247"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L244",
+						"definedat": "src/GUI.js:244"
 					},
 					{
 						"params": [
@@ -585,8 +584,8 @@ window.jsdocDebug = [
 						"indexname": "**title**(…)",
 						"signature": "gui.**title**( title )",
 						"indextype": "→ self",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L228",
-						"definedat": "src/GUI.js:228"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L225",
+						"definedat": "src/GUI.js:225"
 					}
 				]
 			},
@@ -722,8 +721,8 @@ window.jsdocDebug = [
 						"scope": "instance",
 						"indexname": "_title",
 						"signature": "gui.**_title**",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L232",
-						"definedat": "src/GUI.js:232"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L229",
+						"definedat": "src/GUI.js:229"
 					}
 				]
 			}
@@ -735,10 +734,8 @@ window.jsdocDebug = [
 		"name": "Controller",
 		"longname": "Controller",
 		"kind": "class",
-		"classdesc": "Classdesc? Where are you getting this intel. who told you.",
 		"indexname": "Controller",
 		"signature": "**Controller**",
-		"description": "Classdesc? Where are you getting this intel. who told you.",
 		"categories": {
 			"constructor": {
 				"title": "Constructor",

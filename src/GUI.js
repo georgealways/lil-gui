@@ -130,16 +130,13 @@ export default class GUI {
 				window.removeEventListener( 'touchend', onTouchEnd );
 			};
 
-
 			this.$title.addEventListener( 'touchstart', onTouchStart );
 
 			document.body.appendChild( this.domElement );
 
 		}
 
-
 		this.title( title );
-
 
 	}
 

@@ -3,7 +3,7 @@
  */
 
 /**
- * Classdesc? Where are you getting this intel. who told you.  
+ * 
  */
 export default class Controller {
 

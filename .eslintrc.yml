@@ -12,6 +12,7 @@ rules:
   comma-spacing: warn
   comma-dangle: [ warn, never ]
   computed-property-spacing: [ warn, always ]
+  eol-last: [ warn, always ]
   eqeqeq: [ warn, smart ]
   func-call-spacing: [ warn, never ]
   indent: [ warn, tab, { SwitchCase: 1 } ]
@@ -21,7 +22,7 @@ rules:
   new-parens: warn
   no-console: warn
   no-extra-semi: warn
-  no-multiple-empty-lines: warn
+  no-multiple-empty-lines: [ warn, { max: 1, maxEOF: 1 } ]
   no-trailing-spaces: [ warn, { ignoreComments: true } ]
   no-unused-vars: warn
   no-var: warn

@@ -26,7 +26,6 @@ class App {
 			new ClassToggle( c );
 		} );
 
-
 	}
 	set demo( name ) {
 
@@ -210,7 +209,6 @@ app.demos[ 'Hall of Sliders' ] = function( gui ) {
 
 app.demos[ 'Numbers Unbound' ] = function( gui ) {
 
-
 	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
 	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
 	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
@@ -226,7 +224,6 @@ app.demos[ 'Numbers Unbound' ] = function( gui ) {
 };
 
 app.demos[ 'Kitchen Sink' ] = function( gui ) {
-
 
 	gui.addFolder( 'Colors', false );
 	// ------------------------------------
@@ -280,7 +277,6 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'withReallyLongNames' );
 	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'chillingInAList' );
 	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( '🤓' ).domElement.style.setProperty( '--name-width', '10%' );
-
 
 	gui.add( { x: 0 }, 'x', 0, 1 ).domElement.style.setProperty( '--slider-input-width', '50%' );
 

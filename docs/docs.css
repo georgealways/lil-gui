@@ -1,15 +1,10 @@
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
 * {
 	box-sizing: border-box;
 }
 
 html {
-	--font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif;
-	--font-family-code: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
+	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
 	--font-size: 14px;
 	--line-height: 1.6;
 	--background: #fffbf7;
@@ -23,7 +18,8 @@ strong {
 	font-weight: 600;
 }
 
-html, body {
+html,
+body {
 	font-family: var(--font-family);
 	line-height: var(--line-height);
 	font-size: var(--font-size);
@@ -87,11 +83,18 @@ h1 {
 	border-bottom-style: solid;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
 	font-weight: normal;
 }
 
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
 	line-height: auto;
 }
 
@@ -99,40 +102,61 @@ table {
 	border-collapse: collapse;
 }
 
-table>thead>tr>th, table>thead>tr>td, table>tbody>tr>th, table>tbody>tr>td {
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
 	padding: 5px 10px;
 }
 
-table>tbody>tr+tr>td {
+table > tbody > tr + tr > td {
 	border-top: 1px solid;
 }
 
-pre:not(.hljs), pre.hljs code>div {
+pre:not(.hljs),
+pre.hljs code > div {
 	padding: 16px;
 	border-radius: 3px;
 	overflow: auto;
 }
 
-table>thead>tr>th {
+table > thead > tr > th {
 	text-align: left;
 	border-bottom: 1px solid;
 	border-color: rgba(255, 255, 255, 0.69);
 }
 
-h1, hr, table>tbody>tr+tr>td {
+h1,
+hr,
+table > tbody > tr + tr > td {
 	border-color: rgba(255, 255, 255, 0.18);
 }
 
-.hljs-keyword, .hljs-selector-tag, .hljs-title, .hljs-section, .hljs-doctag, .hljs-name, .hljs-strong {
-	font-weight: bold
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-name,
+.hljs-strong {
+	font-weight: bold;
 }
 
 .hljs-comment {
-	color: #738191
+	color: #738191;
 }
 
-.hljs-title, .hljs-section, .hljs-type, .hljs-addition, .hljs-tag, .hljs-quote, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-built_in {
-	color: #008097
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-addition,
+.hljs-tag,
+.hljs-quote,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-built_in {
+	color: #008097;
 }
 
 .hljs-literal {
@@ -140,17 +164,26 @@ h1, hr, table>tbody>tr+tr>td {
 }
 
 .hljs-number {
-	color: #0093e9
+	color: #0093e9;
 }
 
 .hljs-string {
 	color: #009439;
 }
 
-.hljs-meta, .hljs-subst, .hljs-symbol, .hljs-regexp, .hljs-attribute, .hljs-deletion, .hljs-variable, .hljs-template-variable, .hljs-link, .hljs-bullet {
-	color: #4c81c9
+.hljs-meta,
+.hljs-subst,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-attribute,
+.hljs-deletion,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-bullet {
+	color: #4c81c9;
 }
 
 .hljs-emphasis {
-	font-style: italic
+	font-style: italic;
 }

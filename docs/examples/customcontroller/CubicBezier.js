@@ -51,7 +51,6 @@ function solveCubic( a, b, c, d ) {
 
 	}
 
-
 }
 
 function cubeRoot( x ) {
