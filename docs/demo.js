@@ -2,9 +2,11 @@
 import { GUI } from '../build/lil-gui.module.js';
 
 class App {
+
 	constructor() {
 		this.demos = {};
 	}
+
 	init() {
 
 		this.defaultDemo = Object.keys( this.demos )[ 0 ];
@@ -27,6 +29,7 @@ class App {
 		} );
 
 	}
+
 	set demo( name ) {
 
 		this._demo = name;
@@ -34,18 +37,20 @@ class App {
 		history.replaceState( undefined, undefined, name === this.defaultDemo ? ' ' : '#' + name );
 
 		if ( this.gui ) {
-			this.gui.destroy();
+			this.gui.children.filter( c => c !== this.demoController ).forEach( c => c.destroy() );
+		} else {
+			this.gui = new GUI();
+			this.demoController = this.gui.add( this, 'demo', Object.keys( this.demos ) );
 		}
-
-		this.gui = new GUI();
-		this.gui.add( this, 'demo', Object.keys( this.demos ) );
 
 		this.demos[ name ]( this.gui );
 
 	}
+
 	get demo() {
 		return this._demo;
 	}
+
 }
 
 class CSSToggle {
@@ -214,7 +219,6 @@ app.demos[ 'Numbers Unbound' ] = function( gui ) {
 	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
 
 	gui.addFolder( 'Explicit step, no range', false );
-	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
 	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
@@ -226,7 +230,6 @@ app.demos[ 'Numbers Unbound' ] = function( gui ) {
 app.demos[ 'Kitchen Sink' ] = function( gui ) {
 
 	gui.addFolder( 'Colors', false );
-	// ------------------------------------
 
 	gui.addColor( { x: '#6C44BE' }, 'x' ).name( 'Hex String' );
 	gui.addColor( { x: 0x6C44BE }, 'x' ).name( 'Hex Int' );
@@ -234,7 +237,6 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	gui.addColor( { x: { r: 0, g: 1, b: 1 } }, 'x' ).name( 'RGB Object' );
 
 	gui.addFolder( 'Options', false );
-	// ------------------------------------
 
 	gui.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
 	gui.add( { x: 0 }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Object' );
@@ -270,7 +272,6 @@ app.demos[ 'Kitchen Sink' ] = function( gui ) {
 	addFiller( folder4 );
 
 	const folderNameWidth = gui.addFolder( '--name-width' );
-	// ------------------------------------
 
 	folderNameWidth.domElement.style.setProperty( '--name-width', '60%' );
 	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'justABunchOfBooleans' );

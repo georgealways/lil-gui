@@ -180,7 +180,7 @@ controller.destroy();
 ```
 ```js
 // Won't destroy all the controllers because c.destroy() modifies gui.children
-gui.children.forEach( c => c.destroy() );
+gui.forEachControler( c => c.destroy() );
 
 // Make a copy of the array first if you actually want to do that
 Array.from( gui.children ).forEach( c => c.destroy() );

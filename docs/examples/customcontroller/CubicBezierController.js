@@ -36,11 +36,13 @@ export default class CubicBezierController extends Controller {
 
 		const onDrag = ( target, callback ) => {
 
+			const clamp = x => Math.max( 0, Math.min( 1, x ) );
+
 			const set = ( { clientX, clientY } ) => {
 				const rect = this.$svg.getBoundingClientRect();
 				const x = inverseLerp( clientX, rect.left, rect.right );
 				const y = inverseLerp( clientY, rect.bottom, rect.top );
-				callback( x, y );
+				callback( clamp( x ), clamp( y ) );
 			};
 
 			const onMouseDown = e => {

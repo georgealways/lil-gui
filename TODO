@@ -1,36 +1,22 @@
 todo
 
-[ ] header => folder('name', headerMode=false) ?
-
-[ ] clean up number controller. shit ain't dry
-
-[ ] new GUI() injectStyles parameter?
 [ ] kill onfinishchange?
+[ ] clean up number controller. shit ain't dry
+[ ] new GUI() injectStyles parameter?
+[ ] listen could happen
 
-[x] kill double underscores?
 
 [x] define blank methods for controller (min,max,step,options)
 	that's done ... test it?
 
-
-
-
-[x] kill "GUIItem"
-[x] children Set or Array? (write a test for destroy)
-[x] kill is
-[x] colorformat non primitive
-[x] move back to default exports internally
-
 style todo 
 
 [ ] buttons are ugly
-[ ] folders are ugly
-[ ] it's all ugly
 
 docs todo
 
 [ ] constructor in index
-[ ] indication of kind 
+[x] indication of kind 
 	be it by categories or something in the description
 	so far: ( constructor, instance method, instance property )
 [x] viewsource link
@@ -103,3 +89,15 @@ archived todos
 	[x] slider touch scroll
 	[x] rollup + livereload
 	[x] fuck label, all controllers back to div
+
+	[x] folders are ugly
+	[x] it's all ugly
+
+	[x] kill "GUIItem"
+	[x] children Set or Array? (write a test for destroy)
+	[x] kill is
+	[x] colorformat non primitive
+	[x] move back to default exports internally
+
+	[x] kill double underscores?
+	[x] header => folder('name', headerMode=false) ?

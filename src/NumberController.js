@@ -62,6 +62,7 @@ export default class NumberController extends Controller {
 		const onInput = () => {
 
 			const value = parseFloat( this.$input.value );
+
 			if ( isNaN( value ) ) return;
 
 			// Set the value, but don't call onFinishedChange
@@ -73,6 +74,7 @@ export default class NumberController extends Controller {
 		const increment = delta => {
 
 			const value = parseFloat( this.$input.value );
+
 			if ( isNaN( value ) ) return;
 
 			this._snapClampSetValue( value + delta );

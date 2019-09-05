@@ -144,7 +144,7 @@ class Controller {
 	 * 
 	 * @example
 	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
-	 * gui.children.forEach( c => c.destroy() );
+	 * gui.forEachControler( c => c.destroy() );
 	 * 
 	 * // Make a copy of the array first if you actually want to do that
 	 * Array.from( gui.children ).forEach( c => c.destroy() );
@@ -434,6 +434,7 @@ class NumberController extends Controller {
 		const onInput = () => {
 
 			const value = parseFloat( this.$input.value );
+
 			if ( isNaN( value ) ) return;
 
 			// Set the value, but don't call onFinishedChange
@@ -445,6 +446,7 @@ class NumberController extends Controller {
 		const increment = delta => {
 
 			const value = parseFloat( this.$input.value );
+
 			if ( isNaN( value ) ) return;
 
 			this._snapClampSetValue( value + delta );

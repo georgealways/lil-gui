@@ -213,7 +213,7 @@ folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 controller.destroy();
 </code></pre>
 <pre><code class="language-js"><span class="hljs-comment">// Won't destroy all the controllers because c.destroy() modifies gui.children</span>
-gui.children.forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
+gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
 
 <span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
 <span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
@@ -748,7 +748,7 @@ window.jsdocDebug = [
 						"description": "Destroys this controller and removes it from the parent GUI.",
 						"examples": [
 							"const controller = gui.add( object, 'property' );\ncontroller.destroy();",
-							"// Won't destroy all the controllers because c.destroy() modifies gui.children\ngui.children.forEach( c => c.destroy() );\n\n// Make a copy of the array first if you actually want to do that\nArray.from( gui.children ).forEach( c => c.destroy() );"
+							"// Won't destroy all the controllers because c.destroy() modifies gui.children\ngui.forEachControler( c => c.destroy() );\n\n// Make a copy of the array first if you actually want to do that\nArray.from( gui.children ).forEach( c => c.destroy() );"
 						],
 						"name": "destroy",
 						"longname": "Controller#destroy",
