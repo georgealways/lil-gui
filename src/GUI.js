@@ -26,18 +26,18 @@ function inject( cssContent ) {
 	}
 }
 
-/**
- * @typedef GUIOptions
- * @property {GUI} [parent]
- * @property {boolean} [autoPlace=true]
- * @property {boolean} [injectStyles=true]
- * @property {string} [title='Controls']
- * @property {number} [width=250]
- * @property {number} [mobileMaxHeight=200]
- * @property {boolean} [collapses=true]
- */
-
 export default class GUI {
+
+	/**
+	 * @typedef GUIOptions
+	 * @property {GUI} [parent]
+	 * @property {boolean} [autoPlace=true]
+	 * @property {boolean} [injectStyles=true]
+	 * @property {string} [title='Controls']
+	 * @property {number} [width=250]
+	 * @property {number} [mobileMaxHeight=200]
+	 * @property {boolean} [collapses=true]
+	 */
 
 	/**
 	 * @param {GUIOptions} [options]

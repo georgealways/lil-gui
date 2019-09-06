@@ -124,32 +124,6 @@ app.demos[ 'Basic' ] = function( gui ) {
 	gui.add( { boolean: true }, 'boolean' );
 	gui.add( { button() { alert( 'sup' ); } }, 'button' );
 
-};
-
-app.demos[ 'Style' ] = function( gui ) {
-
-	gui.add( { number: 0.5 }, 'number', 0, 1 );
-	gui.addColor( { color: 0x6C44BE }, 'color' );
-	gui.add( { string: 'message' }, 'string' );
-	gui.add( { boolean: true }, 'boolean' );
-	gui.add( { button() { alert( 'sup' ); } }, 'button' );
-
-	gui.add( { x: 25 }, 'x', 0, 50, 1 ).name( '--row-height' ).onChange( v => {
-		gui.domElement.style.setProperty( '--row-height', v + 'px' );
-	} );
-
-	gui.add( { x: 20 }, 'x', 0, 50, 1 ).name( '--widget-height' ).onChange( v => {
-		gui.domElement.style.setProperty( '--widget-height', v + 'px' );
-	} );
-
-	gui.add( { x: 40 }, 'x', 0, 100, 0.1 ).name( '--name-width' ).onChange( v => {
-		gui.domElement.style.setProperty( '--name-width', v + '%' );
-	} );
-
-	gui.add( { x: 6 }, 'x', 0, 12, 1 ).name( '--padding' ).onChange( v => {
-		gui.domElement.style.setProperty( '--padding', v + 'px' );
-	} );
-
 	const folder1 = gui.addFolder( 'Folder' );
 
 	const addFiller = g => {
@@ -175,6 +149,7 @@ app.demos[ 'Style' ] = function( gui ) {
 	addFiller( folder4 );
 	folder4.addFolder( 'Nested "header"', false );
 	addFiller( folder4 );
+
 };
 
 app.demos[ 'Hall of Sliders' ] = function( gui ) {

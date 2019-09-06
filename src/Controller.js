@@ -97,12 +97,11 @@ export default class Controller {
 	onFinishChange( callback ) {
 		// eslint-disable-next-line no-console
 		console.warn( 'onFinishChange() is synonymous with onChange()' );
-		this._onChange = callback;
-		return this;
+		return this.onChange( callback );
 	}
 
 	/**
-	 * I'm not sure if I'm keeping this.
+	 * Destroys this controller and adds a new option controller
 	 * @param {*} options
 	 * @returns {Controller} newController
 	 */
@@ -226,35 +225,35 @@ export default class Controller {
 		return this;
 	}
 
-	listen() {
-		// eslint-disable-next-line no-console
-		console.warn( 'listen() is currently unimplemented' );
-		return this;
-	}
-
-	// /**
-	//  *
-	//  * @param {boolean} [listen=true]
-	//  * @returns {Controller} self
-	//  */
-	// listen( listen ) {
-
-	// 	this._listening = listen;
-
-	// 	if ( this._listenCallback !== undefined ) {
-	// 		cancelAnimationFrame( this._listenCallback );
-	// 	}
-
-	// 	if ( this._listening ) {
-	// 		const callback = () => {
-	// 			this._listenCallback = requestAnimationFrame( callback );
-	// 			this.updateDisplay();
-	// 		};
-	// 		callback();
-	// 	}
-
+	// listen() {
+	// 	// eslint-disable-next-line no-console
+	// 	console.warn( 'listen() is currently unimplemented' );
 	// 	return this;
-
 	// }
+
+	/**
+	 *
+	 * @param {boolean} [listen=true]
+	 * @returns {Controller} self
+	 */
+	listen( listen ) {
+
+		this._listening = listen;
+
+		if ( this._listenCallback !== undefined ) {
+			cancelAnimationFrame( this._listenCallback );
+		}
+
+		if ( this._listening ) {
+			const callback = () => {
+				this._listenCallback = requestAnimationFrame( callback );
+				this.updateDisplay();
+			};
+			callback();
+		}
+
+		return this;
+
+	}
 
 }

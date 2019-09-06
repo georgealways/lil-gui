@@ -30,6 +30,7 @@
 	- [**disable**()](#Controller#disable) → Controller
 	- [**enable**()](#Controller#enable) → Controller
 	- [**getValue**()](#Controller#getValue) → *
+	- [**listen**()](#Controller#listen) → Controller
 	- [**max**(…)](#Controller#max) → Controller
 	- [**min**(…)](#Controller#min) → Controller
 	- [**name**(…)](#Controller#name) → Controller
@@ -160,7 +161,7 @@ Reference to the outermost folder, or `this` for the root GUI.
 
 ## Methods
 
-### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L176) controller.**destroy**() 
+### <a name="Controller#destroy" href="#Controller#destroy"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L175) controller.**destroy**() 
 
 Destroys this controller and removes it from the parent GUI. 
 
@@ -176,29 +177,36 @@ gui.forEachControler( c => c.destroy() );
 Array.from( gui.children ).forEach( c => c.destroy() );
 ```
 
-### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L157) controller.**disable**() → Controller
+### <a name="Controller#disable" href="#Controller#disable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L156) controller.**disable**() → Controller
 
 Disables this controller. 
 
-### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L147) controller.**enable**( [enabled] ) → Controller
+### <a name="Controller#enable" href="#Controller#enable"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L146) controller.**enable**( [enabled] ) → Controller
 
 Enables this controller. 
 
 **Parameters**
 - enabled
 
-### <a name="Controller#getValue" href="#Controller#getValue"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L185) controller.**getValue**() → *
+### <a name="Controller#getValue" href="#Controller#getValue"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L184) controller.**getValue**() → *
 
  
 
-### <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L205) controller.**max**( max ) → Controller
+### <a name="Controller#listen" href="#Controller#listen"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L239) controller.**listen**( [listen] ) → Controller
+
+ 
+
+**Parameters**
+- listen
+
+### <a name="Controller#max" href="#Controller#max"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L204) controller.**max**( max ) → Controller
 
 Sets the maximum value. Only works on number controllers. 
 
 **Parameters**
 - max
 
-### <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L195) controller.**min**( min ) → Controller
+### <a name="Controller#min" href="#Controller#min"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L194) controller.**min**( min ) → Controller
 
 Sets the minimum value. Only works on number controllers. 
 
@@ -225,32 +233,32 @@ gui.add( object, 'property' ).onChange( v => {
 } );
 ```
 
-### <a name="Controller#options" href="#Controller#options"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L109) controller.**options**( options ) → Controller
+### <a name="Controller#options" href="#Controller#options"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L108) controller.**options**( options ) → Controller
 
-I'm not sure if I'm keeping this. 
+Destroys this controller and adds a new option controller 
 
 **Parameters**
 - options
 
-### <a name="Controller#reset" href="#Controller#reset"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L137) controller.**reset**() → Controller
+### <a name="Controller#reset" href="#Controller#reset"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L136) controller.**reset**() → Controller
 
  
 
-### <a name="Controller#setValue" href="#Controller#setValue"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L121) controller.**setValue**( value ) → Controller
+### <a name="Controller#setValue" href="#Controller#setValue"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L120) controller.**setValue**( value ) → Controller
 
  
 
 **Parameters**
 - value
 
-### <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L215) controller.**step**( step ) → Controller
+### <a name="Controller#step" href="#Controller#step"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L214) controller.**step**( step ) → Controller
 
 Sets the step. Only works on number controllers. 
 
 **Parameters**
 - step
 
-### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L225) controller.**updateDisplay**() → Controller
+### <a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> [#](https://github.com/georgealways/gui/blob/master/src/Controller.js#L224) controller.**updateDisplay**() → Controller
 
 Updates the display to keep it in sync with the current value of
 `this.object[ this.property ]`. Useful for updating your controllers if

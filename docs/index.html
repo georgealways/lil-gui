@@ -121,6 +121,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#Controller#disable"><strong>disable</strong>()</a> → Controller</li>
 <li><a href="#Controller#enable"><strong>enable</strong>()</a> → Controller</li>
 <li><a href="#Controller#getValue"><strong>getValue</strong>()</a> → *</li>
+<li><a href="#Controller#listen"><strong>listen</strong>()</a> → Controller</li>
 <li><a href="#Controller#max"><strong>max</strong>(…)</a> → Controller</li>
 <li><a href="#Controller#min"><strong>min</strong>(…)</a> → Controller</li>
 <li><a href="#Controller#name"><strong>name</strong>(…)</a> → Controller</li>
@@ -211,7 +212,7 @@ folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 <h1>Controller</h1>
 <h2>Constructor</h2>
 <h2>Methods</h2>
-<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L176">#</a> controller.<strong>destroy</strong>()</h3>
+<h3><a name="Controller#destroy" href="#Controller#destroy"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L175">#</a> controller.<strong>destroy</strong>()</h3>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
 controller.destroy();
@@ -222,22 +223,27 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 <span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
 <span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
 </code></pre>
-<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L157">#</a> controller.<strong>disable</strong>() → Controller</h3>
+<h3><a name="Controller#disable" href="#Controller#disable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L156">#</a> controller.<strong>disable</strong>() → Controller</h3>
 <p>Disables this controller.</p>
-<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L147">#</a> controller.<strong>enable</strong>( [enabled] ) → Controller</h3>
+<h3><a name="Controller#enable" href="#Controller#enable"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L146">#</a> controller.<strong>enable</strong>( [enabled] ) → Controller</h3>
 <p>Enables this controller.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>enabled</li>
 </ul>
-<h3><a name="Controller#getValue" href="#Controller#getValue"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L185">#</a> controller.<strong>getValue</strong>() → *</h3>
-<h3><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L205">#</a> controller.<strong>max</strong>( max ) → Controller</h3>
+<h3><a name="Controller#getValue" href="#Controller#getValue"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L184">#</a> controller.<strong>getValue</strong>() → *</h3>
+<h3><a name="Controller#listen" href="#Controller#listen"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L239">#</a> controller.<strong>listen</strong>( [listen] ) → Controller</h3>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>listen</li>
+</ul>
+<h3><a name="Controller#max" href="#Controller#max"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L204">#</a> controller.<strong>max</strong>( max ) → Controller</h3>
 <p>Sets the maximum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>max</li>
 </ul>
-<h3><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L195">#</a> controller.<strong>min</strong>( min ) → Controller</h3>
+<h3><a name="Controller#min" href="#Controller#min"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L194">#</a> controller.<strong>min</strong>( min ) → Controller</h3>
 <p>Sets the minimum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -257,25 +263,25 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
 } );
 </code></pre>
-<h3><a name="Controller#options" href="#Controller#options"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L109">#</a> controller.<strong>options</strong>( options ) → Controller</h3>
-<p>I'm not sure if I'm keeping this.</p>
+<h3><a name="Controller#options" href="#Controller#options"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L108">#</a> controller.<strong>options</strong>( options ) → Controller</h3>
+<p>Destroys this controller and adds a new option controller</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>options</li>
 </ul>
-<h3><a name="Controller#reset" href="#Controller#reset"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L137">#</a> controller.<strong>reset</strong>() → Controller</h3>
-<h3><a name="Controller#setValue" href="#Controller#setValue"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L121">#</a> controller.<strong>setValue</strong>( value ) → Controller</h3>
+<h3><a name="Controller#reset" href="#Controller#reset"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L136">#</a> controller.<strong>reset</strong>() → Controller</h3>
+<h3><a name="Controller#setValue" href="#Controller#setValue"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L120">#</a> controller.<strong>setValue</strong>( value ) → Controller</h3>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>value</li>
 </ul>
-<h3><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L215">#</a> controller.<strong>step</strong>( step ) → Controller</h3>
+<h3><a name="Controller#step" href="#Controller#step"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L214">#</a> controller.<strong>step</strong>( step ) → Controller</h3>
 <p>Sets the step. Only works on number controllers.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li>step</li>
 </ul>
-<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L225">#</a> controller.<strong>updateDisplay</strong>() → Controller</h3>
+<h3><a name="Controller#updateDisplay" href="#Controller#updateDisplay"></a> <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L224">#</a> controller.<strong>updateDisplay</strong>() → Controller</h3>
 <p>Updates the display to keep it in sync with the current value of
 <code>this.object[ this.property ]</code>. Useful for updating your controllers if
 their values have been modified outside of the GUI.</p>
@@ -731,8 +737,8 @@ window.jsdocDebug = [
 						"params": [],
 						"indexname": "**destroy**()",
 						"signature": "controller.**destroy**()",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L176",
-						"definedat": "src/Controller.js:176"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L175",
+						"definedat": "src/Controller.js:175"
 					},
 					{
 						"description": "Disables this controller.",
@@ -755,8 +761,8 @@ window.jsdocDebug = [
 						"indexname": "**disable**()",
 						"signature": "controller.**disable**()",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L157",
-						"definedat": "src/Controller.js:157"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L156",
+						"definedat": "src/Controller.js:156"
 					},
 					{
 						"description": "Enables this controller.",
@@ -790,8 +796,8 @@ window.jsdocDebug = [
 						"indexname": "**enable**()",
 						"signature": "controller.**enable**( [enabled] )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L147",
-						"definedat": "src/Controller.js:147"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L146",
+						"definedat": "src/Controller.js:146"
 					},
 					{
 						"returns": [
@@ -813,8 +819,42 @@ window.jsdocDebug = [
 						"indexname": "**getValue**()",
 						"signature": "controller.**getValue**()",
 						"indextype": "→ *",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L185",
-						"definedat": "src/Controller.js:185"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L184",
+						"definedat": "src/Controller.js:184"
+					},
+					{
+						"params": [
+							{
+								"type": {
+									"names": [
+										"boolean"
+									]
+								},
+								"optional": true,
+								"defaultvalue": true,
+								"name": "listen"
+							}
+						],
+						"returns": [
+							{
+								"type": {
+									"names": [
+										"Controller"
+									]
+								},
+								"description": "self"
+							}
+						],
+						"name": "listen",
+						"longname": "Controller#listen",
+						"kind": "function",
+						"scope": "instance",
+						"memberof": "Controller",
+						"indexname": "**listen**()",
+						"signature": "controller.**listen**( [listen] )",
+						"indextype": "→ Controller",
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L239",
+						"definedat": "src/Controller.js:239"
 					},
 					{
 						"description": "Sets the maximum value. Only works on number controllers.",
@@ -846,8 +886,8 @@ window.jsdocDebug = [
 						"indexname": "**max**(…)",
 						"signature": "controller.**max**( max )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L205",
-						"definedat": "src/Controller.js:205"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L204",
+						"definedat": "src/Controller.js:204"
 					},
 					{
 						"description": "Sets the minimum value. Only works on number controllers.",
@@ -879,8 +919,8 @@ window.jsdocDebug = [
 						"indexname": "**min**(…)",
 						"signature": "controller.**min**( min )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L195",
-						"definedat": "src/Controller.js:195"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L194",
+						"definedat": "src/Controller.js:194"
 					},
 					{
 						"params": [
@@ -950,7 +990,7 @@ window.jsdocDebug = [
 						"definedat": "src/Controller.js:89"
 					},
 					{
-						"description": "I'm not sure if I'm keeping this.",
+						"description": "Destroys this controller and adds a new option controller",
 						"params": [
 							{
 								"type": {
@@ -979,8 +1019,8 @@ window.jsdocDebug = [
 						"indexname": "**options**(…)",
 						"signature": "controller.**options**( options )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L109",
-						"definedat": "src/Controller.js:109"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L108",
+						"definedat": "src/Controller.js:108"
 					},
 					{
 						"returns": [
@@ -1002,8 +1042,8 @@ window.jsdocDebug = [
 						"indexname": "**reset**()",
 						"signature": "controller.**reset**()",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L137",
-						"definedat": "src/Controller.js:137"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L136",
+						"definedat": "src/Controller.js:136"
 					},
 					{
 						"params": [
@@ -1034,8 +1074,8 @@ window.jsdocDebug = [
 						"indexname": "**setValue**(…)",
 						"signature": "controller.**setValue**( value )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L121",
-						"definedat": "src/Controller.js:121"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L120",
+						"definedat": "src/Controller.js:120"
 					},
 					{
 						"description": "Sets the step. Only works on number controllers.",
@@ -1067,8 +1107,8 @@ window.jsdocDebug = [
 						"indexname": "**step**(…)",
 						"signature": "controller.**step**( step )",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L215",
-						"definedat": "src/Controller.js:215"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L214",
+						"definedat": "src/Controller.js:214"
 					},
 					{
 						"description": "Updates the display to keep it in sync with the current value of\n`this.object[ this.property ]`. Useful for updating your controllers if\ntheir values have been modified outside of the GUI.",
@@ -1091,8 +1131,8 @@ window.jsdocDebug = [
 						"indexname": "**updateDisplay**()",
 						"signature": "controller.**updateDisplay**()",
 						"indextype": "→ Controller",
-						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L225",
-						"definedat": "src/Controller.js:225"
+						"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L224",
+						"definedat": "src/Controller.js:224"
 					}
 				]
 			},

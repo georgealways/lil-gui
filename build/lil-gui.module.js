@@ -98,12 +98,11 @@ class Controller {
 	onFinishChange( callback ) {
 		// eslint-disable-next-line no-console
 		console.warn( 'onFinishChange() is synonymous with onChange()' );
-		this._onChange = callback;
-		return this;
+		return this.onChange( callback );
 	}
 
 	/**
-	 * I'm not sure if I'm keeping this.
+	 * Destroys this controller and adds a new option controller
 	 * @param {*} options
 	 * @returns {Controller} newController
 	 */
@@ -227,36 +226,36 @@ class Controller {
 		return this;
 	}
 
-	listen() {
-		// eslint-disable-next-line no-console
-		console.warn( 'listen() is currently unimplemented' );
-		return this;
-	}
-
-	// /**
-	//  *
-	//  * @param {boolean} [listen=true]
-	//  * @returns {Controller} self
-	//  */
-	// listen( listen ) {
-
-	// 	this._listening = listen;
-
-	// 	if ( this._listenCallback !== undefined ) {
-	// 		cancelAnimationFrame( this._listenCallback );
-	// 	}
-
-	// 	if ( this._listening ) {
-	// 		const callback = () => {
-	// 			this._listenCallback = requestAnimationFrame( callback );
-	// 			this.updateDisplay();
-	// 		};
-	// 		callback();
-	// 	}
-
+	// listen() {
+	// 	// eslint-disable-next-line no-console
+	// 	console.warn( 'listen() is currently unimplemented' );
 	// 	return this;
-
 	// }
+
+	/**
+	 *
+	 * @param {boolean} [listen=true]
+	 * @returns {Controller} self
+	 */
+	listen( listen ) {
+
+		this._listening = listen;
+
+		if ( this._listenCallback !== undefined ) {
+			cancelAnimationFrame( this._listenCallback );
+		}
+
+		if ( this._listening ) {
+			const callback = () => {
+				this._listenCallback = requestAnimationFrame( callback );
+				this.updateDisplay();
+			};
+			callback();
+		}
+
+		return this;
+
+	}
 
 }
 
@@ -846,7 +845,7 @@ class StringController extends Controller {
 
 }
 
-var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAASkAAsAAAAABzgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAALIAAAD0z0XwmmhlYWQAAAK0AAAAJwAAADZfcj24aGhlYQAAAtwAAAAYAAAAJAC5AGtobXR4AAAC9AAAAA4AAAAYAfQAAGxvY2EAAAMEAAAADgAAAA4A1gCUbWF4cAAAAxQAAAAeAAAAIAESAB5uYW1lAAADNAAAASIAAAIK9SUU/XBvc3QAAARYAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nD2PYQrCMAyFk3RWijB1dO1WGMKEDZkgjLKCILuA+yEOvP9NTCcuEHgveR8kQBDrCTMQbABGtPm2LWPdnTs4F7e4ZF7whh1AaBtZoTYjDn7qhJSiE8GhSPpEoCO55j184Mj5uvEjto0f+hMavUdpSJDWJBIqEAuqWLBluqCE+88/+KqFv+EPDkO/8DVRHuksY4gMXtmyYMvDfOVnmOJHoQ022ItVaa1Ko9Kz+gIOtBCUAAB4nGNgZGBgAGKmPQF28fw2Xxm4GVIYsIEQhnAgycHABOIAAJJkBBIAeJxjYGRgYEhhYICTIQyMDKiADQAcegEleJxjYACCFEwMABWUAfUAAAAAAAAAEgAqAEoAagB6AAB4nGNgZGBgYGMQYmBiAAEQyQWEDAz/wXwGAArcATEAAHicXdBNSsNAHAXwl35iA0UQXYnMShfS9GPZA7T7LgIu03SSpkwzYTIt1BN4Ak/gKTyAeCxfw39jZkjymzcvAwmAW/wgwHUEGDb36+jQQ3GXGot79L24jxCP4gHzF/EIr4jEIe7wxhOC3g2TMYy4Q7+Lu/SHuEd/ivt4wJd4wPxbPEKMX3GI5+DJFGaSn4qNzk8mcbKSR6xdXdhSzaOZJGtdapd4vVPbi6rP+cL7TGXOHtXKll4bY1Xl7EGnPtp7Xy2n00zyKLVHfkHBa4IcJ2oD3cgggWvt/V/FbDrUlEUJhTn/0azVWbNTNr0Ens8de1tceK9xZmfB1CPjOmPH4kitmvOubcNpmVTN3oFJyjzCvnmrwhJTzqzVj9jiSX911FjeAAB4nG3HQQ5AMBAF0PloNRFHcaqZaYhmpini+hYsvd2jjl6gfxEdegwIiBgpSfMqflvKl/G5uc3Zi2hbuPihMn3zqhZ4Vd6JHgdmEqcA\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width: 250px;--scrollbar-width: 5px;--mobile-max-height: 200px;--background-color:#1f1f1f;--text-color:#eee;--title-background-color:#111;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--widget-padding:0 0 0 3px;--widget-border-radius:2px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .lil-gui{--background-color:inherit;--text-color:inherit;--title-background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--widget-padding:inherit;--widget-border-radius:inherit}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold;display:flex;align-items:center}.lil-gui .title:before{font-family:\"lil-gui\";align-self:flex-end;width:1em;margin-left:-0.18em}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--padding);border-left:2px solid var(--widget-color)}.lil-gui .lil-gui:not(.collapses)>.title{position:relative}.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.collapses>.children:empty:before{content:\"Empty\";padding:0 var(--padding);display:block;height:var(--row-height);font-style:italic;line-height:var(--row-height);color:var(--highlight-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}\n";
+var styles = "@font-face{font-family:\"lil-gui\";src:url(\"data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAR4AAsAAAAABvgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2336Y21hcAAAAYQAAAB5AAAByLssMi9nbHlmAAACAAAAAIcAAAC0x1h5PGhlYWQAAAKIAAAAJwAAADZfcj23aGhlYQAAArAAAAAYAAAAJAC5AGtobXR4AAACyAAAAA4AAAAYAfQAAGxvY2EAAALYAAAADgAAAA4ApgB0bWF4cAAAAugAAAAeAAAAIAESABhuYW1lAAADCAAAASIAAAIK9SUU/XBvc3QAAAQsAAAASwAAAGO9vtJleJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIZpzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA9GEFuwAAAHic7ZFBCoMwEEXfmKQUcecJXAxuPIl4nq68Rq8irryancnYgnfoDy/wP2ECf4ACJGMyMsiK4HpZKjVPtDXPzOY7njTk4a2b7nqM/XnC3f0k9vp73DU2K/uP8uCvrt7L5Yq3GHjvugXWGboHvic9At/V2AeUD/TJFTYAAAB4nE3MzQrCMBAE4NmkJgShINSGDXjwhwbpTcSlYOlJemkPovj+jyIJos5hLt8wUEiZ8ILCAhjIr23klCtzxZyU8uaOB5aAxMZsqKoHupznVhujWy2BdHEqNAVlvvset/QoNkqUfmtDsIfcHx/RZY/ixTdZVv/+xPzzo3flznHtyr17A6a9DcsAeJxjYGRgYABioe+OHvH8Nl8ZuBlSGLCBEIYwIMnBwATiAACesgRXAHicY2BkYGBIYWCAkyEMjAyogA0AHHoBJXicY2AAghRMDAAVlAH1AAAAAAAAABIAKgA6AEoAWgAAeJxjYGRgYGBj4GFgYgABEMkFhAwM/8F8BgAKRgErAAB4nF3QTUrDQBwF8Jd+YgNFEF2JzEoX0vRj2QO0+y4CLtN0kqZMM2EyLdQTeAJP4Ck8gHgsX8N/Y2ZI8ps3LwMJgFv8IMB1BBg29+vo0ENxlxqLe/S9uI8Qj+IB8xfxCK+IxCHu8MYTgt4NkzGMuEO/i7v0h7hHf4r7eMCXeMD8WzxCjF9xiOfgyRRmkp+Kjc5PJnGykkesXV3YUs2jmSRrXWqXeL1T24uqz/nC+0xlzh7VypZeG2NV5exBpz7ae18tp9NM8ii1R35BwWuCHCdqA93IIIFr7f1fxWw61JRFCYU5/9Gs1VmzUza9BJ7PHXtbXHivcWZnwdQj4zpjx+JIrZrzrm3DaZlUzd6BSco8wr55q8ISU86s1Y/Y4kl/ddRY3gAAeJxtx0EOQDAQBdD5aDURR3GqmWmIZqYp4voWLL3do45eoH8RHXoMCIgYKUnzKn5bypfxubnN2YtoW7j4oTJ986oWeFXeiR4HZhKnAA==\") format(\"woff\")}.lil-gui{font-family:var(--font-family);font-size:var(--font-size);line-height:1;font-weight:normal;font-style:normal;text-align:left;background-color:var(--background-color);color:var(--text-color);user-select:none;-webkit-user-select:none;--width: 250px;--scrollbar-width: 5px;--mobile-max-height: 200px;--background-color:#1f1f1f;--text-color:#eee;--title-background-color:#111;--widget-color:#424242;--highlight-color:#525151;--number-color:#00adff;--string-color:#1ed36f;--font-size:11px;--font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Roboto\",\"Helvetica Neue\",Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";--name-width:42%;--slider-input-width:27%;--row-height:24px;--widget-height:20px;--padding:6px;--folder-indent:8px;--widget-padding:0 0 0 3px;--widget-border-radius:2px}.lil-gui,.lil-gui *{box-sizing:border-box;margin:0}.lil-gui.root{width:var(--width)}.lil-gui.root>.title{background:var(--title-background-color)}.lil-gui .lil-gui{--background-color:inherit;--text-color:inherit;--title-background-color:inherit;--widget-color:inherit;--highlight-color:inherit;--number-color:inherit;--string-color:inherit;--font-size:inherit;--font-family:inherit;--name-width:inherit;--slider-input-width:inherit;--row-height:inherit;--widget-height:inherit;--padding:inherit;--folder-indent:inherit;--widget-padding:inherit;--widget-border-radius:inherit}.lil-gui .title{height:var(--row-height);padding:0 var(--padding);font-weight:bold}.lil-gui .title:before{font-family:\"lil-gui\"}.lil-gui.collapses>.title:before{content:\"▾\"}.lil-gui.collapses.closed .children{display:none}.lil-gui.collapses.closed .title:before{content:\"▸\"}.lil-gui .lil-gui.collapses>.children{margin-left:var(--folder-indent);border-left:2px solid var(--widget-color)}.lil-gui .lil-gui:not(.collapses)>.title{line-height:var(--row-height);position:relative}.lil-gui .lil-gui:not(.collapses)>.title:after{content:\" \";display:block;position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--widget-color)}.lil-gui.collapses>.children:empty:before{content:\"Empty\";padding:0 var(--padding);display:block;height:var(--row-height);font-style:italic;line-height:var(--row-height);color:var(--highlight-color)}.lil-gui.autoPlace{position:fixed;top:0;right:15px;z-index:1001}.lil-gui.autoPlace>.children{max-height:calc(var(--window-height) - var(--row-height));overflow-y:auto;-webkit-overflow-scrolling:touch}.lil-gui.autoPlace>.children::-webkit-scrollbar{width:var(--scrollbar-width);background:var(--background-color)}.lil-gui.autoPlace>.children::-webkit-scrollbar-corner{height:0;display:none}.lil-gui.autoPlace>.children::-webkit-scrollbar-thumb{border-radius:var(--scrollbar-width);background:var(--highlight-color)}@media(max-width: 600px){.lil-gui.autoPlace{--row-height: 38px;--widget-height: 32px;--font-size: 16px;--padding: 8px;--widget-padding: 0 0 0 5px;--scrollbar-width: 7px;right:auto;top:auto;bottom:0;left:0;width:100%}.lil-gui.autoPlace>.children{max-height:calc(var(--mobile-max-height) - var(--row-height))}}.lil-gui input{border:0;outline:none;font-family:var(--font-family);font-size:var(--font-size);border-radius:var(--widget-border-radius);height:var(--widget-height);background:var(--widget-color);color:var(--text-color);width:100%}.lil-gui input[type=text]{padding:var(--widget-padding)}.lil-gui input:focus,.lil-gui input:active{background:var(--highlight-color)}.lil-gui input[type=checkbox]{appearance:none;-webkit-appearance:none;--size: calc(0.75 * var(--widget-height));height:var(--size);width:var(--size);border-radius:var(--widget-border-radius);text-align:center}.lil-gui input[type=checkbox]:checked:before{font-family:\"lil-gui\";content:\"✓\";font-size:var(--size);line-height:var(--size)}.lil-gui button{-webkit-tap-highlight-color:transparent;outline:none;cursor:pointer;border:0;font-family:var(--font-family);font-size:var(--font-size);color:var(--text-color);background:var(--background-color);text-align:left;text-transform:none;width:100%}@media(hover: hover){.lil-gui button:hover{background:var(--widget-color)}}.lil-gui button:active{background:var(--highlight-color)}.lil-gui .display{background:var(--widget-color)}.lil-gui .display.focus,.lil-gui .display.active{background:var(--highlight-color)}.lil-gui .controller{display:flex;align-items:center;padding:0 var(--padding);height:var(--row-height)}.lil-gui .controller.disabled{opacity:.5;pointer-events:none}.lil-gui .controller .name{display:flex;align-items:center;min-width:var(--name-width);flex-shrink:0;padding-right:var(--padding);height:100%;overflow:hidden}.lil-gui .controller .widget{position:relative;display:flex;align-items:center;width:100%;height:100%}.lil-gui .controller.number input{color:var(--number-color)}.lil-gui .controller.number.hasSlider input{width:var(--slider-input-width);min-width:38px;flex-shrink:0}.lil-gui .controller.number .slider{width:100%;height:var(--widget-height);margin-right:calc(var(--row-height) - var(--widget-height));background-color:var(--widget-color);border-radius:var(--widget-border-radius);overflow:hidden}.lil-gui .controller.number .slider.active{background-color:var(--highlight-color)}.lil-gui .controller.number .slider.active .fill{opacity:.95}.lil-gui .controller.number .fill{height:100%;background-color:var(--number-color)}.lil-gui .controller.string input{color:var(--string-color)}.lil-gui .controller.color input{opacity:0;position:absolute;height:var(--widget-height);width:100%}.lil-gui .controller.color .display{pointer-events:none;height:var(--widget-height);width:100%;border-radius:var(--widget-border-radius)}.lil-gui .controller.option select{opacity:0;position:absolute;max-width:100%}.lil-gui .controller.option .display{pointer-events:none;border-radius:var(--widget-border-radius);height:var(--widget-height);line-height:var(--widget-height);position:relative;max-width:100%;overflow:hidden;word-break:break-all;padding-left:.55em;padding-right:1.75em}.lil-gui .controller.option .display:after{font-family:\"lil-gui\";content:\"↕\";position:absolute;top:0;right:0;bottom:0;padding-right:.375em}.lil-gui .controller.function .widget:before{font-family:\"lil-gui\";content:\"▶\"}\n";
 
 /**
  * @module GUI
@@ -866,18 +865,18 @@ function inject( cssContent ) {
 	}
 }
 
-/**
- * @typedef GUIOptions
- * @property {GUI} [parent]
- * @property {boolean} [autoPlace=true]
- * @property {boolean} [injectStyles=true]
- * @property {string} [title='Controls']
- * @property {number} [width=250]
- * @property {number} [mobileMaxHeight=200]
- * @property {boolean} [collapses=true]
- */
-
 class GUI {
+
+	/**
+	 * @typedef GUIOptions
+	 * @property {GUI} [parent]
+	 * @property {boolean} [autoPlace=true]
+	 * @property {boolean} [injectStyles=true]
+	 * @property {string} [title='Controls']
+	 * @property {number} [width=250]
+	 * @property {number} [mobileMaxHeight=200]
+	 * @property {boolean} [collapses=true]
+	 */
 
 	/**
 	 * @param {GUIOptions} [options]

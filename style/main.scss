@@ -7,8 +7,8 @@
 }
 
 @mixin hover {
-	@media (hover: hover) { 
-		&:hover { 
+	@media (hover: hover) {
+		&:hover {
 			@content;
 		}
 	}
@@ -90,6 +90,7 @@
 			--row-height: 24px,
 			--widget-height: 20px,
 			--padding: 6px,
+			--folder-indent: 8px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px
 		)
@@ -102,16 +103,9 @@
 		height: var(--row-height);
 		padding: 0 var(--padding);
 		font-weight: bold;
-		
-		// only for addFolder('', false). :-\
-		display: flex;
-		align-items: center;
 
 		&:before {
 			font-family: 'lil-gui';
-			align-self: flex-end; // seems like my glyphs are too big
-			width: 1em;
-			margin-left: -0.18em;
 		}
 	}
 
@@ -131,14 +125,21 @@
 	}
 
 	& &.collapses > .children {
-		margin-left: var(--padding);
+		margin-left: var(--folder-indent);
 		border-left: 2px solid var(--widget-color);
 	}
 
 	& &:not(.collapses) > .title {
+		// wish i didn't need this, but it's a div, not a button
+		// and for some reason the buttons get vertical alignment for free
+		line-height: var(--row-height);
+
+		// would have liked to do ...
 		// border-bottom: 1px solid var(--widget-color);
-		// ... it was too close to the next controller
+		// ... but it was too close to the bottom
+
 		position: relative;
+
 		&:after {
 			content: ' ';
 			display: block;
@@ -151,7 +152,7 @@
 		}
 	}
 
-	&.collapses > .children:empty:before { 
+	&.collapses > .children:empty:before {
 		content: 'Empty';
 		padding: 0 var(--padding);
 		display: block;
@@ -396,5 +397,4 @@
 			content: '▶';
 		}
 	}
-
 }
