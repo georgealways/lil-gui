@@ -31,7 +31,7 @@ class Controller {
 		this._disabled = false;
 
 		/**
-		 *
+		 * @type {*}
 		 */
 		this.initialValue = this.getValue();
 

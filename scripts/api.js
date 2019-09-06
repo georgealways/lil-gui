@@ -69,23 +69,24 @@ function transform( v ) {
 		v.indexname = `**${v.indexname}**`;
 
 		if ( v.params ) {
-		// functions with no required params get an empty signature in index
-			v.indexname += v.params.filter( v => !v.optional ).length ? '(…)' : '()';
+			v.indexname += v.params.length ? '(…)' : '()';
 			v.signature += paramsToSignature( v.params );
 		}
 
 		if ( v.returns !== undefined ) {
-			v.indextype = '→ ' + v.returns[ 0 ].type.names[ 0 ];
-		}
-
-		if ( v.tags !== undefined && v.tags.find( v => v.title === 'chainable' ) ) {
-			v.indextype = '→ self';
+			const type = v.returns[ 0 ].type.names[ 0 ];
+			if ( type === v.memberof && v.returns[ 0 ].description === 'self' ) {
+				v.indextype = '→ self'; // "chainable"
+			} else {
+				v.indextype = '→ ' + type;
+			}
 		}
 
 	} else if ( v.kind === 'class' ) {
 
 		if ( v.params !== undefined ) {
-			v.signature = `**new** ${v.name}` + paramsToSignature( v.params );
+			v.signature = `new **${v.name}**` + paramsToSignature( v.params );
+			v.memberof = v.longname;
 		} else {
 			// class is documented, but the constructor isn't, eg. Controller
 			v.signature = `**${v.name}**`;
@@ -109,7 +110,7 @@ function transform( v ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
-		if ( v.types ) {
+		if ( v.type ) {
 			v.indextype = ': ' + v.type.names.join( '|' );
 		}
 
@@ -140,12 +141,17 @@ transformed.forEach( v => {
 			category = parent.categories.instancemethod;
 		} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 			category = parent.categories.instanceproperty;
+		} else if ( v.kind === 'class' ) {
+			category = parent.categories.constructor;
+
+			// prevent circular structure
+			v = JSON.parse( JSON.stringify( v ) );
+			delete v.categories;
+
 		}
 
 		if ( category ) {
-
 			category.children.push( v );
-
 		}
 
 	}
@@ -163,7 +169,7 @@ jsdocData.sort( ( a, b ) => {
 // sort children by kind, then alphabetically with special chars at the end
 jsdocData.forEach( t => {
 	Object.values( t.categories ).forEach( c => {
-		c.children.sort( childSort );
+		// c.children.sort( childSort );
 	} );
 } );
 
