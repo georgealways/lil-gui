@@ -27,25 +27,32 @@ c'mon george
 
 {{#children}}
 
-### <a name="{{{longname}}}"></a> {{{signature}}} {{{indextype}}}
+## <a name="{{{longname}}}"></a> {{{signature}}} {{{indextype}}}
 
 {{{description}}}
 {{#unless description}}
 c'mon george
 {{/unless}}
 
-{{!-- 
-{{#with params}}
-{{#.}}
-- **{{name}}** {{{description}}}
-{{/.}}
-{{/with}} --}}
-
 {{#examples}}
 ```js
 {{{.}}}
 ```
 {{/examples}}
+
+{{#with params}}
+Parameter|Default|Description
+---------|-------|-----------
+{{#.}}{{name}}|{{defaultvalue}}|{{description}}
+{{/.}}
+{{/with}}
+
+{{#with properties}}
+Parameter|Default|Description
+---------|-------|-----------
+{{#.}}{{name}}|{{defaultvalue}}|{{description}}
+{{/.}}
+{{/with}}
 
 <small>View source: <a href="{{{viewsource}}}" target="_blank">{{{definedat}}}</a></small>
 

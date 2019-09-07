@@ -12,7 +12,7 @@ const WRITE = !!process.argv.slice( 2 ).find( v => v === '--write' );
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
 
 // sort by kind as opposed to the order of definition
-const KIND_SORT = [ 'class', 'function', 'member' ];
+const KIND_SORT = [ 'class', 'typedef', 'function', 'member' ];
 
 // put members that start with special chars at the end
 const ALPHABET_SORT = 'abcdefghijklmnopqrstuvwxyz$_'.split( '' );
@@ -56,7 +56,11 @@ function transform( v ) {
 
 	v.indexname = v.name;
 
-	if ( v.kind === 'function' && v.scope === 'instance' ) {
+	if ( v.kind === 'typedef' ) {
+
+		v.signature = v.name;
+
+	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 

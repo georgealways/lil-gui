@@ -867,7 +867,7 @@ function inject( cssContent ) {
 /**
  * @typedef GUIOptions
  * @property {GUI} [parent]
- * @property {boolean} [autoPlace=true]
+ * @property {boolean} [autoPlace=true] Automatically appends the GUI to the page and applies fixed positioning
  * @property {boolean} [injectStyles=true]
  * @property {string} [title='Controls']
  * @property {number} [width=250]

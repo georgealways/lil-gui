@@ -58,6 +58,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <h2>GUI</h2>
 <ul>
 <li><a href="#GUI"><strong>new GUI</strong>()</a></li>
+<li><a href="#GUI~GUIOptions">GUIOptions</a></li>
 <li><a href="#GUI#add"><strong>add</strong>()</a> → Controller</li>
 <li><a href="#GUI#addColor"><strong>addColor</strong>()</a> → Controller</li>
 <li><a href="#GUI#addFolder"><strong>addFolder</strong>()</a> → GUI</li>
@@ -72,7 +73,6 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#$children">$children</a> : HTMLElement</li>
 <li><a href="#GUI#$title">$title</a> : HTMLElement</li>
 <li><a href="#GUI#_closed">_closed</a> : boolean</li>
-<li><a href="#GUI~GUIOptions">GUIOptions</a></li>
 </ul>
 <h2>Controller</h2>
 <ul>
@@ -105,11 +105,77 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <h1>GUI</h1>
 <p>c'mon george</p>
 <hr>
-<h3><a name="GUI"></a> new <strong>GUI</strong>( options? : GUIOptions )</h3>
+<h2><a name="GUI"></a> new <strong>GUI</strong>( options? : GUIOptions )</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L45" target="_blank">src/GUI.js:45</a></small></p>
 <hr>
-<h3><a name="GUI#add"></a> gui.<strong>add</strong>( object : object, property : string, $1? : *, max? : number, step? : number ) → Controller</h3>
+<h2><a name="GUI~GUIOptions"></a> GUIOptions</h2>
+<p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>autoPlace</td>
+<td>true</td>
+<td>Automatically appends the GUI to the page and applies fixed positioning</td>
+</tr>
+<tr>
+<td>injectStyles</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>title</td>
+<td>'Controls'</td>
+<td></td>
+</tr>
+<tr>
+<td>width</td>
+<td>250</td>
+<td></td>
+</tr>
+<tr>
+<td>mobileMaxHeight</td>
+<td>200</td>
+<td></td>
+</tr>
+<tr>
+<td>collapses</td>
+<td>true</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L29" target="_blank">src/GUI.js:29</a></small></p>
+<hr>
+<h2><a name="GUI#add"></a> gui.<strong>add</strong>( object : object, property : string, $1? : *, max? : number, step? : number ) → Controller</h2>
 <p>Adds a controller.</p>
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">false</span> }, <span class="hljs-string">'myBoolean'</span> );
 </code></pre>
@@ -118,72 +184,183 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-string">'small'</span> }, <span class="hljs-string">'myOptions'</span>, [ <span class="hljs-string">'big'</span>, <span class="hljs-string">'medium'</span>, <span class="hljs-string">'small'</span> ] );
 gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myOptions'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>property</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>max</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>step</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L190" target="_blank">src/GUI.js:190</a></small></p>
 <hr>
-<h3><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object : object, property : string ) → Controller</h3>
+<h2><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object : object, property : string ) → Controller</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>property</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234" target="_blank">src/GUI.js:234</a></small></p>
 <hr>
-<h3><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( title : string, collapses=true ) → GUI</h3>
+<h2><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( title : string, collapses=true ) → GUI</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>collapses</td>
+<td>true</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244" target="_blank">src/GUI.js:244</a></small></p>
 <hr>
-<h3><a name="GUI#close"></a> gui.<strong>close</strong>() → self</h3>
+<h2><a name="GUI#close"></a> gui.<strong>close</strong>() → self</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L266" target="_blank">src/GUI.js:266</a></small></p>
 <hr>
-<h3><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h3>
+<h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L275" target="_blank">src/GUI.js:275</a></small></p>
 <hr>
-<h3><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=false )</h3>
+<h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=false )</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>recursive</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L298" target="_blank">src/GUI.js:298</a></small></p>
 <hr>
-<h3><a name="GUI#open"></a> gui.<strong>open</strong>( open=true ) → self</h3>
+<h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true ) → self</h2>
 <p>Opens or closes a GUI or folder.</p>
 <pre><code class="language-js">folder.open(); <span class="hljs-comment">// open</span>
 folder.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// closed</span>
 folder.open( folder._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>true</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a></small></p>
 <hr>
-<h3><a name="GUI#children"></a> gui.<strong>children</strong> : Array</h3>
+<h2><a name="GUI#children"></a> gui.<strong>children</strong> : Array</h2>
 <p>TODO</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L71" target="_blank">src/GUI.js:71</a></small></p>
 <hr>
-<h3><a name="GUI#domElement"></a> gui.<strong>domElement</strong> : HTMLElement</h3>
+<h2><a name="GUI#domElement"></a> gui.<strong>domElement</strong> : HTMLElement</h2>
 <p>The outermost container <code>div</code>.</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L82" target="_blank">src/GUI.js:82</a></small></p>
 <hr>
-<h3><a name="GUI#parent"></a> gui.<strong>parent</strong> : GUI</h3>
+<h2><a name="GUI#parent"></a> gui.<strong>parent</strong> : GUI</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L59" target="_blank">src/GUI.js:59</a></small></p>
 <hr>
-<h3><a name="GUI#root"></a> gui.<strong>root</strong> : GUI</h3>
+<h2><a name="GUI#root"></a> gui.<strong>root</strong> : GUI</h2>
 <p>Reference to the outermost folder, or <code>this</code> for the root GUI.</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L65" target="_blank">src/GUI.js:65</a></small></p>
 <hr>
-<h3><a name="GUI#$children"></a> gui.<strong>$children</strong> : HTMLElement</h3>
+<h2><a name="GUI#$children"></a> gui.<strong>$children</strong> : HTMLElement</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L101" target="_blank">src/GUI.js:101</a></small></p>
 <hr>
-<h3><a name="GUI#$title"></a> gui.<strong>$title</strong> : HTMLElement</h3>
+<h2><a name="GUI#$title"></a> gui.<strong>$title</strong> : HTMLElement</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L88" target="_blank">src/GUI.js:88</a></small></p>
 <hr>
-<h3><a name="GUI#_closed"></a> gui.<strong>_closed</strong> : boolean</h3>
+<h2><a name="GUI#_closed"></a> gui.<strong>_closed</strong> : boolean</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L76" target="_blank">src/GUI.js:76</a></small></p>
-<hr>
-<h3><a name="GUI~GUIOptions"></a></h3>
-<p>c'mon george</p>
-<p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L29" target="_blank">src/GUI.js:29</a></small></p>
 <hr>
 <h1>Controller</h1>
 <p>c'mon george</p>
 <hr>
-<h3><a name="Controller#destroy"></a> controller.<strong>destroy</strong>()</h3>
+<h2><a name="Controller#destroy"></a> controller.<strong>destroy</strong>()</h2>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
 controller.destroy();
@@ -196,100 +373,244 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 </code></pre>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L175" target="_blank">src/Controller.js:175</a></small></p>
 <hr>
-<h3><a name="Controller#disable"></a> controller.<strong>disable</strong>() → self</h3>
+<h2><a name="Controller#disable"></a> controller.<strong>disable</strong>() → self</h2>
 <p>Disables this controller.</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L156" target="_blank">src/Controller.js:156</a></small></p>
 <hr>
-<h3><a name="Controller#enable"></a> controller.<strong>enable</strong>( enabled=false ) → self</h3>
+<h2><a name="Controller#enable"></a> controller.<strong>enable</strong>( enabled=false ) → self</h2>
 <p>Enables this controller.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L146" target="_blank">src/Controller.js:146</a></small></p>
 <hr>
-<h3><a name="Controller#getValue"></a> controller.<strong>getValue</strong>() → *</h3>
+<h2><a name="Controller#getValue"></a> controller.<strong>getValue</strong>() → *</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L184" target="_blank">src/Controller.js:184</a></small></p>
 <hr>
-<h3><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true ) → self</h3>
+<h2><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true ) → self</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>listen</td>
+<td>true</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L238" target="_blank">src/Controller.js:238</a></small></p>
 <hr>
-<h3><a name="Controller#max"></a> controller.<strong>max</strong>( max : number ) → self</h3>
+<h2><a name="Controller#max"></a> controller.<strong>max</strong>( max : number ) → self</h2>
 <p>Sets the maximum value. Only works on number controllers.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>max</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L204" target="_blank">src/Controller.js:204</a></small></p>
 <hr>
-<h3><a name="Controller#min"></a> controller.<strong>min</strong>( min : number ) → self</h3>
+<h2><a name="Controller#min"></a> controller.<strong>min</strong>( min : number ) → self</h2>
 <p>Sets the minimum value. Only works on number controllers.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L194" target="_blank">src/Controller.js:194</a></small></p>
 <hr>
-<h3><a name="Controller#name"></a> controller.<strong>name</strong>( name : string ) → self</h3>
+<h2><a name="Controller#name"></a> controller.<strong>name</strong>( name : string ) → self</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L71" target="_blank">src/Controller.js:71</a></small></p>
 <hr>
-<h3><a name="Controller#onChange"></a> controller.<strong>onChange</strong>( callback : function ) → self</h3>
+<h2><a name="Controller#onChange"></a> controller.<strong>onChange</strong>( callback : function ) → self</h2>
 <p>c'mon george</p>
 <pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
 	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
 } );
 </code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L89" target="_blank">src/Controller.js:89</a></small></p>
 <hr>
-<h3><a name="Controller#options"></a> controller.<strong>options</strong>( options : * ) → Controller</h3>
+<h2><a name="Controller#options"></a> controller.<strong>options</strong>( options : * ) → Controller</h2>
 <p>Destroys this controller and adds a new option controller</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L108" target="_blank">src/Controller.js:108</a></small></p>
 <hr>
-<h3><a name="Controller#reset"></a> controller.<strong>reset</strong>() → self</h3>
+<h2><a name="Controller#reset"></a> controller.<strong>reset</strong>() → self</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L136" target="_blank">src/Controller.js:136</a></small></p>
 <hr>
-<h3><a name="Controller#setValue"></a> controller.<strong>setValue</strong>( value : * ) → self</h3>
+<h2><a name="Controller#setValue"></a> controller.<strong>setValue</strong>( value : * ) → self</h2>
 <p>c'mon george</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L120" target="_blank">src/Controller.js:120</a></small></p>
 <hr>
-<h3><a name="Controller#step"></a> controller.<strong>step</strong>( step : number ) → self</h3>
+<h2><a name="Controller#step"></a> controller.<strong>step</strong>( step : number ) → self</h2>
 <p>Sets the step. Only works on number controllers.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>step</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L214" target="_blank">src/Controller.js:214</a></small></p>
 <hr>
-<h3><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>() → self</h3>
+<h2><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>() → self</h2>
 <p>Updates the display to keep it in sync with getValue(). Useful for updating
 your controllers when their values have been modified outside of the GUI.</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L223" target="_blank">src/Controller.js:223</a></small></p>
 <hr>
-<h3><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h3>
+<h2><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L40" target="_blank">src/Controller.js:40</a></small></p>
 <hr>
-<h3><a name="Controller#initialValue"></a> controller.<strong>initialValue</strong> : *</h3>
+<h2><a name="Controller#initialValue"></a> controller.<strong>initialValue</strong> : *</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L35" target="_blank">src/Controller.js:35</a></small></p>
 <hr>
-<h3><a name="Controller#object"></a> controller.<strong>object</strong> : object</h3>
+<h2><a name="Controller#object"></a> controller.<strong>object</strong> : object</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20" target="_blank">src/Controller.js:20</a></small></p>
 <hr>
-<h3><a name="Controller#parent"></a> controller.<strong>parent</strong> : GUI</h3>
+<h2><a name="Controller#parent"></a> controller.<strong>parent</strong> : GUI</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L15" target="_blank">src/Controller.js:15</a></small></p>
 <hr>
-<h3><a name="Controller#property"></a> controller.<strong>property</strong> : string</h3>
+<h2><a name="Controller#property"></a> controller.<strong>property</strong> : string</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L25" target="_blank">src/Controller.js:25</a></small></p>
 <hr>
-<h3><a name="Controller#$name"></a> controller.<strong>$name</strong> : HTMLElement</h3>
+<h2><a name="Controller#$name"></a> controller.<strong>$name</strong> : HTMLElement</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L47" target="_blank">src/Controller.js:47</a></small></p>
 <hr>
-<h3><a name="Controller#$widget"></a> controller.<strong>$widget</strong> : HTMLElement</h3>
+<h2><a name="Controller#$widget"></a> controller.<strong>$widget</strong> : HTMLElement</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L53" target="_blank">src/Controller.js:53</a></small></p>
 <hr>
-<h3><a name="Controller#_disabled"></a> controller.<strong>_disabled</strong> : boolean</h3>
+<h2><a name="Controller#_disabled"></a> controller.<strong>_disabled</strong> : boolean</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L30" target="_blank">src/Controller.js:30</a></small></p>
 <hr>
-<h3><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h3>
+<h2><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L75" target="_blank">src/Controller.js:75</a></small></p>
 <hr>
-<h3><a name="Controller#_onChange"></a> controller.<strong>_onChange</strong> : function</h3>
+<h2><a name="Controller#_onChange"></a> controller.<strong>_onChange</strong> : function</h2>
 <p>c'mon george</p>
 <p><small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L93" target="_blank">src/Controller.js:93</a></small></p>
 <hr>
@@ -369,6 +690,89 @@ window.jsdocDebug = [
 				"memberof": "GUI",
 				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L45",
 				"definedat": "src/GUI.js:45"
+			},
+			{
+				"kind": "typedef",
+				"name": "GUIOptions",
+				"properties": [
+					{
+						"type": {
+							"names": [
+								"GUI"
+							]
+						},
+						"optional": true,
+						"name": "parent"
+					},
+					{
+						"type": {
+							"names": [
+								"boolean"
+							]
+						},
+						"optional": true,
+						"defaultvalue": true,
+						"description": "Automatically appends the GUI to the page and applies fixed positioning",
+						"name": "autoPlace"
+					},
+					{
+						"type": {
+							"names": [
+								"boolean"
+							]
+						},
+						"optional": true,
+						"defaultvalue": true,
+						"name": "injectStyles"
+					},
+					{
+						"type": {
+							"names": [
+								"string"
+							]
+						},
+						"optional": true,
+						"defaultvalue": "'Controls'",
+						"name": "title"
+					},
+					{
+						"type": {
+							"names": [
+								"number"
+							]
+						},
+						"optional": true,
+						"defaultvalue": 250,
+						"name": "width"
+					},
+					{
+						"type": {
+							"names": [
+								"number"
+							]
+						},
+						"optional": true,
+						"defaultvalue": 200,
+						"name": "mobileMaxHeight"
+					},
+					{
+						"type": {
+							"names": [
+								"boolean"
+							]
+						},
+						"optional": true,
+						"defaultvalue": true,
+						"name": "collapses"
+					}
+				],
+				"longname": "GUI~GUIOptions",
+				"scope": "inner",
+				"memberof": "GUI",
+				"indexname": "GUIOptions",
+				"signature": "GUIOptions",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L29",
+				"definedat": "src/GUI.js:29"
 			},
 			{
 				"description": "Adds a controller.",
@@ -747,87 +1151,6 @@ window.jsdocDebug = [
 				"indextype": ": boolean",
 				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L76",
 				"definedat": "src/GUI.js:76"
-			},
-			{
-				"kind": "typedef",
-				"name": "GUIOptions",
-				"properties": [
-					{
-						"type": {
-							"names": [
-								"GUI"
-							]
-						},
-						"optional": true,
-						"name": "parent"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"name": "autoPlace"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"name": "injectStyles"
-					},
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"optional": true,
-						"defaultvalue": "'Controls'",
-						"name": "title"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"defaultvalue": 250,
-						"name": "width"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"defaultvalue": 200,
-						"name": "mobileMaxHeight"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"name": "collapses"
-					}
-				],
-				"longname": "GUI~GUIOptions",
-				"scope": "inner",
-				"memberof": "GUI",
-				"indexname": "GUIOptions",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L29",
-				"definedat": "src/GUI.js:29"
 			}
 		],
 		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L45",
