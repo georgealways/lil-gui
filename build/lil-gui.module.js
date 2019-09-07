@@ -1,36 +1,41 @@
-// lil-gui@0.1.0
+// lil-gui@0.2.0
 /**
  * @module Controller
  */
 
 /**
- *
+ * todoc
  */
 class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
+		 * todoc
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
+		 * todoc
 		 * @type {object}
 		 */
 		this.object = object;
 
 		/**
+		 * todoc
 		 * @type {string}
 		 */
 		this.property = property;
 
 		/**
+		 * todoc
 		 * @type {boolean}
 		 */
 		this._disabled = false;
 
 		/**
+		 * todoc
 		 * @type {*}
 		 */
 		this.initialValue = this.getValue();
@@ -65,7 +70,7 @@ class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @param {string} name
 	 * @returns {Controller} self
 	 */
@@ -79,8 +84,8 @@ class Controller {
 	}
 
 	/**
-	 *
-	 * @param {Function} callback
+	 * todoc
+	 * @param {Function} callback todoc
 	 * @returns {Controller} self
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
@@ -114,7 +119,7 @@ class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @param {*} value
 	 * @returns {Controller} self
 	 */
@@ -132,6 +137,7 @@ class Controller {
 	}
 
 	/**
+	 * todoc
 	 * @returns {Controller} self
 	 */
 	reset() {
@@ -179,7 +185,7 @@ class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @returns {*} value
 	 */
 	getValue() {
@@ -225,14 +231,8 @@ class Controller {
 		return this;
 	}
 
-	// listen() {
-	// 	// eslint-disable-next-line no-console
-	// 	console.warn( 'listen() is currently unimplemented' );
-	// 	return this;
-	// }
-
 	/**
-	 *
+	 * todoc
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */
@@ -866,18 +866,19 @@ function inject( cssContent ) {
 
 /**
  * @typedef GUIOptions
- * @property {GUI} [parent]
+ * @property {GUI} [parent] todoc
  * @property {boolean} [autoPlace=true] Automatically appends the GUI to the page and applies fixed positioning
- * @property {boolean} [injectStyles=true]
- * @property {string} [title='Controls']
- * @property {number} [width=250]
- * @property {number} [mobileMaxHeight=200]
- * @property {boolean} [collapses=true]
+ * @property {boolean} [injectStyles=true] todoc
+ * @property {string} [title='Controls'] todoc
+ * @property {number} [width=250] todoc
+ * @property {number} [mobileMaxHeight=200] todoc
+ * @property {boolean} [collapses=true] todoc
  */
 
 class GUI {
 
 	/**
+	 * todoc GUI class description
 	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
@@ -891,24 +892,25 @@ class GUI {
 	} = {} ) {
 
 		/**
-		 *
+		 * todoc
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * Reference to the outermost folder, or `this` for the root GUI.
+		 * todoc
 		 * @type {GUI}
 		 */
 		this.root = parent ? parent.root : this;
 
 		/**
-		 * TODO
+		 * todoc
 		 * @type {Array}
 		 */
 		this.children = [];
 
 		/**
+		 * todoc
 		 * @type {boolean}
 		 */
 		this._closed = false;
@@ -921,6 +923,7 @@ class GUI {
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
+		 * todoc
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( collapses ? 'button' : 'div' );
@@ -934,6 +937,7 @@ class GUI {
 		}
 
 		/**
+		 * todoc
 		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
@@ -1007,12 +1011,12 @@ class GUI {
 	}
 
 	/**
-	 * Adds a controller.
-	 * @param {object} object
-	 * @param {string} property
-	 * @param {*} [$1]
-	 * @param {number} [max]
-	 * @param {number} [step]
+	 * todoc
+	 * @param {object} object todoc
+	 * @param {string} property todoc
+	 * @param {*} [$1] todoc
+	 * @param {number} [max] todoc
+	 * @param {number} [step] todoc
 	 * @returns {Controller}
 	 *
 	 * @example
@@ -1064,9 +1068,9 @@ class GUI {
 	}
 
 	/**
-	 *
-	 * @param {object} object
-	 * @param {string} property
+	 * todoc
+	 * @param {object} object todoc
+	 * @param {string} property todoc
 	 * @returns {Controller}
 	 */
 	addColor( object, property ) {
@@ -1074,9 +1078,9 @@ class GUI {
 	}
 
 	/**
-	 *
-	 * @param {string} title
-	 * @param {boolean} [collapses=true]
+	 * todoc
+	 * @param {string} title todoc
+	 * @param {boolean} [collapses=true] todoc
 	 * @returns {GUI}
 	 */
 	addFolder( title, collapses = true ) {
@@ -1099,6 +1103,7 @@ class GUI {
 	}
 
 	/**
+	 * todoc
 	 * @returns {GUI} self
 	 */
 	close() {
@@ -1108,7 +1113,7 @@ class GUI {
 	}
 
 	/**
-	 *
+	 * todoc
 	 */
 	destroy() {
 
@@ -1129,9 +1134,9 @@ class GUI {
 	}
 
 	/**
-	 *
-	 * @param {Function} callback
-	 * @param {boolean} [recursive=false]
+	 * todoc
+	 * @param {Function} callback todoc
+	 * @param {boolean} [recursive=false] todoc
 	 */
 	forEachController( callback, recursive = false ) {
 		this.children.forEach( c => {

@@ -3,33 +3,38 @@
  */
 
 /**
- *
+ * todoc
  */
 export default class Controller {
 
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
+		 * todoc
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
+		 * todoc
 		 * @type {object}
 		 */
 		this.object = object;
 
 		/**
+		 * todoc
 		 * @type {string}
 		 */
 		this.property = property;
 
 		/**
+		 * todoc
 		 * @type {boolean}
 		 */
 		this._disabled = false;
 
 		/**
+		 * todoc
 		 * @type {*}
 		 */
 		this.initialValue = this.getValue();
@@ -64,7 +69,7 @@ export default class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @param {string} name
 	 * @returns {Controller} self
 	 */
@@ -78,8 +83,8 @@ export default class Controller {
 	}
 
 	/**
-	 *
-	 * @param {Function} callback
+	 * todoc
+	 * @param {Function} callback todoc
 	 * @returns {Controller} self
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
@@ -113,7 +118,7 @@ export default class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @param {*} value
 	 * @returns {Controller} self
 	 */
@@ -131,6 +136,7 @@ export default class Controller {
 	}
 
 	/**
+	 * todoc
 	 * @returns {Controller} self
 	 */
 	reset() {
@@ -178,7 +184,7 @@ export default class Controller {
 	}
 
 	/**
-	 *
+	 * todoc
 	 * @returns {*} value
 	 */
 	getValue() {
@@ -224,14 +230,8 @@ export default class Controller {
 		return this;
 	}
 
-	// listen() {
-	// 	// eslint-disable-next-line no-console
-	// 	console.warn( 'listen() is currently unimplemented' );
-	// 	return this;
-	// }
-
 	/**
-	 *
+	 * todoc
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */

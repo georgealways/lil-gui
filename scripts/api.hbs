@@ -19,9 +19,6 @@
 # {{name}}
 
 {{{description}}}
-{{#unless description}}
-c'mon george
-{{/unless}}
 
 ***
 
@@ -30,9 +27,6 @@ c'mon george
 ## <a name="{{{longname}}}"></a> {{{signature}}} {{{indextype}}}
 
 {{{description}}}
-{{#unless description}}
-c'mon george
-{{/unless}}
 
 {{#examples}}
 ```js
@@ -41,16 +35,16 @@ c'mon george
 {{/examples}}
 
 {{#with params}}
-Parameter|Default|Description
----------|-------|-----------
-{{#.}}{{name}}|{{defaultvalue}}|{{description}}
+Parameter|Description|Default
+---------|-----------|-------
+{{#.}}{{name}}|{{description}}|{{defaultvalue}}
 {{/.}}
 {{/with}}
 
 {{#with properties}}
-Parameter|Default|Description
----------|-------|-----------
-{{#.}}{{name}}|{{defaultvalue}}|{{description}}
+Parameter|Description|Default
+---------|-----------|-------
+{{#.}}{{name}}|{{description}}|{{defaultvalue}}
 {{/.}}
 {{/with}}
 
