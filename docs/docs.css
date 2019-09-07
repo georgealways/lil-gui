@@ -11,7 +11,7 @@ html {
 	--foreground: #252525;
 	--link: #0084ff;
 	--code: #362e50;
-	--pre-background: #f5f1ebb4;
+	--pre-background: rgba(245, 241, 235, 0.7);
 }
 
 strong {
@@ -66,21 +66,19 @@ code {
 }
 
 #container {
-	max-width: 900px;
+	max-width: 750px;
 	margin: 0 auto;
 }
 
 hr {
+	height: 1px;
 	border: 0;
-	height: 2px;
-	border-bottom: 2px solid;
+	border-bottom: 1px solid;
 }
 
 h1 {
 	padding-bottom: 0.3em;
 	line-height: 1.2;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
 }
 
 h1,
@@ -123,13 +121,13 @@ pre.hljs code > div {
 table > thead > tr > th {
 	text-align: left;
 	border-bottom: 1px solid;
-	border-color: rgba(255, 255, 255, 0.69);
+	border-color: rgba(0, 0, 0, 0.69);
 }
 
 h1,
 hr,
 table > tbody > tr + tr > td {
-	border-color: rgba(255, 255, 255, 0.18);
+	border-color: rgba(0, 0, 0, 0.18);
 }
 
 .hljs-keyword,

@@ -11,12 +11,6 @@ const WRITE = !!process.argv.slice( 2 ).find( v => v === '--write' );
 // url prefix for view source links, needs trailing slash
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
 
-const CATEGORIES = {
-	constructor: 'Constructor',
-	instancemethod: 'Methods',
-	instanceproperty: 'Properties'
-};
-
 // sort by kind as opposed to the order of definition
 const KIND_SORT = [ 'class', 'function', 'member' ];
 
@@ -69,7 +63,7 @@ function transform( v ) {
 		v.indexname = `**${v.indexname}**`;
 
 		if ( v.params ) {
-			v.indexname += v.params.length ? '(…)' : '()';
+			v.indexname += '()';
 			v.signature += paramsToSignature( v.params );
 		}
 
@@ -86,23 +80,18 @@ function transform( v ) {
 
 		if ( v.params !== undefined ) {
 			v.signature = `new **${v.name}**` + paramsToSignature( v.params );
+
+			v.indexname = `**new ${v.name}**`;
+			v.indexname += '()';
+
+			// collect it
 			v.memberof = v.longname;
-		} else {
-			// class is documented, but the constructor isn't, eg. Controller
-			v.signature = `**${v.name}**`;
 		}
 
 		// sometimes get classdesc instead of regular desc for classes
 		v.description = v.description || v.classdesc;
 
-		// store classes for index
-		v.categories = {};
-		for ( let name in CATEGORIES ) {
-			v.categories[ name ] = {
-				title: CATEGORIES[ name ],
-				children: []
-			};
-		}
+		v.children = [];
 
 		topLevel[ v.longname ] = v;
 
@@ -135,24 +124,14 @@ transformed.forEach( v => {
 	if ( v.memberof && v.memberof in topLevel ) {
 
 		const parent = topLevel[ v.memberof ];
-		let category;
 
-		if ( v.kind === 'function' && v.scope === 'instance' ) {
-			category = parent.categories.instancemethod;
-		} else if ( v.kind === 'member' && v.scope === 'instance' ) {
-			category = parent.categories.instanceproperty;
-		} else if ( v.kind === 'class' ) {
-			category = parent.categories.constructor;
-
-			// prevent circular structure
+		if ( v.children ) {
+			// prevent circular structure in json
 			v = JSON.parse( JSON.stringify( v ) );
-			delete v.categories;
-
+			delete v.children;
 		}
 
-		if ( category ) {
-			category.children.push( v );
-		}
+		parent.children.push( v );
 
 	}
 
@@ -168,13 +147,7 @@ jsdocData.sort( ( a, b ) => {
 
 // sort children by kind, then alphabetically with special chars at the end
 jsdocData.forEach( t => {
-	Object.values( t.categories ).forEach( c => {
-		// c.children.sort( childSort );
-	} );
-} );
-
-hbs.registerHelper( 'eachInMap', ( map, block ) => {
-	return Object.values( map ).reduce( ( out, value ) => out + block.fn( value ), '' );
+	t.children.sort( childSort );
 } );
 
 const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
@@ -228,7 +201,6 @@ function paramsToSignature( params ) {
 	}
 
 	const paramList = params
-		.filter( p => p.name.indexOf( '.' ) === -1 ) // eg options.autoPlace
 		.map( singleParamToSignature )
 		.join( ', ' );
 
@@ -237,5 +209,19 @@ function paramsToSignature( params ) {
 }
 
 function singleParamToSignature( param ) {
-	return param.optional ? `[${param.name}]` : param.name;
+
+	let name = param.name;
+
+	if ( param.defaultvalue !== undefined ) {
+		name += '=' + param.defaultvalue;
+	} else if ( param.optional ) {
+		name += '?';
+	}
+
+	if ( param.defaultvalue === undefined && param.type ) {
+		name += ' : ' + param.type.names[ 0 ];
+	}
+
+	return name;
+
 }

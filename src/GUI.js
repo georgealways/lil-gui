@@ -26,18 +26,18 @@ function inject( cssContent ) {
 	}
 }
 
-export default class GUI {
+/**
+ * @typedef GUIOptions
+ * @property {GUI} [parent]
+ * @property {boolean} [autoPlace=true]
+ * @property {boolean} [injectStyles=true]
+ * @property {string} [title='Controls']
+ * @property {number} [width=250]
+ * @property {number} [mobileMaxHeight=200]
+ * @property {boolean} [collapses=true]
+ */
 
-	/**
-	 * @typedef GUIOptions
-	 * @property {GUI} [parent]
-	 * @property {boolean} [autoPlace=true]
-	 * @property {boolean} [injectStyles=true]
-	 * @property {string} [title='Controls']
-	 * @property {number} [width=250]
-	 * @property {number} [mobileMaxHeight=200]
-	 * @property {boolean} [collapses=true]
-	 */
+export default class GUI {
 
 	/**
 	 * @param {GUIOptions} [options]
@@ -170,11 +170,11 @@ export default class GUI {
 
 	/**
 	 * Adds a controller.
-	 * @param {*} object
+	 * @param {object} object
 	 * @param {string} property
 	 * @param {*} [$1]
-	 * @param {*} [max]
-	 * @param {*} [step]
+	 * @param {number} [max]
+	 * @param {number} [step]
 	 * @returns {Controller}
 	 *
 	 * @example
@@ -227,7 +227,7 @@ export default class GUI {
 
 	/**
 	 *
-	 * @param {*} object
+	 * @param {object} object
 	 * @param {string} property
 	 * @returns {Controller}
 	 */
@@ -278,7 +278,9 @@ export default class GUI {
 			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		}
 
-		this.domElement.parentElement.removeChild( this.domElement );
+		if ( this.domElement.parentElement ) {
+			this.domElement.parentElement.removeChild( this.domElement );
+		}
 
 		Array.from( this.children ).forEach( c => c.destroy() );
 

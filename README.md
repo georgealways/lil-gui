@@ -1,6 +1,6 @@
 # lil-gui
 
-Makes a floating panel with controllers for web demos.
+Makes a floating panel with controllers for websites.
 
 ```js
 import GUI from 'lil-gui';

@@ -216,9 +216,8 @@ export default class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with the current value of
-	 * `this.object[ this.property ]`. Useful for updating your controllers if
-	 * their values have been modified outside of the GUI.
+	 * Updates the display to keep it in sync with getValue(). Useful for updating
+	 * your controllers when their values have been modified outside of the GUI.
 	 * @returns {Controller} self
 	 */
 	updateDisplay() {
