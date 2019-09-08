@@ -12,7 +12,7 @@
     "api": "node -r esm scripts/api.js --write",
     "index": "node -r esm scripts/index.js",
     "test": "node -r esm scripts/test.js",
-    "server": "live-server",
+    "server": "live-server --watch=build,examples --no-browser",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],
