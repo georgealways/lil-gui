@@ -32,7 +32,7 @@ function inject( cssContent ) {
  * @property {boolean} [autoPlace=true] Automatically appends the GUI to the page and applies fixed positioning
  * @property {boolean} [injectStyles=true] todoc
  * @property {string} [title='Controls'] todoc
- * @property {number} [width=250] todoc
+ * @property {number} [width] todoc
  * @property {number} [mobileMaxHeight=200] todoc
  * @property {boolean} [collapses=true] todoc
  */
@@ -48,7 +48,7 @@ export default class GUI {
 		autoPlace = parent === undefined,
 		injectStyles = autoPlace,
 		title = 'Controls',
-		width = 250,
+		width,
 		mobileMaxHeight = 200,
 		collapses = true
 	} = {} ) {
@@ -116,7 +116,10 @@ export default class GUI {
 		} else {
 
 			this.domElement.classList.add( 'root' );
-			this.domElement.style.setProperty( '--width', width + 'px' );
+
+			if ( width ) {
+				this.domElement.style.setProperty( '--width', width + 'px' );
+			}
 
 		}
 

@@ -235,7 +235,7 @@ export default class Controller {
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */
-	listen( listen ) {
+	listen( listen = true ) {
 
 		this._listening = listen;
 

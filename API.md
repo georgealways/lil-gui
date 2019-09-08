@@ -76,7 +76,7 @@ parent|todoc|
 autoPlace|Automatically appends the GUI to the page and applies fixed positioning|true
 injectStyles|todoc|true
 title|todoc|&#x27;Controls&#x27;
-width|todoc|250
+width|todoc|
 mobileMaxHeight|todoc|200
 collapses|todoc|true
 
@@ -107,7 +107,7 @@ $1|todoc|
 max|todoc|
 step|todoc|
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L194" target="_blank">src/GUI.js:194</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L197" target="_blank">src/GUI.js:197</a></small>
 
 ***
 
@@ -120,7 +120,7 @@ Parameter|Description|Default
 object|todoc|
 property|todoc|
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L238" target="_blank">src/GUI.js:238</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L241" target="_blank">src/GUI.js:241</a></small>
 
 ***
 
@@ -133,7 +133,7 @@ Parameter|Description|Default
 title|todoc|
 collapses|todoc|true
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L248" target="_blank">src/GUI.js:248</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L251" target="_blank">src/GUI.js:251</a></small>
 
 ***
 
@@ -141,7 +141,7 @@ collapses|todoc|true
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L271" target="_blank">src/GUI.js:271</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274" target="_blank">src/GUI.js:274</a></small>
 
 ***
 
@@ -149,7 +149,7 @@ todoc
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L280" target="_blank">src/GUI.js:280</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L283" target="_blank">src/GUI.js:283</a></small>
 
 ***
 
@@ -162,7 +162,7 @@ Parameter|Description|Default
 callback|todoc|
 recursive|todoc|false
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L303" target="_blank">src/GUI.js:303</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L306" target="_blank">src/GUI.js:306</a></small>
 
 ***
 
@@ -180,7 +180,7 @@ Parameter|Description|Default
 ---------|-----------|-------
 open||true
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L261" target="_blank">src/GUI.js:261</a></small>
+<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L264" target="_blank">src/GUI.js:264</a></small>
 
 ***
 
