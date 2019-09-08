@@ -79,9 +79,16 @@ function solveCubic( a, b, c, d ) {
 
 		}
 
-		if ( p > 0 ) {
+		if ( p < 0 ) {
 
-			return Math.sqrt( p ) - X;
+			// two roots
+			const r = Math.sqrt( -p ) - X;
+
+			if ( r >= 0 && r <= 1 ) {
+				return r;
+			}
+
+			return -Math.sqrt( -p ) - X;
 
 		}
 
