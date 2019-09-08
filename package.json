@@ -35,7 +35,6 @@
     "webfont": "^9.0.0"
   },
   "eslintIgnore": [
-    "build",
-    "docs/examples/vendor"
+    "build"
   ]
 }

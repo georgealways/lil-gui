@@ -1,6 +1,12 @@
 /* eslint-disable no-console */
 import { GUI } from '../build/lil-gui.module.js';
 
+const pre = location.origin + location.pathname;
+
+Array.from( document.querySelectorAll( 'a[href]' ) )
+	.filter( a => a.getAttribute( 'href' ).startsWith( pre ) )
+	.forEach( a => a.setAttribute( 'href', a.getAttribute( 'href' ).replace( pre, '' ) ) );
+
 class App {
 
 	constructor() {
@@ -34,12 +40,17 @@ class App {
 
 		this._demo = name;
 
-		history.replaceState( undefined, undefined, name === this.defaultDemo ? ' ' : '#' + name );
+		const hash = name === this.defaultDemo ? '' : '#' + name;
+
+		history.replaceState( undefined, undefined, location.search + hash );
 
 		if ( this.gui ) {
 			this.gui.children.filter( c => c !== this.demoController ).forEach( c => c.destroy() );
 		} else {
 			this.gui = new GUI();
+			if ( location.search !== '?open' ) {
+				this.gui.close();
+			}
 			this.demoController = this.gui.add( this, 'demo', Object.keys( this.demos ) );
 		}
 

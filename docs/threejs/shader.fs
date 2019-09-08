@@ -1,8 +1,6 @@
 precision highp float;
 precision highp int;
 
-// uniform vec3 cameraPosition;
-
 varying vec3 vWorldPosition;
 varying vec3 vNormal;
 
@@ -19,6 +17,8 @@ uniform sampler2D envMap;
 #define saturate(a) clamp( a, 0.0, 1.0 )
 float pow2( const in float x ) { return x * x; }
 
+// Thin film function from:
+// http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/thin-film-interference-for-computer-graphics-r2962
 
 /* Amplitude reflection coefficient (s-polarized) */
 float rs(float n1, float n2, float cosI, float cosT) {
@@ -40,13 +40,8 @@ float tp(float n1, float n2, float cosI, float cosT) {
 	return 2.0 * n1 * cosI / (n1 * cosT + n2 * cosI);
 }
 
-vec2 projectSpherical( vec3 p ) {
-	return vec2( atan( p.z, p.x ) + PI_HALF, acos( p.y / length( p ) ) ) / PI;
-}
-
 // cosI is the cosine of the incident angle, that is, cos0 = dot(view angle, normal)
 // lambda is the wavelength of the incident light (e.g. lambda = 510 for green)
-// From http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/thin-film-interference-for-computer-graphics-r2962
 float thinFilmReflectance(float cos0, float lambda, float thickness, float n0, float n1, float n2) {
 
 	// compute the phase change term (constant)
@@ -91,17 +86,18 @@ float thinFilmReflectance(float cos0, float lambda, float thickness, float n0, f
 }
 
 
+vec2 projectSpherical( vec3 p ) {
+	return vec2( atan( p.z, p.x ) + PI_HALF, acos( p.y / length( p ) ) ) / PI;
+}
+
 void main() { 
+
 	vec3 viewDirection = normalize( cameraPosition - vWorldPosition );
-
 	float dotViewNormal = dot( viewDirection, normalize( vNormal ) );
-
-
 	vec3 reflection = reflect( -viewDirection, vNormal );
 
 	vec3 env = texture2D(envMap,projectSpherical(reflection)).xyz;
 
-	// thin film
 	float red = thinFilmReflectance(dotViewNormal, 650.0, thinFilmThickness, thinFilmOuterIndex, thinFilmIndex, thinFilmInnerIndex);
 	float green = thinFilmReflectance(dotViewNormal, 510.0, thinFilmThickness, thinFilmOuterIndex, thinFilmIndex, thinFilmInnerIndex);
 	float blue = thinFilmReflectance(dotViewNormal, 475.0, thinFilmThickness, thinFilmOuterIndex, thinFilmIndex, thinFilmInnerIndex);

@@ -27,7 +27,6 @@ function animate() {
 	requestAnimationFrame( animate );
 	const time = ( +new Date() ) / ( params.duration * 1000 ) % 1;
 	const val = params.curve1.interpolate( time );
-	// console.log( val );
 	div.style.height = val * 100 + '%';
 }
 

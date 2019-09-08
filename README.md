@@ -1,6 +1,19 @@
 # lil-gui
 
-Makes a floating panel with controllers for websites.
+Makes a floating panel for controllers on the web.
+
+- [Live Demo](http://localhost:8080/docs/?open)
+- [API](http://localhost:8080/docs/#api)
+- Examples
+	- [lil-gui + three.js](http://localhost:8080/docs/threejs)
+	- [Building a custom Controller](http://localhost:8080/docs/customcontroller)
+	- [Themes](http://localhost:8080/docs/themes)
+
+## Quick start
+
+```
+$ npm install lil-gui --save-dev
+```
 
 ```js
 import GUI from 'lil-gui';
@@ -37,6 +50,6 @@ const colorFormats = {
 	array: [ 1, 1, 1 ]
 };
 
-// colors
 gui.addColor( colorFormats, 'string' );
 ```
+
