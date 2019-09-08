@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/108/three.module.js';
 
-import GUI from '../lil-gui.module.js';
+import GUI from '../../build/lil-gui.module.js';
 
 const params = {
 	message: 'lil-gui',

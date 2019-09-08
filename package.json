@@ -10,9 +10,9 @@
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
     "api": "node -r esm scripts/api.js --write",
-    "docs": "node -r esm scripts/docs.js",
+    "index": "node -r esm scripts/index.js",
     "test": "node -r esm scripts/test.js",
-    "server": "live-server --watch=build,docs --no-browser",
+    "server": "live-server",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],

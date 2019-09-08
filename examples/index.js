@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { GUI } from './lil-gui.module.js';
+import { GUI } from '../build/lil-gui.module.js';
 
 const pre = location.origin + location.pathname;
 

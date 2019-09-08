@@ -2,12 +2,12 @@
 
 Makes a floating panel for controllers on the web.
 
-- [Live Demo](origin/?open)
-- [API](origin/#api)
+- [Live Demo](https://georgealways.github.io/lil-gui/?open)
+- [API](https://georgealways.github.io/lil-gui/#api)
 - Examples
-	- [lil-gui + three.js](origin/threejs)
-	- [Building a custom Controller](origin/customcontroller)
-	- [Themes](origin/themes)
+	- [lil-gui + three.js](https://georgealways.github.io/lil-gui/threejs)
+	- [Building a custom Controller](https://georgealways.github.io/lil-gui/customcontroller)
+	- [Themes](https://georgealways.github.io/lil-gui/themes)
 
 ```js
 import GUI from 'lil-gui';
