@@ -7,7 +7,7 @@ export default {
 	input: 'src/main.js',
 	output: [
 		{ file: pkg.module, format: 'es', banner },
-		{ file: '../three.js/examples/jsm/libs/lil-gui.module.js', format: 'es', banner }
+		{ file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js', format: 'es', banner }
 	],
 	plugins: [
 		string( {
