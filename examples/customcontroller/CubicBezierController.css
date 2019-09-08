@@ -31,4 +31,5 @@
 .lil-gui .controller.my-cubic-bezier circle {
 	fill: var(--text-color);
 	cursor: pointer;
+	/* inflate target for touch */
 }

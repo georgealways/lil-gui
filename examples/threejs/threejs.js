@@ -1,6 +1,13 @@
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/108/three.module.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.108/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.108/examples/jsm/controls/OrbitControls.js';
 
 import GUI from '../../build/lil-gui.module.js';
+
+let fragmentShader,
+	vertexShader,
+	font,
+	envMap,
+	assetsLoaded = 0;
 
 const params = {
 	message: 'lil-gui',
@@ -25,11 +32,8 @@ const uniforms = {
 	thinFilmPolarization: { value: 1.5 }
 };
 
-let fragmentShader, vertexShader, font, envMap;
-
 const assetsToLoad = 4;
 
-let assetsLoaded = 0;
 function onLoad() {
 	assetsLoaded++;
 	if ( assetsLoaded === assetsToLoad ) {
@@ -54,21 +58,20 @@ new THREE.FontLoader().load( './font.json', asset => {
 
 new THREE.TextureLoader().load( './envmap.png', asset => {
 	envMap = asset;
+	envMap.minFilter = THREE.NearestFilter; // seems to fix a texture seam with atan
 	onLoad();
 } );
 
 function main() {
 
-	let cube;
+	let text;
 
-	const container = new THREE.Object3D();
+	const dpr = window.devicePixelRatio;
+	const renderer = new THREE.WebGLRenderer( { antialias: dpr === 1 } );
 
 	const scene = new THREE.Scene();
-
-	scene.add( container );
-
-	const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.position.z = 400;
+	const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+	const container = new THREE.Object3D();
 
 	const material = new THREE.ShaderMaterial( {
 		uniforms: Object.assign( uniforms, {
@@ -78,26 +81,23 @@ function main() {
 		fragmentShader
 	} );
 
-	const dpr = window.devicePixelRatio;
-	const renderer = new THREE.WebGLRenderer( { antialias: dpr === 1 } );
 	renderer.setPixelRatio( dpr );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 	document.body.appendChild( renderer.domElement );
 
-	function animate() {
-		requestAnimationFrame( animate );
-		container.rotation.y += params.rotationSpeed;
-		renderer.render( scene, camera );
-	}
+	scene.add( container );
 
-	animate();
+	camera.position.z = 400;
+
+	// pass a target to orbit controls to make it leave the gui alone
+	const controls = new OrbitControls( camera, renderer.domElement );
 
 	function buildGeometry() {
 
-		if ( cube ) {
-			cube.parent.remove( cube );
-			cube.geometry.dispose();
+		if ( text ) {
+			text.parent.remove( text );
+			text.geometry.dispose();
 		}
 
 		const geometry = new THREE.TextBufferGeometry( params.message, Object.assign( geoParams, {
@@ -107,34 +107,48 @@ function main() {
 
 		geometry.center();
 
-		cube = new THREE.Mesh( geometry, material );
-		container.add( cube );
+		text = new THREE.Mesh( geometry, material );
+		container.add( text );
+
+	}
+
+	function buildGUI() {
+
+		const gui = new GUI();
+		gui.add( params, 'message' );
+
+		const geo = gui.addFolder( 'Geometry', false );
+		geo.add( geoParams, 'height', 0, 200 ).name( 'depth' );
+		geo.add( geoParams, 'curveSegments', 1, 12, 1 );
+
+		const bevel = geo.addFolder( 'Bevel', false );
+		bevel.add( geoParams, 'bevelEnabled' ).name( 'enabled' );
+		bevel.add( geoParams, 'bevelThickness', -10, 10 ).name( 'depth' );
+		bevel.add( geoParams, 'bevelSize', 0, 10 ).name( 'size' );
+		bevel.add( geoParams, 'bevelOffset', -5, 5 ).name( 'offset' );
+		bevel.add( geoParams, 'bevelSegments', 1, 5, 1 ).name( 'segments' );
+
+		gui.forEachController( c => c.onChange( buildGeometry ), true );
+
+		const thinFilm = gui.addFolder( 'Thin Film', false );
+		thinFilm.add( uniforms.thinFilmThickness, 'value', 100, 2000 ).name( 'thickness' );
+		thinFilm.add( uniforms.thinFilmIndex, 'value', 1, 2 ).name( 'index' );
+		thinFilm.add( uniforms.thinFilmPolarization, 'value', 0, 2 ).name( 'polarization' );
+
+		gui.add( params, 'rotationSpeed', 0, 0.05 );
+	}
+
+	function animate() {
+
+		requestAnimationFrame( animate );
+		controls.update();
+		container.rotation.y += params.rotationSpeed;
+		renderer.render( scene, camera );
 
 	}
 
 	buildGeometry();
-
-	const gui = new GUI();
-	gui.add( params, 'message' );
-
-	const geo = gui.addFolder( 'Geometry', false );
-	geo.add( geoParams, 'height', 0, 200 ).name( 'depth' );
-	geo.add( geoParams, 'curveSegments', 1, 12, 1 );
-
-	const bevel = geo.addFolder( 'Bevel', false );
-	bevel.add( geoParams, 'bevelEnabled' ).name( 'enabled' );
-	bevel.add( geoParams, 'bevelThickness', -10, 10 ).name( 'depth' );
-	bevel.add( geoParams, 'bevelSize', 0, 10 ).name( 'size' );
-	bevel.add( geoParams, 'bevelOffset', -5, 5 ).name( 'offset' );
-	bevel.add( geoParams, 'bevelSegments', 1, 5, 1 ).name( 'segments' );
-
-	gui.forEachController( c => c.onChange( buildGeometry ), true );
-
-	const thinFilm = gui.addFolder( 'Thin Film', false );
-	thinFilm.add( uniforms.thinFilmThickness, 'value', 100, 2000 ).name( 'thickness' );
-	thinFilm.add( uniforms.thinFilmIndex, 'value', 1, 2 ).name( 'index' );
-	thinFilm.add( uniforms.thinFilmPolarization, 'value', 0, 2 ).name( 'polarization' );
-
-	gui.add( params, 'rotationSpeed', 0, 0.05 );
+	buildGUI();
+	animate();
 
 }

@@ -12,13 +12,15 @@ uniform float thinFilmPolarization;
 
 uniform sampler2D envMap;
 
-#define PI 3.14159265359
-#define PI_HALF 1.5707963267949
-#define saturate(a) clamp( a, 0.0, 1.0 )
-float pow2( const in float x ) { return x * x; }
-
 // Thin film function from:
 // http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/thin-film-interference-for-computer-graphics-r2962
+
+#define PI 3.14159265359
+#define PI_HALF 1.5707963267949
+
+float pow2( const in float x ) { 
+	return x * x; 
+}
 
 /* Amplitude reflection coefficient (s-polarized) */
 float rs(float n1, float n2, float cosI, float cosT) {
@@ -85,18 +87,17 @@ float thinFilmReflectance(float cos0, float lambda, float thickness, float n0, f
 	return 1.0 - t;
 }
 
-
 vec2 projectSpherical( vec3 p ) {
-	return vec2( atan( p.z, p.x ) + PI_HALF, acos( p.y / length( p ) ) ) / PI;
+	return vec2( atan( p.z, p.x ) + PI_HALF, acos( p.y ) ) / PI;
 }
 
 void main() { 
 
 	vec3 viewDirection = normalize( cameraPosition - vWorldPosition );
 	float dotViewNormal = dot( viewDirection, normalize( vNormal ) );
-	vec3 reflection = reflect( -viewDirection, vNormal );
+	vec3 reflection = normalize( reflect( -viewDirection, vNormal ) );
 
-	vec3 env = texture2D(envMap,projectSpherical(reflection)).xyz;
+	vec3 env = texture2D( envMap, projectSpherical( reflection ) ).xyz;
 
 	float red = thinFilmReflectance(dotViewNormal, 650.0, thinFilmThickness, thinFilmOuterIndex, thinFilmIndex, thinFilmInnerIndex);
 	float green = thinFilmReflectance(dotViewNormal, 510.0, thinFilmThickness, thinFilmOuterIndex, thinFilmIndex, thinFilmInnerIndex);
