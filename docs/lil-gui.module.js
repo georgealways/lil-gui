@@ -1,1 +1,1 @@
-build/lil-gui.module.js
+../build/lil-gui.module.js

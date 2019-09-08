@@ -1,4 +1,4 @@
-import GUI from '../../../build/lil-gui.module.js';
+import GUI from '../lil-gui.module.js';
 
 import CubicBezier from './CubicBezier.js';
 import CubicBezierController from './CubicBezierController.js';
