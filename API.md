@@ -274,13 +274,13 @@ Disables this controller.
 
 ***
 
-## <a name="Controller#enable"></a> controller.**enable**( enabled=false ) → self
+## <a name="Controller#enable"></a> controller.**enable**( enabled=true ) → self
 
 Enables this controller.
 
 Parameter|Description|Default
 ---------|-----------|-------
-enabled||false
+enabled||true
 
 <small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152" target="_blank">src/Controller.js:152</a></small>
 

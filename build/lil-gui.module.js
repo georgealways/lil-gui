@@ -147,7 +147,7 @@ class Controller {
 
 	/**
 	 * Enables this controller.
-	 * @param {boolean} [enabled=false]
+	 * @param {boolean} [enabled=true]
 	 * @returns {Controller} self
 	 */
 	enable( enabled = true ) {

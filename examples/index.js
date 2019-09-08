@@ -1,13 +1,18 @@
 /* eslint-disable no-console */
 import { GUI } from '../build/lil-gui.module.js';
 
-const pre = location.origin + location.pathname;
+// links are hardcoded to absolute urls in the readme
+if ( location.hostname === 'localhost' ) {
 
-Array.from( document.querySelectorAll( 'a[href]' ) )
-	.filter( a => a.getAttribute( 'href' ).startsWith( pre ) )
-	.forEach( a => a.setAttribute( 'href', a.getAttribute( 'href' ).replace( pre, '' ) ) );
+	const homepage = 'https://georgealways.github.io/lil-gui';
 
-class App {
+	document.querySelectorAll( 'a[href]' ).forEach( a => {
+		a.href = a.href.replace( homepage, location.origin );
+	} );
+
+}
+
+class DemoGUI {
 
 	constructor() {
 		this.demos = {};
@@ -125,7 +130,7 @@ class ClassToggle {
 
 }
 
-const app = new App();
+const app = new DemoGUI();
 
 app.demos[ 'Basic' ] = function( gui ) {
 
