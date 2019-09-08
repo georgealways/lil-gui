@@ -88,14 +88,16 @@ export default class CubicBezierController extends Controller {
 			const c = this.getValue();
 			c.x1 = x;
 			c.y1 = y;
-			this._onSetValue();
+			this._callOnChange();
+			this.updateDisplay();
 		} );
 
 		onDrag( this.$handle2, ( x, y ) => {
 			const c = this.getValue();
 			c.x2 = x;
 			c.y2 = y;
-			this._onSetValue();
+			this._callOnChange();
+			this.updateDisplay();
 		} );
 
 		this.updateDisplay();

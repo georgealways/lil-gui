@@ -27,9 +27,15 @@ function solveCubic( a, b, c, d ) {
 
 	const p = ( 3 * a * c - b * b ) / ( 3 * a * a );
 	const q = ( 2 * b * b * b - 9 * a * b * c + 27 * a * a * d ) / ( 27 * a * a * a );
+	const X = b / ( 3 * a );
+
+	if ( p === 0 ) {
+
+		return cubeRoot( -q ) - X;
+
+	}
 
 	const D = q * q / 4 + p * p * p / 27;
-	const X = b / ( 3 * a );
 
 	if ( D > 0 ) {
 
@@ -41,13 +47,12 @@ function solveCubic( a, b, c, d ) {
 		const u = 2 * Math.sqrt( -p / 3 );
 		const t = Math.acos( 3 * q / p / u ) / 3;
 
-		const k0 = u * Math.cos( t ) - X;
-		if ( k0 >= 0 && k0 <= 1 ) return k0;
-
-		const k1 = u * Math.cos( t - K ) - X;
-		if ( k1 >= 0 && k1 <= 1 ) return k1;
-
-		return u * Math.cos( t - K * 2 ) - X;
+		for ( let n = 0; n <= 2; n++ ) {
+			const k = u * Math.cos( t - K * n ) - X;
+			if ( k >= 0 && k <= 1 ) {
+				return k;
+			}
+		}
 
 	}
 
@@ -58,4 +63,3 @@ function cubeRoot( x ) {
 }
 
 const K = Math.PI * 2 / 3;
-

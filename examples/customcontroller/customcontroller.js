@@ -4,7 +4,8 @@ import CubicBezier from './CubicBezier.js';
 import CubicBezierController from './CubicBezierController.js';
 
 const params = {
-	curve1: new CubicBezier( 0.11624221844934918, 0.27560837577815506, 0.4204867006225241, 0.9927560837577816 ),
+	// curve1: new CubicBezier( 0.11624221844934918, 0.27560837577815506, 0.4204867006225241, 0.9927560837577816 ),
+	curve1: new CubicBezier( 1, 0.022071307300509338, 0, 1 ),
 	duration: 1
 };
 
