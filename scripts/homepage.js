@@ -4,7 +4,7 @@ import hljs from 'highlight.js';
 import jsdocData from './api.js';
 
 const OUTPUT = 'index.html';
-const TEMPLATE = 'scripts/index.template.html';
+const TEMPLATE = 'scripts/homepage.html';
 const README = 'README.md';
 const API = 'API.md';
 const snippets = 'snippets.md';

@@ -27,7 +27,8 @@ export default class ColorController extends Controller {
 			} else {
 
 				this._format.fromHexString( this.$input.value, this.getValue() );
-				this._onSetValue();
+				this._callOnChange();
+				this.updateDisplay();
 
 			}
 
