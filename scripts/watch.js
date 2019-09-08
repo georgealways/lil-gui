@@ -7,8 +7,8 @@ watch( {
 		'scripts/api.hbs',
 		'scripts/api.js'
 	],
-	index: [
-		'scripts/index*',
+	homepage: [
+		'scripts/homepage*',
 		'*.md'
 	],
 	icons: [

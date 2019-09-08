@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import { GUI } from '../build/lil-gui.module.js';
 
-// links are hardcoded to absolute urls in the readme
-if ( location.hostname === 'localhost' ) {
+const homepage = 'https://georgealways.github.io/lil-gui';
 
-	const homepage = 'https://georgealways.github.io/lil-gui';
+// links are hardcoded to absolute urls in the readme
+if ( !location.href.startsWith( homepage ) ) {
 
 	document.querySelectorAll( 'a[href]' ).forEach( a => {
 		a.href = a.href.replace( homepage, location.origin );
@@ -22,12 +22,12 @@ class DemoGUI {
 
 		this.defaultDemo = Object.keys( this.demos )[ 0 ];
 
-		const demo = decodeURIComponent( location.hash.substring( 1 ) );
-		if ( demo && ( demo in this.demos ) ) {
-			this.demo = demo;
-		} else {
-			this.demo = this.defaultDemo;
-		}
+		location.search.replace( /([^?=&]+)(=([^&]+))?/g, ( a, key, c, value ) => {
+			if ( key === 'demo' ) {
+				this.demo = value ? decodeURIComponent( value ) : this.defaultDemo;
+				this.gui.open();
+			}
+		} );
 
 		const snippets = document.getElementById( 'snippets' );
 
@@ -45,18 +45,19 @@ class DemoGUI {
 
 		this._demo = name;
 
-		const hash = name === this.defaultDemo ? '' : '#' + name;
-
-		history.replaceState( undefined, undefined, location.search + hash );
-
 		if ( this.gui ) {
-			this.gui.children.filter( c => c !== this.demoController ).forEach( c => c.destroy() );
+
+			this.gui.children
+				.filter( c => c !== this.demoController )
+				.forEach( c => c.destroy() );
+
 		} else {
+
 			this.gui = new GUI();
-			if ( location.search !== '?open' ) {
-				this.gui.close();
-			}
+			this.gui.close();
+
 			this.demoController = this.gui.add( this, 'demo', Object.keys( this.demos ) );
+
 		}
 
 		this.demos[ name ]( this.gui );

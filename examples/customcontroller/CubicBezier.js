@@ -22,8 +22,43 @@ function inverseBezier( v, a, b ) {
 }
 
 // https://stackoverflow.com/a/27176424
-// modified to return only the roots we're after
 function solveCubic( a, b, c, d ) {
+
+	// actually that's quadratic
+	if ( a === 0 ) {
+
+		// actually that's linear
+		if ( b === 0 ) {
+			return -d / c;
+		}
+
+		const D = c * c - 4 * b * d;
+
+		if ( D === 0 ) {
+
+			// one root
+			return -c / ( 2 * b );
+
+		} else if ( D > 0 ) {
+
+			// two roots
+			const z = Math.sqrt( D ) / ( 2 * b );
+			const r = -c + z;
+
+			if ( r >= 0 && r <= 1 ){
+				return r;
+			}
+
+			return -b - z;
+
+		} else {
+
+			// no roots
+			return;
+
+		}
+
+	}
 
 	const p = ( 3 * a * c - b * b ) / ( 3 * a * a );
 	const q = ( 2 * b * b * b - 9 * a * b * c + 27 * a * a * d ) / ( 27 * a * a * a );
@@ -31,26 +66,60 @@ function solveCubic( a, b, c, d ) {
 
 	if ( p === 0 ) {
 
+		// one root
 		return cubeRoot( -q ) - X;
+
+	} else if ( q === 0 ) {
+
+		if ( p > 0 ) {
+
+			// two roots
+			const r = Math.sqrt( -p ) - X;
+
+			if ( r >= 0 && r <= 1 ) {
+				return r;
+			}
+
+			return Math.sqrt( p ) - X;
+
+		} else {
+
+			// no roots
+			return;
+
+		}
 
 	}
 
 	const D = q * q / 4 + p * p * p / 27;
 
-	if ( D > 0 ) {
+	if ( D === 0 ) {
 
+		// two roots
+		const r = -1.5 * q / p - X;
+
+		if ( r >= 0 && r <= 1 ) {
+			return r;
+		}
+
+		return 3 * q / p - X;
+
+	} else if ( D > 0 ) {
+
+		// one root
 		const u = cubeRoot( -q / 2 - Math.sqrt( D ) );
 		return u - p / ( 3 * u ) - X;
 
 	} else {
 
+		// three roots
 		const u = 2 * Math.sqrt( -p / 3 );
 		const t = Math.acos( 3 * q / p / u ) / 3;
 
 		for ( let n = 0; n <= 2; n++ ) {
-			const k = u * Math.cos( t - K * n ) - X;
-			if ( k >= 0 && k <= 1 ) {
-				return k;
+			const r = u * Math.cos( t - n * K ) - X;
+			if ( r >= 0 && r <= 1 ) {
+				return r;
 			}
 		}
 
@@ -59,7 +128,8 @@ function solveCubic( a, b, c, d ) {
 }
 
 function cubeRoot( x ) {
-	return Math.sign( x ) * Math.pow( Math.abs( x ), 1 / 3 );
+	return Math.sign( x ) * Math.pow( Math.abs( x ), THIRD );
 }
 
 const K = Math.PI * 2 / 3;
+const THIRD = 1 / 3;
