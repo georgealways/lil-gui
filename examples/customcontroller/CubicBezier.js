@@ -9,6 +9,8 @@ export default class CubicBezier {
 		return CubicBezier.interpolate( t, this.x1, this.y1, this.x2, this.y2 );
 	}
 	static interpolate( t, x1, y1, x2, y2 ) {
+		if ( t <= 0 ) return 0;
+		if ( t >= 1 ) return 1;
 		return bezier( inverseBezier( t, x1, x2 ), y1, y2 );
 	}
 }
@@ -71,6 +73,12 @@ function solveCubic( a, b, c, d ) {
 
 	} else if ( q === 0 ) {
 
+		if ( -X >= 0 && -X <= 1 ) {
+
+			return -X;
+
+		}
+
 		if ( p > 0 ) {
 
 			// two roots
@@ -81,11 +89,6 @@ function solveCubic( a, b, c, d ) {
 			}
 
 			return Math.sqrt( p ) - X;
-
-		} else {
-
-			// no roots
-			return;
 
 		}
 
