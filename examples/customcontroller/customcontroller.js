@@ -36,3 +36,30 @@ function animate() {
 }
 
 animate();
+
+// const samples = 15;
+// let nans = 0;
+// let itr = 0;
+
+// for ( let a = 0; a < samples; a++ ) {
+// 	for ( let b = 0; b < samples; b++ ) {
+// 		for ( let c = 0; c < samples; c++ ) {
+// 			for ( let d = 0; d < samples; d++ ) {
+// 				params.curve1.x1 = a / samples;
+// 				params.curve1.y1 = b / samples;
+// 				params.curve1.x2 = c / samples;
+// 				params.curve1.y2 = d / samples;
+// 				for ( let t = 0; t < samples; t++ ) {
+// 					const val = params.curve1.interpolate( t / samples );
+// 					if ( isNaN( val ) ) {
+// 						nans++;
+// 						// console.log( t / samples, a / samples, b / samples, c / samples, d / samples );
+// 					}
+// 					itr++;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+// console.log( itr, nans );

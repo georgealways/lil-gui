@@ -71,7 +71,7 @@ function solveCubic( a, b, c, d ) {
 		// one root
 		return cubeRoot( -q ) - X;
 
-	} else if ( q === 0 ) {
+	} if ( q === 0 ) {
 
 		if ( -X >= 0 && -X <= 1 ) {
 
@@ -128,6 +128,9 @@ function solveCubic( a, b, c, d ) {
 		}
 
 	}
+
+	// seems like tiny p values can get past here?
+	return cubeRoot( -q ) - X;
 
 }
 
