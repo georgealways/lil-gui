@@ -82,13 +82,14 @@ function solveCubic( a, b, c, d ) {
 		if ( p < 0 ) {
 
 			// two roots
-			const r = Math.sqrt( -p ) - X;
+			const sqrp = Math.sqrt( -p );
+			const r = sqrp - X;
 
 			if ( r >= 0 && r <= 1 ) {
 				return r;
 			}
 
-			return -Math.sqrt( -p ) - X;
+			return -sqrp - X;
 
 		}
 
