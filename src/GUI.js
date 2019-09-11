@@ -67,7 +67,7 @@ export default class GUI {
 
 		/**
 		 * todoc
-		 * @type {Array}
+		 * @type {Array<GUI|Controller>}
 		 */
 		this.children = [];
 
@@ -253,13 +253,13 @@ export default class GUI {
 	}
 
 	/**
-	 * Opens or closes a GUI or folder.
-	 * @param {boolean} [open=true]
+	 * Opens a GUI or folder. GUI and folders are open by default.
+	 * @param {boolean} [open=true] Pass false to close
 	 * @returns {GUI} self
 	 * @example
-	 * folder.open(); // open
-	 * folder.open( false ); // closed
-	 * folder.open( folder._closed ); // toggle
+	 * gui.open(); // open
+	 * gui.open( false ); // close
+	 * gui.open( gui._closed ); // toggle
 	 */
 	open( open = true ) {
 		this._closed = !open;

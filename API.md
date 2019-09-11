@@ -4,7 +4,7 @@
 
 ## GUI
 
-- [**new GUI**()](#GUI) 
+- [constructor](#GUI) 
 - [GUIOptions](#GUI~GUIOptions) 
 - [**add**()](#GUI#add) → Controller
 - [**addColor**()](#GUI#addColor) → Controller
@@ -13,7 +13,7 @@
 - [**destroy**()](#GUI#destroy) 
 - [**forEachController**()](#GUI#forEachController) 
 - [**open**()](#GUI#open) → self
-- [children](#GUI#children) : Array
+- [children](#GUI#children) : Array.<(GUI|Controller)>
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
 - [root](#GUI#root) : GUI
@@ -45,6 +45,7 @@
 - [$name](#Controller#$name) : HTMLElement
 - [$widget](#Controller#$widget) : HTMLElement
 - [_disabled](#Controller#_disabled) : boolean
+- [_listening](#Controller#_listening) : boolean
 - [_name](#Controller#_name) : string
 - [_onChange](#Controller#_onChange) : function
 
@@ -56,37 +57,39 @@ todoc GUI class description
 
 ***
 
-## <a name="GUI"></a> new **GUI**( options? : GUIOptions ) 
+## <a name="GUI"></a> new GUI( options? : GUIOptions )
 
 todoc GUI class description
 
-Parameter|Description|Default
----------|-----------|-------
-options||
+***
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L46" target="_blank">src/GUI.js:46</a></small>
+## <a name="GUI~GUIOptions"></a> GUIOptions
+
+Parameter|Type|Default|Description
+-|-|-|-
+parent|GUI||todoc
+autoPlace|boolean|true|Automatically appends the GUI to the page and applies fixed positioning
+injectStyles|boolean|true|todoc
+title|string|&#x27;Controls&#x27;|todoc
+width|number||todoc
+mobileMaxHeight|number|200|todoc
+collapses|boolean|true|todoc
 
 ***
 
-## <a name="GUI~GUIOptions"></a> GUIOptions 
-
-Parameter|Description|Default
----------|-----------|-------
-parent|todoc|
-autoPlace|Automatically appends the GUI to the page and applies fixed positioning|true
-injectStyles|todoc|true
-title|todoc|&#x27;Controls&#x27;
-width|todoc|
-mobileMaxHeight|todoc|200
-collapses|todoc|true
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L29" target="_blank">src/GUI.js:29</a></small>
-
-***
-
-## <a name="GUI#add"></a> gui.**add**( object : object, property : string, $1?, max? : number, step? : number ) → Controller
+## <a name="GUI#add"></a> gui.**add**( object : object, property : string, $1?, max? : number, step? : number )
 
 todoc
+
+**Returns**: Controller
+
+Parameter|Type|Default|Description
+-|-|-|-
+object|object||todoc
+property|string||todoc
+$1|*||todoc
+max|number||todoc
+step|number||todoc
 
 ```js
 gui.add( { myBoolean: false }, 'myBoolean' );
@@ -99,96 +102,76 @@ gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
 gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 ```
 
-Parameter|Description|Default
----------|-----------|-------
-object|todoc|
-property|todoc|
-$1|todoc|
-max|todoc|
-step|todoc|
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L197" target="_blank">src/GUI.js:197</a></small>
-
 ***
 
-## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string ) → Controller
+## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-object|todoc|
-property|todoc|
+**Returns**: Controller
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L241" target="_blank">src/GUI.js:241</a></small>
+Parameter|Type|Default|Description
+-|-|-|-
+object|object||todoc
+property|string||todoc
 
 ***
 
-## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string, collapses=true ) → GUI
+## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string, collapses=true )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-title|todoc|
-collapses|todoc|true
+**Returns**: GUI
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L251" target="_blank">src/GUI.js:251</a></small>
+Parameter|Type|Default|Description
+-|-|-|-
+title|string||todoc
+collapses|boolean|true|todoc
 
 ***
 
-## <a name="GUI#close"></a> gui.**close**() → self
+## <a name="GUI#close"></a> gui.**close**()
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274" target="_blank">src/GUI.js:274</a></small>
+**Returns**: GUI self
 
 ***
 
-## <a name="GUI#destroy"></a> gui.**destroy**() 
+## <a name="GUI#destroy"></a> gui.**destroy**()
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L283" target="_blank">src/GUI.js:283</a></small>
-
 ***
 
-## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=false ) 
+## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=false )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-callback|todoc|
-recursive|todoc|false
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L306" target="_blank">src/GUI.js:306</a></small>
+Parameter|Type|Default|Description
+-|-|-|-
+callback|function||todoc
+recursive|boolean|false|todoc
 
 ***
 
-## <a name="GUI#open"></a> gui.**open**( open=true ) → self
+## <a name="GUI#open"></a> gui.**open**( open=true )
 
-Opens or closes a GUI or folder.
+Opens a GUI or folder. GUI and folders are open by default.
+
+**Returns**: GUI self
 
 ```js
-folder.open(); // open
-folder.open( false ); // closed
-folder.open( folder._closed ); // toggle
+gui.open(); // open
+gui.open( false ); // close
+gui.open( gui._closed ); // toggle
 ```
-
-Parameter|Description|Default
----------|-----------|-------
-open||true
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L264" target="_blank">src/GUI.js:264</a></small>
 
 ***
 
-## <a name="GUI#children"></a> gui.**children** : Array
+## <a name="GUI#children"></a> gui.**children** : Array.<(GUI|Controller)>
 
 todoc
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L72" target="_blank">src/GUI.js:72</a></small>
 
 ***
 
@@ -196,15 +179,11 @@ todoc
 
 The outermost container `div`.
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L84" target="_blank">src/GUI.js:84</a></small>
-
 ***
 
 ## <a name="GUI#parent"></a> gui.**parent** : GUI
 
 todoc
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L60" target="_blank">src/GUI.js:60</a></small>
 
 ***
 
@@ -212,15 +191,11 @@ todoc
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L66" target="_blank">src/GUI.js:66</a></small>
-
 ***
 
 ## <a name="GUI#$children"></a> gui.**$children** : HTMLElement
 
 todoc
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L105" target="_blank">src/GUI.js:105</a></small>
 
 ***
 
@@ -228,15 +203,11 @@ todoc
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L91" target="_blank">src/GUI.js:91</a></small>
-
 ***
 
 ## <a name="GUI#_closed"></a> gui.**_closed** : boolean
 
 todoc
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L78" target="_blank">src/GUI.js:78</a></small>
 
 ***
 
@@ -246,7 +217,7 @@ todoc
 
 ***
 
-## <a name="Controller#destroy"></a> controller.**destroy**() 
+## <a name="Controller#destroy"></a> controller.**destroy**()
 
 Destroys this controller and removes it from the parent GUI.
 
@@ -262,89 +233,69 @@ gui.forEachControler( c => c.destroy() );
 Array.from( gui.children ).forEach( c => c.destroy() );
 ```
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L181" target="_blank">src/Controller.js:181</a></small>
-
 ***
 
-## <a name="Controller#disable"></a> controller.**disable**() → self
+## <a name="Controller#disable"></a> controller.**disable**()
 
 Disables this controller.
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L162" target="_blank">src/Controller.js:162</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#enable"></a> controller.**enable**( enabled=true ) → self
+## <a name="Controller#enable"></a> controller.**enable**( enabled=true )
 
 Enables this controller.
 
-Parameter|Description|Default
----------|-----------|-------
-enabled||true
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152" target="_blank">src/Controller.js:152</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#getValue"></a> controller.**getValue**() → *
+## <a name="Controller#getValue"></a> controller.**getValue**()
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L190" target="_blank">src/Controller.js:190</a></small>
+**Returns**: * value
 
 ***
 
-## <a name="Controller#listen"></a> controller.**listen**( listen=true ) → self
+## <a name="Controller#listen"></a> controller.**listen**( listen=true )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-listen||true
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L238" target="_blank">src/Controller.js:238</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#max"></a> controller.**max**( max : number ) → self
+## <a name="Controller#max"></a> controller.**max**( max : number )
 
 Sets the maximum value. Only works on number controllers.
 
-Parameter|Description|Default
----------|-----------|-------
-max||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L210" target="_blank">src/Controller.js:210</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#min"></a> controller.**min**( min : number ) → self
+## <a name="Controller#min"></a> controller.**min**( min : number )
 
 Sets the minimum value. Only works on number controllers.
 
-Parameter|Description|Default
----------|-----------|-------
-min||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L200" target="_blank">src/Controller.js:200</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#name"></a> controller.**name**( name : string ) → self
+## <a name="Controller#name"></a> controller.**name**( name : string )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-name||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L76" target="_blank">src/Controller.js:76</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#onChange"></a> controller.**onChange**( callback : function ) → self
+## <a name="Controller#onChange"></a> controller.**onChange**( callback : function )
 
 todoc
+
+**Returns**: Controller self
 
 ```js
 gui.add( object, 'property' ).onChange( v => {
@@ -352,70 +303,50 @@ gui.add( object, 'property' ).onChange( v => {
 } );
 ```
 
-Parameter|Description|Default
----------|-----------|-------
-callback|todoc|
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L94" target="_blank">src/Controller.js:94</a></small>
-
 ***
 
-## <a name="Controller#options"></a> controller.**options**( options ) → Controller
+## <a name="Controller#options"></a> controller.**options**( options )
 
 Destroys this controller and adds a new option controller
 
-Parameter|Description|Default
----------|-----------|-------
-options||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L113" target="_blank">src/Controller.js:113</a></small>
+**Returns**: Controller newController
 
 ***
 
-## <a name="Controller#reset"></a> controller.**reset**() → self
+## <a name="Controller#reset"></a> controller.**reset**()
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L142" target="_blank">src/Controller.js:142</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#setValue"></a> controller.**setValue**( value ) → self
+## <a name="Controller#setValue"></a> controller.**setValue**( value )
 
 todoc
 
-Parameter|Description|Default
----------|-----------|-------
-value||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L125" target="_blank">src/Controller.js:125</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#step"></a> controller.**step**( step : number ) → self
+## <a name="Controller#step"></a> controller.**step**( step : number )
 
 Sets the step. Only works on number controllers.
 
-Parameter|Description|Default
----------|-----------|-------
-step||
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L220" target="_blank">src/Controller.js:220</a></small>
+**Returns**: Controller self
 
 ***
 
-## <a name="Controller#updateDisplay"></a> controller.**updateDisplay**() → self
+## <a name="Controller#updateDisplay"></a> controller.**updateDisplay**()
 
 Updates the display to keep it in sync with getValue(). Useful for updating
 your controllers when their values have been modified outside of the GUI.
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L229" target="_blank">src/Controller.js:229</a></small>
+**Returns**: Controller self
 
 ***
 
 ## <a name="Controller#domElement"></a> controller.**domElement** : HTMLElement
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L45" target="_blank">src/Controller.js:45</a></small>
 
 ***
 
@@ -423,15 +354,11 @@ your controllers when their values have been modified outside of the GUI.
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L40" target="_blank">src/Controller.js:40</a></small>
-
 ***
 
 ## <a name="Controller#object"></a> controller.**object** : object
 
 todoc
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L22" target="_blank">src/Controller.js:22</a></small>
 
 ***
 
@@ -439,27 +366,19 @@ todoc
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L16" target="_blank">src/Controller.js:16</a></small>
-
 ***
 
 ## <a name="Controller#property"></a> controller.**property** : string
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L28" target="_blank">src/Controller.js:28</a></small>
-
 ***
 
 ## <a name="Controller#$name"></a> controller.**$name** : HTMLElement
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L52" target="_blank">src/Controller.js:52</a></small>
-
 ***
 
 ## <a name="Controller#$widget"></a> controller.**$widget** : HTMLElement
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L58" target="_blank">src/Controller.js:58</a></small>
 
 ***
 
@@ -467,19 +386,17 @@ todoc
 
 todoc
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L34" target="_blank">src/Controller.js:34</a></small>
+***
+
+## <a name="Controller#_listening"></a> controller.**_listening** : boolean
 
 ***
 
 ## <a name="Controller#_name"></a> controller.**_name** : string
 
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L80" target="_blank">src/Controller.js:80</a></small>
-
 ***
 
 ## <a name="Controller#_onChange"></a> controller.**_onChange** : function
-
-<small>View source: <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L98" target="_blank">src/Controller.js:98</a></small>
 
 ***
 

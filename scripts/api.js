@@ -59,6 +59,7 @@ function transform( v ) {
 	if ( v.kind === 'typedef' ) {
 
 		v.signature = v.name;
+		v.params = v.properties;
 
 	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
 
@@ -71,9 +72,12 @@ function transform( v ) {
 			v.signature += paramsToSignature( v.params );
 		}
 
-		if ( v.returns !== undefined ) {
+		if ( v.returns ) {
 			const type = v.returns[ 0 ].type.names[ 0 ];
-			if ( type === v.memberof && v.returns[ 0 ].description === 'self' ) {
+			const desc = v.returns[ 0 ].description;
+			v.returntype = type + ( desc ? ' ' + desc : '' );
+			if ( type === v.memberof && desc === 'self' ) {
+				v.chainable = true;
 				v.indextype = '→ self'; // "chainable"
 			} else {
 				v.indextype = '→ ' + type;
@@ -82,11 +86,10 @@ function transform( v ) {
 
 	} else if ( v.kind === 'class' ) {
 
-		if ( v.params !== undefined ) {
-			v.signature = `new **${v.name}**` + paramsToSignature( v.params );
+		if ( v.params ) {
+			v.signature = `new ${v.name}` + paramsToSignature( v.params );
 
-			v.indexname = `**new ${v.name}**`;
-			v.indexname += '()';
+			v.indexname = 'constructor';
 
 			// collect it
 			v.memberof = v.longname;
@@ -104,9 +107,15 @@ function transform( v ) {
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
 		if ( v.type ) {
-			v.indextype = ': ' + v.type.names.join( '|' );
+			const type = ': ' + v.type.names.join( '|' );
+			v.indextype = type;
+			v.signature += ' ' + type;
 		}
 
+	}
+
+	if ( v.params && v.params.length > 1 ) {
+		v.paramstable = v.params;
 	}
 
 	// view source url

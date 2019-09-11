@@ -24,9 +24,20 @@
 
 {{#children}}
 
-## <a name="{{{longname}}}"></a> {{{signature}}} {{{indextype}}}
+## <a name="{{{longname}}}"></a> {{{signature}}}
 
 {{{description}}}
+
+{{#with returntype}}
+**Returns**: {{{.}}}
+{{/with}}
+
+{{#with paramstable}}
+Parameter|Type|Default|Description
+-|-|-|-
+{{#.}}{{name}}|{{type.names}}|{{defaultvalue}}|{{description}}
+{{/.}}
+{{/with}}
 
 {{#examples}}
 ```js
@@ -34,21 +45,7 @@
 ```
 {{/examples}}
 
-{{#with params}}
-Parameter|Description|Default
----------|-----------|-------
-{{#.}}{{name}}|{{description}}|{{defaultvalue}}
-{{/.}}
-{{/with}}
-
-{{#with properties}}
-Parameter|Description|Default
----------|-----------|-------
-{{#.}}{{name}}|{{description}}|{{defaultvalue}}
-{{/.}}
-{{/with}}
-
-<small>View source: <a href="{{{viewsource}}}" target="_blank">{{{definedat}}}</a></small>
+{{!-- <small>View source: <a href="{{{viewsource}}}" target="_blank">{{{definedat}}}</a></small> --}}
 
 ***
 

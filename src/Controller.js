@@ -237,6 +237,10 @@ export default class Controller {
 	 */
 	listen( listen = true ) {
 
+		/**
+		 * @type {boolean}
+		 * @readonly
+		 */
 		this._listening = listen;
 
 		if ( this._listenCallback !== undefined ) {
