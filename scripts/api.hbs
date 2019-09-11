@@ -18,26 +18,20 @@
 
 # {{name}}
 
-{{{description}}}
-
-***
-
 {{#children}}
 
 ## <a name="{{{longname}}}"></a> {{{signature}}}
 
 {{{description}}}
 
-{{#with returntype}}
-**Returns**: {{{.}}}
-{{/with}}
-
-{{#with paramstable}}
-Parameter|Type|Default|Description
+{{#with properties}}
+Parameter|Type|Description|Default
 -|-|-|-
-{{#.}}{{name}}|{{type.names}}|{{defaultvalue}}|{{description}}
+{{#.}}{{name}}|{{type.names}}|{{{description}}}|{{defaultvalue}}
 {{/.}}
 {{/with}}
+
+{{{returntype}}}
 
 {{#examples}}
 ```js

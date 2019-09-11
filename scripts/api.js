@@ -59,7 +59,7 @@ function transform( v ) {
 	if ( v.kind === 'typedef' ) {
 
 		v.signature = v.name;
-		v.params = v.properties;
+		// v.params = v.properties;
 
 	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
 
@@ -73,15 +73,20 @@ function transform( v ) {
 		}
 
 		if ( v.returns ) {
+
 			const type = v.returns[ 0 ].type.names[ 0 ];
+
 			const desc = v.returns[ 0 ].description;
-			v.returntype = type + ( desc ? ' ' + desc : '' );
+
+			v.returntype = '**Returns:** ' + type + ( desc ? ' – ' + desc : '' );
+
 			if ( type === v.memberof && desc === 'self' ) {
 				v.chainable = true;
-				v.indextype = '→ self'; // "chainable"
+				v.indextype = '';//'→ self'; // "chainable"
 			} else {
 				v.indextype = '→ ' + type;
 			}
+
 		}
 
 	} else if ( v.kind === 'class' ) {
@@ -112,11 +117,15 @@ function transform( v ) {
 			v.signature += ' ' + type;
 		}
 
+		if ( v.readonly ) {
+			v.returntype = '**@readonly**';
+		}
+
 	}
 
-	if ( v.params && v.params.length > 1 ) {
-		v.paramstable = v.params;
-	}
+	// if ( v.params && v.params.length > 1 ) {
+	// v.paramstable = v.params;
+	// }
 
 	// view source url
 	const joined = v.meta.path + '/' + v.meta.filename;
@@ -221,23 +230,40 @@ function paramsToSignature( params ) {
 
 }
 
+// function singleParamToSignature( param ) {
+
+// 	let name = param.name;
+
+// 	if ( param.defaultvalue !== undefined ) {
+// 		name += '=' + param.defaultvalue;
+// 	} else if ( param.optional ) {
+// 		name += '?';
+// 	}
+
+// 	if ( param.defaultvalue === undefined &&
+// 		param.type &&
+// 		param.type.names[ 0 ] !== '*' &&
+// 		param.type.names[ 0 ] !== 'any' ) {
+// 		name += ' : ' + param.type.names[ 0 ];
+// 	}
+
+// 	return name;
+
+// }
+
 function singleParamToSignature( param ) {
 
-	let name = param.name;
+	let name = param.type.names.join( '|' );
 
 	if ( param.defaultvalue !== undefined ) {
-		name += '=' + param.defaultvalue;
-	} else if ( param.optional ) {
-		name += '?';
+		name = param.name + '=' + param.defaultvalue;
 	}
 
-	if ( param.defaultvalue === undefined &&
-		param.type &&
-		param.type.names[ 0 ] !== '*' &&
-		param.type.names[ 0 ] !== 'any' ) {
-		name += ' : ' + param.type.names[ 0 ];
+	if ( param.defaultvalue === undefined && param.optional ) {
+		name = `[${name}]`;
 	}
 
 	return name;
 
 }
+

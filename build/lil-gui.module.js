@@ -18,7 +18,6 @@ class Controller {
 
 		/**
 		 * todoc
-		 * @type {object}
 		 */
 		this.object = object;
 
@@ -29,14 +28,14 @@ class Controller {
 		this.property = property;
 
 		/**
-		 * todoc
+		 * Used to determine if the controller is disabled.
 		 * @type {boolean}
+		 * @readonly
 		 */
 		this._disabled = false;
 
 		/**
 		 * todoc
-		 * @type {*}
 		 */
 		this.initialValue = this.getValue();
 
@@ -65,6 +64,8 @@ class Controller {
 		this.parent.children.push( this );
 		this.parent.$children.appendChild( this.domElement );
 
+		this._listenCallback = this._listenCallback.bind( this );
+
 		this.name( property );
 
 	}
@@ -77,6 +78,7 @@ class Controller {
 	name( name ) {
 		/**
 		 * @type {string}
+		 * @readonly
 		 */
 		this._name = name;
 		this.$name.innerHTML = name;
@@ -95,6 +97,7 @@ class Controller {
 	onChange( callback ) {
 		/**
 		 * @type {Function}
+		 * @readonly
 		 */
 		this._onChange = callback;
 		return this;
@@ -108,8 +111,8 @@ class Controller {
 
 	/**
 	 * Destroys this controller and adds a new option controller
-	 * @param {*} options
-	 * @returns {Controller} newController
+	 * @param {object|Array} options
+	 * @returns {Controller}
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -174,7 +177,7 @@ class Controller {
 	 *
 	 * @example
 	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
-	 * gui.forEachControler( c => c.destroy() );
+	 * gui.forEachController( c => c.destroy() );
 	 *
 	 * // Make a copy of the array first if you actually want to do that
 	 * Array.from( gui.children ).forEach( c => c.destroy() );
@@ -244,20 +247,22 @@ class Controller {
 		 */
 		this._listening = listen;
 
-		if ( this._listenCallback !== undefined ) {
-			cancelAnimationFrame( this._listenCallback );
+		if ( this._listenCallbackID !== undefined ) {
+			cancelAnimationFrame( this._listenCallbackID );
+			this._listenCallbackID = undefined;
 		}
 
 		if ( this._listening ) {
-			const callback = () => {
-				this._listenCallback = requestAnimationFrame( callback );
-				this.updateDisplay();
-			};
-			callback();
+			this._listenCallback();
 		}
 
 		return this;
 
+	}
+
+	_listenCallback() {
+		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
+		this.updateDisplay();
 	}
 
 }
@@ -868,21 +873,29 @@ function inject( cssContent ) {
 	}
 }
 
-/**
- * @typedef GUIOptions
- * @property {GUI} [parent] todoc
- * @property {boolean} [autoPlace=true] Automatically appends the GUI to the page and applies fixed positioning
- * @property {boolean} [injectStyles=true] todoc
- * @property {string} [title='Controls'] todoc
- * @property {number} [width] todoc
- * @property {number} [mobileMaxHeight=200] todoc
- * @property {boolean} [collapses=true] todoc
- */
-
 class GUI {
 
 	/**
-	 * todoc GUI class description
+	 * @typedef GUIOptions
+	 *
+	 * @property {GUI} [parent]
+	 *
+	 * @property {boolean} [autoPlace=true]
+	 * Adds the GUI to `document.body` and applies fixed positioning.
+	 *
+	 * @property {boolean} [injectStyles=true]
+	 * Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.
+	 *
+	 * @property {string} [title='Controls']
+	 * Name to display in the title bar.
+	 *
+	 * @property {number} [width] todoc
+	 * @property {number} [mobileMaxHeight=200] todoc
+	 * @property {boolean} [collapses=true] todoc
+	 */
+
+	/**
+	 * todoc
 	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
@@ -916,6 +929,7 @@ class GUI {
 		/**
 		 * todoc
 		 * @type {boolean}
+		 * @readonly
 		 */
 		this._closed = false;
 
@@ -1021,7 +1035,7 @@ class GUI {
 	 * todoc
 	 * @param {object} object todoc
 	 * @param {string} property todoc
-	 * @param {*} [$1] todoc
+	 * @param {number|object|Array} [$1] todoc
 	 * @param {number} [max] todoc
 	 * @param {number} [step] todoc
 	 * @returns {Controller}

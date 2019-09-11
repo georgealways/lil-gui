@@ -17,7 +17,6 @@ export default class Controller {
 
 		/**
 		 * todoc
-		 * @type {object}
 		 */
 		this.object = object;
 
@@ -28,14 +27,14 @@ export default class Controller {
 		this.property = property;
 
 		/**
-		 * todoc
+		 * Used to determine if the controller is disabled.
 		 * @type {boolean}
+		 * @readonly
 		 */
 		this._disabled = false;
 
 		/**
 		 * todoc
-		 * @type {*}
 		 */
 		this.initialValue = this.getValue();
 
@@ -64,6 +63,8 @@ export default class Controller {
 		this.parent.children.push( this );
 		this.parent.$children.appendChild( this.domElement );
 
+		this._listenCallback = this._listenCallback.bind( this );
+
 		this.name( property );
 
 	}
@@ -76,6 +77,7 @@ export default class Controller {
 	name( name ) {
 		/**
 		 * @type {string}
+		 * @readonly
 		 */
 		this._name = name;
 		this.$name.innerHTML = name;
@@ -94,6 +96,7 @@ export default class Controller {
 	onChange( callback ) {
 		/**
 		 * @type {Function}
+		 * @readonly
 		 */
 		this._onChange = callback;
 		return this;
@@ -107,8 +110,8 @@ export default class Controller {
 
 	/**
 	 * Destroys this controller and adds a new option controller
-	 * @param {*} options
-	 * @returns {Controller} newController
+	 * @param {object|Array} options
+	 * @returns {Controller}
 	 */
 	options( options ) {
 		const controller = this.parent.add( this.object, this.property, options );
@@ -173,7 +176,7 @@ export default class Controller {
 	 *
 	 * @example
 	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
-	 * gui.forEachControler( c => c.destroy() );
+	 * gui.forEachController( c => c.destroy() );
 	 *
 	 * // Make a copy of the array first if you actually want to do that
 	 * Array.from( gui.children ).forEach( c => c.destroy() );
@@ -243,20 +246,22 @@ export default class Controller {
 		 */
 		this._listening = listen;
 
-		if ( this._listenCallback !== undefined ) {
-			cancelAnimationFrame( this._listenCallback );
+		if ( this._listenCallbackID !== undefined ) {
+			cancelAnimationFrame( this._listenCallbackID );
+			this._listenCallbackID = undefined;
 		}
 
 		if ( this._listening ) {
-			const callback = () => {
-				this._listenCallback = requestAnimationFrame( callback );
-				this.updateDisplay();
-			};
-			callback();
+			this._listenCallback();
 		}
 
 		return this;
 
+	}
+
+	_listenCallback() {
+		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
+		this.updateDisplay();
 	}
 
 }

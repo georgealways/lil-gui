@@ -26,21 +26,29 @@ function inject( cssContent ) {
 	}
 }
 
-/**
- * @typedef GUIOptions
- * @property {GUI} [parent] todoc
- * @property {boolean} [autoPlace=true] Automatically appends the GUI to the page and applies fixed positioning
- * @property {boolean} [injectStyles=true] todoc
- * @property {string} [title='Controls'] todoc
- * @property {number} [width] todoc
- * @property {number} [mobileMaxHeight=200] todoc
- * @property {boolean} [collapses=true] todoc
- */
-
 export default class GUI {
 
 	/**
-	 * todoc GUI class description
+	 * @typedef GUIOptions
+	 *
+	 * @property {GUI} [parent]
+	 *
+	 * @property {boolean} [autoPlace=true]
+	 * Adds the GUI to `document.body` and applies fixed positioning.
+	 *
+	 * @property {boolean} [injectStyles=true]
+	 * Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.
+	 *
+	 * @property {string} [title='Controls']
+	 * Name to display in the title bar.
+	 *
+	 * @property {number} [width] todoc
+	 * @property {number} [mobileMaxHeight=200] todoc
+	 * @property {boolean} [collapses=true] todoc
+	 */
+
+	/**
+	 * todoc
 	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
@@ -74,6 +82,7 @@ export default class GUI {
 		/**
 		 * todoc
 		 * @type {boolean}
+		 * @readonly
 		 */
 		this._closed = false;
 
@@ -179,7 +188,7 @@ export default class GUI {
 	 * todoc
 	 * @param {object} object todoc
 	 * @param {string} property todoc
-	 * @param {*} [$1] todoc
+	 * @param {number|object|Array} [$1] todoc
 	 * @param {number} [max] todoc
 	 * @param {number} [step] todoc
 	 * @returns {Controller}

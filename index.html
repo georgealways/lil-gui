@@ -71,10 +71,10 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#add"><strong>add</strong>()</a> → Controller</li>
 <li><a href="#GUI#addColor"><strong>addColor</strong>()</a> → Controller</li>
 <li><a href="#GUI#addFolder"><strong>addFolder</strong>()</a> → GUI</li>
-<li><a href="#GUI#close"><strong>close</strong>()</a> → self</li>
+<li><a href="#GUI#close"><strong>close</strong>()</a></li>
 <li><a href="#GUI#destroy"><strong>destroy</strong>()</a></li>
 <li><a href="#GUI#forEachController"><strong>forEachController</strong>()</a></li>
-<li><a href="#GUI#open"><strong>open</strong>()</a> → self</li>
+<li><a href="#GUI#open"><strong>open</strong>()</a></li>
 <li><a href="#GUI#children">children</a> : Array.&lt;(GUI|Controller)&gt;</li>
 <li><a href="#GUI#domElement">domElement</a> : HTMLElement</li>
 <li><a href="#GUI#parent">parent</a> : GUI</li>
@@ -86,22 +86,22 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <h2>Controller</h2>
 <ul>
 <li><a href="#Controller#destroy"><strong>destroy</strong>()</a></li>
-<li><a href="#Controller#disable"><strong>disable</strong>()</a> → self</li>
-<li><a href="#Controller#enable"><strong>enable</strong>()</a> → self</li>
+<li><a href="#Controller#disable"><strong>disable</strong>()</a></li>
+<li><a href="#Controller#enable"><strong>enable</strong>()</a></li>
 <li><a href="#Controller#getValue"><strong>getValue</strong>()</a> → *</li>
-<li><a href="#Controller#listen"><strong>listen</strong>()</a> → self</li>
-<li><a href="#Controller#max"><strong>max</strong>()</a> → self</li>
-<li><a href="#Controller#min"><strong>min</strong>()</a> → self</li>
-<li><a href="#Controller#name"><strong>name</strong>()</a> → self</li>
-<li><a href="#Controller#onChange"><strong>onChange</strong>()</a> → self</li>
+<li><a href="#Controller#listen"><strong>listen</strong>()</a></li>
+<li><a href="#Controller#max"><strong>max</strong>()</a></li>
+<li><a href="#Controller#min"><strong>min</strong>()</a></li>
+<li><a href="#Controller#name"><strong>name</strong>()</a></li>
+<li><a href="#Controller#onChange"><strong>onChange</strong>()</a></li>
 <li><a href="#Controller#options"><strong>options</strong>()</a> → Controller</li>
-<li><a href="#Controller#reset"><strong>reset</strong>()</a> → self</li>
-<li><a href="#Controller#setValue"><strong>setValue</strong>()</a> → self</li>
-<li><a href="#Controller#step"><strong>step</strong>()</a> → self</li>
-<li><a href="#Controller#updateDisplay"><strong>updateDisplay</strong>()</a> → self</li>
+<li><a href="#Controller#reset"><strong>reset</strong>()</a></li>
+<li><a href="#Controller#setValue"><strong>setValue</strong>()</a></li>
+<li><a href="#Controller#step"><strong>step</strong>()</a></li>
+<li><a href="#Controller#updateDisplay"><strong>updateDisplay</strong>()</a></li>
 <li><a href="#Controller#domElement">domElement</a> : HTMLElement</li>
-<li><a href="#Controller#initialValue">initialValue</a> : *</li>
-<li><a href="#Controller#object">object</a> : object</li>
+<li><a href="#Controller#initialValue">initialValue</a></li>
+<li><a href="#Controller#object">object</a></li>
 <li><a href="#Controller#parent">parent</a> : GUI</li>
 <li><a href="#Controller#property">property</a> : string</li>
 <li><a href="#Controller#$name">$name</a> : HTMLElement</li>
@@ -113,10 +113,8 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 </ul>
 <hr>
 <h1>GUI</h1>
-<p>todoc GUI class description</p>
-<hr>
-<h2><a name="GUI"></a> new GUI( options? : GUIOptions )</h2>
-<p>todoc GUI class description</p>
+<h2><a name="GUI"></a> new GUI( [GUIOptions] )</h2>
+<p>todoc</p>
 <hr>
 <h2><a name="GUI~GUIOptions"></a> GUIOptions</h2>
 <table>
@@ -124,8 +122,8 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th>Default</th>
 <th>Description</th>
+<th>Default</th>
 </tr>
 </thead>
 <tbody>
@@ -133,92 +131,50 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <td>parent</td>
 <td>GUI</td>
 <td></td>
-<td>todoc</td>
+<td></td>
 </tr>
 <tr>
 <td>autoPlace</td>
 <td>boolean</td>
+<td>Adds the GUI to <code>document.body</code> and applies fixed positioning.</td>
 <td>true</td>
-<td>Automatically appends the GUI to the page and applies fixed positioning</td>
 </tr>
 <tr>
 <td>injectStyles</td>
 <td>boolean</td>
+<td>Injects the default stylesheet as the first child of <code>document.head</code>. Pass false when using your own stylesheet.</td>
 <td>true</td>
-<td>todoc</td>
 </tr>
 <tr>
 <td>title</td>
 <td>string</td>
+<td>Name to display in the title bar.</td>
 <td>'Controls'</td>
-<td>todoc</td>
 </tr>
 <tr>
 <td>width</td>
 <td>number</td>
-<td></td>
 <td>todoc</td>
+<td></td>
 </tr>
 <tr>
 <td>mobileMaxHeight</td>
 <td>number</td>
-<td>200</td>
 <td>todoc</td>
+<td>200</td>
 </tr>
 <tr>
 <td>collapses</td>
 <td>boolean</td>
-<td>true</td>
 <td>todoc</td>
+<td>true</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2><a name="GUI#add"></a> gui.<strong>add</strong>( object : object, property : string, $1?, max? : number, step? : number )</h2>
+<h2><a name="GUI#add"></a> gui.<strong>add</strong>( object, string, [number|object|Array], [number], [number] )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>object</td>
-<td>object</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>property</td>
-<td>string</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>$1</td>
-<td>*</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>max</td>
-<td>number</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>step</td>
-<td>number</td>
-<td></td>
-<td>todoc</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Returns:</strong> Controller</p>
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">false</span> }, <span class="hljs-string">'myBoolean'</span> );
 </code></pre>
 <pre><code class="language-js">gui.add( { <span class="hljs-attr">myNumber</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myNumber'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1</span> );
@@ -227,99 +183,27 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 gui.add( { <span class="hljs-attr">myOptions</span>: <span class="hljs-number">0</span> }, <span class="hljs-string">'myOptions'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 </code></pre>
 <hr>
-<h2><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object : object, property : string )</h2>
+<h2><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object, string )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>object</td>
-<td>object</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>property</td>
-<td>string</td>
-<td></td>
-<td>todoc</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Returns:</strong> Controller</p>
 <hr>
-<h2><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( title : string, collapses=true )</h2>
+<h2><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( string, collapses=true )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: GUI</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>title</td>
-<td>string</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>collapses</td>
-<td>boolean</td>
-<td>true</td>
-<td>todoc</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Returns:</strong> GUI</p>
 <hr>
 <h2><a name="GUI#close"></a> gui.<strong>close</strong>()</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: GUI self</p>
+<p><strong>Returns:</strong> GUI – self</p>
 <hr>
 <h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
 <hr>
-<h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=false )</h2>
+<h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( function, recursive=false )</h2>
 <p>todoc</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>callback</td>
-<td>function</td>
-<td></td>
-<td>todoc</td>
-</tr>
-<tr>
-<td>recursive</td>
-<td>boolean</td>
-<td>false</td>
-<td>todoc</td>
-</tr>
-</tbody>
-</table>
 <hr>
 <h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>
-<p><strong>Returns</strong>: GUI self</p>
+<p><strong>Returns:</strong> GUI – self</p>
 <pre><code class="language-js">gui.open(); <span class="hljs-comment">// open</span>
 gui.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// close</span>
 gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
@@ -345,17 +229,16 @@ gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 <hr>
 <h2><a name="GUI#_closed"></a> gui.<strong>_closed</strong> : boolean</h2>
 <p>todoc</p>
+<p><strong>@readonly</strong></p>
 <hr>
 <h1>Controller</h1>
-<p>todoc</p>
-<hr>
 <h2><a name="Controller#destroy"></a> controller.<strong>destroy</strong>()</h2>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
 controller.destroy();
 </code></pre>
 <pre><code class="language-js"><span class="hljs-comment">// Won't destroy all the controllers because c.destroy() modifies gui.children</span>
-gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
+gui.forEachController( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
 
 <span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
 <span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
@@ -363,67 +246,67 @@ gui.forEachControler( <span class="hljs-function"><span class="hljs-params">c</s
 <hr>
 <h2><a name="Controller#disable"></a> controller.<strong>disable</strong>()</h2>
 <p>Disables this controller.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
 <h2><a name="Controller#enable"></a> controller.<strong>enable</strong>( enabled=true )</h2>
 <p>Enables this controller.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
 <h2><a name="Controller#getValue"></a> controller.<strong>getValue</strong>()</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: * value</p>
+<p><strong>Returns:</strong> * – value</p>
 <hr>
 <h2><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#max"></a> controller.<strong>max</strong>( max : number )</h2>
+<h2><a name="Controller#max"></a> controller.<strong>max</strong>( number )</h2>
 <p>Sets the maximum value. Only works on number controllers.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#min"></a> controller.<strong>min</strong>( min : number )</h2>
+<h2><a name="Controller#min"></a> controller.<strong>min</strong>( number )</h2>
 <p>Sets the minimum value. Only works on number controllers.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#name"></a> controller.<strong>name</strong>( name : string )</h2>
+<h2><a name="Controller#name"></a> controller.<strong>name</strong>( string )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#onChange"></a> controller.<strong>onChange</strong>( callback : function )</h2>
+<h2><a name="Controller#onChange"></a> controller.<strong>onChange</strong>( function )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <pre><code class="language-js">gui.add( object, <span class="hljs-string">'property'</span> ).onChange( <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> {
 	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
 } );
 </code></pre>
 <hr>
-<h2><a name="Controller#options"></a> controller.<strong>options</strong>( options )</h2>
+<h2><a name="Controller#options"></a> controller.<strong>options</strong>( object|Array )</h2>
 <p>Destroys this controller and adds a new option controller</p>
-<p><strong>Returns</strong>: Controller newController</p>
+<p><strong>Returns:</strong> Controller</p>
 <hr>
 <h2><a name="Controller#reset"></a> controller.<strong>reset</strong>()</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#setValue"></a> controller.<strong>setValue</strong>( value )</h2>
+<h2><a name="Controller#setValue"></a> controller.<strong>setValue</strong>( * )</h2>
 <p>todoc</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
-<h2><a name="Controller#step"></a> controller.<strong>step</strong>( step : number )</h2>
+<h2><a name="Controller#step"></a> controller.<strong>step</strong>( number )</h2>
 <p>Sets the step. Only works on number controllers.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
 <h2><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>()</h2>
 <p>Updates the display to keep it in sync with getValue(). Useful for updating
 your controllers when their values have been modified outside of the GUI.</p>
-<p><strong>Returns</strong>: Controller self</p>
+<p><strong>Returns:</strong> Controller – self</p>
 <hr>
 <h2><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h2>
 <hr>
-<h2><a name="Controller#initialValue"></a> controller.<strong>initialValue</strong> : *</h2>
+<h2><a name="Controller#initialValue"></a> controller.<strong>initialValue</strong></h2>
 <p>todoc</p>
 <hr>
-<h2><a name="Controller#object"></a> controller.<strong>object</strong> : object</h2>
+<h2><a name="Controller#object"></a> controller.<strong>object</strong></h2>
 <p>todoc</p>
 <hr>
 <h2><a name="Controller#parent"></a> controller.<strong>parent</strong> : GUI</h2>
@@ -437,13 +320,17 @@ your controllers when their values have been modified outside of the GUI.</p>
 <h2><a name="Controller#$widget"></a> controller.<strong>$widget</strong> : HTMLElement</h2>
 <hr>
 <h2><a name="Controller#_disabled"></a> controller.<strong>_disabled</strong> : boolean</h2>
-<p>todoc</p>
+<p>Used to determine if the controller is disabled.</p>
+<p><strong>@readonly</strong></p>
 <hr>
 <h2><a name="Controller#_listening"></a> controller.<strong>_listening</strong> : boolean</h2>
+<p><strong>@readonly</strong></p>
 <hr>
 <h2><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h2>
+<p><strong>@readonly</strong></p>
 <hr>
 <h2><a name="Controller#_onChange"></a> controller.<strong>_onChange</strong> : function</h2>
+<p><strong>@readonly</strong></p>
 <hr>
 
 	</div>
@@ -483,7 +370,7 @@ your controllers when their values have been modified outside of the GUI.</p>
 <script type="text/javascript">
 window.jsdocDebug = [
 	{
-		"description": "todoc GUI class description",
+		"description": "todoc",
 		"params": [
 			{
 				"type": {
@@ -499,11 +386,11 @@ window.jsdocDebug = [
 		"longname": "GUI",
 		"kind": "class",
 		"indexname": "constructor",
-		"signature": "new GUI( options? : GUIOptions )",
+		"signature": "new GUI( [GUIOptions] )",
 		"memberof": "GUI",
 		"children": [
 			{
-				"description": "todoc GUI class description",
+				"description": "todoc",
 				"params": [
 					{
 						"type": {
@@ -519,10 +406,10 @@ window.jsdocDebug = [
 				"longname": "GUI",
 				"kind": "class",
 				"indexname": "constructor",
-				"signature": "new GUI( options? : GUIOptions )",
+				"signature": "new GUI( [GUIOptions] )",
 				"memberof": "GUI",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L46",
-				"definedat": "src/GUI.js:46"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L54",
+				"definedat": "src/GUI.js:54"
 			},
 			{
 				"kind": "typedef",
@@ -535,7 +422,6 @@ window.jsdocDebug = [
 							]
 						},
 						"optional": true,
-						"description": "todoc",
 						"name": "parent"
 					},
 					{
@@ -546,7 +432,7 @@ window.jsdocDebug = [
 						},
 						"optional": true,
 						"defaultvalue": true,
-						"description": "Automatically appends the GUI to the page and applies fixed positioning",
+						"description": "Adds the GUI to `document.body` and applies fixed positioning.",
 						"name": "autoPlace"
 					},
 					{
@@ -557,7 +443,7 @@ window.jsdocDebug = [
 						},
 						"optional": true,
 						"defaultvalue": true,
-						"description": "todoc",
+						"description": "Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.",
 						"name": "injectStyles"
 					},
 					{
@@ -568,7 +454,7 @@ window.jsdocDebug = [
 						},
 						"optional": true,
 						"defaultvalue": "'Controls'",
-						"description": "todoc",
+						"description": "Name to display in the title bar.",
 						"name": "title"
 					},
 					{
@@ -609,162 +495,8 @@ window.jsdocDebug = [
 				"memberof": "GUI",
 				"indexname": "GUIOptions",
 				"signature": "GUIOptions",
-				"params": [
-					{
-						"type": {
-							"names": [
-								"GUI"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "parent"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "Automatically appends the GUI to the page and applies fixed positioning",
-						"name": "autoPlace"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "todoc",
-						"name": "injectStyles"
-					},
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"optional": true,
-						"defaultvalue": "'Controls'",
-						"description": "todoc",
-						"name": "title"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "width"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"defaultvalue": 200,
-						"description": "todoc",
-						"name": "mobileMaxHeight"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "todoc",
-						"name": "collapses"
-					}
-				],
-				"paramstable": [
-					{
-						"type": {
-							"names": [
-								"GUI"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "parent"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "Automatically appends the GUI to the page and applies fixed positioning",
-						"name": "autoPlace"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "todoc",
-						"name": "injectStyles"
-					},
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"optional": true,
-						"defaultvalue": "'Controls'",
-						"description": "todoc",
-						"name": "title"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "width"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"defaultvalue": 200,
-						"description": "todoc",
-						"name": "mobileMaxHeight"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "todoc",
-						"name": "collapses"
-					}
-				],
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L29",
-				"definedat": "src/GUI.js:29"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L31",
+				"definedat": "src/GUI.js:31"
 			},
 			{
 				"description": "todoc",
@@ -790,7 +522,9 @@ window.jsdocDebug = [
 					{
 						"type": {
 							"names": [
-								"*"
+								"number",
+								"object",
+								"Array"
 							]
 						},
 						"optional": true,
@@ -838,61 +572,11 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "GUI",
 				"indexname": "**add**()",
-				"signature": "gui.**add**( object : object, property : string, $1?, max? : number, step? : number )",
-				"returntype": "Controller",
+				"signature": "gui.**add**( object, string, [number|object|Array], [number], [number] )",
+				"returntype": "**Returns:** Controller",
 				"indextype": "→ Controller",
-				"paramstable": [
-					{
-						"type": {
-							"names": [
-								"object"
-							]
-						},
-						"description": "todoc",
-						"name": "object"
-					},
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"description": "todoc",
-						"name": "property"
-					},
-					{
-						"type": {
-							"names": [
-								"*"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "$1"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "max"
-					},
-					{
-						"type": {
-							"names": [
-								"number"
-							]
-						},
-						"optional": true,
-						"description": "todoc",
-						"name": "step"
-					}
-				],
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L197",
-				"definedat": "src/GUI.js:197"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L206",
+				"definedat": "src/GUI.js:206"
 			},
 			{
 				"description": "todoc",
@@ -931,31 +615,11 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "GUI",
 				"indexname": "**addColor**()",
-				"signature": "gui.**addColor**( object : object, property : string )",
-				"returntype": "Controller",
+				"signature": "gui.**addColor**( object, string )",
+				"returntype": "**Returns:** Controller",
 				"indextype": "→ Controller",
-				"paramstable": [
-					{
-						"type": {
-							"names": [
-								"object"
-							]
-						},
-						"description": "todoc",
-						"name": "object"
-					},
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"description": "todoc",
-						"name": "property"
-					}
-				],
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L241",
-				"definedat": "src/GUI.js:241"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L250",
+				"definedat": "src/GUI.js:250"
 			},
 			{
 				"description": "todoc",
@@ -996,33 +660,11 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "GUI",
 				"indexname": "**addFolder**()",
-				"signature": "gui.**addFolder**( title : string, collapses=true )",
-				"returntype": "GUI",
+				"signature": "gui.**addFolder**( string, collapses=true )",
+				"returntype": "**Returns:** GUI",
 				"indextype": "→ GUI",
-				"paramstable": [
-					{
-						"type": {
-							"names": [
-								"string"
-							]
-						},
-						"description": "todoc",
-						"name": "title"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": true,
-						"description": "todoc",
-						"name": "collapses"
-					}
-				],
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L251",
-				"definedat": "src/GUI.js:251"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L260",
+				"definedat": "src/GUI.js:260"
 			},
 			{
 				"description": "todoc",
@@ -1044,11 +686,11 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**close**()",
 				"signature": "gui.**close**()",
-				"returntype": "GUI self",
+				"returntype": "**Returns:** GUI – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L274",
-				"definedat": "src/GUI.js:274"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L283",
+				"definedat": "src/GUI.js:283"
 			},
 			{
 				"description": "todoc",
@@ -1060,8 +702,8 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**destroy**()",
 				"signature": "gui.**destroy**()",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L283",
-				"definedat": "src/GUI.js:283"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L292",
+				"definedat": "src/GUI.js:292"
 			},
 			{
 				"description": "todoc",
@@ -1093,31 +735,9 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "GUI",
 				"indexname": "**forEachController**()",
-				"signature": "gui.**forEachController**( callback : function, recursive=false )",
-				"paramstable": [
-					{
-						"type": {
-							"names": [
-								"function"
-							]
-						},
-						"description": "todoc",
-						"name": "callback"
-					},
-					{
-						"type": {
-							"names": [
-								"boolean"
-							]
-						},
-						"optional": true,
-						"defaultvalue": false,
-						"description": "todoc",
-						"name": "recursive"
-					}
-				],
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L306",
-				"definedat": "src/GUI.js:306"
+				"signature": "gui.**forEachController**( function, recursive=false )",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L315",
+				"definedat": "src/GUI.js:315"
 			},
 			{
 				"description": "Opens a GUI or folder. GUI and folders are open by default.",
@@ -1154,11 +774,11 @@ window.jsdocDebug = [
 				"memberof": "GUI",
 				"indexname": "**open**()",
 				"signature": "gui.**open**( open=true )",
-				"returntype": "GUI self",
+				"returntype": "**Returns:** GUI – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L264",
-				"definedat": "src/GUI.js:264"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L273",
+				"definedat": "src/GUI.js:273"
 			},
 			{
 				"description": "todoc",
@@ -1175,8 +795,8 @@ window.jsdocDebug = [
 				"indexname": "children",
 				"signature": "gui.**children** : Array.<(GUI|Controller)>",
 				"indextype": ": Array.<(GUI|Controller)>",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L72",
-				"definedat": "src/GUI.js:72"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L80",
+				"definedat": "src/GUI.js:80"
 			},
 			{
 				"description": "The outermost container `div`.",
@@ -1193,8 +813,8 @@ window.jsdocDebug = [
 				"indexname": "domElement",
 				"signature": "gui.**domElement** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L84",
-				"definedat": "src/GUI.js:84"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L93",
+				"definedat": "src/GUI.js:93"
 			},
 			{
 				"description": "todoc",
@@ -1211,8 +831,8 @@ window.jsdocDebug = [
 				"indexname": "parent",
 				"signature": "gui.**parent** : GUI",
 				"indextype": ": GUI",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L60",
-				"definedat": "src/GUI.js:60"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L68",
+				"definedat": "src/GUI.js:68"
 			},
 			{
 				"description": "todoc",
@@ -1229,8 +849,8 @@ window.jsdocDebug = [
 				"indexname": "root",
 				"signature": "gui.**root** : GUI",
 				"indextype": ": GUI",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L66",
-				"definedat": "src/GUI.js:66"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L74",
+				"definedat": "src/GUI.js:74"
 			},
 			{
 				"description": "todoc",
@@ -1247,8 +867,8 @@ window.jsdocDebug = [
 				"indexname": "$children",
 				"signature": "gui.**$children** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L105",
-				"definedat": "src/GUI.js:105"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L114",
+				"definedat": "src/GUI.js:114"
 			},
 			{
 				"description": "todoc",
@@ -1265,8 +885,8 @@ window.jsdocDebug = [
 				"indexname": "$title",
 				"signature": "gui.**$title** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L91",
-				"definedat": "src/GUI.js:91"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L100",
+				"definedat": "src/GUI.js:100"
 			},
 			{
 				"description": "todoc",
@@ -1275,6 +895,7 @@ window.jsdocDebug = [
 						"boolean"
 					]
 				},
+				"readonly": true,
 				"name": "_closed",
 				"longname": "GUI#_closed",
 				"kind": "member",
@@ -1283,12 +904,13 @@ window.jsdocDebug = [
 				"indexname": "_closed",
 				"signature": "gui.**_closed** : boolean",
 				"indextype": ": boolean",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L78",
-				"definedat": "src/GUI.js:78"
+				"returntype": "**@readonly**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L87",
+				"definedat": "src/GUI.js:87"
 			}
 		],
-		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L46",
-		"definedat": "src/GUI.js:46"
+		"viewsource": "https://github.com/georgealways/gui/blob/master/src/GUI.js#L54",
+		"definedat": "src/GUI.js:54"
 	},
 	{
 		"name": "Controller",
@@ -1302,7 +924,7 @@ window.jsdocDebug = [
 				"description": "Destroys this controller and removes it from the parent GUI.",
 				"examples": [
 					"const controller = gui.add( object, 'property' );\ncontroller.destroy();",
-					"// Won't destroy all the controllers because c.destroy() modifies gui.children\ngui.forEachControler( c => c.destroy() );\n\n// Make a copy of the array first if you actually want to do that\nArray.from( gui.children ).forEach( c => c.destroy() );"
+					"// Won't destroy all the controllers because c.destroy() modifies gui.children\ngui.forEachController( c => c.destroy() );\n\n// Make a copy of the array first if you actually want to do that\nArray.from( gui.children ).forEach( c => c.destroy() );"
 				],
 				"name": "destroy",
 				"longname": "Controller#destroy",
@@ -1312,8 +934,8 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**destroy**()",
 				"signature": "controller.**destroy**()",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L181",
-				"definedat": "src/Controller.js:181"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L184",
+				"definedat": "src/Controller.js:184"
 			},
 			{
 				"description": "Disables this controller.",
@@ -1335,11 +957,11 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**disable**()",
 				"signature": "controller.**disable**()",
-				"returntype": "Controller self",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L162",
-				"definedat": "src/Controller.js:162"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L165",
+				"definedat": "src/Controller.js:165"
 			},
 			{
 				"description": "Enables this controller.",
@@ -1372,11 +994,11 @@ window.jsdocDebug = [
 				"memberof": "Controller",
 				"indexname": "**enable**()",
 				"signature": "controller.**enable**( enabled=true )",
-				"returntype": "Controller self",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L152",
-				"definedat": "src/Controller.js:152"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L155",
+				"definedat": "src/Controller.js:155"
 			},
 			{
 				"description": "todoc",
@@ -1398,10 +1020,10 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**getValue**()",
 				"signature": "controller.**getValue**()",
-				"returntype": "* value",
+				"returntype": "**Returns:** * – value",
 				"indextype": "→ *",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L190",
-				"definedat": "src/Controller.js:190"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L193",
+				"definedat": "src/Controller.js:193"
 			},
 			{
 				"description": "todoc",
@@ -1434,11 +1056,11 @@ window.jsdocDebug = [
 				"memberof": "Controller",
 				"indexname": "**listen**()",
 				"signature": "controller.**listen**( listen=true )",
-				"returntype": "Controller self",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L238",
-				"definedat": "src/Controller.js:238"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L241",
+				"definedat": "src/Controller.js:241"
 			},
 			{
 				"description": "Sets the maximum value. Only works on number controllers.",
@@ -1468,12 +1090,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**max**()",
-				"signature": "controller.**max**( max : number )",
-				"returntype": "Controller self",
+				"signature": "controller.**max**( number )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L210",
-				"definedat": "src/Controller.js:210"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L213",
+				"definedat": "src/Controller.js:213"
 			},
 			{
 				"description": "Sets the minimum value. Only works on number controllers.",
@@ -1503,12 +1125,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**min**()",
-				"signature": "controller.**min**( min : number )",
-				"returntype": "Controller self",
+				"signature": "controller.**min**( number )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L200",
-				"definedat": "src/Controller.js:200"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L203",
+				"definedat": "src/Controller.js:203"
 			},
 			{
 				"description": "todoc",
@@ -1538,12 +1160,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**name**()",
-				"signature": "controller.**name**( name : string )",
-				"returntype": "Controller self",
+				"signature": "controller.**name**( string )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L76",
-				"definedat": "src/Controller.js:76"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L77",
+				"definedat": "src/Controller.js:77"
 			},
 			{
 				"description": "todoc",
@@ -1577,12 +1199,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**onChange**()",
-				"signature": "controller.**onChange**( callback : function )",
-				"returntype": "Controller self",
+				"signature": "controller.**onChange**( function )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L94",
-				"definedat": "src/Controller.js:94"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L96",
+				"definedat": "src/Controller.js:96"
 			},
 			{
 				"description": "Destroys this controller and adds a new option controller",
@@ -1590,7 +1212,8 @@ window.jsdocDebug = [
 					{
 						"type": {
 							"names": [
-								"*"
+								"object",
+								"Array"
 							]
 						},
 						"name": "options"
@@ -1602,8 +1225,7 @@ window.jsdocDebug = [
 							"names": [
 								"Controller"
 							]
-						},
-						"description": "newController"
+						}
 					}
 				],
 				"name": "options",
@@ -1612,11 +1234,11 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**options**()",
-				"signature": "controller.**options**( options )",
-				"returntype": "Controller newController",
+				"signature": "controller.**options**( object|Array )",
+				"returntype": "**Returns:** Controller",
 				"indextype": "→ Controller",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L113",
-				"definedat": "src/Controller.js:113"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L116",
+				"definedat": "src/Controller.js:116"
 			},
 			{
 				"description": "todoc",
@@ -1638,11 +1260,11 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**reset**()",
 				"signature": "controller.**reset**()",
-				"returntype": "Controller self",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L142",
-				"definedat": "src/Controller.js:142"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L145",
+				"definedat": "src/Controller.js:145"
 			},
 			{
 				"description": "todoc",
@@ -1672,12 +1294,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**setValue**()",
-				"signature": "controller.**setValue**( value )",
-				"returntype": "Controller self",
+				"signature": "controller.**setValue**( * )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L125",
-				"definedat": "src/Controller.js:125"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L128",
+				"definedat": "src/Controller.js:128"
 			},
 			{
 				"description": "Sets the step. Only works on number controllers.",
@@ -1707,12 +1329,12 @@ window.jsdocDebug = [
 				"scope": "instance",
 				"memberof": "Controller",
 				"indexname": "**step**()",
-				"signature": "controller.**step**( step : number )",
-				"returntype": "Controller self",
+				"signature": "controller.**step**( number )",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L220",
-				"definedat": "src/Controller.js:220"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L223",
+				"definedat": "src/Controller.js:223"
 			},
 			{
 				"description": "Updates the display to keep it in sync with getValue(). Useful for updating\nyour controllers when their values have been modified outside of the GUI.",
@@ -1734,11 +1356,11 @@ window.jsdocDebug = [
 				"params": [],
 				"indexname": "**updateDisplay**()",
 				"signature": "controller.**updateDisplay**()",
-				"returntype": "Controller self",
+				"returntype": "**Returns:** Controller – self",
 				"chainable": true,
-				"indextype": "→ self",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L229",
-				"definedat": "src/Controller.js:229"
+				"indextype": "",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L232",
+				"definedat": "src/Controller.js:232"
 			},
 			{
 				"type": {
@@ -1754,44 +1376,32 @@ window.jsdocDebug = [
 				"indexname": "domElement",
 				"signature": "controller.**domElement** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L45",
-				"definedat": "src/Controller.js:45"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L44",
+				"definedat": "src/Controller.js:44"
 			},
 			{
 				"description": "todoc",
-				"type": {
-					"names": [
-						"*"
-					]
-				},
 				"name": "initialValue",
 				"longname": "Controller#initialValue",
 				"kind": "member",
 				"memberof": "Controller",
 				"scope": "instance",
 				"indexname": "initialValue",
-				"signature": "controller.**initialValue** : *",
-				"indextype": ": *",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L40",
-				"definedat": "src/Controller.js:40"
+				"signature": "controller.**initialValue**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L39",
+				"definedat": "src/Controller.js:39"
 			},
 			{
 				"description": "todoc",
-				"type": {
-					"names": [
-						"object"
-					]
-				},
 				"name": "object",
 				"longname": "Controller#object",
 				"kind": "member",
 				"memberof": "Controller",
 				"scope": "instance",
 				"indexname": "object",
-				"signature": "controller.**object** : object",
-				"indextype": ": object",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L22",
-				"definedat": "src/Controller.js:22"
+				"signature": "controller.**object**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L21",
+				"definedat": "src/Controller.js:21"
 			},
 			{
 				"description": "todoc",
@@ -1826,8 +1436,8 @@ window.jsdocDebug = [
 				"indexname": "property",
 				"signature": "controller.**property** : string",
 				"indextype": ": string",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L28",
-				"definedat": "src/Controller.js:28"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L27",
+				"definedat": "src/Controller.js:27"
 			},
 			{
 				"type": {
@@ -1843,8 +1453,8 @@ window.jsdocDebug = [
 				"indexname": "$name",
 				"signature": "controller.**$name** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L52",
-				"definedat": "src/Controller.js:52"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L51",
+				"definedat": "src/Controller.js:51"
 			},
 			{
 				"type": {
@@ -1860,16 +1470,17 @@ window.jsdocDebug = [
 				"indexname": "$widget",
 				"signature": "controller.**$widget** : HTMLElement",
 				"indextype": ": HTMLElement",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L58",
-				"definedat": "src/Controller.js:58"
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L57",
+				"definedat": "src/Controller.js:57"
 			},
 			{
-				"description": "todoc",
+				"description": "Used to determine if the controller is disabled.",
 				"type": {
 					"names": [
 						"boolean"
 					]
 				},
+				"readonly": true,
 				"name": "_disabled",
 				"longname": "Controller#_disabled",
 				"kind": "member",
@@ -1878,6 +1489,7 @@ window.jsdocDebug = [
 				"indexname": "_disabled",
 				"signature": "controller.**_disabled** : boolean",
 				"indextype": ": boolean",
+				"returntype": "**@readonly**",
 				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L34",
 				"definedat": "src/Controller.js:34"
 			},
@@ -1896,8 +1508,9 @@ window.jsdocDebug = [
 				"indexname": "_listening",
 				"signature": "controller.**_listening** : boolean",
 				"indextype": ": boolean",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L244",
-				"definedat": "src/Controller.js:244"
+				"returntype": "**@readonly**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L247",
+				"definedat": "src/Controller.js:247"
 			},
 			{
 				"type": {
@@ -1905,6 +1518,7 @@ window.jsdocDebug = [
 						"string"
 					]
 				},
+				"readonly": true,
 				"name": "_name",
 				"longname": "Controller#_name",
 				"kind": "member",
@@ -1913,8 +1527,9 @@ window.jsdocDebug = [
 				"indexname": "_name",
 				"signature": "controller.**_name** : string",
 				"indextype": ": string",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L80",
-				"definedat": "src/Controller.js:80"
+				"returntype": "**@readonly**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L82",
+				"definedat": "src/Controller.js:82"
 			},
 			{
 				"type": {
@@ -1922,6 +1537,7 @@ window.jsdocDebug = [
 						"function"
 					]
 				},
+				"readonly": true,
 				"name": "_onChange",
 				"longname": "Controller#_onChange",
 				"kind": "member",
@@ -1930,8 +1546,9 @@ window.jsdocDebug = [
 				"indexname": "_onChange",
 				"signature": "controller.**_onChange** : function",
 				"indextype": ": function",
-				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L98",
-				"definedat": "src/Controller.js:98"
+				"returntype": "**@readonly**",
+				"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L101",
+				"definedat": "src/Controller.js:101"
 			}
 		],
 		"viewsource": "https://github.com/georgealways/gui/blob/master/src/Controller.js#L10",
