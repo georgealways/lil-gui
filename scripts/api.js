@@ -11,7 +11,7 @@ const WRITE = !!process.argv.slice( 2 ).find( v => v === '--write' );
 // url prefix for view source links, needs trailing slash
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
 
-// sort by kind as opposed to the order of definition
+// sort by kind as opposed to order of definition
 const KIND_SORT = [ 'class', 'typedef', 'function', 'member' ];
 
 // put members that start with special chars at the end

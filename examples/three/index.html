@@ -49,7 +49,7 @@ let fragmentShader,
 
 const params = {
 	message: 'lil-gui',
-	rotationSpeed: 0.5
+	rotationSpeed: 0.35
 };
 
 const geoParams = {
@@ -121,6 +121,8 @@ function main() {
 	const container = new Object3D();
 	scene.add( container );
 
+	scene.add( camera );
+
 	const material = new ShaderMaterial( {
 		uniforms: Object.assign( uniforms, {
 			envMap: { value: envMap }
@@ -129,8 +131,10 @@ function main() {
 		fragmentShader
 	} );
 
-	// pass a target to orbit controls to make it leave the gui alone
 	const controls = new OrbitControls( camera, renderer.domElement );
+	controls.enableKeys = false;
+	controls.enableZoom = false;
+	controls.enablePan = false;
 
 	const clock = new Clock();
 
@@ -142,10 +146,11 @@ function main() {
 
 	const sunGeometry = new SphereBufferGeometry( 160, 32, 32 );
 	const sun = new Mesh( sunGeometry, sunMaterial );
-	sun.position.z = -300;
-	sun.frustumCulled = false;
 
-	scene.add( sun );
+	camera.add( sun );
+
+	sun.position.z = -800;
+	sun.frustumCulled = false;
 
 	const composer = new EffectComposer( renderer );
 
@@ -201,7 +206,7 @@ function main() {
 	function buildGUI() {
 
 		const gui = new GUI();
-		gui.add( params, 'message' );
+		gui.add( params, 'message' ).onChange( buildGeometry );
 
 		const geo = gui.addFolder( 'Geometry', false );
 		geo.add( geoParams, 'height', 0, 200 ).name( 'depth' );
@@ -214,15 +219,16 @@ function main() {
 		bevel.add( geoParams, 'bevelOffset', -5, 5 ).name( 'offset' );
 		bevel.add( geoParams, 'bevelSegments', 1, 5, 1 ).name( 'segments' );
 
-		gui.forEachController( c => c.onChange( buildGeometry ), true );
+		geo.forEachController( c => c.onChange( buildGeometry ), true );
 
 		const thinFilm = gui.addFolder( 'Thin Film', false );
 		thinFilm.add( uniforms.thinFilmThickness, 'value', 100, 2000 ).name( 'thickness' );
 		thinFilm.add( uniforms.thinFilmIndex, 'value', 1, 2 ).name( 'index' );
 		thinFilm.add( uniforms.thinFilmPolarization, 'value', 0, 2 ).name( 'polarization' );
 
-		gui.add( params, 'rotationSpeed', 0, 2.5 );
-		gui.addColor( sunMaterial, 'color' );
+		gui.addFolder( 'Misc', false );
+		gui.add( params, 'rotationSpeed', 0, 1 );
+		gui.addColor( sunMaterial, 'color' ).name( 'light' );
 	}
 
 	buildGeometry();
