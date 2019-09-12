@@ -26,6 +26,7 @@ rules:
   linebreak-style: [ warn, unix ]
   new-parens: warn
   no-console: warn
+  no-empty: warn
   no-extra-semi: warn
   no-multiple-empty-lines: [ warn, { max: 1, maxEOF: 1 } ]
   no-trailing-spaces: [ warn ]

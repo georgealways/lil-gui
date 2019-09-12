@@ -6,79 +6,38 @@
 <title></title>
 </head>
 <body>
-
+<a href="#hash1">hash1</a> <a href="#hash2">hash2</a> <a href="#hash3">hash3</a> 
 <script type="module">
-import GUI from '../../build/lil-gui.module.js';
-
-class PageGUI extends GUI {
-	constructor( pages ) {
-
-		super();
-
-		this._pages = pages;
-		this._pageNames = Object.keys( this._pages );
-		this._defaultPage = this._pageNames[ 0 ];
-
-		let startPage = this._defaultPage;
-
-		const hash = decodeURIComponent( location.hash.substring( 1 ) );
-		if ( hash in this._pages ) {
-			startPage = hash;
-		}
-
-		this._page = startPage;
-
-		this._pageController = this.add( this, 'page', this._pageNames );
-
-		this._pages[ this._page ].call( this, this );
-
-	}
-	set page( v ) {
-
-		this._page = v;
-
-		this.children
-			.filter( c => c !== this._pageController )
-			.forEach( c => c.destroy() );
-
-		this._pages[ v ].call( this, this );
-
-		history.replaceState( null, null, v === this._defaultPage ? ' ' : '#' + v );
-
-	}
-
-	get page() {
-
-		return this._page;
-
-	}
-}
+import PageGUI from './PageGUI.js';
 
 new PageGUI( {
-	'The Default Page': gui => {
-		gui.add( { one: 'one' }, 'one' );
-	},
-	'Page Two 😀': gui => {
-		gui.add( { two: 'two' }, 'two' );
-		gui.add( { two: 'two' }, 'two' );
-	},
-	pageThree( gui ) {
-		gui.add( { three: 'three' }, 'three' );
-		gui.add( { three: 'three' }, 'three' );
-		gui.add( { three: 'three' }, 'three' );
-	},
-	pageFour: function() {
-		this.add( { four: 'four' }, 'four' );
-		this.add( { four: 'four' }, 'four' );
-		this.add( { four: 'four' }, 'four' );
-		this.add( { four: 'four' }, 'four' );
-	},
-	pageFive() {
-		this.add( { five: 'five' }, 'five' );
-		this.add( { five: 'five' }, 'five' );
-		this.add( { five: 'five' }, 'five' );
-		this.add( { five: 'five' }, 'five' );
-		this.add( { five: 'five' }, 'five' );
+	hashMode: true,
+	pages: {
+		'The Default Page': gui => {
+			gui.add( { one: 'one' }, 'one' );
+		},
+		'Page Two 😀': gui => {
+			gui.add( { two: 'two' }, 'two' );
+			gui.add( { two: 'two' }, 'two' );
+		},
+		pageThree( gui ) {
+			gui.add( { three: 'three' }, 'three' );
+			gui.add( { three: 'three' }, 'three' );
+			gui.add( { three: 'three' }, 'three' );
+		},
+		pageFour: function() {
+			this.add( { four: 'four' }, 'four' );
+			this.add( { four: 'four' }, 'four' );
+			this.add( { four: 'four' }, 'four' );
+			this.add( { four: 'four' }, 'four' );
+		},
+		pageFive() {
+			this.add( { five: 'five' }, 'five' );
+			this.add( { five: 'five' }, 'five' );
+			this.add( { five: 'five' }, 'five' );
+			this.add( { five: 'five' }, 'five' );
+			this.add( { five: 'five' }, 'five' );
+		}
 	}
 } );
 </script>

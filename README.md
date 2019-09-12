@@ -2,7 +2,7 @@
 
 Makes a floating panel for controllers on the web.
 
-- [Live Demo](https://georgealways.github.io/lil-gui/?demo)
+- [Live Demo](https://georgealways.github.io/lil-gui/?demo=Basic)
 - [API](https://georgealways.github.io/lil-gui/#api)
 - Examples
 	- [lil-gui + three.js](https://georgealways.github.io/lil-gui/examples/three)
