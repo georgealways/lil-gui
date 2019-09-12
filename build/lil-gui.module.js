@@ -1,4 +1,4 @@
-// lil-gui@0.2.2
+// lil-gui@0.2.1
 /**
  * @module Controller
  */
@@ -30,7 +30,6 @@ class Controller {
 		/**
 		 * Used to determine if the controller is disabled.
 		 * @type {boolean}
-		 * @readonly
 		 */
 		this._disabled = false;
 
@@ -78,7 +77,6 @@ class Controller {
 	name( name ) {
 		/**
 		 * @type {string}
-		 * @readonly
 		 */
 		this._name = name;
 		this.$name.innerHTML = name;
@@ -94,7 +92,6 @@ class Controller {
 	 * 	console.log( 'The value is now ' + v );
 	 * } );
 	 *
-	 * @example
 	 * controller = gui.add( object, 'property' ).onChange(function() {
 	 * 	console.assert(this === controller);
 	 * } );
@@ -102,7 +99,6 @@ class Controller {
 	onChange( callback ) {
 		/**
 		 * @type {Function}
-		 * @readonly
 		 */
 		this._onChange = callback;
 		return this;
@@ -247,8 +243,8 @@ class Controller {
 	listen( listen = true ) {
 
 		/**
+		 * todoc
 		 * @type {boolean}
-		 * @readonly
 		 */
 		this._listening = listen;
 
@@ -934,7 +930,6 @@ class GUI {
 		/**
 		 * todoc
 		 * @type {boolean}
-		 * @readonly
 		 */
 		this._closed = false;
 

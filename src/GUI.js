@@ -82,7 +82,6 @@ export default class GUI {
 		/**
 		 * todoc
 		 * @type {boolean}
-		 * @readonly
 		 */
 		this._closed = false;
 

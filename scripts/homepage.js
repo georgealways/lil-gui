@@ -19,10 +19,8 @@ const md = markdownit( {
 	}
 } );
 
-console.log( pkg.homepage );
-
 const jsdocDebug = `<script type="text/javascript">
-window.jsdocDebug = ${JSON.stringify( jsdocData, null, '\t' )};
+window.jsdocDebug = ${JSON.stringify( jsdocData )};
 console.log( "jsdocDebug", jsdocDebug );
 </script>`;
 
@@ -30,7 +28,7 @@ const html = read( TEMPLATE )
 	.replace( '!=readme', md.render( read( README ) ) )
 	.replace( '!=api', md.render( read( API ) ) )
 	.replace( '!=jsdocDebug', jsdocDebug )
-	.replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
+	.replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' ); // make hardcoded links in readme relative
 
 fs.writeFileSync( OUTPUT, html );
 

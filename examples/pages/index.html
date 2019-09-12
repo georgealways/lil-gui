@@ -6,38 +6,34 @@
 <title></title>
 </head>
 <body>
-<a href="#hash1">hash1</a> <a href="#hash2">hash2</a> <a href="#hash3">hash3</a> 
 <script type="module">
 import PageGUI from './PageGUI.js';
 
 new PageGUI( {
-	hashMode: true,
-	pages: {
-		'The Default Page': gui => {
-			gui.add( { one: 'one' }, 'one' );
-		},
-		'Page Two 😀': gui => {
-			gui.add( { two: 'two' }, 'two' );
-			gui.add( { two: 'two' }, 'two' );
-		},
-		pageThree( gui ) {
-			gui.add( { three: 'three' }, 'three' );
-			gui.add( { three: 'three' }, 'three' );
-			gui.add( { three: 'three' }, 'three' );
-		},
-		pageFour: function() {
-			this.add( { four: 'four' }, 'four' );
-			this.add( { four: 'four' }, 'four' );
-			this.add( { four: 'four' }, 'four' );
-			this.add( { four: 'four' }, 'four' );
-		},
-		pageFive() {
-			this.add( { five: 'five' }, 'five' );
-			this.add( { five: 'five' }, 'five' );
-			this.add( { five: 'five' }, 'five' );
-			this.add( { five: 'five' }, 'five' );
-			this.add( { five: 'five' }, 'five' );
-		}
+	'The Default Page': gui => {
+		gui.add( { one: 'one' }, 'one' );
+	},
+	'Page Two 😀': gui => {
+		gui.add( { two: 'two' }, 'two' );
+		gui.add( { two: 'two' }, 'two' );
+	},
+	pageThree( gui ) {
+		gui.add( { three: 'three' }, 'three' );
+		gui.add( { three: 'three' }, 'three' );
+		gui.add( { three: 'three' }, 'three' );
+	},
+	pageFour: function() {
+		this.add( { four: 'four' }, 'four' );
+		this.add( { four: 'four' }, 'four' );
+		this.add( { four: 'four' }, 'four' );
+		this.add( { four: 'four' }, 'four' );
+	},
+	pageFive() {
+		this.add( { five: 'five' }, 'five' );
+		this.add( { five: 'five' }, 'five' );
+		this.add( { five: 'five' }, 'five' );
+		this.add( { five: 'five' }, 'five' );
+		this.add( { five: 'five' }, 'five' );
 	}
 } );
 </script>

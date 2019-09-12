@@ -73,7 +73,7 @@ collapses|boolean|todoc|true
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1: number], [max: number], [step: number] )
+## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1], [max: number], [step: number] )
 
 todoc
 
@@ -182,8 +182,6 @@ todoc
 
 todoc
 
-**@readonly**
-
 ***
 
 # Controller
@@ -272,8 +270,7 @@ todoc
 gui.add( object, 'property' ).onChange( v => {
 	console.log( 'The value is now ' + v );
 } );
-```
-```js
+
 controller = gui.add( object, 'property' ).onChange(function() {
 	console.assert(this === controller);
 } );
@@ -281,7 +278,7 @@ controller = gui.add( object, 'property' ).onChange(function() {
 
 ***
 
-## <a name="Controller#options"></a> controller.**options**( options: object )
+## <a name="Controller#options"></a> controller.**options**( options )
 
 Destroys this controller and adds a new option controller
 
@@ -362,25 +359,19 @@ todoc
 
 Used to determine if the controller is disabled.
 
-**@readonly**
-
 ***
 
 ## <a name="Controller#_listening"></a> controller.**_listening** : boolean
 
-**@readonly**
+todoc
 
 ***
 
 ## <a name="Controller#_name"></a> controller.**_name** : string
 
-**@readonly**
-
 ***
 
 ## <a name="Controller#_onChange"></a> controller.**_onChange** : function
-
-**@readonly**
 
 ***
 

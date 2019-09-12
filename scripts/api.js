@@ -237,12 +237,10 @@ function singleParamToSignature( param ) {
 	if ( param.defaultvalue !== undefined ) {
 		name += '=' + param.defaultvalue;
 	}
-	// else if ( param.optional ) {
-	// 	name += '?';
-	// }
 
 	if ( param.defaultvalue === undefined &&
 		param.type &&
+		param.type.names.length === 1 &&
 		param.type.names[ 0 ] !== '*' &&
 		param.type.names[ 0 ] !== 'any' ) {
 		name += ': ' + param.type.names[ 0 ];

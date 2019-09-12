@@ -1,8 +1,19 @@
-import { GUI } from '../../build/lil-gui.module.js';
+import GUI from '../../build/lil-gui.module.js';
 
+/**
+ * A PageGUI has a controller that lets you change between "pages" of controllers
+ * and updates the URL when the page changes.
+ */
 export default class PageGUI extends GUI {
 
-	constructor( { pages, updateURL = true, queryMode = false, queryKey = 'page' } ) {
+	constructor( pages, {
+		updateURL = true,
+		hideDefault = true,
+		queryMode = false,
+		queryKey = 'page',
+		queryOpen = false,
+		pedanticURL = false
+	} = {} ) {
 
 		super();
 
@@ -11,15 +22,42 @@ export default class PageGUI extends GUI {
 		this._defaultPage = this._pageNames[ 0 ];
 
 		this.updateURL = updateURL;
+		this.hideDefault = hideDefault;
 		this.queryMode = queryMode;
 		this.queryKey = queryKey;
-		this.queryRegExp = new RegExp( queryKey + '(=([^&]+))?', 'g' );
+		this.queryOpen = queryOpen;
+
+		this.queryRegExp = new RegExp( this.queryKey + '(=([^&]+))?', 'g' );
+
+		if ( this.queryMode && this.queryOpen ) {
+			this.close();
+		}
 
 		this._page = this._getStartPage();
 
 		this._pageController = this.add( this, 'page', this._pageNames );
 
 		this._pages[ this._page ].call( this, this );
+
+		if ( this.updateURL && this.queryMode && this.queryOpen ) {
+			let closed = this._closed;
+			Object.defineProperty( this, '_closed', {
+				get() { return closed; },
+				set( v ) {
+					closed = v;
+					history.replaceState( null, null, this._pageToURL() );
+				}
+			} );
+		}
+
+		if ( pedanticURL ) {
+			const expectedURL = this._pageToURL();
+			if ( location.href !== expectedURL ) {
+				// eslint-disable-next-line no-console
+				console.warn( `Replacing actual location ${location.href} with expected URL ${expectedURL}` );
+				history.replaceState( null, null, expectedURL );
+			}
+		}
 
 	}
 
@@ -56,6 +94,9 @@ export default class PageGUI extends GUI {
 				if ( arg in this._pages ) {
 					startPage = arg;
 				}
+				if ( this.queryOpen ) {
+					this.open();
+				}
 			} );
 
 		} else {
@@ -77,24 +118,40 @@ export default class PageGUI extends GUI {
 
 		if ( this.queryMode ) {
 
-			const newQuery = this.queryKey + '=' + encodeURIComponent( this.page );
-			let query = url;
+			let query = this.queryKey + '=' + encodeURIComponent( this.page );
+
+			if ( this.queryOpen && this._closed ) {
+				query = '';
+			} else if ( this.hideDefault && this.page === this._defaultPage ) {
+				query = this.queryKey;
+			}
+
+			let search = '';
 
 			if ( location.search ) {
 				if ( location.search.match( this.queryRegExp ) ) {
-					query += location.search.replace( this.queryRegExp, newQuery );
+					search = location.search.replace( this.queryRegExp, query );
+					if ( search === '?' ) search = '';
 				} else {
-					query += location.search + newQuery;
+					search = location.search + query;
 				}
-			} else {
-				query += '?' + newQuery;
+			} else if ( query ) {
+				search = '?' + query;
 			}
 
-			return query + location.hash;
+			return url + search + location.hash;
 
 		} else {
 
-			return url + location.search + '#' + encodeURIComponent( this.page );
+			let hash = '#' + encodeURIComponent( this.page );
+
+			if ( this.hideDefault && this.page === this._defaultPage ) {
+
+				return url + location.search;
+
+			}
+
+			return url + location.search + hash;
 
 		}
 
