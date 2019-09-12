@@ -230,33 +230,22 @@ function paramsToSignature( params ) {
 
 }
 
-// function singleParamToSignature( param ) {
-
-// 	let name = param.name;
-
-// 	if ( param.defaultvalue !== undefined ) {
-// 		name += '=' + param.defaultvalue;
-// 	} else if ( param.optional ) {
-// 		name += '?';
-// 	}
-
-// 	if ( param.defaultvalue === undefined &&
-// 		param.type &&
-// 		param.type.names[ 0 ] !== '*' &&
-// 		param.type.names[ 0 ] !== 'any' ) {
-// 		name += ' : ' + param.type.names[ 0 ];
-// 	}
-
-// 	return name;
-
-// }
-
 function singleParamToSignature( param ) {
 
-	let name = param.type.names.join( '|' );
+	let name = param.name;
 
 	if ( param.defaultvalue !== undefined ) {
-		name = param.name + '=' + param.defaultvalue;
+		name += '=' + param.defaultvalue;
+	}
+	// else if ( param.optional ) {
+	// 	name += '?';
+	// }
+
+	if ( param.defaultvalue === undefined &&
+		param.type &&
+		param.type.names[ 0 ] !== '*' &&
+		param.type.names[ 0 ] !== 'any' ) {
+		name += ': ' + param.type.names[ 0 ];
 	}
 
 	if ( param.defaultvalue === undefined && param.optional ) {
@@ -266,4 +255,20 @@ function singleParamToSignature( param ) {
 	return name;
 
 }
+
+// function singleParamToSignature( param ) {
+
+// 	let name = param.type.names.join( '|' );
+
+// 	if ( param.defaultvalue !== undefined ) {
+// 		name = param.name + '=' + param.defaultvalue;
+// 	}
+
+// 	if ( param.defaultvalue === undefined && param.optional ) {
+// 		name = `[${name}]`;
+// 	}
+
+// 	return name;
+
+// }
 

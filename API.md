@@ -53,7 +53,7 @@
 
 # GUI
 
-## <a name="GUI"></a> new GUI( [GUIOptions] )
+## <a name="GUI"></a> new GUI( [options: GUIOptions] )
 
 todoc
 
@@ -73,7 +73,7 @@ collapses|boolean|todoc|true
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**( object, string, [number|object|Array], [number], [number] )
+## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1: number], [max: number], [step: number] )
 
 todoc
 
@@ -92,7 +92,7 @@ gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
 
 ***
 
-## <a name="GUI#addColor"></a> gui.**addColor**( object, string )
+## <a name="GUI#addColor"></a> gui.**addColor**( object: object, property: string )
 
 todoc
 
@@ -100,7 +100,7 @@ todoc
 
 ***
 
-## <a name="GUI#addFolder"></a> gui.**addFolder**( string, collapses=true )
+## <a name="GUI#addFolder"></a> gui.**addFolder**( title: string, collapses=true )
 
 todoc
 
@@ -122,7 +122,7 @@ todoc
 
 ***
 
-## <a name="GUI#forEachController"></a> gui.**forEachController**( function, recursive=false )
+## <a name="GUI#forEachController"></a> gui.**forEachController**( callback: function, recursive=false )
 
 todoc
 
@@ -238,7 +238,7 @@ todoc
 
 ***
 
-## <a name="Controller#max"></a> controller.**max**( number )
+## <a name="Controller#max"></a> controller.**max**( max: number )
 
 Sets the maximum value. Only works on number controllers.
 
@@ -246,7 +246,7 @@ Sets the maximum value. Only works on number controllers.
 
 ***
 
-## <a name="Controller#min"></a> controller.**min**( number )
+## <a name="Controller#min"></a> controller.**min**( min: number )
 
 Sets the minimum value. Only works on number controllers.
 
@@ -254,7 +254,7 @@ Sets the minimum value. Only works on number controllers.
 
 ***
 
-## <a name="Controller#name"></a> controller.**name**( string )
+## <a name="Controller#name"></a> controller.**name**( name: string )
 
 todoc
 
@@ -262,7 +262,7 @@ todoc
 
 ***
 
-## <a name="Controller#onChange"></a> controller.**onChange**( function )
+## <a name="Controller#onChange"></a> controller.**onChange**( callback: function )
 
 todoc
 
@@ -273,10 +273,15 @@ gui.add( object, 'property' ).onChange( v => {
 	console.log( 'The value is now ' + v );
 } );
 ```
+```js
+controller = gui.add( object, 'property' ).onChange(function() {
+	console.assert(this === controller);
+} );
+```
 
 ***
 
-## <a name="Controller#options"></a> controller.**options**( object|Array )
+## <a name="Controller#options"></a> controller.**options**( options: object )
 
 Destroys this controller and adds a new option controller
 
@@ -292,7 +297,7 @@ todoc
 
 ***
 
-## <a name="Controller#setValue"></a> controller.**setValue**( * )
+## <a name="Controller#setValue"></a> controller.**setValue**( value )
 
 todoc
 
@@ -300,7 +305,7 @@ todoc
 
 ***
 
-## <a name="Controller#step"></a> controller.**step**( number )
+## <a name="Controller#step"></a> controller.**step**( step: number )
 
 Sets the step. Only works on number controllers.
 
@@ -310,7 +315,7 @@ Sets the step. Only works on number controllers.
 
 ## <a name="Controller#updateDisplay"></a> controller.**updateDisplay**()
 
-Updates the display to keep it in sync with getValue(). Useful for updating
+Updates the display to keep it in sync with `getValue()`. Useful for updating
 your controllers when their values have been modified outside of the GUI.
 
 **Returns:** Controller – self

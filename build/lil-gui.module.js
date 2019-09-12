@@ -93,6 +93,11 @@ class Controller {
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
 	 * } );
+	 *
+	 * @example
+	 * controller = gui.add( object, 'property' ).onChange(function() {
+	 * 	console.assert(this === controller);
+	 * } );
 	 */
 	onChange( callback ) {
 		/**
@@ -226,7 +231,7 @@ class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with getValue(). Useful for updating
+	 * Updates the display to keep it in sync with `getValue()`. Useful for updating
 	 * your controllers when their values have been modified outside of the GUI.
 	 * @returns {Controller} self
 	 */
