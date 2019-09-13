@@ -1,35 +1,31 @@
 todo
 
-[ ] kill onfinishchange?
-[ ] clean up number controller. shit ain't dry
-[ ] new GUI() injectStyles parameter?
-[ ] listen could happen
+[ ] buttons icon redo
+[ ] color string field
 
+title drag
+	[ ] mouse
+	[ ] prevent default for touch
+	[ ] constraints
+
+[ ] mobileBreakpoint parameter
+
+examples
+
+[ ] progressively cooler threejs example
+
+tests
 
 [x] define blank methods for controller (min,max,step,options)
 	that's done ... test it?
 
-style todo 
 
-[ ] buttons are ugly
-
-docs todo
-
-[ ] constructor in index
-[x] indication of kind 
-	be it by categories or something in the description
-	so far: ( constructor, instance method, instance property )
-[x] viewsource link
-[x] indextypes for chainable
-[x] parameter formatting
-[x] sort by [function, member] then [a-z$_]
-[x] all that bolding in the signatures is going to be lost if you use h3's
 
 changelog
 
 	[+] mobile styles
 
-	[+] "headers"
+	[+] addFolder( , false )
 	
 	[+] controller.enable() / disable()
 	
@@ -62,42 +58,55 @@ changelog
 	[?] onfinishchange?
 	[?] listen?
 
-archived todos
+archive
 
-	[x] minified css strips utf8 charset declaration, breaking gui-font
+[x] minified css strips utf8 charset declaration, breaking gui-font
 
-	[x] headers
+[x] headers
 
-	[x] numberkeyup / mousewheel for number inputs?
-	[x] firefox disagrees about hasSlider input widths
+[x] numberkeyup / mousewheel for number inputs?
+[x] firefox disagrees about hasSlider input widths
 
-	[x] try opacity=0 for native inputs for more consistent styling
-		[x] checbox
-		[x] select
-		[x] colorcontroller
-		[x] function button
+[x] try opacity=0 for native inputs for more consistent styling
+	[x] checbox
+	[x] select
+	[x] colorcontroller
+	[x] function button
 
-	[x] strip comments from css / ...sass?
+[x] strip comments from css / ...sass?
 
-	[x] color interpreter: '#ffffff', { r, g, b }, 0xffffff
+[x] color interpreter: '#ffffff', { r, g, b }, 0xffffff
 
-	[n] smaller names for mobile
-	[n] hover for sliders
+[n] smaller names for mobile
+[n] hover for sliders
 
-	[x] maybe kill input[type=number] because it's too silly to style
-	[x] decimals (eh)
-	[x] slider touch scroll
-	[x] rollup + livereload
-	[x] fuck label, all controllers back to div
+[x] maybe kill input[type=number] because it's too silly to style
+[x] decimals (eh)
+[x] slider touch scroll
+[x] rollup + livereload
+[x] fuck label, all controllers back to div
 
-	[x] folders are ugly
-	[x] it's all ugly
+[x] folders are ugly
+[x] it's all ugly
 
-	[x] kill "GUIItem"
-	[x] children Set or Array? (write a test for destroy)
-	[x] kill is
-	[x] colorformat non primitive
-	[x] move back to default exports internally
+[x] kill "GUIItem"
+[x] children Set or Array? (write a test for destroy)
+[x] kill is
+[x] colorformat non primitive
+[x] move back to default exports internally
 
-	[x] kill double underscores?
-	[x] header => folder('name', headerMode=false) ?
+[x] kill double underscores?
+[x] header => folder('name', headerMode=false) ?
+
+[x] constructor in index
+[x] indication of kind 
+	be it by categories or something in the description
+	so far: ( constructor, instance method, instance property )
+[x] viewsource link
+[x] indextypes for chainable
+[x] parameter formatting
+[x] sort by [function, member] then [a-z$_]
+[x] all that bolding in the signatures is going to be lost if you use h3's
+[x] clean up number controller. shit ain't dry
+[x] new GUI() injectStyles parameter?
+[x] listen could happen

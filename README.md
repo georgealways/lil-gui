@@ -8,7 +8,7 @@ Makes a floating panel for controllers on the web.
 	- [lil-gui + three.js](https://georgealways.github.io/lil-gui/examples/three)
 	- [Building a custom Controller](https://georgealways.github.io/lil-gui/examples/customcontroller)
 	- [PageGUI](https://georgealways.github.io/lil-gui/examples/pages)
-	- [Styles](https://georgealways.github.io/lil-gui/examples/pages)
+	- [Styles](https://georgealways.github.io/lil-gui/examples/style)
 
 ```js
 import GUI from 'lil-gui';
