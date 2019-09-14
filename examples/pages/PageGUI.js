@@ -36,6 +36,7 @@ export default class PageGUI extends GUI {
 		this._page = this._getStartPage();
 
 		this._pageController = this.add( this, 'page', this._pageNames );
+		this._pageController.name( this.queryKey );
 
 		this._pages[ this._page ].call( this, this );
 
@@ -123,7 +124,7 @@ export default class PageGUI extends GUI {
 			if ( this.queryOpen && this._closed ) {
 				query = '';
 			} else if ( this.hideDefault && this.page === this._defaultPage ) {
-				query = this.queryKey;
+				query = this.queryOpen ? this.queryKey : '';
 			}
 
 			let search = '';

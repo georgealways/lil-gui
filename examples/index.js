@@ -10,35 +10,9 @@ pages.Basic = gui => {
 	gui.add( { boolean: true }, 'boolean' );
 	gui.add( { button() { alert( 'sup' ); } }, 'button' );
 
-	const folder1 = gui.addFolder( 'Folder' );
-
-	const addFiller = g => {
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
-	};
-
-	addFiller( folder1 );
-
-	const folder2 = gui.addFolder( 'Closed Folder' ).close();
-
-	addFiller( folder2 );
-
-	gui.addFolder( 'Empty Folder' );
-
-	const folder3 = gui.addFolder( 'Nested Folders' );
-
-	addFiller( folder3 );
-
-	const folder4 = folder3.addFolder( 'Don\'t go crazy now.' );
-
-	addFiller( folder4 );
-	folder4.addFolder( 'Nested "header"', false );
-	addFiller( folder4 );
-
 };
 
-pages.HallOfSliders = gui => {
+pages[ 'Hall Of Sliders' ] = gui => {
 
 	gui.addFolder( 'Implicit step', false );
 
@@ -73,7 +47,7 @@ pages.HallOfSliders = gui => {
 
 };
 
-pages.NumbersUnbound = gui => {
+pages[ 'Numbers Unbound' ] = gui => {
 
 	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
 	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
@@ -88,7 +62,7 @@ pages.NumbersUnbound = gui => {
 
 };
 
-pages.KitchenSink = gui => {
+pages[ 'Kitchen Sink' ] = gui => {
 
 	gui.addFolder( 'Colors', false );
 

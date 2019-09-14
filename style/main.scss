@@ -66,8 +66,8 @@
 	@include vars(
 		(
 			--background-color: #1f1f1f,
-			--text-color: #eee,
-			--title-background-color: #111,
+			--text-color: #ebebeb,
+			--title-background-color: #111111,
 			--widget-color: #424242,
 			--highlight-color: #525151,
 			--number-color: #00adff,
@@ -259,7 +259,6 @@
 		font-size: var(--font-size);
 		color: var(--text-color);
 		background: var(--background-color);
-		// font-weight: bold;
 		text-align: left;
 		text-transform: none;
 		width: 100%;
