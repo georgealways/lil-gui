@@ -204,11 +204,17 @@ Array.from( gui.children ).forEach( c => c.destroy() );
 
 ***
 
-## <a name="Controller#disable"></a> controller.**disable**()
+## <a name="Controller#disable"></a> controller.**disable**( disabled=true )
 
 Disables this controller.
 
 **Returns:** Controller – self
+
+```js
+controller.disable();
+controller.disable( false ); // enable
+controller.disable( !controller._disabled ); // toggle
+```
 
 ***
 
@@ -217,6 +223,12 @@ Disables this controller.
 Enables this controller.
 
 **Returns:** Controller – self
+
+```js
+controller.enable();
+controller.enable( false ); // disable
+controller.enable( controller._disabled ); // toggle
+```
 
 ***
 

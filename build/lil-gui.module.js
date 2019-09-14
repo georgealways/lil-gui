@@ -162,6 +162,10 @@ class Controller {
 	 * Enables this controller.
 	 * @param {boolean} [enabled=true]
 	 * @returns {Controller} self
+	 * @example
+	 * controller.enable();
+	 * controller.enable( false ); // disable
+	 * controller.enable( controller._disabled ); // toggle
 	 */
 	enable( enabled = true ) {
 		this._disabled = !enabled;
@@ -171,11 +175,16 @@ class Controller {
 
 	/**
 	 * Disables this controller.
+	 * @param {boolean} [disabled=true]
 	 * @returns {Controller} self
+	 * @example
+	 * controller.disable();
+	 * controller.disable( false ); // enable
+	 * controller.disable( !controller._disabled ); // toggle
 	 */
-	disable() {
-		this._disabled = true;
-		this.domElement.classList.add( 'disabled' );
+	disable( disabled = true ) {
+		this._disabled = disabled;
+		this.domElement.classList.toggle( 'disabled', this._disabled );
 		return this;
 	}
 

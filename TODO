@@ -8,9 +8,18 @@ title drag
 	[ ] prevent default for touch
 	[ ] constraints
 
+[ ] enabled/disabled signature
 [ ] getControllers method?
 [ ] getFolders method?
 [ ] mobileBreakpoint parameter
+
+docs
+	hardstuff
+		[ ] GUIOptions
+		[ ] gui.add
+		[ ] step
+		[ ] gui.addFolder
+	[ ] transform ugly longnames
 
 examples
 

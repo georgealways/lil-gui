@@ -11,7 +11,7 @@ html {
 	--foreground: #252525;
 	--link: #0084ff;
 	--code: #463679;
-	--pre-background: rgba(245, 241, 235, 0.7);
+	--pre-background: #a98c6314;
 }
 
 strong {
@@ -49,7 +49,7 @@ a:hover {
 
 pre {
 	color: var(--code);
-	background-color: var(--pre-background);
+	background: var(--pre-background);
 }
 
 code {
@@ -57,12 +57,16 @@ code {
 	font-size: 1em;
 	line-height: 1.357em;
 	color: var(--code);
+	/* background: var(--pre-background);
+	padding: 2px 3px; */
 }
 
 pre code {
 	font-family: var(--font-family-code);
+	background: none;
 	color: var(--code);
 	tab-size: 4;
+	padding: 0;
 }
 
 #container {
