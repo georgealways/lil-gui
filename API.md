@@ -26,7 +26,7 @@
 - [**destroy**()](#Controller#destroy) 
 - [**disable**()](#Controller#disable) 
 - [**enable**()](#Controller#enable) 
-- [**getValue**()](#Controller#getValue) → *
+- [**getValue**()](#Controller#getValue) → any
 - [**listen**()](#Controller#listen) 
 - [**max**()](#Controller#max) 
 - [**min**()](#Controller#min) 
@@ -73,7 +73,7 @@ collapses|boolean|todoc|true
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1], [max: number], [step: number] )
+## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1: number|object|Array], [max: number], [step: number] )
 
 todoc
 
@@ -222,15 +222,15 @@ Enables this controller.
 
 ## <a name="Controller#getValue"></a> controller.**getValue**()
 
-todoc
+Returns `object[ property ]`.
 
-**Returns:** * – value
+**Returns:** any – value
 
 ***
 
 ## <a name="Controller#listen"></a> controller.**listen**( listen=true )
 
-todoc
+Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening to state.
 
 **Returns:** Controller – self
 
@@ -254,7 +254,7 @@ Sets the minimum value. Only works on number controllers.
 
 ## <a name="Controller#name"></a> controller.**name**( name: string )
 
-todoc
+Sets the name of the controller and its label in the GUI.
 
 **Returns:** Controller – self
 
@@ -262,7 +262,9 @@ todoc
 
 ## <a name="Controller#onChange"></a> controller.**onChange**( callback: function )
 
-todoc
+Pass a function to be called whenever the value is modified via the GUI.
+The function takes the current value as its only parameter and `this` will
+be bound to the controller.
 
 **Returns:** Controller – self
 
@@ -278,9 +280,9 @@ controller = gui.add( object, 'property' ).onChange(function() {
 
 ***
 
-## <a name="Controller#options"></a> controller.**options**( options )
+## <a name="Controller#options"></a> controller.**options**( options: object|Array )
 
-Destroys this controller and adds a new option controller
+Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
 
 **Returns:** Controller
 
@@ -288,7 +290,7 @@ Destroys this controller and adds a new option controller
 
 ## <a name="Controller#reset"></a> controller.**reset**()
 
-todoc
+Shorthand for `setValue( initialValue )`.
 
 **Returns:** Controller – self
 
@@ -296,7 +298,7 @@ todoc
 
 ## <a name="Controller#setValue"></a> controller.**setValue**( value )
 
-todoc
+Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 
 **Returns:** Controller – self
 
@@ -321,37 +323,43 @@ your controllers when their values have been modified outside of the GUI.
 
 ## <a name="Controller#domElement"></a> controller.**domElement** : HTMLElement
 
+The outermost wrapper element for the controller.
+
 ***
 
 ## <a name="Controller#initialValue"></a> controller.**initialValue**
 
-todoc
+The value of `object[ property ]` when the controller is created.
 
 ***
 
 ## <a name="Controller#object"></a> controller.**object**
 
-todoc
+The object this controller is targeting.
 
 ***
 
 ## <a name="Controller#parent"></a> controller.**parent** : GUI
 
-todoc
+The controller belongs to this GUI.
 
 ***
 
 ## <a name="Controller#property"></a> controller.**property** : string
 
-todoc
+The name of the property this controller is targeting.
 
 ***
 
 ## <a name="Controller#$name"></a> controller.**$name** : HTMLElement
 
+The element that contains the controller's name.
+
 ***
 
 ## <a name="Controller#$widget"></a> controller.**$widget** : HTMLElement
+
+The element that contains the controller's "widget", like a checkbox or a slider.
 
 ***
 
@@ -363,15 +371,21 @@ Used to determine if the controller is disabled.
 
 ## <a name="Controller#_listening"></a> controller.**_listening** : boolean
 
-todoc
+Used to determine if the controller is listening. Use `controller.listen(true|false)` to change the listening state.
 
 ***
 
 ## <a name="Controller#_name"></a> controller.**_name** : string
 
+Used to access the controller's name.
+
 ***
 
 ## <a name="Controller#_onChange"></a> controller.**_onChange** : function
+
+A function that will be called whenever the value is modified via the GUI.
+The function takes the current value as its only parameter and `this` will
+be bound to the controller.
 
 ***
 

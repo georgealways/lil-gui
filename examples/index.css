@@ -10,7 +10,7 @@ html {
 	--background: #fffbf7;
 	--foreground: #252525;
 	--link: #0084ff;
-	--code: #362e50;
+	--code: #463679;
 	--pre-background: rgba(245, 241, 235, 0.7);
 }
 
@@ -47,22 +47,24 @@ a:hover {
 	text-decoration: underline;
 }
 
-pre code {
-	font-family: var(--font-family-code);
-	color: var(--code);
-	tab-size: 4;
-}
-
 pre {
-	background-color: var(--pre-background);
 	color: var(--code);
+	background-color: var(--pre-background);
 }
 
 code {
+	background-color: var(--pre-background);
 	font-family: var(--font-family-code);
 	font-size: 1em;
 	line-height: 1.357em;
 	color: var(--code);
+}
+
+pre code {
+	font-family: var(--font-family-code);
+	color: var(--code);
+	tab-size: 2;
+	background-color: none;
 }
 
 #container {

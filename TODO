@@ -8,6 +8,8 @@ title drag
 	[ ] prevent default for touch
 	[ ] constraints
 
+[ ] getControllers method?
+[ ] getFolders method?
 [ ] mobileBreakpoint parameter
 
 examples

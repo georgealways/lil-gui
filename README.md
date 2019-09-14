@@ -1,6 +1,6 @@
 # lil-gui
 
-Makes a floating panel for controllers on the web.
+Makes a floating panel for controllers on the web. API largely compatible with [dat.gui](https://github.com/dataarts/dat.gui).
 
 - [Live Demo](https://georgealways.github.io/lil-gui/?demo)
 - [API](https://georgealways.github.io/lil-gui/#api)

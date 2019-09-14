@@ -10,18 +10,18 @@ export default class Controller {
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
-		 * todoc
+		 * The controller belongs to this GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * todoc
+		 * The object this controller is targeting.
 		 */
 		this.object = object;
 
 		/**
-		 * todoc
+		 * The name of the property this controller is targeting.
 		 * @type {string}
 		 */
 		this.property = property;
@@ -33,11 +33,12 @@ export default class Controller {
 		this._disabled = false;
 
 		/**
-		 * todoc
+		 * The value of `object[ property ]` when the controller is created.
 		 */
 		this.initialValue = this.getValue();
 
 		/**
+		 * The outermost wrapper element for the controller.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( tagName );
@@ -45,12 +46,14 @@ export default class Controller {
 		this.domElement.classList.add( className );
 
 		/**
+		 * The element that contains the controller's name.
 		 * @type {HTMLElement}
 		 */
 		this.$name = document.createElement( 'div' );
 		this.$name.classList.add( 'name' );
 
 		/**
+		 * The element that contains the controller's "widget", like a checkbox or a slider.
 		 * @type {HTMLElement}
 		 */
 		this.$widget = document.createElement( 'div' );
@@ -69,12 +72,13 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Sets the name of the controller and its label in the GUI.
 	 * @param {string} name
 	 * @returns {Controller} self
 	 */
 	name( name ) {
 		/**
+		 * Used to access the controller's name.
 		 * @type {string}
 		 */
 		this._name = name;
@@ -83,7 +87,9 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Pass a function to be called whenever the value is modified via the GUI.
+	 * The function takes the current value as its only parameter and `this` will
+	 * be bound to the controller.
 	 * @param {Function} callback todoc
 	 * @returns {Controller} self
 	 * @example
@@ -97,6 +103,9 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
+		 * A function that will be called whenever the value is modified via the GUI.
+		 * The function takes the current value as its only parameter and `this` will
+		 * be bound to the controller.
 		 * @type {Function}
 		 */
 		this._onChange = callback;
@@ -110,7 +119,7 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and adds a new option controller
+	 * Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -122,7 +131,7 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 	 * @param {*} value
 	 * @returns {Controller} self
 	 */
@@ -140,7 +149,7 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Shorthand for `setValue( initialValue )`.
 	 * @returns {Controller} self
 	 */
 	reset() {
@@ -188,8 +197,8 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
-	 * @returns {*} value
+	 * Returns `object[ property ]`.
+	 * @returns {any} value
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -235,14 +244,14 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening to state.
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */
 	listen( listen = true ) {
 
 		/**
-		 * todoc
+		 * Used to determine if the controller is listening. Use `controller.listen(true|false)` to change the listening state.
 		 * @type {boolean}
 		 */
 		this._listening = listen;
