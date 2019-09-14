@@ -199,8 +199,8 @@ export default class GUI {
 	 * gui.add( { myNumber: 0 }, 'myNumber', 0, 100, 1 );
 	 *
 	 * @example
-	 * gui.add( { myOptions: 'small' }, 'myOptions', [ 'big', 'medium', 'small' ] );
-	 * gui.add( { myOptions: 0 }, 'myOptions', { Label1: 0, Label2: 1, Label3: 2 } );
+	 * gui.add( { size: 'small' }, 'size', [ 'big', 'medium', 'small' ] );
+	 * gui.add( { angle: 0 }, 'angle', { Right: 0, Up: 90, Left: 180, Down: 270 } );
 	 */
 	add( object, property, $1, max, step ) {
 

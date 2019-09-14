@@ -53,7 +53,6 @@ pre {
 }
 
 code {
-	background-color: var(--pre-background);
 	font-family: var(--font-family-code);
 	font-size: 1em;
 	line-height: 1.357em;
@@ -63,8 +62,7 @@ code {
 pre code {
 	font-family: var(--font-family-code);
 	color: var(--code);
-	tab-size: 2;
-	background-color: none;
+	tab-size: 4;
 }
 
 #container {
