@@ -245,7 +245,7 @@ class Controller {
 	}
 
 	/**
-	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening to state.
+	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */

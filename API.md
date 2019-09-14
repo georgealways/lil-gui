@@ -230,7 +230,7 @@ Returns `object[ property ]`.
 
 ## <a name="Controller#listen"></a> controller.**listen**( listen=true )
 
-Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening to state.
+Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
 
 **Returns:** Controller – self
 
