@@ -207,7 +207,7 @@ export default class Controller {
 
 	/**
 	 * Returns `object[ property ]`.
-	 * @returns {any} value
+	 * @returns {any}
 	 */
 	getValue() {
 		return this.object[ this.property ];

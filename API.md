@@ -53,7 +53,7 @@
 
 # GUI
 
-## <a name="GUI"></a> new GUI( [options: GUIOptions] )
+## <a name="GUI"></a> new GUI( [options : GUIOptions] )
 
 todoc
 
@@ -61,23 +61,39 @@ todoc
 
 ## <a name="GUI~GUIOptions"></a> GUIOptions
 
-Parameter|Type|Description|Default
--|-|-|-
-parent|GUI||
-autoPlace|boolean|Adds the GUI to `document.body` and applies fixed positioning.|true
-injectStyles|boolean|Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.|true
-title|string|Name to display in the title bar.|&#x27;Controls&#x27;
-width|number|todoc|
-mobileMaxHeight|number|todoc|200
-collapses|boolean|todoc|true
+**autoPlace**<br> 
+Adds the GUI to `document.body` and applies fixed positioning. *Optional*<br>
+Default: `true` – Type: **boolean**
+***
+**injectStyles**<br> 
+Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet. *Optional*<br>
+Default: `true` – Type: **boolean**
+***
+**title**<br> 
+Name to display in the title bar. *Optional*<br>
+Default: `'Controls'` – Type: **string**
+***
+**width**<br> 
+todoc *Optional*<br>
+ Type: **number**
+***
+**mobileMaxHeight**<br> 
+todoc *Optional*<br>
+Default: `200` – Type: **number**
+***
+**collapses**<br> 
+todoc *Optional*<br>
+Default: `true` – Type: **boolean**
+***
+**parent**<br> 
+todoc *Optional*<br>
+ Type: **GUI**
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**( object: object, property: string, [$1: number|object|Array], [max: number], [step: number] )
+## <a name="GUI#add"></a> gui.**add**( object, property, [$1], [max], [step] )
 
 todoc
-
-**Returns:** Controller
 
 ```js
 gui.add( { myBoolean: false }, 'myBoolean' );
@@ -90,21 +106,43 @@ gui.add( { size: 'small' }, 'size', [ 'big', 'medium', 'small' ] );
 gui.add( { angle: 0 }, 'angle', { Right: 0, Up: 90, Left: 180, Down: 270 } );
 ```
 
+**object**<br> 
+todoc <br>
+ Type: **object**
+***
+**property**<br> 
+todoc <br>
+ Type: **string**
+***
+**$1**<br> 
+todoc *Optional*<br>
+ Type: **number** or **object** or **Array**
+***
+**max**<br> 
+todoc *Optional*<br>
+ Type: **number**
+***
+**step**<br> 
+todoc *Optional*<br>
+ Type: **number**
+
+Returns: **Controller**
+
 ***
 
-## <a name="GUI#addColor"></a> gui.**addColor**( object: object, property: string )
+## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string )
 
 todoc
 
-**Returns:** Controller
+Returns: **Controller**
 
 ***
 
-## <a name="GUI#addFolder"></a> gui.**addFolder**( title: string, collapses=true )
+## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string, collapses=true )
 
 todoc
 
-**Returns:** GUI
+Returns: **GUI**
 
 ***
 
@@ -112,7 +150,7 @@ todoc
 
 todoc
 
-**Returns:** GUI – self
+Returns: **GUI – self**
 
 ***
 
@@ -122,7 +160,7 @@ todoc
 
 ***
 
-## <a name="GUI#forEachController"></a> gui.**forEachController**( callback: function, recursive=false )
+## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=false )
 
 todoc
 
@@ -132,13 +170,13 @@ todoc
 
 Opens a GUI or folder. GUI and folders are open by default.
 
-**Returns:** GUI – self
-
 ```js
 gui.open(); // open
 gui.open( false ); // close
 gui.open( gui._closed ); // toggle
 ```
+
+Returns: **GUI – self**
 
 ***
 
@@ -208,13 +246,13 @@ Array.from( gui.children ).forEach( c => c.destroy() );
 
 Disables this controller.
 
-**Returns:** Controller – self
-
 ```js
 controller.disable();
 controller.disable( false ); // enable
 controller.disable( !controller._disabled ); // toggle
 ```
+
+Returns: **Controller – self**
 
 ***
 
@@ -222,13 +260,13 @@ controller.disable( !controller._disabled ); // toggle
 
 Enables this controller.
 
-**Returns:** Controller – self
-
 ```js
 controller.enable();
 controller.enable( false ); // disable
 controller.enable( controller._disabled ); // toggle
 ```
+
+Returns: **Controller – self**
 
 ***
 
@@ -236,7 +274,7 @@ controller.enable( controller._disabled ); // toggle
 
 Returns `object[ property ]`.
 
-**Returns:** any – value
+Returns: **any**
 
 ***
 
@@ -244,41 +282,39 @@ Returns `object[ property ]`.
 
 Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
-## <a name="Controller#max"></a> controller.**max**( max: number )
+## <a name="Controller#max"></a> controller.**max**( max : number )
 
 Sets the maximum value. Only works on number controllers.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
-## <a name="Controller#min"></a> controller.**min**( min: number )
+## <a name="Controller#min"></a> controller.**min**( min : number )
 
 Sets the minimum value. Only works on number controllers.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
-## <a name="Controller#name"></a> controller.**name**( name: string )
+## <a name="Controller#name"></a> controller.**name**( name : string )
 
 Sets the name of the controller and its label in the GUI.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
-## <a name="Controller#onChange"></a> controller.**onChange**( callback: function )
+## <a name="Controller#onChange"></a> controller.**onChange**( callback : function )
 
 Pass a function to be called whenever the value is modified via the GUI.
 The function takes the current value as its only parameter and `this` will
 be bound to the controller.
-
-**Returns:** Controller – self
 
 ```js
 gui.add( object, 'property' ).onChange( v => {
@@ -290,13 +326,15 @@ controller = gui.add( object, 'property' ).onChange(function() {
 } );
 ```
 
+Returns: **Controller – self**
+
 ***
 
-## <a name="Controller#options"></a> controller.**options**( options: object|Array )
+## <a name="Controller#options"></a> controller.**options**( options : object|Array )
 
 Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
 
-**Returns:** Controller
+Returns: **Controller**
 
 ***
 
@@ -304,7 +342,7 @@ Destroys this controller and adds a new option controller. The `gui.add( object,
 
 Shorthand for `setValue( initialValue )`.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
@@ -312,15 +350,15 @@ Shorthand for `setValue( initialValue )`.
 
 Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
-## <a name="Controller#step"></a> controller.**step**( step: number )
+## <a name="Controller#step"></a> controller.**step**( step : number )
 
 Sets the step. Only works on number controllers.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 
@@ -329,7 +367,7 @@ Sets the step. Only works on number controllers.
 Updates the display to keep it in sync with `getValue()`. Useful for updating
 your controllers when their values have been modified outside of the GUI.
 
-**Returns:** Controller – self
+Returns: **Controller – self**
 
 ***
 

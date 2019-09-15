@@ -208,7 +208,7 @@ class Controller {
 
 	/**
 	 * Returns `object[ property ]`.
-	 * @returns {any} value
+	 * @returns {any}
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -897,7 +897,6 @@ class GUI {
 	/**
 	 * @typedef GUIOptions
 	 *
-	 * @property {GUI} [parent]
 	 *
 	 * @property {boolean} [autoPlace=true]
 	 * Adds the GUI to `document.body` and applies fixed positioning.
@@ -911,6 +910,7 @@ class GUI {
 	 * @property {number} [width] todoc
 	 * @property {number} [mobileMaxHeight=200] todoc
 	 * @property {boolean} [collapses=true] todoc
+	 * @property {GUI} [parent] todoc
 	 */
 
 	/**

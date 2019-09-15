@@ -24,20 +24,20 @@
 
 {{{description}}}
 
-{{#with properties}}
-Parameter|Type|Description|Default
--|-|-|-
-{{#.}}{{name}}|{{type.names}}|{{{description}}}|{{defaultvalue}}
-{{/.}}
-{{/with}}
-
-{{{returntype}}}
-
 {{#examples}}
 ```js
 {{{.}}}
 ```
 {{/examples}}
+
+{{#longparams}}
+**{{name}}**<br> 
+{{{description}}} {{#with optional}}*Optional*{{/with}}<br>
+{{#with defaultvalue}}Default: `{{{.}}}` –{{/with}} Type: {{#type.names}}**{{.}}**{{#unless @last}} or {{/unless}}{{/type.names}}
+{{#unless @last}}***{{/unless}}
+{{/longparams}}
+
+{{{returntype}}}
 
 {{!-- <small>View source: <a href="{{{viewsource}}}" target="_blank">{{{definedat}}}</a></small> --}}
 

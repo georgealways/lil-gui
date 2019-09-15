@@ -59,7 +59,7 @@ function transform( v ) {
 	if ( v.kind === 'typedef' ) {
 
 		v.signature = v.name;
-		// v.params = v.properties;
+		v.longparams = v.properties;
 
 	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
 
@@ -78,7 +78,7 @@ function transform( v ) {
 
 			const desc = v.returns[ 0 ].description;
 
-			v.returntype = '**Returns:** ' + type + ( desc ? ' – ' + desc : '' );
+			v.returntype = 'Returns: **' + type + ( desc ? ' – ' + desc : '' ) + '**';
 
 			if ( type === v.memberof && desc === 'self' ) {
 				v.chainable = true;
@@ -117,15 +117,16 @@ function transform( v ) {
 			v.signature += ' ' + type;
 		}
 
-		if ( v.readonly ) {
-			v.returntype = '**@readonly**';
-		}
-
 	}
 
-	// if ( v.params && v.params.length > 1 ) {
-	// v.paramstable = v.params;
-	// }
+	if ( v.params && v.params.length > 3 ) {
+		v.longparams = v.params;
+		if ( v.signature ) {
+			v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+			const single = p => p.optional ? '[' + p.name + ']' : p.name;
+			v.signature += `( ${v.params.map( single ).join( ', ' )} )`;
+		}
+	}
 
 	// view source url
 	const joined = v.meta.path + '/' + v.meta.filename;
@@ -242,7 +243,7 @@ function singleParamToSignature( param ) {
 		param.type &&
 		param.type.names[ 0 ] !== '*' &&
 		param.type.names[ 0 ] !== 'any' ) {
-		name += ': ' + param.type.names.join( '|' );
+		name += ' : ' + param.type.names.join( '|' );
 	}
 
 	if ( param.defaultvalue === undefined && param.optional ) {
