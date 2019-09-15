@@ -16,7 +16,7 @@
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],
-  "homepage": "https://georgealways.github.io/lil-gui/",
+  "homepage": "",
   "author": "George Michael Brower",
   "files": [
     "build"
