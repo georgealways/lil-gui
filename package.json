@@ -17,7 +17,10 @@
   },
   "keywords": [],
   "homepage": "https://georgealways.github.io/lil-gui/",
-  "author": "",
+  "author": "George Michael Brower",
+  "files": [
+    "build"
+  ],
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^4.1.1",
