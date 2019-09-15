@@ -83,9 +83,9 @@ pages[ 'Kitchen Sink' ] = gui => {
 	const folder1 = gui.addFolder( 'Folder', true );
 
 	const addFiller = g => {
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
-		g.add( { x: 0 }, 'x', 0, 1 ).name( 'Filler' );
+		g.add( { x: 0.5 }, 'x', 0, 1 ).name( 'Filler Slider' );
+		g.add( { x: function(){} }, 'x' ).name( 'Filler Button' );
+		g.add( { x: function(){} }, 'x' ).name( 'A Very Long Filler Button' );
 	};
 
 	addFiller( folder1 );
