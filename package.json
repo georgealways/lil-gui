@@ -42,5 +42,6 @@
   "eslintIgnore": [
     "build",
     "examples/vendor"
-  ]
+  ],
+  "dependencies": {}
 }

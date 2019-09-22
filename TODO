@@ -1,6 +1,5 @@
 todo
 
-[ ] buttons icon redo
 [ ] color string field
 
 title drag
@@ -8,10 +7,9 @@ title drag
 	[ ] prevent default for touch
 	[ ] constraints
 
-[ ] enabled/disabled signature
 [ ] getControllers method?
 [ ] getFolders method?
-[ ] mobileBreakpoint parameter
+[x] mobileBreakpoint parameter
 
 docs
 	hardstuff
@@ -121,3 +119,5 @@ archive
 [x] clean up number controller. shit ain't dry
 [x] new GUI() injectStyles parameter?
 [x] listen could happen
+[x] buttons icon redo
+[x] enabled/disabled signature

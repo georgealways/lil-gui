@@ -43,6 +43,7 @@ export default class GUI {
 	 *
 	 * @property {number} [width] todoc
 	 * @property {number} [mobileMaxHeight=200] todoc
+	 * @property {number} [mobileBreakpoint=600] todoc
 	 * @property {boolean} [collapses=true] todoc
 	 * @property {GUI} [parent] todoc
 	 */
@@ -58,6 +59,7 @@ export default class GUI {
 		title = 'Controls',
 		width,
 		mobileMaxHeight = 200,
+		mobileBreakpoint = 600,
 		collapses = true
 	} = {} ) {
 
@@ -129,53 +131,28 @@ export default class GUI {
 				this.domElement.style.setProperty( '--width', width + 'px' );
 			}
 
-		}
+			if ( !stylesInjected && injectStyles ) {
+				inject( styles );
+				stylesInjected = true;
+			}
 
-		if ( !stylesInjected && injectStyles ) {
-			inject( styles );
-			stylesInjected = true;
-		}
+			if ( autoPlace ) {
 
-		if ( autoPlace ) {
+				this.domElement.classList.add( 'autoPlace' );
+				document.body.appendChild( this.domElement );
 
-			this.domElement.classList.add( 'autoPlace' );
+			}
+
+			this.mobileMaxHeight = mobileMaxHeight;
+			this._initMobileMaxHeight();
 
 			this._onResize = () => {
 				this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+				this.domElement.classList.toggle( 'mobile', window.innerWidth < mobileBreakpoint );
 			};
-
-			window.addEventListener( 'resize', this._onResize );
 			this._onResize();
 
-			// resizeable mobile
-			{
-				this.mobileMaxHeight = mobileMaxHeight;
-
-				let prevClientY;
-
-				const onTouchStart = e => {
-					if ( e.touches.length > 1 ) return;
-					prevClientY = e.touches[ 0 ].clientY;
-					window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
-					window.addEventListener( 'touchend', onTouchEnd );
-				};
-
-				const onTouchMove = e => {
-					e.preventDefault();
-					const deltaY = e.touches[ 0 ].clientY - prevClientY;
-					prevClientY = e.touches[ 0 ].clientY;
-					this.mobileMaxHeight -= deltaY;
-				};
-
-				const onTouchEnd = () => {
-					window.removeEventListener( 'touchmove', onTouchMove );
-					window.removeEventListener( 'touchend', onTouchEnd );
-				};
-
-				this.$title.addEventListener( 'touchstart', onTouchStart );
-			}
-
-			document.body.appendChild( this.domElement );
+			window.addEventListener( 'resize', this._onResize );
 
 		}
 
@@ -328,6 +305,33 @@ export default class GUI {
 	set title( title ) {
 		this._title = title;
 		this.$title.innerHTML = title;
+	}
+
+	_initMobileMaxHeight() {
+
+		let prevClientY;
+
+		const onTouchStart = e => {
+			if ( e.touches.length > 1 ) return;
+			prevClientY = e.touches[ 0 ].clientY;
+			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+			window.addEventListener( 'touchend', onTouchEnd );
+		};
+
+		const onTouchMove = e => {
+			e.preventDefault();
+			const deltaY = e.touches[ 0 ].clientY - prevClientY;
+			prevClientY = e.touches[ 0 ].clientY;
+			this.mobileMaxHeight -= deltaY;
+		};
+
+		const onTouchEnd = () => {
+			window.removeEventListener( 'touchmove', onTouchMove );
+			window.removeEventListener( 'touchend', onTouchEnd );
+		};
+
+		this.$title.addEventListener( 'touchstart', onTouchStart );
+
 	}
 
 	get mobileMaxHeight() {

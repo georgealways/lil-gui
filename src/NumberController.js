@@ -6,7 +6,7 @@ export default class NumberController extends Controller {
 
 		super( parent, object, property, 'number' );
 
-		this._createInput();
+		this._initInput();
 
 		this.min( min );
 		this.max( max );
@@ -51,7 +51,7 @@ export default class NumberController extends Controller {
 
 	}
 
-	_createInput() {
+	_initInput() {
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'text' );
@@ -121,7 +121,7 @@ export default class NumberController extends Controller {
 
 	}
 
-	_createSlider() {
+	_initSlider() {
 
 		this._hasSlider = true;
 
@@ -287,7 +287,7 @@ export default class NumberController extends Controller {
 				this.step( this._getImplicitStep(), false );
 			}
 
-			this._createSlider();
+			this._initSlider();
 			this.updateDisplay();
 
 		}

@@ -83,6 +83,10 @@ Optional:  todoc<br>
 Optional:  todoc<br>
 Default: `200` – Type: **number**
 ***
+**mobileBreakpoint**<br> 
+Optional:  todoc<br>
+Default: `600` – Type: **number**
+***
 **collapses**<br> 
 Optional:  todoc<br>
 Default: `true` – Type: **boolean**

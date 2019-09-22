@@ -1,11 +1,5 @@
 @import 'icons';
 
-@mixin mobile {
-	@media (max-width: 600px) {
-		@content;
-	}
-}
-
 @mixin hover {
 	@media (hover: hover) {
 		&:hover {
@@ -191,7 +185,8 @@
 			}
 		}
 
-		@include mobile {
+		&.mobile {
+
 			--row-height: 38px;
 			--widget-height: 32px;
 			--font-size: 16px;
@@ -209,7 +204,9 @@
 			& > .children {
 				max-height: calc(var(--mobile-max-height) - var(--row-height));
 			}
+
 		}
+
 	}
 
 	// Shared "widget" styles
