@@ -1,6 +1,7 @@
 import Controller from './Controller.js';
 
 import getColorFormat from './utils/getColorFormat.js';
+import normalizeColorString from './utils/normalizeColorString.js';
 
 export default class ColorController extends Controller {
 
@@ -23,20 +24,26 @@ export default class ColorController extends Controller {
 
 		this._format = getColorFormat( this.getValue() );
 
-		this.$input.addEventListener( 'change', () => {
+		const set = value => {
 
 			if ( this._format.isPrimitive ) {
 
-				const newValue = this._format.fromHexString( this.$input.value );
+				const newValue = this._format.fromHexString( value );
 				this.setValue( newValue );
 
 			} else {
 
-				this._format.fromHexString( this.$input.value, this.getValue() );
+				this._format.fromHexString( value, this.getValue() );
 				this._callOnChange();
 				this.updateDisplay();
 
 			}
+
+		};
+
+		this.$input.addEventListener( 'change', () => {
+
+			set( this.$input.value );
 
 		} );
 
@@ -48,13 +55,33 @@ export default class ColorController extends Controller {
 			this.$display.classList.remove( 'focus' );
 		} );
 
+		this._textFocused = false;
+
+		this.$text.addEventListener( 'input', () => {
+			const tryParse = normalizeColorString( this.$text.value );
+			if ( tryParse ) {
+				set( tryParse );
+			}
+		} );
+
+		this.$text.addEventListener( 'focus', () => {
+			this._textFocused = true;
+		} );
+
+		this.$text.addEventListener( 'blur', () => {
+			this._textFocused = false;
+			this.updateDisplay();
+		} );
+
 		this.updateDisplay();
 
 	}
 
 	updateDisplay() {
 		this.$input.value = this._format.toHexString( this.getValue() );
-		this.$text.value = this.$input.value.substring( 1 );
+		if ( !this._textFocused ) {
+			this.$text.value = this.$input.value;
+		}
 		this.$display.style.backgroundColor = this.$input.value;
 	}
 

@@ -1,8 +1,10 @@
+import normalizeColorString from './normalizeColorString.js';
+
 const STRING = {
 	isPrimitive: true,
 	match: v => typeof v === 'string',
-	fromHexString: string => string,
-	toHexString: value => value
+	fromHexString: normalizeColorString,
+	toHexString: normalizeColorString
 };
 
 const INT = {
