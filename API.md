@@ -4,8 +4,8 @@
 
 ## GUI
 
-- [constructor](#GUI) 
-- [GUIOptions](#GUI~GUIOptions) 
+- [**constructor**](#GUI) 
+- [**GUIOptions**](#GUI~GUIOptions) 
 - [**add**()](#GUI#add) → Controller
 - [**addColor**()](#GUI#addColor) → Controller
 - [**addFolder**()](#GUI#addFolder) → GUI
@@ -13,7 +13,7 @@
 - [**destroy**()](#GUI#destroy) 
 - [**forEachController**()](#GUI#forEachController) 
 - [**open**()](#GUI#open) 
-- [children](#GUI#children) : Array.<(GUI|Controller)>
+- [children](#GUI#children) : Array<GUI|Controller>
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
 - [root](#GUI#root) : GUI
@@ -53,40 +53,42 @@
 
 # GUI
 
-## <a name="GUI"></a> new GUI( [options : GUIOptions] )
+## <a name="GUI"></a> new **GUI**( [options : GUIOptions] )
 
 todoc
 
 ***
 
-## <a name="GUI~GUIOptions"></a> GUIOptions
+## <a name="GUI~GUIOptions"></a> **GUIOptions**
+
+**Parameters**
 
 **autoPlace**<br> 
-Adds the GUI to `document.body` and applies fixed positioning. *Optional*<br>
+Optional:  Adds the GUI to `document.body` and applies fixed positioning.<br>
 Default: `true` – Type: **boolean**
 ***
 **injectStyles**<br> 
-Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet. *Optional*<br>
+Optional:  Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.<br>
 Default: `true` – Type: **boolean**
 ***
 **title**<br> 
-Name to display in the title bar. *Optional*<br>
+Optional:  Name to display in the title bar.<br>
 Default: `'Controls'` – Type: **string**
 ***
 **width**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
  Type: **number**
 ***
 **mobileMaxHeight**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
 Default: `200` – Type: **number**
 ***
 **collapses**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
 Default: `true` – Type: **boolean**
 ***
 **parent**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
  Type: **GUI**
 
 ***
@@ -106,24 +108,26 @@ gui.add( { size: 'small' }, 'size', [ 'big', 'medium', 'small' ] );
 gui.add( { angle: 0 }, 'angle', { Right: 0, Up: 90, Left: 180, Down: 270 } );
 ```
 
+**Parameters**
+
 **object**<br> 
-todoc <br>
+ todoc<br>
  Type: **object**
 ***
 **property**<br> 
-todoc <br>
+ todoc<br>
  Type: **string**
 ***
 **$1**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
  Type: **number** or **object** or **Array**
 ***
 **max**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
  Type: **number**
 ***
 **step**<br> 
-todoc *Optional*<br>
+Optional:  todoc<br>
  Type: **number**
 
 Returns: **Controller**
@@ -180,7 +184,7 @@ Returns: **GUI – self**
 
 ***
 
-## <a name="GUI#children"></a> gui.**children** : Array.<(GUI|Controller)>
+## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
 
 todoc
 
@@ -312,7 +316,7 @@ Returns: **Controller – self**
 
 ## <a name="Controller#onChange"></a> controller.**onChange**( callback : function )
 
-Pass a function to be called whenever the value is modified via the GUI.
+Pass a function to be called whenever the value is modified by this controller.
 The function takes the current value as its only parameter and `this` will
 be bound to the controller.
 

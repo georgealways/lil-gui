@@ -30,17 +30,20 @@
 ```
 {{/examples}}
 
-{{#longparams}}
+{{#with longparams}}
+**Parameters**
+
+{{#.}}
 **{{name}}**<br> 
-{{{description}}} {{#with optional}}*Optional*{{/with}}<br>
+{{#with optional}}Optional: {{/with}} {{{description}}}<br>
 {{#with defaultvalue}}Default: `{{{.}}}` –{{/with}} Type: {{#type.names}}**{{.}}**{{#unless @last}} or {{/unless}}{{/type.names}}
 {{#unless @last}}***{{/unless}}
-{{/longparams}}
+{{/.}}
+{{/with}}
 
-{{{returntype}}}
+{{returntype}}
 
-{{!-- <small>View source: <a href="{{{viewsource}}}" target="_blank">{{{definedat}}}</a></small> --}}
-
+{{!-- <a href="{{{viewsource}}}" target="_blank">{{definedat}}</a> --}}
 ***
 
 {{/children}}

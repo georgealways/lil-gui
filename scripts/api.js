@@ -48,6 +48,11 @@ function transform( v ) {
 			// jsdoc gets a little too excited about modules
 			value = value.replace( /^module:/, '' );
 
+			// does strange stuff with multitype arrays
+			value = value.replace( /Array\.<\((.*)\)>/g, function( _, c ) {
+				return `Array<${c}>`;
+			} );
+
 		}
 
 		object[ key ] = value;
@@ -58,7 +63,8 @@ function transform( v ) {
 
 	if ( v.kind === 'typedef' ) {
 
-		v.signature = v.name;
+		v.signature = `**${v.name}**`;
+		v.indexname = v.signature;
 		v.longparams = v.properties;
 
 	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
@@ -92,9 +98,9 @@ function transform( v ) {
 	} else if ( v.kind === 'class' ) {
 
 		if ( v.params ) {
-			v.signature = `new ${v.name}` + paramsToSignature( v.params );
+			v.signature = `new **${v.name}**` + paramsToSignature( v.params );
 
-			v.indexname = 'constructor';
+			v.indexname = '**constructor**';
 
 			// collect it
 			v.memberof = v.longname;

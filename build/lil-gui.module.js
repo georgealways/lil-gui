@@ -88,7 +88,7 @@ class Controller {
 	}
 
 	/**
-	 * Pass a function to be called whenever the value is modified via the GUI.
+	 * Pass a function to be called whenever the value is modified by this controller.
 	 * The function takes the current value as its only parameter and `this` will
 	 * be bound to the controller.
 	 * @param {Function} callback todoc
