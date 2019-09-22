@@ -40,7 +40,7 @@ class EventTarget {
 class Element extends EventTarget {
 	constructor() {
 		super();
-		this.classList = { add() {}, remove() {} };
+		this.classList = { add() {}, remove() {}, toggle() {} };
 		this.style = { setProperty() {} };
 		this.parentElement = { removeChild() {} };
 	}
