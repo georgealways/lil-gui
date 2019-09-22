@@ -12,31 +12,20 @@ import StringController from './StringController.js';
 
 import styles from '../build/lil-gui.css';
 
+import _injectStyles from './utils/injectStyles.js';
 let stylesInjected = false;
 
-function inject( cssContent ) {
-	const injected = document.createElement( 'style' );
-	injected.innerHTML = cssContent;
-	// inject as the first (lowest priority) style sheet so you can override
-	const before = document.querySelector( 'head link[rel=stylesheet], head style' );
-	if ( before ) {
-		document.head.insertBefore( injected, before );
-	} else {
-		document.head.appendChild( injected );
-	}
-}
-
-class GUI {
+export default class GUI {
 
 	/**
 	 * @typedef GUIOptions
-	 *
 	 *
 	 * @property {boolean} [autoPlace=true]
 	 * Adds the GUI to `document.body` and applies fixed positioning.
 	 *
 	 * @property {boolean} [injectStyles=true]
-	 * Injects the default stylesheet as the first child of `document.head`. Pass false when using your own stylesheet.
+	 * Injects the default stylesheet as the first child of `document.head`.
+	 * Pass false when using your own stylesheet.
 	 *
 	 * @property {string} [title='Controls']
 	 * Name to display in the title bar.
@@ -45,6 +34,10 @@ class GUI {
 	 * @property {number} [mobileMaxHeight=200] todoc
 	 * @property {number} [mobileBreakpoint=600] todoc
 	 * @property {boolean} [collapses=true] todoc
+	 * @property {string} [queryKey]
+	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
+	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
+	 *
 	 * @property {GUI} [parent] todoc
 	 */
 
@@ -58,6 +51,7 @@ class GUI {
 		injectStyles = autoPlace,
 		title = 'Controls',
 		width,
+		queryKey,
 		mobileMaxHeight = 200,
 		mobileBreakpoint = 600,
 		collapses = true
@@ -132,7 +126,7 @@ class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles ) {
-				inject( styles );
+				_injectStyles( styles );
 				stylesInjected = true;
 			}
 
@@ -154,6 +148,10 @@ class GUI {
 
 			window.addEventListener( 'resize', this._onResize );
 
+		}
+
+		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
+			this.domElement.style.display = 'none';
 		}
 
 		this.title = title;
@@ -349,5 +347,3 @@ GUI.FunctionController = FunctionController;
 GUI.NumberController = NumberController;
 GUI.OptionController = OptionController;
 GUI.StringController = StringController;
-
-export default GUI;

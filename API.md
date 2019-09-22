@@ -4,21 +4,22 @@
 
 ## GUI
 
-- [**constructor**](#GUI~GUI) 
-- [**add**()](#GUI~GUI#add) 
-- [**addColor**()](#GUI~GUI#addColor) → Controller
-- [**addFolder**()](#GUI~GUI#addFolder) → GUI
-- [**close**()](#GUI~GUI#close) → GUI
-- [**destroy**()](#GUI~GUI#destroy) 
-- [**forEachController**()](#GUI~GUI#forEachController) 
-- [**open**()](#GUI~GUI#open) → GUI
-- [children](#GUI~GUI#children) : Array<GUI|Controller>
-- [domElement](#GUI~GUI#domElement) : HTMLElement
-- [parent](#GUI~GUI#parent) : GUI
-- [root](#GUI~GUI#root) : GUI
-- [$children](#GUI~GUI#$children) : HTMLElement
-- [$title](#GUI~GUI#$title) : HTMLElement
-- [_closed](#GUI~GUI#_closed) : boolean
+- [**constructor**](#GUI) 
+- [**GUIOptions**](#GUI~GUIOptions) 
+- [**add**()](#GUI#add) 
+- [**addColor**()](#GUI#addColor) → Controller
+- [**addFolder**()](#GUI#addFolder) → GUI
+- [**close**()](#GUI#close) 
+- [**destroy**()](#GUI#destroy) 
+- [**forEachController**()](#GUI#forEachController) 
+- [**open**()](#GUI#open) 
+- [children](#GUI#children) : Array<GUI|Controller>
+- [domElement](#GUI#domElement) : HTMLElement
+- [parent](#GUI#parent) : GUI
+- [root](#GUI#root) : GUI
+- [$children](#GUI#$children) : HTMLElement
+- [$title](#GUI#$title) : HTMLElement
+- [_closed](#GUI#_closed) : boolean
 
 ## Controller
 
@@ -52,19 +53,69 @@
 
 # GUI
 
-## <a name="GUI~GUI"></a> new **GUI**( [options : GUIOptions] )
+## <a name="GUI"></a> new **GUI**( [options : GUIOptions] )
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#add"></a> gui~gui.**add**()
+## <a name="GUI~GUIOptions"></a> **GUIOptions**
+
+**Parameters**
+
+**autoPlace**<br> 
+Adds the GUI to `document.body` and applies fixed positioning.<br>
+Default: `true`
+
+***
+**injectStyles**<br> 
+Injects the default stylesheet as the first child of `document.head`.
+Pass false when using your own stylesheet.<br>
+Default: `true`
+
+***
+**title**<br> 
+Name to display in the title bar.<br>
+Default: `'Controls'`
+
+***
+**width**<br> 
+todoc<br>
+Type: **number** - Optional
+***
+**mobileMaxHeight**<br> 
+todoc<br>
+Default: `200`
+
+***
+**mobileBreakpoint**<br> 
+todoc<br>
+Default: `600`
+
+***
+**collapses**<br> 
+todoc<br>
+Default: `true`
+
+***
+**queryKey**<br> 
+If defined, the GUI will be hidden unless the specified string is found in `location.search`.
+You can use this to hide the GUI until you visit `url.com/?debug` for example.<br>
+Type: **string** - Optional
+***
+**parent**<br> 
+todoc<br>
+Type: **GUI** - Optional
+
+***
+
+## <a name="GUI#add"></a> gui.**add**()
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#addColor"></a> gui~gui.**addColor**( object : object, property : string )
+## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string )
 
 todoc
 
@@ -72,7 +123,7 @@ Returns: **Controller**
 
 ***
 
-## <a name="GUI~GUI#addFolder"></a> gui~gui.**addFolder**( title : string, collapses=true )
+## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string, collapses=true )
 
 todoc
 
@@ -80,7 +131,7 @@ Returns: **GUI**
 
 ***
 
-## <a name="GUI~GUI#close"></a> gui~gui.**close**()
+## <a name="GUI#close"></a> gui.**close**()
 
 todoc
 
@@ -88,19 +139,19 @@ Returns: **GUI – self**
 
 ***
 
-## <a name="GUI~GUI#destroy"></a> gui~gui.**destroy**()
+## <a name="GUI#destroy"></a> gui.**destroy**()
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#forEachController"></a> gui~gui.**forEachController**( callback : function, recursive=false )
+## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=false )
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#open"></a> gui~gui.**open**( open=true )
+## <a name="GUI#open"></a> gui.**open**( open=true )
 
 Opens a GUI or folder. GUI and folders are open by default.
 
@@ -114,43 +165,43 @@ Returns: **GUI – self**
 
 ***
 
-## <a name="GUI~GUI#children"></a> gui~gui.**children** : Array<GUI|Controller>
+## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#domElement"></a> gui~gui.**domElement** : HTMLElement
+## <a name="GUI#domElement"></a> gui.**domElement** : HTMLElement
 
 The outermost container `div`.
 
 ***
 
-## <a name="GUI~GUI#parent"></a> gui~gui.**parent** : GUI
+## <a name="GUI#parent"></a> gui.**parent** : GUI
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#root"></a> gui~gui.**root** : GUI
+## <a name="GUI#root"></a> gui.**root** : GUI
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#$children"></a> gui~gui.**$children** : HTMLElement
+## <a name="GUI#$children"></a> gui.**$children** : HTMLElement
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#$title"></a> gui~gui.**$title** : HTMLElement
+## <a name="GUI#$title"></a> gui.**$title** : HTMLElement
 
 todoc
 
 ***
 
-## <a name="GUI~GUI#_closed"></a> gui~gui.**_closed** : boolean
+## <a name="GUI#_closed"></a> gui.**_closed** : boolean
 
 todoc
 

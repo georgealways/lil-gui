@@ -83,7 +83,7 @@
 			--slider-input-width: 27%,
 			--row-height: 24px,
 			--widget-height: 20px,
-			--padding: 6px,
+			--padding: 5px,
 			--folder-indent: 8px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px
@@ -186,7 +186,6 @@
 		}
 
 		&.mobile {
-
 			--row-height: 38px;
 			--widget-height: 32px;
 			--font-size: 16px;
@@ -204,9 +203,7 @@
 			& > .children {
 				max-height: calc(var(--mobile-max-height) - var(--row-height));
 			}
-
 		}
-
 	}
 
 	// Shared "widget" styles
@@ -344,17 +341,23 @@
 	}
 
 	.controller.color {
-		input {
-			opacity: 0;
-			position: absolute;
-			height: var(--widget-height);
-			width: 100%;
-		}
 		.display {
-			pointer-events: none;
 			height: var(--widget-height);
-			width: 100%;
 			border-radius: var(--widget-border-radius);
+
+			width: var(--slider-input-width);
+			min-width: 38px;
+			flex-shrink: 0;
+		}
+		input[type='color'] {
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+		}
+		input[type='text'] {
+			margin-right: calc(var(--row-height) - var(--widget-height));
+			width: 100%;
 		}
 	}
 

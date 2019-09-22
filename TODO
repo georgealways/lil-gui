@@ -10,6 +10,7 @@ title drag
 [ ] getControllers method?
 [ ] getFolders method?
 [x] mobileBreakpoint parameter
+[x] queryKey parameter
 
 docs
 	hardstuff

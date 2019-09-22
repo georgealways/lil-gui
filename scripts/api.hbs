@@ -35,8 +35,10 @@
 
 {{#.}}
 **{{name}}**<br> 
-{{#with optional}}Optional: {{/with}} {{{description}}}<br>
-{{#with defaultvalue}}Default: `{{{.}}}` –{{/with}} Type: {{#type.names}}**{{.}}**{{#unless @last}} or {{/unless}}{{/type.names}}
+{{{description}}}<br>
+{{#with defaultvalue}}Default: `{{{.}}}`
+{{/with}}
+{{#unless defaultvalue}}Type: {{#type.names}}**{{.}}**{{#unless @last}} or {{/unless}}{{/type.names}}{{#with optional}} - Optional{{/with}}{{/unless}}
 {{#unless @last}}***{{/unless}}
 {{/.}}
 {{/with}}
