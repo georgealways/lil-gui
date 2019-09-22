@@ -16,6 +16,25 @@ test( unit => {
 
 		assert.strictEqual( typeof gui.add, 'function', 'gui.add exists' );
 
+		assert( gui.add( { x: false }, 'x' ) instanceof GUI.BooleanController );
+		assert( gui.add( { x: 0 }, 'x' ) instanceof GUI.NumberController );
+
+		const onChangeShorthand = function(){};
+
+		let ctrl;
+
+		ctrl = gui.add( { x: false }, 'x', onChangeShorthand );
+		assert.strictEqual( ctrl._onChange, onChangeShorthand );
+
+		ctrl = gui.add( { x: 0 }, 'x', [ 0, 1, 2 ], onChangeShorthand );
+		assert.strictEqual( ctrl._onChange, onChangeShorthand );
+
+		ctrl = gui.add( { x: 0 }, 'x', { a: 0, b: 1 }, onChangeShorthand );
+		assert.strictEqual( ctrl._onChange, onChangeShorthand );
+
+		ctrl = gui.add( { x: 0 }, 'x', 0, 1, 0.1, onChangeShorthand );
+		assert.strictEqual( ctrl._onChange, onChangeShorthand );
+
 	} );
 
 	unit( 'name', () => {
@@ -98,7 +117,7 @@ test( unit => {
 
 		function spy( instance, methodName, spy ) {
 			const method = instance[ methodName ];
-			if ( typeof method != 'function' ) {
+			if ( typeof method !== 'function' ) {
 				throw Error( `Tried to spy on "${methodName}" but it's not a function: ${method}` );
 			}
 			instance[ methodName ] = function() {

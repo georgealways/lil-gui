@@ -26,7 +26,7 @@ function inject( cssContent ) {
 	}
 }
 
-export default class GUI {
+class GUI {
 
 	/**
 	 * @typedef GUIOptions
@@ -162,22 +162,6 @@ export default class GUI {
 
 	/**
 	 * todoc
-	 * @param {object} object todoc
-	 * @param {string} property todoc
-	 * @param {number|object|Array} [$1] todoc
-	 * @param {number} [max] todoc
-	 * @param {number} [step] todoc
-	 * @returns {Controller}
-	 *
-	 * @example
-	 * gui.add( { myBoolean: false }, 'myBoolean' );
-	 *
-	 * @example
-	 * gui.add( { myNumber: 0 }, 'myNumber', 0, 100, 1 );
-	 *
-	 * @example
-	 * gui.add( { size: 'small' }, 'size', [ 'big', 'medium', 'small' ] );
-	 * gui.add( { angle: 0 }, 'angle', { Right: 0, Up: 90, Left: 180, Down: 270 } );
 	 */
 	add( object, property, $1, max, step ) {
 
@@ -189,31 +173,45 @@ export default class GUI {
 
 		}
 
-		if ( Array.isArray( $1 ) || Object( $1 ) === $1 ) {
+		const initialType = typeof initialValue;
 
-			return new OptionController( this, object, property, $1 );
+		const numArgs = arguments.length;
+		const lastArg = arguments[ numArgs - 1 ];
+		const onChangeShorthand = numArgs > 2 && typeof lastArg === 'function';
 
-		} else if ( typeof initialValue == 'boolean' ) {
+		let controller;
 
-			return new BooleanController( this, object, property );
+		if ( !onChangeShorthand && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
-		} else if ( typeof initialValue == 'string' ) {
+			controller = new GUI.OptionController( this, object, property, $1 );
 
-			return new StringController( this, object, property );
+		} else if ( initialType === 'boolean' ) {
 
-		} else if ( typeof initialValue == 'function' ) {
+			controller = new GUI.BooleanController( this, object, property );
 
-			return new FunctionController( this, object, property );
+		} else if ( initialType === 'string' ) {
 
-		} else if ( typeof initialValue == 'number' ) {
+			controller = new GUI.StringController( this, object, property );
 
-			return new NumberController( this, object, property, $1, max, step );
+		} else if ( initialType === 'function' ) {
+
+			controller = new GUI.FunctionController( this, object, property );
+
+		} else if ( initialType === 'number' ) {
+
+			controller = new GUI.NumberController( this, object, property, $1, max, step );
 
 		} else {
 
 			throw new Error( `No suitable controller type for ${initialValue}` );
 
 		}
+
+		if ( onChangeShorthand ) {
+			controller.onChange( lastArg );
+		}
+
+		return controller;
 
 	}
 
@@ -344,3 +342,12 @@ export default class GUI {
 	}
 
 }
+
+GUI.BooleanController = BooleanController;
+GUI.ColorController = ColorController;
+GUI.FunctionController = FunctionController;
+GUI.NumberController = NumberController;
+GUI.OptionController = OptionController;
+GUI.StringController = StringController;
+
+export default GUI;

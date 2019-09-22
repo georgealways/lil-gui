@@ -18,7 +18,7 @@ rules:
   comma-dangle: [ warn, never ]
   computed-property-spacing: [ warn, always ]
   eol-last: [ warn, always ]
-  eqeqeq: [ warn, smart ]
+  eqeqeq: [ warn, always ]
   func-call-spacing: [ warn, never ]
   indent: [ warn, tab, { SwitchCase: 1 } ]
   key-spacing: [ warn, { mode: minimum } ]
