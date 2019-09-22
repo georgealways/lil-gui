@@ -49,21 +49,21 @@ let fragmentShader,
 
 const params = {
 	message: 'lil-gui',
-	rotationSpeed: 0.35
+	rotationSpeed: 0.15
 };
 
 const geoParams = {
 	height: 50,
-	curveSegments: 8,
+	curveSegments: 12,
 	bevelEnabled: true,
 	bevelThickness: 3,
 	bevelSize: 3,
 	bevelOffset: 0,
-	bevelSegments: 2
+	bevelSegments: 4
 };
 
 const uniforms = {
-	thinFilmThickness: { value: 1313 },
+	thinFilmThickness: { value: 880 },
 	thinFilmOuterIndex: { value: 1 },
 	thinFilmIndex: { value: 1.75 },
 	thinFilmInnerIndex: { value: 1 },
@@ -139,7 +139,7 @@ function main() {
 	const clock = new Clock();
 
 	const sunMaterial = new MeshBasicMaterial( {
-		color: 0x00aaff,
+		color: 0xe5c8ff,
 		transparent: true,
 		fog: false
 	} );
@@ -229,6 +229,7 @@ function main() {
 		gui.addFolder( 'Misc', false );
 		gui.add( params, 'rotationSpeed', 0, 1 );
 		gui.addColor( sunMaterial, 'color' ).name( 'light' );
+
 	}
 
 	buildGeometry();

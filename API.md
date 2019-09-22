@@ -6,7 +6,7 @@
 
 - [**constructor**](#GUI) 
 - [**GUIOptions**](#GUI~GUIOptions) 
-- [**add**()](#GUI#add) 
+- [**add**()](#GUI#add) → Controller
 - [**addColor**()](#GUI#addColor) → Controller
 - [**addFolder**()](#GUI#addFolder) → GUI
 - [**close**()](#GUI#close) 
@@ -109,13 +109,15 @@ Type: **GUI** - Optional
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**()
+## <a name="GUI#add"></a> gui.**add**( object : object, property : string )
 
 todoc
 
+Returns: **Controller**
+
 ***
 
-## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string )
+## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string, rgbScale=1 )
 
 todoc
 

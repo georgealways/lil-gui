@@ -5,7 +5,7 @@ import normalizeColorString from './utils/normalizeColorString.js';
 
 export default class ColorController extends Controller {
 
-	constructor( parent, object, property ) {
+	constructor( parent, object, property, rgbScale ) {
 
 		super( parent, object, property, 'color' );
 
@@ -24,6 +24,8 @@ export default class ColorController extends Controller {
 
 		this._format = getColorFormat( this.getValue() );
 
+		this._rgbScale = rgbScale;
+
 		const set = value => {
 
 			if ( this._format.isPrimitive ) {
@@ -33,7 +35,7 @@ export default class ColorController extends Controller {
 
 			} else {
 
-				this._format.fromHexString( value, this.getValue() );
+				this._format.fromHexString( value, this.getValue(), this._rgbScale );
 				this._callOnChange();
 				this.updateDisplay();
 
@@ -78,9 +80,9 @@ export default class ColorController extends Controller {
 	}
 
 	updateDisplay() {
-		this.$input.value = this._format.toHexString( this.getValue() );
+		this.$input.value = this._format.toHexString( this.getValue(), this._rgbScale );
 		if ( !this._textFocused ) {
-			this.$text.value = this.$input.value;
+			this.$text.value = this.$input.value.substring( 1 );
 		}
 		this.$display.style.backgroundColor = this.$input.value;
 	}

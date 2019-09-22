@@ -315,24 +315,26 @@ class BooleanController extends Controller {
 
 function normalizeColorString( string ) {
 
-	let match;
+	let match, result;
 
 	if ( match = string.match( /(#|0x)?([a-f0-9]{6})/i ) ) {
-		return '#' + match[ 2 ];
-	}
 
-	if ( match = string.match( /#([a-f0-9])([a-f0-9])([a-f0-9])/i ) ) {
-		return '#'
-			+ match[ 1 ] + match[ 1 ]
-			+ match[ 2 ] + match[ 2 ]
-			+ match[ 3 ] + match[ 3 ];
-	}
+		result = match[ 2 ];
 
-	if ( match = string.match( /rgb\(\s*(\d*)\s*,\s*(\d*)\s*,\s*(\d*)\s*\)/ ) ) {
-		return '#'
-			+ parseInt( match[ 1 ] ).toString( 16 ).padStart( 2, 0 )
+	} else if ( match = string.match( /#([a-f0-9])([a-f0-9])([a-f0-9])/i ) ) {
+
+		result = match[ 1 ] + match[ 1 ] + match[ 2 ] + match[ 2 ] + match[ 3 ] + match[ 3 ];
+
+	} else if ( match = string.match( /rgb\(\s*(\d*)\s*,\s*(\d*)\s*,\s*(\d*)\s*\)/ ) ) {
+
+		result = parseInt( match[ 1 ] ).toString( 16 ).padStart( 2, 0 )
 			+ parseInt( match[ 2 ] ).toString( 16 ).padStart( 2, 0 )
 			+ parseInt( match[ 3 ] ).toString( 16 ).padStart( 2, 0 );
+
+	}
+
+	if ( result ) {
+		return '#' + result;
 	}
 
 	return false;
@@ -356,30 +358,50 @@ const INT = {
 const ARRAY = {
 	isPrimitive: false,
 	match: Array.isArray,
-	fromHexString( string, target ) {
+	fromHexString( string, target, rgbScale = 1 ) {
+
 		const int = INT.fromHexString( string );
-		target[ 0 ] = ( int >> 16 & 255 ) / 255;
-		target[ 1 ] = ( int >> 8 & 255 ) / 255;
-		target[ 2 ] = ( int & 255 ) / 255;
+
+		target[ 0 ] = ( int >> 16 & 255 ) / 255 * rgbScale;
+		target[ 1 ] = ( int >> 8 & 255 ) / 255 * rgbScale;
+		target[ 2 ] = ( int & 255 ) / 255 * rgbScale;
+
 	},
-	toHexString( [ r, g, b ] ) {
-		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
+	toHexString( [ r, g, b ], rgbScale = 1 ) {
+
+		rgbScale = 255 / rgbScale;
+
+		const int = ( r * rgbScale ) << 16 ^
+			( g * rgbScale ) << 8 ^
+			( b * rgbScale ) << 0;
+
 		return INT.toHexString( int );
+
 	}
 };
 
 const OBJECT = {
 	isPrimitive: false,
 	match: v => Object( v ) === v,
-	fromHexString( string, target ) {
+	fromHexString( string, target, rgbScale = 1 ) {
+
 		const int = INT.fromHexString( string );
-		target.r = ( int >> 16 & 255 ) / 255;
-		target.g = ( int >> 8 & 255 ) / 255;
-		target.b = ( int & 255 ) / 255;
+
+		target.r = ( int >> 16 & 255 ) / 255 * rgbScale;
+		target.g = ( int >> 8 & 255 ) / 255 * rgbScale;
+		target.b = ( int & 255 ) / 255 * rgbScale;
+
 	},
-	toHexString( { r, g, b } ) {
-		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
+	toHexString( { r, g, b }, rgbScale = 1 ) {
+
+		rgbScale = 255 / rgbScale;
+
+		const int = ( r * rgbScale ) << 16 ^
+			( g * rgbScale ) << 8 ^
+			( b * rgbScale ) << 0;
+
 		return INT.toHexString( int );
+
 	}
 };
 
@@ -391,7 +413,7 @@ function getColorFormat( value ) {
 
 class ColorController extends Controller {
 
-	constructor( parent, object, property ) {
+	constructor( parent, object, property, rgbScale ) {
 
 		super( parent, object, property, 'color' );
 
@@ -410,6 +432,8 @@ class ColorController extends Controller {
 
 		this._format = getColorFormat( this.getValue() );
 
+		this._rgbScale = rgbScale;
+
 		const set = value => {
 
 			if ( this._format.isPrimitive ) {
@@ -419,7 +443,7 @@ class ColorController extends Controller {
 
 			} else {
 
-				this._format.fromHexString( value, this.getValue() );
+				this._format.fromHexString( value, this.getValue(), this._rgbScale );
 				this._callOnChange();
 				this.updateDisplay();
 
@@ -464,9 +488,9 @@ class ColorController extends Controller {
 	}
 
 	updateDisplay() {
-		this.$input.value = this._format.toHexString( this.getValue() );
+		this.$input.value = this._format.toHexString( this.getValue(), this._rgbScale );
 		if ( !this._textFocused ) {
-			this.$text.value = this.$input.value;
+			this.$text.value = this.$input.value.substring( 1 );
 		}
 		this.$display.style.backgroundColor = this.$input.value;
 	}
@@ -968,6 +992,7 @@ class GUI {
 	 * @property {number} [mobileMaxHeight=200] todoc
 	 * @property {number} [mobileBreakpoint=600] todoc
 	 * @property {boolean} [collapses=true] todoc
+	 *
 	 * @property {string} [queryKey]
 	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
@@ -1092,28 +1117,30 @@ class GUI {
 
 	}
 
+	// eslint-disable-next-line jsdoc/require-param
 	/**
 	 * todoc
+	 * @param {object} object
+	 * @param {string} property
+	 * @returns {Controller}
 	 */
 	add( object, property, $1, max, step ) {
 
 		const initialValue = object[ property ];
 
-		if ( initialValue === undefined ) {
+		if ( initialValue === undefined || initialValue === null ) {
 
-			throw new Error( `Property "${property}" of ${object} is undefined.` );
+			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
 
 		const initialType = typeof initialValue;
 
-		const numArgs = arguments.length;
-		const lastArg = arguments[ numArgs - 1 ];
-		const onChangeShorthand = numArgs > 2 && typeof lastArg === 'function';
+		const onChange = this._onChangeShorthand( arguments );
 
 		let controller;
 
-		if ( !onChangeShorthand && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
+		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
 			controller = new GUI.OptionController( this, object, property, $1 );
 
@@ -1135,12 +1162,12 @@ class GUI {
 
 		} else {
 
-			throw new Error( `No suitable controller type for ${initialValue}` );
+			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
 
-		if ( onChangeShorthand ) {
-			controller.onChange( lastArg );
+		if ( onChange ) {
+			controller.onChange( onChange );
 		}
 
 		return controller;
@@ -1151,10 +1178,16 @@ class GUI {
 	 * todoc
 	 * @param {object} object todoc
 	 * @param {string} property todoc
+	 * @param {number} [rgbScale=1] todoc
 	 * @returns {Controller}
 	 */
-	addColor( object, property ) {
-		return new ColorController( this, object, property );
+	addColor( object, property, rgbScale = 1 ) {
+		const onChange = this._onChangeShorthand( arguments );
+		const controller = new GUI.ColorController( this, object, property, rgbScale );
+		if ( onChange ) {
+			controller.onChange( onChange );
+		}
+		return controller;
 	}
 
 	/**
@@ -1235,6 +1268,14 @@ class GUI {
 	set title( title ) {
 		this._title = title;
 		this.$title.innerHTML = title;
+	}
+
+	_onChangeShorthand( $arguments ) {
+		const numArgs = $arguments.length;
+		const lastArg = $arguments[ numArgs - 1 ];
+		if ( numArgs > 2 && typeof lastArg === 'function' ) {
+			return lastArg;
+		}
 	}
 
 	_initMobileMaxHeight() {

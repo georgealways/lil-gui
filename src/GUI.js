@@ -34,6 +34,7 @@ export default class GUI {
 	 * @property {number} [mobileMaxHeight=200] todoc
 	 * @property {number} [mobileBreakpoint=600] todoc
 	 * @property {boolean} [collapses=true] todoc
+	 *
 	 * @property {string} [queryKey]
 	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
@@ -158,28 +159,30 @@ export default class GUI {
 
 	}
 
+	// eslint-disable-next-line jsdoc/require-param
 	/**
 	 * todoc
+	 * @param {object} object
+	 * @param {string} property
+	 * @returns {Controller}
 	 */
 	add( object, property, $1, max, step ) {
 
 		const initialValue = object[ property ];
 
-		if ( initialValue === undefined ) {
+		if ( initialValue === undefined || initialValue === null ) {
 
-			throw new Error( `Property "${property}" of ${object} is undefined.` );
+			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
 
 		const initialType = typeof initialValue;
 
-		const numArgs = arguments.length;
-		const lastArg = arguments[ numArgs - 1 ];
-		const onChangeShorthand = numArgs > 2 && typeof lastArg === 'function';
+		const onChange = this._onChangeShorthand( arguments );
 
 		let controller;
 
-		if ( !onChangeShorthand && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
+		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
 			controller = new GUI.OptionController( this, object, property, $1 );
 
@@ -201,12 +204,12 @@ export default class GUI {
 
 		} else {
 
-			throw new Error( `No suitable controller type for ${initialValue}` );
+			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
 
-		if ( onChangeShorthand ) {
-			controller.onChange( lastArg );
+		if ( onChange ) {
+			controller.onChange( onChange );
 		}
 
 		return controller;
@@ -217,10 +220,16 @@ export default class GUI {
 	 * todoc
 	 * @param {object} object todoc
 	 * @param {string} property todoc
+	 * @param {number} [rgbScale=1] todoc
 	 * @returns {Controller}
 	 */
-	addColor( object, property ) {
-		return new ColorController( this, object, property );
+	addColor( object, property, rgbScale = 1 ) {
+		const onChange = this._onChangeShorthand( arguments );
+		const controller = new GUI.ColorController( this, object, property, rgbScale );
+		if ( onChange ) {
+			controller.onChange( onChange );
+		}
+		return controller;
 	}
 
 	/**
@@ -301,6 +310,14 @@ export default class GUI {
 	set title( title ) {
 		this._title = title;
 		this.$title.innerHTML = title;
+	}
+
+	_onChangeShorthand( $arguments ) {
+		const numArgs = $arguments.length;
+		const lastArg = $arguments[ numArgs - 1 ];
+		if ( numArgs > 2 && typeof lastArg === 'function' ) {
+			return lastArg;
+		}
 	}
 
 	_initMobileMaxHeight() {

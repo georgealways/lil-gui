@@ -66,17 +66,24 @@ pages[ 'Kitchen Sink' ] = gui => {
 
 	gui.addFolder( 'Colors', false );
 
+	gui.addColor( { x: 0x00aaff }, 'x' ).name( 'Hex Int' );
+	gui.addColor( { x: [ 0, 2 / 3, 1 ] }, 'x' ).name( 'RGB Array' );
+	gui.addColor( { x: { r: 0, g: 2 / 3, b: 1 } }, 'x' ).name( 'RGB Object' );
+
+	gui.addFolder( 'Color Strings', false );
+
 	const colorString = str => gui.addColor( { x: str }, 'x' ).name( str );
 
-	colorString( '00aAfF' );
 	colorString( '#00aAfF' );
+	colorString( '00aAfF' );
 	colorString( '0x00aAfF' );
 	colorString( '#0af' );
 	colorString( 'rgb(0, 170, 255)' );
 
-	gui.addColor( { x: 0x00aaff }, 'x' ).name( 'Hex Int' );
-	gui.addColor( { x: [ 0, 2 / 3, 1 ] }, 'x' ).name( 'RGB Array' );
-	gui.addColor( { x: { r: 0, g: 2 / 3, b: 1 } }, 'x' ).name( 'RGB Object' );
+	gui.addFolder( 'RGB Scale', false );
+
+	gui.addColor( { x: [ 0, 170, 255 ] }, 'x', 255, console.log );
+	gui.addColor( { x: { r: 0, g: 1, b: 2 } }, 'x', 255, console.log );
 
 	gui.addFolder( 'Options', false );
 

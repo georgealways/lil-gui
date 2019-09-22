@@ -43,8 +43,8 @@ rules:
   jsdoc/newline-after-description: [ warn, never ]
   jsdoc/no-undefined-types: [ warn, { definedTypes: [ GUI ] } ]
   jsdoc/require-jsdoc: off
-  jsdoc/require-param: off
+  # jsdoc/require-param: off
   jsdoc/require-param-description: off
-  jsdoc/require-returns: off
+  # jsdoc/require-returns: off
   jsdoc/require-returns-description: off
   jsdoc/require-description: warn

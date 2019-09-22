@@ -17,30 +17,50 @@ const INT = {
 const ARRAY = {
 	isPrimitive: false,
 	match: Array.isArray,
-	fromHexString( string, target ) {
+	fromHexString( string, target, rgbScale = 1 ) {
+
 		const int = INT.fromHexString( string );
-		target[ 0 ] = ( int >> 16 & 255 ) / 255;
-		target[ 1 ] = ( int >> 8 & 255 ) / 255;
-		target[ 2 ] = ( int & 255 ) / 255;
+
+		target[ 0 ] = ( int >> 16 & 255 ) / 255 * rgbScale;
+		target[ 1 ] = ( int >> 8 & 255 ) / 255 * rgbScale;
+		target[ 2 ] = ( int & 255 ) / 255 * rgbScale;
+
 	},
-	toHexString( [ r, g, b ] ) {
-		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
+	toHexString( [ r, g, b ], rgbScale = 1 ) {
+
+		rgbScale = 255 / rgbScale;
+
+		const int = ( r * rgbScale ) << 16 ^
+			( g * rgbScale ) << 8 ^
+			( b * rgbScale ) << 0;
+
 		return INT.toHexString( int );
+
 	}
 };
 
 const OBJECT = {
 	isPrimitive: false,
 	match: v => Object( v ) === v,
-	fromHexString( string, target ) {
+	fromHexString( string, target, rgbScale = 1 ) {
+
 		const int = INT.fromHexString( string );
-		target.r = ( int >> 16 & 255 ) / 255;
-		target.g = ( int >> 8 & 255 ) / 255;
-		target.b = ( int & 255 ) / 255;
+
+		target.r = ( int >> 16 & 255 ) / 255 * rgbScale;
+		target.g = ( int >> 8 & 255 ) / 255 * rgbScale;
+		target.b = ( int & 255 ) / 255 * rgbScale;
+
 	},
-	toHexString( { r, g, b } ) {
-		const int = ( r * 255 ) << 16 ^ ( g * 255 ) << 8 ^ ( b * 255 ) << 0;
+	toHexString( { r, g, b }, rgbScale = 1 ) {
+
+		rgbScale = 255 / rgbScale;
+
+		const int = ( r * rgbScale ) << 16 ^
+			( g * rgbScale ) << 8 ^
+			( b * rgbScale ) << 0;
+
 		return INT.toHexString( int );
+
 	}
 };
 
