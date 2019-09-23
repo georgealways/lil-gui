@@ -2,24 +2,25 @@
   "name": "lil-gui",
   "version": "0.5.0",
   "description": "Makes a floating panel for controllers on the web.",
-  "module": "build/lil-gui.module.js",
+  "module": "dist/lil-gui.module.js",
+  "main": "dist/lil-gui.module.js",
   "scripts": {
     "build": "npm run icons && npm run sass && npm run rollup",
-    "sass": "sass style/main.scss build/lil-gui.css --style=compressed --no-charset --no-source-map",
+    "sass": "sass style/main.scss dist/lil-gui.css --style=compressed --no-charset --no-source-map",
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
     "test": "node -r esm scripts/test.js",
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
-    "server": "live-server --watch=index.html,build,examples --no-browser",
+    "server": "live-server --watch=index.html,dist,examples --no-browser",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],
   "homepage": "",
   "author": "George Michael Brower",
   "files": [
-    "build"
+    "dist"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -40,7 +41,7 @@
     "webfont": "^9.0.0"
   },
   "eslintIgnore": [
-    "build",
+    "dist",
     "examples/vendor"
   ],
   "dependencies": {}

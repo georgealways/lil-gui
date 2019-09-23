@@ -2,7 +2,7 @@ import './test-shim.js';
 import test from './test-runner.js';
 import assert from 'assert';
 
-import GUI, { GUI as _GUI } from '../build/lil-gui.module';
+import GUI, { GUI as _GUI } from '..';
 
 test( unit => {
 

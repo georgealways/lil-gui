@@ -10,7 +10,7 @@ import NumberController from './NumberController.js';
 import OptionController from './OptionController.js';
 import StringController from './StringController.js';
 
-import styles from '../build/lil-gui.css';
+import styles from '../dist/lil-gui.css';
 
 import _injectStyles from './utils/injectStyles.js';
 let stylesInjected = false;
