@@ -56,6 +56,7 @@
 	--width: 250px;
 	--scrollbar-width: 5px;
 	--mobile-max-height: 200px;
+	--widget-gap: calc(var(--row-height) - var(--widget-height));
 
 	@include vars(
 		(
@@ -93,8 +94,7 @@
 			--padding: 4px,
 			--folder-indent: 8px,
 			--widget-padding: 0 0 0 3px,
-			--widget-border-radius: 2px,
-			--widget-gap: calc(var(--row-height) - var(--widget-height))
+			--widget-border-radius: 2px
 		)
 	);
 
@@ -260,15 +260,20 @@
 		font-family: var(--font-family);
 		font-size: var(--font-size);
 		color: var(--text-color);
-		background: var(--background-color);
+
 		text-align: left;
 		text-transform: none;
 		width: 100%;
-		@include hover {
-			background: var(--widget-color);
-		}
-		&:active {
-			background: var(--highlight-color);
+		font-weight: 600;
+
+		&.title {
+			background: var(--background-color);
+			@include hover {
+				background: var(--widget-color);
+			}
+			&:active {
+				background: var(--highlight-color);
+			}
 		}
 	}
 
@@ -400,9 +405,23 @@
 	}
 
 	.controller.function {
-		.widget:before {
-			font-family: 'lil-gui';
-			content: '▶';
+		background: none;
+		@include hover { 
+			.name {
+				background: var(--highlight-color);
+			}
+		}
+		.name { 
+			display: block;
+			text-align: center;
+			width: 100%;
+			background: var(--widget-color);
+			border-radius: var(--widget-border-radius);
+			height: var(--widget-height);
+			line-height: var(--widget-height);
+		}
+		.widget { 
+			display: none;
 		}
 	}
 }
