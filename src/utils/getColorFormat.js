@@ -1,4 +1,4 @@
-import normalizeColorString from './normalizeColorString.js';
+import normalizeColorString from './normalizeColorString';
 
 const STRING = {
 	isPrimitive: true,

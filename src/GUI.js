@@ -2,17 +2,17 @@
  * @module GUI
  */
 
-import Controller from './Controller.js';
-import BooleanController from './BooleanController.js';
-import ColorController from './ColorController.js';
-import FunctionController from './FunctionController.js';
-import NumberController from './NumberController.js';
-import OptionController from './OptionController.js';
-import StringController from './StringController.js';
+import Controller from './Controller';
+import BooleanController from './BooleanController';
+import ColorController from './ColorController';
+import FunctionController from './FunctionController';
+import NumberController from './NumberController';
+import OptionController from './OptionController';
+import StringController from './StringController';
 
 import styles from '../dist/lil-gui.css';
 
-import _injectStyles from './utils/injectStyles.js';
+import _injectStyles from './utils/injectStyles';
 let stylesInjected = false;
 
 export default class GUI {
@@ -155,11 +155,10 @@ export default class GUI {
 			this.domElement.style.display = 'none';
 		}
 
-		this.title = title;
+		this.title( title );
 
 	}
 
-	// eslint-disable-next-line jsdoc/require-param
 	/**
 	 * todoc
 	 * @param {object} object
@@ -172,6 +171,7 @@ export default class GUI {
 
 		if ( initialValue === undefined || initialValue === null ) {
 
+			// eslint-disable-next-line no-console
 			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
@@ -204,6 +204,7 @@ export default class GUI {
 
 		} else {
 
+			// eslint-disable-next-line no-console
 			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
@@ -303,11 +304,7 @@ export default class GUI {
 		} );
 	}
 
-	get title() {
-		return this._title;
-	}
-
-	set title( title ) {
+	title( title ) {
 		this._title = title;
 		this.$title.innerHTML = title;
 	}

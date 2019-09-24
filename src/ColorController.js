@@ -1,7 +1,7 @@
-import Controller from './Controller.js';
+import Controller from './Controller';
 
-import getColorFormat from './utils/getColorFormat.js';
-import normalizeColorString from './utils/normalizeColorString.js';
+import getColorFormat from './utils/getColorFormat';
+import normalizeColorString from './utils/normalizeColorString';
 
 export default class ColorController extends Controller {
 

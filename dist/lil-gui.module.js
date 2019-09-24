@@ -1113,11 +1113,10 @@ class GUI {
 			this.domElement.style.display = 'none';
 		}
 
-		this.title = title;
+		this.title( title );
 
 	}
 
-	// eslint-disable-next-line jsdoc/require-param
 	/**
 	 * todoc
 	 * @param {object} object
@@ -1130,6 +1129,7 @@ class GUI {
 
 		if ( initialValue === undefined || initialValue === null ) {
 
+			// eslint-disable-next-line no-console
 			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
@@ -1162,6 +1162,7 @@ class GUI {
 
 		} else {
 
+			// eslint-disable-next-line no-console
 			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
 
 		}
@@ -1261,11 +1262,7 @@ class GUI {
 		} );
 	}
 
-	get title() {
-		return this._title;
-	}
-
-	set title( title ) {
+	title( title ) {
 		this._title = title;
 		this.$title.innerHTML = title;
 	}

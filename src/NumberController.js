@@ -1,4 +1,4 @@
-import Controller from './Controller.js';
+import Controller from './Controller';
 
 export default class NumberController extends Controller {
 
