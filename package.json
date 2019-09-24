@@ -18,7 +18,6 @@
     "postversion": "npm run build && npm test && git add dist && git commit -m 'postversion'",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
-  "keywords": [],
   "files": [
     "dist"
   ],
@@ -43,6 +42,5 @@
   "eslintIgnore": [
     "dist",
     "examples/vendor"
-  ],
-  "dependencies": {}
+  ]
 }

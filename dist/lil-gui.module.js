@@ -1262,9 +1262,19 @@ class GUI {
 		} );
 	}
 
+	/**
+	 * todoc
+	 * @param {string} title
+	 * @returns {this}
+	 */
 	title( title ) {
+		/**
+		 * todoc
+		 * @type {string}
+		 */
 		this._title = title;
 		this.$title.innerHTML = title;
+		return this;
 	}
 
 	_onChangeShorthand( $arguments ) {

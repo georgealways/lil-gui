@@ -13,6 +13,7 @@
 - [**destroy**()](#GUI#destroy) 
 - [**forEachController**()](#GUI#forEachController) 
 - [**open**()](#GUI#open) 
+- [**title**()](#GUI#title) → this
 - [children](#GUI#children) : Array<GUI|Controller>
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
@@ -20,6 +21,7 @@
 - [$children](#GUI#$children) : HTMLElement
 - [$title](#GUI#$title) : HTMLElement
 - [_closed](#GUI#_closed) : boolean
+- [_title](#GUI#_title) : string
 
 ## Controller
 
@@ -167,6 +169,14 @@ Returns: **GUI – self**
 
 ***
 
+## <a name="GUI#title"></a> gui.**title**( title : string )
+
+todoc
+
+Returns: **this**
+
+***
+
 ## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
 
 todoc
@@ -204,6 +214,12 @@ todoc
 ***
 
 ## <a name="GUI#_closed"></a> gui.**_closed** : boolean
+
+todoc
+
+***
+
+## <a name="GUI#_title"></a> gui.**_title** : string
 
 todoc
 
