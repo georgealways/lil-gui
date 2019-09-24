@@ -1,6 +1,8 @@
 import pkg from './package.json';
 import { string } from 'rollup-plugin-string';
 
+console.log( pkg.version );
+
 const banner = `/**
  * ${pkg.name} v${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
