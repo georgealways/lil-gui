@@ -15,7 +15,7 @@
     "api": "node -r esm scripts/api.js --write",
     "site": "node -r esm scripts/site.js",
     "server": "live-server --watch=index.html,dist,examples --no-browser",
-    "postversion": "npm run build && npm test && git add dist && git commit -m '$(echo $npm_package_version)'",
+    "preversion": "npm run build && npm test && git add dist && git commit -m $npm_package_version",
     "postpublish": "git push --tags",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
