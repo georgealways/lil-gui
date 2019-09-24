@@ -1,6 +1,6 @@
 {
   "name": "lil-gui",
-  "version": "0.6.0",
+  "version": "0.5.0",
   "author": "George Michael Brower",
   "description": "Makes a floating panel for controllers on the web.",
   "module": "dist/lil-gui.module.js",
@@ -15,7 +15,7 @@
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=index.html,dist,examples --no-browser",
-    "postversion": "npm run build && git add dist && git commit -m 'postversion'",
+    "postversion": "npm run build && npm test && git add dist && git commit -m 'postversion'",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "keywords": [],
