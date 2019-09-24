@@ -79,14 +79,22 @@
 				'Segoe UI Emoji',
 				'Segoe UI Symbol'
 			),
-			--name-width: 42%,
-			--slider-input-width: 27%,
+			--font-family-mono: (
+				Menlo,
+				monospace
+			),
 			--row-height: 24px,
 			--widget-height: 20px,
+			--name-width: 42%,
+			--slider-input-width: 27%,
+			--color-input-width: 27%,
+			--slider-input-min-width: 45px,
+			--color-input-min-width: 45px,
 			--padding: 4px,
 			--folder-indent: 8px,
 			--widget-padding: 0 0 0 3px,
-			--widget-border-radius: 2px
+			--widget-border-radius: 2px,
+			--widget-gap: calc(var(--row-height) - var(--widget-height))
 		)
 	);
 
@@ -96,7 +104,7 @@
 	.title {
 		height: var(--row-height);
 		padding: 1px var(--padding) 2px;
-		font-weight: bold;
+		font-weight: 600;
 		&:before {
 			font-family: 'lil-gui';
 		}
@@ -310,14 +318,14 @@
 			color: var(--number-color);
 		}
 		&.hasSlider input {
+			margin-left: var(--widget-gap);
 			width: var(--slider-input-width);
-			min-width: 38px;
+			min-width: var(--slider-input-min-width);
 			flex-shrink: 0;
 		}
 		.slider {
 			width: 100%;
 			height: var(--widget-height);
-			margin-right: calc(var(--row-height) - var(--widget-height));
 			background-color: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			overflow: hidden;
@@ -342,12 +350,9 @@
 
 	.controller.color {
 		.display {
+			width: 100%;
 			height: var(--widget-height);
 			border-radius: var(--widget-border-radius);
-
-			width: var(--slider-input-width);
-			min-width: 38px;
-			flex-shrink: 0;
 		}
 		input[type='color'] {
 			opacity: 0;
@@ -356,8 +361,11 @@
 			cursor: pointer;
 		}
 		input[type='text'] {
-			margin-right: calc(var(--row-height) - var(--widget-height));
-			width: 100%;
+			margin-left: var(--widget-gap);
+			font-family: var(--font-family-mono);
+			min-width: var(--color-input-min-width);
+			width: var(--color-input-width);
+			flex-shrink: 0;
 		}
 	}
 
@@ -365,6 +373,7 @@
 		select {
 			opacity: 0;
 			position: absolute;
+			width: 100%;
 			max-width: 100%;
 		}
 		.display {

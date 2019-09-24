@@ -14,13 +14,14 @@ export default class ColorController extends Controller {
 
 		this.$text = document.createElement( 'input' );
 		this.$text.setAttribute( 'type', 'text' );
+		this.$text.setAttribute( 'spellcheck', 'false' );
 
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 
 		this.$display.appendChild( this.$input );
-		this.$widget.appendChild( this.$text );
 		this.$widget.appendChild( this.$display );
+		this.$widget.appendChild( this.$text );
 
 		this._format = getColorFormat( this.getValue() );
 
@@ -68,6 +69,7 @@ export default class ColorController extends Controller {
 
 		this.$text.addEventListener( 'focus', () => {
 			this._textFocused = true;
+			this.$text.select();
 		} );
 
 		this.$text.addEventListener( 'blur', () => {

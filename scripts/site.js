@@ -6,7 +6,7 @@ import hljs from 'highlight.js';
 import pkg from '../package.json';
 
 const OUTPUT = 'index.html';
-const TEMPLATE = 'scripts/homepage.html';
+const TEMPLATE = 'scripts/site.html';
 const README = 'README.md';
 const API = 'API.md';
 

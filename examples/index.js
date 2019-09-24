@@ -78,18 +78,20 @@ pages[ 'Kitchen Sink' ] = gui => {
 	colorString( '00aAfF' );
 	colorString( '0x00aAfF' );
 	colorString( '#0af' );
+	colorString( '0af' );
 	colorString( 'rgb(0, 170, 255)' );
 
 	gui.addFolder( 'RGB Scale', false );
 
-	gui.addColor( { x: [ 0, 170, 255 ] }, 'x', 255, console.log );
-	gui.addColor( { x: { r: 0, g: 1, b: 2 } }, 'x', 255, console.log );
+	gui.addColor( { x: [ 0, 170, 255 ] }, 'x', 255 );
+	gui.addColor( { x: { r: 0, g: 170, b: 255 } }, 'x', 255 );
 
 	gui.addFolder( 'Options', false );
 
 	gui.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
 	gui.add( { x: 0 }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Object' );
-	gui.add( { x: -1 }, 'x', [ 0, 1, 2 ] ).name( 'Invalid initial' );
+	gui.add( { x: {} }, 'x', [ 0, 1, 2 ] ).name( 'Invalid initial' );
+	gui.add( { x: {} }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Invalid initial' );
 
 	const longString = 'Anoptionorvaluewithaproblematicallylongname';
 	gui.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long names' );
