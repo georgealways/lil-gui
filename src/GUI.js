@@ -163,6 +163,9 @@ export default class GUI {
 	 * todoc
 	 * @param {object} object
 	 * @param {string} property
+	 * @param {number|object|Array} [$1]
+	 * @param {number} [max]
+	 * @param {number} [step]
 	 * @returns {Controller}
 	 */
 	add( object, property, $1, max, step ) {
@@ -171,8 +174,7 @@ export default class GUI {
 
 		if ( initialValue === undefined || initialValue === null ) {
 
-			// eslint-disable-next-line no-console
-			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
+			this._fail( property, initialValue, object );
 
 		}
 
@@ -204,8 +206,7 @@ export default class GUI {
 
 		} else {
 
-			// eslint-disable-next-line no-console
-			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
+			this._fail( property, initialValue, object );
 
 		}
 
@@ -215,6 +216,11 @@ export default class GUI {
 
 		return controller;
 
+	}
+
+	_fail( property, initialValue, object ) {
+		// eslint-disable-next-line no-console
+		console.warn( `Failed to add controller for "${property}"`, initialValue, object );
 	}
 
 	/**
@@ -307,7 +313,7 @@ export default class GUI {
 	/**
 	 * todoc
 	 * @param {string} title
-	 * @returns {this}
+	 * @returns {GUI} self
 	 */
 	title( title ) {
 		/**

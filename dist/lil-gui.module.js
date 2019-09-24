@@ -1,4 +1,9 @@
-// lil-gui@0.5.2
+/**
+ * lil-gui v0.5.2
+ * (c) 2019 George Michael Brower
+ * Released under the MIT License.
+ */
+
 /**
  * @module Controller
  */
@@ -307,6 +312,7 @@ class BooleanController extends Controller {
 
 	updateDisplay() {
 		this.$input.checked = this.getValue();
+		return this;
 	}
 
 }
@@ -559,6 +565,8 @@ class NumberController extends Controller {
 		if ( !this._inputFocused ) {
 			this.$input.value = value;
 		}
+
+		return this;
 
 	}
 
@@ -920,6 +928,7 @@ class OptionController extends Controller {
 		const index = this._values.indexOf( value );
 		this.$select.selectedIndex = index;
 		this.$display.innerHTML = index === -1 ? value : this._names[ index ];
+		return this;
 	}
 
 }
@@ -951,6 +960,7 @@ class StringController extends Controller {
 
 	updateDisplay() {
 		this.$input.value = this.getValue();
+		return this;
 	}
 
 }
@@ -1121,6 +1131,9 @@ class GUI {
 	 * todoc
 	 * @param {object} object
 	 * @param {string} property
+	 * @param {number|object|Array} [$1]
+	 * @param {number} [max]
+	 * @param {number} [step]
 	 * @returns {Controller}
 	 */
 	add( object, property, $1, max, step ) {
@@ -1129,8 +1142,7 @@ class GUI {
 
 		if ( initialValue === undefined || initialValue === null ) {
 
-			// eslint-disable-next-line no-console
-			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
+			this._fail( property, initialValue, object );
 
 		}
 
@@ -1162,8 +1174,7 @@ class GUI {
 
 		} else {
 
-			// eslint-disable-next-line no-console
-			console.warn( 'Failed to add controller for "' + property + '"', initialValue, object );
+			this._fail( property, initialValue, object );
 
 		}
 
@@ -1173,6 +1184,11 @@ class GUI {
 
 		return controller;
 
+	}
+
+	_fail( property, initialValue, object ) {
+		// eslint-disable-next-line no-console
+		console.warn( `Failed to add controller for "${property}"`, initialValue, object );
 	}
 
 	/**
@@ -1265,7 +1281,7 @@ class GUI {
 	/**
 	 * todoc
 	 * @param {string} title
-	 * @returns {this}
+	 * @returns {GUI} self
 	 */
 	title( title ) {
 		/**

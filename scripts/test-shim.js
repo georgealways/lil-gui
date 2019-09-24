@@ -16,21 +16,15 @@ class EventTarget {
 
 	removeEventListener( name, callback ) {
 		const listeners = this.__eventListeners[ name ];
-		if ( !listeners ) {
-			return;
-		}
+		if ( !listeners ) return;
 		const index = listeners.indexOf( callback );
-		if ( index === -1 ) {
-			return;
-		}
+		if ( index === -1 ) return;
 		listeners.splice( index, 1 );
 	}
 
 	$callEventListener( name, event = {} ) {
 		const listeners = this.__eventListeners[ name ];
-		if ( !listeners ) {
-			return;
-		}
+		if ( !listeners ) return;
 		event.preventDefault = function() {};
 		listeners.forEach( l => l( event ) );
 	}
@@ -70,7 +64,7 @@ function createElement() {
 }
 
 global.window = new EventTarget();
-
+global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
 global.document = {
 	body: createElement(),
 	head: createElement(),

@@ -44,6 +44,7 @@ export default class OptionController extends Controller {
 		const index = this._values.indexOf( value );
 		this.$select.selectedIndex = index;
 		this.$display.innerHTML = index === -1 ? value : this._names[ index ];
+		return this;
 	}
 
 }

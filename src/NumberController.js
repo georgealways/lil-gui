@@ -49,6 +49,8 @@ export default class NumberController extends Controller {
 			this.$input.value = value;
 		}
 
+		return this;
+
 	}
 
 	_initInput() {

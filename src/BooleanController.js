@@ -21,6 +21,7 @@ export default class BooleanController extends Controller {
 
 	updateDisplay() {
 		this.$input.checked = this.getValue();
+		return this;
 	}
 
 }

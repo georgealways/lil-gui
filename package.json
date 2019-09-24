@@ -13,9 +13,10 @@
     "icons": "node -r esm scripts/icons.js",
     "test": "node -r esm scripts/test.js",
     "api": "node -r esm scripts/api.js --write",
-    "homepage": "node -r esm scripts/homepage.js",
+    "site": "node -r esm scripts/site.js",
     "server": "live-server --watch=index.html,dist,examples --no-browser",
     "postversion": "npm run build && npm test && git add dist && git commit -m 'postversion'",
+    "terst": "git tag $npm_package_version",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "files": [

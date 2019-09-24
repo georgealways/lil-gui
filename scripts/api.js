@@ -40,7 +40,7 @@ function transform( v ) {
 
 	forEachRecursive( v, ( object, key, value ) => {
 
-		if ( typeof value == 'string' ) {
+		if ( typeof value === 'string' ) {
 
 			// replace local directories with path to github
 			value = value.replace( process.cwd(), REPO.substr( 0, REPO.length - 1 ) );

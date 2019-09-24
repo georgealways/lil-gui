@@ -27,6 +27,7 @@ export default class StringController extends Controller {
 
 	updateDisplay() {
 		this.$input.value = this.getValue();
+		return this;
 	}
 
 }

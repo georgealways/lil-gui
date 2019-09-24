@@ -13,7 +13,7 @@
 - [**destroy**()](#GUI#destroy) 
 - [**forEachController**()](#GUI#forEachController) 
 - [**open**()](#GUI#open) 
-- [**title**()](#GUI#title) → this
+- [**title**()](#GUI#title) 
 - [children](#GUI#children) : Array<GUI|Controller>
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
@@ -111,9 +111,31 @@ Type: **GUI** - Optional
 
 ***
 
-## <a name="GUI#add"></a> gui.**add**( object : object, property : string )
+## <a name="GUI#add"></a> gui.**add**( object, property, [$1], [max], [step] )
 
 todoc
+
+**Parameters**
+
+**object**<br> 
+<br>
+Type: **object**
+***
+**property**<br> 
+<br>
+Type: **string**
+***
+**$1**<br> 
+<br>
+Type: **number** or **object** or **Array** - Optional
+***
+**max**<br> 
+<br>
+Type: **number** - Optional
+***
+**step**<br> 
+<br>
+Type: **number** - Optional
 
 Returns: **Controller**
 
@@ -173,7 +195,7 @@ Returns: **GUI – self**
 
 todoc
 
-Returns: **this**
+Returns: **GUI – self**
 
 ***
 

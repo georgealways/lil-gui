@@ -1,8 +1,16 @@
-import './test-shim.js';
-import test from './test-runner.js';
+import './test-shim';
+import test from './test-runner';
 import assert from 'assert';
 
-import GUI, { GUI as _GUI } from '..';
+import GUI,
+{
+	GUI as _GUI,
+	BooleanController,
+	StringController,
+	FunctionController,
+	NumberController,
+	OptionController
+} from '..';
 
 test( unit => {
 
@@ -12,14 +20,36 @@ test( unit => {
 
 		const gui = new GUI();
 
-		assert( gui, 'can be instantiated' );
+		function testControllerType( controller, type ) {
+			assert( controller instanceof type );
+			assert.strictEqual( controller, controller.disable() );
+			assert.strictEqual( controller, controller.enable() );
+			assert.strictEqual( controller, controller.listen() );
+			assert.strictEqual( controller, controller.max() );
+			assert.strictEqual( controller, controller.min() );
+			assert.strictEqual( controller, controller.name( 'hi' ) );
+			assert.strictEqual( controller, controller.onChange( function() { } ) );
+			assert.strictEqual( controller, controller.onFinishChange( function() { } ) );
+			assert.strictEqual( controller, controller.reset() );
+			assert.strictEqual( controller, controller.setValue() );
+			assert.strictEqual( controller, controller.step() );
+			assert.strictEqual( controller, controller.updateDisplay() );
+		}
 
-		assert.strictEqual( typeof gui.add, 'function', 'gui.add exists' );
+		testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
 
-		assert( gui.add( { x: false }, 'x' ) instanceof GUI.BooleanController );
-		assert( gui.add( { x: 0 }, 'x' ) instanceof GUI.NumberController );
+		testControllerType( gui.add( { x: 0 }, 'x' ), NumberController );
+		testControllerType( gui.add( { x: function() { } }, 'x' ), FunctionController );
+		testControllerType( gui.add( { x: '' }, 'x' ), StringController );
+		testControllerType( gui.add( { x: '' }, 'x', [ '', 'a' ] ), OptionController );
 
-		const onChangeShorthand = function(){};
+	} );
+
+	unit( 'onChange', () => {
+
+		const gui = new GUI();
+
+		const onChangeShorthand = function() { };
 
 		let ctrl;
 

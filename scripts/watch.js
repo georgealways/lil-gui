@@ -7,8 +7,8 @@ watch( {
 		'scripts/api.hbs',
 		'scripts/api.js'
 	],
-	homepage: [
-		'scripts/homepage*',
+	site: [
+		'scripts/site*',
 		'*.md'
 	],
 	icons: [
@@ -51,7 +51,7 @@ function watch( config ) {
 
 		if ( name in pkg.scripts ) {
 
-			if ( typeof arg == 'string' ) {
+			if ( typeof arg === 'string' ) {
 
 				command = `npm run ${name} -- ${arg}`;
 
