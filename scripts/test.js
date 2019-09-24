@@ -14,7 +14,7 @@ import GUI,
 
 test( unit => {
 
-	unit( '', () => {
+	unit( 'api', () => {
 
 		assert.strictEqual( GUI, _GUI, 'GUI is available as both default and named export' );
 
@@ -45,7 +45,7 @@ test( unit => {
 
 	} );
 
-	unit( 'onChange', () => {
+	unit( 'onChange shorthand', () => {
 
 		const gui = new GUI();
 

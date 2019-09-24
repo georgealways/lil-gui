@@ -1,6 +1,8 @@
 todo
 
-[ ] color string field
+[ ] button style
+[ ] mono font for color cotroller
+[ ] supress warning in test
 
 title drag
 	[ ] mouse
@@ -9,6 +11,8 @@ title drag
 
 [ ] getControllers method?
 [ ] getFolders method?
+
+[x] color string field
 [x] mobileBreakpoint parameter
 [x] queryKey parameter
 
