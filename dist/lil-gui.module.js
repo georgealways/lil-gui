@@ -1,4 +1,4 @@
-// lil-gui@0.5.1
+// lil-gui@0.5.2
 /**
  * @module Controller
  */
