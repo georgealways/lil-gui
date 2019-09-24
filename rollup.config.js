@@ -5,7 +5,7 @@ import process from 'process';
 console.log( process.env.npm_package_version );
 
 const banner = `/**
- * ${pkg.name} v${pkg.version}
+ * ${pkg.name}
  * (c) ${new Date().getFullYear()} ${pkg.author}
  * Released under the MIT License.
  */\n`;
