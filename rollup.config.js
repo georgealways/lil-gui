@@ -1,8 +1,5 @@
 import pkg from './package.json';
 import { string } from 'rollup-plugin-string';
-import process from 'process';
-
-console.log( process.env.npm_package_version );
 
 const banner = `/**
  * ${pkg.name}
