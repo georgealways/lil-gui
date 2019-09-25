@@ -2,7 +2,7 @@ import pkg from './package.json';
 import { string } from 'rollup-plugin-string';
 
 const banner = `/**
- * ${pkg.name}
+ * ${pkg.name} ${pkg.version}
  * (c) ${new Date().getFullYear()} ${pkg.author}
  * Released under the MIT License.
  */\n`;

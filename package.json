@@ -15,7 +15,8 @@
     "api": "node -r esm scripts/api.js --write",
     "site": "node -r esm scripts/site.js",
     "server": "live-server --watch=index.html,dist,examples --no-browser",
-    "preversion": "npm run build && npm test && git add dist && git commit -m $(echo $npm_package_version) && echo $npm_package_version",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A dist style/icons.scss",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "files": [
