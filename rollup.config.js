@@ -1,5 +1,27 @@
 import pkg from './package.json';
-import { string } from 'rollup-plugin-string';
+
+import { createFilter } from 'rollup-pluginutils';
+
+function string( opts = {} ) {
+
+	if ( !opts.include ) {
+		throw Error( 'include option should be specified' );
+	}
+
+	const filter = createFilter( opts.include, opts.exclude );
+
+	return {
+		name: 'string',
+		transform( content, id ) {
+			if ( filter( id ) ) {
+				return {
+					code: `export default \`${content}\`;`,
+					map: { mappings: '' }
+				};
+			}
+		}
+	};
+}
 
 const banner = `/**
  * ${pkg.name} ${pkg.version}
