@@ -194,7 +194,7 @@
 		}
 
 		&.mobile {
-			--row-height: 38px;
+			--row-height: 40px;
 			--widget-height: 32px;
 			--font-size: 16px;
 			--padding: 8px;
@@ -397,17 +397,19 @@
 
 	.controller.function {
 		background: none;
+		&:active .name {
+			background: var(--highlight-color);
+		}
 		.name { 
 			display: block;
+			padding: 0;
+			margin: 0;
 			text-align: center;
 			width: 100%;
 			background: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
 			line-height: var(--widget-height);
-			&:active {
-				background: var(--highlight-color);
-			}
 		}
 		.widget { 
 			display: none;
