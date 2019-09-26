@@ -260,19 +260,11 @@
 		font-family: var(--font-family);
 		font-size: var(--font-size);
 		color: var(--text-color);
-
 		text-align: left;
 		text-transform: none;
 		width: 100%;
-
 		&.title {
 			background: var(--background-color);
-			@include hover {
-				background: var(--widget-color);
-			}
-			&:active {
-				background: var(--highlight-color);
-			}
 		}
 	}
 
@@ -405,11 +397,6 @@
 
 	.controller.function {
 		background: none;
-		@include hover { 
-			.name {
-				background: var(--highlight-color);
-			}
-		}
 		.name { 
 			display: block;
 			text-align: center;
@@ -418,6 +405,9 @@
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
 			line-height: var(--widget-height);
+			&:active {
+				background: var(--highlight-color);
+			}
 		}
 		.widget { 
 			display: none;
