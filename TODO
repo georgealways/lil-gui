@@ -1,8 +1,11 @@
 todo
 
-[ ] button style
-[ ] mono font for color cotroller
 [ ] supress warning in test
+
+[ ] hover styles
+	[ ] button
+	[ ] folder title
+	... everything again?
 
 title drag
 	[ ] mouse
@@ -11,6 +14,10 @@ title drag
 
 [ ] getControllers method?
 [ ] getFolders method?
+
+[x] button style
+[x] top bottom padding
+[x] mono font for color cotroller
 
 [x] color string field
 [x] mobileBreakpoint parameter
