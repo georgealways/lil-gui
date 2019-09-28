@@ -975,7 +975,7 @@ class StringController extends Controller {
 
 }
 
-const style = `@font-face {
+const stylesheet = `@font-face {
   font-family: "lil-gui";
   src: url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ4AAsAAAAABqAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAF8AAACEIZ5WI2hlYWQAAAJUAAAAJwAAADZfcj23aGhlYQAAAnwAAAAYAAAAJAC5AGpobXR4AAAClAAAAA4AAAAUAZAAAGxvY2EAAAKkAAAADAAAAAwARABkbWF4cAAAArAAAAAeAAAAIAERABJuYW1lAAAC0AAAASIAAAIK9SUU/XBvc3QAAAP0AAAAQgAAAFiCDrX0eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nGNgYgABH4YwBiYGVgYGe0ZxUXZ1SRCwkZQUkZQEyTKC1dgyuIJUmLOrm6ub2yqyS0mxq4BJqLw7gyVYXt1c3FxcDSwjiCwfwuCLkNcU5+RT4pQU4+RT5gQAe+sKMgB4nGNgZGBgAOKTAv9nx/PbfGXgZkhhwAZCGMKAJAcDE4gDAMWSBTgAeJxjYGRgYEhhYICTIQyMDKiAFQAceQEkeJxjYACCFFQMAA4kAZEAAAAAAAAAEgAiADIAQnicY2BkYGBgZWBjYGIAARDJBYQMDP/BfAYACZUBJAAAeJxd0E1Kw0AcBfCXfmIDRRBdicxKF9L0Y9kDtPsuAi7TdJKmTDNhMi3UE3gCT+ApPIB4LF/Df2NmSPKbNy8DCYBb/CDAdQQYNvfr6NBDcZcai3v0vbiPEI/iAfMX8QiviMQh7vDGE4LeDZMxjLhDv4u79Ie4R3+K+3jAl3jA/Fs8QoxfcYjn4MkUZpKfio3OTyZxspJHrF1d2FLNo5kka11ql3i9U9uLqs/5wvtMZc4e1cqWXhtjVeXsQac+2ntfLafTTPIotUd+QcFrghwnagPdyCCBa+39X8VsOtSURQmFOf/RrNVZs1M2vQSezx17W1x4r3FmZ8HUI+M6Y8fiSK2a865tw2mZVM3egUnKPMK+eavCElPOrNWP2OJJf3XUWN4AAHicY2BigABGBuyAlZGJkZmRhZGVkY2BI6UovyAlvzyPNy0/JyW1SDc5J784NYUbyssvSM1jTc5ITc5mYAAAYLAPMAAA") format("woff");
 }
@@ -1026,8 +1026,22 @@ const style = `@font-face {
 .lil-gui.root > .title {
   background: var(--title-background-color);
 }
-.lil-gui.root > .children {
+.lil-gui > .children {
   padding: calc(0.5 * var(--widget-gap)) 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.lil-gui > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui > .children::-webkit-scrollbar-corner {
+  height: 0;
+  display: none;
+}
+.lil-gui > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
 }
 .lil-gui .lil-gui {
   --background-color:inherit;
@@ -1060,20 +1074,6 @@ const style = `@font-face {
 }
 .lil-gui.autoPlace > .children {
   max-height: calc(var(--window-height) - var(--row-height));
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-corner {
-  height: 0;
-  display: none;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
 }
 .lil-gui.autoPlace.mobile {
   --row-height: 40px;
@@ -1094,8 +1094,8 @@ const style = `@font-face {
 }
 .lil-gui .title {
   height: var(--row-height);
-  padding: 1px var(--padding) 2px;
   font-weight: 600;
+  padding: 0 var(--padding);
 }
 .lil-gui .title:before {
   font-family: "lil-gui";
@@ -1113,19 +1113,13 @@ const style = `@font-face {
   margin-left: var(--folder-indent);
   border-left: 2px solid var(--widget-color);
 }
-.lil-gui .lil-gui:not(.collapses) > .title {
-  line-height: var(--row-height);
-  position: relative;
+.lil-gui:not(.collapses) > .children:empty {
+  height: calc(var(--widget-gap) * 0.5);
+  padding: 0;
 }
-.lil-gui .lil-gui:not(.collapses) > .title:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.2em;
-  height: 1px;
-  background: var(--widget-color);
+.lil-gui:not(.collapses) > .title {
+  line-height: var(--row-height);
+  border-bottom: 1px solid var(--widget-color);
 }
 .lil-gui.collapses > .children:empty:before {
   content: "Empty";
@@ -1446,7 +1440,7 @@ class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles$1 ) {
-				injectStyles( style );
+				injectStyles( config.stylesheet );
 				stylesInjected = true;
 			}
 
@@ -1704,6 +1698,8 @@ config.StringController = StringController;
 
 config.warn = true;
 config.rgbScale = 1;
+
+config.stylesheet = stylesheet;
 
 GUI.config = config;
 

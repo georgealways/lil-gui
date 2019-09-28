@@ -49,8 +49,22 @@
 .lil-gui.root > .title {
   background: var(--title-background-color);
 }
-.lil-gui.root > .children {
+.lil-gui > .children {
   padding: calc(0.5 * var(--widget-gap)) 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.lil-gui > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui > .children::-webkit-scrollbar-corner {
+  height: 0;
+  display: none;
+}
+.lil-gui > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
 }
 .lil-gui .lil-gui {
   --background-color:inherit;
@@ -83,20 +97,6 @@
 }
 .lil-gui.autoPlace > .children {
   max-height: calc(var(--window-height) - var(--row-height));
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-corner {
-  height: 0;
-  display: none;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
 }
 .lil-gui.autoPlace.mobile {
   --row-height: 40px;
@@ -117,8 +117,8 @@
 }
 .lil-gui .title {
   height: var(--row-height);
-  padding: 1px var(--padding) 2px;
   font-weight: 600;
+  padding: 0 var(--padding);
 }
 .lil-gui .title:before {
   font-family: "lil-gui";
@@ -136,19 +136,13 @@
   margin-left: var(--folder-indent);
   border-left: 2px solid var(--widget-color);
 }
-.lil-gui .lil-gui:not(.collapses) > .title {
-  line-height: var(--row-height);
-  position: relative;
+.lil-gui:not(.collapses) > .children:empty {
+  height: calc(var(--widget-gap) * 0.5);
+  padding: 0;
 }
-.lil-gui .lil-gui:not(.collapses) > .title:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.2em;
-  height: 1px;
-  background: var(--widget-color);
+.lil-gui:not(.collapses) > .title {
+  line-height: var(--row-height);
+  border-bottom: 1px solid var(--widget-color);
 }
 .lil-gui.collapses > .children:empty:before {
   content: "Empty";

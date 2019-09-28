@@ -8,7 +8,7 @@ import NumberController from './NumberController';
 import OptionController from './OptionController';
 import StringController from './StringController';
 
-import style from 'style';
+import stylesheet from 'style';
 
 import warn from './utils/warn';
 import config from './config';
@@ -132,7 +132,7 @@ export default class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles ) {
-				_injectStyles( style );
+				_injectStyles( config.stylesheet );
 				stylesInjected = true;
 			}
 
@@ -390,5 +390,7 @@ config.StringController = StringController;
 
 config.warn = true;
 config.rgbScale = 1;
+
+config.stylesheet = stylesheet;
 
 GUI.config = config;

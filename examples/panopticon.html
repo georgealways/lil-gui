@@ -141,8 +141,8 @@ make( { title: 'Folders' }, gui => {
 
 	const addFiller = g => {
 		g.add( { x: 0.5 }, 'x', 0, 1 ).name( 'Filler Slider' );
+		g.add( { x: true }, 'x' ).name( 'Filler Boolean' );
 		g.add( { x: function(){} }, 'x' ).name( 'Filler Button' );
-		g.add( { x: function(){} }, 'x' ).name( 'A Very Long Filler Button' );
 	};
 
 	addFiller( folder1 );
@@ -178,6 +178,39 @@ make( { title: 'Weird' }, gui => {
 	gui.add( { x: 0 }, 'x', 0, 1 ).domElement.style.setProperty( '--slider-input-width', '50%' );
 
 } );
+
+make( { title: 'CSS Vars', width: 300 }, gui => {
+
+	gui.domElement.style.setProperty( '--name-width', '50%' );
+
+	const stylesheet = {};
+
+	GUI.config.stylesheet.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
+		if ( !( property in stylesheet ) ) {
+
+			stylesheet[ property ] = value;
+
+			if ( /color$/.test( property ) ) {
+				gui.addColor( stylesheet, property );
+			} else if ( /px$/.test( value ) ) {
+				const proxy = {};
+				const initial = parseFloat( value.replace( 'px', '' ) );
+				proxy[ property ] = initial;
+				gui.add( proxy, property ).min( 0 ).step( 1 ).onChange( v => stylesheet[ property ] = v + 'px' );
+			} else if ( /%$/.test( value ) ) {
+				const proxy = {};
+				const initial = parseFloat( value.replace( '%', '' ) );
+				proxy[ property ] = initial;
+				gui.add( proxy, property ).min( 0 ).onChange( v => stylesheet[ property ] = v + '%' );
+			} else {
+				gui.add( stylesheet, property );
+			}
+
+		}
+	} );
+
+} );
+
 </script>
 </body>
 </html>

@@ -48,18 +48,33 @@
 		> .title {
 			background: var(--title-background-color);
 		}
-		> .children { 
-			padding: calc(0.5 * var(--widget-gap)) 0;
-		}
 	}
 
-	// Custom properties
-	// -------------------------------------------------------------------------
+	> .children {
+		padding: calc(0.5 * var(--widget-gap)) 0;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		&::-webkit-scrollbar {
+			width: var(--scrollbar-width);
+			background: var(--background-color);
+		}
+		&::-webkit-scrollbar-corner {
+			height: 0;
+			display: none;
+		}
+		&::-webkit-scrollbar-thumb {
+			border-radius: var(--scrollbar-width);
+			background: var(--highlight-color);
+		}
+	}
 
 	--width: 250px;
 	--scrollbar-width: 5px;
 	--mobile-max-height: 200px;
 	--widget-gap: calc(var(--row-height) - var(--widget-height));
+
+	// "Theme" properties
+	// -------------------------------------------------------------------------
 
 	@include vars(
 		(
@@ -112,21 +127,6 @@
 
 		& > .children {
 			max-height: calc(var(--window-height) - var(--row-height));
-			overflow: auto;
-			-webkit-overflow-scrolling: touch;
-
-			&::-webkit-scrollbar {
-				width: var(--scrollbar-width);
-				background: var(--background-color);
-			}
-			&::-webkit-scrollbar-corner {
-				height: 0;
-				display: none;
-			}
-			&::-webkit-scrollbar-thumb {
-				border-radius: var(--scrollbar-width);
-				background: var(--highlight-color);
-			}
 		}
 
 		&.mobile {
@@ -155,8 +155,8 @@
 
 	.title {
 		height: var(--row-height);
-		padding: 1px var(--padding) 2px;
 		font-weight: 600;
+		padding: 0 var(--padding);
 		&:before {
 			font-family: 'lil-gui';
 		}
@@ -182,26 +182,14 @@
 		border-left: 2px solid var(--widget-color);
 	}
 
-	& &:not(.collapses) > .title {
-		// wish i didn't need this, but it's a div, not a button
-		// and for some reason the buttons get vertical alignment for free
-		line-height: var(--row-height);
-
-		// would have liked to do ...
-		// border-bottom: 1px solid var(--widget-color);
-		// ... but it was too close to the bottom
-
-		position: relative;
-
-		&:after {
-			content: ' ';
-			display: block;
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: 0.2em;
-			height: 1px;
-			background: var(--widget-color);
+	&:not(.collapses) {
+		> .children:empty {
+			height: calc(var(--widget-gap) * 0.5);
+			padding: 0;
+		}
+		> .title {
+			line-height: var(--row-height);
+			border-bottom: 1px solid var(--widget-color);
 		}
 	}
 
@@ -398,8 +386,8 @@
 
 	.controller.function {
 		background: none;
-		@include hover { 
-			.name { 
+		@include hover {
+			.name {
 				background: var(--highlight-color);
 			}
 		}
@@ -407,7 +395,7 @@
 			background: var(--text-color);
 			color: var(--background-color);
 		}
-		.name { 
+		.name {
 			display: block;
 			padding: 0;
 			margin: 0;
@@ -418,7 +406,7 @@
 			height: var(--widget-height);
 			line-height: var(--widget-height);
 		}
-		.widget { 
+		.widget {
 			display: none;
 		}
 	}
