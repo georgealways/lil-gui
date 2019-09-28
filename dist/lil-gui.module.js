@@ -4,9 +4,13 @@
  * Released under the MIT License.
  */
 
-/**
- * @module Controller
- */
+function warn() {
+	if ( warn.disabled ) return;
+	// eslint-disable-next-line no-console
+	return console.warn.apply( console, arguments );
+}
+
+/** @module Controller */
 
 /**
  * todoc
@@ -119,8 +123,7 @@ class Controller {
 	}
 
 	onFinishChange( callback ) {
-		// eslint-disable-next-line no-console
-		console.warn( 'onFinishChange() is synonymous with onChange()' );
+		warn( 'onFinishChange() is synonymous with onChange()' );
 		return this.onChange( callback );
 	}
 
@@ -226,6 +229,7 @@ class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
+		warn( 'min() only works on number controllers' );
 		return this;
 	}
 
@@ -236,6 +240,7 @@ class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
+		warn( 'max() only works on number controllers' );
 		return this;
 	}
 
@@ -246,6 +251,7 @@ class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
+		warn( 'step() only works on number controllers' );
 		return this;
 	}
 
@@ -1313,9 +1319,7 @@ function injectStyles( cssContent ) {
 	}
 }
 
-/**
- * @module GUI
- */
+/** @module GUI */
 let stylesInjected = false;
 
 class GUI {
@@ -1522,8 +1526,9 @@ class GUI {
 	}
 
 	_fail( property, initialValue, object ) {
-		// eslint-disable-next-line no-console
-		console.warn( `Failed to add controller for "${property}"`, initialValue, object );
+
+		warn( `Failed to add controller for "${property}"`, initialValue, object );
+
 	}
 
 	/**
@@ -1680,6 +1685,8 @@ GUI.FunctionController = FunctionController;
 GUI.NumberController = NumberController;
 GUI.OptionController = OptionController;
 GUI.StringController = StringController;
+
+GUI.warn = warn;
 
 export default GUI;
 export { BooleanController, ColorController, Controller, FunctionController, GUI, NumberController, OptionController, StringController };

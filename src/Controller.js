@@ -1,6 +1,6 @@
-/**
- * @module Controller
- */
+/** @module Controller */
+
+import warn from './utils/warn';
 
 /**
  * todoc
@@ -113,8 +113,7 @@ export default class Controller {
 	}
 
 	onFinishChange( callback ) {
-		// eslint-disable-next-line no-console
-		console.warn( 'onFinishChange() is synonymous with onChange()' );
+		warn( 'onFinishChange() is synonymous with onChange()' );
 		return this.onChange( callback );
 	}
 
@@ -220,6 +219,7 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
+		warn( 'min() only works on number controllers' );
 		return this;
 	}
 
@@ -230,6 +230,7 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
+		warn( 'max() only works on number controllers' );
 		return this;
 	}
 
@@ -240,6 +241,7 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
+		warn( 'step() only works on number controllers' );
 		return this;
 	}
 

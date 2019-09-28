@@ -4,7 +4,7 @@ const pages = {};
 
 pages.Basic = gui => {
 
-	gui.add( { number: 0.5 }, 'number', 0, 1 );
+	gui.add( { number: 0.5 }, 'wef', 0, 1 );
 	gui.addColor( { color: 0x6C44BE }, 'color' );
 	gui.add( { string: 'message' }, 'string' );
 	gui.add( { boolean: true }, 'boolean' );
@@ -84,6 +84,7 @@ pages[ 'Kitchen Sink' ] = gui => {
 	gui.addFolder( 'RGB Scale', false );
 
 	gui.addColor( { x: [ 0, 170, 255 ] }, 'x', 255 );
+	gui.addColor( { x: { r: 0, g: 170, b: 255 } }, 'x', 255 );
 	gui.addColor( { x: { r: 0, g: 170, b: 255 } }, 'x', 255 );
 
 	gui.addFolder( 'Options', false );

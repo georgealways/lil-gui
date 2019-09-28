@@ -12,6 +12,8 @@ import GUI,
 	OptionController
 } from '..';
 
+GUI.warn.disabled = true;
+
 test( unit => {
 
 	unit( 'api', () => {

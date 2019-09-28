@@ -1,6 +1,4 @@
-/**
- * @module GUI
- */
+/** @module GUI */
 
 import Controller from './Controller';
 import BooleanController from './BooleanController';
@@ -11,6 +9,8 @@ import OptionController from './OptionController';
 import StringController from './StringController';
 
 import style from 'style';
+
+import warn from './utils/warn';
 
 import _injectStyles from './utils/injectStyles';
 let stylesInjected = false;
@@ -219,8 +219,9 @@ export default class GUI {
 	}
 
 	_fail( property, initialValue, object ) {
-		// eslint-disable-next-line no-console
-		console.warn( `Failed to add controller for "${property}"`, initialValue, object );
+
+		warn( `Failed to add controller for "${property}"`, initialValue, object );
+
 	}
 
 	/**
@@ -377,3 +378,5 @@ GUI.FunctionController = FunctionController;
 GUI.NumberController = NumberController;
 GUI.OptionController = OptionController;
 GUI.StringController = StringController;
+
+GUI.warn = warn;
