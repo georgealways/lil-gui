@@ -1,6 +1,6 @@
 todo
 
-[ ] move kitchen sink from homepage to panopticon.
+[x] move kitchen sink from homepage to panopticon.
 	(that should be a simple demo) 
 
 [x] supress warning in test
