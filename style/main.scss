@@ -398,8 +398,14 @@
 
 	.controller.function {
 		background: none;
+		@include hover { 
+			.name { 
+				background: var(--highlight-color);
+			}
+		}
 		&:active .name {
-			background: var(--highlight-color);
+			background: var(--text-color);
+			color: var(--background-color);
 		}
 		.name { 
 			display: block;

@@ -10,6 +10,8 @@ const TEMPLATE = 'scripts/site.html';
 const README = 'README.md';
 const API = 'API.md';
 
+const JSDOC_DEBUG = !!process.argv.slice( 2 ).find( v => v === '--jsdoc-debug' );
+
 const md = markdownit( {
 	html: true,
 	highlight: function( str, lang ) {
@@ -20,10 +22,10 @@ const md = markdownit( {
 	}
 } );
 
-const jsdocDebug = `<script type="text/javascript">
+const jsdocDebug = JSDOC_DEBUG ? `<script type="text/javascript">
 window.jsdocDebug = ${JSON.stringify( jsdocData )};
 console.log( "jsdocDebug", jsdocDebug );
-</script>`;
+</script>` : '';
 
 const html = read( TEMPLATE )
 	.replace( '!=readme', md.render( read( README ) ) )

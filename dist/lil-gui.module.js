@@ -1290,8 +1290,14 @@ const style = `@font-face {
 .lil-gui .controller.function {
   background: none;
 }
+@media (hover: hover) {
+  .lil-gui .controller.function:hover .name {
+    background: var(--highlight-color);
+  }
+}
 .lil-gui .controller.function:active .name {
-  background: var(--highlight-color);
+  background: var(--text-color);
+  color: var(--background-color);
 }
 .lil-gui .controller.function .name {
   display: block;
@@ -1347,6 +1353,9 @@ class GUI {
 	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
 	 *
 	 * @property {GUI} [parent] todoc
+	 *
+	 * @property {HTMLElement} [container]
+	 *
 	 */
 
 	/**
@@ -1356,7 +1365,8 @@ class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		injectStyles: injectStyles$1 = autoPlace,
+		container,
+		injectStyles: injectStyles$1 = true,
 		title = 'Controls',
 		width,
 		queryKey,
@@ -1438,7 +1448,11 @@ class GUI {
 				stylesInjected = true;
 			}
 
-			if ( autoPlace ) {
+			if ( container ) {
+
+				container.appendChild( this.domElement );
+
+			} else if ( autoPlace ) {
 
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );

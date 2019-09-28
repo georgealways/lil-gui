@@ -315,8 +315,14 @@
 .lil-gui .controller.function {
   background: none;
 }
+@media (hover: hover) {
+  .lil-gui .controller.function:hover .name {
+    background: var(--highlight-color);
+  }
+}
 .lil-gui .controller.function:active .name {
-  background: var(--highlight-color);
+  background: var(--text-color);
+  color: var(--background-color);
 }
 .lil-gui .controller.function .name {
   display: block;

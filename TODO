@@ -1,5 +1,8 @@
 todo
 
+[ ] move kitchen sink from homepage to panopticon.
+	(that should be a simple demo) 
+
 [x] supress warning in test
 	[ ] done but GUI.warn.disabled is dumb asf, speaks to something like
 		GUI.settings.warn = false;
@@ -22,19 +25,19 @@ title drag
 	tried both of these but was gross
 	will try again
 
-
 docs
+	[ ] -> this type chainable comeback
+	[ ] transform ugly longnames
 	hardstuff
 		[ ] GUIOptions
 		[ ] gui.add
 		[ ] step
 		[ ] gui.addFolder
-	[ ] transform ugly longnames
 
 tests
 
 [x] define blank methods for controller (min,max,step,options)
-	that's done ... test it?
+	[x] that's done ... test it?
 
 dat-gui diffs
 

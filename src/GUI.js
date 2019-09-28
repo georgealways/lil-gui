@@ -40,6 +40,9 @@ export default class GUI {
 	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
 	 *
 	 * @property {GUI} [parent] todoc
+	 *
+	 * @property {HTMLElement} [container]
+	 *
 	 */
 
 	/**
@@ -49,7 +52,8 @@ export default class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		injectStyles = autoPlace,
+		container,
+		injectStyles = true,
 		title = 'Controls',
 		width,
 		queryKey,
@@ -131,7 +135,11 @@ export default class GUI {
 				stylesInjected = true;
 			}
 
-			if ( autoPlace ) {
+			if ( container ) {
+
+				container.appendChild( this.domElement );
+
+			} else if ( autoPlace ) {
 
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
