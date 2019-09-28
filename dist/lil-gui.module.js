@@ -1,5 +1,5 @@
 /**
- * lil-gui 0.8.7
+ * lil-gui 0.8.8
  * (c) 2019 George Michael Brower
  * Released under the MIT License.
  */
