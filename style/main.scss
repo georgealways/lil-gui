@@ -56,6 +56,7 @@
 		-webkit-overflow-scrolling: touch;
 		&::-webkit-scrollbar {
 			width: var(--scrollbar-width);
+			height: var(--scrollbar-width);
 			background: var(--background-color);
 		}
 		&::-webkit-scrollbar-corner {
@@ -91,7 +92,6 @@
 				BlinkMacSystemFont,
 				'Segoe UI',
 				'Roboto',
-				'Helvetica Neue',
 				Arial,
 				sans-serif,
 				'Apple Color Emoji',
@@ -100,7 +100,11 @@
 			),
 			--font-family-mono: (
 				Menlo,
-				monospace
+				Monaco,
+				Consolas,
+				'Droid Sans Mono',
+				monospace,
+				'Droid Sans Fallback'
 			),
 			--row-height: 24px,
 			--widget-height: 20px,
@@ -112,7 +116,8 @@
 			--color-input-min-width: 45px,
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
-			--widget-border-radius: 2px
+			--widget-border-radius: 2px,
+			--checkbox-size: calc(0.75 * var(--widget-height))
 		)
 	);
 
@@ -162,10 +167,6 @@
 		}
 	}
 
-	button.title { 
-		padding: 1px var(--padding) 2px; //wtf
-	}
-
 	&.collapses > .title {
 		&:before {
 			content: '▾';
@@ -193,6 +194,12 @@
 		}
 		> .title {
 			line-height: var(--row-height);
+		}
+	}
+
+	&.root:not(.closed),
+	&:not(.collapses) {
+		> .title {
 			border-bottom: 1px solid var(--widget-color);
 		}
 	}
@@ -232,16 +239,15 @@
 	input[type='checkbox'] {
 		appearance: none;
 		-webkit-appearance: none;
-		--size: calc(0.75 * var(--widget-height));
-		height: var(--size);
-		width: var(--size);
+		height: var(--checkbox-size);
+		width: var(--checkbox-size);
 		border-radius: var(--widget-border-radius);
 		text-align: center;
 		&:checked:before {
 			font-family: 'lil-gui';
 			content: '✓';
-			font-size: var(--size);
-			line-height: var(--size);
+			font-size: var(--checkbox-size);
+			line-height: var(--checkbox-size);
 		}
 	}
 
@@ -254,10 +260,13 @@
 		font-size: var(--font-size);
 		color: var(--text-color);
 		text-align: left;
-		text-transform: none;
 		width: 100%;
+		// some websites play fast and loose with the button selector :)
+		text-transform: none;
 		&.title {
 			background: var(--background-color);
+			// button titles are vertically misaligned without it. wtf.
+			padding: 1px var(--padding) 2px;
 		}
 	}
 
@@ -288,13 +297,14 @@
 			align-items: center;
 			min-width: var(--name-width);
 			flex-shrink: 0;
+			// white-space: pre;
 			padding-right: var(--padding);
 			height: 100%;
 			overflow: hidden;
 		}
 
 		.widget {
-			position: relative; // some pos: absolute inside
+			position: relative; // many w/ pos absolute inside
 			display: flex;
 			align-items: center;
 			width: 100%;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
 	<title></title>
 <style>
 	* { 
@@ -58,7 +58,7 @@ const panopticon = document.getElementById( 'panopticon' );
 
 function make( options, callback ) {
 	options.container = panopticon;
-	options.collapses = false;
+	// options.collapses = false;
 	const gui = new GUI( options );
 	callback( gui );
 }
@@ -194,25 +194,47 @@ make( { title: 'CSS Vars' }, gui => {
 
 	gui.domElement.style.setProperty( '--name-width', '50%' );
 
-	const stylesheet = {};
+	const styleTag = document.createElement( 'style' );
+	document.head.appendChild( styleTag );
+
+	function update() {
+		let style = '.lil-gui {\n';
+		for ( let prop in stylesheet ) {
+			style += `\t${prop}: ${stylesheet[ prop ]};\n`;
+		}
+		style += '}';
+		styleTag.innerHTML = style;
+	}
+
+	const stylesheet = new Proxy( {}, {
+		set( target, property, value ) {
+			target[ property ] = value;
+			update();
+			return true;
+		},
+		get( target, property ){
+			return target[ property ];
+		}
+	} );
 
 	GUI.config.stylesheet.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
+
 		if ( !( property in stylesheet ) ) {
 
 			stylesheet[ property ] = value;
 
 			if ( /color$/.test( property ) ) {
 				gui.addColor( stylesheet, property );
-			} else if ( /px$/.test( value ) ) {
-				const proxy = {};
+			} else if ( /^\d+px$/.test( value ) ) {
+				const anon = {};
 				const initial = parseFloat( value.replace( 'px', '' ) );
-				proxy[ property ] = initial;
-				gui.add( proxy, property ).min( 0 ).step( 1 ).onChange( v => stylesheet[ property ] = v + 'px' );
+				anon[ property ] = initial;
+				gui.add( anon, property ).min( 0 ).step( 1 ).onChange( v => stylesheet[ property ] = v + 'px' );
 			} else if ( /%$/.test( value ) ) {
-				const proxy = {};
+				const anon = {};
 				const initial = parseFloat( value.replace( '%', '' ) );
-				proxy[ property ] = initial;
-				gui.add( proxy, property ).min( 0 ).onChange( v => stylesheet[ property ] = v + '%' );
+				anon[ property ] = initial;
+				gui.add( anon, property ).min( 0 ).onChange( v => stylesheet[ property ] = v + '%' );
 			} else {
 				gui.add( stylesheet, property );
 			}

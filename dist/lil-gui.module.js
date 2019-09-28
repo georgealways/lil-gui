@@ -1002,8 +1002,8 @@ const stylesheet = `@font-face {
   --number-color: #00adff;
   --string-color: #1ed36f;
   --font-size: 11px;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family-mono: Menlo, monospace;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
   --row-height: 24px;
   --widget-height: 20px;
   --padding: 4px;
@@ -1015,6 +1015,7 @@ const stylesheet = `@font-face {
   --folder-indent: 7px;
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
+  --checkbox-size:calc(0.75 * var(--widget-height));
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
@@ -1033,6 +1034,7 @@ const stylesheet = `@font-face {
 }
 .lil-gui > .children::-webkit-scrollbar {
   width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
   background: var(--background-color);
 }
 .lil-gui > .children::-webkit-scrollbar-corner {
@@ -1065,6 +1067,7 @@ const stylesheet = `@font-face {
   --folder-indent:inherit;
   --widget-padding:inherit;
   --widget-border-radius:inherit;
+  --checkbox-size:inherit;
 }
 .lil-gui.autoPlace {
   position: fixed;
@@ -1100,9 +1103,6 @@ const stylesheet = `@font-face {
 .lil-gui .title:before {
   font-family: "lil-gui";
 }
-.lil-gui button.title {
-  padding: 1px var(--padding) 2px;
-}
 .lil-gui.collapses > .title:before {
   content: "▾";
 }
@@ -1122,6 +1122,8 @@ const stylesheet = `@font-face {
 }
 .lil-gui:not(.collapses) > .title {
   line-height: var(--row-height);
+}
+.lil-gui.root:not(.closed) > .title, .lil-gui:not(.collapses) > .title {
   border-bottom: 1px solid var(--widget-color);
 }
 .lil-gui.collapses > .children:empty:before {
@@ -1153,17 +1155,16 @@ const stylesheet = `@font-face {
 .lil-gui input[type=checkbox] {
   appearance: none;
   -webkit-appearance: none;
-  --size: calc(0.75 * var(--widget-height));
-  height: var(--size);
-  width: var(--size);
+  height: var(--checkbox-size);
+  width: var(--checkbox-size);
   border-radius: var(--widget-border-radius);
   text-align: center;
 }
 .lil-gui input[type=checkbox]:checked:before {
   font-family: "lil-gui";
   content: "✓";
-  font-size: var(--size);
-  line-height: var(--size);
+  font-size: var(--checkbox-size);
+  line-height: var(--checkbox-size);
 }
 .lil-gui button {
   -webkit-tap-highlight-color: transparent;
@@ -1174,11 +1175,12 @@ const stylesheet = `@font-face {
   font-size: var(--font-size);
   color: var(--text-color);
   text-align: left;
-  text-transform: none;
   width: 100%;
+  text-transform: none;
 }
 .lil-gui button.title {
   background: var(--background-color);
+  padding: 1px var(--padding) 2px;
 }
 .lil-gui .display {
   background: var(--widget-color);
