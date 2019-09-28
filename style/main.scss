@@ -162,6 +162,10 @@
 		}
 	}
 
+	button.title { 
+		padding: 1px var(--padding) 2px; //wtf
+	}
+
 	&.collapses > .title {
 		&:before {
 			content: '▾';

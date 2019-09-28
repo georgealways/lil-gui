@@ -1100,6 +1100,9 @@ const stylesheet = `@font-face {
 .lil-gui .title:before {
   font-family: "lil-gui";
 }
+.lil-gui button.title {
+  padding: 1px var(--padding) 2px;
+}
 .lil-gui.collapses > .title:before {
   content: "▾";
 }
