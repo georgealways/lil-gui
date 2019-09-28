@@ -1,7 +1,9 @@
 {
   "name": "lil-gui",
   "version": "0.8.8",
-  "author": "George Michael Brower",
+  "author": {
+    "name": "George Michael Brower"
+  },
   "description": "Makes a floating panel for controllers on the web.",
   "module": "dist/lil-gui.module.js",
   "main": "dist/lil-gui.module.js",

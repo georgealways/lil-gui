@@ -5,7 +5,7 @@ const input = 'src/index.js';
 
 const banner = `/**
  * ${pkg.name} ${pkg.version}
- * (c) ${new Date().getFullYear()} ${pkg.author}
+ * (c) ${new Date().getFullYear()} ${pkg.author.name}
  * Released under the MIT License.
  */\n`;
 
