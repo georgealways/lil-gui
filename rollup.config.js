@@ -27,7 +27,7 @@ export default [
 			style( true ),
 			terser( {
 				output: {
-					comments: function( node, comment ) {
+					comments( node, comment ) {
 						return /lil-gui/i.test( comment.value );
 					}
 				}
