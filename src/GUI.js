@@ -10,7 +10,7 @@ import NumberController from './NumberController';
 import OptionController from './OptionController';
 import StringController from './StringController';
 
-import styles from '../dist/lil-gui.css';
+import style from 'style';
 
 import _injectStyles from './utils/injectStyles';
 let stylesInjected = false;
@@ -127,7 +127,7 @@ export default class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles ) {
-				_injectStyles( styles );
+				_injectStyles( style );
 				stylesInjected = true;
 			}
 

@@ -23,6 +23,7 @@ watch( {
 		flag: '--soft-fail'
 	},
 	sass: '--watch',
+	'sass:min': '--watch',
 	rollup: '-w',
 	server: ''
 } );
@@ -36,6 +37,7 @@ function watch( config ) {
 		'white',
 		'blue',
 		'yellow',
+		'magenta',
 		'magenta',
 		'cyan',
 		'gray'

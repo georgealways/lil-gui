@@ -5,9 +5,14 @@
   "description": "Makes a floating panel for controllers on the web.",
   "module": "dist/lil-gui.module.js",
   "main": "dist/lil-gui.module.js",
+  "config": {
+    "style": "dist/lil-gui.css",
+    "styleMin": "dist/lil-gui.min.css"
+  },
   "scripts": {
-    "build": "npm run icons && npm run sass && npm run rollup",
-    "sass": "sass style/main.scss dist/lil-gui.css --no-charset --no-source-map",
+    "build": "npm run icons && npm run sass && npm run sass:min && npm run rollup",
+    "sass": "sass style/main.scss $npm_package_config_style --no-source-map --no-charset",
+    "sass:min": "sass style/main.scss $npm_package_config_styleMin --no-charset --no-source-map --style=compressed",
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
@@ -37,6 +42,7 @@
     "onchange": "^6.0.0",
     "rollup": "^1.17.0",
     "rollup-plugin-string": "^3.0.0",
+    "rollup-plugin-terser": "^5.1.2",
     "rollup-pluginutils": "^2.8.2",
     "sass": "^1.22.10",
     "webfont": "^9.0.0"

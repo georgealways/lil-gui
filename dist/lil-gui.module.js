@@ -967,7 +967,7 @@ class StringController extends Controller {
 
 }
 
-var styles = `@font-face {
+const style = `@font-face {
   font-family: "lil-gui";
   src: url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ4AAsAAAAABqAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAF8AAACEIZ5WI2hlYWQAAAJUAAAAJwAAADZfcj23aGhlYQAAAnwAAAAYAAAAJAC5AGpobXR4AAAClAAAAA4AAAAUAZAAAGxvY2EAAAKkAAAADAAAAAwARABkbWF4cAAAArAAAAAeAAAAIAERABJuYW1lAAAC0AAAASIAAAIK9SUU/XBvc3QAAAP0AAAAQgAAAFiCDrX0eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nGNgYgABH4YwBiYGVgYGe0ZxUXZ1SRCwkZQUkZQEyTKC1dgyuIJUmLOrm6ub2yqyS0mxq4BJqLw7gyVYXt1c3FxcDSwjiCwfwuCLkNcU5+RT4pQU4+RT5gQAe+sKMgB4nGNgZGBgAOKTAv9nx/PbfGXgZkhhwAZCGMKAJAcDE4gDAMWSBTgAeJxjYGRgYEhhYICTIQyMDKiAFQAceQEkeJxjYACCFFQMAA4kAZEAAAAAAAAAEgAiADIAQnicY2BkYGBgZWBjYGIAARDJBYQMDP/BfAYACZUBJAAAeJxd0E1Kw0AcBfCXfmIDRRBdicxKF9L0Y9kDtPsuAi7TdJKmTDNhMi3UE3gCT+ApPIB4LF/Df2NmSPKbNy8DCYBb/CDAdQQYNvfr6NBDcZcai3v0vbiPEI/iAfMX8QiviMQh7vDGE4LeDZMxjLhDv4u79Ie4R3+K+3jAl3jA/Fs8QoxfcYjn4MkUZpKfio3OTyZxspJHrF1d2FLNo5kka11ql3i9U9uLqs/5wvtMZc4e1cqWXhtjVeXsQac+2ntfLafTTPIotUd+QcFrghwnagPdyCCBa+39X8VsOtSURQmFOf/RrNVZs1M2vQSezx17W1x4r3FmZ8HUI+M6Y8fiSK2a865tw2mZVM3egUnKPMK+eavCElPOrNWP2OJJf3XUWN4AAHicY2BigABGBuyAlZGJkZmRhZGVkY2BI6UovyAlvzyPNy0/JyW1SDc5J784NYUbyssvSM1jTc5ITc5mYAAAYLAPMAAA") format("woff");
 }
@@ -1300,8 +1300,7 @@ var styles = `@font-face {
 }
 .lil-gui .controller.function .widget {
   display: none;
-}
-`;
+}`;
 
 function injectStyles( cssContent ) {
 	const injected = document.createElement( 'style' );
@@ -1431,7 +1430,7 @@ class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles$1 ) {
-				injectStyles( styles );
+				injectStyles( style );
 				stylesInjected = true;
 			}
 
