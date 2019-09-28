@@ -1,6 +1,11 @@
 todo
 
-[ ] supress warning in test
+[x] supress warning in test
+	[ ] done but GUI.warn.disabled is dumb asf, speaks to something like
+		GUI.settings.warn = false;
+		GUI.settings.rgbScale = 255
+		GUI.settings.mobileBreakpoint
+		GUI.settings.mobileMaxHeight
 
 [ ] hover styles
 	[ ] button
@@ -14,6 +19,8 @@ title drag
 
 [ ] getControllers method?
 [ ] getFolders method?
+	tried both of these but was gross
+	will try again
 
 [x] button style
 [x] top bottom padding

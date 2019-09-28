@@ -22,6 +22,7 @@
     "server": "live-server --watch=index.html,dist,examples --no-browser",
     "preversion": "npm test",
     "version": "npm run build && git add -A dist style/icons.scss",
+    "postversion": "git push --tags",
     "dev": "npm run build && node -r esm scripts/watch.js"
   },
   "files": [
