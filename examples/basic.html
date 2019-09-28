@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
+	<title></title>
+</head>
+<body>
+<script type="module">
+import GUI from '../dist/lil-gui.module.js';
+
+const myObject = {
+	options: document.head,
+	boolean: true,
+	string: 'lil-gui',
+	number: 0.5,
+	color: '#00ffaa',
+	function: KitchenSink
+};
+
+const gui = new GUI();
+
+gui.add( myObject, 'options', { Father: document.head, Son: document.body, 'Holy Ghost': window } );
+gui.add( myObject, 'boolean' );
+gui.add( myObject, 'string' );
+gui.add( myObject, 'number', 0, 1 );
+gui.addColor( myObject, 'color' );
+gui.add( myObject, 'function' );
+
+function KitchenSink() {
+
+	myObject.function = function(){};
+
+	const guiColor = gui.addFolder( 'Colors' ).close();
+
+	guiColor.addFolder( 'Strings', false );
+
+	function colorString( str ) {
+		guiColor.addColor( { x: str }, 'x' ).name( `"${str}"` );
+	}
+
+	colorString( '#00aAfF' );
+	colorString( '00aAfF' );
+	colorString( '0x00aAfF' );
+	colorString( '#0af' );
+	colorString( '0af' );
+	colorString( 'rgb(0, 170, 255)' );
+
+	guiColor.addFolder( 'Other Types', false );
+
+	guiColor.addColor( { x: 0x00aaff }, 'x' ).name( 'Hex Integer' );
+	guiColor.addColor( { x: [ 0, 2 / 3, 1 ] }, 'x' ).name( '[r,g,b] 0-1' );
+	guiColor.addColor( { x: { r: 0, g: 2 / 3, b: 1 } }, 'x' ).name( '{r,g,b} 0-1' );
+
+	guiColor.addFolder( 'Changing RGB Scale', false );
+
+	guiColor.addColor( { x: [ 0, 170, 255 ] }, 'x', 255 ).name( '[r,g,b] 0-255' );
+	guiColor.addColor( { x: { r: 0, g: 170, b: 255 } }, 'x', 255 ).name( '{r,g,b} 0-255' );
+
+	const guiOptions = gui.addFolder( 'Options' ).close();
+
+	guiOptions.add( { x: 0 }, 'x', [ 0, 1, 2 ] ).name( 'Array' );
+	guiOptions.add( { x: 0 }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Object' );
+	guiOptions.add( { x: {} }, 'x', [ 0, 1, 2 ] ).name( 'Invalid initial' );
+	guiOptions.add( { x: {} }, 'x', { Label1: 0, Label2: 1, Label3: 2 } ).name( 'Invalid initial' );
+
+	const longString = 'Anoptionorvaluewithaproblematicallylongname';
+	guiOptions.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long value names' );
+
+}
+
+</script>
+</body>
+</html>
