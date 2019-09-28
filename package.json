@@ -41,9 +41,7 @@
     "markdown-it": "^9.1.0",
     "onchange": "^6.0.0",
     "rollup": "^1.17.0",
-    "rollup-plugin-string": "^3.0.0",
     "rollup-plugin-terser": "^5.1.2",
-    "rollup-pluginutils": "^2.8.2",
     "sass": "^1.22.10",
     "webfont": "^9.0.0"
   },
