@@ -1,7 +1,7 @@
 import concurrently from 'concurrently';
 import pkg from '../package.json';
 
-watch( {
+dev( {
 	'api': {
 		onchange: [
 			'src/**/*.js',
@@ -39,7 +39,7 @@ watch( {
 	'server': 	{ color: 'gray' }
 } );
 
-function watch( config ) {
+function dev( config ) {
 
 	const commands = [];
 
