@@ -22,13 +22,6 @@ title drag
 	tried both of these but was gross
 	will try again
 
-[x] button style
-[x] top bottom padding
-[x] mono font for color cotroller
-
-[x] color string field
-[x] mobileBreakpoint parameter
-[x] queryKey parameter
 
 docs
 	hardstuff
@@ -37,10 +30,6 @@ docs
 		[ ] step
 		[ ] gui.addFolder
 	[ ] transform ugly longnames
-
-examples
-
-[ ] progressively cooler threejs example
 
 tests
 
@@ -139,3 +128,12 @@ archive
 [x] listen could happen
 [x] buttons icon redo
 [x] enabled/disabled signature
+
+
+[x] button style
+[x] top bottom padding
+[x] mono font for color cotroller
+
+[x] color string field
+[x] mobileBreakpoint parameter
+[x] queryKey parameter
