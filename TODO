@@ -4,11 +4,12 @@ todo
 	(that should be a simple demo) 
 
 [x] supress warning in test
-	[ ] done but GUI.warn.disabled is dumb asf, speaks to something like
-		GUI.settings.warn = false;
-		GUI.settings.rgbScale = 255
-		GUI.settings.mobileBreakpoint
-		GUI.settings.mobileMaxHeight
+	[x] done but GUI.warn.disabled is dumb asf, speaks to something like
+		GUI.config.warn = false;
+		GUI.config.rgbScale = 255
+		GUI.config.mobileBreakpoint
+		GUI.config.mobileMaxHeight
+	[x] that's fixed but how to jsdoc ...
 
 [ ] hover styles
 	[ ] button

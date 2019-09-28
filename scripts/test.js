@@ -12,7 +12,7 @@ import GUI,
 	OptionController
 } from '..';
 
-GUI.warn.disabled = true;
+GUI.config.warn = false;
 
 test( unit => {
 

@@ -201,6 +201,28 @@ table > tbody > tr + tr > td {
 </head>
 <body>
 
+<script type="module">
+import GUI from '../dist/lil-gui.module.min.js';
+
+const myObject = {
+	options: 10,
+	boolean: true,
+	string: 'lil-gui',
+	number: 0.5,
+	color: '#00ffaa',
+	function() { alert( 'hi' ); }
+};
+
+const gui = new GUI();
+
+gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
+gui.add( myObject, 'boolean' );
+gui.add( myObject, 'string' );
+gui.add( myObject, 'number', 0, 1 );
+gui.addColor( myObject, 'color' );
+gui.add( myObject, 'function' );
+</script>
+
 <div id="container">
 
 <div id="readme">
@@ -343,7 +365,7 @@ todoc<br>
 Type: <strong>GUI</strong> - Optional</p>
 <hr>
 <p><strong>container</strong><br>
-<br>
+Adds the GUI to this element, overrides autoPlace.<br>
 Type: <strong>HTMLElement</strong> - Optional</p>
 <hr>
 <h2><a name="GUI#add"></a> gui.<strong>add</strong>( object, property, [$1], [max], [step] )</h2>
@@ -547,28 +569,6 @@ be bound to the controller.</p>
 </div>
 
 </div>
-
-<script type="module">
-import GUI from '../dist/lil-gui.module.min.js';
-
-const myObject = {
-	options: 10,
-	boolean: true,
-	string: 'lil-gui',
-	number: 0.5,
-	color: '#00ffaa',
-	function() { alert( 'hi' ); }
-};
-
-const gui = new GUI();
-
-gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
-gui.add( myObject, 'boolean' );
-gui.add( myObject, 'string' );
-gui.add( myObject, 'number', 0, 1 );
-gui.addColor( myObject, 'color' );
-gui.add( myObject, 'function' );
-</script>
 
 
 

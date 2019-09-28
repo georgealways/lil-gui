@@ -201,18 +201,6 @@ table > tbody > tr + tr > td {
 </head>
 <body>
 
-<div id="container">
-
-<div id="readme">
-{{{ readme }}}
-</div> 
-
-<div id="api">
-{{{ api }}}
-</div>
-
-</div>
-
 <script type="module">
 import GUI from '../dist/lil-gui.module.min.js';
 
@@ -234,6 +222,18 @@ gui.add( myObject, 'number', 0, 1 );
 gui.addColor( myObject, 'color' );
 gui.add( myObject, 'function' );
 </script>
+
+<div id="container">
+
+<div id="readme">
+{{{ readme }}}
+</div> 
+
+<div id="api">
+{{{ api }}}
+</div>
+
+</div>
 
 {{{ jsdocDebug }}}
 

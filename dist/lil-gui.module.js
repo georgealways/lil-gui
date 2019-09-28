@@ -4,8 +4,10 @@
  * Released under the MIT License.
  */
 
+const config = {};
+
 function warn() {
-	if ( warn.disabled ) return;
+	if ( !config.warn ) return;
 	// eslint-disable-next-line no-console
 	return console.warn.apply( console, arguments );
 }
@@ -1355,7 +1357,7 @@ class GUI {
 	 * @property {GUI} [parent] todoc
 	 *
 	 * @property {HTMLElement} [container]
-	 *
+	 * Adds the GUI to this element, overrides autoPlace.
 	 */
 
 	/**
@@ -1507,23 +1509,23 @@ class GUI {
 
 		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
-			controller = new GUI.OptionController( this, object, property, $1 );
+			controller = new config.OptionController( this, object, property, $1 );
 
 		} else if ( initialType === 'boolean' ) {
 
-			controller = new GUI.BooleanController( this, object, property );
+			controller = new config.BooleanController( this, object, property );
 
 		} else if ( initialType === 'string' ) {
 
-			controller = new GUI.StringController( this, object, property );
+			controller = new config.StringController( this, object, property );
 
 		} else if ( initialType === 'function' ) {
 
-			controller = new GUI.FunctionController( this, object, property );
+			controller = new config.FunctionController( this, object, property );
 
 		} else if ( initialType === 'number' ) {
 
-			controller = new GUI.NumberController( this, object, property, $1, max, step );
+			controller = new config.NumberController( this, object, property, $1, max, step );
 
 		} else {
 
@@ -1554,7 +1556,7 @@ class GUI {
 	 */
 	addColor( object, property, rgbScale = 1 ) {
 		const onChange = this._onChangeShorthand( arguments );
-		const controller = new GUI.ColorController( this, object, property, rgbScale );
+		const controller = new config.ColorController( this, object, property, rgbScale );
 		if ( onChange ) {
 			controller.onChange( onChange );
 		}
@@ -1693,14 +1695,17 @@ class GUI {
 
 }
 
-GUI.BooleanController = BooleanController;
-GUI.ColorController = ColorController;
-GUI.FunctionController = FunctionController;
-GUI.NumberController = NumberController;
-GUI.OptionController = OptionController;
-GUI.StringController = StringController;
+config.BooleanController = BooleanController;
+config.ColorController = ColorController;
+config.FunctionController = FunctionController;
+config.NumberController = NumberController;
+config.OptionController = OptionController;
+config.StringController = StringController;
 
-GUI.warn = warn;
+config.warn = true;
+config.rgbScale = 1;
+
+GUI.config = config;
 
 export default GUI;
 export { BooleanController, ColorController, Controller, FunctionController, GUI, NumberController, OptionController, StringController };

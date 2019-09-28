@@ -110,7 +110,7 @@ todoc<br>
 Type: **GUI** - Optional
 ***
 **container**<br> 
-<br>
+Adds the GUI to this element, overrides autoPlace.<br>
 Type: **HTMLElement** - Optional
 
 ***
