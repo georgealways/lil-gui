@@ -1,5 +1,5 @@
 /**
- * lil-gui 0.8.5
+ * lil-gui 0.8.6
  * (c) 2019 George Michael Brower
  * Released under the MIT License.
  */
@@ -998,13 +998,13 @@ var styles = `@font-face {
   --font-family-mono: Menlo, monospace;
   --row-height: 24px;
   --widget-height: 20px;
+  --padding: 4px;
   --name-width: 42%;
   --slider-input-width: 27%;
   --color-input-width: 27%;
   --slider-input-min-width: 45px;
   --color-input-min-width: 45px;
-  --padding: 4px;
-  --folder-indent: 8px;
+  --folder-indent: 7px;
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
 }
@@ -1017,6 +1017,9 @@ var styles = `@font-face {
 }
 .lil-gui.root > .title {
   background: var(--title-background-color);
+}
+.lil-gui.root > .children {
+  padding: calc(0.5 * var(--widget-gap)) 0;
 }
 .lil-gui .lil-gui {
   --background-color:inherit;
@@ -1031,15 +1034,55 @@ var styles = `@font-face {
   --font-family-mono:inherit;
   --row-height:inherit;
   --widget-height:inherit;
+  --padding:inherit;
   --name-width:inherit;
   --slider-input-width:inherit;
   --color-input-width:inherit;
   --slider-input-min-width:inherit;
   --color-input-min-width:inherit;
-  --padding:inherit;
   --folder-indent:inherit;
   --widget-padding:inherit;
   --widget-border-radius:inherit;
+}
+.lil-gui.autoPlace {
+  position: fixed;
+  top: 0;
+  right: 15px;
+  z-index: 1001;
+}
+.lil-gui.autoPlace > .children {
+  max-height: calc(var(--window-height) - var(--row-height));
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.lil-gui.autoPlace > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui.autoPlace > .children::-webkit-scrollbar-corner {
+  height: 0;
+  display: none;
+}
+.lil-gui.autoPlace > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
+}
+.lil-gui.autoPlace.mobile {
+  --row-height: 40px;
+  --widget-height: 32px;
+  --padding: 8px;
+  --font-size: 16px;
+  --folder-indent: 12px;
+  --widget-padding: 0 0 0 5px;
+  --scrollbar-width: 7px;
+  right: auto;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.lil-gui.autoPlace.mobile > .children {
+  max-height: calc(var(--mobile-max-height) - var(--row-height));
 }
 .lil-gui .title {
   height: var(--row-height);
@@ -1084,46 +1127,6 @@ var styles = `@font-face {
   font-style: italic;
   line-height: var(--row-height);
   opacity: 0.5;
-}
-.lil-gui.autoPlace {
-  position: fixed;
-  top: 0;
-  right: 15px;
-  z-index: 1001;
-}
-.lil-gui.autoPlace > .children {
-  max-height: calc(var(--window-height) - var(--row-height));
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-corner {
-  height: 0;
-  display: none;
-}
-.lil-gui.autoPlace > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
-}
-.lil-gui.autoPlace.mobile {
-  --row-height: 40px;
-  --widget-height: 32px;
-  --font-size: 16px;
-  --padding: 8px;
-  --folder-indent: 12px;
-  --widget-padding: 0 0 0 5px;
-  --scrollbar-width: 7px;
-  right: auto;
-  top: auto;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-.lil-gui.autoPlace.mobile > .children {
-  max-height: calc(var(--mobile-max-height) - var(--row-height));
 }
 .lil-gui input {
   border: 0;

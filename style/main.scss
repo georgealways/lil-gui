@@ -48,6 +48,9 @@
 		> .title {
 			background: var(--title-background-color);
 		}
+		> .children { 
+			padding: calc(0.5 * var(--widget-gap)) 0;
+		}
 	}
 
 	// Custom properties
@@ -86,17 +89,66 @@
 			),
 			--row-height: 24px,
 			--widget-height: 20px,
+			--padding: 4px,
 			--name-width: 42%,
 			--slider-input-width: 27%,
 			--color-input-width: 27%,
 			--slider-input-min-width: 45px,
 			--color-input-min-width: 45px,
-			--padding: 4px,
-			--folder-indent: 8px,
+			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px
 		)
 	);
+
+	// autoPlace & mobile
+	// -------------------------------------------------------------------------
+
+	&.autoPlace {
+		position: fixed;
+		top: 0;
+		right: 15px;
+		z-index: 1001;
+
+		& > .children {
+			max-height: calc(var(--window-height) - var(--row-height));
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+
+			&::-webkit-scrollbar {
+				width: var(--scrollbar-width);
+				background: var(--background-color);
+			}
+			&::-webkit-scrollbar-corner {
+				height: 0;
+				display: none;
+			}
+			&::-webkit-scrollbar-thumb {
+				border-radius: var(--scrollbar-width);
+				background: var(--highlight-color);
+			}
+		}
+
+		&.mobile {
+			--row-height: 40px;
+			--widget-height: 32px;
+			--padding: 8px;
+			--font-size: 16px;
+			--folder-indent: 12px;
+			--widget-padding: 0 0 0 5px;
+			--scrollbar-width: 7px;
+
+			right: auto;
+			top: auto;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+
+			& > .children {
+				max-height: calc(var(--mobile-max-height) - var(--row-height));
+			}
+		}
+	}
 
 	// Titles & Folders
 	// -------------------------------------------------------------------------
@@ -161,57 +213,6 @@
 		font-style: italic;
 		line-height: var(--row-height);
 		opacity: 0.5;
-	}
-
-	// autoPlace & mobile
-	// -------------------------------------------------------------------------
-
-	&.autoPlace {
-		position: fixed;
-		top: 0;
-		right: 15px;
-		z-index: 1001;
-
-		& > .children {
-			max-height: calc(var(--window-height) - var(--row-height));
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
-
-			&::-webkit-scrollbar {
-				width: var(--scrollbar-width);
-				background: var(--background-color);
-			}
-
-			&::-webkit-scrollbar-corner {
-				height: 0;
-				display: none;
-			}
-
-			&::-webkit-scrollbar-thumb {
-				border-radius: var(--scrollbar-width);
-				background: var(--highlight-color);
-			}
-		}
-
-		&.mobile {
-			--row-height: 40px;
-			--widget-height: 32px;
-			--font-size: 16px;
-			--padding: 8px;
-			--folder-indent: 12px;
-			--widget-padding: 0 0 0 5px;
-			--scrollbar-width: 7px;
-
-			right: auto;
-			top: auto;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-
-			& > .children {
-				max-height: calc(var(--mobile-max-height) - var(--row-height));
-			}
-		}
 	}
 
 	// Shared "widget" styles
