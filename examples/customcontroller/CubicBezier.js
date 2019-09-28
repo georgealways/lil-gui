@@ -26,10 +26,10 @@ function inverseBezier( v, a, b ) {
 // https://stackoverflow.com/a/27176424
 function solveCubic( a, b, c, d ) {
 
-	// actually that's quadratic
+	// quadratic
 	if ( a === 0 ) {
 
-		// actually that's linear
+		// linear
 		if ( b === 0 ) {
 			return -d / c;
 		}

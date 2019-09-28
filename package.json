@@ -18,12 +18,12 @@
     "icons": "node -r esm scripts/icons.js",
     "test": "node -r esm scripts/test.js",
     "api": "node -r esm scripts/api.js --write",
-    "site": "node -r esm scripts/site.js",
+    "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=index.html,dist,examples --no-browser",
     "preversion": "npm test",
     "version": "npm run build && git add -A dist style/icons.scss",
     "postversion": "git push --tags",
-    "dev": "npm run build && node -r esm scripts/watch.js"
+    "dev": "npm run build && node -r esm scripts/dev.js"
   },
   "files": [
     "dist"

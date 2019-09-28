@@ -1,12 +1,13 @@
-import jsdocData from './api';
-
 import fs from 'fs';
 import markdownit from 'markdown-it';
 import hljs from 'highlight.js';
+import hbs from 'handlebars';
+
 import pkg from '../package.json';
+import jsdocData from './api';
 
 const OUTPUT = 'index.html';
-const TEMPLATE = 'scripts/site.html';
+const TEMPLATE = 'scripts/homepage.hbs';
 const README = 'README.md';
 const API = 'API.md';
 
@@ -27,11 +28,14 @@ window.jsdocDebug = ${JSON.stringify( jsdocData )};
 console.log( "jsdocDebug", jsdocDebug );
 </script>` : '';
 
-const html = read( TEMPLATE )
-	.replace( '!=readme', md.render( read( README ) ) )
-	.replace( '!=api', md.render( read( API ) ) )
-	.replace( '!=jsdocDebug', jsdocDebug )
-	.replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' ); // make hardcoded links in readme relative
+const template = hbs.compile( read( TEMPLATE ) );
+
+const html = template( {
+	readme: md.render( read( README ) ),
+	api: md.render( read( API ) ),
+	jsdocDebug
+} ).replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
+// makes hardcoded links in readme relative on real site
 
 fs.writeFileSync( OUTPUT, html );
 

@@ -183,12 +183,12 @@ const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
 	.call( undefined, { jsdocData } )
 	.replace( /\n{2,}/g, '\n\n' ); // clean up extra whitespace
 
-// bounce to mp3
+// write to markdown
 if ( WRITE ) {
 	fs.writeFileSync( OUTPUT, output );
 }
 
-// or tell docs.js what's up
+// or give this to homepage.js so it can print to browser console for debug
 export default jsdocData;
 
 function childSort( a, b ) {
