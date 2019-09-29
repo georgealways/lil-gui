@@ -306,7 +306,7 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
+	 * todelete
 	 * @param {Function} callback todoc
 	 * @param {boolean} [recursive=false] todoc
 	 */
@@ -336,6 +336,18 @@ export default class GUI {
 		if ( !recursive ) return folders;
 		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
 		return folders.reduce( accumulator, Array.from( folders ) );
+	}
+
+	export( print = '\t' ) {
+		const obj = {};
+		this.getControllers( true ).forEach( c => {
+			obj[ c._name ] = c.getValue();
+		} );
+		if ( print !== false ) {
+			// eslint-disable-next-line no-console
+			console.log( JSON.stringify( obj, null, print ) );
+		}
+		return obj;
 	}
 
 	/**

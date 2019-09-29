@@ -9,10 +9,10 @@ todo
 		GUI.config.rgbScale = 255
 		GUI.config.mobileBreakpoint
 		GUI.config.mobileMaxHeight
-	[x] that's fixed but how to jsdoc ...
+	[ ] that's fixed but how to jsdoc ...
 
 [ ] hover styles
-	[ ] button
+	[x] button
 	[ ] folder title
 	... everything again?
 
@@ -21,10 +21,6 @@ title drag
 	[ ] prevent default for touch
 	[ ] constraints
 
-[ ] getControllers method?
-[ ] getFolders method?
-	tried both of these but was gross
-	will try again
 
 docs
 	[ ] -> this type chainable comeback
@@ -34,6 +30,8 @@ docs
 		[ ] gui.add
 		[ ] step
 		[ ] gui.addFolder
+
+[x] queryKey parameter...
 
 tests
 
@@ -140,4 +138,9 @@ archive
 
 [x] color string field
 [x] mobileBreakpoint parameter
-[x] queryKey parameter
+
+[x] getControllers method?
+[x] getFolders method?
+	tried both of these but was gross
+	will try again
+	[x] i like it
