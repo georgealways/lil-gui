@@ -22,8 +22,8 @@
   --title-background-color: #111111;
   --widget-color: #424242;
   --highlight-color: #525151;
-  --number-color: #00adff;
-  --string-color: #1ed36f;
+  --number-color: #2cc9ff;
+  --string-color: #c1db3c;
   --font-size: 11px;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
@@ -261,7 +261,7 @@
 }
 .lil-gui .controller.number .fill {
   height: 100%;
-  background-color: var(--number-color);
+  border-right: 2px solid var(--number-color);
 }
 .lil-gui .controller.string input {
   color: var(--string-color);

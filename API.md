@@ -12,7 +12,10 @@
 - [**close**()](#GUI#close) 
 - [**destroy**()](#GUI#destroy) 
 - [**forEachController**()](#GUI#forEachController) 
+- [**getControllers**()](#GUI#getControllers) → Array.<Controller>
+- [**getFolders**()](#GUI#getFolders) → Array.<GUI>
 - [**open**()](#GUI#open) 
+- [**reset**()](#GUI#reset) 
 - [**title**()](#GUI#title) 
 - [children](#GUI#children) : Array<GUI|Controller>
 - [domElement](#GUI#domElement) : HTMLElement
@@ -181,6 +184,22 @@ todoc
 
 ***
 
+## <a name="GUI#getControllers"></a> gui.**getControllers**( recursive=false )
+
+todoc
+
+Returns: **Array.&lt;Controller&gt;**
+
+***
+
+## <a name="GUI#getFolders"></a> gui.**getFolders**( recursive=false )
+
+todoc
+
+Returns: **Array.&lt;GUI&gt;**
+
+***
+
 ## <a name="GUI#open"></a> gui.**open**( open=true )
 
 Opens a GUI or folder. GUI and folders are open by default.
@@ -190,6 +209,14 @@ gui.open(); // open
 gui.open( false ); // close
 gui.open( gui._closed ); // toggle
 ```
+
+Returns: **GUI – self**
+
+***
+
+## <a name="GUI#reset"></a> gui.**reset**( recursive=false )
+
+Resets all controllers.
 
 Returns: **GUI – self**
 

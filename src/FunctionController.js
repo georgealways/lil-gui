@@ -7,7 +7,7 @@ export default class FunctionController extends Controller {
 		super( parent, object, property, 'function', 'button' );
 
 		this.domElement.addEventListener( 'click', () => {
-			this.getValue()();
+			this.getValue().call( this.object );
 		} );
 
 	}

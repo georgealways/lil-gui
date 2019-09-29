@@ -84,8 +84,8 @@
 			--title-background-color: #111111,
 			--widget-color: #424242,
 			--highlight-color: #525151,
-			--number-color: #00adff,
-			--string-color: #1ed36f,
+			--number-color: #2cc9ff,//#00adff,
+			--string-color: #c1db3c,//#1ed36f,
 			--font-size: 11px,
 			--font-family: (
 				-apple-system,
@@ -337,7 +337,8 @@
 		}
 		.fill {
 			height: 100%;
-			background-color: var(--number-color);
+			border-right: 2px solid var(--number-color);
+			// background-color: var(--number-color);
 		}
 	}
 

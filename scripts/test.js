@@ -318,6 +318,10 @@ test( unit => {
 		folder3.forEachController( visit, true );
 		assert.strictEqual( controllersVisited.length, 2 );
 
+		controllersVisited = [];
+		gui.getFolders( true ).forEach( visit );
+		assert.strictEqual( controllersVisited.length, 3 );
+
 	} );
 
 } );

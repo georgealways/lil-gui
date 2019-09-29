@@ -209,7 +209,7 @@ const myObject = {
 	boolean: true,
 	string: 'lil-gui',
 	number: 0.5,
-	color: '#00ffaa',
+	color: '#aa00ff',
 	function() { alert( 'hi' ); }
 };
 
@@ -280,7 +280,10 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#close"><strong>close</strong>()</a></li>
 <li><a href="#GUI#destroy"><strong>destroy</strong>()</a></li>
 <li><a href="#GUI#forEachController"><strong>forEachController</strong>()</a></li>
+<li><a href="#GUI#getControllers"><strong>getControllers</strong>()</a> → Array.<Controller></li>
+<li><a href="#GUI#getFolders"><strong>getFolders</strong>()</a> → Array.<GUI></li>
 <li><a href="#GUI#open"><strong>open</strong>()</a></li>
+<li><a href="#GUI#reset"><strong>reset</strong>()</a></li>
 <li><a href="#GUI#title"><strong>title</strong>()</a></li>
 <li><a href="#GUI#children">children</a> : Array&lt;GUI|Controller&gt;</li>
 <li><a href="#GUI#domElement">domElement</a> : HTMLElement</li>
@@ -410,12 +413,24 @@ Type: <strong>number</strong> - Optional</p>
 <h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=false )</h2>
 <p>todoc</p>
 <hr>
+<h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=false )</h2>
+<p>todoc</p>
+<p>Returns: <strong>Array.&lt;Controller&gt;</strong></p>
+<hr>
+<h2><a name="GUI#getFolders"></a> gui.<strong>getFolders</strong>( recursive=false )</h2>
+<p>todoc</p>
+<p>Returns: <strong>Array.&lt;GUI&gt;</strong></p>
+<hr>
 <h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>
 <pre><code class="language-js">gui.open(); <span class="hljs-comment">// open</span>
 gui.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// close</span>
 gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
+<p>Returns: <strong>GUI – self</strong></p>
+<hr>
+<h2><a name="GUI#reset"></a> gui.<strong>reset</strong>( recursive=false )</h2>
+<p>Resets all controllers.</p>
 <p>Returns: <strong>GUI – self</strong></p>
 <hr>
 <h2><a name="GUI#title"></a> gui.<strong>title</strong>( title : string )</h2>

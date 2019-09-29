@@ -21,11 +21,11 @@ export default [
 		output: Object.assign( { file: pkg.module }, output ),
 		plugins: [ style() ]
 	},
-	// {
-	// 	input,
-	// 	output: Object.assign( { file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' }, output ),
-	// 	plugins: [ style() ]
-	// },
+	{
+		input,
+		output: Object.assign( { file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' }, output ),
+		plugins: [ style() ]
+	},
 	{
 		input,
 		output: Object.assign( { file: pkg.module.replace( '.js', '.min.js' ) }, output ),

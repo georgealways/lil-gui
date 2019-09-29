@@ -11,6 +11,7 @@ export default class ColorController extends Controller {
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
+		this.$input.setAttribute( 'tabindex', -1 );
 
 		this.$text = document.createElement( 'input' );
 		this.$text.setAttribute( 'type', 'text' );

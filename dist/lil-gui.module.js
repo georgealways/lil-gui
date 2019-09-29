@@ -433,6 +433,7 @@ class ColorController extends Controller {
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
+		this.$input.setAttribute( 'tabindex', -1 );
 
 		this.$text = document.createElement( 'input' );
 		this.$text.setAttribute( 'type', 'text' );
@@ -520,7 +521,7 @@ class FunctionController extends Controller {
 		super( parent, object, property, 'function', 'button' );
 
 		this.domElement.addEventListener( 'click', () => {
-			this.getValue()();
+			this.getValue().call( this.object );
 		} );
 
 	}
@@ -999,8 +1000,8 @@ const stylesheet = `@font-face {
   --title-background-color: #111111;
   --widget-color: #424242;
   --highlight-color: #525151;
-  --number-color: #00adff;
-  --string-color: #1ed36f;
+  --number-color: #2cc9ff;
+  --string-color: #c1db3c;
   --font-size: 11px;
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
@@ -1238,7 +1239,7 @@ const stylesheet = `@font-face {
 }
 .lil-gui .controller.number .fill {
   height: 100%;
-  background-color: var(--number-color);
+  border-right: 2px solid var(--number-color);
 }
 .lil-gui .controller.string input {
   color: var(--string-color);
@@ -1624,13 +1625,41 @@ class GUI {
 	 * @param {boolean} [recursive=false] todoc
 	 */
 	forEachController( callback, recursive = false ) {
-		this.children.forEach( c => {
-			if ( c instanceof Controller ) {
-				callback( c );
-			} else if ( recursive && c instanceof GUI ) {
-				c.forEachController( callback, true );
-			}
-		} );
+		this.getControllers( recursive ).forEach( callback );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=false]
+	 * @returns {Controller[]}
+	 */
+	getControllers( recursive = false ) {
+		const controllers = this.children.filter( c => c instanceof Controller );
+		if ( !recursive ) return controllers;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers() );
+		return this.getFolders( true ).reduce( accumulator, controllers );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=false]
+	 * @returns {GUI[]}
+	 */
+	getFolders( recursive = false ) {
+		const folders = this.children.filter( c => c instanceof GUI );
+		if ( !recursive ) return folders;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
+		return folders.reduce( accumulator, Array.from( folders ) );
+	}
+
+	/**
+	 * Resets all controllers.
+	 * @param {boolean} [recursive=false]
+	 * @returns {GUI} self
+	 */
+	reset( recursive = false ) {
+		this.getControllers( recursive ).forEach( c => c.reset() );
+		return this;
 	}
 
 	/**

@@ -311,13 +311,41 @@ export default class GUI {
 	 * @param {boolean} [recursive=false] todoc
 	 */
 	forEachController( callback, recursive = false ) {
-		this.children.forEach( c => {
-			if ( c instanceof Controller ) {
-				callback( c );
-			} else if ( recursive && c instanceof GUI ) {
-				c.forEachController( callback, true );
-			}
-		} );
+		this.getControllers( recursive ).forEach( callback );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=false]
+	 * @returns {Controller[]}
+	 */
+	getControllers( recursive = false ) {
+		const controllers = this.children.filter( c => c instanceof Controller );
+		if ( !recursive ) return controllers;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers() );
+		return this.getFolders( true ).reduce( accumulator, controllers );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=false]
+	 * @returns {GUI[]}
+	 */
+	getFolders( recursive = false ) {
+		const folders = this.children.filter( c => c instanceof GUI );
+		if ( !recursive ) return folders;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
+		return folders.reduce( accumulator, Array.from( folders ) );
+	}
+
+	/**
+	 * Resets all controllers.
+	 * @param {boolean} [recursive=false]
+	 * @returns {GUI} self
+	 */
+	reset( recursive = false ) {
+		this.getControllers( recursive ).forEach( c => c.reset() );
+		return this;
 	}
 
 	/**

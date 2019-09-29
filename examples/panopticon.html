@@ -41,7 +41,7 @@ const myObject = {
 	boolean: true,
 	string: 'lil-gui',
 	number: 0.5,
-	color: '#00ffaa',
+	color: '#aa00ff',
 	function() { alert( 'hi' ); }
 };
 
@@ -61,6 +61,7 @@ function make( options, callback ) {
 	// options.collapses = false;
 	const gui = new GUI( options );
 	callback( gui );
+	return gui;
 }
 
 make( { title: 'Sliders' }, gui => {
@@ -124,25 +125,25 @@ make( { title: 'Options' }, gui => {
 
 make( { title: 'Colors' }, gui => {
 
-	gui.addColor( { x: 0x00aaff }, 'x' ).name( 'Hex Integer' );
-	gui.addColor( { x: { r: 0, g: 2 / 3, b: 1 } }, 'x' ).name( '{r,g,b} 0-1' );
-	gui.addColor( { x: [ 0, 2 / 3, 1 ] }, 'x' ).name( '[r,g,b] 0-1' );
+	gui.addColor( { x: 0xaa00ff }, 'x' ).name( 'Hex Integer' );
+	gui.addColor( { x: { r: 2 / 3, g: 0, b: 1 } }, 'x' ).name( '{r,g,b} 0-1' );
+	gui.addColor( { x: [ 2 / 3, 0, 1 ] }, 'x' ).name( '[r,g,b] 0-1' );
 
 	gui.addFolder( 'Strings', false );
 
 	const colorString = str => gui.addColor( { x: str }, 'x' ).name( `"${str}"` );
 
-	colorString( '#00aAfF' );
-	colorString( '00aAfF' );
-	colorString( '0x00aAfF' );
-	colorString( '#0af' );
-	colorString( '0af' );
-	colorString( 'rgb(0, 170, 255)' );
+	colorString( '#aa00Ff' );
+	colorString( 'aa00Ff' );
+	colorString( '0xaa00Ff' );
+	colorString( '#a0f' );
+	colorString( 'a0f' );
+	colorString( 'rgb(170, 0, 255)' );
 
 	gui.addFolder( 'RGB Scale', false );
 
-	gui.addColor( { x: [ 0, 170, 255 ] }, 'x', 255 ).name( '{r,g,b} 0-255' );
-	gui.addColor( { x: { r: 0, g: 170, b: 255 } }, 'x', 255 ).name( '[r,g,b] 0-255' );
+	gui.addColor( { x: [ 170, 0, 255 ] }, 'x', 255 ).name( '{r,g,b} 0-255' );
+	gui.addColor( { x: { r: 170, g: 0, b: 255 } }, 'x', 255 ).name( '[r,g,b] 0-255' );
 
 } );
 
@@ -190,32 +191,32 @@ make( { title: 'Weird' }, gui => {
 
 } );
 
-make( { title: 'CSS Vars' }, gui => {
+const styleTag = document.createElement( 'style' );
+document.head.appendChild( styleTag );
+
+function update() {
+	let style = '.lil-gui {\n';
+	for ( let prop in stylesheet ) {
+		style += `\t${prop}: ${stylesheet[ prop ]};\n`;
+	}
+	style += '}';
+	styleTag.innerHTML = style;
+}
+
+const stylesheet = new Proxy( {}, {
+	set( target, property, value ) {
+		target[ property ] = value;
+		update();
+		return true;
+	},
+	get( target, property ){
+		return target[ property ];
+	}
+} );
+
+const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
 	gui.domElement.style.setProperty( '--name-width', '50%' );
-
-	const styleTag = document.createElement( 'style' );
-	document.head.appendChild( styleTag );
-
-	function update() {
-		let style = '.lil-gui {\n';
-		for ( let prop in stylesheet ) {
-			style += `\t${prop}: ${stylesheet[ prop ]};\n`;
-		}
-		style += '}';
-		styleTag.innerHTML = style;
-	}
-
-	const stylesheet = new Proxy( {}, {
-		set( target, property, value ) {
-			target[ property ] = value;
-			update();
-			return true;
-		},
-		get( target, property ){
-			return target[ property ];
-		}
-	} );
 
 	GUI.config.stylesheet.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
 
@@ -240,10 +241,74 @@ make( { title: 'CSS Vars' }, gui => {
 			}
 
 		}
+
 	} );
+
+	gui.add( gui, 'reset' );
+
+	gui.add( { logColors() {
+		const map = {};
+		gui.getControllers().forEach( c => {
+			if ( c._name.endsWith( 'color' ) ) {
+				map[ c._name ] = c.getValue();
+			}
+		} );
+		console.log( JSON.stringify( map, null, '\t' ) );
+	} }, 'logColors' );
 
 } );
 
+theme( 'Solarized~ Light', {
+	'--background-color': '#fdf6e3',
+	'--text-color': '#657b83',
+	'--title-background-color': '#f5efdc',
+	'--widget-color': '#eee8d5',
+	'--highlight-color': '#e7e1cf',
+	'--number-color': '#2aa0f3',
+	'--string-color': '#97ad00'
+} );
+
+theme( 'Solarized~ Dark', {
+	'--background-color': '#002b36',
+	'--text-color': '#b2c2c2',
+	'--title-background-color': '#001f27',
+	'--widget-color': '#094e5f',
+	'--highlight-color': '#0a6277',
+	'--number-color': '#2aa0f2',
+	'--string-color': '#97ad00'
+} );
+
+theme( 'lol', {
+	'--background-color': '#32405e',
+	'--text-color': '#ebe193',
+	'--title-background-color': '#111111',
+	'--widget-color': '#057170',
+	'--highlight-color': '#9c2872',
+	'--number-color': '#ffffff',
+	'--string-color': '#ffbf00'
+} );
+
+function theme( title, styles ) {
+
+	make( { title }, gui => {
+
+		for ( let prop in styles ) {
+			gui.domElement.style.setProperty( prop, styles[ prop ] );
+		}
+
+		gui.domElement.style.setProperty( '--name-width', '60%' );
+		for ( let prop in styles ){
+			gui.addColor( styles, prop );
+		}
+		gui.add( { Apply() {
+			cssVarsGUI.getControllers( true ).forEach( c => {
+				if ( c._name in styles ) {
+					c.setValue( styles[ c._name ] );
+				}
+			} );
+		} }, 'Apply' );
+	} );
+}
 </script>
 </body>
 </html>
