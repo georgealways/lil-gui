@@ -94,6 +94,8 @@ export default class GUI {
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
+		this.domElement.gui = this;
+
 		/**
 		 * todoc
 		 * @type {HTMLElement}
@@ -260,6 +262,85 @@ export default class GUI {
 	}
 
 	/**
+	 * todelete
+	 * @param {Function} callback todoc
+	 * @param {boolean} [recursive=true] todoc
+	 */
+	forEachController( callback, recursive = true ) {
+		this.getControllers( recursive ).forEach( callback );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=false]
+	 * @returns {Array<Controller>}
+	 */
+	getControllers( recursive = true ) {
+		const controllers = this.children.filter( c => c instanceof Controller );
+		if ( !recursive ) return controllers;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers( false ) );
+		return this.getFolders( true ).reduce( accumulator, controllers );
+	}
+
+	/**
+	 * todoc
+	 * @param {boolean} [recursive=true]
+	 * @returns {Array<GUI>}
+	 */
+	getFolders( recursive = true ) {
+		const folders = this.children.filter( c => c instanceof GUI );
+		if ( !recursive ) return folders;
+		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
+		return folders.reduce( accumulator, Array.from( folders ) );
+	}
+
+	export( recursive = true, print = 2 ) {
+		const obj = {};
+		this.getControllers( recursive ).forEach( c => {
+			obj[ c._name ] = c.getValue();
+		} );
+		if ( print !== false ) {
+			// eslint-disable-next-line no-console
+			console.log( JSON.stringify( obj, null, print ) );
+		}
+		return obj;
+	}
+
+	import( obj, recursive = true ) {
+		this.getControllers( recursive ).forEach( c => {
+			if ( c._name in obj ) {
+				c.setValue( obj[ c._name ] );
+			}
+		} );
+		return this;
+	}
+
+	/**
+	 * Resets all controllers.
+	 * @param {boolean} [recursive=true]
+	 * @returns {GUI} self
+	 */
+	reset( recursive = true ) {
+		this.getControllers( recursive ).forEach( c => c.reset() );
+		return this;
+	}
+
+	/**
+	 * todoc
+	 * @param {string} title
+	 * @returns {GUI} self
+	 */
+	title( title ) {
+		/**
+		 * todoc
+		 * @type {string}
+		 */
+		this._title = title;
+		this.$title.innerHTML = title;
+		return this;
+	}
+
+	/**
 	 * Opens a GUI or folder. GUI and folders are open by default.
 	 * @param {boolean} [open=true] Pass false to close
 	 * @returns {GUI} self
@@ -303,76 +384,6 @@ export default class GUI {
 			window.removeEventListener( 'resize', this._onResize );
 		}
 
-	}
-
-	/**
-	 * todelete
-	 * @param {Function} callback todoc
-	 * @param {boolean} [recursive=false] todoc
-	 */
-	forEachController( callback, recursive = false ) {
-		this.getControllers( recursive ).forEach( callback );
-	}
-
-	/**
-	 * todoc
-	 * @param {boolean} [recursive=false]
-	 * @returns {Controller[]}
-	 */
-	getControllers( recursive = false ) {
-		const controllers = this.children.filter( c => c instanceof Controller );
-		if ( !recursive ) return controllers;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers() );
-		return this.getFolders( true ).reduce( accumulator, controllers );
-	}
-
-	/**
-	 * todoc
-	 * @param {boolean} [recursive=false]
-	 * @returns {GUI[]}
-	 */
-	getFolders( recursive = false ) {
-		const folders = this.children.filter( c => c instanceof GUI );
-		if ( !recursive ) return folders;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
-		return folders.reduce( accumulator, Array.from( folders ) );
-	}
-
-	export( print = '\t' ) {
-		const obj = {};
-		this.getControllers( true ).forEach( c => {
-			obj[ c._name ] = c.getValue();
-		} );
-		if ( print !== false ) {
-			// eslint-disable-next-line no-console
-			console.log( JSON.stringify( obj, null, print ) );
-		}
-		return obj;
-	}
-
-	/**
-	 * Resets all controllers.
-	 * @param {boolean} [recursive=false]
-	 * @returns {GUI} self
-	 */
-	reset( recursive = false ) {
-		this.getControllers( recursive ).forEach( c => c.reset() );
-		return this;
-	}
-
-	/**
-	 * todoc
-	 * @param {string} title
-	 * @returns {GUI} self
-	 */
-	title( title ) {
-		/**
-		 * todoc
-		 * @type {string}
-		 */
-		this._title = title;
-		this.$title.innerHTML = title;
-		return this;
 	}
 
 	_onChangeShorthand( $arguments ) {

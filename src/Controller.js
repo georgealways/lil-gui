@@ -45,6 +45,8 @@ export default class Controller {
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
 
+		this.domElement.controller = this;
+
 		/**
 		 * The element that contains the controller's name.
 		 * @type {HTMLElement}

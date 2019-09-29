@@ -21,7 +21,8 @@ export default function( spec ) {
 				failures++;
 				if ( e instanceof AssertionError ) {
 					console.log( red( `✕ ${e.message}` ) );
-					console.log( stackTraceToFileLink( e.stack ) );
+					// console.log( stackTraceToFileLink( e.stack ) );
+					console.log( e.stack );
 				} else {
 					console.log( red( `✕ Unexpected error in test: ${this.name}` ) );
 					console.log( e.stack );
@@ -51,6 +52,6 @@ export default function( spec ) {
 const red = str => `\x1b[31m${str}\x1b[0m`;
 const grn = str => `\x1b[32m${str}\x1b[0m`;
 
-function stackTraceToFileLink( stack ) {
-	return stack.match( /[a-z_\-/.\\]+:\d+:\d+/i )[ 0 ];
-}
+// function stackTraceToFileLink( stack ) {
+// 	return stack.match( /[a-z_\-/.\\]+:\d+:\d+/i )[ 0 ];
+// }

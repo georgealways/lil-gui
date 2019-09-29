@@ -178,7 +178,7 @@ todoc
 
 ***
 
-## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=false )
+## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=true )
 
 todelete
 
@@ -192,7 +192,7 @@ Returns: **Array.&lt;Controller&gt;**
 
 ***
 
-## <a name="GUI#getFolders"></a> gui.**getFolders**( recursive=false )
+## <a name="GUI#getFolders"></a> gui.**getFolders**( recursive=true )
 
 todoc
 
@@ -214,7 +214,7 @@ Returns: **GUI – self**
 
 ***
 
-## <a name="GUI#reset"></a> gui.**reset**( recursive=false )
+## <a name="GUI#reset"></a> gui.**reset**( recursive=true )
 
 Resets all controllers.
 

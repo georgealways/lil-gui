@@ -288,38 +288,38 @@ test( unit => {
 
 		controllersVisited = [];
 		gui.forEachController( visit );
-		assert.strictEqual( controllersVisited.length, 3, 'recursive defaults to false' );
+		assert.strictEqual( controllersVisited.length, 11, 'recursive defaults to true' );
 
 		controllersVisited = [];
-		gui.forEachController( visit, true );
-		assert.strictEqual( controllersVisited.length, 11, 'recursive' );
+		gui.forEachController( visit, false );
+		assert.strictEqual( controllersVisited.length, 3, 'recursive' );
 
 		controllersVisited = [];
-		folder1.forEachController( visit );
+		folder1.forEachController( visit, false );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited = [];
-		folder1.forEachController( visit, true );
+		folder1.forEachController( visit );
 		assert.strictEqual( controllersVisited.length, 6 );
+
+		controllersVisited = [];
+		folder2.forEachController( visit, false );
+		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited = [];
 		folder2.forEachController( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited = [];
-		folder2.forEachController( visit, true );
-		assert.strictEqual( controllersVisited.length, 3 );
+		folder3.forEachController( visit, false );
+		assert.strictEqual( controllersVisited.length, 2 );
 
 		controllersVisited = [];
 		folder3.forEachController( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
 		controllersVisited = [];
-		folder3.forEachController( visit, true );
-		assert.strictEqual( controllersVisited.length, 2 );
-
-		controllersVisited = [];
-		gui.getFolders( true ).forEach( visit );
+		gui.getFolders( true ).forEach( visit, false );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 	} );

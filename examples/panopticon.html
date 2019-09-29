@@ -246,6 +246,8 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
 	gui.add( gui, 'reset' );
 
+	gui.add( gui, 'export' );
+
 	gui.add( { logColors() {
 		const map = {};
 		gui.getControllers().forEach( c => {
