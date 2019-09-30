@@ -28,6 +28,21 @@ function make( options, callback ) {
 	return gui;
 }
 
+make( { title: 'Numbers' }, gui => {
+
+	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
+	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
+	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
+
+	gui.addFolder( 'Step', false );
+
+	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
+	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
+	gui.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
+	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
+
+} );
+
 make( { title: 'Sliders' }, gui => {
 
 	gui.addFolder( 'Implicit step', false );
@@ -57,21 +72,6 @@ make( { title: 'Sliders' }, gui => {
 	explicitStep( 1, 16, .01 );
 	explicitStep( 0, 15, .015 );
 	explicitStep( 0, 5, 1 / 3, '1/3' );
-
-} );
-
-make( { title: 'Numbers' }, gui => {
-
-	gui.add( { x: 0 }, 'x' ).name( 'No Parameters' );
-	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
-	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
-
-	gui.addFolder( 'Step', false );
-
-	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
-	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
-	gui.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
-	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
 
 } );
 
@@ -140,21 +140,6 @@ make( { title: 'Folders' }, gui => {
 	addFiller( folder4 );
 
 } );
-
-make( { title: 'Weird' }, gui => {
-
-	const folderNameWidth = gui.addFolder( '--name-width' );
-
-	folderNameWidth.domElement.style.setProperty( '--name-width', '60%' );
-	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'justABunchOfBooleans' );
-	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'withReallyLongNames' );
-	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( 'chillingInAList' );
-	folderNameWidth.add( { x: true }, 'x', 0, 1 ).name( '🤓' ).domElement.style.setProperty( '--name-width', '10%' );
-
-	gui.add( { x: 0 }, 'x', 0, 1 ).domElement.style.setProperty( '--slider-input-width', '50%' );
-
-} );
-
 const styleTag = document.createElement( 'style' );
 document.head.appendChild( styleTag );
 
@@ -210,17 +195,9 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
 	gui.add( gui, 'reset' );
 
-	gui.add( gui, 'export' );
-
-	gui.add( { logColors() {
-		const map = {};
-		gui.getControllers().forEach( c => {
-			if ( c._name.endsWith( 'color' ) ) {
-				map[ c._name ] = c.getValue();
-			}
-		} );
-		console.log( JSON.stringify( map, null, '\t' ) );
-	} }, 'logColors' );
+	gui.add( { log() {
+		console.log( JSON.stringify( gui.export(), null, '\t' ) );
+	} }, 'log' );
 
 } );
 
