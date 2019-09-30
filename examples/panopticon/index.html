@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
+	<title></title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body,
+		#panopticon {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#panopticon {
+			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: flex-start;
+		}
+
+		#panopticon>.lil-gui {
+			flex-shrink: 0;
+			margin-bottom: 1rem;
+			margin-right: 1rem;
+		}
+	</style>
+</head>
+<body>
+	<div id="panopticon"></div>
+	<script type="module" src="panopticon.js"></script>
+</body>
+</html>
