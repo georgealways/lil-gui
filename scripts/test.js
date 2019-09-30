@@ -9,10 +9,11 @@ import GUI,
 	StringController,
 	FunctionController,
 	NumberController,
-	OptionController
+	OptionController,
+	config
 } from '..';
 
-GUI.config.warn = false;
+config.warn = false;
 
 test( unit => {
 
@@ -321,6 +322,109 @@ test( unit => {
 		controllersVisited = [];
 		gui.getFolders( true ).forEach( visit, false );
 		assert.strictEqual( controllersVisited.length, 3 );
+
+	} );
+
+	unit( 'export reset import', () => {
+
+		// make an obj, remember original state
+
+		const obj = {
+			boolean: false,
+			color1: '#aa00ff',
+			color2: [ 1 / 3, 2 / 3, 1 ],
+			color3: { r: 2 / 3, g: 1, b: 1 / 3 },
+			color4: [ 0, 170, 255 ],
+			color5: { r: 10, g: 21, b: 34 },
+			func: function() {},
+			number: 0,
+			options: 'a',
+			string: 'foo'
+		};
+
+		const originalShallow = Object.assign( {}, obj );
+
+		function deepClone( obj ) {
+			const clone = {};
+			for ( let key in obj ) {
+				const val = obj[ key ];
+				if ( Array.isArray( val ) ) {
+					clone[ key ] = Array.from( val );
+				} else if ( typeof val !== 'function' && Object( val ) === val ) {
+					clone[ key ] = deepClone( val );
+				} else {
+					clone[ key ] = val;
+				}
+			}
+			return clone;
+		}
+
+		const originalDeep = deepClone( obj );
+
+		function compare( state ) {
+			for ( let key in obj ) {
+				const val = obj[ key ];
+				const deep = state[ key ];
+				const shallow = originalShallow[ key ];
+				if ( Object( val ) === val ) {
+					assert.deepStrictEqual( val, deep, 'deep ' + key );
+					assert.strictEqual( val, shallow, 'shallow ' + key );
+				} else {
+					assert.strictEqual( val, deep );
+				}
+			}
+		}
+
+		// add it to gui
+
+		const gui = new GUI();
+
+		const booleanCtrl = gui.add( obj, 'boolean' );
+		const color1Ctrl = gui.addColor( obj, 'color1' );
+		const color2Ctrl = gui.addColor( obj, 'color2' );
+		const color3Ctrl = gui.addColor( obj, 'color3' );
+		const color4Ctrl = gui.addColor( obj, 'color4', 255 );
+		const color5Ctrl = gui.addColor( obj, 'color5', 255 );
+		const funcCtrl = gui.add( obj, 'func' );
+		const numberCtrl = gui.add( obj, 'number' );
+		const optionsCtrl = gui.add( obj, 'options', [ 'a', 'b', 'c' ] );
+		const stringCtrl = gui.add( obj, 'string' );
+
+		// change it via gui
+
+		booleanCtrl.setValue( true );
+		color1Ctrl._setValueFromHexString( '#0fac8f' );
+		color2Ctrl._setValueFromHexString( '#3fccea' );
+		color3Ctrl._setValueFromHexString( '#219c3a' );
+		color4Ctrl._setValueFromHexString( '#0033aa' );
+		color5Ctrl._setValueFromHexString( '#88fac3' );
+		funcCtrl; // function controller is kinda just here for symmetry. don't know what to do with it yet.
+		numberCtrl.setValue( 1 );
+		optionsCtrl.setValue( 'c' );
+		stringCtrl.setValue( 'bar' );
+
+		const newState = deepClone( obj );
+
+		// console.log( originalDeep );
+		// console.log( newState );
+
+		// export
+		const saved = gui.export( true, false );
+
+		// reset gui to original state
+		gui.reset();
+
+		// assert matches original state
+		// assert object types retain reference
+		compare( originalDeep );
+
+		// import
+		gui.import( saved );
+
+		// assert matches original state
+		// assert object types retain reference
+
+		compare( newState );
 
 	} );
 

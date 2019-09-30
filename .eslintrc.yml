@@ -8,7 +8,6 @@ extends:
   - eslint:recommended
   - plugin:jsdoc/recommended
 plugins: 
-  - html
   - jsdoc
 rules:
   array-bracket-spacing: [ warn, always ]

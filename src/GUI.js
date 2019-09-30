@@ -1,5 +1,7 @@
 /** @module GUI */
 
+import config from './config';
+
 import Controller from './Controller';
 import BooleanController from './BooleanController';
 import ColorController from './ColorController';
@@ -8,10 +10,7 @@ import NumberController from './NumberController';
 import OptionController from './OptionController';
 import StringController from './StringController';
 
-import stylesheet from 'style';
-
 import warn from './utils/warn';
-import config from './config';
 
 import _injectStyles from './utils/injectStyles';
 let stylesInjected = false;
@@ -197,23 +196,23 @@ export default class GUI {
 
 		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
-			controller = new config.OptionController( this, object, property, $1 );
+			controller = new OptionController( this, object, property, $1 );
 
 		} else if ( initialType === 'boolean' ) {
 
-			controller = new config.BooleanController( this, object, property );
+			controller = new BooleanController( this, object, property );
 
 		} else if ( initialType === 'string' ) {
 
-			controller = new config.StringController( this, object, property );
+			controller = new StringController( this, object, property );
 
 		} else if ( initialType === 'function' ) {
 
-			controller = new config.FunctionController( this, object, property );
+			controller = new FunctionController( this, object, property );
 
 		} else if ( initialType === 'number' ) {
 
-			controller = new config.NumberController( this, object, property, $1, max, step );
+			controller = new NumberController( this, object, property, $1, max, step );
 
 		} else {
 
@@ -244,7 +243,7 @@ export default class GUI {
 	 */
 	addColor( object, property, rgbScale = 1 ) {
 		const onChange = this._onChangeShorthand( arguments );
-		const controller = new config.ColorController( this, object, property, rgbScale );
+		const controller = new ColorController( this, object, property, rgbScale );
 		if ( onChange ) {
 			controller.onChange( onChange );
 		}
@@ -276,10 +275,12 @@ export default class GUI {
 	 * @returns {Array<Controller>}
 	 */
 	getControllers( recursive = true ) {
-		const controllers = this.children.filter( c => c instanceof Controller );
+		let controllers = this.children.filter( c => c instanceof Controller );
 		if ( !recursive ) return controllers;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers( false ) );
-		return this.getFolders( true ).reduce( accumulator, controllers );
+		this.getFolders( true ).forEach( f => {
+			controllers = controllers.concat( f.getControllers( false ) );
+		} );
+		return controllers;
 	}
 
 	/**
@@ -290,26 +291,30 @@ export default class GUI {
 	getFolders( recursive = true ) {
 		const folders = this.children.filter( c => c instanceof GUI );
 		if ( !recursive ) return folders;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
-		return folders.reduce( accumulator, Array.from( folders ) );
+		let allFolders = Array.from( folders );
+		folders.forEach( f => {
+			allFolders = allFolders.concat( f.getFolders( true ) );
+		} );
+		return allFolders;
 	}
 
-	export( recursive = true, print = 2 ) {
+	/**
+	 * Returns an object mapping controller keys to values
+	 * @param {boolean} recursive
+	 * @returns {object}
+	 */
+	export( recursive = true ) {
 		const obj = {};
 		this.getControllers( recursive ).forEach( c => {
-			obj[ c._name ] = c.getValue();
+			obj[ c._name ] = c.export();
 		} );
-		if ( print !== false ) {
-			// eslint-disable-next-line no-console
-			console.log( JSON.stringify( obj, null, print ) );
-		}
 		return obj;
 	}
 
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
 			if ( c._name in obj ) {
-				c.setValue( obj[ c._name ] );
+				c.import( obj[ c._name ] );
 			}
 		} );
 		return this;
@@ -431,17 +436,3 @@ export default class GUI {
 	}
 
 }
-
-config.BooleanController = BooleanController;
-config.ColorController = ColorController;
-config.FunctionController = FunctionController;
-config.NumberController = NumberController;
-config.OptionController = OptionController;
-config.StringController = StringController;
-
-config.warn = true;
-config.rgbScale = 1;
-
-config.stylesheet = stylesheet;
-
-GUI.config = config;

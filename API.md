@@ -11,6 +11,7 @@
 - [**addFolder**()](#GUI#addFolder) → GUI
 - [**close**()](#GUI#close) 
 - [**destroy**()](#GUI#destroy) 
+- [**export**()](#GUI#export) → object
 - [**forEachController**()](#GUI#forEachController) 
 - [**getControllers**()](#GUI#getControllers) → Array.<Controller>
 - [**getFolders**()](#GUI#getFolders) → Array.<GUI>
@@ -178,6 +179,14 @@ todoc
 
 ***
 
+## <a name="GUI#export"></a> gui.**export**( recursive=true )
+
+Returns an object mapping controller keys to values
+
+Returns: **object**
+
+***
+
 ## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=true )
 
 todelete
@@ -336,7 +345,8 @@ Returns: **any**
 
 ## <a name="Controller#listen"></a> controller.**listen**( listen=true )
 
-Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
+Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
+`controller._listening` to access the listening state.
 
 Returns: **Controller – self**
 
@@ -388,7 +398,8 @@ Returns: **Controller – self**
 
 ## <a name="Controller#options"></a> controller.**options**( options : object|Array )
 
-Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
+Destroys this controller and adds a new option controller.
+The `gui.add( object, property, options )` syntax is preferred.
 
 Returns: **Controller**
 
@@ -420,8 +431,8 @@ Returns: **Controller – self**
 
 ## <a name="Controller#updateDisplay"></a> controller.**updateDisplay**()
 
-Updates the display to keep it in sync with `getValue()`. Useful for updating
-your controllers when their values have been modified outside of the GUI.
+Updates the display to keep it in sync with `getValue()`. Useful for updating your
+controllers when their values have been modified outside of the GUI.
 
 Returns: **Controller – self**
 
@@ -477,7 +488,8 @@ Used to determine if the controller is disabled.
 
 ## <a name="Controller#_listening"></a> controller.**_listening** : boolean
 
-Used to determine if the controller is listening. Use `controller.listen(true|false)` to change the listening state.
+Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
+change the listening state.
 
 ***
 
@@ -490,8 +502,8 @@ Used to access the controller's name.
 ## <a name="Controller#_onChange"></a> controller.**_onChange** : function
 
 A function that will be called whenever the value is modified via the GUI.
-The function takes the current value as its only parameter and `this` will
-be bound to the controller.
+The function takes the current value as its only parameter and `this` will be bound to
+the controller.
 
 ***
 

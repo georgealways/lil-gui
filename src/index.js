@@ -9,3 +9,5 @@ export { default as FunctionController } from './FunctionController';
 export { default as NumberController } from './NumberController';
 export { default as OptionController } from './OptionController';
 export { default as StringController } from './StringController';
+
+export { default as config } from './config';

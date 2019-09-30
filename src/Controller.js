@@ -106,8 +106,8 @@ export default class Controller {
 	onChange( callback ) {
 		/**
 		 * A function that will be called whenever the value is modified via the GUI.
-		 * The function takes the current value as its only parameter and `this` will
-		 * be bound to the controller.
+		 * The function takes the current value as its only parameter and `this` will be bound to
+		 * the controller.
 		 * @type {Function}
 		 */
 		this._onChange = callback;
@@ -120,7 +120,8 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
+	 * Destroys this controller and adds a new option controller.
+	 * The `gui.add( object, property, options )` syntax is preferred.
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -248,23 +249,34 @@ export default class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with `getValue()`. Useful for updating
-	 * your controllers when their values have been modified outside of the GUI.
+	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
+	 * controllers when their values have been modified outside of the GUI.
 	 * @returns {Controller} self
 	 */
 	updateDisplay() {
 		return this;
 	}
 
+	export() {
+		return this.getValue();
+	}
+
+	import( value ) {
+		this.setValue( value );
+		return this;
+	}
+
 	/**
-	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
+	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
+	 * `controller._listening` to access the listening state.
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */
 	listen( listen = true ) {
 
 		/**
-		 * Used to determine if the controller is listening. Use `controller.listen(true|false)` to change the listening state.
+		 * Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
+		 * change the listening state.
 		 * @type {boolean}
 		 */
 		this._listening = listen;

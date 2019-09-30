@@ -279,6 +279,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#addFolder"><strong>addFolder</strong>()</a> → GUI</li>
 <li><a href="#GUI#close"><strong>close</strong>()</a></li>
 <li><a href="#GUI#destroy"><strong>destroy</strong>()</a></li>
+<li><a href="#GUI#export"><strong>export</strong>()</a> → object</li>
 <li><a href="#GUI#forEachController"><strong>forEachController</strong>()</a></li>
 <li><a href="#GUI#getControllers"><strong>getControllers</strong>()</a> → Array.<Controller></li>
 <li><a href="#GUI#getFolders"><strong>getFolders</strong>()</a> → Array.<GUI></li>
@@ -410,6 +411,10 @@ Type: <strong>number</strong> - Optional</p>
 <h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
 <hr>
+<h2><a name="GUI#export"></a> gui.<strong>export</strong>( recursive=true )</h2>
+<p>Returns an object mapping controller keys to values</p>
+<p>Returns: <strong>object</strong></p>
+<hr>
 <h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=true )</h2>
 <p>todelete</p>
 <hr>
@@ -495,7 +500,8 @@ controller.enable( controller._disabled ); <span class="hljs-comment">// toggle<
 <p>Returns: <strong>any</strong></p>
 <hr>
 <h2><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true )</h2>
-<p>Calls <code>updateDisplay()</code> every animation frame. Pass <code>false</code> to stop listening, and use <code>controller._listening</code> to access the listening state.</p>
+<p>Calls <code>updateDisplay()</code> every animation frame. Pass <code>false</code> to stop listening, and use
+<code>controller._listening</code> to access the listening state.</p>
 <p>Returns: <strong>Controller – self</strong></p>
 <hr>
 <h2><a name="Controller#max"></a> controller.<strong>max</strong>( max : number )</h2>
@@ -525,7 +531,8 @@ controller = gui.add( object, <span class="hljs-string">'property'</span> ).onCh
 <p>Returns: <strong>Controller – self</strong></p>
 <hr>
 <h2><a name="Controller#options"></a> controller.<strong>options</strong>( options : object|Array )</h2>
-<p>Destroys this controller and adds a new option controller. The <code>gui.add( object, property, options )</code> syntax is preferred.</p>
+<p>Destroys this controller and adds a new option controller.
+The <code>gui.add( object, property, options )</code> syntax is preferred.</p>
 <p>Returns: <strong>Controller</strong></p>
 <hr>
 <h2><a name="Controller#reset"></a> controller.<strong>reset</strong>()</h2>
@@ -541,8 +548,8 @@ controller = gui.add( object, <span class="hljs-string">'property'</span> ).onCh
 <p>Returns: <strong>Controller – self</strong></p>
 <hr>
 <h2><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>()</h2>
-<p>Updates the display to keep it in sync with <code>getValue()</code>. Useful for updating
-your controllers when their values have been modified outside of the GUI.</p>
+<p>Updates the display to keep it in sync with <code>getValue()</code>. Useful for updating your
+controllers when their values have been modified outside of the GUI.</p>
 <p>Returns: <strong>Controller – self</strong></p>
 <hr>
 <h2><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h2>
@@ -570,15 +577,16 @@ your controllers when their values have been modified outside of the GUI.</p>
 <p>Used to determine if the controller is disabled.</p>
 <hr>
 <h2><a name="Controller#_listening"></a> controller.<strong>_listening</strong> : boolean</h2>
-<p>Used to determine if the controller is listening. Use <code>controller.listen(true|false)</code> to change the listening state.</p>
+<p>Used to determine if the controller is listening.  Use <code>controller.listen(true|false)</code> to
+change the listening state.</p>
 <hr>
 <h2><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h2>
 <p>Used to access the controller's name.</p>
 <hr>
 <h2><a name="Controller#_onChange"></a> controller.<strong>_onChange</strong> : function</h2>
 <p>A function that will be called whenever the value is modified via the GUI.
-The function takes the current value as its only parameter and <code>this</code> will
-be bound to the controller.</p>
+The function takes the current value as its only parameter and <code>this</code> will be bound to
+the controller.</p>
 <hr>
 
 </div>

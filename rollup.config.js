@@ -19,18 +19,18 @@ export default [
 	{
 		input,
 		output: Object.assign( { file: pkg.module }, output ),
-		plugins: [ style() ]
+		plugins: [ stylesheet() ]
 	},
 	{
 		input,
 		output: Object.assign( { file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' }, output ),
-		plugins: [ style() ]
+		plugins: [ stylesheet() ]
 	},
 	{
 		input,
 		output: Object.assign( { file: pkg.module.replace( '.js', '.min.js' ) }, output ),
 		plugins: [
-			style( true ),
+			stylesheet( true ),
 			terser( {
 				output: {
 					comments( node, comment ) {
@@ -42,11 +42,11 @@ export default [
 	}
 ];
 
-function style( min = false ) {
+function stylesheet( min = false ) {
 	return {
-		name: 'style',
+		name: 'stylesheet',
 		resolveId( source ) {
-			if ( source === 'style' ) {
+			if ( source === 'stylesheet' ) {
 				return min ? pkg.config.styleMin : pkg.config.style;
 			}
 			return null;

@@ -24,31 +24,13 @@ export default class ColorController extends Controller {
 		this.$widget.appendChild( this.$display );
 		this.$widget.appendChild( this.$text );
 
-		this._format = getColorFormat( this.getValue() );
-
+		this._format = getColorFormat( this.initialValue );
 		this._rgbScale = rgbScale;
 
-		const set = value => {
-
-			if ( this._format.isPrimitive ) {
-
-				const newValue = this._format.fromHexString( value );
-				this.setValue( newValue );
-
-			} else {
-
-				this._format.fromHexString( value, this.getValue(), this._rgbScale );
-				this._callOnChange();
-				this.updateDisplay();
-
-			}
-
-		};
+		this._initialValueHexString = this.export();
 
 		this.$input.addEventListener( 'change', () => {
-
-			set( this.$input.value );
-
+			this._setValueFromHexString( this.$input.value );
 		} );
 
 		this.$input.addEventListener( 'focus', () => {
@@ -64,7 +46,7 @@ export default class ColorController extends Controller {
 		this.$text.addEventListener( 'input', () => {
 			const tryParse = normalizeColorString( this.$text.value );
 			if ( tryParse ) {
-				set( tryParse );
+				this._setValueFromHexString( tryParse );
 			}
 		} );
 
@@ -80,6 +62,37 @@ export default class ColorController extends Controller {
 
 		this.updateDisplay();
 
+	}
+
+	reset() {
+		this._setValueFromHexString( this._initialValueHexString );
+		return this;
+	}
+
+	_setValueFromHexString( value ) {
+
+		if ( this._format.isPrimitive ) {
+
+			const newValue = this._format.fromHexString( value );
+			this.setValue( newValue );
+
+		} else {
+
+			this._format.fromHexString( value, this.getValue(), this._rgbScale );
+			this._callOnChange();
+			this.updateDisplay();
+
+		}
+
+	}
+
+	export() {
+		return this._format.toHexString( this.getValue(), this._rgbScale );
+	}
+
+	import( value ) {
+		this._setValueFromHexString( value );
+		return this;
 	}
 
 	updateDisplay() {

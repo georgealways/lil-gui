@@ -4,7 +4,350 @@
  * Released under the MIT License.
  */
 
-const config = {};
+const stylesheet = `@font-face {
+  font-family: "lil-gui";
+  src: url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ4AAsAAAAABqAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAF8AAACEIZ5WI2hlYWQAAAJUAAAAJwAAADZfcj23aGhlYQAAAnwAAAAYAAAAJAC5AGpobXR4AAAClAAAAA4AAAAUAZAAAGxvY2EAAAKkAAAADAAAAAwARABkbWF4cAAAArAAAAAeAAAAIAERABJuYW1lAAAC0AAAASIAAAIK9SUU/XBvc3QAAAP0AAAAQgAAAFiCDrX0eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nGNgYgABH4YwBiYGVgYGe0ZxUXZ1SRCwkZQUkZQEyTKC1dgyuIJUmLOrm6ub2yqyS0mxq4BJqLw7gyVYXt1c3FxcDSwjiCwfwuCLkNcU5+RT4pQU4+RT5gQAe+sKMgB4nGNgZGBgAOKTAv9nx/PbfGXgZkhhwAZCGMKAJAcDE4gDAMWSBTgAeJxjYGRgYEhhYICTIQyMDKiAFQAceQEkeJxjYACCFFQMAA4kAZEAAAAAAAAAEgAiADIAQnicY2BkYGBgZWBjYGIAARDJBYQMDP/BfAYACZUBJAAAeJxd0E1Kw0AcBfCXfmIDRRBdicxKF9L0Y9kDtPsuAi7TdJKmTDNhMi3UE3gCT+ApPIB4LF/Df2NmSPKbNy8DCYBb/CDAdQQYNvfr6NBDcZcai3v0vbiPEI/iAfMX8QiviMQh7vDGE4LeDZMxjLhDv4u79Ie4R3+K+3jAl3jA/Fs8QoxfcYjn4MkUZpKfio3OTyZxspJHrF1d2FLNo5kka11ql3i9U9uLqs/5wvtMZc4e1cqWXhtjVeXsQac+2ntfLafTTPIotUd+QcFrghwnagPdyCCBa+39X8VsOtSURQmFOf/RrNVZs1M2vQSezx17W1x4r3FmZ8HUI+M6Y8fiSK2a865tw2mZVM3egUnKPMK+eavCElPOrNWP2OJJf3XUWN4AAHicY2BigABGBuyAlZGJkZmRhZGVkY2BI6UovyAlvzyPNy0/JyW1SDc5J784NYUbyssvSM1jTc5ITc5mYAAAYLAPMAAA") format("woff");
+}
+.lil-gui {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1;
+  font-weight: normal;
+  font-style: normal;
+  text-align: left;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  user-select: none;
+  -webkit-user-select: none;
+  --width: 250px;
+  --scrollbar-width: 5px;
+  --mobile-max-height: 200px;
+  --widget-gap: calc(var(--row-height) - var(--widget-height));
+  --background-color: #1f1f1f;
+  --text-color: #ebebeb;
+  --title-background-color: #111111;
+  --widget-color: #424242;
+  --highlight-color: #525151;
+  --number-color: #2cc9ff;
+  --string-color: #a2db3c;
+  --font-size: 11px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
+  --row-height: 24px;
+  --widget-height: 20px;
+  --padding: 4px;
+  --name-width: 42%;
+  --slider-input-width: 27%;
+  --color-input-width: 27%;
+  --slider-input-min-width: 45px;
+  --color-input-min-width: 45px;
+  --folder-indent: 7px;
+  --widget-padding: 0 0 0 3px;
+  --widget-border-radius: 2px;
+  --checkbox-size:calc(0.75 * var(--widget-height));
+}
+.lil-gui, .lil-gui * {
+  box-sizing: border-box;
+  margin: 0;
+}
+.lil-gui.root {
+  width: var(--width);
+}
+.lil-gui.root > .title {
+  background: var(--title-background-color);
+}
+.lil-gui > .children {
+  padding: calc(0.5 * var(--widget-gap)) 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.lil-gui > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui > .children::-webkit-scrollbar-corner {
+  height: 0;
+  display: none;
+}
+.lil-gui > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
+}
+.lil-gui .lil-gui {
+  --background-color:inherit;
+  --text-color:inherit;
+  --title-background-color:inherit;
+  --widget-color:inherit;
+  --highlight-color:inherit;
+  --number-color:inherit;
+  --string-color:inherit;
+  --font-size:inherit;
+  --font-family:inherit;
+  --font-family-mono:inherit;
+  --row-height:inherit;
+  --widget-height:inherit;
+  --padding:inherit;
+  --name-width:inherit;
+  --slider-input-width:inherit;
+  --color-input-width:inherit;
+  --slider-input-min-width:inherit;
+  --color-input-min-width:inherit;
+  --folder-indent:inherit;
+  --widget-padding:inherit;
+  --widget-border-radius:inherit;
+  --checkbox-size:inherit;
+}
+.lil-gui.autoPlace {
+  position: fixed;
+  top: 0;
+  right: 15px;
+  z-index: 1001;
+}
+.lil-gui.autoPlace > .children {
+  max-height: calc(var(--window-height) - var(--row-height));
+}
+.lil-gui.autoPlace.mobile {
+  --row-height: 40px;
+  --widget-height: 32px;
+  --padding: 8px;
+  --font-size: 16px;
+  --folder-indent: 12px;
+  --widget-padding: 0 0 0 5px;
+  --scrollbar-width: 7px;
+  right: auto;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.lil-gui.autoPlace.mobile > .children {
+  max-height: calc(var(--mobile-max-height) - var(--row-height));
+}
+.lil-gui .title {
+  height: var(--row-height);
+  font-weight: 600;
+  padding: 0 var(--padding);
+}
+.lil-gui .title:before {
+  font-family: "lil-gui";
+}
+.lil-gui.collapses > .title:before {
+  content: "▾";
+}
+.lil-gui.collapses.closed .children {
+  display: none;
+}
+.lil-gui.collapses.closed .title:before {
+  content: "▸";
+}
+.lil-gui .lil-gui.collapses > .children {
+  margin-left: var(--folder-indent);
+  border-left: 2px solid var(--widget-color);
+}
+.lil-gui:not(.collapses) > .children:empty {
+  height: calc(var(--widget-gap) * 0.5);
+  padding: 0;
+}
+.lil-gui:not(.collapses) > .title {
+  line-height: var(--row-height);
+}
+.lil-gui.root:not(.closed) > .title, .lil-gui:not(.collapses) > .title {
+  border-bottom: 1px solid var(--widget-color);
+}
+.lil-gui.collapses > .children:empty:before {
+  content: "Empty";
+  padding: 0 var(--padding);
+  display: block;
+  height: var(--row-height);
+  font-style: italic;
+  line-height: var(--row-height);
+  opacity: 0.5;
+}
+.lil-gui input {
+  border: 0;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  background: var(--widget-color);
+  color: var(--text-color);
+  width: 100%;
+}
+.lil-gui input[type=text] {
+  padding: var(--widget-padding);
+}
+.lil-gui input:focus, .lil-gui input:active {
+  background: var(--highlight-color);
+}
+.lil-gui input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: var(--checkbox-size);
+  width: var(--checkbox-size);
+  border-radius: var(--widget-border-radius);
+  text-align: center;
+}
+.lil-gui input[type=checkbox]:checked:before {
+  font-family: "lil-gui";
+  content: "✓";
+  font-size: var(--checkbox-size);
+  line-height: var(--checkbox-size);
+}
+.lil-gui button {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  text-align: left;
+  width: 100%;
+  text-transform: none;
+}
+.lil-gui button.title {
+  background: var(--background-color);
+  padding: 1px var(--padding) 2px;
+}
+.lil-gui .display {
+  background: var(--widget-color);
+}
+.lil-gui .display.focus, .lil-gui .display.active {
+  background: var(--highlight-color);
+}
+.lil-gui .controller {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--padding);
+  height: var(--row-height);
+}
+.lil-gui .controller.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.lil-gui .controller .name {
+  display: flex;
+  align-items: center;
+  min-width: var(--name-width);
+  flex-shrink: 0;
+  padding-right: var(--padding);
+  height: 100%;
+  overflow: hidden;
+}
+.lil-gui .controller .widget {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.lil-gui .controller.number input {
+  color: var(--number-color);
+}
+.lil-gui .controller.number.hasSlider input {
+  margin-left: var(--widget-gap);
+  width: var(--slider-input-width);
+  min-width: var(--slider-input-min-width);
+  flex-shrink: 0;
+}
+.lil-gui .controller.number .slider {
+  width: 100%;
+  height: var(--widget-height);
+  background-color: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+  overflow: hidden;
+}
+.lil-gui .controller.number .slider.active {
+  background-color: var(--highlight-color);
+}
+.lil-gui .controller.number .slider.active .fill {
+  opacity: 0.95;
+}
+.lil-gui .controller.number .fill {
+  height: 100%;
+  border-right: 2px solid var(--number-color);
+}
+.lil-gui .controller.string input {
+  color: var(--string-color);
+}
+.lil-gui .controller.color .display {
+  width: 100%;
+  height: var(--widget-height);
+  border-radius: var(--widget-border-radius);
+}
+.lil-gui .controller.color input[type=color] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.lil-gui .controller.color input[type=text] {
+  margin-left: var(--widget-gap);
+  font-family: var(--font-family-mono);
+  min-width: var(--color-input-min-width);
+  width: var(--color-input-width);
+  flex-shrink: 0;
+}
+.lil-gui .controller.option select {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  max-width: 100%;
+}
+.lil-gui .controller.option .display {
+  pointer-events: none;
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  line-height: var(--widget-height);
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  padding-left: 0.55em;
+  padding-right: 1.75em;
+}
+.lil-gui .controller.option .display:after {
+  font-family: "lil-gui";
+  content: "↕";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding-right: 0.375em;
+}
+.lil-gui .controller.function {
+  background: none;
+}
+@media (hover: hover) {
+  .lil-gui .controller.function:hover .name {
+    background: var(--highlight-color);
+  }
+}
+.lil-gui .controller.function:active .name {
+  background: var(--text-color);
+  color: var(--background-color);
+}
+.lil-gui .controller.function .name {
+  display: block;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  background: var(--widget-color);
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  line-height: var(--widget-height);
+}
+.lil-gui .controller.function .widget {
+  display: none;
+}`;
+
+const config = {
+	warn: true,
+	stylesheet
+};
 
 function warn() {
 	if ( !config.warn ) return;
@@ -118,8 +461,8 @@ class Controller {
 	onChange( callback ) {
 		/**
 		 * A function that will be called whenever the value is modified via the GUI.
-		 * The function takes the current value as its only parameter and `this` will
-		 * be bound to the controller.
+		 * The function takes the current value as its only parameter and `this` will be bound to
+		 * the controller.
 		 * @type {Function}
 		 */
 		this._onChange = callback;
@@ -132,7 +475,8 @@ class Controller {
 	}
 
 	/**
-	 * Destroys this controller and adds a new option controller. The `gui.add( object, property, options )` syntax is preferred.
+	 * Destroys this controller and adds a new option controller.
+	 * The `gui.add( object, property, options )` syntax is preferred.
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -260,23 +604,34 @@ class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with `getValue()`. Useful for updating
-	 * your controllers when their values have been modified outside of the GUI.
+	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
+	 * controllers when their values have been modified outside of the GUI.
 	 * @returns {Controller} self
 	 */
 	updateDisplay() {
 		return this;
 	}
 
+	export() {
+		return this.getValue();
+	}
+
+	import( value ) {
+		this.setValue( value );
+		return this;
+	}
+
 	/**
-	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use `controller._listening` to access the listening state.
+	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
+	 * `controller._listening` to access the listening state.
 	 * @param {boolean} [listen=true]
 	 * @returns {Controller} self
 	 */
 	listen( listen = true ) {
 
 		/**
-		 * Used to determine if the controller is listening. Use `controller.listen(true|false)` to change the listening state.
+		 * Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
+		 * change the listening state.
 		 * @type {boolean}
 		 */
 		this._listening = listen;
@@ -448,31 +803,13 @@ class ColorController extends Controller {
 		this.$widget.appendChild( this.$display );
 		this.$widget.appendChild( this.$text );
 
-		this._format = getColorFormat( this.getValue() );
-
+		this._format = getColorFormat( this.initialValue );
 		this._rgbScale = rgbScale;
 
-		const set = value => {
-
-			if ( this._format.isPrimitive ) {
-
-				const newValue = this._format.fromHexString( value );
-				this.setValue( newValue );
-
-			} else {
-
-				this._format.fromHexString( value, this.getValue(), this._rgbScale );
-				this._callOnChange();
-				this.updateDisplay();
-
-			}
-
-		};
+		this._initialValueHexString = this.export();
 
 		this.$input.addEventListener( 'change', () => {
-
-			set( this.$input.value );
-
+			this._setValueFromHexString( this.$input.value );
 		} );
 
 		this.$input.addEventListener( 'focus', () => {
@@ -488,7 +825,7 @@ class ColorController extends Controller {
 		this.$text.addEventListener( 'input', () => {
 			const tryParse = normalizeColorString( this.$text.value );
 			if ( tryParse ) {
-				set( tryParse );
+				this._setValueFromHexString( tryParse );
 			}
 		} );
 
@@ -504,6 +841,37 @@ class ColorController extends Controller {
 
 		this.updateDisplay();
 
+	}
+
+	reset() {
+		this._setValueFromHexString( this._initialValueHexString );
+		return this;
+	}
+
+	_setValueFromHexString( value ) {
+
+		if ( this._format.isPrimitive ) {
+
+			const newValue = this._format.fromHexString( value );
+			this.setValue( newValue );
+
+		} else {
+
+			this._format.fromHexString( value, this.getValue(), this._rgbScale );
+			this._callOnChange();
+			this.updateDisplay();
+
+		}
+
+	}
+
+	export() {
+		return this._format.toHexString( this.getValue(), this._rgbScale );
+	}
+
+	import( value ) {
+		this._setValueFromHexString( value );
+		return this;
 	}
 
 	updateDisplay() {
@@ -978,346 +1346,6 @@ class StringController extends Controller {
 
 }
 
-const stylesheet = `@font-face {
-  font-family: "lil-gui";
-  src: url("data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAQ4AAsAAAAABqAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADsAAABUIIslek9TLzIAAAFEAAAAPQAAAFZr2333Y21hcAAAAYQAAABuAAABssJQk9tnbHlmAAAB9AAAAF8AAACEIZ5WI2hlYWQAAAJUAAAAJwAAADZfcj23aGhlYQAAAnwAAAAYAAAAJAC5AGpobXR4AAAClAAAAA4AAAAUAZAAAGxvY2EAAAKkAAAADAAAAAwARABkbWF4cAAAArAAAAAeAAAAIAERABJuYW1lAAAC0AAAASIAAAIK9SUU/XBvc3QAAAP0AAAAQgAAAFiCDrX0eJxjYGRgYOBiMGCwY2BycfMJYeDLSSzJY5BiYGGAAJA8MpsxJzM9kYEDxgPKsYBpDiBmg4gCACY7BUgAeJxjYGQIYJzAwMrAwGDP4AYk+aC0AQMLgyQDAxMDKzMDVhCQ5prC4KA4VV2YIQXI5QSTDAyMIAIA82gFuAAAAHic7ZGxDYAwDAQvISCE6JiAIkrDEBmIil3YJVVWAztOwRC8dZH9ily8gREYhEMI4C4cqlNc1/yBpfmBLPPCjMfvdyyxpu154Nt3Oflnpb2XHbp74tfa3tynoOkZmnYshiRGrIZeJ20G4QWoQBFzAAB4nGNgYgABH4YwBiYGVgYGe0ZxUXZ1SRCwkZQUkZQEyTKC1dgyuIJUmLOrm6ub2yqyS0mxq4BJqLw7gyVYXt1c3FxcDSwjiCwfwuCLkNcU5+RT4pQU4+RT5gQAe+sKMgB4nGNgZGBgAOKTAv9nx/PbfGXgZkhhwAZCGMKAJAcDE4gDAMWSBTgAeJxjYGRgYEhhYICTIQyMDKiAFQAceQEkeJxjYACCFFQMAA4kAZEAAAAAAAAAEgAiADIAQnicY2BkYGBgZWBjYGIAARDJBYQMDP/BfAYACZUBJAAAeJxd0E1Kw0AcBfCXfmIDRRBdicxKF9L0Y9kDtPsuAi7TdJKmTDNhMi3UE3gCT+ApPIB4LF/Df2NmSPKbNy8DCYBb/CDAdQQYNvfr6NBDcZcai3v0vbiPEI/iAfMX8QiviMQh7vDGE4LeDZMxjLhDv4u79Ie4R3+K+3jAl3jA/Fs8QoxfcYjn4MkUZpKfio3OTyZxspJHrF1d2FLNo5kka11ql3i9U9uLqs/5wvtMZc4e1cqWXhtjVeXsQac+2ntfLafTTPIotUd+QcFrghwnagPdyCCBa+39X8VsOtSURQmFOf/RrNVZs1M2vQSezx17W1x4r3FmZ8HUI+M6Y8fiSK2a865tw2mZVM3egUnKPMK+eavCElPOrNWP2OJJf3XUWN4AAHicY2BigABGBuyAlZGJkZmRhZGVkY2BI6UovyAlvzyPNy0/JyW1SDc5J784NYUbyssvSM1jTc5ITc5mYAAAYLAPMAAA") format("woff");
-}
-.lil-gui {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  line-height: 1;
-  font-weight: normal;
-  font-style: normal;
-  text-align: left;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  user-select: none;
-  -webkit-user-select: none;
-  --width: 250px;
-  --scrollbar-width: 5px;
-  --mobile-max-height: 200px;
-  --widget-gap: calc(var(--row-height) - var(--widget-height));
-  --background-color: #1f1f1f;
-  --text-color: #ebebeb;
-  --title-background-color: #111111;
-  --widget-color: #424242;
-  --highlight-color: #525151;
-  --number-color: #2cc9ff;
-  --string-color: #a2db3c;
-  --font-size: 11px;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
-  --row-height: 24px;
-  --widget-height: 20px;
-  --padding: 4px;
-  --name-width: 42%;
-  --slider-input-width: 27%;
-  --color-input-width: 27%;
-  --slider-input-min-width: 45px;
-  --color-input-min-width: 45px;
-  --folder-indent: 7px;
-  --widget-padding: 0 0 0 3px;
-  --widget-border-radius: 2px;
-  --checkbox-size:calc(0.75 * var(--widget-height));
-}
-.lil-gui, .lil-gui * {
-  box-sizing: border-box;
-  margin: 0;
-}
-.lil-gui.root {
-  width: var(--width);
-}
-.lil-gui.root > .title {
-  background: var(--title-background-color);
-}
-.lil-gui > .children {
-  padding: calc(0.5 * var(--widget-gap)) 0;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.lil-gui > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  height: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui > .children::-webkit-scrollbar-corner {
-  height: 0;
-  display: none;
-}
-.lil-gui > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
-}
-.lil-gui .lil-gui {
-  --background-color:inherit;
-  --text-color:inherit;
-  --title-background-color:inherit;
-  --widget-color:inherit;
-  --highlight-color:inherit;
-  --number-color:inherit;
-  --string-color:inherit;
-  --font-size:inherit;
-  --font-family:inherit;
-  --font-family-mono:inherit;
-  --row-height:inherit;
-  --widget-height:inherit;
-  --padding:inherit;
-  --name-width:inherit;
-  --slider-input-width:inherit;
-  --color-input-width:inherit;
-  --slider-input-min-width:inherit;
-  --color-input-min-width:inherit;
-  --folder-indent:inherit;
-  --widget-padding:inherit;
-  --widget-border-radius:inherit;
-  --checkbox-size:inherit;
-}
-.lil-gui.autoPlace {
-  position: fixed;
-  top: 0;
-  right: 15px;
-  z-index: 1001;
-}
-.lil-gui.autoPlace > .children {
-  max-height: calc(var(--window-height) - var(--row-height));
-}
-.lil-gui.autoPlace.mobile {
-  --row-height: 40px;
-  --widget-height: 32px;
-  --padding: 8px;
-  --font-size: 16px;
-  --folder-indent: 12px;
-  --widget-padding: 0 0 0 5px;
-  --scrollbar-width: 7px;
-  right: auto;
-  top: auto;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-.lil-gui.autoPlace.mobile > .children {
-  max-height: calc(var(--mobile-max-height) - var(--row-height));
-}
-.lil-gui .title {
-  height: var(--row-height);
-  font-weight: 600;
-  padding: 0 var(--padding);
-}
-.lil-gui .title:before {
-  font-family: "lil-gui";
-}
-.lil-gui.collapses > .title:before {
-  content: "▾";
-}
-.lil-gui.collapses.closed .children {
-  display: none;
-}
-.lil-gui.collapses.closed .title:before {
-  content: "▸";
-}
-.lil-gui .lil-gui.collapses > .children {
-  margin-left: var(--folder-indent);
-  border-left: 2px solid var(--widget-color);
-}
-.lil-gui:not(.collapses) > .children:empty {
-  height: calc(var(--widget-gap) * 0.5);
-  padding: 0;
-}
-.lil-gui:not(.collapses) > .title {
-  line-height: var(--row-height);
-}
-.lil-gui.root:not(.closed) > .title, .lil-gui:not(.collapses) > .title {
-  border-bottom: 1px solid var(--widget-color);
-}
-.lil-gui.collapses > .children:empty:before {
-  content: "Empty";
-  padding: 0 var(--padding);
-  display: block;
-  height: var(--row-height);
-  font-style: italic;
-  line-height: var(--row-height);
-  opacity: 0.5;
-}
-.lil-gui input {
-  border: 0;
-  outline: none;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  border-radius: var(--widget-border-radius);
-  height: var(--widget-height);
-  background: var(--widget-color);
-  color: var(--text-color);
-  width: 100%;
-}
-.lil-gui input[type=text] {
-  padding: var(--widget-padding);
-}
-.lil-gui input:focus, .lil-gui input:active {
-  background: var(--highlight-color);
-}
-.lil-gui input[type=checkbox] {
-  appearance: none;
-  -webkit-appearance: none;
-  height: var(--checkbox-size);
-  width: var(--checkbox-size);
-  border-radius: var(--widget-border-radius);
-  text-align: center;
-}
-.lil-gui input[type=checkbox]:checked:before {
-  font-family: "lil-gui";
-  content: "✓";
-  font-size: var(--checkbox-size);
-  line-height: var(--checkbox-size);
-}
-.lil-gui button {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  cursor: pointer;
-  border: 0;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--text-color);
-  text-align: left;
-  width: 100%;
-  text-transform: none;
-}
-.lil-gui button.title {
-  background: var(--background-color);
-  padding: 1px var(--padding) 2px;
-}
-.lil-gui .display {
-  background: var(--widget-color);
-}
-.lil-gui .display.focus, .lil-gui .display.active {
-  background: var(--highlight-color);
-}
-.lil-gui .controller {
-  display: flex;
-  align-items: center;
-  padding: 0 var(--padding);
-  height: var(--row-height);
-}
-.lil-gui .controller.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.lil-gui .controller .name {
-  display: flex;
-  align-items: center;
-  min-width: var(--name-width);
-  flex-shrink: 0;
-  padding-right: var(--padding);
-  height: 100%;
-  overflow: hidden;
-}
-.lil-gui .controller .widget {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-.lil-gui .controller.number input {
-  color: var(--number-color);
-}
-.lil-gui .controller.number.hasSlider input {
-  margin-left: var(--widget-gap);
-  width: var(--slider-input-width);
-  min-width: var(--slider-input-min-width);
-  flex-shrink: 0;
-}
-.lil-gui .controller.number .slider {
-  width: 100%;
-  height: var(--widget-height);
-  background-color: var(--widget-color);
-  border-radius: var(--widget-border-radius);
-  overflow: hidden;
-}
-.lil-gui .controller.number .slider.active {
-  background-color: var(--highlight-color);
-}
-.lil-gui .controller.number .slider.active .fill {
-  opacity: 0.95;
-}
-.lil-gui .controller.number .fill {
-  height: 100%;
-  border-right: 2px solid var(--number-color);
-}
-.lil-gui .controller.string input {
-  color: var(--string-color);
-}
-.lil-gui .controller.color .display {
-  width: 100%;
-  height: var(--widget-height);
-  border-radius: var(--widget-border-radius);
-}
-.lil-gui .controller.color input[type=color] {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-.lil-gui .controller.color input[type=text] {
-  margin-left: var(--widget-gap);
-  font-family: var(--font-family-mono);
-  min-width: var(--color-input-min-width);
-  width: var(--color-input-width);
-  flex-shrink: 0;
-}
-.lil-gui .controller.option select {
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  max-width: 100%;
-}
-.lil-gui .controller.option .display {
-  pointer-events: none;
-  border-radius: var(--widget-border-radius);
-  height: var(--widget-height);
-  line-height: var(--widget-height);
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  word-break: break-all;
-  padding-left: 0.55em;
-  padding-right: 1.75em;
-}
-.lil-gui .controller.option .display:after {
-  font-family: "lil-gui";
-  content: "↕";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  padding-right: 0.375em;
-}
-.lil-gui .controller.function {
-  background: none;
-}
-@media (hover: hover) {
-  .lil-gui .controller.function:hover .name {
-    background: var(--highlight-color);
-  }
-}
-.lil-gui .controller.function:active .name {
-  background: var(--text-color);
-  color: var(--background-color);
-}
-.lil-gui .controller.function .name {
-  display: block;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  width: 100%;
-  background: var(--widget-color);
-  border-radius: var(--widget-border-radius);
-  height: var(--widget-height);
-  line-height: var(--widget-height);
-}
-.lil-gui .controller.function .widget {
-  display: none;
-}`;
-
 function injectStyles( cssContent ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
@@ -1513,23 +1541,23 @@ class GUI {
 
 		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
 
-			controller = new config.OptionController( this, object, property, $1 );
+			controller = new OptionController( this, object, property, $1 );
 
 		} else if ( initialType === 'boolean' ) {
 
-			controller = new config.BooleanController( this, object, property );
+			controller = new BooleanController( this, object, property );
 
 		} else if ( initialType === 'string' ) {
 
-			controller = new config.StringController( this, object, property );
+			controller = new StringController( this, object, property );
 
 		} else if ( initialType === 'function' ) {
 
-			controller = new config.FunctionController( this, object, property );
+			controller = new FunctionController( this, object, property );
 
 		} else if ( initialType === 'number' ) {
 
-			controller = new config.NumberController( this, object, property, $1, max, step );
+			controller = new NumberController( this, object, property, $1, max, step );
 
 		} else {
 
@@ -1560,7 +1588,7 @@ class GUI {
 	 */
 	addColor( object, property, rgbScale = 1 ) {
 		const onChange = this._onChangeShorthand( arguments );
-		const controller = new config.ColorController( this, object, property, rgbScale );
+		const controller = new ColorController( this, object, property, rgbScale );
 		if ( onChange ) {
 			controller.onChange( onChange );
 		}
@@ -1592,10 +1620,12 @@ class GUI {
 	 * @returns {Array<Controller>}
 	 */
 	getControllers( recursive = true ) {
-		const controllers = this.children.filter( c => c instanceof Controller );
+		let controllers = this.children.filter( c => c instanceof Controller );
 		if ( !recursive ) return controllers;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getControllers( false ) );
-		return this.getFolders( true ).reduce( accumulator, controllers );
+		this.getFolders( true ).forEach( f => {
+			controllers = controllers.concat( f.getControllers( false ) );
+		} );
+		return controllers;
 	}
 
 	/**
@@ -1606,26 +1636,30 @@ class GUI {
 	getFolders( recursive = true ) {
 		const folders = this.children.filter( c => c instanceof GUI );
 		if ( !recursive ) return folders;
-		const accumulator = ( arr, folder ) => arr.concat( folder.getFolders( true ) );
-		return folders.reduce( accumulator, Array.from( folders ) );
+		let allFolders = Array.from( folders );
+		folders.forEach( f => {
+			allFolders = allFolders.concat( f.getFolders( true ) );
+		} );
+		return allFolders;
 	}
 
-	export( recursive = true, print = 2 ) {
+	/**
+	 * Returns an object mapping controller keys to values
+	 * @param {boolean} recursive
+	 * @returns {object}
+	 */
+	export( recursive = true ) {
 		const obj = {};
 		this.getControllers( recursive ).forEach( c => {
-			obj[ c._name ] = c.getValue();
+			obj[ c._name ] = c.export();
 		} );
-		if ( print !== false ) {
-			// eslint-disable-next-line no-console
-			console.log( JSON.stringify( obj, null, print ) );
-		}
 		return obj;
 	}
 
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
 			if ( c._name in obj ) {
-				c.setValue( obj[ c._name ] );
+				c.import( obj[ c._name ] );
 			}
 		} );
 		return this;
@@ -1748,19 +1782,5 @@ class GUI {
 
 }
 
-config.BooleanController = BooleanController;
-config.ColorController = ColorController;
-config.FunctionController = FunctionController;
-config.NumberController = NumberController;
-config.OptionController = OptionController;
-config.StringController = StringController;
-
-config.warn = true;
-config.rgbScale = 1;
-
-config.stylesheet = stylesheet;
-
-GUI.config = config;
-
 export default GUI;
-export { BooleanController, ColorController, Controller, FunctionController, GUI, NumberController, OptionController, StringController };
+export { BooleanController, ColorController, Controller, FunctionController, GUI, NumberController, OptionController, StringController, config };
