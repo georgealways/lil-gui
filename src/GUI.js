@@ -33,7 +33,6 @@ export default class GUI {
 	 * @property {number} [width] todoc
 	 * @property {number} [mobileMaxHeight=200] todoc
 	 * @property {number} [mobileBreakpoint=600] todoc
-	 * @property {boolean} [collapses=true] todoc
 	 *
 	 * @property {string} [queryKey]
 	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
@@ -58,8 +57,7 @@ export default class GUI {
 		width,
 		queryKey,
 		mobileMaxHeight = 200,
-		mobileBreakpoint = 600,
-		collapses = true
+		mobileBreakpoint = 600
 	} = {} ) {
 
 		/**
@@ -99,15 +97,11 @@ export default class GUI {
 		 * todoc
 		 * @type {HTMLElement}
 		 */
-		this.$title = document.createElement( collapses ? 'button' : 'div' );
+		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
-
-		if ( collapses ) {
-			this.domElement.classList.add( 'collapses' );
-			this.$title.addEventListener( 'click', () => {
-				this.open( this._closed );
-			} );
-		}
+		this.$title.addEventListener( 'click', () => {
+			this.open( this._closed );
+		} );
 
 		/**
 		 * todoc
@@ -253,11 +247,10 @@ export default class GUI {
 	/**
 	 * todoc
 	 * @param {string} title todoc
-	 * @param {boolean} [collapses=true] todoc
 	 * @returns {GUI}
 	 */
-	addFolder( title, collapses = true ) {
-		return new GUI( { parent: this, title, collapses } );
+	addFolder( title ) {
+		return new GUI( { parent: this, title } );
 	}
 
 	/**

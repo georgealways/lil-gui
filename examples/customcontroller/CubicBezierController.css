@@ -1,15 +1,9 @@
-.lil-gui .controller.my-cubic-bezier { 
-	/* break out of default controller height */
-	height: auto;
-}
-
 .lil-gui .controller.my-cubic-bezier svg {
 	width: 100%;
 	/* flip coordinates so that up is positive */
 	transform: scaleY(-1);
 	background-color: var(--widget-color);
 	border-radius: var(--widget-border-radius);
-	margin: var(--padding) 0;
 }
 
 .lil-gui .controller.my-cubic-bezier svg * { 
@@ -31,5 +25,4 @@
 .lil-gui .controller.my-cubic-bezier circle {
 	fill: var(--text-color);
 	cursor: pointer;
-	/* inflate target for touch */
 }

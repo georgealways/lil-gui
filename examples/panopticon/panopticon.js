@@ -113,15 +113,10 @@ make( { title: 'Colors' }, gui => {
 
 make( { title: 'Folders' }, gui => {
 
-	const folder1 = gui.addFolder( 'Folder', true );
-
-	const addFiller = g => {
-		g.add( { x: 0.5 }, 'x', 0, 1 ).name( 'Filler Slider' );
-		g.add( { x: true }, 'x' ).name( 'Filler Boolean' );
-		g.add( { x: function(){} }, 'x' ).name( 'Filler Button' );
-	};
-
+	const folder1 = gui.addFolder( 'Folder' );
 	addFiller( folder1 );
+
+	addFiller( gui );
 
 	const folder2 = gui.addFolder( 'Closed Folder' ).close();
 
@@ -129,16 +124,33 @@ make( { title: 'Folders' }, gui => {
 
 	gui.addFolder( 'Empty Folder' );
 
-	const folder3 = gui.addFolder( 'Nested Folders' );
+	const folder3 = gui.addFolder( 'Folder' );
 
 	addFiller( folder3 );
 
-	const folder4 = folder3.addFolder( 'Don\'t go crazy now.' );
+	const folder4 = folder3.addFolder( 'Nested Folder' );
 
 	addFiller( folder4 );
-	folder4.addFolder( 'Nested "header"', false );
+
+	folder4.addFolder( 'Nested Folder' );
+
 	addFiller( folder4 );
 
+	function getDepth( g ) {
+		let depth = 0;
+		while ( g !== g.root ) {
+			g = g.parent;
+			depth++;
+		}
+		return depth;
+	}
+
+	function addFiller( g ) {
+		const nested = getDepth( g ) > 0 ? 'Nested ' : '';
+		g.add( { x: 0.5 }, 'x', 0, 1 ).name( `${nested}Slider` );
+		g.add( { x: true }, 'x' ).name( `${nested}Boolean` );
+		g.add( { x: function(){} }, 'x' ).name( `${nested}Button` );
+	}
 } );
 const styleTag = document.createElement( 'style' );
 document.head.appendChild( styleTag );
@@ -244,11 +256,7 @@ function theme( title, styles ) {
 			gui.addColor( styles, prop );
 		}
 		gui.add( { Apply() {
-			cssVarsGUI.getControllers( true ).forEach( c => {
-				if ( c._name in styles ) {
-					c.setValue( styles[ c._name ] );
-				}
-			} );
+			cssVarsGUI.import( gui.export() );
 		} }, 'Apply' );
 	} );
 }

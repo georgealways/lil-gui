@@ -16,7 +16,7 @@
   --width: 250px;
   --scrollbar-width: 5px;
   --mobile-max-height: 200px;
-  --widget-gap: calc(var(--row-height) - var(--widget-height));
+  --row-height: calc(var(--widget-height) + var(--spacing));
   --background-color: #1f1f1f;
   --text-color: #ebebeb;
   --title-background-color: #111111;
@@ -25,11 +25,8 @@
   --number-color: #2cc9ff;
   --string-color: #a2db3c;
   --font-size: 11px;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family: -apple-system, BlinkMacSystemFont, "Lucida Grande", "Segoe UI", Roboto, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
-  --row-height: 24px;
-  --widget-height: 20px;
-  --padding: 4px;
   --name-width: 42%;
   --slider-input-width: 27%;
   --color-input-width: 27%;
@@ -39,6 +36,9 @@
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
   --checkbox-size:calc(0.75 * var(--widget-height));
+  --padding: 4px;
+  --spacing: 4px;
+  --widget-height: 20px;
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
@@ -51,7 +51,6 @@
   background: var(--title-background-color);
 }
 .lil-gui > .children {
-  padding: calc(0.5 * var(--widget-gap)) 0;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -79,9 +78,6 @@
   --font-size:inherit;
   --font-family:inherit;
   --font-family-mono:inherit;
-  --row-height:inherit;
-  --widget-height:inherit;
-  --padding:inherit;
   --name-width:inherit;
   --slider-input-width:inherit;
   --color-input-width:inherit;
@@ -91,6 +87,9 @@
   --widget-padding:inherit;
   --widget-border-radius:inherit;
   --checkbox-size:inherit;
+  --padding:inherit;
+  --spacing:inherit;
+  --widget-height:inherit;
 }
 .lil-gui.autoPlace {
   position: fixed;
@@ -102,9 +101,9 @@
   max-height: calc(var(--window-height) - var(--row-height));
 }
 .lil-gui.autoPlace.mobile {
-  --row-height: 40px;
   --widget-height: 32px;
   --padding: 8px;
+  --spacing: 8px;
   --font-size: 16px;
   --folder-indent: 12px;
   --widget-padding: 0 0 0 5px;
@@ -122,34 +121,34 @@
   height: var(--row-height);
   font-weight: 600;
   padding: 0 var(--padding);
+  line-height: calc( var(--row-height) - 2px );
+  cursor: pointer;
 }
 .lil-gui .title:before {
   font-family: "lil-gui";
-}
-.lil-gui.collapses > .title:before {
   content: "▾";
 }
-.lil-gui.collapses.closed .children {
+.lil-gui.closed .children {
   display: none;
 }
-.lil-gui.collapses.closed .title:before {
+.lil-gui.closed .title:before {
   content: "▸";
 }
-.lil-gui .lil-gui.collapses > .children {
-  margin-left: var(--folder-indent);
-  border-left: 2px solid var(--widget-color);
-}
-.lil-gui:not(.collapses) > .children:empty {
-  height: calc(var(--widget-gap) * 0.5);
-  padding: 0;
-}
-.lil-gui:not(.collapses) > .title {
-  line-height: var(--row-height);
-}
-.lil-gui.root:not(.closed) > .title, .lil-gui:not(.collapses) > .title {
+.lil-gui .lil-gui:not(.closed) > .title {
   border-bottom: 1px solid var(--widget-color);
 }
-.lil-gui.collapses > .children:empty:before {
+.lil-gui .lil-gui .lil-gui > .title {
+  border-bottom: none;
+}
+.lil-gui .lil-gui .lil-gui > .title:before {
+  float: none;
+}
+.lil-gui .lil-gui .lil-gui > .children {
+  margin-left: var(--folder-indent);
+  border-left: 2px solid var(--widget-color);
+  border-bottom: none;
+}
+.lil-gui .children:empty:before {
   content: "Empty";
   padding: 0 var(--padding);
   display: block;
@@ -201,10 +200,6 @@
   width: 100%;
   text-transform: none;
 }
-.lil-gui button.title {
-  background: var(--background-color);
-  padding: 1px var(--padding) 2px;
-}
 .lil-gui .display {
   background: var(--widget-color);
 }
@@ -214,34 +209,43 @@
 .lil-gui .controller {
   display: flex;
   align-items: center;
-  padding: 0 var(--padding);
-  height: var(--row-height);
+  padding: calc(var(--spacing) / 2) var(--padding);
+}
+.lil-gui .controller:first-child {
+  padding-top: var(--spacing);
+}
+.lil-gui .controller:last-child {
+  padding-bottom: var(--spacing);
 }
 .lil-gui .controller.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 .lil-gui .controller .name {
-  display: flex;
-  align-items: center;
   min-width: var(--name-width);
   flex-shrink: 0;
-  padding-right: var(--padding);
-  height: 100%;
-  overflow: hidden;
+  white-space: pre;
+  padding-right: var(--spacing);
 }
 .lil-gui .controller .widget {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  height: 100%;
+  min-height: var(--widget-height);
+}
+.lil-gui + .controller {
+  border-top: 1px solid var(--widget-color);
+  padding-top: var(--spacing);
+}
+.lil-gui .lil-gui .controller {
+  border-top: none;
 }
 .lil-gui .controller.number input {
   color: var(--number-color);
 }
 .lil-gui .controller.number.hasSlider input {
-  margin-left: var(--widget-gap);
+  margin-left: var(--spacing);
   width: var(--slider-input-width);
   min-width: var(--slider-input-min-width);
   flex-shrink: 0;
@@ -278,7 +282,7 @@
   cursor: pointer;
 }
 .lil-gui .controller.color input[type=text] {
-  margin-left: var(--widget-gap);
+  margin-left: var(--spacing);
   font-family: var(--font-family-mono);
   min-width: var(--color-input-min-width);
   width: var(--color-input-width);

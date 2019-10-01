@@ -99,11 +99,6 @@ todoc<br>
 Default: `600`
 
 ***
-**collapses**<br> 
-todoc<br>
-Default: `true`
-
-***
 **queryKey**<br> 
 If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 You can use this to hide the GUI until you visit `url.com/?debug` for example.<br>
@@ -157,7 +152,7 @@ Returns: **Controller**
 
 ***
 
-## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string, collapses=true )
+## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string )
 
 todoc
 

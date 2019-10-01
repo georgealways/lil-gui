@@ -51,7 +51,6 @@
 	}
 
 	> .children {
-		padding: calc(0.5 * var(--widget-gap)) 0;
 		overflow: auto;
 		-webkit-overflow-scrolling: touch;
 		&::-webkit-scrollbar {
@@ -72,7 +71,7 @@
 	--width: 250px;
 	--scrollbar-width: 5px;
 	--mobile-max-height: 200px;
-	--widget-gap: calc(var(--row-height) - var(--widget-height));
+	--row-height: calc(var(--widget-height) + var(--spacing));
 
 	// "Theme" properties
 	// -------------------------------------------------------------------------
@@ -84,14 +83,15 @@
 			--title-background-color: #111111,
 			--widget-color: #424242,
 			--highlight-color: #525151,
-			--number-color: #2cc9ff,//#00adff,
-			--string-color: #a2db3c,//#c1db3c,//#1ed36f,
+			--number-color: #2cc9ff,
+			--string-color: #a2db3c,
 			--font-size: 11px,
 			--font-family: (
 				-apple-system,
 				BlinkMacSystemFont,
+				'Lucida Grande',
 				'Segoe UI',
-				'Roboto',
+				Roboto,
 				Arial,
 				sans-serif,
 				'Apple Color Emoji',
@@ -106,9 +106,6 @@
 				monospace,
 				'Droid Sans Fallback'
 			),
-			--row-height: 24px,
-			--widget-height: 20px,
-			--padding: 4px,
 			--name-width: 42%,
 			--slider-input-width: 27%,
 			--color-input-width: 27%,
@@ -117,7 +114,11 @@
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
-			--checkbox-size: calc(0.75 * var(--widget-height))
+			--checkbox-size: calc(0.75 * var(--widget-height)),
+
+			--padding: 4px,
+			--spacing: 4px,
+			--widget-height: 20px
 		)
 	);
 
@@ -135,9 +136,9 @@
 		}
 
 		&.mobile {
-			--row-height: 40px;
 			--widget-height: 32px;
 			--padding: 8px;
+			--spacing: 8px;
 			--font-size: 16px;
 			--folder-indent: 12px;
 			--widget-padding: 0 0 0 5px;
@@ -162,18 +163,15 @@
 		height: var(--row-height);
 		font-weight: 600;
 		padding: 0 var(--padding);
+		line-height: calc( var(--row-height) - 2px );
+		cursor: pointer;
 		&:before {
 			font-family: 'lil-gui';
-		}
-	}
-
-	&.collapses > .title {
-		&:before {
 			content: '▾';
 		}
 	}
 
-	&.collapses.closed {
+	&.closed {
 		.children {
 			display: none;
 		}
@@ -182,29 +180,25 @@
 		}
 	}
 
-	& &.collapses > .children {
-		margin-left: var(--folder-indent);
-		border-left: 2px solid var(--widget-color);
+	& &:not(.closed) > .title {
+		border-bottom: 1px solid var(--widget-color);
 	}
 
-	&:not(.collapses) {
-		> .children:empty {
-			height: calc(var(--widget-gap) * 0.5);
-			padding: 0;
-		}
+	& & & {
 		> .title {
-			line-height: var(--row-height);
+			border-bottom: none;
+			&:before {
+				float: none;
+			}
+		}
+		> .children {
+			margin-left: var(--folder-indent);
+			border-left: 2px solid var(--widget-color);
+			border-bottom: none;
 		}
 	}
 
-	&.root:not(.closed),
-	&:not(.collapses) {
-		> .title {
-			border-bottom: 1px solid var(--widget-color);
-		}
-	}
-
-	&.collapses > .children:empty:before {
+	.children:empty:before {
 		content: 'Empty';
 		padding: 0 var(--padding);
 		display: block;
@@ -261,13 +255,7 @@
 		color: var(--text-color);
 		text-align: left;
 		width: 100%;
-		// some websites play fast and loose with the button selector :)
 		text-transform: none;
-		&.title {
-			background: var(--background-color);
-			// button titles are vertically misaligned without it. wtf.
-			padding: 1px var(--padding) 2px;
-		}
 	}
 
 	.display {
@@ -284,8 +272,16 @@
 	.controller {
 		display: flex;
 		align-items: center;
-		padding: 0 var(--padding);
-		height: var(--row-height);
+
+		padding: calc(var(--spacing) / 2) var(--padding);
+
+		&:first-child {
+			padding-top: var(--spacing);
+		}
+
+		&:last-child {
+			padding-bottom: var(--spacing);
+		}
 
 		&.disabled {
 			opacity: 0.5;
@@ -293,14 +289,10 @@
 		}
 
 		.name {
-			display: flex;
-			align-items: center;
 			min-width: var(--name-width);
 			flex-shrink: 0;
-			// white-space: pre;
-			padding-right: var(--padding);
-			height: 100%;
-			overflow: hidden;
+			white-space: pre;
+			padding-right: var(--spacing);
 		}
 
 		.widget {
@@ -308,8 +300,17 @@
 			display: flex;
 			align-items: center;
 			width: 100%;
-			height: 100%;
+			min-height: var(--widget-height);
 		}
+	}
+
+	& + .controller { 
+		border-top: 1px solid var(--widget-color);
+		padding-top: var(--spacing);
+	}
+
+	& & .controller { 
+		border-top: none;
 	}
 
 	.controller.number {
@@ -317,7 +318,7 @@
 			color: var(--number-color);
 		}
 		&.hasSlider input {
-			margin-left: var(--widget-gap);
+			margin-left: var(--spacing);
 			width: var(--slider-input-width);
 			min-width: var(--slider-input-min-width);
 			flex-shrink: 0;
@@ -342,10 +343,8 @@
 		}
 	}
 
-	.controller.string {
-		input {
-			color: var(--string-color);
-		}
+	.controller.string input {
+		color: var(--string-color);
 	}
 
 	.controller.color {
@@ -361,7 +360,7 @@
 			cursor: pointer;
 		}
 		input[type='text'] {
-			margin-left: var(--widget-gap);
+			margin-left: var(--spacing);
 			font-family: var(--font-family-mono);
 			min-width: var(--color-input-min-width);
 			width: var(--color-input-width);
