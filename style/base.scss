@@ -1,0 +1,128 @@
+@mixin vars($args) {
+	@each $name, $val in $args {
+		#{$name}: $val;
+	}
+	& & {
+		@each $name, $val in $args {
+			#{$name}: inherit;
+		}
+	}
+}
+
+@include namespace {
+	
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	line-height: 1;
+
+	font-weight: normal;
+	font-style: normal;
+	text-align: left;
+
+	background-color: var(--background-color);
+	color: var(--text-color);
+
+	user-select: none;
+	-webkit-user-select: none;
+
+	&,
+	& * {
+		box-sizing: border-box;
+		margin: 0;
+	}
+
+	&.root {
+		width: var(--width);
+		> .title {
+			background: var(--title-background-color);
+		}
+	}
+
+	--width: 250px;
+	--scrollbar-width: 5px;
+	--mobile-max-height: 200px;
+	--row-height: calc(var(--widget-height) + var(--spacing));
+
+	// "Theme" properties
+	// -------------------------------------------------------------------------
+
+	@include vars(
+		(
+			--background-color: #1f1f1f,
+			--text-color: #ebebeb,
+			--title-background-color: #111111,
+			--widget-color: #424242,
+			--highlight-color: #525151,
+			--number-color: #2cc9ff,
+			--string-color: #a2db3c,
+			--font-size: 11px,
+			--font-family: (
+				-apple-system,
+				BlinkMacSystemFont,
+				'Lucida Grande',
+				'Segoe UI',
+				Roboto,
+				Arial,
+				sans-serif,
+				'Apple Color Emoji',
+				'Segoe UI Emoji',
+				'Segoe UI Symbol'
+			),
+			--font-family-mono: (
+				Menlo,
+				Monaco,
+				Consolas,
+				'Droid Sans Mono',
+				monospace,
+				'Droid Sans Fallback'
+			),
+			--name-width: 42%,
+			--slider-input-width: 27%,
+			--color-input-width: 27%,
+			--slider-input-min-width: 45px,
+			--color-input-min-width: 45px,
+			--folder-indent: 7px,
+			--widget-padding: 0 0 0 3px,
+			--widget-border-radius: 2px,
+			--checkbox-size: calc(0.75 * var(--widget-height)),
+			--padding: 4px,
+			--spacing: 4px,
+			--widget-height: 20px
+		)
+	);
+
+	// autoPlace & mobile
+	// -------------------------------------------------------------------------
+
+	&.autoPlace {
+		position: fixed;
+		top: 0;
+		right: 15px;
+		z-index: 1001;
+
+		& > .children {
+			max-height: calc(var(--window-height) - var(--row-height));
+		}
+
+		&.mobile {
+			--widget-height: 32px;
+			--padding: 8px;
+			--spacing: 8px;
+			--font-size: 16px;
+			--folder-indent: 12px;
+			--widget-padding: 0 0 0 5px;
+			--scrollbar-width: 7px;
+
+			right: auto;
+			top: auto;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+
+			& > .children {
+				max-height: calc(var(--mobile-max-height) - var(--row-height));
+			}
+		}
+	}
+
+}

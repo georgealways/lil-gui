@@ -1,0 +1,13 @@
+@mixin namespace {
+	.lil-gui { 
+		@content;
+	}
+}
+
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}

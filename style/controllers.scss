@@ -1,0 +1,139 @@
+@include namespace {
+	.controller {
+		display: flex;
+		align-items: center;
+		padding: 0 var(--padding);
+		margin: var(--spacing) 0;
+
+		&.disabled {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
+		.name {
+			min-width: var(--name-width);
+			flex-shrink: 0;
+			white-space: pre;
+			padding-right: var(--spacing);
+		}
+
+		.widget {
+			position: relative; // many w/ pos absolute inside
+			display: flex;
+			align-items: center;
+			width: 100%;
+			min-height: var(--widget-height);
+		}
+	}
+
+	.controller.number {
+		input {
+			color: var(--number-color);
+		}
+		&.hasSlider input {
+			margin-left: var(--spacing);
+			width: var(--slider-input-width);
+			min-width: var(--slider-input-min-width);
+			flex-shrink: 0;
+		}
+		.slider {
+			width: 100%;
+			height: var(--widget-height);
+			background-color: var(--widget-color);
+			border-radius: var(--widget-border-radius);
+			overflow: hidden;
+			&.active {
+				background-color: var(--highlight-color);
+				.fill {
+					opacity: 0.95;
+				}
+			}
+		}
+		.fill {
+			height: 100%;
+			border-right: 2px solid var(--number-color);
+		}
+	}
+
+	.controller.string input {
+		color: var(--string-color);
+	}
+
+	.controller.color {
+		.display {
+			width: 100%;
+			height: var(--widget-height);
+			border-radius: var(--widget-border-radius);
+		}
+		input[type='color'] {
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+		}
+		input[type='text'] {
+			margin-left: var(--spacing);
+			font-family: var(--font-family-mono);
+			min-width: var(--color-input-min-width);
+			width: var(--color-input-width);
+			flex-shrink: 0;
+		}
+	}
+
+	.controller.option {
+		select {
+			opacity: 0;
+			position: absolute;
+			width: 100%;
+			max-width: 100%;
+		}
+		.display {
+			pointer-events: none;
+			border-radius: var(--widget-border-radius);
+			height: var(--widget-height);
+			line-height: var(--widget-height);
+			position: relative;
+			max-width: 100%;
+			overflow: hidden;
+			word-break: break-all;
+			padding-left: 0.55em;
+			padding-right: 1.75em;
+			&:after {
+				font-family: 'lil-gui';
+				content: '↕';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				padding-right: 0.375em;
+			}
+		}
+	}
+
+	.controller.function {
+		background: none;
+		@include hover {
+			.name {
+				background: var(--highlight-color);
+			}
+		}
+		&:active .name {
+			background: var(--text-color);
+			color: var(--background-color);
+		}
+		.name {
+			display: block;
+			padding: 0;
+			margin: 0;
+			text-align: center;
+			width: 100%;
+			background: var(--widget-color);
+			border-radius: var(--widget-border-radius);
+			height: var(--widget-height);
+			line-height: var(--widget-height);
+		}
+		.widget {
+			display: none;
+		}
+	}
+}

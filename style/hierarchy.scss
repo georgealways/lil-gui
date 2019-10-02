@@ -1,0 +1,71 @@
+@include namespace {
+	
+	.title {
+		height: var(--row-height);
+		font-weight: 600;
+		padding: 0 var(--padding);
+		line-height: calc(var(--row-height) - 2px);
+		-webkit-tap-highlight-color: transparent;
+		cursor: pointer;
+		&:before {
+			font-family: 'lil-gui';
+			content: '▾';
+		}
+	}
+
+	> .children {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		&::-webkit-scrollbar {
+			width: var(--scrollbar-width);
+			height: var(--scrollbar-width);
+			background: var(--background-color);
+		}
+		&::-webkit-scrollbar-corner {
+			height: 0;
+			display: none;
+		}
+		&::-webkit-scrollbar-thumb {
+			border-radius: var(--scrollbar-width);
+			background: var(--highlight-color);
+		}
+	}
+	
+	&.closed {
+		.children {
+			display: none;
+		}
+		.title:before {
+			content: '▸';
+		}
+	}
+
+	& &:not(.closed) > .title {
+		border-bottom: 1px solid var(--widget-color);
+	}
+
+	& & & {
+		> .title {
+			border: none;
+			&:before {
+				float: none;
+			}
+		}
+		> .children {
+			margin-left: var(--folder-indent);
+			border: none;
+			border-left: 2px solid var(--widget-color);
+		}
+	}
+
+	.children:empty:before {
+		content: 'Empty';
+		padding: 0 var(--padding);
+		display: block;
+		height: var(--row-height);
+		font-style: italic;
+		line-height: var(--row-height);
+		opacity: 0.5;
+	}
+
+}

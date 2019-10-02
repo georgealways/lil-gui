@@ -1,0 +1,57 @@
+@include namespace {
+	input {
+		border: 0;
+		outline: none;
+		font-family: var(--font-family);
+		font-size: var(--font-size);
+		border-radius: var(--widget-border-radius);
+		height: var(--widget-height);
+		background: var(--widget-color);
+		color: var(--text-color);
+		width: 100%;
+		&[type='text'] {
+			padding: var(--widget-padding);
+		}
+		&:focus,
+		&:active {
+			background: var(--highlight-color);
+		}
+	}
+
+	input[type='checkbox'] {
+		appearance: none;
+		-webkit-appearance: none;
+		height: var(--checkbox-size);
+		width: var(--checkbox-size);
+		border-radius: var(--widget-border-radius);
+		text-align: center;
+		&:checked:before {
+			font-family: 'lil-gui';
+			content: '✓';
+			font-size: var(--checkbox-size);
+			line-height: var(--checkbox-size);
+		}
+	}
+
+	button {
+		-webkit-tap-highlight-color: transparent;
+		outline: none;
+		cursor: pointer;
+		border: 0;
+		font-family: var(--font-family);
+		font-size: var(--font-size);
+		color: var(--text-color);
+		text-align: left;
+		width: 100%;
+		text-transform: none;
+	}
+
+	.display {
+		background: var(--widget-color);
+		&.focus,
+		&.active {
+			background: var(--highlight-color);
+		}
+	}
+
+}

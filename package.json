@@ -13,8 +13,8 @@
   },
   "scripts": {
     "build": "npm run icons && npm run sass && npm run sass:min && npm run rollup",
-    "sass": "sass style/main.scss $npm_package_config_style --no-source-map --no-charset",
-    "sass:min": "sass style/main.scss $npm_package_config_styleMin --no-charset --no-source-map --style=compressed",
+    "sass": "sass style/index.scss $npm_package_config_style --no-source-map --no-charset",
+    "sass:min": "sass style/index.scss $npm_package_config_styleMin --no-charset --no-source-map --style=compressed",
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",

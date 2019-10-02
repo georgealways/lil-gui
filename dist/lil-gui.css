@@ -50,23 +50,6 @@
 .lil-gui.root > .title {
   background: var(--title-background-color);
 }
-.lil-gui > .children {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.lil-gui > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  height: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui > .children::-webkit-scrollbar-corner {
-  height: 0;
-  display: none;
-}
-.lil-gui > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
-}
 .lil-gui .lil-gui {
   --background-color:inherit;
   --text-color:inherit;
@@ -117,95 +100,7 @@
 .lil-gui.autoPlace.mobile > .children {
   max-height: calc(var(--mobile-max-height) - var(--row-height));
 }
-.lil-gui .title {
-  height: var(--row-height);
-  font-weight: 600;
-  padding: 0 var(--padding);
-  line-height: calc( var(--row-height) - 2px );
-  cursor: pointer;
-}
-.lil-gui .title:before {
-  font-family: "lil-gui";
-  content: "▾";
-}
-.lil-gui.closed .children {
-  display: none;
-}
-.lil-gui.closed .title:before {
-  content: "▸";
-}
-.lil-gui .lil-gui:not(.closed) > .title {
-  border-bottom: 1px solid var(--widget-color);
-}
-.lil-gui .lil-gui .lil-gui > .title {
-  border-bottom: none;
-}
-.lil-gui .lil-gui .lil-gui > .title:before {
-  float: none;
-}
-.lil-gui .lil-gui .lil-gui > .children {
-  margin-left: var(--folder-indent);
-  border-left: 2px solid var(--widget-color);
-  border-bottom: none;
-}
-.lil-gui .children:empty:before {
-  content: "Empty";
-  padding: 0 var(--padding);
-  display: block;
-  height: var(--row-height);
-  font-style: italic;
-  line-height: var(--row-height);
-  opacity: 0.5;
-}
-.lil-gui input {
-  border: 0;
-  outline: none;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  border-radius: var(--widget-border-radius);
-  height: var(--widget-height);
-  background: var(--widget-color);
-  color: var(--text-color);
-  width: 100%;
-}
-.lil-gui input[type=text] {
-  padding: var(--widget-padding);
-}
-.lil-gui input:focus, .lil-gui input:active {
-  background: var(--highlight-color);
-}
-.lil-gui input[type=checkbox] {
-  appearance: none;
-  -webkit-appearance: none;
-  height: var(--checkbox-size);
-  width: var(--checkbox-size);
-  border-radius: var(--widget-border-radius);
-  text-align: center;
-}
-.lil-gui input[type=checkbox]:checked:before {
-  font-family: "lil-gui";
-  content: "✓";
-  font-size: var(--checkbox-size);
-  line-height: var(--checkbox-size);
-}
-.lil-gui button {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-  cursor: pointer;
-  border: 0;
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--text-color);
-  text-align: left;
-  width: 100%;
-  text-transform: none;
-}
-.lil-gui .display {
-  background: var(--widget-color);
-}
-.lil-gui .display.focus, .lil-gui .display.active {
-  background: var(--highlight-color);
-}
+
 .lil-gui .controller {
   display: flex;
   align-items: center;
@@ -328,4 +223,113 @@
 }
 .lil-gui .controller.function .widget {
   display: none;
+}
+
+.lil-gui .title {
+  height: var(--row-height);
+  font-weight: 600;
+  padding: 0 var(--padding);
+  line-height: calc(var(--row-height) - 2px);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+.lil-gui .title:before {
+  font-family: "lil-gui";
+  content: "▾";
+}
+.lil-gui > .children {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.lil-gui > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui > .children::-webkit-scrollbar-corner {
+  height: 0;
+  display: none;
+}
+.lil-gui > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
+}
+.lil-gui.closed .children {
+  display: none;
+}
+.lil-gui.closed .title:before {
+  content: "▸";
+}
+.lil-gui .lil-gui:not(.closed) > .title {
+  border-bottom: 1px solid var(--widget-color);
+}
+.lil-gui .lil-gui .lil-gui > .title {
+  border: none;
+}
+.lil-gui .lil-gui .lil-gui > .title:before {
+  float: none;
+}
+.lil-gui .lil-gui .lil-gui > .children {
+  margin-left: var(--folder-indent);
+  border: none;
+  border-left: 2px solid var(--widget-color);
+}
+.lil-gui .children:empty:before {
+  content: "Empty";
+  padding: 0 var(--padding);
+  display: block;
+  height: var(--row-height);
+  font-style: italic;
+  line-height: var(--row-height);
+  opacity: 0.5;
+}
+
+.lil-gui input {
+  border: 0;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  border-radius: var(--widget-border-radius);
+  height: var(--widget-height);
+  background: var(--widget-color);
+  color: var(--text-color);
+  width: 100%;
+}
+.lil-gui input[type=text] {
+  padding: var(--widget-padding);
+}
+.lil-gui input:focus, .lil-gui input:active {
+  background: var(--highlight-color);
+}
+.lil-gui input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: var(--checkbox-size);
+  width: var(--checkbox-size);
+  border-radius: var(--widget-border-radius);
+  text-align: center;
+}
+.lil-gui input[type=checkbox]:checked:before {
+  font-family: "lil-gui";
+  content: "✓";
+  font-size: var(--checkbox-size);
+  line-height: var(--checkbox-size);
+}
+.lil-gui button {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  color: var(--text-color);
+  text-align: left;
+  width: 100%;
+  text-transform: none;
+}
+.lil-gui .display {
+  background: var(--widget-color);
+}
+.lil-gui .display.focus, .lil-gui .display.active {
+  background: var(--highlight-color);
 }
