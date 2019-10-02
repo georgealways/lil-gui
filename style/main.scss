@@ -272,16 +272,8 @@
 	.controller {
 		display: flex;
 		align-items: center;
-
-		padding: calc(var(--spacing) / 2) var(--padding);
-
-		&:first-child {
-			padding-top: var(--spacing);
-		}
-
-		&:last-child {
-			padding-bottom: var(--spacing);
-		}
+		padding: 0 var(--padding);
+		margin: var(--spacing) 0;
 
 		&.disabled {
 			opacity: 0.5;
@@ -304,14 +296,14 @@
 		}
 	}
 
-	& + .controller { 
-		border-top: 1px solid var(--widget-color);
-		padding-top: var(--spacing);
-	}
+	// & + .controller { 
+	// 	border-top: 1px solid var(--widget-color);
+	// 	// padding-top: var(--spacing);
+	// }
 
-	& & .controller { 
-		border-top: none;
-	}
+	// & & .controller { 
+	// 	border-top: none;
+	// }
 
 	.controller.number {
 		input {

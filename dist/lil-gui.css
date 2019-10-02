@@ -209,13 +209,8 @@
 .lil-gui .controller {
   display: flex;
   align-items: center;
-  padding: calc(var(--spacing) / 2) var(--padding);
-}
-.lil-gui .controller:first-child {
-  padding-top: var(--spacing);
-}
-.lil-gui .controller:last-child {
-  padding-bottom: var(--spacing);
+  padding: 0 var(--padding);
+  margin: var(--spacing) 0;
 }
 .lil-gui .controller.disabled {
   opacity: 0.5;
@@ -233,13 +228,6 @@
   align-items: center;
   width: 100%;
   min-height: var(--widget-height);
-}
-.lil-gui + .controller {
-  border-top: 1px solid var(--widget-color);
-  padding-top: var(--spacing);
-}
-.lil-gui .lil-gui .controller {
-  border-top: none;
 }
 .lil-gui .controller.number input {
   color: var(--number-color);
