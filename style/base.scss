@@ -10,7 +10,6 @@
 }
 
 @include namespace {
-	
 	font-family: var(--font-family);
 	font-size: var(--font-size);
 	line-height: 1;
@@ -37,11 +36,6 @@
 			background: var(--title-background-color);
 		}
 	}
-
-	--width: 250px;
-	--scrollbar-width: 5px;
-	--mobile-max-height: 200px;
-	--row-height: calc(var(--widget-height) + var(--spacing));
 
 	// "Theme" properties
 	// -------------------------------------------------------------------------
@@ -76,6 +70,9 @@
 				monospace,
 				'Droid Sans Fallback'
 			),
+			--padding: 4px,
+			--spacing: 4px,
+			--widget-height: 20px,
 			--name-width: 42%,
 			--slider-input-width: 27%,
 			--color-input-width: 27%,
@@ -84,12 +81,14 @@
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
-			--checkbox-size: calc(0.75 * var(--widget-height)),
-			--padding: 4px,
-			--spacing: 4px,
-			--widget-height: 20px
+			--checkbox-size: calc(0.75 * var(--widget-height))
 		)
 	);
+
+	--width: 250px;
+	--scrollbar-width: 5px;
+	--mobile-max-height: 200px;
+	--row-height: calc(var(--widget-height) + var(--spacing));
 
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
@@ -124,5 +123,4 @@
 			}
 		}
 	}
-
 }

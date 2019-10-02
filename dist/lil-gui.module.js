@@ -19,10 +19,6 @@ const stylesheet = `@font-face {
   color: var(--text-color);
   user-select: none;
   -webkit-user-select: none;
-  --width: 250px;
-  --scrollbar-width: 5px;
-  --mobile-max-height: 200px;
-  --row-height: calc(var(--widget-height) + var(--spacing));
   --background-color: #1f1f1f;
   --text-color: #ebebeb;
   --title-background-color: #111111;
@@ -33,6 +29,9 @@ const stylesheet = `@font-face {
   --font-size: 11px;
   --font-family: -apple-system, BlinkMacSystemFont, "Lucida Grande", "Segoe UI", Roboto, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace, "Droid Sans Fallback";
+  --padding: 4px;
+  --spacing: 4px;
+  --widget-height: 20px;
   --name-width: 42%;
   --slider-input-width: 27%;
   --color-input-width: 27%;
@@ -42,9 +41,10 @@ const stylesheet = `@font-face {
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
   --checkbox-size:calc(0.75 * var(--widget-height));
-  --padding: 4px;
-  --spacing: 4px;
-  --widget-height: 20px;
+  --width: 250px;
+  --scrollbar-width: 5px;
+  --mobile-max-height: 200px;
+  --row-height: calc(var(--widget-height) + var(--spacing));
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
@@ -67,6 +67,9 @@ const stylesheet = `@font-face {
   --font-size:inherit;
   --font-family:inherit;
   --font-family-mono:inherit;
+  --padding:inherit;
+  --spacing:inherit;
+  --widget-height:inherit;
   --name-width:inherit;
   --slider-input-width:inherit;
   --color-input-width:inherit;
@@ -76,9 +79,6 @@ const stylesheet = `@font-face {
   --widget-padding:inherit;
   --widget-border-radius:inherit;
   --checkbox-size:inherit;
-  --padding:inherit;
-  --spacing:inherit;
-  --widget-height:inherit;
 }
 .lil-gui.autoPlace {
   position: fixed;
@@ -243,6 +243,12 @@ const stylesheet = `@font-face {
   font-family: "lil-gui";
   content: "▾";
 }
+.lil-gui.closed .children {
+  display: none;
+}
+.lil-gui.closed .title:before {
+  content: "▸";
+}
 .lil-gui > .children {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -260,26 +266,6 @@ const stylesheet = `@font-face {
   border-radius: var(--scrollbar-width);
   background: var(--highlight-color);
 }
-.lil-gui.closed .children {
-  display: none;
-}
-.lil-gui.closed .title:before {
-  content: "▸";
-}
-.lil-gui .lil-gui:not(.closed) > .title {
-  border-bottom: 1px solid var(--widget-color);
-}
-.lil-gui .lil-gui .lil-gui > .title {
-  border: none;
-}
-.lil-gui .lil-gui .lil-gui > .title:before {
-  float: none;
-}
-.lil-gui .lil-gui .lil-gui > .children {
-  margin-left: var(--folder-indent);
-  border: none;
-  border-left: 2px solid var(--widget-color);
-}
 .lil-gui .children:empty:before {
   content: "Empty";
   padding: 0 var(--padding);
@@ -288,6 +274,25 @@ const stylesheet = `@font-face {
   font-style: italic;
   line-height: var(--row-height);
   opacity: 0.5;
+}
+.lil-gui .lil-gui:not(.closed) > .title {
+  border-bottom: 1px solid var(--widget-color);
+}
+.lil-gui:not(.closed) + .controller {
+  border-top: 1px solid var(--widget-color);
+  margin-top: 0;
+  padding-top: var(--spacing);
+}
+.lil-gui .lil-gui .controller {
+  border: none;
+}
+.lil-gui .lil-gui .lil-gui > .title {
+  border: none;
+}
+.lil-gui .lil-gui .lil-gui > .children {
+  border: none;
+  margin-left: var(--folder-indent);
+  border-left: 2px solid var(--widget-color);
 }
 
 .lil-gui input {

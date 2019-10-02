@@ -1,5 +1,4 @@
 @include namespace {
-	
 	.title {
 		height: var(--row-height);
 		font-weight: 600;
@@ -12,6 +11,18 @@
 			content: '▾';
 		}
 	}
+
+	&.closed {
+		.children {
+			display: none;
+		}
+		.title:before {
+			content: '▸';
+		}
+	}
+
+	// Root children
+	// -------------------------------------------------------------------------
 
 	> .children {
 		overflow: auto;
@@ -30,33 +41,9 @@
 			background: var(--highlight-color);
 		}
 	}
-	
-	&.closed {
-		.children {
-			display: none;
-		}
-		.title:before {
-			content: '▸';
-		}
-	}
 
-	& &:not(.closed) > .title {
-		border-bottom: 1px solid var(--widget-color);
-	}
-
-	& & & {
-		> .title {
-			border: none;
-			&:before {
-				float: none;
-			}
-		}
-		> .children {
-			margin-left: var(--folder-indent);
-			border: none;
-			border-left: 2px solid var(--widget-color);
-		}
-	}
+	// Empty children
+	// -------------------------------------------------------------------------
 
 	.children:empty:before {
 		content: 'Empty';
@@ -68,4 +55,34 @@
 		opacity: 0.5;
 	}
 
+	// Root folders
+	// -------------------------------------------------------------------------
+
+	& &:not(.closed) > .title {
+		border-bottom: 1px solid var(--widget-color);
+	}
+
+	&:not(.closed) + .controller {
+		border-top: 1px solid var(--widget-color);
+		margin-top: 0;
+		padding-top: var(--spacing);
+	}
+
+	// Nested folders
+	// -------------------------------------------------------------------------
+
+	& & .controller {
+		border: none;
+	}
+
+	& & & {
+		> .title {
+			border: none;
+		}
+		> .children {
+			border: none;
+			margin-left: var(--folder-indent);
+			border-left: 2px solid var(--widget-color);
+		}
+	}
 }
