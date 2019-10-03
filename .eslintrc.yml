@@ -45,3 +45,12 @@ rules:
   jsdoc/require-param-description: off
   jsdoc/require-returns-description: off
   jsdoc/require-description: warn
+overrides:
+  - files: scripts/**/*.js
+    env:
+      node: true
+    rules:
+      no-console: off
+  - files: examples/**/*.js
+    rules:
+      no-console: off
