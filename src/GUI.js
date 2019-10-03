@@ -232,7 +232,7 @@ export default class GUI {
 	 * todoc
 	 * @param {object} object todoc
 	 * @param {string} property todoc
-	 * @param {number} [rgbScale=1] todoc
+	 * @param {number} rgbScale todoc
 	 * @returns {Controller}
 	 */
 	addColor( object, property, rgbScale = 1 ) {
@@ -321,7 +321,7 @@ export default class GUI {
 
 	/**
 	 * Resets all controllers.
-	 * @param {boolean} [recursive=true]
+	 * @param {boolean} recursive
 	 * @returns {GUI} self
 	 */
 	reset( recursive = true ) {
@@ -346,7 +346,7 @@ export default class GUI {
 
 	/**
 	 * Opens a GUI or folder. GUI and folders are open by default.
-	 * @param {boolean} [open=true] Pass false to close
+	 * @param {boolean} open Pass false to close
 	 * @returns {GUI} self
 	 * @example
 	 * gui.open(); // open

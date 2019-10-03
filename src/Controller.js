@@ -161,7 +161,7 @@ export default class Controller {
 
 	/**
 	 * Enables this controller.
-	 * @param {boolean} [enabled=true]
+	 * @param {boolean} enabled
 	 * @returns {Controller} self
 	 * @example
 	 * controller.enable();
@@ -176,7 +176,7 @@ export default class Controller {
 
 	/**
 	 * Disables this controller.
-	 * @param {boolean} [disabled=true]
+	 * @param {boolean} disabled
 	 * @returns {Controller} self
 	 * @example
 	 * controller.disable();
@@ -269,7 +269,7 @@ export default class Controller {
 	/**
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 	 * `controller._listening` to access the listening state.
-	 * @param {boolean} [listen=true]
+	 * @param {boolean} listen
 	 * @returns {Controller} self
 	 */
 	listen( listen = true ) {
