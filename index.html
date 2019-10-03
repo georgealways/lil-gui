@@ -283,6 +283,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#forEachController"><strong>forEachController</strong>()</a></li>
 <li><a href="#GUI#getControllers"><strong>getControllers</strong>()</a> → Array.<Controller></li>
 <li><a href="#GUI#getFolders"><strong>getFolders</strong>()</a> → Array.<GUI></li>
+<li><a href="#GUI#import"><strong>import</strong>()</a></li>
 <li><a href="#GUI#open"><strong>open</strong>()</a></li>
 <li><a href="#GUI#reset"><strong>reset</strong>()</a></li>
 <li><a href="#GUI#title"><strong>title</strong>()</a></li>
@@ -408,19 +409,23 @@ Type: <strong>number</strong> - Optional</p>
 <p>todoc</p>
 <hr>
 <h2><a name="GUI#export"></a> gui.<strong>export</strong>( recursive=true )</h2>
-<p>Returns an object mapping controller keys to values</p>
+<p>Returns an object mapping controller names to values</p>
 <p>Returns: <strong>object</strong></p>
 <hr>
 <h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=true )</h2>
 <p>todelete</p>
 <hr>
-<h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=false )</h2>
+<h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array.&lt;Controller&gt;</strong></p>
 <hr>
 <h2><a name="GUI#getFolders"></a> gui.<strong>getFolders</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array.&lt;GUI&gt;</strong></p>
+<hr>
+<h2><a name="GUI#import"></a> gui.<strong>import</strong>( obj : object, recursive=true )</h2>
+<p>todoc</p>
+<p>Returns: <strong>GUI – self</strong></p>
 <hr>
 <h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>

@@ -1603,7 +1603,7 @@ class GUI {
 	/**
 	 * todelete
 	 * @param {Function} callback todoc
-	 * @param {boolean} [recursive=true] todoc
+	 * @param {boolean} recursive todoc
 	 */
 	forEachController( callback, recursive = true ) {
 		this.getControllers( recursive ).forEach( callback );
@@ -1611,7 +1611,7 @@ class GUI {
 
 	/**
 	 * todoc
-	 * @param {boolean} [recursive=false]
+	 * @param {boolean} recursive
 	 * @returns {Array<Controller>}
 	 */
 	getControllers( recursive = true ) {
@@ -1625,7 +1625,7 @@ class GUI {
 
 	/**
 	 * todoc
-	 * @param {boolean} [recursive=true]
+	 * @param {boolean} recursive
 	 * @returns {Array<GUI>}
 	 */
 	getFolders( recursive = true ) {
@@ -1639,7 +1639,7 @@ class GUI {
 	}
 
 	/**
-	 * Returns an object mapping controller keys to values
+	 * Returns an object mapping controller names to values
 	 * @param {boolean} recursive
 	 * @returns {object}
 	 */
@@ -1651,6 +1651,12 @@ class GUI {
 		return obj;
 	}
 
+	/**
+	 * todoc
+	 * @param {object} obj
+	 * @param {boolean} recursive
+	 * @returns {GUI} self
+	 */
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
 			if ( c._name in obj ) {

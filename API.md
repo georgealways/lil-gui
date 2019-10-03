@@ -15,6 +15,7 @@
 - [**forEachController**()](#GUI#forEachController) 
 - [**getControllers**()](#GUI#getControllers) → Array.<Controller>
 - [**getFolders**()](#GUI#getFolders) → Array.<GUI>
+- [**import**()](#GUI#import) 
 - [**open**()](#GUI#open) 
 - [**reset**()](#GUI#reset) 
 - [**title**()](#GUI#title) 
@@ -176,7 +177,7 @@ todoc
 
 ## <a name="GUI#export"></a> gui.**export**( recursive=true )
 
-Returns an object mapping controller keys to values
+Returns an object mapping controller names to values
 
 Returns: **object**
 
@@ -188,7 +189,7 @@ todelete
 
 ***
 
-## <a name="GUI#getControllers"></a> gui.**getControllers**( recursive=false )
+## <a name="GUI#getControllers"></a> gui.**getControllers**( recursive=true )
 
 todoc
 
@@ -201,6 +202,14 @@ Returns: **Array.&lt;Controller&gt;**
 todoc
 
 Returns: **Array.&lt;GUI&gt;**
+
+***
+
+## <a name="GUI#import"></a> gui.**import**( obj : object, recursive=true )
+
+todoc
+
+Returns: **GUI – self**
 
 ***
 
