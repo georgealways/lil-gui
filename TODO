@@ -5,11 +5,6 @@ todo
 
 [x] supress warning in test
 	[x] done but GUI.warn.disabled is dumb asf, speaks to something like
-		GUI.config.warn = false;
-		GUI.config.rgbScale = 255
-		GUI.config.mobileBreakpoint
-		GUI.config.mobileMaxHeight
-	[ ] that's fixed but how to jsdoc ...
 
 [ ] hover styles
 	[x] button
@@ -25,6 +20,7 @@ title drag
 docs
 	[ ] -> this type chainable comeback
 	[ ] transform ugly longnames
+	[ ] logical, not alphabetical order...
 	hardstuff
 		[ ] GUIOptions
 		[ ] gui.add

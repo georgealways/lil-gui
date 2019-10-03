@@ -1379,7 +1379,7 @@ class GUI {
 	 *
 	 * @property {number} [width] todoc
 	 * @property {number} [mobileMaxHeight=200] todoc
-	 * @property {number} [mobileBreakpoint=600] todoc
+	 * @property {number} [mobileBreakpoint=500] todoc
 	 *
 	 * @property {string} [queryKey]
 	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
@@ -1404,7 +1404,7 @@ class GUI {
 		width,
 		queryKey,
 		mobileMaxHeight = 200,
-		mobileBreakpoint = 600
+		mobileBreakpoint = 500
 	} = {} ) {
 
 		/**
