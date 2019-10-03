@@ -94,11 +94,11 @@ function main() {
 		const gui = new GUI();
 		gui.add( params, 'message' ).onChange( buildGeometry );
 
-		const geo = gui.addFolder( 'Geometry', false );
+		const geo = gui.addFolder( 'Geometry' );
 		geo.add( geoParams, 'height', 0, 200 ).name( 'depth' );
 		geo.add( geoParams, 'curveSegments', 1, 12, 1 );
 
-		const bevel = geo.addFolder( 'Bevel', false );
+		const bevel = gui.addFolder( 'Bevel' );
 		bevel.add( geoParams, 'bevelEnabled' ).name( 'enabled' );
 		bevel.add( geoParams, 'bevelThickness', -10, 10 ).name( 'depth' );
 		bevel.add( geoParams, 'bevelSize', 0, 10 ).name( 'size' );
@@ -107,14 +107,14 @@ function main() {
 
 		geo.forEachController( c => c.onChange( buildGeometry ), true );
 
-		const thinFilm = gui.addFolder( 'Thin Film', false );
+		const thinFilm = gui.addFolder( 'Thin Film' );
 		thinFilm.add( uniforms.thinFilmThickness, 'value', 100, 2000 ).name( 'thickness' );
 		thinFilm.add( uniforms.thinFilmIndex, 'value', 1, 2 ).name( 'index' );
 		thinFilm.add( uniforms.thinFilmPolarization, 'value', 0, 2 ).name( 'polarization' );
 
-		gui.addFolder( 'Misc', false );
-		gui.add( params, 'rotationSpeed', 0, 1 );
-		gui.addColor( sunMaterial, 'color' ).name( 'light' );
+		const misc = gui.addFolder( 'Misc' );
+		misc.add( params, 'rotationSpeed', 0, 1 );
+		misc.addColor( sunMaterial, 'color' ).name( 'light' );
 
 	}
 

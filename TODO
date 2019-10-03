@@ -38,8 +38,6 @@ dat-gui diffs
 
 	[+] "mobile styles"
 
-	[+] addFolder( , false )
-	
 	[+] controller.enable() / disable()
 	
 	[m] folders open by default

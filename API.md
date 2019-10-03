@@ -84,7 +84,7 @@ Default: `true`
 ***
 **title**<br> 
 Name to display in the title bar.<br>
-Default: `'Controls'`
+Default: `Controls`
 
 ***
 **width**<br> 

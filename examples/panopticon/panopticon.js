@@ -34,21 +34,21 @@ make( { title: 'Numbers' }, gui => {
 	gui.add( { x: 0 }, 'x', 0 ).name( 'Min' );
 	gui.add( { x: 0 }, 'x' ).max( 0 ).name( 'Max' );
 
-	gui.addFolder( 'Step', false );
+	const guiStep = gui.addFolder( 'Step' );
 
-	gui.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
-	gui.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
-	gui.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
-	gui.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
+	guiStep.add( { x: 0 }, 'x' ).step( 0.01 ).name( '0.01' );
+	guiStep.add( { x: 0 }, 'x' ).step( 0.1 ).name( '0.1' );
+	guiStep.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
+	guiStep.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
 
 } );
 
 make( { title: 'Sliders' }, gui => {
 
-	gui.addFolder( 'Implicit step', false );
+	const guiImplicit = gui.addFolder( 'Implicit step' );
 
 	const implicitStep = ( min, max ) => {
-		gui.add( { x: max }, 'x', min, max ).name( `[${min},${max}]` );
+		guiImplicit.add( { x: max }, 'x', min, max ).name( `[${min},${max}]` );
 	};
 
 	implicitStep( 0, 1 );
@@ -60,10 +60,10 @@ make( { title: 'Sliders' }, gui => {
 	implicitStep( 0, 15 );
 	implicitStep( 0, 1e32 );
 
-	gui.addFolder( 'Explicit step', false );
+	const guiExplicit = gui.addFolder( 'Explicit step' );
 
 	const explicitStep = ( min, max, step, label = step ) => {
-		gui.add( { x: max }, 'x', min, max, step ).name( `[${min},${max}] step ${label}` );
+		guiExplicit.add( { x: max }, 'x', min, max, step ).name( `[${min},${max}] step ${label}` );
 	};
 
 	explicitStep( 0, 100, 1 );
@@ -93,9 +93,9 @@ make( { title: 'Colors' }, gui => {
 	gui.addColor( { x: { r: 2 / 3, g: 0, b: 1 } }, 'x' ).name( '{r,g,b} 0-1' );
 	gui.addColor( { x: [ 2 / 3, 0, 1 ] }, 'x' ).name( '[r,g,b] 0-1' );
 
-	gui.addFolder( 'Strings', false );
+	const guiStrings = gui.addFolder( 'Strings' );
 
-	const colorString = str => gui.addColor( { x: str }, 'x' ).name( `"${str}"` );
+	const colorString = str => guiStrings.addColor( { x: str }, 'x' ).name( `"${str}"` );
 
 	colorString( '#aa00Ff' );
 	colorString( 'aa00Ff' );
@@ -104,10 +104,10 @@ make( { title: 'Colors' }, gui => {
 	colorString( 'a0f' );
 	colorString( 'rgb(170, 0, 255)' );
 
-	gui.addFolder( 'RGB Scale', false );
+	const guiRGBScale = gui.addFolder( 'RGB Scale' );
 
-	gui.addColor( { x: [ 170, 0, 255 ] }, 'x', 255 ).name( '{r,g,b} 0-255' );
-	gui.addColor( { x: { r: 170, g: 0, b: 255 } }, 'x', 255 ).name( '[r,g,b] 0-255' );
+	guiRGBScale.addColor( { x: [ 170, 0, 255 ] }, 'x', 255 ).name( '{r,g,b} 0-255' );
+	guiRGBScale.addColor( { x: { r: 170, g: 0, b: 255 } }, 'x', 255 ).name( '[r,g,b] 0-255' );
 
 } );
 
@@ -152,6 +152,7 @@ make( { title: 'Folders' }, gui => {
 		g.add( { x: function(){} }, 'x' ).name( `${nested}Button` );
 	}
 } );
+
 const styleTag = document.createElement( 'style' );
 document.head.appendChild( styleTag );
 

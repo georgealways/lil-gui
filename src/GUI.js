@@ -27,7 +27,7 @@ export default class GUI {
 	 * Injects the default stylesheet as the first child of `document.head`.
 	 * Pass false when using your own stylesheet.
 	 *
-	 * @property {string} [title='Controls']
+	 * @property {string} [title=Controls]
 	 * Name to display in the title bar.
 	 *
 	 * @property {number} [width] todoc

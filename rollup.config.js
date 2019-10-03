@@ -43,16 +43,17 @@ export default [
 ];
 
 function stylesheet( min = false ) {
+	const path = min ? pkg.config.styleMin : pkg.config.style;
 	return {
 		name: 'stylesheet',
 		resolveId( source ) {
 			if ( source === 'stylesheet' ) {
-				return min ? pkg.config.styleMin : pkg.config.style;
+				return path;
 			}
 			return null;
 		},
 		transform( content, id ) {
-			if ( !id.endsWith( '.css' ) ) return;
+			if ( id !== path ) return;
 			return {
 				code: `export default \`${content.trim()}\`;`,
 				map: { mappings: '' }
