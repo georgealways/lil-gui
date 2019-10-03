@@ -88,7 +88,7 @@
 	--width: 250px;
 	--scrollbar-width: 5px;
 	--mobile-max-height: 200px;
-	--row-height: calc(var(--widget-height) + var(--spacing));
+	--title-height: calc(var(--widget-height) + var(--spacing));
 
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
@@ -100,7 +100,7 @@
 		z-index: 1001;
 
 		& > .children {
-			max-height: calc(var(--window-height) - var(--row-height));
+			max-height: calc(var(--window-height) - var(--title-height));
 		}
 
 		&.mobile {
@@ -119,7 +119,7 @@
 			width: 100%;
 
 			& > .children {
-				max-height: calc(var(--mobile-max-height) - var(--row-height));
+				max-height: calc(var(--mobile-max-height) - var(--title-height));
 			}
 		}
 	}

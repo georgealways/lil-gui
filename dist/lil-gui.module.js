@@ -44,7 +44,7 @@ const stylesheet = `@font-face {
   --width: 250px;
   --scrollbar-width: 5px;
   --mobile-max-height: 200px;
-  --row-height: calc(var(--widget-height) + var(--spacing));
+  --title-height: calc(var(--widget-height) + var(--spacing));
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
@@ -87,7 +87,7 @@ const stylesheet = `@font-face {
   z-index: 1001;
 }
 .lil-gui.autoPlace > .children {
-  max-height: calc(var(--window-height) - var(--row-height));
+  max-height: calc(var(--window-height) - var(--title-height));
 }
 .lil-gui.autoPlace.mobile {
   --widget-height: 32px;
@@ -104,7 +104,7 @@ const stylesheet = `@font-face {
   width: 100%;
 }
 .lil-gui.autoPlace.mobile > .children {
-  max-height: calc(var(--mobile-max-height) - var(--row-height));
+  max-height: calc(var(--mobile-max-height) - var(--title-height));
 }
 
 .lil-gui .controller {
@@ -232,10 +232,10 @@ const stylesheet = `@font-face {
 }
 
 .lil-gui .title {
-  height: var(--row-height);
+  height: var(--title-height);
   font-weight: 600;
   padding: 0 var(--padding);
-  line-height: calc(var(--row-height) - 2px);
+  line-height: calc(var(--title-height) - 2px);
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 }
@@ -270,9 +270,9 @@ const stylesheet = `@font-face {
   content: "Empty";
   padding: 0 var(--padding);
   display: block;
-  height: var(--row-height);
+  height: var(--title-height);
   font-style: italic;
-  line-height: var(--row-height);
+  line-height: var(--title-height);
   opacity: 0.5;
 }
 .lil-gui .lil-gui:not(.closed) > .title {

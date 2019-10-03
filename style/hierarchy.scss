@@ -1,9 +1,9 @@
 @include namespace {
 	.title {
-		height: var(--row-height);
+		height: var(--title-height);
 		font-weight: 600;
 		padding: 0 var(--padding);
-		line-height: calc(var(--row-height) - 2px);
+		line-height: calc(var(--title-height) - 2px);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		&:before {
@@ -49,9 +49,9 @@
 		content: 'Empty';
 		padding: 0 var(--padding);
 		display: block;
-		height: var(--row-height);
+		height: var(--title-height);
 		font-style: italic;
-		line-height: var(--row-height);
+		line-height: var(--title-height);
 		opacity: 0.5;
 	}
 
