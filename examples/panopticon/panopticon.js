@@ -177,8 +177,6 @@ const stylesheet = new Proxy( {}, {
 
 const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
-	gui.domElement.style.setProperty( '--name-width', '50%' );
-
 	config.stylesheet.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
 
 		if ( !( property in stylesheet ) ) {
@@ -196,7 +194,7 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 				const anon = {};
 				const initial = parseFloat( value.replace( '%', '' ) );
 				anon[ property ] = initial;
-				gui.add( anon, property ).min( 0 ).onChange( v => stylesheet[ property ] = v + '%' );
+				gui.add( anon, property, 0, 100 ).onChange( v => stylesheet[ property ] = v + '%' );
 			} else {
 				gui.add( stylesheet, property );
 			}
@@ -204,6 +202,10 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 		}
 
 	} );
+
+	for ( let prop in stylesheet ) {
+		gui.domElement.style.setProperty( prop, stylesheet[ prop ] );
+	}
 
 	gui.add( gui, 'reset' );
 

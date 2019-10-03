@@ -48,10 +48,11 @@
 	.children:empty:before {
 		content: 'Empty';
 		padding: 0 var(--padding);
+		margin: var(--spacing) 0;
 		display: block;
-		height: var(--title-height);
+		height: var(--widget-height);
 		font-style: italic;
-		line-height: var(--title-height);
+		line-height: var(--widget-height);
 		opacity: 0.5;
 	}
 

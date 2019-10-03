@@ -32,7 +32,7 @@ const stylesheet = `@font-face {
   --padding: 4px;
   --spacing: 4px;
   --widget-height: 20px;
-  --name-width: 42%;
+  --name-width: 45%;
   --slider-input-width: 27%;
   --color-input-width: 27%;
   --slider-input-min-width: 45px;
@@ -269,10 +269,11 @@ const stylesheet = `@font-face {
 .lil-gui .children:empty:before {
   content: "Empty";
   padding: 0 var(--padding);
+  margin: var(--spacing) 0;
   display: block;
-  height: var(--title-height);
+  height: var(--widget-height);
   font-style: italic;
-  line-height: var(--title-height);
+  line-height: var(--widget-height);
   opacity: 0.5;
 }
 .lil-gui .lil-gui:not(.closed) > .title {
