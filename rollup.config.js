@@ -18,17 +18,17 @@ const output = {
 export default [
 	{
 		input,
-		output: Object.assign( { file: pkg.module }, output ),
+		output: { ...output, file: pkg.module },
 		plugins: [ stylesheet() ]
 	},
 	{
 		input,
-		output: Object.assign( { file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' }, output ),
+		output: { ...output, file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' },
 		plugins: [ stylesheet() ]
 	},
 	{
 		input,
-		output: Object.assign( { file: pkg.module.replace( '.js', '.min.js' ) }, output ),
+		output: { ...output, file: pkg.module.replace( '.js', '.min.js' ) },
 		plugins: [
 			stylesheet( true ),
 			terser( {
