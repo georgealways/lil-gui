@@ -219,7 +219,6 @@ const stylesheet = `@font-face {
 .lil-gui .controller.function .name {
   display: block;
   padding: 0;
-  margin: 0;
   text-align: center;
   width: 100%;
   background: var(--widget-color);
