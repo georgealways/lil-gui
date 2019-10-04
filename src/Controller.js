@@ -17,6 +17,7 @@ export default class Controller {
 
 		/**
 		 * The object this controller is targeting.
+		 * @type {any}
 		 */
 		this.object = object;
 
@@ -34,6 +35,7 @@ export default class Controller {
 
 		/**
 		 * The value of `object[ property ]` when the controller is created.
+		 * @type {any}
 		 */
 		this.initialValue = this.getValue();
 
@@ -76,7 +78,7 @@ export default class Controller {
 	/**
 	 * Sets the name of the controller and its label in the GUI.
 	 * @param {string} name
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	name( name ) {
 		/**
@@ -93,7 +95,7 @@ export default class Controller {
 	 * The function takes the current value as its only parameter and `this` will
 	 * be bound to the controller.
 	 * @param {Function} callback todoc
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -135,7 +137,7 @@ export default class Controller {
 	/**
 	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 	 * @param {*} value
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
@@ -152,7 +154,7 @@ export default class Controller {
 
 	/**
 	 * Shorthand for `setValue( initialValue )`.
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	reset() {
 		this.setValue( this.initialValue );
@@ -162,7 +164,7 @@ export default class Controller {
 	/**
 	 * Enables this controller.
 	 * @param {boolean} enabled
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * controller.enable();
 	 * controller.enable( false ); // disable
@@ -177,7 +179,7 @@ export default class Controller {
 	/**
 	 * Disables this controller.
 	 * @param {boolean} disabled
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * controller.disable();
 	 * controller.disable( false ); // enable
@@ -218,7 +220,7 @@ export default class Controller {
 	/**
 	 * Sets the minimum value. Only works on number controllers.
 	 * @param {number} min
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
@@ -229,7 +231,7 @@ export default class Controller {
 	/**
 	 * Sets the maximum value. Only works on number controllers.
 	 * @param {number} max
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
@@ -240,7 +242,7 @@ export default class Controller {
 	/**
 	 * Sets the step. Only works on number controllers.
 	 * @param {number} step
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
@@ -251,7 +253,7 @@ export default class Controller {
 	/**
 	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
 	 * controllers when their values have been modified outside of the GUI.
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	updateDisplay() {
 		return this;
@@ -270,7 +272,7 @@ export default class Controller {
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 	 * `controller._listening` to access the listening state.
 	 * @param {boolean} listen
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	listen( listen = true ) {
 

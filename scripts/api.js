@@ -49,7 +49,7 @@ function transform( v ) {
 			value = value.replace( /^module:/, '' );
 
 			// does strange stuff with multitype arrays
-			value = value.replace( /Array\.<\((.*)\)>/g, function( _, c ) {
+			value = value.replace( /Array\.<\(?([^)]+)\)?>/g, function( _, c ) {
 				return `Array<${c}>`;
 			} );
 
@@ -86,12 +86,7 @@ function transform( v ) {
 
 			v.returntype = 'Returns: **' + type + ( desc ? ' – ' + desc : '' ) + '**';
 
-			if ( type === v.memberof && desc === 'self' ) {
-				v.chainable = true;
-				v.indextype = '';//'→ self'; // "chainable"
-			} else {
-				v.indextype = '→ ' + type;
-			}
+			v.indextype = '→ ' + type;
 
 		}
 

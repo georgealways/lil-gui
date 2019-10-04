@@ -308,7 +308,7 @@ export default class GUI {
 	 * todoc
 	 * @param {object} obj
 	 * @param {boolean} recursive
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
@@ -322,7 +322,7 @@ export default class GUI {
 	/**
 	 * Resets all controllers.
 	 * @param {boolean} recursive
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	reset( recursive = true ) {
 		this.getControllers( recursive ).forEach( c => c.reset() );
@@ -332,7 +332,7 @@ export default class GUI {
 	/**
 	 * todoc
 	 * @param {string} title
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	title( title ) {
 		/**
@@ -347,7 +347,7 @@ export default class GUI {
 	/**
 	 * Opens a GUI or folder. GUI and folders are open by default.
 	 * @param {boolean} open Pass false to close
-	 * @returns {GUI} self
+	 * @returns {this}
 	 * @example
 	 * gui.open(); // open
 	 * gui.open( false ); // close
@@ -361,7 +361,7 @@ export default class GUI {
 
 	/**
 	 * todoc
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	close() {
 		this._closed = true;

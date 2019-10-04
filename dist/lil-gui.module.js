@@ -373,6 +373,7 @@ class Controller {
 
 		/**
 		 * The object this controller is targeting.
+		 * @type {any}
 		 */
 		this.object = object;
 
@@ -390,6 +391,7 @@ class Controller {
 
 		/**
 		 * The value of `object[ property ]` when the controller is created.
+		 * @type {any}
 		 */
 		this.initialValue = this.getValue();
 
@@ -432,7 +434,7 @@ class Controller {
 	/**
 	 * Sets the name of the controller and its label in the GUI.
 	 * @param {string} name
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	name( name ) {
 		/**
@@ -449,7 +451,7 @@ class Controller {
 	 * The function takes the current value as its only parameter and `this` will
 	 * be bound to the controller.
 	 * @param {Function} callback todoc
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
@@ -491,7 +493,7 @@ class Controller {
 	/**
 	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 	 * @param {*} value
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	setValue( value ) {
 		this.object[ this.property ] = value;
@@ -508,7 +510,7 @@ class Controller {
 
 	/**
 	 * Shorthand for `setValue( initialValue )`.
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	reset() {
 		this.setValue( this.initialValue );
@@ -518,7 +520,7 @@ class Controller {
 	/**
 	 * Enables this controller.
 	 * @param {boolean} enabled
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * controller.enable();
 	 * controller.enable( false ); // disable
@@ -533,7 +535,7 @@ class Controller {
 	/**
 	 * Disables this controller.
 	 * @param {boolean} disabled
-	 * @returns {Controller} self
+	 * @returns {this}
 	 * @example
 	 * controller.disable();
 	 * controller.disable( false ); // enable
@@ -574,7 +576,7 @@ class Controller {
 	/**
 	 * Sets the minimum value. Only works on number controllers.
 	 * @param {number} min
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
@@ -585,7 +587,7 @@ class Controller {
 	/**
 	 * Sets the maximum value. Only works on number controllers.
 	 * @param {number} max
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
@@ -596,7 +598,7 @@ class Controller {
 	/**
 	 * Sets the step. Only works on number controllers.
 	 * @param {number} step
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
@@ -607,7 +609,7 @@ class Controller {
 	/**
 	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
 	 * controllers when their values have been modified outside of the GUI.
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	updateDisplay() {
 		return this;
@@ -626,7 +628,7 @@ class Controller {
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 	 * `controller._listening` to access the listening state.
 	 * @param {boolean} listen
-	 * @returns {Controller} self
+	 * @returns {this}
 	 */
 	listen( listen = true ) {
 
@@ -1654,7 +1656,7 @@ class GUI {
 	 * todoc
 	 * @param {object} obj
 	 * @param {boolean} recursive
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
@@ -1668,7 +1670,7 @@ class GUI {
 	/**
 	 * Resets all controllers.
 	 * @param {boolean} recursive
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	reset( recursive = true ) {
 		this.getControllers( recursive ).forEach( c => c.reset() );
@@ -1678,7 +1680,7 @@ class GUI {
 	/**
 	 * todoc
 	 * @param {string} title
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	title( title ) {
 		/**
@@ -1693,7 +1695,7 @@ class GUI {
 	/**
 	 * Opens a GUI or folder. GUI and folders are open by default.
 	 * @param {boolean} open Pass false to close
-	 * @returns {GUI} self
+	 * @returns {this}
 	 * @example
 	 * gui.open(); // open
 	 * gui.open( false ); // close
@@ -1707,7 +1709,7 @@ class GUI {
 
 	/**
 	 * todoc
-	 * @returns {GUI} self
+	 * @returns {this}
 	 */
 	close() {
 		this._closed = true;
