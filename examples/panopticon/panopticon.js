@@ -195,7 +195,9 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 				const anon = {};
 				const initial = parseFloat( value.replace( '%', '' ) );
 				anon[ property ] = initial;
-				gui.add( anon, property, 0, 100 ).onChange( v => stylesheet[ property ] = v + '%' );
+				// gui.add( anon, property, 0, 100 )
+				gui.add( anon, property )
+					.onChange( v => stylesheet[ property ] = v + '%' );
 			} else {
 				gui.add( stylesheet, property );
 			}
@@ -204,16 +206,21 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
 	} );
 
-	for ( let prop in stylesheet ) {
-		gui.domElement.style.setProperty( prop, stylesheet[ prop ] );
-	}
-
 	gui.add( gui, 'reset' );
 
 	gui.add( { log() {
 		console.log( JSON.stringify( gui.export(), null, '\t' ) );
 	} }, 'log' );
 
+} );
+theme( 'Light', {
+	'--background-color': '#f6f6f6',
+	'--text-color': '#3d3d3d',
+	'--title-background-color': '#efefef',
+	'--widget-color': '#eaeaea',
+	'--highlight-color': '#f2efef',
+	'--number-color': '#33bbdb',
+	'--string-color': '#97ad00'
 } );
 
 theme( 'Solarized~ Light', {
@@ -236,7 +243,7 @@ theme( 'Solarized~ Dark', {
 	'--string-color': '#97ad00'
 } );
 
-theme( 'lol', {
+theme( 'Tennis', {
 	'--background-color': '#32405e',
 	'--text-color': '#ebe193',
 	'--title-background-color': '#111111',
