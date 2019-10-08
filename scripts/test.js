@@ -9,11 +9,8 @@ import GUI,
 	StringController,
 	FunctionController,
 	NumberController,
-	OptionController,
-	config
+	OptionController
 } from '..';
-
-config.warn = false;
 
 test( unit => {
 

@@ -1,7 +1,5 @@
 /** @module Controller */
 
-import warn from './utils/warn';
-
 /**
  * todoc
  */
@@ -46,8 +44,6 @@ export default class Controller {
 		this.domElement = document.createElement( tagName );
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
-
-		this.domElement.controller = this;
 
 		/**
 		 * The element that contains the controller's name.
@@ -117,7 +113,6 @@ export default class Controller {
 	}
 
 	onFinishChange( callback ) {
-		warn( 'onFinishChange() is synonymous with onChange()' );
 		return this.onChange( callback );
 	}
 
@@ -224,7 +219,6 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	min( min ) {
-		warn( 'min() only works on number controllers' );
 		return this;
 	}
 
@@ -235,7 +229,6 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	max( max ) {
-		warn( 'max() only works on number controllers' );
 		return this;
 	}
 
@@ -246,7 +239,6 @@ export default class Controller {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
-		warn( 'step() only works on number controllers' );
 		return this;
 	}
 

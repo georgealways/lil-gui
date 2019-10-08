@@ -1,7 +1,5 @@
 /** @module GUI */
 
-import config from './config';
-
 import Controller from './Controller';
 import BooleanController from './BooleanController';
 import ColorController from './ColorController';
@@ -10,8 +8,7 @@ import NumberController from './NumberController';
 import OptionController from './OptionController';
 import StringController from './StringController';
 
-import warn from './utils/warn';
-
+import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
 let stylesInjected = false;
 
@@ -91,8 +88,6 @@ export default class GUI {
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
-		this.domElement.gui = this;
-
 		/**
 		 * todoc
 		 * @type {HTMLElement}
@@ -127,7 +122,7 @@ export default class GUI {
 			}
 
 			if ( !stylesInjected && injectStyles ) {
-				_injectStyles( config.stylesheet );
+				_injectStyles( stylesheet );
 				stylesInjected = true;
 			}
 
@@ -224,7 +219,8 @@ export default class GUI {
 
 	_fail( property, initialValue, object ) {
 
-		warn( `Failed to add controller for "${property}"`, initialValue, object );
+		// eslint-disable-next-line no-console
+		console.error( `Failed to add controller for "${property}"`, initialValue, object );
 
 	}
 

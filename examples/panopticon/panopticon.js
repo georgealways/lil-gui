@@ -1,4 +1,4 @@
-import { GUI, config } from '../../dist/lil-gui.module.js';
+import GUI from '../../dist/lil-gui.module.js';
 
 const myObject = {
 	options: 10,
@@ -178,7 +178,9 @@ const stylesheet = new Proxy( {}, {
 
 const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 
-	config.stylesheet.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
+	const style = Array.from( document.querySelectorAll( 'style' ) ).find( v => /lil-gui/.test( v.innerHTML ) );
+
+	style.innerHTML.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
 
 		if ( !( property in stylesheet ) ) {
 
