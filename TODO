@@ -18,9 +18,9 @@ title drag
 
 
 docs
-	[ ] -> this type chainable comeback
+	[x] -> this type chainable comeback
 	[ ] transform ugly longnames
-	[ ] logical, not alphabetical order...
+	[x] logical, not alphabetical order...
 	hardstuff
 		[ ] GUIOptions
 		[ ] gui.add
