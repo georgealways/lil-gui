@@ -28,6 +28,7 @@ export default class ColorController extends Controller {
 		this._rgbScale = rgbScale;
 
 		this._initialValueHexString = this.export();
+		this._textFocused = false;
 
 		this.$input.addEventListener( 'change', () => {
 			this._setValueFromHexString( this.$input.value );
@@ -40,8 +41,6 @@ export default class ColorController extends Controller {
 		this.$input.addEventListener( 'blur', () => {
 			this.$display.classList.remove( 'focus' );
 		} );
-
-		this._textFocused = false;
 
 		this.$text.addEventListener( 'input', () => {
 			const tryParse = normalizeColorString( this.$text.value );
