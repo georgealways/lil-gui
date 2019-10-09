@@ -142,7 +142,7 @@ export default class GUI {
 
 			this._onResize = () => {
 				this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-				this.domElement.classList.toggle( 'mobile', window.innerWidth < mobileBreakpoint );
+				this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
 			};
 			this._onResize();
 

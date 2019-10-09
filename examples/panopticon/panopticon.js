@@ -20,6 +20,11 @@ autoPlaceGUI.add( myObject, 'function' );
 
 const panopticon = document.getElementById( 'panopticon' );
 
+/**
+ *
+ * @param {object} options
+ * @param {function(GUI)} callback
+ */
 function make( options, callback ) {
 	options.container = panopticon;
 	// options.collapses = false;
@@ -153,32 +158,104 @@ make( { title: 'Folders' }, gui => {
 	}
 } );
 
-const styleTag = document.createElement( 'style' );
-document.head.appendChild( styleTag );
+make( { title: 'Customization' }, gui => {
 
-function update() {
-	let style = '.lil-gui {\n';
-	for ( let prop in stylesheet ) {
-		style += `\t${prop}: ${stylesheet[ prop ]};\n`;
+	const pre = document.createElement( 'pre' );
+	pre.id = 'custom-css';
+	panopticon.appendChild( pre );
+
+	const styleTag = document.createElement( 'style' );
+	document.head.appendChild( styleTag );
+
+	function update() {
+		let style = '';
+		for ( let prop in stylesheet ) {
+			const value = stylesheet[ prop ];
+			if ( value === original[ prop ] ) continue;
+			style += `\t${prop}: ${value};\n`;
+		}
+		if ( style ) {
+			style = '.lil-gui {\n' + style + '}';
+			pre.innerHTML = style;
+			styleTag.innerHTML = style;
+		} else {
+			pre.innerHTML = '';
+			styleTag.innerHTML = '';
+		}
 	}
-	style += '}';
-	styleTag.innerHTML = style;
-}
 
-const stylesheet = new Proxy( {}, {
-	set( target, property, value ) {
-		target[ property ] = value;
-		update();
-		return true;
-	},
-	get( target, property ){
-		return target[ property ];
-	}
-} );
+	const original = {};
 
-const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
+	const stylesheet = new Proxy( {}, {
+		set( target, property, value ) {
+			if ( !( property in target ) ) {
+				original[ property ] = value;
+			}
+			target[ property ] = value;
+			update();
+			return true;
+		},
+		get( target, property ){
+			return target[ property ];
+		}
+	} );
+
+	const Default = {};
+	const themes = {
+		Default,
+		Light: {
+			'--background-color': '#f6f6f6',
+			'--text-color': '#3d3d3d',
+			'--title-background-color': '#efefef',
+			'--widget-color': '#eaeaea',
+			'--highlight-color': '#f2efef',
+			'--number-color': '#33bbdb',
+			'--string-color': '#97ad00'
+		},
+		'Solarized~ Light': {
+			'--background-color': '#fdf6e3',
+			'--text-color': '#657b83',
+			'--title-background-color': '#f5efdc',
+			'--widget-color': '#eee8d5',
+			'--highlight-color': '#e7e1cf',
+			'--number-color': '#2aa0f3',
+			'--string-color': '#97ad00'
+		},
+		'Solarized~ Dark': {
+			'--background-color': '#002b36',
+			'--text-color': '#b2c2c2',
+			'--title-background-color': '#001f27',
+			'--widget-color': '#094e5f',
+			'--highlight-color': '#0a6277',
+			'--number-color': '#2aa0f2',
+			'--string-color': '#97ad00'
+		},
+		'Tennis': {
+			'--background-color': '#32405e',
+			'--text-color': '#ebe193',
+			'--title-background-color': '#713154',
+			'--widget-color': '#057170',
+			'--highlight-color': '#b74f88',
+			'--number-color': '#ddfcff',
+			'--string-color': '#ffbf00'
+		}
+	};
+
+	gui.add( { theme: Default }, 'theme', themes )
+		.name( 'Themes' )
+		.onChange( v => {
+			if ( v === Default ) {
+				colors.reset();
+				allVariables.reset();
+			} else {
+				gui.import( v );
+			}
+		} );
 
 	const style = Array.from( document.querySelectorAll( 'style' ) ).find( v => /lil-gui/.test( v.innerHTML ) );
+
+	const colors = gui.addFolder( 'Colors' );
+	const allVariables = gui.addFolder( 'All Variables' ).close();
 
 	style.innerHTML.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, function( $0, property, value ) {
 
@@ -187,88 +264,25 @@ const cssVarsGUI = make( { title: 'CSS Vars' }, gui => {
 			stylesheet[ property ] = value;
 
 			if ( /color$/.test( property ) ) {
-				gui.addColor( stylesheet, property );
+				colors.addColor( stylesheet, property );
 			} else if ( /^\d+px$/.test( value ) ) {
 				const anon = {};
 				const initial = parseFloat( value.replace( 'px', '' ) );
 				anon[ property ] = initial;
-				gui.add( anon, property ).min( 0 ).step( 1 ).onChange( v => stylesheet[ property ] = v + 'px' );
+				allVariables.add( anon, property ).min( 0 ).step( 1 ).onChange( v => stylesheet[ property ] = v + 'px' );
 			} else if ( /%$/.test( value ) ) {
 				const anon = {};
 				const initial = parseFloat( value.replace( '%', '' ) );
 				anon[ property ] = initial;
-				// gui.add( anon, property, 0, 100 )
-				gui.add( anon, property )
+				// allVariables.add( anon, property, 0, 100 )
+				allVariables.add( anon, property )
 					.onChange( v => stylesheet[ property ] = v + '%' );
 			} else {
-				gui.add( stylesheet, property );
+				allVariables.add( stylesheet, property );
 			}
 
 		}
 
 	} );
 
-	gui.add( gui, 'reset' );
-
-	gui.add( { log() {
-		console.log( JSON.stringify( gui.export(), null, '\t' ) );
-	} }, 'log' );
-
 } );
-theme( 'Light', {
-	'--background-color': '#f6f6f6',
-	'--text-color': '#3d3d3d',
-	'--title-background-color': '#efefef',
-	'--widget-color': '#eaeaea',
-	'--highlight-color': '#f2efef',
-	'--number-color': '#33bbdb',
-	'--string-color': '#97ad00'
-} );
-
-theme( 'Solarized~ Light', {
-	'--background-color': '#fdf6e3',
-	'--text-color': '#657b83',
-	'--title-background-color': '#f5efdc',
-	'--widget-color': '#eee8d5',
-	'--highlight-color': '#e7e1cf',
-	'--number-color': '#2aa0f3',
-	'--string-color': '#97ad00'
-} );
-
-theme( 'Solarized~ Dark', {
-	'--background-color': '#002b36',
-	'--text-color': '#b2c2c2',
-	'--title-background-color': '#001f27',
-	'--widget-color': '#094e5f',
-	'--highlight-color': '#0a6277',
-	'--number-color': '#2aa0f2',
-	'--string-color': '#97ad00'
-} );
-
-theme( 'Tennis', {
-	'--background-color': '#32405e',
-	'--text-color': '#ebe193',
-	'--title-background-color': '#111111',
-	'--widget-color': '#057170',
-	'--highlight-color': '#9c2872',
-	'--number-color': '#ffffff',
-	'--string-color': '#ffbf00'
-} );
-
-function theme( title, styles ) {
-
-	make( { title }, gui => {
-
-		for ( let prop in styles ) {
-			gui.domElement.style.setProperty( prop, styles[ prop ] );
-		}
-
-		gui.domElement.style.setProperty( '--name-width', '60%' );
-		for ( let prop in styles ){
-			gui.addColor( styles, prop );
-		}
-		gui.add( { Apply() {
-			cssVarsGUI.import( gui.export() );
-		} }, 'Apply' );
-	} );
-}
