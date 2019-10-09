@@ -9,26 +9,28 @@ const banner = `/**
  * Released under the MIT License.
  */\n`;
 
-const output = {
+const outputModule = {
 	banner,
 	format: 'es',
 	preferConst: true
 };
 
+const outputUMD = {
+	banner,
+	format: 'umd',
+	name: 'lil',
+	exports: 'named'
+};
+
 export default [
 	{
 		input,
-		output: { ...output, file: pkg.module },
+		output: { ...outputModule, file: pkg.module },
 		plugins: [ stylesheet() ]
 	},
 	{
 		input,
-		output: { ...output, file: '../lil-gui-threejs/examples/jsm/libs/lil-gui.module.js' },
-		plugins: [ stylesheet() ]
-	},
-	{
-		input,
-		output: { ...output, file: pkg.module.replace( '.js', '.min.js' ) },
+		output: { ...outputModule, file: pkg.module.replace( '.js', '.min.js' ) },
 		plugins: [
 			stylesheet( true ),
 			terser( {
@@ -39,6 +41,11 @@ export default [
 				}
 			} )
 		]
+	},
+	{
+		input,
+		output: { ...outputUMD, file: pkg.main },
+		plugins: [ stylesheet() ]
 	}
 ];
 

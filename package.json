@@ -6,7 +6,7 @@
   },
   "description": "Makes a floating panel for controllers on the web.",
   "module": "dist/lil-gui.module.js",
-  "main": "dist/lil-gui.module.js",
+  "main": "dist/lil-gui.umd.js",
   "config": {
     "style": "dist/lil-gui.css",
     "styleMin": "dist/lil-gui.min.css"
