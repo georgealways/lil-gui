@@ -1488,12 +1488,13 @@
 		}
 
 		/**
-		 * todoc
-		 * @param {object} object
-		 * @param {string} property
-		 * @param {number|object|Array} [$1]
-		 * @param {number} [max]
-		 * @param {number} [step]
+		 * Adds a controller to the GUI, inferring controller type based on `typeof object[ property ]`.
+		 * @param {any} object The object the controller will modify.
+		 * @param {string} property Name of the property to control.
+		 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
+		 * selectable values for a dropdown.
+		 * @param {number} [max] Maximum value for number controllers.
+		 * @param {number} [step] Step value for number controllers.
 		 * @returns {Controller}
 		 */
 		add( object, property, $1, max, step ) {

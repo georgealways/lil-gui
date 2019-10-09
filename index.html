@@ -400,69 +400,70 @@ Type: <strong>HTMLElement</strong> - Optional</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L17" target="_blank">src/GUI.js:17</a></p>
 <hr>
 <h2><a name="GUI#add"></a> gui.<strong>add</strong>( object, property, [$1], [max], [step] )</h2>
-<p>todoc</p>
+<p>Adds a controller to the GUI, inferring controller type based on <code>typeof object[ property ]</code>.</p>
 <p><strong>Parameters</strong></p>
 <p><strong>object</strong><br>
-<br>
-Type: <strong>object</strong></p>
+The object the controller will modify.<br>
+Type: <strong>any</strong></p>
 <hr>
 <p><strong>property</strong><br>
-<br>
+Name of the property to control.<br>
 Type: <strong>string</strong></p>
 <hr>
 <p><strong>$1</strong><br>
-<br>
+Minimum value for number controllers, or the set of
+selectable values for a dropdown.<br>
 Type: <strong>number</strong> or <strong>object</strong> or <strong>Array</strong> - Optional</p>
 <hr>
 <p><strong>max</strong><br>
-<br>
+Maximum value for number controllers.<br>
 Type: <strong>number</strong> - Optional</p>
 <hr>
 <p><strong>step</strong><br>
-<br>
+Step value for number controllers.<br>
 Type: <strong>number</strong> - Optional</p>
 <p>Returns: <strong>Controller</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L170" target="_blank">src/GUI.js:170</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L171" target="_blank">src/GUI.js:171</a></p>
 <hr>
 <h2><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object : object, property : string, rgbScale=1 )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Controller</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234" target="_blank">src/GUI.js:234</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L235" target="_blank">src/GUI.js:235</a></p>
 <hr>
 <h2><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( title : string )</h2>
 <p>todoc</p>
 <p>Returns: <strong>GUI</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L248" target="_blank">src/GUI.js:248</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L249" target="_blank">src/GUI.js:249</a></p>
 <hr>
 <h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array&lt;Controller&gt;</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L258" target="_blank">src/GUI.js:258</a></p>
 <hr>
 <h2><a name="GUI#getFolders"></a> gui.<strong>getFolders</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array&lt;GUI&gt;</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L271" target="_blank">src/GUI.js:271</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L272" target="_blank">src/GUI.js:272</a></p>
 <hr>
 <h2><a name="GUI#export"></a> gui.<strong>export</strong>( recursive=true )</h2>
 <p>Returns an object mapping controller names to values</p>
 <p>Returns: <strong>object</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286" target="_blank">src/GUI.js:286</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L287" target="_blank">src/GUI.js:287</a></p>
 <hr>
 <h2><a name="GUI#import"></a> gui.<strong>import</strong>( obj : object, recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L300" target="_blank">src/GUI.js:300</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L301" target="_blank">src/GUI.js:301</a></p>
 <hr>
 <h2><a name="GUI#reset"></a> gui.<strong>reset</strong>( recursive=true )</h2>
 <p>Resets all controllers.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L314" target="_blank">src/GUI.js:314</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a></p>
 <hr>
 <h2><a name="GUI#title"></a> gui.<strong>title</strong>( title : string )</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L324" target="_blank">src/GUI.js:324</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L325" target="_blank">src/GUI.js:325</a></p>
 <hr>
 <h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>
@@ -471,16 +472,16 @@ gui.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">
 gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L343" target="_blank">src/GUI.js:343</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L344" target="_blank">src/GUI.js:344</a></p>
 <hr>
 <h2><a name="GUI#close"></a> gui.<strong>close</strong>()</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L353" target="_blank">src/GUI.js:353</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L354" target="_blank">src/GUI.js:354</a></p>
 <hr>
 <h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L362" target="_blank">src/GUI.js:362</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L363" target="_blank">src/GUI.js:363</a></p>
 <hr>
 <h2><a name="GUI#children"></a> gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
 <p>todoc</p>
@@ -512,7 +513,7 @@ gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 <hr>
 <h2><a name="GUI#_title"></a> gui.<strong>_title</strong> : string</h2>
 <p>todoc</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L330" target="_blank">src/GUI.js:330</a></p>
 <hr>
 <h1>Controller</h1>
 <h2><a name="Controller#name"></a> controller.<strong>name</strong>( name : string )</h2>

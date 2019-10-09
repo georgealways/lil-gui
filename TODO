@@ -1,15 +1,6 @@
 todo
 
-[x] move kitchen sink from homepage to panopticon.
-	(that should be a simple demo) 
-
-[x] supress warning in test
-	[x] done but GUI.warn.disabled is dumb asf, speaks to something like
-
-[ ] hover styles
-	[x] button
-	[ ] folder title
-	... everything again?
+[ ] kill onchange shorthand
 
 title drag
 	[ ] mouse
@@ -125,7 +116,6 @@ archive
 [x] buttons icon redo
 [x] enabled/disabled signature
 
-
 [x] button style
 [x] top bottom padding
 [x] mono font for color cotroller
@@ -138,3 +128,15 @@ archive
 	tried both of these but was gross
 	will try again
 	[x] i like it
+
+
+[x] move kitchen sink from homepage to panopticon.
+	(that should be a simple demo) 
+
+[x] supress warning in test
+	[x] done but GUI.warn.disabled is dumb asf, speaks to something like
+
+[x] hover styles
+	[x] button
+	[n] folder title
+	... everything again?
