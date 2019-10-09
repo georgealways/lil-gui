@@ -56,3 +56,4 @@ overrides:
     rules:
       no-console: off
       max-len: off
+      jsdoc/require-description: off

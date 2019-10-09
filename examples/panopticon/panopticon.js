@@ -21,16 +21,12 @@ autoPlaceGUI.add( myObject, 'function' );
 const panopticon = document.getElementById( 'panopticon' );
 
 /**
- *
  * @param {object} options
  * @param {function(GUI)} callback
  */
 function make( options, callback ) {
 	options.container = panopticon;
-	// options.collapses = false;
-	const gui = new GUI( options );
-	callback( gui );
-	return gui;
+	callback( new GUI( options ) );
 }
 
 make( { title: 'Numbers' }, gui => {
