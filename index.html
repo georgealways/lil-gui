@@ -226,7 +226,7 @@ table > tbody > tr + tr > td {
 <body>
 
 <script type="module">
-import GUI from '../dist/lil-gui.module.min.js';
+import GUI from '../dist/lil-gui.module.js';
 
 const myObject = {
 	options: 10,
@@ -252,7 +252,9 @@ gui.add( myObject, 'function' );
 <div id="readme">
 <h1>lil-gui</h1>
 <p>Makes a floating panel for controllers on the web. API largely compatible with dat.gui.</p>
-<pre><code class="language-js"><span class="hljs-keyword">import</span> GUI <span class="hljs-keyword">from</span> <span class="hljs-string">'lil-gui'</span>;
+<pre><code class="language-js"><span class="hljs-keyword">import</span> GUI <span class="hljs-keyword">from</span> <span class="hljs-string">'lil-gui'</span>; 
+
+<span class="hljs-keyword">const</span> gui = <span class="hljs-keyword">new</span> GUI();
 
 <span class="hljs-keyword">const</span> myObject = {
 	<span class="hljs-attr">myBoolean</span>: <span class="hljs-literal">true</span>,
@@ -261,14 +263,17 @@ gui.add( myObject, 'function' );
 	<span class="hljs-attr">myNumber</span>: <span class="hljs-number">1</span>
 };
 
-<span class="hljs-keyword">const</span> gui = <span class="hljs-keyword">new</span> GUI();
-
-gui.add( myObject, <span class="hljs-string">'myBoolean'</span> ); <span class="hljs-comment">// checkbox</span>
+<span class="hljs-comment">// Controller types are inferred from property values</span>
+gui.add( myObject, <span class="hljs-string">'myBoolean'</span> );  <span class="hljs-comment">// checkbox</span>
 gui.add( myObject, <span class="hljs-string">'myFunction'</span> ); <span class="hljs-comment">// button</span>
-gui.add( myObject, <span class="hljs-string">'myString'</span> ); <span class="hljs-comment">// text field</span>
-gui.add( myObject, <span class="hljs-string">'myNumber'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ); <span class="hljs-comment">// slider</span>
+gui.add( myObject, <span class="hljs-string">'myString'</span> );   <span class="hljs-comment">// text field</span>
+gui.add( myObject, <span class="hljs-string">'myNumber'</span> );   <span class="hljs-comment">// number field</span>
 
-<span class="hljs-comment">// dropdowns</span>
+<span class="hljs-comment">// Add sliders to number fields by passing min and max</span>
+gui.add( myObject, <span class="hljs-string">'myNumber'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> );
+gui.add( myObject, <span class="hljs-string">'myNumber'</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">1</span> ); <span class="hljs-comment">// explicit step</span>
+
+<span class="hljs-comment">// Create dropdowns by passing an array or object of named values</span>
 gui.add( myObject, <span class="hljs-string">'myNumber'</span>, [ <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span> ] );
 gui.add( myObject, <span class="hljs-string">'myNumber'</span>, { <span class="hljs-attr">Label1</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Label2</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">Label3</span>: <span class="hljs-number">2</span> } );
 

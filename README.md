@@ -3,7 +3,9 @@
 Makes a floating panel for controllers on the web. API largely compatible with dat.gui.
 
 ```js
-import GUI from 'lil-gui';
+import GUI from 'lil-gui'; 
+
+const gui = new GUI();
 
 const myObject = {
 	myBoolean: true,
@@ -12,14 +14,17 @@ const myObject = {
 	myNumber: 1
 };
 
-const gui = new GUI();
-
-gui.add( myObject, 'myBoolean' ); // checkbox
+// Controller types are inferred from property values
+gui.add( myObject, 'myBoolean' );  // checkbox
 gui.add( myObject, 'myFunction' ); // button
-gui.add( myObject, 'myString' ); // text field
-gui.add( myObject, 'myNumber', 0, 1 ); // slider
+gui.add( myObject, 'myString' );   // text field
+gui.add( myObject, 'myNumber' );   // number field
 
-// dropdowns
+// Add sliders to number fields by passing min and max
+gui.add( myObject, 'myNumber', 0, 1 );
+gui.add( myObject, 'myNumber', 0, 100, 1 ); // explicit step
+
+// Create dropdowns by passing an array or object of named values
 gui.add( myObject, 'myNumber', [ 0, 1, 2 ] );
 gui.add( myObject, 'myNumber', { Label1: 0, Label2: 1, Label3: 2 } );
 
