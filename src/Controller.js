@@ -117,19 +117,6 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and adds a new option controller.
-	 * The `gui.add( object, property, options )` syntax is preferred.
-	 * @param {object|Array} options
-	 * @returns {Controller}
-	 */
-	options( options ) {
-		const controller = this.parent.add( this.object, this.property, options );
-		controller.name( this._name );
-		this.destroy();
-		return controller;
-	}
-
-	/**
 	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 	 * @param {*} value
 	 * @returns {this}
@@ -145,6 +132,14 @@ export default class Controller {
 		if ( this._onChange !== undefined ) {
 			this._onChange.call( this, this.getValue() );
 		}
+	}
+
+	/**
+	 * Returns `object[ property ]`.
+	 * @returns {any}
+	 */
+	getValue() {
+		return this.object[ this.property ];
 	}
 
 	/**
@@ -205,11 +200,16 @@ export default class Controller {
 	}
 
 	/**
-	 * Returns `object[ property ]`.
-	 * @returns {any}
+	 * Destroys this controller and adds a new option controller.
+	 * The `gui.add( object, property, options )` syntax is preferred.
+	 * @param {object|Array} options
+	 * @returns {Controller}
 	 */
-	getValue() {
-		return this.object[ this.property ];
+	options( options ) {
+		const controller = this.parent.add( this.object, this.property, options );
+		controller.name( this._name );
+		this.destroy();
+		return controller;
 	}
 
 	/**

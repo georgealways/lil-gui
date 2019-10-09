@@ -9,16 +9,16 @@
 - [**add**()](#GUI#add) → Controller
 - [**addColor**()](#GUI#addColor) → Controller
 - [**addFolder**()](#GUI#addFolder) → GUI
-- [**close**()](#GUI#close) → this
-- [**destroy**()](#GUI#destroy) 
-- [**export**()](#GUI#export) → object
-- [**forEachController**()](#GUI#forEachController) 
+- [**forEachController**()](#GUI#forEachController) : void
 - [**getControllers**()](#GUI#getControllers) → Array&lt;Controller&gt;
 - [**getFolders**()](#GUI#getFolders) → Array&lt;GUI&gt;
+- [**export**()](#GUI#export) → object
 - [**import**()](#GUI#import) → this
-- [**open**()](#GUI#open) → this
 - [**reset**()](#GUI#reset) → this
 - [**title**()](#GUI#title) → this
+- [**open**()](#GUI#open) → this
+- [**close**()](#GUI#close) → this
+- [**destroy**()](#GUI#destroy) : void
 - [children](#GUI#children) : Array&lt;GUI|Controller&gt;
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
@@ -30,20 +30,20 @@
 
 ## Controller
 
-- [**destroy**()](#Controller#destroy) 
-- [**disable**()](#Controller#disable) → this
-- [**enable**()](#Controller#enable) → this
-- [**getValue**()](#Controller#getValue) → any
-- [**listen**()](#Controller#listen) → this
-- [**max**()](#Controller#max) → this
-- [**min**()](#Controller#min) → this
 - [**name**()](#Controller#name) → this
 - [**onChange**()](#Controller#onChange) → this
-- [**options**()](#Controller#options) → Controller
-- [**reset**()](#Controller#reset) → this
 - [**setValue**()](#Controller#setValue) → this
+- [**getValue**()](#Controller#getValue) → any
+- [**reset**()](#Controller#reset) → this
+- [**enable**()](#Controller#enable) → this
+- [**disable**()](#Controller#disable) → this
+- [**destroy**()](#Controller#destroy) : void
+- [**options**()](#Controller#options) → Controller
+- [**min**()](#Controller#min) → this
+- [**max**()](#Controller#max) → this
 - [**step**()](#Controller#step) → this
 - [**updateDisplay**()](#Controller#updateDisplay) → this
+- [**listen**()](#Controller#listen) → this
 - [domElement](#Controller#domElement) : HTMLElement
 - [initialValue](#Controller#initialValue) : any
 - [object](#Controller#object) : any
@@ -166,31 +166,6 @@ Returns: **GUI**
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L248" target="_blank">src/GUI.js:248</a>
 ***
 
-## <a name="GUI#close"></a> gui.**close**()
-
-todoc
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L362" target="_blank">src/GUI.js:362</a>
-***
-
-## <a name="GUI#destroy"></a> gui.**destroy**()
-
-todoc
-
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L371" target="_blank">src/GUI.js:371</a>
-***
-
-## <a name="GUI#export"></a> gui.**export**( recursive=true )
-
-Returns an object mapping controller names to values
-
-Returns: **object**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L295" target="_blank">src/GUI.js:295</a>
-***
-
 ## <a name="GUI#forEachController"></a> gui.**forEachController**( callback : function, recursive=true )
 
 todelete
@@ -216,6 +191,15 @@ Returns: **Array&lt;GUI&gt;**
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L280" target="_blank">src/GUI.js:280</a>
 ***
 
+## <a name="GUI#export"></a> gui.**export**( recursive=true )
+
+Returns an object mapping controller names to values
+
+Returns: **object**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L295" target="_blank">src/GUI.js:295</a>
+***
+
 ## <a name="GUI#import"></a> gui.**import**( obj : object, recursive=true )
 
 todoc
@@ -223,21 +207,6 @@ todoc
 Returns: **this**
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L309" target="_blank">src/GUI.js:309</a>
-***
-
-## <a name="GUI#open"></a> gui.**open**( open=true )
-
-Opens a GUI or folder. GUI and folders are open by default.
-
-```js
-gui.open(); // open
-gui.open( false ); // close
-gui.open( gui._closed ); // toggle
-```
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L352" target="_blank">src/GUI.js:352</a>
 ***
 
 ## <a name="GUI#reset"></a> gui.**reset**( recursive=true )
@@ -256,6 +225,37 @@ todoc
 Returns: **this**
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L333" target="_blank">src/GUI.js:333</a>
+***
+
+## <a name="GUI#open"></a> gui.**open**( open=true )
+
+Opens a GUI or folder. GUI and folders are open by default.
+
+```js
+gui.open(); // open
+gui.open( false ); // close
+gui.open( gui._closed ); // toggle
+```
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L352" target="_blank">src/GUI.js:352</a>
+***
+
+## <a name="GUI#close"></a> gui.**close**()
+
+todoc
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L362" target="_blank">src/GUI.js:362</a>
+***
+
+## <a name="GUI#destroy"></a> gui.**destroy**()
+
+todoc
+
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L371" target="_blank">src/GUI.js:371</a>
 ***
 
 ## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
@@ -316,92 +316,6 @@ todoc
 
 # Controller
 
-## <a name="Controller#destroy"></a> controller.**destroy**()
-
-Destroys this controller and removes it from the parent GUI.
-
-```js
-const controller = gui.add( object, 'property' );
-controller.destroy();
-```
-```js
-// Won't destroy all the controllers because c.destroy() modifies gui.children
-gui.forEachController( c => c.destroy() );
-
-// Make a copy of the array first if you actually want to do that
-Array.from( gui.children ).forEach( c => c.destroy() );
-```
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L202" target="_blank">src/Controller.js:202</a>
-***
-
-## <a name="Controller#disable"></a> controller.**disable**( disabled=true )
-
-Disables this controller.
-
-```js
-controller.disable();
-controller.disable( false ); // enable
-controller.disable( !controller._disabled ); // toggle
-```
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L183" target="_blank">src/Controller.js:183</a>
-***
-
-## <a name="Controller#enable"></a> controller.**enable**( enabled=true )
-
-Enables this controller.
-
-```js
-controller.enable();
-controller.enable( false ); // disable
-controller.enable( controller._disabled ); // toggle
-```
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L168" target="_blank">src/Controller.js:168</a>
-***
-
-## <a name="Controller#getValue"></a> controller.**getValue**()
-
-Returns `object[ property ]`.
-
-Returns: **any**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L211" target="_blank">src/Controller.js:211</a>
-***
-
-## <a name="Controller#listen"></a> controller.**listen**( listen=true )
-
-Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
-`controller._listening` to access the listening state.
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L269" target="_blank">src/Controller.js:269</a>
-***
-
-## <a name="Controller#max"></a> controller.**max**( max : number )
-
-Sets the maximum value. Only works on number controllers.
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L231" target="_blank">src/Controller.js:231</a>
-***
-
-## <a name="Controller#min"></a> controller.**min**( min : number )
-
-Sets the minimum value. Only works on number controllers.
-
-Returns: **this**
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L221" target="_blank">src/Controller.js:221</a>
-***
-
 ## <a name="Controller#name"></a> controller.**name**( name : string )
 
 Sets the name of the controller and its label in the GUI.
@@ -432,14 +346,22 @@ Returns: **this**
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104" target="_blank">src/Controller.js:104</a>
 ***
 
-## <a name="Controller#options"></a> controller.**options**( options : object|Array )
+## <a name="Controller#setValue"></a> controller.**setValue**( value )
 
-Destroys this controller and adds a new option controller.
-The `gui.add( object, property, options )` syntax is preferred.
+Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 
-Returns: **Controller**
+Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L125" target="_blank">src/Controller.js:125</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a>
+***
+
+## <a name="Controller#getValue"></a> controller.**getValue**()
+
+Returns `object[ property ]`.
+
+Returns: **any**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L141" target="_blank">src/Controller.js:141</a>
 ***
 
 ## <a name="Controller#reset"></a> controller.**reset**()
@@ -448,16 +370,84 @@ Shorthand for `setValue( initialValue )`.
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L154" target="_blank">src/Controller.js:154</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L149" target="_blank">src/Controller.js:149</a>
 ***
 
-## <a name="Controller#setValue"></a> controller.**setValue**( value )
+## <a name="Controller#enable"></a> controller.**enable**( enabled=true )
 
-Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
+Enables this controller.
+
+```js
+controller.enable();
+controller.enable( false ); // disable
+controller.enable( controller._disabled ); // toggle
+```
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L137" target="_blank">src/Controller.js:137</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a>
+***
+
+## <a name="Controller#disable"></a> controller.**disable**( disabled=true )
+
+Disables this controller.
+
+```js
+controller.disable();
+controller.disable( false ); // enable
+controller.disable( !controller._disabled ); // toggle
+```
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L178" target="_blank">src/Controller.js:178</a>
+***
+
+## <a name="Controller#destroy"></a> controller.**destroy**()
+
+Destroys this controller and removes it from the parent GUI.
+
+```js
+const controller = gui.add( object, 'property' );
+controller.destroy();
+```
+```js
+// Won't destroy all the controllers because c.destroy() modifies gui.children
+gui.forEachController( c => c.destroy() );
+
+// Make a copy of the array first if you actually want to do that
+Array.from( gui.children ).forEach( c => c.destroy() );
+```
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a>
+***
+
+## <a name="Controller#options"></a> controller.**options**( options : object|Array )
+
+Destroys this controller and adds a new option controller.
+The `gui.add( object, property, options )` syntax is preferred.
+
+Returns: **Controller**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L208" target="_blank">src/Controller.js:208</a>
+***
+
+## <a name="Controller#min"></a> controller.**min**( min : number )
+
+Sets the minimum value. Only works on number controllers.
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L221" target="_blank">src/Controller.js:221</a>
+***
+
+## <a name="Controller#max"></a> controller.**max**( max : number )
+
+Sets the maximum value. Only works on number controllers.
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L231" target="_blank">src/Controller.js:231</a>
 ***
 
 ## <a name="Controller#step"></a> controller.**step**( step : number )
@@ -477,6 +467,16 @@ controllers when their values have been modified outside of the GUI.
 Returns: **this**
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L250" target="_blank">src/Controller.js:250</a>
+***
+
+## <a name="Controller#listen"></a> controller.**listen**( listen=true )
+
+Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
+`controller._listening` to access the listening state.
+
+Returns: **this**
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L269" target="_blank">src/Controller.js:269</a>
 ***
 
 ## <a name="Controller#domElement"></a> controller.**domElement** : HTMLElement

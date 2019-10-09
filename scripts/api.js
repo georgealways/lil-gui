@@ -88,6 +88,10 @@ function transform( v ) {
 
 			v.indextype = '→ ' + type;
 
+		} else {
+
+			v.indextype = ': void';
+
 		}
 
 	} else if ( v.kind === 'class' ) {
@@ -171,7 +175,7 @@ jsdocData.sort( ( a, b ) => {
 
 // sort children by kind, then alphabetically with special chars at the end
 jsdocData.forEach( t => {
-	t.children.sort( childSort );
+	t.children.sort( childSort( Array.from( t.children ) ) );
 } );
 
 const output = hbs.compile( fs.readFileSync( TEMPLATE ).toString() )
@@ -186,16 +190,28 @@ if ( WRITE ) {
 // or give this to homepage.js so it can print to browser console for debug
 export default jsdocData;
 
-function childSort( a, b ) {
+function childSort( originalOrder ) {
 
-	const kindComparison = customComparison( KIND_SORT, a.kind, b.kind );
-	if ( kindComparison !== 0 ) return kindComparison;
+	return function( a, b ) {
 
-	const alphabetComparison = customComparison( ALPHABET_SORT, a.name[ 0 ], b.name[ 0 ] );
+		const kindComparison = customComparison( KIND_SORT, a.kind, b.kind );
+		if ( kindComparison !== 0 ) return kindComparison;
 
-	if ( alphabetComparison !== 0 ) return alphabetComparison;
+		if ( a.kind === 'member' ) {
 
-	return a.name.localeCompare( b.name );
+			const alphabetComparison = customComparison( ALPHABET_SORT, a.name[ 0 ], b.name[ 0 ] );
+
+			if ( alphabetComparison !== 0 ) return alphabetComparison;
+
+			return a.name.localeCompare( b.name );
+
+		} else {
+
+			return customComparison( originalOrder, a, b );
+
+		}
+
+	};
 
 }
 
