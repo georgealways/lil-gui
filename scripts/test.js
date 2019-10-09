@@ -256,7 +256,7 @@ test( unit => {
 
 	} );
 
-	unit( 'forEachController', () => {
+	unit( 'getControllers', () => {
 
 		const gui = new GUI();
 
@@ -278,46 +278,46 @@ test( unit => {
 		folder3.add( { x: 0 }, 'x' );
 		folder3.add( { x: 0 }, 'x' );
 
-		let controllersVisited;
+		const controllersVisited = [];
 		const visit = c => {
 			assert.strictEqual( controllersVisited.indexOf( c ), -1, 'forEachController visits each controller exactly once' );
 			controllersVisited.push( c );
 		};
 
-		controllersVisited = [];
-		gui.forEachController( visit );
+		controllersVisited.length = 0;
+		gui.getControllers().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 11, 'recursive defaults to true' );
 
-		controllersVisited = [];
-		gui.forEachController( visit, false );
+		controllersVisited.length = 0;
+		gui.getControllers( false ).forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3, 'recursive' );
 
-		controllersVisited = [];
-		folder1.forEachController( visit, false );
+		controllersVisited.length = 0;
+		folder1.getControllers( false ).forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
-		controllersVisited = [];
-		folder1.forEachController( visit );
+		controllersVisited.length = 0;
+		folder1.getControllers().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 6 );
 
-		controllersVisited = [];
-		folder2.forEachController( visit, false );
+		controllersVisited.length = 0;
+		folder2.getControllers( false ).forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
-		controllersVisited = [];
-		folder2.forEachController( visit );
+		controllersVisited.length = 0;
+		folder2.getControllers().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
-		controllersVisited = [];
-		folder3.forEachController( visit, false );
+		controllersVisited.length = 0;
+		folder3.getControllers( false ).forEach( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
-		controllersVisited = [];
-		folder3.forEachController( visit );
+		controllersVisited.length = 0;
+		folder3.getControllers().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
-		controllersVisited = [];
-		gui.getFolders( true ).forEach( visit, false );
+		controllersVisited.length = 0;
+		gui.getFolders( true ).forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 	} );

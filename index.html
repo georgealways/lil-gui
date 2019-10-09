@@ -277,7 +277,6 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#add"><strong>add</strong>()</a> → Controller</li>
 <li><a href="#GUI#addColor"><strong>addColor</strong>()</a> → Controller</li>
 <li><a href="#GUI#addFolder"><strong>addFolder</strong>()</a> → GUI</li>
-<li><a href="#GUI#forEachController"><strong>forEachController</strong>()</a> : void</li>
 <li><a href="#GUI#getControllers"><strong>getControllers</strong>()</a> → Array&lt;Controller&gt;</li>
 <li><a href="#GUI#getFolders"><strong>getFolders</strong>()</a> → Array&lt;GUI&gt;</li>
 <li><a href="#GUI#export"><strong>export</strong>()</a> → object</li>
@@ -406,39 +405,35 @@ Type: <strong>number</strong> - Optional</p>
 <p>Returns: <strong>GUI</strong></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L248" target="_blank">src/GUI.js:248</a></p>
 <hr>
-<h2><a name="GUI#forEachController"></a> gui.<strong>forEachController</strong>( callback : function, recursive=true )</h2>
-<p>todelete</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a></p>
-<hr>
 <h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array&lt;Controller&gt;</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L266" target="_blank">src/GUI.js:266</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a></p>
 <hr>
 <h2><a name="GUI#getFolders"></a> gui.<strong>getFolders</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>Array&lt;GUI&gt;</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L280" target="_blank">src/GUI.js:280</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L271" target="_blank">src/GUI.js:271</a></p>
 <hr>
 <h2><a name="GUI#export"></a> gui.<strong>export</strong>( recursive=true )</h2>
 <p>Returns an object mapping controller names to values</p>
 <p>Returns: <strong>object</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L295" target="_blank">src/GUI.js:295</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286" target="_blank">src/GUI.js:286</a></p>
 <hr>
 <h2><a name="GUI#import"></a> gui.<strong>import</strong>( obj : object, recursive=true )</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L309" target="_blank">src/GUI.js:309</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L300" target="_blank">src/GUI.js:300</a></p>
 <hr>
 <h2><a name="GUI#reset"></a> gui.<strong>reset</strong>( recursive=true )</h2>
 <p>Resets all controllers.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L323" target="_blank">src/GUI.js:323</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L314" target="_blank">src/GUI.js:314</a></p>
 <hr>
 <h2><a name="GUI#title"></a> gui.<strong>title</strong>( title : string )</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L333" target="_blank">src/GUI.js:333</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L324" target="_blank">src/GUI.js:324</a></p>
 <hr>
 <h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>
@@ -447,16 +442,16 @@ gui.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">
 gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 </code></pre>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L352" target="_blank">src/GUI.js:352</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L343" target="_blank">src/GUI.js:343</a></p>
 <hr>
 <h2><a name="GUI#close"></a> gui.<strong>close</strong>()</h2>
 <p>todoc</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L362" target="_blank">src/GUI.js:362</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L353" target="_blank">src/GUI.js:353</a></p>
 <hr>
 <h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L371" target="_blank">src/GUI.js:371</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L362" target="_blank">src/GUI.js:362</a></p>
 <hr>
 <h2><a name="GUI#children"></a> gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
 <p>todoc</p>
@@ -488,7 +483,7 @@ gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 <hr>
 <h2><a name="GUI#_title"></a> gui.<strong>_title</strong> : string</h2>
 <p>todoc</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L338" target="_blank">src/GUI.js:338</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a></p>
 <hr>
 <h1>Controller</h1>
 <h2><a name="Controller#name"></a> controller.<strong>name</strong>( name : string )</h2>
@@ -546,49 +541,40 @@ controller.disable( !controller._disabled ); <span class="hljs-comment">// toggl
 <hr>
 <h2><a name="Controller#destroy"></a> controller.<strong>destroy</strong>()</h2>
 <p>Destroys this controller and removes it from the parent GUI.</p>
-<pre><code class="language-js"><span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> );
-controller.destroy();
-</code></pre>
-<pre><code class="language-js"><span class="hljs-comment">// Won't destroy all the controllers because c.destroy() modifies gui.children</span>
-gui.forEachController( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
-
-<span class="hljs-comment">// Make a copy of the array first if you actually want to do that</span>
-<span class="hljs-built_in">Array</span>.from( gui.children ).forEach( <span class="hljs-function"><span class="hljs-params">c</span> =&gt;</span> c.destroy() );
-</code></pre>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L187" target="_blank">src/Controller.js:187</a></p>
 <hr>
 <h2><a name="Controller#options"></a> controller.<strong>options</strong>( options : object|Array )</h2>
 <p>Destroys this controller and adds a new option controller.
 The <code>gui.add( object, property, options )</code> syntax is preferred.</p>
 <p>Returns: <strong>Controller</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L208" target="_blank">src/Controller.js:208</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L198" target="_blank">src/Controller.js:198</a></p>
 <hr>
 <h2><a name="Controller#min"></a> controller.<strong>min</strong>( min : number )</h2>
 <p>Sets the minimum value. Only works on number controllers.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L221" target="_blank">src/Controller.js:221</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L211" target="_blank">src/Controller.js:211</a></p>
 <hr>
 <h2><a name="Controller#max"></a> controller.<strong>max</strong>( max : number )</h2>
 <p>Sets the maximum value. Only works on number controllers.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L231" target="_blank">src/Controller.js:231</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L221" target="_blank">src/Controller.js:221</a></p>
 <hr>
 <h2><a name="Controller#step"></a> controller.<strong>step</strong>( step : number )</h2>
 <p>Sets the step. Only works on number controllers.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L241" target="_blank">src/Controller.js:241</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L231" target="_blank">src/Controller.js:231</a></p>
 <hr>
 <h2><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>()</h2>
 <p>Updates the display to keep it in sync with <code>getValue()</code>. Useful for updating your
 controllers when their values have been modified outside of the GUI.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L250" target="_blank">src/Controller.js:250</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L240" target="_blank">src/Controller.js:240</a></p>
 <hr>
 <h2><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true )</h2>
 <p>Calls <code>updateDisplay()</code> every animation frame. Pass <code>false</code> to stop listening, and use
 <code>controller._listening</code> to access the listening state.</p>
 <p>Returns: <strong>this</strong></p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L269" target="_blank">src/Controller.js:269</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L259" target="_blank">src/Controller.js:259</a></p>
 <hr>
 <h2><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h2>
 <p>The outermost wrapper element for the controller.</p>
@@ -625,7 +611,7 @@ controllers when their values have been modified outside of the GUI.</p>
 <h2><a name="Controller#_listening"></a> controller.<strong>_listening</strong> : boolean</h2>
 <p>Used to determine if the controller is listening.  Use <code>controller.listen(true|false)</code> to
 change the listening state.</p>
-<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L276" target="_blank">src/Controller.js:276</a></p>
+<p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L266" target="_blank">src/Controller.js:266</a></p>
 <hr>
 <h2><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h2>
 <p>Used to access the controller's name.</p>

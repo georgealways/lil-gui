@@ -189,16 +189,6 @@ class Controller {
 
 	/**
 	 * Destroys this controller and removes it from the parent GUI.
-	 * @example
-	 * const controller = gui.add( object, 'property' );
-	 * controller.destroy();
-	 *
-	 * @example
-	 * // Won't destroy all the controllers because c.destroy() modifies gui.children
-	 * gui.forEachController( c => c.destroy() );
-	 *
-	 * // Make a copy of the array first if you actually want to do that
-	 * Array.from( gui.children ).forEach( c => c.destroy() );
 	 */
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
@@ -1581,15 +1571,6 @@ class GUI {
 	 */
 	addFolder( title ) {
 		return new GUI( { parent: this, title } );
-	}
-
-	/**
-	 * todelete
-	 * @param {Function} callback todoc
-	 * @param {boolean} recursive todoc
-	 */
-	forEachController( callback, recursive = true ) {
-		this.getControllers( recursive ).forEach( callback );
 	}
 
 	/**

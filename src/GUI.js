@@ -250,15 +250,6 @@ export default class GUI {
 	}
 
 	/**
-	 * todelete
-	 * @param {Function} callback todoc
-	 * @param {boolean} recursive todoc
-	 */
-	forEachController( callback, recursive = true ) {
-		this.getControllers( recursive ).forEach( callback );
-	}
-
-	/**
 	 * todoc
 	 * @param {boolean} recursive
 	 * @returns {Array<Controller>}
