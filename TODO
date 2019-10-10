@@ -4,9 +4,12 @@ todo
 [ ] vertical drag on number fields
 [ ] limit break
 
+[ ] kill mixins.scss
+[ ] strip /** @module */ and // eslint- from build
+
 title drag
-	[ ] mouse
-	[ ] prevent default for touch
+	[ ] mouse (this conflicts with open)
+	[ ] prevent default for touch (this still conflicts with scroll)
 	[ ] constraints
 
 
