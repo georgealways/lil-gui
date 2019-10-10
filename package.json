@@ -22,7 +22,7 @@
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=$npm_package_main,index.html,examples --no-browser",
-    "preversion": "npm test",
+    "preversion": "npm run build && npm test",
     "version": "npm run build && git add -A dist style/icons.scss",
     "postversion": "git push --tags",
     "dev": "npm run build && node -r esm scripts/dev.js"
