@@ -1,6 +1,8 @@
 todo
 
-[ ] kill onchange shorthand
+[ ] right click to reset sliders
+[ ] vertical drag on number fields
+
 
 title drag
 	[ ] mouse
@@ -16,9 +18,10 @@ docs
 		[ ] GUIOptions
 		[ ] gui.add
 		[ ] step
-		[ ] gui.addFolder
+		[ ] export/import
 
 [x] queryKey parameter...
+[x] kill onchange shorthand
 
 tests
 
