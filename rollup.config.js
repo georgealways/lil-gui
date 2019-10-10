@@ -1,13 +1,14 @@
 import pkg from './package.json';
-import { terser } from 'rollup-plugin-terser';
+import { minify } from 'terser';
 
 const input = 'src/index.js';
 
 const banner = `/**
- * ${pkg.name} ${pkg.version}
- * (c) ${new Date().getFullYear()} ${pkg.author.name}
- * Released under the MIT License.
- */\n`;
+ * ${pkg.name}
+ * @version ${pkg.version}
+ * @author ${pkg.author.name}
+ * @license ${pkg.license}
+ */`;
 
 const outputModule = {
 	banner,
@@ -31,21 +32,17 @@ export default [
 	{
 		input,
 		output: { ...outputModule, file: pkg.module.replace( '.js', '.min.js' ) },
-		plugins: [
-			stylesheet( true ),
-			terser( {
-				output: {
-					comments( node, comment ) {
-						return /lil-gui/i.test( comment.value );
-					}
-				}
-			} )
-		]
+		plugins: [ stylesheet( true ), terser() ]
 	},
 	{
 		input,
 		output: { ...outputUMD, file: pkg.main },
 		plugins: [ stylesheet() ]
+	},
+	{
+		input,
+		output: { ...outputUMD, file: pkg.main.replace( '.js', '.min.js' ) },
+		plugins: [ stylesheet( true ), terser() ]
 	}
 ];
 
@@ -54,10 +51,7 @@ function stylesheet( min = false ) {
 	return {
 		name: 'stylesheet',
 		resolveId( source ) {
-			if ( source === 'stylesheet' ) {
-				return path;
-			}
-			return null;
+			return source === 'stylesheet' ? path : null;
 		},
 		transform( content, id ) {
 			if ( id !== path ) return;
@@ -65,6 +59,26 @@ function stylesheet( min = false ) {
 				code: `export default \`${content.trim()}\`;`,
 				map: { mappings: '' }
 			};
+		}
+	};
+}
+
+function terser() {
+	return {
+		name: 'terser',
+		renderChunk( code ) {
+			const result = minify( code );
+			if ( result.error ) throw result.error;
+			if ( result.warnings ) {
+				result.warnings.forEach( warning => {
+					this.warn( warning );
+				} );
+			}
+			return {
+				code: result.code,
+				map: result.map
+			};
+
 		}
 	};
 }

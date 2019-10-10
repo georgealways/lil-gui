@@ -1,9 +1,9 @@
 /**
- * lil-gui 0.8.9
- * (c) 2019 George Michael Brower
- * Released under the MIT License.
+ * lil-gui
+ * @version 0.8.9
+ * @author George Michael Brower
+ * @license MIT
  */
-
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :

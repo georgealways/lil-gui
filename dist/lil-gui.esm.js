@@ -1,9 +1,9 @@
 /**
- * lil-gui 0.8.9
- * (c) 2019 George Michael Brower
- * Released under the MIT License.
+ * lil-gui
+ * @version 0.8.9
+ * @author George Michael Brower
+ * @license MIT
  */
-
 /** @module Controller */
 
 /**
