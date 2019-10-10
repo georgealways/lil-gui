@@ -103,7 +103,7 @@ class Controller {
 	 * 	console.log( 'The value is now ' + v );
 	 * } );
 	 *
-	 * controller = gui.add( object, 'property' ).onChange(function() {
+	 * const controller = gui.add( object, 'property' ).onChange(function() {
 	 * 	console.assert(this === controller);
 	 * } );
 	 */

@@ -544,7 +544,7 @@ controller.</p>
 	<span class="hljs-built_in">console</span>.log( <span class="hljs-string">'The value is now '</span> + v );
 } );
 
-controller = gui.add( object, <span class="hljs-string">'property'</span> ).onChange(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+<span class="hljs-keyword">const</span> controller = gui.add( object, <span class="hljs-string">'property'</span> ).onChange(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
 	<span class="hljs-built_in">console</span>.assert(<span class="hljs-keyword">this</span> === controller);
 } );
 </code></pre>
