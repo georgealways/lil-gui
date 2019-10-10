@@ -1,4 +1,4 @@
-import GUI from '../../dist/lil-gui.module.js';
+import GUI from '../../dist/lil-gui.esm.js';
 
 /**
  * A PageGUI has a controller that lets you change between "pages" of controllers

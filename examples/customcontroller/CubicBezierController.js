@@ -1,4 +1,4 @@
-import { Controller } from '../../dist/lil-gui.module.js';
+import { Controller } from '../../dist/lil-gui.esm.js';
 
 export default class CubicBezierController extends Controller {
 
