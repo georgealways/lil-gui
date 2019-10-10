@@ -9,8 +9,8 @@
 - [**add**()](#GUI#add) → Controller
 - [**addColor**()](#GUI#addColor) → Controller
 - [**addFolder**()](#GUI#addFolder) → GUI
-- [**getControllers**()](#GUI#getControllers) → Array&lt;Controller&gt;
-- [**getFolders**()](#GUI#getFolders) → Array&lt;GUI&gt;
+- [**getControllers**()](#GUI#getControllers) → Controller[]
+- [**getFolders**()](#GUI#getFolders) → GUI[]
 - [**export**()](#GUI#export) → object
 - [**import**()](#GUI#import) → this
 - [**reset**()](#GUI#reset) → this
@@ -70,48 +70,34 @@ todoc
 
 **Parameters**
 
-**autoPlace**<br> 
-Adds the GUI to `document.body` and applies fixed positioning.<br>
+ - **autoPlace** - Adds the GUI to `document.body` and applies fixed positioning.<br>
 Default: `true`
 
-***
-**injectStyles**<br> 
-Injects the default stylesheet as the first child of `document.head`.
+ - **injectStyles** - Injects the default stylesheet as the first child of `document.head`.
 Pass false when using your own stylesheet.<br>
 Default: `true`
 
-***
-**title**<br> 
-Name to display in the title bar.<br>
+ - **title** - Name to display in the title bar.<br>
 Default: `Controls`
 
-***
-**width**<br> 
-todoc<br>
-Type: **number** - Optional
-***
-**mobileMaxHeight**<br> 
-todoc<br>
+ - **width** - todoc<br>
+Optional:
+
+ - **mobileMaxHeight** - todoc<br>
 Default: `200`
 
-***
-**mobileBreakpoint**<br> 
-todoc<br>
+ - **mobileBreakpoint** - todoc<br>
 Default: `500`
 
-***
-**queryKey**<br> 
-If defined, the GUI will be hidden unless the specified string is found in `location.search`.
+ - **queryKey** - If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 You can use this to hide the GUI until you visit `url.com/?debug` for example.<br>
-Type: **string** - Optional
-***
-**parent**<br> 
-todoc<br>
-Type: **GUI** - Optional
-***
-**container**<br> 
-Adds the GUI to this element, overrides autoPlace.<br>
-Type: **HTMLElement** - Optional
+Optional:
+
+ - **parent** - todoc<br>
+Optional:
+
+ - **container** - Adds the GUI to this element, overrides autoPlace.<br>
+Optional:
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L17" target="_blank">src/GUI.js:17</a>
 ***
@@ -122,28 +108,25 @@ Adds a controller to the GUI, inferring controller type based on `typeof object[
 
 **Parameters**
 
-**object**<br> 
-The object the controller will modify.<br>
-Type: **any**
-***
-**property**<br> 
-Name of the property to control.<br>
-Type: **string**
-***
-**$1**<br> 
-Minimum value for number controllers, or the set of
-selectable values for a dropdown.<br>
-Type: **number** or **object** or **Array** - Optional
-***
-**max**<br> 
-Maximum value for number controllers.<br>
-Type: **number** - Optional
-***
-**step**<br> 
-Step value for number controllers.<br>
-Type: **number** - Optional
+ - **object** - The object the controller will modify.<br>
+Required: 
+`any`
 
-Returns: **Controller**
+ - **property** - Name of the property to control.<br>
+Required: 
+`string`
+
+ - **$1** - Minimum value for number controllers, or the set of
+selectable values for a dropdown.<br>
+Optional:
+
+ - **max** - Maximum value for number controllers.<br>
+Optional:
+
+ - **step** - Step value for number controllers.<br>
+Optional:
+
+**Returns**: `Controller`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L171" target="_blank">src/GUI.js:171</a>
 ***
@@ -152,7 +135,7 @@ Returns: **Controller**
 
 todoc
 
-Returns: **Controller**
+**Returns**: `Controller`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L225" target="_blank">src/GUI.js:225</a>
 ***
@@ -161,7 +144,7 @@ Returns: **Controller**
 
 todoc
 
-Returns: **GUI**
+**Returns**: `GUI`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234" target="_blank">src/GUI.js:234</a>
 ***
@@ -170,7 +153,7 @@ Returns: **GUI**
 
 todoc
 
-Returns: **Array&lt;Controller&gt;**
+**Returns**: `Controller[]`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L243" target="_blank">src/GUI.js:243</a>
 ***
@@ -179,16 +162,16 @@ Returns: **Array&lt;Controller&gt;**
 
 todoc
 
-Returns: **Array&lt;GUI&gt;**
+**Returns**: `GUI[]`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a>
 ***
 
 ## <a name="GUI#export"></a> gui.**export**( recursive=true )
 
-Returns an object mapping controller names to values
+Returns an object mapping controller names to values.
 
-Returns: **object**
+**Returns**: `object`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L272" target="_blank">src/GUI.js:272</a>
 ***
@@ -197,7 +180,7 @@ Returns: **object**
 
 todoc
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286" target="_blank">src/GUI.js:286</a>
 ***
@@ -206,7 +189,7 @@ Returns: **this**
 
 Resets all controllers.
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L300" target="_blank">src/GUI.js:300</a>
 ***
@@ -215,7 +198,7 @@ Returns: **this**
 
 todoc
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L310" target="_blank">src/GUI.js:310</a>
 ***
@@ -230,7 +213,7 @@ gui.open( false ); // close
 gui.open( gui._closed ); // toggle
 ```
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a>
 ***
@@ -239,7 +222,7 @@ Returns: **this**
 
 todoc
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L339" target="_blank">src/GUI.js:339</a>
 ***
@@ -260,7 +243,7 @@ todoc
 
 ## <a name="GUI#domElement"></a> gui.**domElement** : HTMLElement
 
-The outermost container `div`.
+The outermost container element.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L88" target="_blank">src/GUI.js:88</a>
 ***
@@ -281,21 +264,21 @@ todoc
 
 ## <a name="GUI#$children"></a> gui.**$children** : HTMLElement
 
-todoc
+The element that contains children.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L105" target="_blank">src/GUI.js:105</a>
 ***
 
 ## <a name="GUI#$title"></a> gui.**$title** : HTMLElement
 
-todoc
+The element that contains the title.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L95" target="_blank">src/GUI.js:95</a>
 ***
 
 ## <a name="GUI#_closed"></a> gui.**_closed** : boolean
 
-todoc
+Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L82" target="_blank">src/GUI.js:82</a>
 ***
@@ -313,7 +296,7 @@ todoc
 
 Sets the name of the controller and its label in the GUI.
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L79" target="_blank">src/Controller.js:79</a>
 ***
@@ -321,8 +304,8 @@ Returns: **this**
 ## <a name="Controller#onChange"></a> controller.**onChange**( callback : function )
 
 Pass a function to be called whenever the value is modified by this controller.
-The function takes the current value as its only parameter and `this` will
-be bound to the controller.
+The function receives the new value as its first parameter and `this` will be bound to the
+controller.
 
 ```js
 gui.add( object, 'property' ).onChange( v => {
@@ -334,7 +317,7 @@ controller = gui.add( object, 'property' ).onChange(function() {
 } );
 ```
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104" target="_blank">src/Controller.js:104</a>
 ***
@@ -343,7 +326,7 @@ Returns: **this**
 
 Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a>
 ***
@@ -352,16 +335,16 @@ Returns: **this**
 
 Returns `object[ property ]`.
 
-Returns: **any**
+**Returns**: `any`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L141" target="_blank">src/Controller.js:141</a>
 ***
 
 ## <a name="Controller#reset"></a> controller.**reset**()
 
-Shorthand for `setValue( initialValue )`.
+Sets the controller back to its initial value.
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L149" target="_blank">src/Controller.js:149</a>
 ***
@@ -376,7 +359,7 @@ controller.enable( false ); // disable
 controller.enable( controller._disabled ); // toggle
 ```
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a>
 ***
@@ -391,7 +374,7 @@ controller.disable( false ); // enable
 controller.disable( !controller._disabled ); // toggle
 ```
 
-Returns: **this**
+**Returns**: `this`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L178" target="_blank">src/Controller.js:178</a>
 ***
@@ -406,38 +389,37 @@ Destroys this controller and removes it from the parent GUI.
 ## <a name="Controller#options"></a> controller.**options**( options : object|Array )
 
 Destroys this controller and adds a new option controller.
-The `gui.add( object, property, options )` syntax is preferred.
 
-Returns: **Controller**
+**Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L198" target="_blank">src/Controller.js:198</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a>
 ***
 
 ## <a name="Controller#min"></a> controller.**min**( min : number )
 
 Sets the minimum value. Only works on number controllers.
 
-Returns: **this**
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L211" target="_blank">src/Controller.js:211</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L210" target="_blank">src/Controller.js:210</a>
 ***
 
 ## <a name="Controller#max"></a> controller.**max**( max : number )
 
 Sets the maximum value. Only works on number controllers.
 
-Returns: **this**
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L221" target="_blank">src/Controller.js:221</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L220" target="_blank">src/Controller.js:220</a>
 ***
 
 ## <a name="Controller#step"></a> controller.**step**( step : number )
 
 Sets the step. Only works on number controllers.
 
-Returns: **this**
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L231" target="_blank">src/Controller.js:231</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L230" target="_blank">src/Controller.js:230</a>
 ***
 
 ## <a name="Controller#updateDisplay"></a> controller.**updateDisplay**()
@@ -445,9 +427,9 @@ Returns: **this**
 Updates the display to keep it in sync with `getValue()`. Useful for updating your
 controllers when their values have been modified outside of the GUI.
 
-Returns: **this**
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L240" target="_blank">src/Controller.js:240</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L239" target="_blank">src/Controller.js:239</a>
 ***
 
 ## <a name="Controller#listen"></a> controller.**listen**( listen=true )
@@ -455,42 +437,42 @@ Returns: **this**
 Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 `controller._listening` to access the listening state.
 
-Returns: **this**
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L259" target="_blank">src/Controller.js:259</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L258" target="_blank">src/Controller.js:258</a>
 ***
 
 ## <a name="Controller#domElement"></a> controller.**domElement** : HTMLElement
 
-The outermost wrapper element for the controller.
+The outermost container element.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L44" target="_blank">src/Controller.js:44</a>
 ***
 
 ## <a name="Controller#initialValue"></a> controller.**initialValue** : any
 
-The value of `object[ property ]` when the controller is created.
+The value when the controller is created.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L38" target="_blank">src/Controller.js:38</a>
 ***
 
 ## <a name="Controller#object"></a> controller.**object** : any
 
-The object this controller is targeting.
+The object this controller will modify.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20" target="_blank">src/Controller.js:20</a>
 ***
 
 ## <a name="Controller#parent"></a> controller.**parent** : GUI
 
-The controller belongs to this GUI.
+The GUI this controller belongs to.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L14" target="_blank">src/Controller.js:14</a>
 ***
 
 ## <a name="Controller#property"></a> controller.**property** : string
 
-The name of the property this controller is targeting.
+Name of the property to control.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L26" target="_blank">src/Controller.js:26</a>
 ***
@@ -521,7 +503,7 @@ Used to determine if the controller is disabled.
 Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
 change the listening state.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L266" target="_blank">src/Controller.js:266</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L265" target="_blank">src/Controller.js:265</a>
 ***
 
 ## <a name="Controller#_name"></a> controller.**_name** : string
@@ -534,7 +516,7 @@ Used to access the controller's name.
 ## <a name="Controller#_onChange"></a> controller.**_onChange** : function
 
 A function that will be called whenever the value is modified via the GUI.
-The function takes the current value as its only parameter and `this` will be bound to
+The function receives the new value as its first parameter and `this` will be bound to
 the controller.
 
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L111" target="_blank">src/Controller.js:111</a>

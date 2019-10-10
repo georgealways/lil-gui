@@ -14,19 +14,19 @@ class Controller {
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
-		 * The controller belongs to this GUI.
+		 * The GUI this controller belongs to.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * The object this controller is targeting.
+		 * The object this controller will modify.
 		 * @type {any}
 		 */
 		this.object = object;
 
 		/**
-		 * The name of the property this controller is targeting.
+		 * Name of the property to control.
 		 * @type {string}
 		 */
 		this.property = property;
@@ -38,13 +38,13 @@ class Controller {
 		this._disabled = false;
 
 		/**
-		 * The value of `object[ property ]` when the controller is created.
+		 * The value when the controller is created.
 		 * @type {any}
 		 */
 		this.initialValue = this.getValue();
 
 		/**
-		 * The outermost wrapper element for the controller.
+		 * The outermost container element.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( tagName );
@@ -94,8 +94,8 @@ class Controller {
 
 	/**
 	 * Pass a function to be called whenever the value is modified by this controller.
-	 * The function takes the current value as its only parameter and `this` will
-	 * be bound to the controller.
+	 * The function receives the new value as its first parameter and `this` will be bound to the
+	 * controller.
 	 * @param {Function} callback todoc
 	 * @returns {this}
 	 * @example
@@ -110,7 +110,7 @@ class Controller {
 	onChange( callback ) {
 		/**
 		 * A function that will be called whenever the value is modified via the GUI.
-		 * The function takes the current value as its only parameter and `this` will be bound to
+		 * The function receives the new value as its first parameter and `this` will be bound to
 		 * the controller.
 		 * @type {Function}
 		 */
@@ -149,7 +149,7 @@ class Controller {
 	}
 
 	/**
-	 * Shorthand for `setValue( initialValue )`.
+	 * Sets the controller back to its initial value.
 	 * @returns {this}
 	 */
 	reset() {
@@ -197,7 +197,6 @@ class Controller {
 
 	/**
 	 * Destroys this controller and adds a new option controller.
-	 * The `gui.add( object, property, options )` syntax is preferred.
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -1397,20 +1396,20 @@ class GUI {
 		this.children = [];
 
 		/**
-		 * todoc
+		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 		 * @type {boolean}
 		 */
 		this._closed = false;
 
 		/**
-		 * The outermost container `div`.
+		 * The outermost container element.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
-		 * todoc
+		 * The element that contains the title.
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'div' );
@@ -1420,7 +1419,7 @@ class GUI {
 		} );
 
 		/**
-		 * todoc
+		 * The element that contains children.
 		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
@@ -1559,7 +1558,7 @@ class GUI {
 	/**
 	 * todoc
 	 * @param {boolean} recursive
-	 * @returns {Array<Controller>}
+	 * @returns {Controller[]}
 	 */
 	getControllers( recursive = true ) {
 		let controllers = this.children.filter( c => c instanceof Controller );
@@ -1573,7 +1572,7 @@ class GUI {
 	/**
 	 * todoc
 	 * @param {boolean} recursive
-	 * @returns {Array<GUI>}
+	 * @returns {GUI[]}
 	 */
 	getFolders( recursive = true ) {
 		const folders = this.children.filter( c => c instanceof GUI );
@@ -1586,7 +1585,7 @@ class GUI {
 	}
 
 	/**
-	 * Returns an object mapping controller names to values
+	 * Returns an object mapping controller names to values.
 	 * @param {boolean} recursive
 	 * @returns {object}
 	 */

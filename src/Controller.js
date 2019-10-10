@@ -8,19 +8,19 @@ export default class Controller {
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
-		 * The controller belongs to this GUI.
+		 * The GUI this controller belongs to.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * The object this controller is targeting.
+		 * The object this controller will modify.
 		 * @type {any}
 		 */
 		this.object = object;
 
 		/**
-		 * The name of the property this controller is targeting.
+		 * Name of the property to control.
 		 * @type {string}
 		 */
 		this.property = property;
@@ -32,13 +32,13 @@ export default class Controller {
 		this._disabled = false;
 
 		/**
-		 * The value of `object[ property ]` when the controller is created.
+		 * The value when the controller is created.
 		 * @type {any}
 		 */
 		this.initialValue = this.getValue();
 
 		/**
-		 * The outermost wrapper element for the controller.
+		 * The outermost container element.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( tagName );
@@ -88,8 +88,8 @@ export default class Controller {
 
 	/**
 	 * Pass a function to be called whenever the value is modified by this controller.
-	 * The function takes the current value as its only parameter and `this` will
-	 * be bound to the controller.
+	 * The function receives the new value as its first parameter and `this` will be bound to the
+	 * controller.
 	 * @param {Function} callback todoc
 	 * @returns {this}
 	 * @example
@@ -104,7 +104,7 @@ export default class Controller {
 	onChange( callback ) {
 		/**
 		 * A function that will be called whenever the value is modified via the GUI.
-		 * The function takes the current value as its only parameter and `this` will be bound to
+		 * The function receives the new value as its first parameter and `this` will be bound to
 		 * the controller.
 		 * @type {Function}
 		 */
@@ -143,7 +143,7 @@ export default class Controller {
 	}
 
 	/**
-	 * Shorthand for `setValue( initialValue )`.
+	 * Sets the controller back to its initial value.
 	 * @returns {this}
 	 */
 	reset() {
@@ -191,7 +191,6 @@ export default class Controller {
 
 	/**
 	 * Destroys this controller and adds a new option controller.
-	 * The `gui.add( object, property, options )` syntax is preferred.
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */

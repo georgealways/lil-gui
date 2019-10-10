@@ -49,9 +49,10 @@ function transform( v ) {
 			value = value.replace( /^module:/, '' );
 
 			// does strange stuff with multitype arrays
-			value = value.replace( /Array\.<\(?([^)]+)\)?>/g, function( _, c ) {
-				return `Array<${c}>`;
-			} );
+			value = value.replace( /Array\.<\(?([^)]+)\)?>/g, ( _, c ) => `Array<${c}>` );
+
+			// terser syntax for single type arrays
+			value = value.replace( /Array<([^|]*)>/, ( _, c ) => `${c}[]` );
 
 		}
 
@@ -82,10 +83,7 @@ function transform( v ) {
 
 			const type = v.returns[ 0 ].type.names[ 0 ];
 
-			const desc = v.returns[ 0 ].description;
-
-			v.returntype = 'Returns: **' + type + ( desc ? ' – ' + desc : '' ) + '**';
-
+			v.returntype = type;
 			v.indextype = '→ ' + type;
 
 		} else {

@@ -76,20 +76,20 @@ export default class GUI {
 		this.children = [];
 
 		/**
-		 * todoc
+		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 		 * @type {boolean}
 		 */
 		this._closed = false;
 
 		/**
-		 * The outermost container `div`.
+		 * The outermost container element.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
-		 * todoc
+		 * The element that contains the title.
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'div' );
@@ -99,7 +99,7 @@ export default class GUI {
 		} );
 
 		/**
-		 * todoc
+		 * The element that contains children.
 		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
@@ -238,7 +238,7 @@ export default class GUI {
 	/**
 	 * todoc
 	 * @param {boolean} recursive
-	 * @returns {Array<Controller>}
+	 * @returns {Controller[]}
 	 */
 	getControllers( recursive = true ) {
 		let controllers = this.children.filter( c => c instanceof Controller );
@@ -252,7 +252,7 @@ export default class GUI {
 	/**
 	 * todoc
 	 * @param {boolean} recursive
-	 * @returns {Array<GUI>}
+	 * @returns {GUI[]}
 	 */
 	getFolders( recursive = true ) {
 		const folders = this.children.filter( c => c instanceof GUI );
@@ -265,7 +265,7 @@ export default class GUI {
 	}
 
 	/**
-	 * Returns an object mapping controller names to values
+	 * Returns an object mapping controller names to values.
 	 * @param {boolean} recursive
 	 * @returns {object}
 	 */
