@@ -295,8 +295,12 @@ test( unit => {
 		assert.strictEqual( controllersVisited.length, 2 );
 
 		controllersVisited.length = 0;
-		gui.getFolders( true ).forEach( visit );
+		gui.getFolders().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
+
+		controllersVisited.length = 0;
+		gui.getFolders( false ).forEach( visit );
+		assert.strictEqual( controllersVisited.length, 2 );
 
 	} );
 
