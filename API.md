@@ -82,6 +82,7 @@ Default: `Controls`
 
  - **width** - todoc<br>
 Optional:
+`number`
 
  - **mobileMaxHeight** - todoc<br>
 Default: `200`
@@ -92,12 +93,15 @@ Default: `500`
  - **queryKey** - If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 You can use this to hide the GUI until you visit `url.com/?debug` for example.<br>
 Optional:
+`string`
 
  - **parent** - todoc<br>
 Optional:
+`GUI`
 
  - **container** - Adds the GUI to this element, overrides autoPlace.<br>
 Optional:
+`HTMLElement`
 
 <a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L17" target="_blank">src/GUI.js:17</a>
 ***
@@ -119,12 +123,15 @@ Required:
  - **$1** - Minimum value for number controllers, or the set of
 selectable values for a dropdown.<br>
 Optional:
+`number` or `object` or `Array`
 
  - **max** - Maximum value for number controllers.<br>
 Optional:
+`number`
 
  - **step** - Step value for number controllers.<br>
 Optional:
+`number`
 
 **Returns**: `Controller`
 

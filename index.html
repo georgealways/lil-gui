@@ -376,7 +376,8 @@ Default: <code>Controls</code></p>
 </li>
 <li>
 <p><strong>width</strong> - todoc<br>
-Optional:</p>
+Optional:
+<code>number</code></p>
 </li>
 <li>
 <p><strong>mobileMaxHeight</strong> - todoc<br>
@@ -389,15 +390,18 @@ Default: <code>500</code></p>
 <li>
 <p><strong>queryKey</strong> - If defined, the GUI will be hidden unless the specified string is found in <code>location.search</code>.
 You can use this to hide the GUI until you visit <code>url.com/?debug</code> for example.<br>
-Optional:</p>
+Optional:
+<code>string</code></p>
 </li>
 <li>
 <p><strong>parent</strong> - todoc<br>
-Optional:</p>
+Optional:
+<code>GUI</code></p>
 </li>
 <li>
 <p><strong>container</strong> - Adds the GUI to this element, overrides autoPlace.<br>
-Optional:</p>
+Optional:
+<code>HTMLElement</code></p>
 </li>
 </ul>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L17" target="_blank">src/GUI.js:17</a></p>
@@ -419,15 +423,18 @@ Required:
 <li>
 <p><strong>$1</strong> - Minimum value for number controllers, or the set of
 selectable values for a dropdown.<br>
-Optional:</p>
+Optional:
+<code>number</code> or <code>object</code> or <code>Array</code></p>
 </li>
 <li>
 <p><strong>max</strong> - Maximum value for number controllers.<br>
-Optional:</p>
+Optional:
+<code>number</code></p>
 </li>
 <li>
 <p><strong>step</strong> - Step value for number controllers.<br>
-Optional:</p>
+Optional:
+<code>number</code></p>
 </li>
 </ul>
 <p><strong>Returns</strong>: <code>Controller</code></p>
