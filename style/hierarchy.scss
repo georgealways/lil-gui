@@ -26,14 +26,12 @@
 
 	> .children {
 		overflow: auto;
-		-webkit-overflow-scrolling: touch;
 		&::-webkit-scrollbar {
 			width: var(--scrollbar-width);
 			height: var(--scrollbar-width);
 			background: var(--background-color);
 		}
 		&::-webkit-scrollbar-corner {
-			height: 0;
 			display: none;
 		}
 		&::-webkit-scrollbar-thumb {

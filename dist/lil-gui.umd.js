@@ -1232,7 +1232,6 @@
 }
 .lil-gui > .children {
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
 }
 .lil-gui > .children::-webkit-scrollbar {
   width: var(--scrollbar-width);
@@ -1240,7 +1239,6 @@
   background: var(--background-color);
 }
 .lil-gui > .children::-webkit-scrollbar-corner {
-  height: 0;
   display: none;
 }
 .lil-gui > .children::-webkit-scrollbar-thumb {
