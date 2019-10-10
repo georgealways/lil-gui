@@ -105,6 +105,7 @@ function main() {
 		bevel.add( geoParams, 'bevelSegments', 1, 5, 1 ).name( 'segments' );
 
 		geo.getControllers().forEach( c => c.onChange( buildGeometry ) );
+		bevel.getControllers().forEach( c => c.onChange( buildGeometry ) );
 
 		const thinFilm = gui.addFolder( 'Thin Film' );
 		thinFilm.add( uniforms.thinFilmThickness, 'value', 100, 2000 ).name( 'thickness' );
