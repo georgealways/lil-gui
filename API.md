@@ -154,7 +154,7 @@ todoc
 
 Returns: **Controller**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L235" target="_blank">src/GUI.js:235</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L225" target="_blank">src/GUI.js:225</a>
 ***
 
 ## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string )
@@ -163,7 +163,7 @@ todoc
 
 Returns: **GUI**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L249" target="_blank">src/GUI.js:249</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234" target="_blank">src/GUI.js:234</a>
 ***
 
 ## <a name="GUI#getControllers"></a> gui.**getControllers**( recursive=true )
@@ -172,7 +172,7 @@ todoc
 
 Returns: **Array&lt;Controller&gt;**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L258" target="_blank">src/GUI.js:258</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L243" target="_blank">src/GUI.js:243</a>
 ***
 
 ## <a name="GUI#getFolders"></a> gui.**getFolders**( recursive=true )
@@ -181,7 +181,7 @@ todoc
 
 Returns: **Array&lt;GUI&gt;**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L272" target="_blank">src/GUI.js:272</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a>
 ***
 
 ## <a name="GUI#export"></a> gui.**export**( recursive=true )
@@ -190,7 +190,7 @@ Returns an object mapping controller names to values
 
 Returns: **object**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L287" target="_blank">src/GUI.js:287</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L272" target="_blank">src/GUI.js:272</a>
 ***
 
 ## <a name="GUI#import"></a> gui.**import**( obj : object, recursive=true )
@@ -199,7 +199,7 @@ todoc
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L301" target="_blank">src/GUI.js:301</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286" target="_blank">src/GUI.js:286</a>
 ***
 
 ## <a name="GUI#reset"></a> gui.**reset**( recursive=true )
@@ -208,7 +208,7 @@ Resets all controllers.
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L300" target="_blank">src/GUI.js:300</a>
 ***
 
 ## <a name="GUI#title"></a> gui.**title**( title : string )
@@ -217,7 +217,7 @@ todoc
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L325" target="_blank">src/GUI.js:325</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L310" target="_blank">src/GUI.js:310</a>
 ***
 
 ## <a name="GUI#open"></a> gui.**open**( open=true )
@@ -232,7 +232,7 @@ gui.open( gui._closed ); // toggle
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L344" target="_blank">src/GUI.js:344</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a>
 ***
 
 ## <a name="GUI#close"></a> gui.**close**()
@@ -241,14 +241,14 @@ todoc
 
 Returns: **this**
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L354" target="_blank">src/GUI.js:354</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L339" target="_blank">src/GUI.js:339</a>
 ***
 
 ## <a name="GUI#destroy"></a> gui.**destroy**()
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L363" target="_blank">src/GUI.js:363</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L348" target="_blank">src/GUI.js:348</a>
 ***
 
 ## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
@@ -304,7 +304,7 @@ todoc
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L330" target="_blank">src/GUI.js:330</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a>
 ***
 
 # Controller

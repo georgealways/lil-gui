@@ -45,28 +45,6 @@ test( unit => {
 
 	} );
 
-	unit( 'onChange shorthand', () => {
-
-		const gui = new GUI();
-
-		const onChangeShorthand = function() { };
-
-		let ctrl;
-
-		ctrl = gui.add( { x: false }, 'x', onChangeShorthand );
-		assert.strictEqual( ctrl._onChange, onChangeShorthand );
-
-		ctrl = gui.add( { x: 0 }, 'x', [ 0, 1, 2 ], onChangeShorthand );
-		assert.strictEqual( ctrl._onChange, onChangeShorthand );
-
-		ctrl = gui.add( { x: 0 }, 'x', { a: 0, b: 1 }, onChangeShorthand );
-		assert.strictEqual( ctrl._onChange, onChangeShorthand );
-
-		ctrl = gui.add( { x: 0 }, 'x', 0, 1, 0.1, onChangeShorthand );
-		assert.strictEqual( ctrl._onChange, onChangeShorthand );
-
-	} );
-
 	unit( 'name', () => {
 
 		const gui = new GUI();

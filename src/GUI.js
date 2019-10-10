@@ -180,41 +180,31 @@ export default class GUI {
 
 		const initialType = typeof initialValue;
 
-		const onChange = this._onChangeShorthand( arguments );
+		if ( Array.isArray( $1 ) || Object( $1 ) === $1 ) {
 
-		let controller;
-
-		if ( !onChange && ( Array.isArray( $1 ) || Object( $1 ) === $1 ) ) {
-
-			controller = new OptionController( this, object, property, $1 );
+			return new OptionController( this, object, property, $1 );
 
 		} else if ( initialType === 'boolean' ) {
 
-			controller = new BooleanController( this, object, property );
+			return new BooleanController( this, object, property );
 
 		} else if ( initialType === 'string' ) {
 
-			controller = new StringController( this, object, property );
+			return new StringController( this, object, property );
 
 		} else if ( initialType === 'function' ) {
 
-			controller = new FunctionController( this, object, property );
+			return new FunctionController( this, object, property );
 
 		} else if ( initialType === 'number' ) {
 
-			controller = new NumberController( this, object, property, $1, max, step );
+			return new NumberController( this, object, property, $1, max, step );
 
 		} else {
 
 			this._fail( property, initialValue, object );
 
 		}
-
-		if ( onChange ) {
-			controller.onChange( onChange );
-		}
-
-		return controller;
 
 	}
 
@@ -233,12 +223,7 @@ export default class GUI {
 	 * @returns {Controller}
 	 */
 	addColor( object, property, rgbScale = 1 ) {
-		const onChange = this._onChangeShorthand( arguments );
-		const controller = new ColorController( this, object, property, rgbScale );
-		if ( onChange ) {
-			controller.onChange( onChange );
-		}
-		return controller;
+		return new ColorController( this, object, property, rgbScale );
 	}
 
 	/**
@@ -376,14 +361,6 @@ export default class GUI {
 			window.removeEventListener( 'resize', this._onResize );
 		}
 
-	}
-
-	_onChangeShorthand( $arguments ) {
-		const numArgs = $arguments.length;
-		const lastArg = $arguments[ numArgs - 1 ];
-		if ( numArgs > 2 && typeof lastArg === 'function' ) {
-			return lastArg;
-		}
 	}
 
 	_initMobileMaxHeight() {
