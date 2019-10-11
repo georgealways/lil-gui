@@ -12,7 +12,7 @@ const WRITE = !!process.argv.slice( 2 ).find( v => v === '--write' );
 const REPO = 'https://github.com/georgealways/gui/blob/master/';
 
 // sort by kind as opposed to order of definition
-const KIND_SORT = [ 'class', 'typedef', 'function', 'member' ];
+const KIND_SORT = [ 'class', 'function', 'member' ];
 
 // put members that start with special chars at the end
 const ALPHABET_SORT = 'abcdefghijklmnopqrstuvwxyz$_'.split( '' );
@@ -62,13 +62,7 @@ function transform( v ) {
 
 	v.indexname = v.name;
 
-	if ( v.kind === 'typedef' ) {
-
-		v.signature = `**${v.name}**`;
-		v.indexname = v.signature;
-		v.longparams = v.properties;
-
-	} else if ( v.kind === 'function' && v.scope === 'instance' ) {
+	if ( v.kind === 'function' && v.scope === 'instance' ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
@@ -76,7 +70,7 @@ function transform( v ) {
 
 		if ( v.params ) {
 			v.indexname += '()';
-			v.signature += paramsToSignature( v.params );
+			v.parens = paramsToSignature( v.params );
 		}
 
 		if ( v.returns ) {
@@ -95,7 +89,8 @@ function transform( v ) {
 	} else if ( v.kind === 'class' ) {
 
 		if ( v.params ) {
-			v.signature = `new **${v.name}**` + paramsToSignature( v.params );
+			v.signature = `new **${v.name}**`;
+			v.parens = paramsToSignature( v.params );
 
 			v.indexname = '**constructor**';
 
@@ -117,18 +112,28 @@ function transform( v ) {
 		if ( v.type ) {
 			const type = ': ' + v.type.names.join( '|' );
 			v.indextype = type;
-			v.signature += ' ' + type;
+			v.parens = ' ' + type;
 		}
 
 	}
 
-	if ( v.params && v.params.length > 3 ) {
-		v.longparams = v.params;
-		if ( v.signature ) {
-			v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
+	if ( v.params && v.params.length > 3 && v.signature ) {
+
+		const arg0 = v.params[ 0 ].name;
+		const rest = v.params.slice( 1 );
+		const prefix = arg0 + '.';
+
+		if ( rest.every( v => v.name.startsWith( prefix ) ) ) {
+
+			v.parens = `( { ${rest.map( v => v.name.replace( prefix, '' ) ).join( ', ' )} } )`;
+
+		} else {
+
 			const single = p => p.optional ? '[' + p.name + ']' : p.name;
-			v.signature += `( ${v.params.map( single ).join( ', ' )} )`;
+			v.parens = `( ${v.params.map( single ).join( ', ' )} )`;
+
 		}
+
 	}
 
 	// view source url

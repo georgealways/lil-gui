@@ -20,7 +20,7 @@
 
 {{#children}}
 
-## <a name="{{{longname}}}"></a> {{{signature}}}
+## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
 
 {{{description}}}
 
@@ -30,11 +30,11 @@
 ```
 {{/examples}}
 
-{{#with longparams}}
-**Parameters**
+{{#with params}}
+**Parameters**:
 
 {{#.}}
- - **{{name}}** - {{{description}}}<br>
+ - **{{name}}**{{#with description}} - {{{.}}}{{/with}}<br>
 {{#if defaultvalue}}Default: `{{{defaultvalue}}}`
 {{else}}
 {{#if optional}}Optional:
