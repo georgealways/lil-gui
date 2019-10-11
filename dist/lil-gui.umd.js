@@ -1339,6 +1339,12 @@
 		 * @param {boolean} [options.autoPlace=true]
 		 * Adds the GUI to `document.body` and applies fixed positioning.
 		 *
+		 * @param {number} [options.mobileBreakpoint=500] todoc
+		 * @param {number} [options.mobileMaxHeight=200] todoc
+		 *
+		 * @param {HTMLElement} [options.container]
+		 * Adds the GUI to this DOM element, overriding autoPlace.
+		 *
 		 * @param {boolean} [options.injectStyles=true]
 		 * Injects the default stylesheet as the first child of `document.head`.
 		 * Pass false when using your own stylesheet.
@@ -1347,28 +1353,25 @@
 		 * Name to display in the title bar.
 		 *
 		 * @param {number} [options.width] todoc
-		 * @param {number} [options.mobileMaxHeight=200] todoc
-		 * @param {number} [options.mobileBreakpoint=500] todoc
 		 *
 		 * @param {string} [options.queryKey]
 		 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 		 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
 		 *
-		 * @param {GUI} [options.parent] todoc
+		 * @param {GUI} [options.parent] Adds this GUI as a child or "folder" in another GUI. Usually
+		 * this is done for you by `gui.addFolder()`.
 		 *
-		 * @param {HTMLElement} [options.container]
-		 * Adds the GUI to this element, overrides autoPlace.
 		 */
 		constructor( {
 			parent,
 			autoPlace = parent === undefined,
+			mobileBreakpoint = 500,
+			mobileMaxHeight = 200,
 			container,
 			injectStyles = true,
 			title = 'Controls',
 			width,
-			queryKey,
-			mobileMaxHeight = 200,
-			mobileBreakpoint = 500
+			queryKey
 		} = {} ) {
 
 			/**
@@ -1473,7 +1476,7 @@
 		}
 
 		/**
-		 * Adds a controller to the GUI, inferring controller type based on `typeof object[ property ]`.
+		 * Adds a controller to the GUI, inferring controller type using the `typeof` operator.
 		 * @param {any} object The object the controller will modify.
 		 * @param {string} property Name of the property to control.
 		 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
@@ -1484,38 +1487,33 @@
 		 */
 		add( object, property, $1, max, step ) {
 
-			const initialValue = object[ property ];
-			const initialType = typeof initialValue;
-
 			if ( Object( $1 ) === $1 ) {
 
 				return new OptionController( this, object, property, $1 );
 
-			} else if ( initialType === 'boolean' ) {
-
-				return new BooleanController( this, object, property );
-
-			} else if ( initialType === 'string' ) {
-
-				return new StringController( this, object, property );
-
-			} else if ( initialType === 'function' ) {
-
-				return new FunctionController( this, object, property );
-
-			} else if ( initialType === 'number' ) {
-
-				return new NumberController( this, object, property, $1, max, step );
-
-			} else {
-
-				this._fail( property, initialValue, object );
-
 			}
 
-		}
+			const initialValue = object[ property ];
 
-		_fail( property, initialValue, object ) {
+			switch ( typeof initialValue ) {
+
+				case 'number':
+
+					return new NumberController( this, object, property, $1, max, step );
+
+				case 'boolean':
+
+					return new BooleanController( this, object, property );
+
+				case 'string':
+
+					return new StringController( this, object, property );
+
+				case 'function':
+
+					return new FunctionController( this, object, property );
+
+			}
 			console.error( `Failed to add controller for "${property}"`, initialValue, object );
 
 		}
