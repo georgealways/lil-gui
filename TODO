@@ -4,7 +4,7 @@ todo
 [ ] vertical drag on number fields
 [ ] limit break
 
-[ ] kill mixins.scss
+[x] kill mixins.scss
 [x] strip /** @module */ and // eslint- from build
 [x] injectStyles: injectStyles$1 = true
  

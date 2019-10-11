@@ -1,4 +1,12 @@
-@include namespace {
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+.lil-gui {
 	.controller {
 		display: flex;
 		align-items: center;
