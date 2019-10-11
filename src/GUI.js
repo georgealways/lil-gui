@@ -16,35 +16,30 @@ let stylesInjected = false;
 export default class GUI {
 
 	/**
-	 * @typedef GUIOptions
-	 *
-	 * @property {boolean} [autoPlace=true]
+	 * todoc
+	 * @param {object} [options]
+	 * @param {boolean} [options.autoPlace=true]
 	 * Adds the GUI to `document.body` and applies fixed positioning.
 	 *
-	 * @property {boolean} [injectStyles=true]
+	 * @param {boolean} [options.injectStyles=true]
 	 * Injects the default stylesheet as the first child of `document.head`.
 	 * Pass false when using your own stylesheet.
 	 *
-	 * @property {string} [title=Controls]
+	 * @param {string} [options.title=Controls]
 	 * Name to display in the title bar.
 	 *
-	 * @property {number} [width] todoc
-	 * @property {number} [mobileMaxHeight=200] todoc
-	 * @property {number} [mobileBreakpoint=500] todoc
+	 * @param {number} [options.width] todoc
+	 * @param {number} [options.mobileMaxHeight=200] todoc
+	 * @param {number} [options.mobileBreakpoint=500] todoc
 	 *
-	 * @property {string} [queryKey]
+	 * @param {string} [options.queryKey]
 	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
 	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
 	 *
-	 * @property {GUI} [parent] todoc
+	 * @param {GUI} [options.parent] todoc
 	 *
-	 * @property {HTMLElement} [container]
+	 * @param {HTMLElement} [options.container]
 	 * Adds the GUI to this element, overrides autoPlace.
-	 */
-
-	/**
-	 * todoc
-	 * @param {GUIOptions} [options]
 	 */
 	constructor( {
 		parent,
