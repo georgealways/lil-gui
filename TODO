@@ -6,7 +6,7 @@ todo
 
 [ ] kill mixins.scss
 [x] strip /** @module */ and // eslint- from build
-[ ] injectStyles: injectStyles$1 = true
+[x] injectStyles: injectStyles$1 = true
  
 title drag
 	[ ] mouse (this conflicts with open)

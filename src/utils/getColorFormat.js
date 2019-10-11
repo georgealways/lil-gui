@@ -66,6 +66,6 @@ const OBJECT = {
 
 const FORMATS = [ STRING, INT, ARRAY, OBJECT ];
 
-export default function getColorFormat( value ) {
+export default function( value ) {
 	return FORMATS.find( format => format.match( value ) );
 }

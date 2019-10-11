@@ -1,4 +1,4 @@
-export default function injectStyles( cssContent ) {
+export default function( cssContent ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
 	const before = document.querySelector( 'head link[rel=stylesheet], head style' );

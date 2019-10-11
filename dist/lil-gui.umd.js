@@ -11,7 +11,7 @@
 }(this, function (exports) { 'use strict';
 
 	/**
-	 * todoc
+	 * Base class for all controllers.
 	 */
 	class Controller {
 
@@ -1317,7 +1317,7 @@
   background: var(--highlight-color);
 }`;
 
-	function injectStyles( cssContent ) {
+	function _injectStyles( cssContent ) {
 		const injected = document.createElement( 'style' );
 		injected.innerHTML = cssContent;
 		const before = document.querySelector( 'head link[rel=stylesheet], head style' );
@@ -1366,7 +1366,7 @@
 			parent,
 			autoPlace = parent === undefined,
 			container,
-			injectStyles: injectStyles$1 = true,
+			injectStyles = true,
 			title = 'Controls',
 			width,
 			queryKey,
@@ -1438,8 +1438,8 @@
 					this.domElement.style.setProperty( '--width', width + 'px' );
 				}
 
-				if ( !stylesInjected && injectStyles$1 ) {
-					injectStyles( stylesheet );
+				if ( !stylesInjected && injectStyles ) {
+					_injectStyles( stylesheet );
 					stylesInjected = true;
 				}
 

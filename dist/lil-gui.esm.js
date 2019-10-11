@@ -6,7 +6,7 @@
  */
 
 /**
- * todoc
+ * Base class for all controllers.
  */
 class Controller {
 
@@ -1312,7 +1312,7 @@ const stylesheet = `@font-face {
   background: var(--highlight-color);
 }`;
 
-function injectStyles( cssContent ) {
+function _injectStyles( cssContent ) {
 	const injected = document.createElement( 'style' );
 	injected.innerHTML = cssContent;
 	const before = document.querySelector( 'head link[rel=stylesheet], head style' );
@@ -1361,7 +1361,7 @@ class GUI {
 		parent,
 		autoPlace = parent === undefined,
 		container,
-		injectStyles: injectStyles$1 = true,
+		injectStyles = true,
 		title = 'Controls',
 		width,
 		queryKey,
@@ -1433,8 +1433,8 @@ class GUI {
 				this.domElement.style.setProperty( '--width', width + 'px' );
 			}
 
-			if ( !stylesInjected && injectStyles$1 ) {
-				injectStyles( stylesheet );
+			if ( !stylesInjected && injectStyles ) {
+				_injectStyles( stylesheet );
 				stylesInjected = true;
 			}
 

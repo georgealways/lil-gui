@@ -1,6 +1,6 @@
 /* eslint-disable no-cond-assign */
 
-export default function normalizeColorString( string ) {
+export default function( string ) {
 
 	let match, result;
 
