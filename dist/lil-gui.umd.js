@@ -1489,16 +1489,9 @@
 		add( object, property, $1, max, step ) {
 
 			const initialValue = object[ property ];
-
-			if ( initialValue === undefined || initialValue === null ) {
-
-				this._fail( property, initialValue, object );
-
-			}
-
 			const initialType = typeof initialValue;
 
-			if ( Array.isArray( $1 ) || Object( $1 ) === $1 ) {
+			if ( Object( $1 ) === $1 ) {
 
 				return new OptionController( this, object, property, $1 );
 
