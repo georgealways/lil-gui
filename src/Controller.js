@@ -15,7 +15,7 @@ export default class Controller {
 
 		/**
 		 * The object this controller will modify.
-		 * @type {any}
+		 * @type {object}
 		 */
 		this.object = object;
 
@@ -118,7 +118,7 @@ export default class Controller {
 
 	/**
 	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
-	 * @param {*} value
+	 * @param {any} value
 	 * @returns {this}
 	 */
 	setValue( value ) {

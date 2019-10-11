@@ -13,27 +13,42 @@
 			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
 				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-			--font-size: 14px;
+			--font-size: 15px;
 			--line-height: 1.6;
-			--background: #fffbf7;
+			/* --background: #fffbf7;
 			--foreground: #252525;
 			--rule: #ccc;
-			--link: #0a8bfa;
-			--pre-code: #3e3658;
-			--inline-code: #343eb9;
+			--link: #0a8bfa; */
+			
+			--background: #a09992;
+			--foreground: #171618;
+			--rule: #89827c;
+			--link: #0000ff;
+			--pre-code: #d1d0cc;
+			--inline-code: purple;
+			/* 
 			--code-number: #0093e9;
 			--code-string: #009439;
 			--code-literal: #9514b5;
 			--code-special: #008097;
 			--code-comment: #738191;
-			--pre-background: #f8f2ec;
+			--pre-background: #f8f2ec; */
+
+
+			--code-number: #57b5e2;
+				--code-string: #9abd5a;
+				--code-literal: #cf72e6;
+				--code-special: #4bcbcb;
+				--code-comment: #738191;
+				--pre-background: #2e2b31;
+				/* --pre-background: #1a1a1a; */
 			--toc-width: 230px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
 			--anchor-offset: -13px;
 		}
 
-		@media (prefers-color-scheme: dark) {
+		/* @media (prefers-color-scheme: dark) {
 			:root {
 				--background: #141414;
 				--rule: #555;
@@ -48,7 +63,7 @@
 				--code-comment: #738191;
 				--pre-background: #1a1a1a;
 			}
-		}
+		} */
 
 		strong {
 			font-weight: 600;
@@ -94,8 +109,8 @@
 			font-size: 1em;
 			line-height: 1.357em;
 			color: var(--inline-code);
-			/* background: var(--pre-background); */
-			/* padding: 2px 3px; */
+			/* background: var(--pre-background);
+			padding: 2px 3px; */
 		}
 
 		pre code {
@@ -150,9 +165,14 @@
 
 		pre:not(.hljs),
 		pre.hljs code>div {
-			padding: 16px;
-			border-radius: 3px;
+			padding: 1rem;
 			overflow: auto;
+		}
+
+		pre:not(.hljs),
+		pre.hljs code>div,
+		code { 
+			border-radius: 2px;
 		}
 
 		table>thead>tr>th {
@@ -263,7 +283,7 @@
 			margin-top: var(--anchor-offset);
 		}
 
-		@media (max-width: 850px) {
+		@media (max-width: 900px) {
 			:root {
 				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
 				--anchor-offset: calc(-1*var(--padding-top));
@@ -278,7 +298,8 @@
 			}
 
 			#toc>div {
-				background: blue;
+				box-shadow: -23px 0 10px 20px #0007;
+				background: var(--background);
 				padding-top: var(--padding-top);
 			}
 
@@ -472,7 +493,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#Controller#listen"><strong>listen</strong>()</a> → this</li>
 <li><a href="#Controller#domElement">domElement</a> : HTMLElement</li>
 <li><a href="#Controller#initialValue">initialValue</a> : any</li>
-<li><a href="#Controller#object">object</a> : any</li>
+<li><a href="#Controller#object">object</a> : object</li>
 <li><a href="#Controller#parent">parent</a> : GUI</li>
 <li><a href="#Controller#property">property</a> : string</li>
 <li><a href="#Controller#$name">$name</a> : HTMLElement</li>
@@ -549,7 +570,7 @@ Optional:
 <li>
 <p><strong>object</strong> - The object the controller will modify.<br>
 Required:
-<code>any</code></p>
+<code>object</code></p>
 </li>
 <li>
 <p><strong>property</strong> - Name of the property to control.<br>
@@ -794,7 +815,7 @@ Required:
 <ul>
 <li><strong>value</strong><br>
 Required:
-<code>*</code></li>
+<code>any</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a></p>
@@ -924,7 +945,7 @@ Default: <code>true</code></li>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L38" target="_blank">src/Controller.js:38</a></p>
 <hr>
 <p><a name="Controller#object"></a></p>
-<h2>controller.<strong>object</strong> : any</h2>
+<h2>controller.<strong>object</strong> : object</h2>
 <p>The object this controller will modify.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20" target="_blank">src/Controller.js:20</a></p>
 <hr>

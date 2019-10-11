@@ -20,7 +20,7 @@ class Controller {
 
 		/**
 		 * The object this controller will modify.
-		 * @type {any}
+		 * @type {object}
 		 */
 		this.object = object;
 
@@ -123,7 +123,7 @@ class Controller {
 
 	/**
 	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
-	 * @param {*} value
+	 * @param {any} value
 	 * @returns {this}
 	 */
 	setValue( value ) {
@@ -1472,7 +1472,7 @@ class GUI {
 
 	/**
 	 * Adds a controller to the GUI, inferring controller type using the `typeof` operator.
-	 * @param {any} object The object the controller will modify.
+	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
 	 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
 	 * selectable values for a dropdown.

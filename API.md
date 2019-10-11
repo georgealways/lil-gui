@@ -44,7 +44,7 @@
 - [**listen**()](#Controller#listen) → this
 - [domElement](#Controller#domElement) : HTMLElement
 - [initialValue](#Controller#initialValue) : any
-- [object](#Controller#object) : any
+- [object](#Controller#object) : object
 - [parent](#Controller#parent) : GUI
 - [property](#Controller#property) : string
 - [$name](#Controller#$name) : HTMLElement
@@ -119,7 +119,7 @@ Adds a controller to the GUI, inferring controller type using the `typeof` opera
 
  - **object** - The object the controller will modify.<br>
 Required: 
-`any`
+`object`
 
  - **property** - Name of the property to control.<br>
 Required: 
@@ -459,7 +459,7 @@ Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDispla
 
  - **value**<br>
 Required: 
-`*`
+`any`
 
 **Returns**: `this`
 
@@ -658,7 +658,7 @@ The value when the controller is created.
 
 <a name="Controller#object"></a>
 
-## controller.**object** : any
+## controller.**object** : object
 
 The object this controller will modify.
 
