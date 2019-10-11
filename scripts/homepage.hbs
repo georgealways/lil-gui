@@ -342,15 +342,15 @@
 
 		<main>
 
-			<section id="readme">
+			<section id="README">
 				{{{ readme }}}
 			</section>
 
-			<section id="tutorial">
+			<section id="Tutorial">
 				{{{ tutorial }}}
 			</section>
 
-			<section id="api">
+			<section id="API">
 				{{{ api }}}
 			</section>
 
@@ -360,7 +360,7 @@
 
 	<script>
 		// todo: this should be done by homepage.js pre-render
-		const api = document.getElementById('api');
+		const api = document.getElementById('API');
 		const toc = document.querySelector('#toc > div');
 		let foundHR = false;
 		Array.from(api.children).forEach(c => {
