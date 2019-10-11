@@ -10,8 +10,6 @@
 	(global = global || self, factory(global.lil = {}));
 }(this, function (exports) { 'use strict';
 
-	/** @module Controller */
-
 	/**
 	 * todoc
 	 */
@@ -218,7 +216,6 @@
 		 * @param {number} min
 		 * @returns {this}
 		 */
-		// eslint-disable-next-line no-unused-vars
 		min( min ) {
 			return this;
 		}
@@ -228,7 +225,6 @@
 		 * @param {number} max
 		 * @returns {this}
 		 */
-		// eslint-disable-next-line no-unused-vars
 		max( max ) {
 			return this;
 		}
@@ -238,7 +234,6 @@
 		 * @param {number} step
 		 * @returns {this}
 		 */
-		// eslint-disable-next-line no-unused-vars
 		step( step ) {
 			return this;
 		}
@@ -321,8 +316,6 @@
 		}
 
 	}
-
-	/* eslint-disable no-cond-assign */
 
 	function normalizeColorString( string ) {
 
@@ -1334,8 +1327,6 @@
 			document.head.appendChild( injected );
 		}
 	}
-
-	/** @module GUI */
 	let stylesInjected = false;
 
 	class GUI {
@@ -1535,8 +1526,6 @@
 		}
 
 		_fail( property, initialValue, object ) {
-
-			// eslint-disable-next-line no-console
 			console.error( `Failed to add controller for "${property}"`, initialValue, object );
 
 		}

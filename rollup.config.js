@@ -27,7 +27,7 @@ export default [
 	{
 		input,
 		output: { ...outputModule, file: pkg.module },
-		plugins: [ stylesheet() ]
+		plugins: [ stylesheet(), strip() ]
 	},
 	{
 		input,
@@ -37,7 +37,7 @@ export default [
 	{
 		input,
 		output: { ...outputUMD, file: pkg.main },
-		plugins: [ stylesheet() ]
+		plugins: [ stylesheet(), strip() ]
 	},
 	{
 		input,
@@ -57,6 +57,25 @@ function stylesheet( min = false ) {
 			if ( id !== path ) return;
 			return {
 				code: `export default \`${content.trim()}\`;`,
+				map: { mappings: '' }
+			};
+		}
+	};
+}
+
+function strip() {
+	const regexps = [
+		/^\s*\/\*\* @module.*\n/gm,
+		/^\s*\/[/*] eslint-.*\n/gm
+	];
+	return {
+		name: 'strip',
+		renderChunk( code ) {
+			regexps.forEach( re => {
+				code = code.replace( re, '' );
+			} );
+			return {
+				code,
 				map: { mappings: '' }
 			};
 		}

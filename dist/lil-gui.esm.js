@@ -4,7 +4,6 @@
  * @author George Michael Brower
  * @license MIT
  */
-/** @module Controller */
 
 /**
  * todoc
@@ -212,7 +211,6 @@ class Controller {
 	 * @param {number} min
 	 * @returns {this}
 	 */
-	// eslint-disable-next-line no-unused-vars
 	min( min ) {
 		return this;
 	}
@@ -222,7 +220,6 @@ class Controller {
 	 * @param {number} max
 	 * @returns {this}
 	 */
-	// eslint-disable-next-line no-unused-vars
 	max( max ) {
 		return this;
 	}
@@ -232,7 +229,6 @@ class Controller {
 	 * @param {number} step
 	 * @returns {this}
 	 */
-	// eslint-disable-next-line no-unused-vars
 	step( step ) {
 		return this;
 	}
@@ -315,8 +311,6 @@ class BooleanController extends Controller {
 	}
 
 }
-
-/* eslint-disable no-cond-assign */
 
 function normalizeColorString( string ) {
 
@@ -1328,8 +1322,6 @@ function injectStyles( cssContent ) {
 		document.head.appendChild( injected );
 	}
 }
-
-/** @module GUI */
 let stylesInjected = false;
 
 class GUI {
@@ -1529,8 +1521,6 @@ class GUI {
 	}
 
 	_fail( property, initialValue, object ) {
-
-		// eslint-disable-next-line no-console
 		console.error( `Failed to add controller for "${property}"`, initialValue, object );
 
 	}

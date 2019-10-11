@@ -5,8 +5,9 @@ todo
 [ ] limit break
 
 [ ] kill mixins.scss
-[ ] strip /** @module */ and // eslint- from build
-
+[x] strip /** @module */ and // eslint- from build
+[ ] injectStyles: injectStyles$1 = true
+ 
 title drag
 	[ ] mouse (this conflicts with open)
 	[ ] prevent default for touch (this still conflicts with scroll)
