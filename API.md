@@ -63,7 +63,7 @@
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L48" target="_blank">src/GUI.js:48</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L49" target="_blank">src/GUI.js:49</a>
 ***
 
 ## <a name="GUI~GUIOptions"></a> **GUIOptions**
@@ -103,7 +103,7 @@ Optional:
 Optional:
 `HTMLElement`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L17" target="_blank">src/GUI.js:17</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L18" target="_blank">src/GUI.js:18</a>
 ***
 
 ## <a name="GUI#add"></a> gui.**add**( object, property, [$1], [max], [step] )
@@ -135,7 +135,7 @@ Optional:
 
 **Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L171" target="_blank">src/GUI.js:171</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L172" target="_blank">src/GUI.js:172</a>
 ***
 
 ## <a name="GUI#addColor"></a> gui.**addColor**( object : object, property : string, rgbScale=1 )
@@ -144,7 +144,7 @@ todoc
 
 **Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L225" target="_blank">src/GUI.js:225</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L219" target="_blank">src/GUI.js:219</a>
 ***
 
 ## <a name="GUI#addFolder"></a> gui.**addFolder**( title : string )
@@ -153,7 +153,7 @@ todoc
 
 **Returns**: `GUI`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L234" target="_blank">src/GUI.js:234</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L228" target="_blank">src/GUI.js:228</a>
 ***
 
 ## <a name="GUI#getControllers"></a> gui.**getControllers**( recursive=true )
@@ -162,7 +162,7 @@ todoc
 
 **Returns**: `Controller[]`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L243" target="_blank">src/GUI.js:243</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L237" target="_blank">src/GUI.js:237</a>
 ***
 
 ## <a name="GUI#getFolders"></a> gui.**getFolders**( recursive=true )
@@ -171,7 +171,7 @@ todoc
 
 **Returns**: `GUI[]`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L257" target="_blank">src/GUI.js:257</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L251" target="_blank">src/GUI.js:251</a>
 ***
 
 ## <a name="GUI#export"></a> gui.**export**( recursive=true )
@@ -180,7 +180,7 @@ Returns an object mapping controller names to values.
 
 **Returns**: `object`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L272" target="_blank">src/GUI.js:272</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L266" target="_blank">src/GUI.js:266</a>
 ***
 
 ## <a name="GUI#import"></a> gui.**import**( obj : object, recursive=true )
@@ -189,7 +189,7 @@ todoc
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L286" target="_blank">src/GUI.js:286</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L280" target="_blank">src/GUI.js:280</a>
 ***
 
 ## <a name="GUI#reset"></a> gui.**reset**( recursive=true )
@@ -198,7 +198,7 @@ Resets all controllers.
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L300" target="_blank">src/GUI.js:300</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L294" target="_blank">src/GUI.js:294</a>
 ***
 
 ## <a name="GUI#title"></a> gui.**title**( title : string )
@@ -207,7 +207,7 @@ todoc
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L310" target="_blank">src/GUI.js:310</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L304" target="_blank">src/GUI.js:304</a>
 ***
 
 ## <a name="GUI#open"></a> gui.**open**( open=true )
@@ -222,7 +222,7 @@ gui.open( gui._closed ); // toggle
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L323" target="_blank">src/GUI.js:323</a>
 ***
 
 ## <a name="GUI#close"></a> gui.**close**()
@@ -231,70 +231,70 @@ todoc
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L339" target="_blank">src/GUI.js:339</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L333" target="_blank">src/GUI.js:333</a>
 ***
 
 ## <a name="GUI#destroy"></a> gui.**destroy**()
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L348" target="_blank">src/GUI.js:348</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L342" target="_blank">src/GUI.js:342</a>
 ***
 
 ## <a name="GUI#children"></a> gui.**children** : Array<GUI|Controller>
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L76" target="_blank">src/GUI.js:76</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L77" target="_blank">src/GUI.js:77</a>
 ***
 
 ## <a name="GUI#domElement"></a> gui.**domElement** : HTMLElement
 
 The outermost container element.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L88" target="_blank">src/GUI.js:88</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L89" target="_blank">src/GUI.js:89</a>
 ***
 
 ## <a name="GUI#parent"></a> gui.**parent** : GUI
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L64" target="_blank">src/GUI.js:64</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L65" target="_blank">src/GUI.js:65</a>
 ***
 
 ## <a name="GUI#root"></a> gui.**root** : GUI
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L70" target="_blank">src/GUI.js:70</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L71" target="_blank">src/GUI.js:71</a>
 ***
 
 ## <a name="GUI#$children"></a> gui.**$children** : HTMLElement
 
 The element that contains children.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L105" target="_blank">src/GUI.js:105</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L106" target="_blank">src/GUI.js:106</a>
 ***
 
 ## <a name="GUI#$title"></a> gui.**$title** : HTMLElement
 
 The element that contains the title.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L95" target="_blank">src/GUI.js:95</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L96" target="_blank">src/GUI.js:96</a>
 ***
 
 ## <a name="GUI#_closed"></a> gui.**_closed** : boolean
 
 Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L82" target="_blank">src/GUI.js:82</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L83" target="_blank">src/GUI.js:83</a>
 ***
 
 ## <a name="GUI#_title"></a> gui.**_title** : string
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L309" target="_blank">src/GUI.js:309</a>
 ***
 
 # Controller
