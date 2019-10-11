@@ -1322,6 +1322,7 @@ function _injectStyles( cssContent ) {
 		document.head.appendChild( injected );
 	}
 }
+
 let stylesInjected = false;
 
 class GUI {

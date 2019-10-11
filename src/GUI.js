@@ -10,6 +10,7 @@ import StringController from './StringController';
 
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
+
 let stylesInjected = false;
 
 export default class GUI {

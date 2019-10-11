@@ -1327,6 +1327,7 @@
 			document.head.appendChild( injected );
 		}
 	}
+
 	let stylesInjected = false;
 
 	class GUI {
