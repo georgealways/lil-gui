@@ -16,7 +16,7 @@ title drag
 
 docs
 	[x] -> this type chainable comeback
-	[ ] transform ugly longnames
+	[n] transform ugly longnames
 	[x] logical, not alphabetical order...
 	hardstuff
 		[ ] GUIOptions
