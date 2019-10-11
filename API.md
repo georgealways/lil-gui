@@ -145,7 +145,7 @@ Optional:
 
 <a name="GUI#addColor"></a>
 
-## gui.**addColor**( object : object, property : string, rgbScale=1 )
+## gui.**addColor**( object: object, property: string, rgbScale=1 )
 
 todoc
 
@@ -169,7 +169,7 @@ Default: `1`
 
 <a name="GUI#addFolder"></a>
 
-## gui.**addFolder**( title : string )
+## gui.**addFolder**( title: string )
 
 todoc
 
@@ -234,7 +234,7 @@ Default: `true`
 
 <a name="GUI#import"></a>
 
-## gui.**import**( obj : object, recursive=true )
+## gui.**import**( obj: object, recursive=true )
 
 todoc
 
@@ -270,7 +270,7 @@ Default: `true`
 
 <a name="GUI#title"></a>
 
-## gui.**title**( title : string )
+## gui.**title**( title: string )
 
 todoc
 
@@ -405,7 +405,7 @@ todoc
 
 <a name="Controller#name"></a>
 
-## controller.**name**( name : string )
+## controller.**name**( name: string )
 
 Sets the name of the controller and its label in the GUI.
 
@@ -422,7 +422,7 @@ Required:
 
 <a name="Controller#onChange"></a>
 
-## controller.**onChange**( callback : function )
+## controller.**onChange**( callback: function )
 
 Pass a function to be called whenever the value is modified by this controller.
 The function receives the new value as its first parameter and `this` will be bound to the
@@ -543,7 +543,7 @@ Destroys this controller and removes it from the parent GUI.
 
 <a name="Controller#options"></a>
 
-## controller.**options**( options : object|Array )
+## controller.**options**( options: object|Array )
 
 Destroys this controller and adds a new option controller.
 
@@ -560,7 +560,7 @@ Required:
 
 <a name="Controller#min"></a>
 
-## controller.**min**( min : number )
+## controller.**min**( min: number )
 
 Sets the minimum value. Only works on number controllers.
 
@@ -577,7 +577,7 @@ Required:
 
 <a name="Controller#max"></a>
 
-## controller.**max**( max : number )
+## controller.**max**( max: number )
 
 Sets the maximum value. Only works on number controllers.
 
@@ -594,7 +594,7 @@ Required:
 
 <a name="Controller#step"></a>
 
-## controller.**step**( step : number )
+## controller.**step**( step: number )
 
 Sets the step. Only works on number controllers.
 

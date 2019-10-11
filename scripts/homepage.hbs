@@ -19,10 +19,13 @@
 			--foreground: #252525;
 			--rule: #ccc;
 			--link: #0a8bfa; */
-			
-			--background: #a09992;
+
+			/* --background: #a09992;
+			--rule: #89827c; */
+
+			--rule: #b59b85;
+			--background: #c7ab9d;
 			--foreground: #171618;
-			--rule: #89827c;
 			--link: #0000ff;
 			--pre-code: #d1d0cc;
 			--inline-code: purple;
@@ -36,12 +39,12 @@
 
 
 			--code-number: #57b5e2;
-				--code-string: #9abd5a;
-				--code-literal: #cf72e6;
-				--code-special: #4bcbcb;
-				--code-comment: #738191;
-				--pre-background: #2e2b31;
-				/* --pre-background: #1a1a1a; */
+			--code-string: #9abd5a;
+			--code-literal: #cf72e6;
+			--code-special: #4bcbcb;
+			--code-comment: #738191;
+			--pre-background: #2e2b31;
+			/* --pre-background: #1a1a1a; */
 			--toc-width: 230px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
@@ -122,9 +125,9 @@
 		}
 
 		hr {
-			height: 1px;
+			height: 2px;
 			border: 0;
-			border-bottom: 1px solid;
+			background: var(--rule);
 		}
 
 		h1,
@@ -171,7 +174,7 @@
 
 		pre:not(.hljs),
 		pre.hljs code>div,
-		code { 
+		code {
 			border-radius: 2px;
 		}
 
@@ -386,9 +389,10 @@
 	</div>
 
 	<script>
+		const toc = document.querySelector('#toc > div');
+
 		// todo: this should be done by homepage.js pre-render
 		const api = document.getElementById('API');
-		const toc = document.querySelector('#toc > div');
 		let foundHR = false;
 		Array.from(api.children).forEach(c => {
 			if (foundHR) return;
@@ -400,14 +404,27 @@
 		});
 
 		const tocButton = document.getElementById('toc-button');
-		tocButton.addEventListener('click', () => {
-			document.body.classList.toggle('toc-open');
+		document.body.addEventListener('click', closeTOC);
+			toc.addEventListener('click', e => {
+				e.stopPropagation();
+			});
+			
+
+		function openTOC() {
+			document.body.classList.add('toc-open');
+		}
+
+		function closeTOC() {
+			document.body.classList.remove('toc-open');
+		}
+
+		tocButton.addEventListener('click', e => {
+			e.stopPropagation();
+			document.body.classList.contains('toc-open') ? closeTOC() : openTOC();
 		});
 
 		Array.from(document.querySelectorAll('nav a')).forEach(a => {
-			a.addEventListener('click', () => {
-				document.body.classList.remove('toc-open');
-			})
+			a.addEventListener('click', closeTOC)
 		})
 
 	</script>

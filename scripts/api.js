@@ -263,7 +263,7 @@ function singleParamToSignature( param ) {
 		param.type &&
 		param.type.names[ 0 ] !== '*' &&
 		param.type.names[ 0 ] !== 'any' ) {
-		name += ' : ' + param.type.names.join( '|' );
+		name += ': ' + param.type.names.join( '|' );
 	}
 
 	if ( param.defaultvalue === undefined && param.optional ) {
