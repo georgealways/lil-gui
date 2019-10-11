@@ -11,7 +11,7 @@ const TEMPLATE = 'scripts/homepage.hbs';
 const README = 'README.md';
 const API = 'API.md';
 
-const JSDOC_DEBUG = true;
+const JSDOC_DEBUG = false;
 
 const md = markdownit( {
 	html: true,
