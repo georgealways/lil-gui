@@ -239,7 +239,8 @@
 			position: relative;
 			z-index: 1002;
 		}
-		#toc > div { 
+
+		#toc>div {
 			position: fixed;
 			overflow: auto;
 			height: 100%;
@@ -263,24 +264,29 @@
 		}
 
 		@media (max-width: 850px) {
-			:root { 
+			:root {
 				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
 				--anchor-offset: calc(-1*var(--padding-top));
 			}
-			#container { 
+
+			#container {
 				display: block;
 			}
-			#toc-button { 
+
+			#toc-button {
 				display: block;
 			}
-			#toc > div { 
+
+			#toc>div {
 				background: blue;
 				padding-top: var(--padding-top);
 			}
-			body:not(.toc-open) #toc > div {
+
+			body:not(.toc-open) #toc>div {
 				transform: translateX(calc(-1 * var(--toc-width)));
 			}
-			main { 
+
+			main {
 				margin: 0 auto;
 				padding: 1rem;
 				padding-top: var(--padding-top);
@@ -986,17 +992,17 @@ the controller.</p>
 			}
 		});
 
-
 		const tocButton = document.getElementById('toc-button');
-		tocButton.addEventListener('click',()=>{
+		tocButton.addEventListener('click', () => {
 			document.body.classList.toggle('toc-open');
 		});
 
-		Array.from(document.querySelectorAll('nav a')).forEach(a=>{
-			a.addEventListener('click', ()=>{
+		Array.from(document.querySelectorAll('nav a')).forEach(a => {
+			a.addEventListener('click', () => {
 				document.body.classList.remove('toc-open');
 			})
 		})
+
 	</script>
 
 	
