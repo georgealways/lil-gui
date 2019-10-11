@@ -1,7 +1,7 @@
 /** @module Controller */
 
 /**
- * todoc
+ * Base class for all controllers.
  */
 export default class Controller {
 
