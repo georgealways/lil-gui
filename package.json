@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "npm run icons && npm run sass && npm run sass:min && npm run rollup",
+    "build:all": "npm run build && npm run api && npm run homepage",
     "sass": "sass style/index.scss $npm_package_config_style --no-source-map --no-charset",
     "sass:min": "sass style/index.scss $npm_package_config_styleMin --no-charset --no-source-map --style=compressed",
     "rollup": "rollup -c",
@@ -22,8 +23,8 @@
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=$npm_package_main,index.html,examples --no-browser",
-    "preversion": "npm run build && npm test",
-    "version": "npm run build && git add -A dist style/icons.scss",
+    "preversion": "npm run build:all && npm test",
+    "version": "npm run build:all && git add -A dist style/icons.scss",
     "postversion": "git push --tags",
     "dev": "npm run build && node -r esm scripts/dev.js"
   },
