@@ -13,8 +13,7 @@ dev( {
 	'homepage': {
 		onchange: [
 			'scripts/homepage*',
-			'API.md',
-			'README.md'
+			'*.md'
 		],
 		color: 'white'
 	},

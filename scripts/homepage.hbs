@@ -1,265 +1,391 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
-<title></title>
-<style>
-* {
-	box-sizing: border-box;
-}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
+	<title></title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
 
-:root {
-	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-	--font-size: 14px;
-	--line-height: 1.6;
-	--background: #fffbf7;
-	--foreground: #252525;
-	--rule: #ccc;
-    --link: #0a8bfa;
-    --pre-code: #3e3658;
-    --inline-code: #343eb9;
-    --code-number: #0093e9;
-    --code-string: #009439;
-    --code-literal: #9514b5;
-    --code-special: #008097;
-    --code-comment: #738191;
-    --pre-background: #f8f2ec;
-}
+		:root {
+			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
+				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
+			--font-size: 14px;
+			--line-height: 1.6;
+			--background: #fffbf7;
+			--foreground: #252525;
+			--rule: #ccc;
+			--link: #0a8bfa;
+			--pre-code: #3e3658;
+			--inline-code: #343eb9;
+			--code-number: #0093e9;
+			--code-string: #009439;
+			--code-literal: #9514b5;
+			--code-special: #008097;
+			--code-comment: #738191;
+			--pre-background: #f8f2ec;
+			--toc-width: 230px;
+			--toc-button-size: 40px;
+			--toc-button-margin: 1rem;
+			--anchor-offset: -15px;
+		}
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #141414;
-		--rule: #555;
-		--foreground: #ddd;
-		--link: #2cc9fe;
-		--pre-code: #d1d0cc;
-    	--inline-code: #e8d796;
-		--code-number: #57b5e2;
-		--code-string: #aac35b;
-		--code-literal: #cf72e6;
-		--code-special: #4bcbcb;
-		--code-comment: #738191;
-		--pre-background: #1a1a1a;
-	}
-}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--background: #141414;
+				--rule: #555;
+				--foreground: #ddd;
+				--link: #2cc9fe;
+				--pre-code: #d1d0cc;
+				--inline-code: #e8d796;
+				--code-number: #57b5e2;
+				--code-string: #aac35b;
+				--code-literal: #cf72e6;
+				--code-special: #4bcbcb;
+				--code-comment: #738191;
+				--pre-background: #1a1a1a;
+			}
+		}
 
-strong {
-	font-weight: 600;
-}
+		strong {
+			font-weight: 600;
+		}
 
-:root,
-body {
-	font-family: var(--font-family);
-	line-height: var(--line-height);
-	font-size: var(--font-size);
-	word-wrap: break-word;
-}
+		:root,
+		body {
+			font-family: var(--font-family);
+			line-height: var(--line-height);
+			font-size: var(--font-size);
+			word-wrap: break-word;
+			padding: 0;
+			margin: 0;
+		}
 
-body {
-	background-color: var(--background);
-	color: var(--foreground);
-	font-weight: normal;
-	padding: 0 10px;
-}
+		body {
+			background-color: var(--background);
+			color: var(--foreground);
+			font-weight: normal;
+		}
 
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
 
-a {
-	color: var(--link);
-	text-decoration: none;
-}
+		a {
+			color: var(--link);
+			text-decoration: none;
+		}
 
-a:hover {
-	text-decoration: underline;
-}
+		a:hover {
+			text-decoration: underline;
+		}
 
-pre {
-	color: var(--pre-code);
-	background: var(--pre-background);
-}
+		pre {
+			color: var(--pre-code);
+			background: var(--pre-background);
+		}
 
-code {
-	font-family: var(--font-family-code);
-	font-size: 1em;
-	line-height: 1.357em;
-	color: var(--inline-code);
-	/* background: var(--pre-background);
-	padding: 2px 3px; */
-}
+		code {
+			font-family: var(--font-family-code);
+			font-size: 1em;
+			line-height: 1.357em;
+			color: var(--inline-code);
+			/* background: var(--pre-background); */
+			/* padding: 2px 3px; */
+		}
 
-pre code {
-	font-family: var(--font-family-code);
-	background: none;
-	color: var(--pre-code);
-	tab-size: 4;
-	padding: 0;
-}
+		pre code {
+			font-family: var(--font-family-code);
+			background: none;
+			color: var(--pre-code);
+			tab-size: 4;
+			padding: 0;
+		}
 
-#container {
-	max-width: 700px;
-	margin: 0 auto;
-}
+		hr {
+			height: 1px;
+			border: 0;
+			border-bottom: 1px solid;
+		}
 
-hr {
-	height: 1px;
-	border: 0;
-	border-bottom: 1px solid;
-}
+		h1,
+		h2,
+		h3 {
+			font-weight: normal;
+		}
 
-h1 {
-	padding-bottom: 0.3em;
-	line-height: 1.2;
-}
 
-h1,
-h2,
-h3 {
-	font-weight: normal;
-}
+		section h1 {
+			font-size: 2em;
+			font-weight: 700;
+		}
 
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code {
-	line-height: auto;
-}
+		h1 code,
+		h2 code,
+		h3 code,
+		h4 code,
+		h5 code,
+		h6 code {
+			line-height: auto;
+		}
 
-table {
-	border-collapse: collapse;
-}
+		table {
+			border-collapse: collapse;
+		}
 
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
-}
+		table>thead>tr>th,
+		table>thead>tr>td,
+		table>tbody>tr>th,
+		table>tbody>tr>td {
+			padding: 5px 10px;
+		}
 
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
-}
+		table>tbody>tr+tr>td {
+			border-top: 1px solid;
+		}
 
-pre:not(.hljs),
-pre.hljs code > div {
-	padding: 16px;
-	border-radius: 3px;
-	overflow: auto;
-}
+		pre:not(.hljs),
+		pre.hljs code>div {
+			padding: 16px;
+			border-radius: 3px;
+			overflow: auto;
+		}
 
-table > thead > tr > th {
-	text-align: left;
-	border-bottom: 1px solid;
-	border-color: var(--rule);
-}
+		table>thead>tr>th {
+			text-align: left;
+			border-bottom: 1px solid;
+			border-color: var(--rule);
+		}
 
-h1,
-hr,
-table > tbody > tr + tr > td {
-	border-color: var(--rule);
-}
+		h1,
+		hr,
+		table>tbody>tr+tr>td {
+			border-color: var(--rule);
+		}
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-title,
-.hljs-section,
-.hljs-doctag,
-.hljs-name,
-.hljs-strong {
-	font-weight: bold;
-}
+		.hljs-keyword,
+		.hljs-selector-tag,
+		.hljs-title,
+		.hljs-section,
+		.hljs-doctag,
+		.hljs-name,
+		.hljs-strong {
+			font-weight: bold;
+		}
 
-.hljs-comment {
-	color: var(--code-comment);
-}
+		.hljs-comment {
+			color: var(--code-comment);
+		}
 
-.hljs-title,
-.hljs-section,
-.hljs-type,
-.hljs-addition,
-.hljs-tag,
-.hljs-quote,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-built_in {
-	color: var(--code-special);
-}
+		.hljs-title,
+		.hljs-section,
+		.hljs-type,
+		.hljs-addition,
+		.hljs-tag,
+		.hljs-quote,
+		.hljs-name,
+		.hljs-selector-id,
+		.hljs-selector-class,
+		.hljs-built_in {
+			color: var(--code-special);
+		}
 
-.hljs-literal {
-	color: var(--code-literal);
-}
+		.hljs-literal {
+			color: var(--code-literal);
+		}
 
-.hljs-number {
-	color: var(--code-number);
-}
+		.hljs-number {
+			color: var(--code-number);
+		}
 
-.hljs-string {
-	color: var(--code-string);
-}
+		.hljs-string {
+			color: var(--code-string);
+		}
 
-.hljs-meta,
-.hljs-subst,
-.hljs-symbol,
-.hljs-regexp,
-.hljs-attribute,
-.hljs-deletion,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-link,
-.hljs-bullet {
-	color: #4c81c9;
-}
+		.hljs-meta,
+		.hljs-subst,
+		.hljs-symbol,
+		.hljs-regexp,
+		.hljs-attribute,
+		.hljs-deletion,
+		.hljs-variable,
+		.hljs-template-variable,
+		.hljs-link,
+		.hljs-bullet {
+			color: #4c81c9;
+		}
 
-.hljs-emphasis {
-	font-style: italic;
-}
-</style>
+		.hljs-emphasis {
+			font-style: italic;
+		}
+
+		#container {
+			display: flex;
+		}
+
+		main {
+			max-width: 700px;
+			padding: 1rem;
+			padding-left: 0;
+		}
+
+		#toc {
+			--toc-width: 230px;
+			width: var(--toc-width);
+			position: relative;
+			z-index: 1002;
+		}
+		#toc > div { 
+			position: fixed;
+			overflow: auto;
+			height: 100%;
+			padding: 1rem;
+			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
+		}
+
+		#toc-button {
+			display: none;
+			position: fixed;
+			z-index: 1003;
+			width: var(--toc-button-size);
+			height: var(--toc-button-size);
+			top: var(--toc-button-margin);
+			left: var(--toc-button-margin);
+		}
+
+		a[name]:not([href]) {
+			position: absolute;
+			margin-top: var(--anchor-offset);
+		}
+
+		@media (max-width: 850px) {
+			:root { 
+				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
+				--anchor-offset: calc(-1*var(--padding-top));
+			}
+			#container { 
+				display: block;
+			}
+			#toc-button { 
+				display: block;
+			}
+			#toc > div { 
+				background: blue;
+				padding-top: var(--padding-top);
+			}
+			body:not(.toc-open) #toc > div {
+				transform: translateX(calc(-1 * var(--toc-width)));
+			}
+			main { 
+				margin: 0 auto;
+				padding: 1rem;
+				padding-top: var(--padding-top);
+			}
+		}
+
+
+		#toc * {
+			font-size: 12px;
+		}
+
+		#toc h1,
+		#toc h2,
+		#toc h3 {
+			font-weight: 600;
+		}
+
+		#toc ul {
+			padding: 0;
+			list-style: none;
+		}
+
+	</style>
 </head>
 <body>
+	<script type="module">
+		import GUI from '../dist/lil-gui.esm.js';
 
-<script type="module">
-import GUI from '../dist/lil-gui.esm.js';
+		const myObject = {
+			options: 10,
+			boolean: true,
+			string: 'lil-gui',
+			number: 0.5,
+			color: '#a0f',
+			function() { alert('hi'); }
+		};
 
-const myObject = {
-	options: 10,
-	boolean: true,
-	string: 'lil-gui',
-	number: 0.5,
-	color: '#a0f',
-	function() { alert( 'hi' ); }
-};
+		const gui = new GUI();
 
-const gui = new GUI();
+		gui.add(myObject, 'options', { Small: 1, Medium: 10, Large: 100 });
+		gui.add(myObject, 'boolean');
+		gui.add(myObject, 'string');
+		gui.add(myObject, 'number', 0, 1);
+		gui.addColor(myObject, 'color');
+		gui.add(myObject, 'function');
+	</script>
 
-gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
-gui.add( myObject, 'boolean' );
-gui.add( myObject, 'string' );
-gui.add( myObject, 'number', 0, 1 );
-gui.addColor( myObject, 'color' );
-gui.add( myObject, 'function' );
-</script>
+	<div id="container">
 
-<div id="container">
+		<button id="toc-button">
+			TOC
+		</button>
 
-<div id="readme">
-{{{ readme }}}
-</div> 
+		<nav id="toc">
+			<div>
 
-<div id="api">
-{{{ api }}}
-</div>
+			</div>
+		</nav>
 
-</div>
+		<main>
 
-{{{ jsdocDebug }}}
+			<section id="readme">
+				{{{ readme }}}
+			</section>
+
+			<section id="tutorial">
+				{{{ tutorial }}}
+			</section>
+
+			<section id="api">
+				{{{ api }}}
+			</section>
+
+		</main>
+
+	</div>
+
+	<script>
+		// todo: this should be done by homepage.js pre-render
+		const api = document.getElementById('api');
+		const toc = document.querySelector('#toc > div');
+		let foundHR = false;
+		Array.from(api.children).forEach(c => {
+			if (foundHR) return;
+			if (c.tagName === 'HR') {
+				foundHR = true;
+			} else if (c.tagName !== 'H1') {
+				toc.appendChild(c);
+			}
+		});
+
+
+		const tocButton = document.getElementById('toc-button');
+		tocButton.addEventListener('click',()=>{
+			document.body.classList.toggle('toc-open');
+		});
+
+		Array.from(document.querySelectorAll('nav a')).forEach(a=>{
+			a.addEventListener('click', ()=>{
+				document.body.classList.remove('toc-open');
+			})
+		})
+	</script>
+
+	{{{ jsdocDebug }}}
 
 </body>
 </html>

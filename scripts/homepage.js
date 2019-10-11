@@ -9,6 +9,7 @@ import jsdocData from './api';
 const OUTPUT = 'index.html';
 const TEMPLATE = 'scripts/homepage.hbs';
 const README = 'README.md';
+const TUTORIAL = 'Tutorial.md';
 const API = 'API.md';
 
 const JSDOC_DEBUG = false;
@@ -33,6 +34,7 @@ const template = hbs.compile( read( TEMPLATE ) );
 const html = template( {
 	readme: md.render( read( README ) ),
 	api: md.render( read( API ) ),
+	tutorial: md.render( read( TUTORIAL ) ),
 	jsdocDebug
 } ).replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
 // makes hardcoded links in readme relative on real site

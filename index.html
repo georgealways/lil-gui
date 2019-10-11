@@ -1,256 +1,349 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
-<title></title>
-<style>
-* {
-	box-sizing: border-box;
-}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
+	<title></title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
 
-:root {
-	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-	--font-size: 14px;
-	--line-height: 1.6;
-	--background: #fffbf7;
-	--foreground: #252525;
-	--rule: #ccc;
-    --link: #0a8bfa;
-    --pre-code: #3e3658;
-    --inline-code: #343eb9;
-    --code-number: #0093e9;
-    --code-string: #009439;
-    --code-literal: #9514b5;
-    --code-special: #008097;
-    --code-comment: #738191;
-    --pre-background: #f8f2ec;
-}
+		:root {
+			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
+				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
+			--font-size: 14px;
+			--line-height: 1.6;
+			--background: #fffbf7;
+			--foreground: #252525;
+			--rule: #ccc;
+			--link: #0a8bfa;
+			--pre-code: #3e3658;
+			--inline-code: #343eb9;
+			--code-number: #0093e9;
+			--code-string: #009439;
+			--code-literal: #9514b5;
+			--code-special: #008097;
+			--code-comment: #738191;
+			--pre-background: #f8f2ec;
+			--toc-width: 230px;
+			--toc-button-size: 40px;
+			--toc-button-margin: 1rem;
+			--anchor-offset: -15px;
+		}
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #141414;
-		--rule: #555;
-		--foreground: #ddd;
-		--link: #2cc9fe;
-		--pre-code: #d1d0cc;
-    	--inline-code: #e8d796;
-		--code-number: #57b5e2;
-		--code-string: #aac35b;
-		--code-literal: #cf72e6;
-		--code-special: #4bcbcb;
-		--code-comment: #738191;
-		--pre-background: #1a1a1a;
-	}
-}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--background: #141414;
+				--rule: #555;
+				--foreground: #ddd;
+				--link: #2cc9fe;
+				--pre-code: #d1d0cc;
+				--inline-code: #e8d796;
+				--code-number: #57b5e2;
+				--code-string: #aac35b;
+				--code-literal: #cf72e6;
+				--code-special: #4bcbcb;
+				--code-comment: #738191;
+				--pre-background: #1a1a1a;
+			}
+		}
 
-strong {
-	font-weight: 600;
-}
+		strong {
+			font-weight: 600;
+		}
 
-:root,
-body {
-	font-family: var(--font-family);
-	line-height: var(--line-height);
-	font-size: var(--font-size);
-	word-wrap: break-word;
-}
+		:root,
+		body {
+			font-family: var(--font-family);
+			line-height: var(--line-height);
+			font-size: var(--font-size);
+			word-wrap: break-word;
+			padding: 0;
+			margin: 0;
+		}
 
-body {
-	background-color: var(--background);
-	color: var(--foreground);
-	font-weight: normal;
-	padding: 0 10px;
-}
+		body {
+			background-color: var(--background);
+			color: var(--foreground);
+			font-weight: normal;
+		}
 
-img {
-	max-width: 100%;
-	max-height: 100%;
-}
+		img {
+			max-width: 100%;
+			max-height: 100%;
+		}
 
-a {
-	color: var(--link);
-	text-decoration: none;
-}
+		a {
+			color: var(--link);
+			text-decoration: none;
+		}
 
-a:hover {
-	text-decoration: underline;
-}
+		a:hover {
+			text-decoration: underline;
+		}
 
-pre {
-	color: var(--pre-code);
-	background: var(--pre-background);
-}
+		pre {
+			color: var(--pre-code);
+			background: var(--pre-background);
+		}
 
-code {
-	font-family: var(--font-family-code);
-	font-size: 1em;
-	line-height: 1.357em;
-	color: var(--inline-code);
-	/* background: var(--pre-background);
-	padding: 2px 3px; */
-}
+		code {
+			font-family: var(--font-family-code);
+			font-size: 1em;
+			line-height: 1.357em;
+			color: var(--inline-code);
+			/* background: var(--pre-background); */
+			/* padding: 2px 3px; */
+		}
 
-pre code {
-	font-family: var(--font-family-code);
-	background: none;
-	color: var(--pre-code);
-	tab-size: 4;
-	padding: 0;
-}
+		pre code {
+			font-family: var(--font-family-code);
+			background: none;
+			color: var(--pre-code);
+			tab-size: 4;
+			padding: 0;
+		}
 
-#container {
-	max-width: 700px;
-	margin: 0 auto;
-}
+		hr {
+			height: 1px;
+			border: 0;
+			border-bottom: 1px solid;
+		}
 
-hr {
-	height: 1px;
-	border: 0;
-	border-bottom: 1px solid;
-}
+		h1,
+		h2,
+		h3 {
+			font-weight: normal;
+		}
 
-h1 {
-	padding-bottom: 0.3em;
-	line-height: 1.2;
-}
 
-h1,
-h2,
-h3 {
-	font-weight: normal;
-}
+		section h1 {
+			font-size: 2em;
+			font-weight: 700;
+		}
 
-h1 code,
-h2 code,
-h3 code,
-h4 code,
-h5 code,
-h6 code {
-	line-height: auto;
-}
+		h1 code,
+		h2 code,
+		h3 code,
+		h4 code,
+		h5 code,
+		h6 code {
+			line-height: auto;
+		}
 
-table {
-	border-collapse: collapse;
-}
+		table {
+			border-collapse: collapse;
+		}
 
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
-}
+		table>thead>tr>th,
+		table>thead>tr>td,
+		table>tbody>tr>th,
+		table>tbody>tr>td {
+			padding: 5px 10px;
+		}
 
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
-}
+		table>tbody>tr+tr>td {
+			border-top: 1px solid;
+		}
 
-pre:not(.hljs),
-pre.hljs code > div {
-	padding: 16px;
-	border-radius: 3px;
-	overflow: auto;
-}
+		pre:not(.hljs),
+		pre.hljs code>div {
+			padding: 16px;
+			border-radius: 3px;
+			overflow: auto;
+		}
 
-table > thead > tr > th {
-	text-align: left;
-	border-bottom: 1px solid;
-	border-color: var(--rule);
-}
+		table>thead>tr>th {
+			text-align: left;
+			border-bottom: 1px solid;
+			border-color: var(--rule);
+		}
 
-h1,
-hr,
-table > tbody > tr + tr > td {
-	border-color: var(--rule);
-}
+		h1,
+		hr,
+		table>tbody>tr+tr>td {
+			border-color: var(--rule);
+		}
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-title,
-.hljs-section,
-.hljs-doctag,
-.hljs-name,
-.hljs-strong {
-	font-weight: bold;
-}
+		.hljs-keyword,
+		.hljs-selector-tag,
+		.hljs-title,
+		.hljs-section,
+		.hljs-doctag,
+		.hljs-name,
+		.hljs-strong {
+			font-weight: bold;
+		}
 
-.hljs-comment {
-	color: var(--code-comment);
-}
+		.hljs-comment {
+			color: var(--code-comment);
+		}
 
-.hljs-title,
-.hljs-section,
-.hljs-type,
-.hljs-addition,
-.hljs-tag,
-.hljs-quote,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-built_in {
-	color: var(--code-special);
-}
+		.hljs-title,
+		.hljs-section,
+		.hljs-type,
+		.hljs-addition,
+		.hljs-tag,
+		.hljs-quote,
+		.hljs-name,
+		.hljs-selector-id,
+		.hljs-selector-class,
+		.hljs-built_in {
+			color: var(--code-special);
+		}
 
-.hljs-literal {
-	color: var(--code-literal);
-}
+		.hljs-literal {
+			color: var(--code-literal);
+		}
 
-.hljs-number {
-	color: var(--code-number);
-}
+		.hljs-number {
+			color: var(--code-number);
+		}
 
-.hljs-string {
-	color: var(--code-string);
-}
+		.hljs-string {
+			color: var(--code-string);
+		}
 
-.hljs-meta,
-.hljs-subst,
-.hljs-symbol,
-.hljs-regexp,
-.hljs-attribute,
-.hljs-deletion,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-link,
-.hljs-bullet {
-	color: #4c81c9;
-}
+		.hljs-meta,
+		.hljs-subst,
+		.hljs-symbol,
+		.hljs-regexp,
+		.hljs-attribute,
+		.hljs-deletion,
+		.hljs-variable,
+		.hljs-template-variable,
+		.hljs-link,
+		.hljs-bullet {
+			color: #4c81c9;
+		}
 
-.hljs-emphasis {
-	font-style: italic;
-}
-</style>
+		.hljs-emphasis {
+			font-style: italic;
+		}
+
+		#container {
+			display: flex;
+		}
+
+		main {
+			max-width: 700px;
+			padding: 1rem;
+			padding-left: 0;
+		}
+
+		#toc {
+			--toc-width: 230px;
+			width: var(--toc-width);
+			position: relative;
+			z-index: 1002;
+		}
+		#toc > div { 
+			position: fixed;
+			overflow: auto;
+			height: 100%;
+			padding: 1rem;
+			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
+		}
+
+		#toc-button {
+			display: none;
+			position: fixed;
+			z-index: 1003;
+			width: var(--toc-button-size);
+			height: var(--toc-button-size);
+			top: var(--toc-button-margin);
+			left: var(--toc-button-margin);
+		}
+
+		a[name]:not([href]) {
+			position: absolute;
+			margin-top: var(--anchor-offset);
+		}
+
+		@media (max-width: 850px) {
+			:root { 
+				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
+				--anchor-offset: calc(-1*var(--padding-top));
+			}
+			#container { 
+				display: block;
+			}
+			#toc-button { 
+				display: block;
+			}
+			#toc > div { 
+				background: blue;
+				padding-top: var(--padding-top);
+			}
+			body:not(.toc-open) #toc > div {
+				transform: translateX(calc(-1 * var(--toc-width)));
+			}
+			main { 
+				margin: 0 auto;
+				padding: 1rem;
+				padding-top: var(--padding-top);
+			}
+		}
+
+
+		#toc * {
+			font-size: 12px;
+		}
+
+		#toc h1,
+		#toc h2,
+		#toc h3 {
+			font-weight: 600;
+		}
+
+		#toc ul {
+			padding: 0;
+			list-style: none;
+		}
+
+	</style>
 </head>
 <body>
+	<script type="module">
+		import GUI from '../dist/lil-gui.esm.js';
 
-<script type="module">
-import GUI from '../dist/lil-gui.esm.js';
+		const myObject = {
+			options: 10,
+			boolean: true,
+			string: 'lil-gui',
+			number: 0.5,
+			color: '#a0f',
+			function() { alert('hi'); }
+		};
 
-const myObject = {
-	options: 10,
-	boolean: true,
-	string: 'lil-gui',
-	number: 0.5,
-	color: '#a0f',
-	function() { alert( 'hi' ); }
-};
+		const gui = new GUI();
 
-const gui = new GUI();
+		gui.add(myObject, 'options', { Small: 1, Medium: 10, Large: 100 });
+		gui.add(myObject, 'boolean');
+		gui.add(myObject, 'string');
+		gui.add(myObject, 'number', 0, 1);
+		gui.addColor(myObject, 'color');
+		gui.add(myObject, 'function');
+	</script>
 
-gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
-gui.add( myObject, 'boolean' );
-gui.add( myObject, 'string' );
-gui.add( myObject, 'number', 0, 1 );
-gui.addColor( myObject, 'color' );
-gui.add( myObject, 'function' );
-</script>
+	<div id="container">
 
-<div id="container">
+		<button id="toc-button">
+			TOC
+		</button>
 
-<div id="readme">
-<h1>lil-gui</h1>
+		<nav id="toc">
+			<div>
+
+			</div>
+		</nav>
+
+		<main>
+
+			<section id="readme">
+				<h1>lil-gui</h1>
 <p>Makes a floating panel for controllers on the web. API largely compatible with dat.gui.</p>
 <pre><code class="language-js"><span class="hljs-keyword">import</span> GUI <span class="hljs-keyword">from</span> <span class="hljs-string">'lil-gui'</span>; 
 
@@ -294,12 +387,18 @@ gui.add( myObject, <span class="hljs-string">'myProperty'</span> )
 gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 </code></pre>
 
-</div> 
+			</section>
 
-<div id="api">
-<!-- generated by scripts/api.js -->
-<h1>Modules</h1>
-<h2>GUI</h2>
+			<section id="tutorial">
+				<h1>Tutorial</h1>
+<p>todo</p>
+
+			</section>
+
+			<section id="api">
+				<!-- generated by scripts/api.js -->
+<h1>API</h1>
+<h2><a href="#GUI">GUI</a></h2>
 <ul>
 <li><a href="#GUI"><strong>constructor</strong></a></li>
 <li><a href="#GUI#add"><strong>add</strong>()</a> → Controller</li>
@@ -323,7 +422,7 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#GUI#_closed">_closed</a> : boolean</li>
 <li><a href="#GUI#_title">_title</a> : string</li>
 </ul>
-<h2>Controller</h2>
+<h2><a href="#Controller">Controller</a></h2>
 <ul>
 <li><a href="#Controller#name"><strong>name</strong>()</a> → this</li>
 <li><a href="#Controller#onChange"><strong>onChange</strong>()</a> → this</li>
@@ -352,8 +451,10 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <li><a href="#Controller#_onChange">_onChange</a> : function</li>
 </ul>
 <hr>
+<p><a name="GUI"></a></p>
 <h1>GUI</h1>
-<h2><a name="GUI"></a> new <strong>GUI</strong>( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )</h2>
+<p><a name="GUI"></a></p>
+<h2>new <strong>GUI</strong>( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -408,7 +509,8 @@ Optional:
 </ul>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L47" target="_blank">src/GUI.js:47</a></p>
 <hr>
-<h2><a name="GUI#add"></a> gui.<strong>add</strong>( object, property, [$1], [max], [step] )</h2>
+<p><a name="GUI#add"></a></p>
+<h2>gui.<strong>add</strong>( object, property, [$1], [max], [step] )</h2>
 <p>Adds a controller to the GUI, inferring controller type using the <code>typeof</code> operator.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -442,7 +544,8 @@ Optional:
 <p><strong>Returns</strong>: <code>Controller</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L170" target="_blank">src/GUI.js:170</a></p>
 <hr>
-<h2><a name="GUI#addColor"></a> gui.<strong>addColor</strong>( object : object, property : string, rgbScale=1 )</h2>
+<p><a name="GUI#addColor"></a></p>
+<h2>gui.<strong>addColor</strong>( object : object, property : string, rgbScale=1 )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -464,7 +567,8 @@ Default: <code>1</code></p>
 <p><strong>Returns</strong>: <code>Controller</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L212" target="_blank">src/GUI.js:212</a></p>
 <hr>
-<h2><a name="GUI#addFolder"></a> gui.<strong>addFolder</strong>( title : string )</h2>
+<p><a name="GUI#addFolder"></a></p>
+<h2>gui.<strong>addFolder</strong>( title : string )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -475,7 +579,8 @@ Required:
 <p><strong>Returns</strong>: <code>GUI</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L221" target="_blank">src/GUI.js:221</a></p>
 <hr>
-<h2><a name="GUI#getControllers"></a> gui.<strong>getControllers</strong>( recursive=true )</h2>
+<p><a name="GUI#getControllers"></a></p>
+<h2>gui.<strong>getControllers</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -485,7 +590,8 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>Controller[]</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L230" target="_blank">src/GUI.js:230</a></p>
 <hr>
-<h2><a name="GUI#getFolders"></a> gui.<strong>getFolders</strong>( recursive=true )</h2>
+<p><a name="GUI#getFolders"></a></p>
+<h2>gui.<strong>getFolders</strong>( recursive=true )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -495,7 +601,8 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>GUI[]</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244" target="_blank">src/GUI.js:244</a></p>
 <hr>
-<h2><a name="GUI#export"></a> gui.<strong>export</strong>( recursive=true )</h2>
+<p><a name="GUI#export"></a></p>
+<h2>gui.<strong>export</strong>( recursive=true )</h2>
 <p>Returns an object mapping controller names to values.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -505,7 +612,8 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>object</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L259" target="_blank">src/GUI.js:259</a></p>
 <hr>
-<h2><a name="GUI#import"></a> gui.<strong>import</strong>( obj : object, recursive=true )</h2>
+<p><a name="GUI#import"></a></p>
+<h2>gui.<strong>import</strong>( obj : object, recursive=true )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -522,7 +630,8 @@ Default: <code>true</code></p>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L273" target="_blank">src/GUI.js:273</a></p>
 <hr>
-<h2><a name="GUI#reset"></a> gui.<strong>reset</strong>( recursive=true )</h2>
+<p><a name="GUI#reset"></a></p>
+<h2>gui.<strong>reset</strong>( recursive=true )</h2>
 <p>Resets all controllers.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -532,7 +641,8 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L287" target="_blank">src/GUI.js:287</a></p>
 <hr>
-<h2><a name="GUI#title"></a> gui.<strong>title</strong>( title : string )</h2>
+<p><a name="GUI#title"></a></p>
+<h2>gui.<strong>title</strong>( title : string )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -543,7 +653,8 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L297" target="_blank">src/GUI.js:297</a></p>
 <hr>
-<h2><a name="GUI#open"></a> gui.<strong>open</strong>( open=true )</h2>
+<p><a name="GUI#open"></a></p>
+<h2>gui.<strong>open</strong>( open=true )</h2>
 <p>Opens a GUI or folder. GUI and folders are open by default.</p>
 <pre><code class="language-js">gui.open(); <span class="hljs-comment">// open</span>
 gui.open( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// close</span>
@@ -557,49 +668,61 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L316" target="_blank">src/GUI.js:316</a></p>
 <hr>
-<h2><a name="GUI#close"></a> gui.<strong>close</strong>()</h2>
+<p><a name="GUI#close"></a></p>
+<h2>gui.<strong>close</strong>()</h2>
 <p>todoc</p>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L326" target="_blank">src/GUI.js:326</a></p>
 <hr>
-<h2><a name="GUI#destroy"></a> gui.<strong>destroy</strong>()</h2>
+<p><a name="GUI#destroy"></a></p>
+<h2>gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L335" target="_blank">src/GUI.js:335</a></p>
 <hr>
-<h2><a name="GUI#children"></a> gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
+<p><a name="GUI#children"></a></p>
+<h2>gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
 <p>todoc</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L75" target="_blank">src/GUI.js:75</a></p>
 <hr>
-<h2><a name="GUI#domElement"></a> gui.<strong>domElement</strong> : HTMLElement</h2>
+<p><a name="GUI#domElement"></a></p>
+<h2>gui.<strong>domElement</strong> : HTMLElement</h2>
 <p>The outermost container element.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L87" target="_blank">src/GUI.js:87</a></p>
 <hr>
-<h2><a name="GUI#parent"></a> gui.<strong>parent</strong> : GUI</h2>
+<p><a name="GUI#parent"></a></p>
+<h2>gui.<strong>parent</strong> : GUI</h2>
 <p>todoc</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L63" target="_blank">src/GUI.js:63</a></p>
 <hr>
-<h2><a name="GUI#root"></a> gui.<strong>root</strong> : GUI</h2>
+<p><a name="GUI#root"></a></p>
+<h2>gui.<strong>root</strong> : GUI</h2>
 <p>todoc</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L69" target="_blank">src/GUI.js:69</a></p>
 <hr>
-<h2><a name="GUI#$children"></a> gui.<strong>$children</strong> : HTMLElement</h2>
+<p><a name="GUI#$children"></a></p>
+<h2>gui.<strong>$children</strong> : HTMLElement</h2>
 <p>The element that contains children.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L104" target="_blank">src/GUI.js:104</a></p>
 <hr>
-<h2><a name="GUI#$title"></a> gui.<strong>$title</strong> : HTMLElement</h2>
+<p><a name="GUI#$title"></a></p>
+<h2>gui.<strong>$title</strong> : HTMLElement</h2>
 <p>The element that contains the title.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L94" target="_blank">src/GUI.js:94</a></p>
 <hr>
-<h2><a name="GUI#_closed"></a> gui.<strong>_closed</strong> : boolean</h2>
+<p><a name="GUI#_closed"></a></p>
+<h2>gui.<strong>_closed</strong> : boolean</h2>
 <p>Used to determine if the GUI is closed. Use <code>gui.open()</code> or <code>gui.close()</code> to change this.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81" target="_blank">src/GUI.js:81</a></p>
 <hr>
-<h2><a name="GUI#_title"></a> gui.<strong>_title</strong> : string</h2>
+<p><a name="GUI#_title"></a></p>
+<h2>gui.<strong>_title</strong> : string</h2>
 <p>todoc</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L302" target="_blank">src/GUI.js:302</a></p>
 <hr>
+<p><a name="Controller"></a></p>
 <h1>Controller</h1>
-<h2><a name="Controller#name"></a> controller.<strong>name</strong>( name : string )</h2>
+<p><a name="Controller#name"></a></p>
+<h2>controller.<strong>name</strong>( name : string )</h2>
 <p>Sets the name of the controller and its label in the GUI.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -610,7 +733,8 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L79" target="_blank">src/Controller.js:79</a></p>
 <hr>
-<h2><a name="Controller#onChange"></a> controller.<strong>onChange</strong>( callback : function )</h2>
+<p><a name="Controller#onChange"></a></p>
+<h2>controller.<strong>onChange</strong>( callback : function )</h2>
 <p>Pass a function to be called whenever the value is modified by this controller.
 The function receives the new value as its first parameter and <code>this</code> will be bound to the
 controller.</p>
@@ -631,7 +755,8 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104" target="_blank">src/Controller.js:104</a></p>
 <hr>
-<h2><a name="Controller#setValue"></a> controller.<strong>setValue</strong>( value )</h2>
+<p><a name="Controller#setValue"></a></p>
+<h2>controller.<strong>setValue</strong>( value )</h2>
 <p>Sets <code>object[ property ]</code> to <code>value</code>, calls <code>_onChange()</code> and then <code>updateDisplay()</code>.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -642,17 +767,20 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a></p>
 <hr>
-<h2><a name="Controller#getValue"></a> controller.<strong>getValue</strong>()</h2>
+<p><a name="Controller#getValue"></a></p>
+<h2>controller.<strong>getValue</strong>()</h2>
 <p>Returns <code>object[ property ]</code>.</p>
 <p><strong>Returns</strong>: <code>any</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L141" target="_blank">src/Controller.js:141</a></p>
 <hr>
-<h2><a name="Controller#reset"></a> controller.<strong>reset</strong>()</h2>
+<p><a name="Controller#reset"></a></p>
+<h2>controller.<strong>reset</strong>()</h2>
 <p>Sets the controller back to its initial value.</p>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L149" target="_blank">src/Controller.js:149</a></p>
 <hr>
-<h2><a name="Controller#enable"></a> controller.<strong>enable</strong>( enabled=true )</h2>
+<p><a name="Controller#enable"></a></p>
+<h2>controller.<strong>enable</strong>( enabled=true )</h2>
 <p>Enables this controller.</p>
 <pre><code class="language-js">controller.enable();
 controller.enable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// disable</span>
@@ -666,7 +794,8 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a></p>
 <hr>
-<h2><a name="Controller#disable"></a> controller.<strong>disable</strong>( disabled=true )</h2>
+<p><a name="Controller#disable"></a></p>
+<h2>controller.<strong>disable</strong>( disabled=true )</h2>
 <p>Disables this controller.</p>
 <pre><code class="language-js">controller.disable();
 controller.disable( <span class="hljs-literal">false</span> ); <span class="hljs-comment">// enable</span>
@@ -680,11 +809,13 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L178" target="_blank">src/Controller.js:178</a></p>
 <hr>
-<h2><a name="Controller#destroy"></a> controller.<strong>destroy</strong>()</h2>
+<p><a name="Controller#destroy"></a></p>
+<h2>controller.<strong>destroy</strong>()</h2>
 <p>Destroys this controller and removes it from the parent GUI.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L187" target="_blank">src/Controller.js:187</a></p>
 <hr>
-<h2><a name="Controller#options"></a> controller.<strong>options</strong>( options : object|Array )</h2>
+<p><a name="Controller#options"></a></p>
+<h2>controller.<strong>options</strong>( options : object|Array )</h2>
 <p>Destroys this controller and adds a new option controller.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -695,7 +826,8 @@ Required:
 <p><strong>Returns</strong>: <code>Controller</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a></p>
 <hr>
-<h2><a name="Controller#min"></a> controller.<strong>min</strong>( min : number )</h2>
+<p><a name="Controller#min"></a></p>
+<h2>controller.<strong>min</strong>( min : number )</h2>
 <p>Sets the minimum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -706,7 +838,8 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L210" target="_blank">src/Controller.js:210</a></p>
 <hr>
-<h2><a name="Controller#max"></a> controller.<strong>max</strong>( max : number )</h2>
+<p><a name="Controller#max"></a></p>
+<h2>controller.<strong>max</strong>( max : number )</h2>
 <p>Sets the maximum value. Only works on number controllers.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -717,7 +850,8 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L220" target="_blank">src/Controller.js:220</a></p>
 <hr>
-<h2><a name="Controller#step"></a> controller.<strong>step</strong>( step : number )</h2>
+<p><a name="Controller#step"></a></p>
+<h2>controller.<strong>step</strong>( step : number )</h2>
 <p>Sets the step. Only works on number controllers.</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -728,13 +862,15 @@ Required:
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L230" target="_blank">src/Controller.js:230</a></p>
 <hr>
-<h2><a name="Controller#updateDisplay"></a> controller.<strong>updateDisplay</strong>()</h2>
+<p><a name="Controller#updateDisplay"></a></p>
+<h2>controller.<strong>updateDisplay</strong>()</h2>
 <p>Updates the display to keep it in sync with <code>getValue()</code>. Useful for updating your
 controllers when their values have been modified outside of the GUI.</p>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L239" target="_blank">src/Controller.js:239</a></p>
 <hr>
-<h2><a name="Controller#listen"></a> controller.<strong>listen</strong>( listen=true )</h2>
+<p><a name="Controller#listen"></a></p>
+<h2>controller.<strong>listen</strong>( listen=true )</h2>
 <p>Calls <code>updateDisplay()</code> every animation frame. Pass <code>false</code> to stop listening, and use
 <code>controller._listening</code> to access the listening state.</p>
 <p><strong>Parameters</strong>:</p>
@@ -745,62 +881,99 @@ Default: <code>true</code></li>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L258" target="_blank">src/Controller.js:258</a></p>
 <hr>
-<h2><a name="Controller#domElement"></a> controller.<strong>domElement</strong> : HTMLElement</h2>
+<p><a name="Controller#domElement"></a></p>
+<h2>controller.<strong>domElement</strong> : HTMLElement</h2>
 <p>The outermost container element.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L44" target="_blank">src/Controller.js:44</a></p>
 <hr>
-<h2><a name="Controller#initialValue"></a> controller.<strong>initialValue</strong> : any</h2>
+<p><a name="Controller#initialValue"></a></p>
+<h2>controller.<strong>initialValue</strong> : any</h2>
 <p>The value when the controller is created.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L38" target="_blank">src/Controller.js:38</a></p>
 <hr>
-<h2><a name="Controller#object"></a> controller.<strong>object</strong> : any</h2>
+<p><a name="Controller#object"></a></p>
+<h2>controller.<strong>object</strong> : any</h2>
 <p>The object this controller will modify.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L20" target="_blank">src/Controller.js:20</a></p>
 <hr>
-<h2><a name="Controller#parent"></a> controller.<strong>parent</strong> : GUI</h2>
+<p><a name="Controller#parent"></a></p>
+<h2>controller.<strong>parent</strong> : GUI</h2>
 <p>The GUI this controller belongs to.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L14" target="_blank">src/Controller.js:14</a></p>
 <hr>
-<h2><a name="Controller#property"></a> controller.<strong>property</strong> : string</h2>
+<p><a name="Controller#property"></a></p>
+<h2>controller.<strong>property</strong> : string</h2>
 <p>Name of the property to control.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L26" target="_blank">src/Controller.js:26</a></p>
 <hr>
-<h2><a name="Controller#$name"></a> controller.<strong>$name</strong> : HTMLElement</h2>
+<p><a name="Controller#$name"></a></p>
+<h2>controller.<strong>$name</strong> : HTMLElement</h2>
 <p>The element that contains the controller's name.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L52" target="_blank">src/Controller.js:52</a></p>
 <hr>
-<h2><a name="Controller#$widget"></a> controller.<strong>$widget</strong> : HTMLElement</h2>
+<p><a name="Controller#$widget"></a></p>
+<h2>controller.<strong>$widget</strong> : HTMLElement</h2>
 <p>The element that contains the controller's &quot;widget&quot;, like a checkbox or a slider.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L59" target="_blank">src/Controller.js:59</a></p>
 <hr>
-<h2><a name="Controller#_disabled"></a> controller.<strong>_disabled</strong> : boolean</h2>
+<p><a name="Controller#_disabled"></a></p>
+<h2>controller.<strong>_disabled</strong> : boolean</h2>
 <p>Used to determine if the controller is disabled.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L32" target="_blank">src/Controller.js:32</a></p>
 <hr>
-<h2><a name="Controller#_listening"></a> controller.<strong>_listening</strong> : boolean</h2>
+<p><a name="Controller#_listening"></a></p>
+<h2>controller.<strong>_listening</strong> : boolean</h2>
 <p>Used to determine if the controller is listening.  Use <code>controller.listen(true|false)</code> to
 change the listening state.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L265" target="_blank">src/Controller.js:265</a></p>
 <hr>
-<h2><a name="Controller#_name"></a> controller.<strong>_name</strong> : string</h2>
+<p><a name="Controller#_name"></a></p>
+<h2>controller.<strong>_name</strong> : string</h2>
 <p>Used to access the controller's name.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L84" target="_blank">src/Controller.js:84</a></p>
 <hr>
-<h2><a name="Controller#_onChange"></a> controller.<strong>_onChange</strong> : function</h2>
+<p><a name="Controller#_onChange"></a></p>
+<h2>controller.<strong>_onChange</strong> : function</h2>
 <p>A function that will be called whenever the value is modified via the GUI.
 The function receives the new value as its first parameter and <code>this</code> will be bound to
 the controller.</p>
 <p><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L111" target="_blank">src/Controller.js:111</a></p>
 <hr>
 
-</div>
+			</section>
 
-</div>
+		</main>
 
-<script type="text/javascript">
-window.jsdocDebug = [{"description":"todoc","params":[{"type":{"names":["object"]},"optional":true,"name":"options"},{"type":{"names":["boolean"]},"optional":true,"defaultvalue":true,"description":"Adds the GUI to `document.body` and applies fixed positioning.","name":"options.autoPlace"},{"type":{"names":["number"]},"optional":true,"defaultvalue":500,"description":"todoc","name":"options.mobileBreakpoint"},{"type":{"names":["number"]},"optional":true,"defaultvalue":200,"description":"todoc","name":"options.mobileMaxHeight"},{"type":{"names":["HTMLElement"]},"optional":true,"description":"Adds the GUI to this DOM element, overriding autoPlace.","name":"options.container"},{"type":{"names":["boolean"]},"optional":true,"defaultvalue":true,"description":"Injects the default stylesheet as the first child of `document.head`.\nPass false when using your own stylesheet.","name":"options.injectStyles"},{"type":{"names":["string"]},"optional":true,"defaultvalue":"Controls","description":"Name to display in the title bar.","name":"options.title"},{"type":{"names":["number"]},"optional":true,"description":"todoc","name":"options.width"},{"type":{"names":["string"]},"optional":true,"description":"If defined, the GUI will be hidden unless the specified string is found in `location.search`.\nYou can use this to hide the GUI until you visit `url.com/?debug` for example.","name":"options.queryKey"},{"type":{"names":["GUI"]},"optional":true,"description":"Adds this GUI as a child or \"folder\" in another GUI. Usually\nthis is done for you by `gui.addFolder()`.","name":"options.parent"}],"name":"GUI","longname":"GUI","kind":"class","indexname":"**constructor**","signature":"new **GUI**","parens":"( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )","memberof":"GUI","children":[{"description":"todoc","params":[{"type":{"names":["object"]},"optional":true,"name":"options"},{"type":{"names":["boolean"]},"optional":true,"defaultvalue":true,"description":"Adds the GUI to `document.body` and applies fixed positioning.","name":"options.autoPlace"},{"type":{"names":["number"]},"optional":true,"defaultvalue":500,"description":"todoc","name":"options.mobileBreakpoint"},{"type":{"names":["number"]},"optional":true,"defaultvalue":200,"description":"todoc","name":"options.mobileMaxHeight"},{"type":{"names":["HTMLElement"]},"optional":true,"description":"Adds the GUI to this DOM element, overriding autoPlace.","name":"options.container"},{"type":{"names":["boolean"]},"optional":true,"defaultvalue":true,"description":"Injects the default stylesheet as the first child of `document.head`.\nPass false when using your own stylesheet.","name":"options.injectStyles"},{"type":{"names":["string"]},"optional":true,"defaultvalue":"Controls","description":"Name to display in the title bar.","name":"options.title"},{"type":{"names":["number"]},"optional":true,"description":"todoc","name":"options.width"},{"type":{"names":["string"]},"optional":true,"description":"If defined, the GUI will be hidden unless the specified string is found in `location.search`.\nYou can use this to hide the GUI until you visit `url.com/?debug` for example.","name":"options.queryKey"},{"type":{"names":["GUI"]},"optional":true,"description":"Adds this GUI as a child or \"folder\" in another GUI. Usually\nthis is done for you by `gui.addFolder()`.","name":"options.parent"}],"name":"GUI","longname":"GUI","kind":"class","indexname":"**constructor**","signature":"new **GUI**","parens":"( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )","memberof":"GUI","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L47","definedat":"src/GUI.js:47"},{"description":"Adds a controller to the GUI, inferring controller type using the `typeof` operator.","params":[{"type":{"names":["any"]},"description":"The object the controller will modify.","name":"object"},{"type":{"names":["string"]},"description":"Name of the property to control.","name":"property"},{"type":{"names":["number","object","Array"]},"optional":true,"description":"Minimum value for number controllers, or the set of\nselectable values for a dropdown.","name":"$1"},{"type":{"names":["number"]},"optional":true,"description":"Maximum value for number controllers.","name":"max"},{"type":{"names":["number"]},"optional":true,"description":"Step value for number controllers.","name":"step"}],"returns":[{"type":{"names":["Controller"]}}],"name":"add","longname":"GUI#add","kind":"function","scope":"instance","memberof":"GUI","indexname":"**add**()","signature":"gui.**add**","parens":"( object, property, [$1], [max], [step] )","returntype":"Controller","indextype":"→ Controller","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L170","definedat":"src/GUI.js:170"},{"description":"todoc","params":[{"type":{"names":["object"]},"description":"todoc","name":"object"},{"type":{"names":["string"]},"description":"todoc","name":"property"},{"type":{"names":["number"]},"description":"todoc","name":"rgbScale","defaultvalue":1}],"returns":[{"type":{"names":["Controller"]}}],"name":"addColor","longname":"GUI#addColor","kind":"function","scope":"instance","memberof":"GUI","indexname":"**addColor**()","signature":"gui.**addColor**","parens":"( object : object, property : string, rgbScale=1 )","returntype":"Controller","indextype":"→ Controller","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L212","definedat":"src/GUI.js:212"},{"description":"todoc","params":[{"type":{"names":["string"]},"description":"todoc","name":"title"}],"returns":[{"type":{"names":["GUI"]}}],"name":"addFolder","longname":"GUI#addFolder","kind":"function","scope":"instance","memberof":"GUI","indexname":"**addFolder**()","signature":"gui.**addFolder**","parens":"( title : string )","returntype":"GUI","indextype":"→ GUI","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L221","definedat":"src/GUI.js:221"},{"description":"todoc","params":[{"type":{"names":["boolean"]},"name":"recursive","defaultvalue":true}],"returns":[{"type":{"names":["Controller[]"]}}],"name":"getControllers","longname":"GUI#getControllers","kind":"function","scope":"instance","memberof":"GUI","indexname":"**getControllers**()","signature":"gui.**getControllers**","parens":"( recursive=true )","returntype":"Controller[]","indextype":"→ Controller[]","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L230","definedat":"src/GUI.js:230"},{"description":"todoc","params":[{"type":{"names":["boolean"]},"name":"recursive","defaultvalue":true}],"returns":[{"type":{"names":["GUI[]"]}}],"name":"getFolders","longname":"GUI#getFolders","kind":"function","scope":"instance","memberof":"GUI","indexname":"**getFolders**()","signature":"gui.**getFolders**","parens":"( recursive=true )","returntype":"GUI[]","indextype":"→ GUI[]","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L244","definedat":"src/GUI.js:244"},{"description":"Returns an object mapping controller names to values.","params":[{"type":{"names":["boolean"]},"name":"recursive","defaultvalue":true}],"returns":[{"type":{"names":["object"]}}],"name":"export","longname":"GUI#export","kind":"function","scope":"instance","memberof":"GUI","indexname":"**export**()","signature":"gui.**export**","parens":"( recursive=true )","returntype":"object","indextype":"→ object","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L259","definedat":"src/GUI.js:259"},{"description":"todoc","params":[{"type":{"names":["object"]},"name":"obj"},{"type":{"names":["boolean"]},"name":"recursive","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"name":"import","longname":"GUI#import","kind":"function","scope":"instance","memberof":"GUI","indexname":"**import**()","signature":"gui.**import**","parens":"( obj : object, recursive=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L273","definedat":"src/GUI.js:273"},{"description":"Resets all controllers.","params":[{"type":{"names":["boolean"]},"name":"recursive","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"name":"reset","longname":"GUI#reset","kind":"function","scope":"instance","memberof":"GUI","indexname":"**reset**()","signature":"gui.**reset**","parens":"( recursive=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L287","definedat":"src/GUI.js:287"},{"description":"todoc","params":[{"type":{"names":["string"]},"name":"title"}],"returns":[{"type":{"names":["this"]}}],"name":"title","longname":"GUI#title","kind":"function","scope":"instance","memberof":"GUI","indexname":"**title**()","signature":"gui.**title**","parens":"( title : string )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L297","definedat":"src/GUI.js:297"},{"description":"Opens a GUI or folder. GUI and folders are open by default.","params":[{"type":{"names":["boolean"]},"description":"Pass false to close","name":"open","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"examples":["gui.open(); // open\ngui.open( false ); // close\ngui.open( gui._closed ); // toggle"],"name":"open","longname":"GUI#open","kind":"function","scope":"instance","memberof":"GUI","indexname":"**open**()","signature":"gui.**open**","parens":"( open=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L316","definedat":"src/GUI.js:316"},{"description":"todoc","returns":[{"type":{"names":["this"]}}],"name":"close","longname":"GUI#close","kind":"function","scope":"instance","memberof":"GUI","params":[],"indexname":"**close**()","signature":"gui.**close**","parens":"()","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L326","definedat":"src/GUI.js:326"},{"description":"todoc","name":"destroy","longname":"GUI#destroy","kind":"function","scope":"instance","memberof":"GUI","params":[],"indexname":"**destroy**()","signature":"gui.**destroy**","parens":"()","indextype":": void","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L335","definedat":"src/GUI.js:335"},{"description":"todoc","type":{"names":["Array<GUI|Controller>"]},"name":"children","longname":"GUI#children","kind":"member","memberof":"GUI","scope":"instance","indexname":"children","signature":"gui.**children**","indextype":": Array<GUI|Controller>","parens":" : Array<GUI|Controller>","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L75","definedat":"src/GUI.js:75"},{"description":"The outermost container element.","type":{"names":["HTMLElement"]},"name":"domElement","longname":"GUI#domElement","kind":"member","memberof":"GUI","scope":"instance","indexname":"domElement","signature":"gui.**domElement**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L87","definedat":"src/GUI.js:87"},{"description":"todoc","type":{"names":["GUI"]},"name":"parent","longname":"GUI#parent","kind":"member","memberof":"GUI","scope":"instance","indexname":"parent","signature":"gui.**parent**","indextype":": GUI","parens":" : GUI","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L63","definedat":"src/GUI.js:63"},{"description":"todoc","type":{"names":["GUI"]},"name":"root","longname":"GUI#root","kind":"member","memberof":"GUI","scope":"instance","indexname":"root","signature":"gui.**root**","indextype":": GUI","parens":" : GUI","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L69","definedat":"src/GUI.js:69"},{"description":"The element that contains children.","type":{"names":["HTMLElement"]},"name":"$children","longname":"GUI#$children","kind":"member","memberof":"GUI","scope":"instance","indexname":"$children","signature":"gui.**$children**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L104","definedat":"src/GUI.js:104"},{"description":"The element that contains the title.","type":{"names":["HTMLElement"]},"name":"$title","longname":"GUI#$title","kind":"member","memberof":"GUI","scope":"instance","indexname":"$title","signature":"gui.**$title**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L94","definedat":"src/GUI.js:94"},{"description":"Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.","type":{"names":["boolean"]},"name":"_closed","longname":"GUI#_closed","kind":"member","memberof":"GUI","scope":"instance","indexname":"_closed","signature":"gui.**_closed**","indextype":": boolean","parens":" : boolean","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L81","definedat":"src/GUI.js:81"},{"description":"todoc","type":{"names":["string"]},"name":"_title","longname":"GUI#_title","kind":"member","memberof":"GUI","scope":"instance","indexname":"_title","signature":"gui.**_title**","indextype":": string","parens":" : string","viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L302","definedat":"src/GUI.js:302"}],"viewsource":"https://github.com/georgealways/gui/blob/master/src/GUI.js#L47","definedat":"src/GUI.js:47"},{"name":"Controller","longname":"Controller","kind":"class","classdesc":"Base class for all controllers.","indexname":"Controller","description":"Base class for all controllers.","children":[{"description":"Sets the name of the controller and its label in the GUI.","params":[{"type":{"names":["string"]},"name":"name"}],"returns":[{"type":{"names":["this"]}}],"name":"name","longname":"Controller#name","kind":"function","scope":"instance","memberof":"Controller","indexname":"**name**()","signature":"controller.**name**","parens":"( name : string )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L79","definedat":"src/Controller.js:79"},{"description":"Pass a function to be called whenever the value is modified by this controller.\nThe function receives the new value as its first parameter and `this` will be bound to the\ncontroller.","params":[{"type":{"names":["function"]},"description":"todoc","name":"callback"}],"returns":[{"type":{"names":["this"]}}],"examples":["gui.add( object, 'property' ).onChange( v => {\n\tconsole.log( 'The value is now ' + v );\n} );\n\nconst controller = gui.add( object, 'property' ).onChange(function() {\n\tconsole.assert(this === controller);\n} );"],"name":"onChange","longname":"Controller#onChange","kind":"function","scope":"instance","memberof":"Controller","indexname":"**onChange**()","signature":"controller.**onChange**","parens":"( callback : function )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L104","definedat":"src/Controller.js:104"},{"description":"Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.","params":[{"type":{"names":["*"]},"name":"value"}],"returns":[{"type":{"names":["this"]}}],"name":"setValue","longname":"Controller#setValue","kind":"function","scope":"instance","memberof":"Controller","indexname":"**setValue**()","signature":"controller.**setValue**","parens":"( value )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L124","definedat":"src/Controller.js:124"},{"description":"Returns `object[ property ]`.","returns":[{"type":{"names":["any"]}}],"name":"getValue","longname":"Controller#getValue","kind":"function","scope":"instance","memberof":"Controller","params":[],"indexname":"**getValue**()","signature":"controller.**getValue**","parens":"()","returntype":"any","indextype":"→ any","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L141","definedat":"src/Controller.js:141"},{"description":"Sets the controller back to its initial value.","returns":[{"type":{"names":["this"]}}],"name":"reset","longname":"Controller#reset","kind":"function","scope":"instance","memberof":"Controller","params":[],"indexname":"**reset**()","signature":"controller.**reset**","parens":"()","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L149","definedat":"src/Controller.js:149"},{"description":"Enables this controller.","params":[{"type":{"names":["boolean"]},"name":"enabled","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"examples":["controller.enable();\ncontroller.enable( false ); // disable\ncontroller.enable( controller._disabled ); // toggle"],"name":"enable","longname":"Controller#enable","kind":"function","scope":"instance","memberof":"Controller","indexname":"**enable**()","signature":"controller.**enable**","parens":"( enabled=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L163","definedat":"src/Controller.js:163"},{"description":"Disables this controller.","params":[{"type":{"names":["boolean"]},"name":"disabled","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"examples":["controller.disable();\ncontroller.disable( false ); // enable\ncontroller.disable( !controller._disabled ); // toggle"],"name":"disable","longname":"Controller#disable","kind":"function","scope":"instance","memberof":"Controller","indexname":"**disable**()","signature":"controller.**disable**","parens":"( disabled=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L178","definedat":"src/Controller.js:178"},{"description":"Destroys this controller and removes it from the parent GUI.","name":"destroy","longname":"Controller#destroy","kind":"function","scope":"instance","memberof":"Controller","params":[],"indexname":"**destroy**()","signature":"controller.**destroy**","parens":"()","indextype":": void","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L187","definedat":"src/Controller.js:187"},{"description":"Destroys this controller and adds a new option controller.","params":[{"type":{"names":["object","Array"]},"name":"options"}],"returns":[{"type":{"names":["Controller"]}}],"name":"options","longname":"Controller#options","kind":"function","scope":"instance","memberof":"Controller","indexname":"**options**()","signature":"controller.**options**","parens":"( options : object|Array )","returntype":"Controller","indextype":"→ Controller","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L197","definedat":"src/Controller.js:197"},{"description":"Sets the minimum value. Only works on number controllers.","params":[{"type":{"names":["number"]},"name":"min"}],"returns":[{"type":{"names":["this"]}}],"name":"min","longname":"Controller#min","kind":"function","scope":"instance","memberof":"Controller","indexname":"**min**()","signature":"controller.**min**","parens":"( min : number )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L210","definedat":"src/Controller.js:210"},{"description":"Sets the maximum value. Only works on number controllers.","params":[{"type":{"names":["number"]},"name":"max"}],"returns":[{"type":{"names":["this"]}}],"name":"max","longname":"Controller#max","kind":"function","scope":"instance","memberof":"Controller","indexname":"**max**()","signature":"controller.**max**","parens":"( max : number )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L220","definedat":"src/Controller.js:220"},{"description":"Sets the step. Only works on number controllers.","params":[{"type":{"names":["number"]},"name":"step"}],"returns":[{"type":{"names":["this"]}}],"name":"step","longname":"Controller#step","kind":"function","scope":"instance","memberof":"Controller","indexname":"**step**()","signature":"controller.**step**","parens":"( step : number )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L230","definedat":"src/Controller.js:230"},{"description":"Updates the display to keep it in sync with `getValue()`. Useful for updating your\ncontrollers when their values have been modified outside of the GUI.","returns":[{"type":{"names":["this"]}}],"name":"updateDisplay","longname":"Controller#updateDisplay","kind":"function","scope":"instance","memberof":"Controller","params":[],"indexname":"**updateDisplay**()","signature":"controller.**updateDisplay**","parens":"()","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L239","definedat":"src/Controller.js:239"},{"description":"Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use\n`controller._listening` to access the listening state.","params":[{"type":{"names":["boolean"]},"name":"listen","defaultvalue":true}],"returns":[{"type":{"names":["this"]}}],"name":"listen","longname":"Controller#listen","kind":"function","scope":"instance","memberof":"Controller","indexname":"**listen**()","signature":"controller.**listen**","parens":"( listen=true )","returntype":"this","indextype":"→ this","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L258","definedat":"src/Controller.js:258"},{"description":"The outermost container element.","type":{"names":["HTMLElement"]},"name":"domElement","longname":"Controller#domElement","kind":"member","memberof":"Controller","scope":"instance","indexname":"domElement","signature":"controller.**domElement**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L44","definedat":"src/Controller.js:44"},{"description":"The value when the controller is created.","type":{"names":["any"]},"name":"initialValue","longname":"Controller#initialValue","kind":"member","memberof":"Controller","scope":"instance","indexname":"initialValue","signature":"controller.**initialValue**","indextype":": any","parens":" : any","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L38","definedat":"src/Controller.js:38"},{"description":"The object this controller will modify.","type":{"names":["any"]},"name":"object","longname":"Controller#object","kind":"member","memberof":"Controller","scope":"instance","indexname":"object","signature":"controller.**object**","indextype":": any","parens":" : any","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L20","definedat":"src/Controller.js:20"},{"description":"The GUI this controller belongs to.","type":{"names":["GUI"]},"name":"parent","longname":"Controller#parent","kind":"member","memberof":"Controller","scope":"instance","indexname":"parent","signature":"controller.**parent**","indextype":": GUI","parens":" : GUI","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L14","definedat":"src/Controller.js:14"},{"description":"Name of the property to control.","type":{"names":["string"]},"name":"property","longname":"Controller#property","kind":"member","memberof":"Controller","scope":"instance","indexname":"property","signature":"controller.**property**","indextype":": string","parens":" : string","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L26","definedat":"src/Controller.js:26"},{"description":"The element that contains the controller's name.","type":{"names":["HTMLElement"]},"name":"$name","longname":"Controller#$name","kind":"member","memberof":"Controller","scope":"instance","indexname":"$name","signature":"controller.**$name**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L52","definedat":"src/Controller.js:52"},{"description":"The element that contains the controller's \"widget\", like a checkbox or a slider.","type":{"names":["HTMLElement"]},"name":"$widget","longname":"Controller#$widget","kind":"member","memberof":"Controller","scope":"instance","indexname":"$widget","signature":"controller.**$widget**","indextype":": HTMLElement","parens":" : HTMLElement","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L59","definedat":"src/Controller.js:59"},{"description":"Used to determine if the controller is disabled.","type":{"names":["boolean"]},"name":"_disabled","longname":"Controller#_disabled","kind":"member","memberof":"Controller","scope":"instance","indexname":"_disabled","signature":"controller.**_disabled**","indextype":": boolean","parens":" : boolean","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L32","definedat":"src/Controller.js:32"},{"description":"Used to determine if the controller is listening.  Use `controller.listen(true|false)` to\nchange the listening state.","type":{"names":["boolean"]},"name":"_listening","longname":"Controller#_listening","kind":"member","memberof":"Controller","scope":"instance","indexname":"_listening","signature":"controller.**_listening**","indextype":": boolean","parens":" : boolean","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L265","definedat":"src/Controller.js:265"},{"description":"Used to access the controller's name.","type":{"names":["string"]},"name":"_name","longname":"Controller#_name","kind":"member","memberof":"Controller","scope":"instance","indexname":"_name","signature":"controller.**_name**","indextype":": string","parens":" : string","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L84","definedat":"src/Controller.js:84"},{"description":"A function that will be called whenever the value is modified via the GUI.\nThe function receives the new value as its first parameter and `this` will be bound to\nthe controller.","type":{"names":["function"]},"name":"_onChange","longname":"Controller#_onChange","kind":"member","memberof":"Controller","scope":"instance","indexname":"_onChange","signature":"controller.**_onChange**","indextype":": function","parens":" : function","viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L111","definedat":"src/Controller.js:111"}],"viewsource":"https://github.com/georgealways/gui/blob/master/src/Controller.js#L8","definedat":"src/Controller.js:8"}];
-console.log( "jsdocDebug", jsdocDebug );
-</script>
+	</div>
+
+	<script>
+		// todo: this should be done by homepage.js pre-render
+		const api = document.getElementById('api');
+		const toc = document.querySelector('#toc > div');
+		let foundHR = false;
+		Array.from(api.children).forEach(c => {
+			if (foundHR) return;
+			if (c.tagName === 'HR') {
+				foundHR = true;
+			} else if (c.tagName !== 'H1') {
+				toc.appendChild(c);
+			}
+		});
+
+
+		const tocButton = document.getElementById('toc-button');
+		tocButton.addEventListener('click',()=>{
+			document.body.classList.toggle('toc-open');
+		});
+
+		Array.from(document.querySelectorAll('nav a')).forEach(a=>{
+			a.addEventListener('click', ()=>{
+				document.body.classList.remove('toc-open');
+			})
+		})
+	</script>
+
+	
 
 </body>
 </html>

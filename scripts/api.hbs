@@ -4,7 +4,7 @@
 
 {{#jsdocData}}
 
-## {{name}}
+## [{{name}}](#{{{longname}}}) 
 
 {{#children}}
 - [{{indexname}}](#{{{longname}}}) {{indextype}}
@@ -16,11 +16,15 @@
 
 {{#jsdocData}}
 
+<a name="{{{longname}}}"></a>
+
 # {{name}}
 
 {{#children}}
 
-## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
+<a name="{{{longname}}}"></a>
+
+## {{{signature}}}{{{parens}}}
 
 {{{description}}}
 
