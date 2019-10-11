@@ -65,8 +65,9 @@ function stylesheet( min = false ) {
 
 function strip() {
 	const regexps = [
-		/^\s*\/\*\* @module.*\n/gm,
-		/^\s*\/[/*] eslint-.*\n/gm
+		/^\n?\t*\/\*\* @module.*\n/gm,
+		/^\n?\t*\/\* eslint-.*\n/gm,
+		/^\t*\/\/ eslint-.*\n/gm
 	];
 	return {
 		name: 'strip',

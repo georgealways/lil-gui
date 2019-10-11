@@ -1509,6 +1509,7 @@ class GUI {
 				return new FunctionController( this, object, property );
 
 		}
+
 		console.error( `Failed to add controller for "${property}"`, initialValue, object );
 
 	}
