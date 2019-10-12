@@ -26,9 +26,9 @@
 			--rule: #b59b85;
 			--background: #c7ab9d;
 			--foreground: #171618;
-			--link: #0000ff;
+			--link: #2700ff;
 			--pre-code: #d1d0cc;
-			--inline-code: purple;
+			--inline-code: #007565;
 			/* 
 			--code-number: #0093e9;
 			--code-string: #009439;
@@ -39,11 +39,11 @@
 
 
 			--code-number: #57b5e2;
-			--code-string: #9abd5a;
+			--code-string: #8ebd5a;
 			--code-literal: #cf72e6;
 			--code-special: #4bcbcb;
-			--code-comment: #738191;
-			--pre-background: #2e2b31;
+			--code-comment: #84858a;
+			--pre-background: #453a47;
 			/* --pre-background: #1a1a1a; */
 			--toc-width: 230px;
 			--toc-button-size: 40px;
@@ -405,10 +405,10 @@
 
 		const tocButton = document.getElementById('toc-button');
 		document.body.addEventListener('click', closeTOC);
-			toc.addEventListener('click', e => {
-				e.stopPropagation();
-			});
-			
+		toc.addEventListener('click', e => {
+			e.stopPropagation();
+		});
+
 
 		function openTOC() {
 			document.body.classList.add('toc-open');
