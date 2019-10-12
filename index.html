@@ -3,81 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
-	<title></title>
+	<title>lil-gui</title>
 	<style>
 		* {
 			box-sizing: border-box;
 		}
 
 		:root {
-			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
+			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+				'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+				'Segoe UI Symbol';
+			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace,
+				'Droid Sans Fallback';
 			--font-size: 15px;
 			--line-height: 1.6;
-			/* --background: #fffbf7;
-			--foreground: #252525;
-			--rule: #ccc;
-			--link: #0a8bfa; */
-
-			/* --background: #a09992;
-			--rule: #89827c; */
-
 			--rule: #b59b85;
 			--background: #c7ab9d;
 			--foreground: #171618;
-			--link: #2700ff;
+			--link: #0a008f;
 			--pre-code: #d1d0cc;
-			--inline-code: #007565;
-			/* 
-			--code-number: #0093e9;
-			--code-string: #009439;
-			--code-literal: #9514b5;
-			--code-special: #008097;
-			--code-comment: #738191;
-			--pre-background: #f8f2ec; */
-
-
+			--inline-code: #906400;
 			--code-number: #57b5e2;
-			--code-string: #8ebd5a;
+			--code-string: #a8bd5a;
 			--code-literal: #cf72e6;
 			--code-special: #4bcbcb;
 			--code-comment: #84858a;
-			--pre-background: #453a47;
-			/* --pre-background: #1a1a1a; */
+			--pre-background: #372d39;
 			--toc-width: 230px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
-			--anchor-offset: -13px;
+			--anchor-offset: -1rem;
 		}
 
-		/* @media (prefers-color-scheme: dark) {
-			:root {
-				--background: #141414;
-				--rule: #555;
-				--foreground: #ddd;
-				--link: #2cc9fe;
-				--pre-code: #d1d0cc;
-				--inline-code: #e8d796;
-				--code-number: #57b5e2;
-				--code-string: #aac35b;
-				--code-literal: #cf72e6;
-				--code-special: #4bcbcb;
-				--code-comment: #738191;
-				--pre-background: #1a1a1a;
-			}
-		} */
-
-		strong {
-			font-weight: 600;
-		}
 
 		:root,
 		body {
 			font-family: var(--font-family);
 			line-height: var(--line-height);
 			font-size: var(--font-size);
-			word-wrap: break-word;
 			padding: 0;
 			margin: 0;
 		}
@@ -85,7 +48,15 @@
 		body {
 			background-color: var(--background);
 			color: var(--foreground);
-			font-weight: normal;
+		}
+
+		a[name]:not([href]):empty {
+			position: absolute;
+			margin-top: var(--anchor-offset);
+		}
+
+		strong {
+			font-weight: 600;
 		}
 
 		img {
@@ -105,23 +76,22 @@
 		pre {
 			color: var(--pre-code);
 			background: var(--pre-background);
+			padding: 1rem;
+			overflow: auto;
 		}
+
 
 		code {
 			font-family: var(--font-family-code);
 			font-size: 1em;
 			line-height: 1.357em;
 			color: var(--inline-code);
-			/* background: var(--pre-background);
-			padding: 2px 3px; */
 		}
 
 		pre code {
 			font-family: var(--font-family-code);
-			background: none;
 			color: var(--pre-code);
 			tab-size: 4;
-			padding: 0;
 		}
 
 		hr {
@@ -134,12 +104,6 @@
 		h2,
 		h3 {
 			font-weight: normal;
-		}
-
-
-		section h1 {
-			font-size: 2em;
-			font-weight: 700;
 		}
 
 		h1 code,
@@ -166,17 +130,6 @@
 			border-top: 1px solid;
 		}
 
-		pre:not(.hljs),
-		pre.hljs code>div {
-			padding: 1rem;
-			overflow: auto;
-		}
-
-		pre:not(.hljs),
-		pre.hljs code>div,
-		code {
-			border-radius: 2px;
-		}
 
 		table>thead>tr>th {
 			text-align: left;
@@ -184,8 +137,6 @@
 			border-color: var(--rule);
 		}
 
-		h1,
-		hr,
 		table>tbody>tr+tr>td {
 			border-color: var(--rule);
 		}
@@ -246,14 +197,19 @@
 			font-style: italic;
 		}
 
+		section h1 {
+			font-size: 2em;
+			margin-block-start: 0.67em;
+			margin-block-end: 0.67em;
+			font-weight: 700;
+		}
+
 		#container {
 			display: flex;
 		}
 
 		main {
 			max-width: 700px;
-			padding: 1rem;
-			padding-left: 0;
 		}
 
 		#toc {
@@ -261,6 +217,7 @@
 			width: var(--toc-width);
 			position: relative;
 			z-index: 1002;
+			margin-right: 1rem;
 		}
 
 		#toc>div {
@@ -269,6 +226,23 @@
 			height: 100%;
 			padding: 1rem;
 			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
+			background: var(--background);
+			border-right: 2px solid var(--rule);
+		}
+
+		#toc {
+			font-size: smaller;
+		}
+
+		#toc h1,
+		#toc h2,
+		#toc h3 {
+			font-weight: 600;
+		}
+
+		#toc ul {
+			padding: 0;
+			list-style: none;
 		}
 
 		#toc-button {
@@ -279,11 +253,6 @@
 			height: var(--toc-button-size);
 			top: var(--toc-button-margin);
 			left: var(--toc-button-margin);
-		}
-
-		a[name]:not([href]) {
-			position: absolute;
-			margin-top: var(--anchor-offset);
 		}
 
 		@media (max-width: 900px) {
@@ -301,8 +270,8 @@
 			}
 
 			#toc>div {
+				border: 0;
 				box-shadow: -23px 0 10px 20px #0007;
-				background: var(--background);
 				padding-top: var(--padding-top);
 			}
 
@@ -317,20 +286,15 @@
 			}
 		}
 
+		@media (max-width: 500px) {
+			pre {
+				margin-left: -1rem;
+				margin-right: -1rem;
+			}
 
-		#toc * {
-			font-size: 12px;
-		}
-
-		#toc h1,
-		#toc h2,
-		#toc h3 {
-			font-weight: 600;
-		}
-
-		#toc ul {
-			padding: 0;
-			list-style: none;
+			body {
+				padding-bottom: 200px;
+			}
 		}
 
 	</style>
@@ -356,6 +320,14 @@
 		gui.add(myObject, 'number', 0, 1);
 		gui.addColor(myObject, 'color');
 		gui.add(myObject, 'function');
+
+		window.addEventListener('resize', onResize);
+		onResize();
+
+		function onResize() {
+			document.body.style.paddingBottom =
+				(gui.domElement.classList.contains('mobile') ? 200 : 0) + 'px';
+		}
 	</script>
 
 	<div id="container">
@@ -366,7 +338,6 @@
 
 		<nav id="toc">
 			<div>
-
 			</div>
 		</nav>
 
@@ -457,18 +428,18 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 <h2><a href="#GUI">GUI</a></h2>
 <ul>
 <li><a href="#GUI"><strong>constructor</strong></a></li>
-<li><a href="#GUI#add"><strong>add</strong>()</a> → Controller</li>
-<li><a href="#GUI#addColor"><strong>addColor</strong>()</a> → Controller</li>
-<li><a href="#GUI#addFolder"><strong>addFolder</strong>()</a> → GUI</li>
-<li><a href="#GUI#getControllers"><strong>getControllers</strong>()</a> → Controller[]</li>
-<li><a href="#GUI#getFolders"><strong>getFolders</strong>()</a> → GUI[]</li>
-<li><a href="#GUI#export"><strong>export</strong>()</a> → object</li>
-<li><a href="#GUI#import"><strong>import</strong>()</a> → this</li>
-<li><a href="#GUI#reset"><strong>reset</strong>()</a> → this</li>
-<li><a href="#GUI#title"><strong>title</strong>()</a> → this</li>
-<li><a href="#GUI#open"><strong>open</strong>()</a> → this</li>
-<li><a href="#GUI#close"><strong>close</strong>()</a> → this</li>
-<li><a href="#GUI#destroy"><strong>destroy</strong>()</a> : void</li>
+<li><a href="#GUI#add"><strong>add()</strong></a> → Controller</li>
+<li><a href="#GUI#addColor"><strong>addColor()</strong></a> → Controller</li>
+<li><a href="#GUI#addFolder"><strong>addFolder()</strong></a> → GUI</li>
+<li><a href="#GUI#getControllers"><strong>getControllers()</strong></a> → Controller[]</li>
+<li><a href="#GUI#getFolders"><strong>getFolders()</strong></a> → GUI[]</li>
+<li><a href="#GUI#export"><strong>export()</strong></a> → object</li>
+<li><a href="#GUI#import"><strong>import()</strong></a> → this</li>
+<li><a href="#GUI#reset"><strong>reset()</strong></a> → this</li>
+<li><a href="#GUI#title"><strong>title()</strong></a> → this</li>
+<li><a href="#GUI#open"><strong>open()</strong></a> → this</li>
+<li><a href="#GUI#close"><strong>close()</strong></a> → this</li>
+<li><a href="#GUI#destroy"><strong>destroy()</strong></a> : void</li>
 <li><a href="#GUI#children">children</a> : Array&lt;GUI|Controller&gt;</li>
 <li><a href="#GUI#domElement">domElement</a> : HTMLElement</li>
 <li><a href="#GUI#parent">parent</a> : GUI</li>
@@ -480,20 +451,20 @@ gui.addColor( colorFormats, <span class="hljs-string">'string'</span> );
 </ul>
 <h2><a href="#Controller">Controller</a></h2>
 <ul>
-<li><a href="#Controller#name"><strong>name</strong>()</a> → this</li>
-<li><a href="#Controller#onChange"><strong>onChange</strong>()</a> → this</li>
-<li><a href="#Controller#setValue"><strong>setValue</strong>()</a> → this</li>
-<li><a href="#Controller#getValue"><strong>getValue</strong>()</a> → any</li>
-<li><a href="#Controller#reset"><strong>reset</strong>()</a> → this</li>
-<li><a href="#Controller#enable"><strong>enable</strong>()</a> → this</li>
-<li><a href="#Controller#disable"><strong>disable</strong>()</a> → this</li>
-<li><a href="#Controller#destroy"><strong>destroy</strong>()</a> : void</li>
-<li><a href="#Controller#options"><strong>options</strong>()</a> → Controller</li>
-<li><a href="#Controller#min"><strong>min</strong>()</a> → this</li>
-<li><a href="#Controller#max"><strong>max</strong>()</a> → this</li>
-<li><a href="#Controller#step"><strong>step</strong>()</a> → this</li>
-<li><a href="#Controller#updateDisplay"><strong>updateDisplay</strong>()</a> → this</li>
-<li><a href="#Controller#listen"><strong>listen</strong>()</a> → this</li>
+<li><a href="#Controller#name"><strong>name()</strong></a> → this</li>
+<li><a href="#Controller#onChange"><strong>onChange()</strong></a> → this</li>
+<li><a href="#Controller#setValue"><strong>setValue()</strong></a> → this</li>
+<li><a href="#Controller#getValue"><strong>getValue()</strong></a> → any</li>
+<li><a href="#Controller#reset"><strong>reset()</strong></a> → this</li>
+<li><a href="#Controller#enable"><strong>enable()</strong></a> → this</li>
+<li><a href="#Controller#disable"><strong>disable()</strong></a> → this</li>
+<li><a href="#Controller#destroy"><strong>destroy()</strong></a> : void</li>
+<li><a href="#Controller#options"><strong>options()</strong></a> → Controller</li>
+<li><a href="#Controller#min"><strong>min()</strong></a> → this</li>
+<li><a href="#Controller#max"><strong>max()</strong></a> → this</li>
+<li><a href="#Controller#step"><strong>step()</strong></a> → this</li>
+<li><a href="#Controller#updateDisplay"><strong>updateDisplay()</strong></a> → this</li>
+<li><a href="#Controller#listen"><strong>listen()</strong></a> → this</li>
 <li><a href="#Controller#domElement">domElement</a> : HTMLElement</li>
 <li><a href="#Controller#initialValue">initialValue</a> : any</li>
 <li><a href="#Controller#object">object</a> : object</li>

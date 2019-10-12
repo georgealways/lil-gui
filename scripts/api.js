@@ -66,10 +66,10 @@ function transform( v ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
 
-		v.indexname = `**${v.indexname}**`;
+		v.indexname = `**${v.name}**`;
 
 		if ( v.params ) {
-			v.indexname += '()';
+			v.indexname = `**${v.name}()**`;
 			v.parens = paramsToSignature( v.params );
 		}
 

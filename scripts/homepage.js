@@ -35,7 +35,8 @@ const html = template( {
 	readme: md.render( read( README ) ),
 	api: md.render( read( API ) ),
 	tutorial: md.render( read( TUTORIAL ) ),
-	jsdocDebug
+	jsdocDebug,
+	pkg
 } ).replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
 // makes hardcoded links in readme relative on real site
 

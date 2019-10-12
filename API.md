@@ -5,18 +5,18 @@
 ## [GUI](#GUI) 
 
 - [**constructor**](#GUI) 
-- [**add**()](#GUI#add) → Controller
-- [**addColor**()](#GUI#addColor) → Controller
-- [**addFolder**()](#GUI#addFolder) → GUI
-- [**getControllers**()](#GUI#getControllers) → Controller[]
-- [**getFolders**()](#GUI#getFolders) → GUI[]
-- [**export**()](#GUI#export) → object
-- [**import**()](#GUI#import) → this
-- [**reset**()](#GUI#reset) → this
-- [**title**()](#GUI#title) → this
-- [**open**()](#GUI#open) → this
-- [**close**()](#GUI#close) → this
-- [**destroy**()](#GUI#destroy) : void
+- [**add()**](#GUI#add) → Controller
+- [**addColor()**](#GUI#addColor) → Controller
+- [**addFolder()**](#GUI#addFolder) → GUI
+- [**getControllers()**](#GUI#getControllers) → Controller[]
+- [**getFolders()**](#GUI#getFolders) → GUI[]
+- [**export()**](#GUI#export) → object
+- [**import()**](#GUI#import) → this
+- [**reset()**](#GUI#reset) → this
+- [**title()**](#GUI#title) → this
+- [**open()**](#GUI#open) → this
+- [**close()**](#GUI#close) → this
+- [**destroy()**](#GUI#destroy) : void
 - [children](#GUI#children) : Array&lt;GUI|Controller&gt;
 - [domElement](#GUI#domElement) : HTMLElement
 - [parent](#GUI#parent) : GUI
@@ -28,20 +28,20 @@
 
 ## [Controller](#Controller) 
 
-- [**name**()](#Controller#name) → this
-- [**onChange**()](#Controller#onChange) → this
-- [**setValue**()](#Controller#setValue) → this
-- [**getValue**()](#Controller#getValue) → any
-- [**reset**()](#Controller#reset) → this
-- [**enable**()](#Controller#enable) → this
-- [**disable**()](#Controller#disable) → this
-- [**destroy**()](#Controller#destroy) : void
-- [**options**()](#Controller#options) → Controller
-- [**min**()](#Controller#min) → this
-- [**max**()](#Controller#max) → this
-- [**step**()](#Controller#step) → this
-- [**updateDisplay**()](#Controller#updateDisplay) → this
-- [**listen**()](#Controller#listen) → this
+- [**name()**](#Controller#name) → this
+- [**onChange()**](#Controller#onChange) → this
+- [**setValue()**](#Controller#setValue) → this
+- [**getValue()**](#Controller#getValue) → any
+- [**reset()**](#Controller#reset) → this
+- [**enable()**](#Controller#enable) → this
+- [**disable()**](#Controller#disable) → this
+- [**destroy()**](#Controller#destroy) : void
+- [**options()**](#Controller#options) → Controller
+- [**min()**](#Controller#min) → this
+- [**max()**](#Controller#max) → this
+- [**step()**](#Controller#step) → this
+- [**updateDisplay()**](#Controller#updateDisplay) → this
+- [**listen()**](#Controller#listen) → this
 - [domElement](#Controller#domElement) : HTMLElement
 - [initialValue](#Controller#initialValue) : any
 - [object](#Controller#object) : object
