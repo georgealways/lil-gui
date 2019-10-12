@@ -17,12 +17,12 @@
 				'Droid Sans Fallback';
 			--font-size: 15px;
 			--line-height: 1.6;
-			--rule: #b59b85;
-			--background: #c7ab9d;
+			--rule: #b7b1ae;
+			--background: #d4c9c4;
 			--foreground: #171618;
 			--link: #005dcc;
 			--pre-code: #d1d0cc;
-			--inline-code: #906400;
+			--inline-code: #926501;
 			--code-number: #57b5e2;
 			--code-string: #a8bd5a;
 			--code-literal: #cf72e6;
@@ -67,6 +67,10 @@
 		a {
 			color: var(--link);
 			text-decoration: none;
+		}
+
+		a[href^="#"] {
+			color: var(--foreground);
 		}
 
 		a:hover {
