@@ -23,7 +23,7 @@ rules:
   key-spacing: [ warn, { mode: minimum } ]
   keyword-spacing: warn
   linebreak-style: [ warn, unix ]
-  max-len: [ warn, { code: 100 } ]
+  max-len: [ warn, { code: 120 } ]
   new-parens: warn
   no-console: warn
   no-empty: warn

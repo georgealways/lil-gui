@@ -134,18 +134,27 @@ export default class GUI {
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
 
+				this._onResize = () => {
+
+					// Adds a scrollbar to an autoPlace GUI if it's taller than the window
+					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+
+					// Toggles 'mobile' class via JS (as opposed to @media query) to make the
+					// breakpoint configurable via constructor
+					this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+
+				};
+
+				window.addEventListener( 'resize', this._onResize );
+				this._onResize();
+
+				// Height is clamped on mobile
+				this.mobileMaxHeight = mobileMaxHeight;
+
+				// Allows you to change the height on mobile by dragging the title
+				this._initMobileMaxHeight();
+
 			}
-
-			this.mobileMaxHeight = mobileMaxHeight;
-			this._initMobileMaxHeight();
-
-			this._onResize = () => {
-				this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-				this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-			};
-			this._onResize();
-
-			window.addEventListener( 'resize', this._onResize );
 
 		}
 
@@ -252,16 +261,13 @@ export default class GUI {
 	}
 
 	/**
-	 * Returns an object mapping controller names to values.
+	 * Resets all controllers.
 	 * @param {boolean} recursive
-	 * @returns {object}
+	 * @returns {this}
 	 */
-	export( recursive = true ) {
-		const obj = {};
-		this.getControllers( recursive ).forEach( c => {
-			obj[ c._name ] = c.export();
-		} );
-		return obj;
+	reset( recursive = true ) {
+		this.getControllers( recursive ).forEach( c => c.reset() );
+		return this;
 	}
 
 	/**
@@ -280,28 +286,16 @@ export default class GUI {
 	}
 
 	/**
-	 * Resets all controllers.
+	 * Returns an object mapping controller names to values.
 	 * @param {boolean} recursive
-	 * @returns {this}
+	 * @returns {object}
 	 */
-	reset( recursive = true ) {
-		this.getControllers( recursive ).forEach( c => c.reset() );
-		return this;
-	}
-
-	/**
-	 * todoc
-	 * @param {string} title
-	 * @returns {this}
-	 */
-	title( title ) {
-		/**
-		 * todoc
-		 * @type {string}
-		 */
-		this._title = title;
-		this.$title.innerHTML = title;
-		return this;
+	export( recursive = true ) {
+		const obj = {};
+		this.getControllers( recursive ).forEach( c => {
+			obj[ c._name ] = c.export();
+		} );
+		return obj;
 	}
 
 	/**
@@ -326,6 +320,21 @@ export default class GUI {
 	close() {
 		this._closed = true;
 		this.domElement.classList.add( 'closed' );
+		return this;
+	}
+
+	/**
+	 * todoc
+	 * @param {string} title
+	 * @returns {this}
+	 */
+	title( title ) {
+		/**
+		 * todoc
+		 * @type {string}
+		 */
+		this._title = title;
+		this.$title.innerHTML = title;
 		return this;
 	}
 

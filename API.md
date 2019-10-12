@@ -10,12 +10,12 @@
 - [**addFolder()**](#GUI#addFolder) → GUI
 - [**getControllers()**](#GUI#getControllers) → Controller[]
 - [**getFolders()**](#GUI#getFolders) → GUI[]
-- [**export()**](#GUI#export) → object
-- [**import()**](#GUI#import) → this
 - [**reset()**](#GUI#reset) → this
-- [**title()**](#GUI#title) → this
+- [**import()**](#GUI#import) → this
+- [**export()**](#GUI#export) → object
 - [**open()**](#GUI#open) → this
 - [**close()**](#GUI#close) → this
+- [**title()**](#GUI#title) → this
 - [**destroy()**](#GUI#destroy) : void
 - [children](#GUI#children) : Array&lt;GUI|Controller&gt;
 - [domElement](#GUI#domElement) : HTMLElement
@@ -30,18 +30,18 @@
 
 - [**name()**](#Controller#name) → this
 - [**onChange()**](#Controller#onChange) → this
-- [**setValue()**](#Controller#setValue) → this
-- [**getValue()**](#Controller#getValue) → any
 - [**reset()**](#Controller#reset) → this
 - [**enable()**](#Controller#enable) → this
 - [**disable()**](#Controller#disable) → this
-- [**destroy()**](#Controller#destroy) : void
 - [**options()**](#Controller#options) → Controller
 - [**min()**](#Controller#min) → this
 - [**max()**](#Controller#max) → this
 - [**step()**](#Controller#step) → this
-- [**updateDisplay()**](#Controller#updateDisplay) → this
 - [**listen()**](#Controller#listen) → this
+- [**getValue()**](#Controller#getValue) → any
+- [**setValue()**](#Controller#setValue) → this
+- [**updateDisplay()**](#Controller#updateDisplay) → this
+- [**destroy()**](#Controller#destroy) : void
 - [domElement](#Controller#domElement) : HTMLElement
 - [initialValue](#Controller#initialValue) : any
 - [object](#Controller#object) : object
@@ -140,7 +140,7 @@ Optional:
 
 **Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L170" target="_blank">src/GUI.js:170</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L179" target="_blank">src/GUI.js:179</a>
 ***
 
 <a name="GUI#addColor"></a>
@@ -164,7 +164,7 @@ Default: `1`
 
 **Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L212" target="_blank">src/GUI.js:212</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L221" target="_blank">src/GUI.js:221</a>
 ***
 
 <a name="GUI#addFolder"></a>
@@ -181,7 +181,7 @@ Required:
 
 **Returns**: `GUI`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L221" target="_blank">src/GUI.js:221</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L230" target="_blank">src/GUI.js:230</a>
 ***
 
 <a name="GUI#getControllers"></a>
@@ -197,7 +197,7 @@ Default: `true`
 
 **Returns**: `Controller[]`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L230" target="_blank">src/GUI.js:230</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L239" target="_blank">src/GUI.js:239</a>
 ***
 
 <a name="GUI#getFolders"></a>
@@ -213,23 +213,23 @@ Default: `true`
 
 **Returns**: `GUI[]`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244" target="_blank">src/GUI.js:244</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L253" target="_blank">src/GUI.js:253</a>
 ***
 
-<a name="GUI#export"></a>
+<a name="GUI#reset"></a>
 
-## gui.**export**( recursive=true )
+## gui.**reset**( recursive=true )
 
-Returns an object mapping controller names to values.
+Resets all controllers.
 
 **Parameters**:
 
  - **recursive**<br>
 Default: `true`
 
-**Returns**: `object`
+**Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L259" target="_blank">src/GUI.js:259</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L268" target="_blank">src/GUI.js:268</a>
 ***
 
 <a name="GUI#import"></a>
@@ -249,40 +249,23 @@ Default: `true`
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L273" target="_blank">src/GUI.js:273</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L279" target="_blank">src/GUI.js:279</a>
 ***
 
-<a name="GUI#reset"></a>
+<a name="GUI#export"></a>
 
-## gui.**reset**( recursive=true )
+## gui.**export**( recursive=true )
 
-Resets all controllers.
+Returns an object mapping controller names to values.
 
 **Parameters**:
 
  - **recursive**<br>
 Default: `true`
 
-**Returns**: `this`
+**Returns**: `object`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L287" target="_blank">src/GUI.js:287</a>
-***
-
-<a name="GUI#title"></a>
-
-## gui.**title**( title: string )
-
-todoc
-
-**Parameters**:
-
- - **title**<br>
-Required: 
-`string`
-
-**Returns**: `this`
-
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L297" target="_blank">src/GUI.js:297</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L293" target="_blank">src/GUI.js:293</a>
 ***
 
 <a name="GUI#open"></a>
@@ -304,7 +287,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L316" target="_blank">src/GUI.js:316</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L310" target="_blank">src/GUI.js:310</a>
 ***
 
 <a name="GUI#close"></a>
@@ -315,7 +298,24 @@ todoc
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L326" target="_blank">src/GUI.js:326</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L320" target="_blank">src/GUI.js:320</a>
+***
+
+<a name="GUI#title"></a>
+
+## gui.**title**( title: string )
+
+todoc
+
+**Parameters**:
+
+ - **title**<br>
+Required: 
+`string`
+
+**Returns**: `this`
+
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L331" target="_blank">src/GUI.js:331</a>
 ***
 
 <a name="GUI#destroy"></a>
@@ -324,7 +324,7 @@ todoc
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L335" target="_blank">src/GUI.js:335</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L344" target="_blank">src/GUI.js:344</a>
 ***
 
 <a name="GUI#children"></a>
@@ -396,7 +396,7 @@ Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to cha
 
 todoc
 
-<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L302" target="_blank">src/GUI.js:302</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L336" target="_blank">src/GUI.js:336</a>
 ***
 
 <a name="Controller"></a>
@@ -449,34 +449,6 @@ Required:
 <a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104" target="_blank">src/Controller.js:104</a>
 ***
 
-<a name="Controller#setValue"></a>
-
-## controller.**setValue**( value )
-
-Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
-
-**Parameters**:
-
- - **value**<br>
-Required: 
-`any`
-
-**Returns**: `this`
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a>
-***
-
-<a name="Controller#getValue"></a>
-
-## controller.**getValue**()
-
-Returns `object[ property ]`.
-
-**Returns**: `any`
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L141" target="_blank">src/Controller.js:141</a>
-***
-
 <a name="Controller#reset"></a>
 
 ## controller.**reset**()
@@ -485,7 +457,7 @@ Sets the controller back to its initial value.
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L149" target="_blank">src/Controller.js:149</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L123" target="_blank">src/Controller.js:123</a>
 ***
 
 <a name="Controller#enable"></a>
@@ -507,7 +479,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L137" target="_blank">src/Controller.js:137</a>
 ***
 
 <a name="Controller#disable"></a>
@@ -529,16 +501,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L178" target="_blank">src/Controller.js:178</a>
-***
-
-<a name="Controller#destroy"></a>
-
-## controller.**destroy**()
-
-Destroys this controller and removes it from the parent GUI.
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L187" target="_blank">src/Controller.js:187</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152" target="_blank">src/Controller.js:152</a>
 ***
 
 <a name="Controller#options"></a>
@@ -555,7 +518,7 @@ Required:
 
 **Returns**: `Controller`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a>
 ***
 
 <a name="Controller#min"></a>
@@ -572,7 +535,7 @@ Required:
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L210" target="_blank">src/Controller.js:210</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L176" target="_blank">src/Controller.js:176</a>
 ***
 
 <a name="Controller#max"></a>
@@ -589,7 +552,7 @@ Required:
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L220" target="_blank">src/Controller.js:220</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L186" target="_blank">src/Controller.js:186</a>
 ***
 
 <a name="Controller#step"></a>
@@ -606,19 +569,7 @@ Required:
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L230" target="_blank">src/Controller.js:230</a>
-***
-
-<a name="Controller#updateDisplay"></a>
-
-## controller.**updateDisplay**()
-
-Updates the display to keep it in sync with `getValue()`. Useful for updating your
-controllers when their values have been modified outside of the GUI.
-
-**Returns**: `this`
-
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L239" target="_blank">src/Controller.js:239</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L196" target="_blank">src/Controller.js:196</a>
 ***
 
 <a name="Controller#listen"></a>
@@ -635,7 +586,56 @@ Default: `true`
 
 **Returns**: `this`
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L258" target="_blank">src/Controller.js:258</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L206" target="_blank">src/Controller.js:206</a>
+***
+
+<a name="Controller#getValue"></a>
+
+## controller.**getValue**()
+
+Returns `object[ property ]`.
+
+**Returns**: `any`
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L237" target="_blank">src/Controller.js:237</a>
+***
+
+<a name="Controller#setValue"></a>
+
+## controller.**setValue**( value )
+
+todoc
+
+**Parameters**:
+
+ - **value**<br>
+Required: 
+`any`
+
+**Returns**: `this`
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L246" target="_blank">src/Controller.js:246</a>
+***
+
+<a name="Controller#updateDisplay"></a>
+
+## controller.**updateDisplay**()
+
+Updates the display to keep it in sync with `getValue()`. Useful for updating your
+controllers when their values have been modified outside of the GUI.
+
+**Returns**: `this`
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L264" target="_blank">src/Controller.js:264</a>
+***
+
+<a name="Controller#destroy"></a>
+
+## controller.**destroy**()
+
+Destroys this controller and removes it from the parent GUI.
+
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L280" target="_blank">src/Controller.js:280</a>
 ***
 
 <a name="Controller#domElement"></a>
@@ -717,7 +717,7 @@ Used to determine if the controller is disabled.
 Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
 change the listening state.
 
-<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L265" target="_blank">src/Controller.js:265</a>
+<a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L213" target="_blank">src/Controller.js:213</a>
 ***
 
 <a name="Controller#_name"></a>

@@ -127,32 +127,6 @@
 		}
 
 		/**
-		 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
-		 * @param {any} value
-		 * @returns {this}
-		 */
-		setValue( value ) {
-			this.object[ this.property ] = value;
-			this._callOnChange();
-			this.updateDisplay();
-			return this;
-		}
-
-		_callOnChange() {
-			if ( this._onChange !== undefined ) {
-				this._onChange.call( this, this.getValue() );
-			}
-		}
-
-		/**
-		 * Returns `object[ property ]`.
-		 * @returns {any}
-		 */
-		getValue() {
-			return this.object[ this.property ];
-		}
-
-		/**
 		 * Sets the controller back to its initial value.
 		 * @returns {this}
 		 */
@@ -189,14 +163,6 @@
 			this._disabled = disabled;
 			this.domElement.classList.toggle( 'disabled', this._disabled );
 			return this;
-		}
-
-		/**
-		 * Destroys this controller and removes it from the parent GUI.
-		 */
-		destroy() {
-			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
-			this.parent.$children.removeChild( this.domElement );
 		}
 
 		/**
@@ -239,24 +205,6 @@
 		}
 
 		/**
-		 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
-		 * controllers when their values have been modified outside of the GUI.
-		 * @returns {this}
-		 */
-		updateDisplay() {
-			return this;
-		}
-
-		export() {
-			return this.getValue();
-		}
-
-		import( value ) {
-			this.setValue( value );
-			return this;
-		}
-
-		/**
 		 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 		 * `controller._listening` to access the listening state.
 		 * @param {boolean} listen
@@ -287,6 +235,58 @@
 		_listenCallback() {
 			this._listenCallbackID = requestAnimationFrame( this._listenCallback );
 			this.updateDisplay();
+		}
+
+		/**
+		 * Returns `object[ property ]`.
+		 * @returns {any}
+		 */
+		getValue() {
+			return this.object[ this.property ];
+		}
+
+		/**
+		 * todoc
+		 * @param {any} value
+		 * @returns {this}
+		 */
+		setValue( value ) {
+			this.object[ this.property ] = value;
+			this._callOnChange();
+			this.updateDisplay();
+			return this;
+		}
+
+		_callOnChange() {
+			if ( this._onChange !== undefined ) {
+				this._onChange.call( this, this.getValue() );
+			}
+		}
+
+		/**
+		 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
+		 * controllers when their values have been modified outside of the GUI.
+		 * @returns {this}
+		 */
+		updateDisplay() {
+			return this;
+		}
+
+		import( value ) {
+			this.setValue( value );
+			return this;
+		}
+
+		export() {
+			return this.getValue();
+		}
+
+		/**
+		 * Destroys this controller and removes it from the parent GUI.
+		 */
+		destroy() {
+			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+			this.parent.$children.removeChild( this.domElement );
 		}
 
 	}
@@ -1452,18 +1452,27 @@
 					this.domElement.classList.add( 'autoPlace' );
 					document.body.appendChild( this.domElement );
 
+					this._onResize = () => {
+
+						// Adds a scrollbar to an autoPlace GUI if it's taller than the window
+						this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+
+						// Toggles 'mobile' class via JS (as opposed to @media query) to make the
+						// breakpoint configurable via constructor
+						this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+
+					};
+
+					window.addEventListener( 'resize', this._onResize );
+					this._onResize();
+
+					// Height is clamped on mobile
+					this.mobileMaxHeight = mobileMaxHeight;
+
+					// Allows you to change the height on mobile by dragging the title
+					this._initMobileMaxHeight();
+
 				}
-
-				this.mobileMaxHeight = mobileMaxHeight;
-				this._initMobileMaxHeight();
-
-				this._onResize = () => {
-					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-					this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-				};
-				this._onResize();
-
-				window.addEventListener( 'resize', this._onResize );
 
 			}
 
@@ -1569,16 +1578,13 @@
 		}
 
 		/**
-		 * Returns an object mapping controller names to values.
+		 * Resets all controllers.
 		 * @param {boolean} recursive
-		 * @returns {object}
+		 * @returns {this}
 		 */
-		export( recursive = true ) {
-			const obj = {};
-			this.getControllers( recursive ).forEach( c => {
-				obj[ c._name ] = c.export();
-			} );
-			return obj;
+		reset( recursive = true ) {
+			this.getControllers( recursive ).forEach( c => c.reset() );
+			return this;
 		}
 
 		/**
@@ -1597,28 +1603,16 @@
 		}
 
 		/**
-		 * Resets all controllers.
+		 * Returns an object mapping controller names to values.
 		 * @param {boolean} recursive
-		 * @returns {this}
+		 * @returns {object}
 		 */
-		reset( recursive = true ) {
-			this.getControllers( recursive ).forEach( c => c.reset() );
-			return this;
-		}
-
-		/**
-		 * todoc
-		 * @param {string} title
-		 * @returns {this}
-		 */
-		title( title ) {
-			/**
-			 * todoc
-			 * @type {string}
-			 */
-			this._title = title;
-			this.$title.innerHTML = title;
-			return this;
+		export( recursive = true ) {
+			const obj = {};
+			this.getControllers( recursive ).forEach( c => {
+				obj[ c._name ] = c.export();
+			} );
+			return obj;
 		}
 
 		/**
@@ -1643,6 +1637,21 @@
 		close() {
 			this._closed = true;
 			this.domElement.classList.add( 'closed' );
+			return this;
+		}
+
+		/**
+		 * todoc
+		 * @param {string} title
+		 * @returns {this}
+		 */
+		title( title ) {
+			/**
+			 * todoc
+			 * @type {string}
+			 */
+			this._title = title;
+			this.$title.innerHTML = title;
 			return this;
 		}
 

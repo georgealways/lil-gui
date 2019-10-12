@@ -117,32 +117,6 @@ export default class Controller {
 	}
 
 	/**
-	 * Sets `object[ property ]` to `value`, calls `_onChange()` and then `updateDisplay()`.
-	 * @param {any} value
-	 * @returns {this}
-	 */
-	setValue( value ) {
-		this.object[ this.property ] = value;
-		this._callOnChange();
-		this.updateDisplay();
-		return this;
-	}
-
-	_callOnChange() {
-		if ( this._onChange !== undefined ) {
-			this._onChange.call( this, this.getValue() );
-		}
-	}
-
-	/**
-	 * Returns `object[ property ]`.
-	 * @returns {any}
-	 */
-	getValue() {
-		return this.object[ this.property ];
-	}
-
-	/**
 	 * Sets the controller back to its initial value.
 	 * @returns {this}
 	 */
@@ -179,14 +153,6 @@ export default class Controller {
 		this._disabled = disabled;
 		this.domElement.classList.toggle( 'disabled', this._disabled );
 		return this;
-	}
-
-	/**
-	 * Destroys this controller and removes it from the parent GUI.
-	 */
-	destroy() {
-		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
-		this.parent.$children.removeChild( this.domElement );
 	}
 
 	/**
@@ -232,24 +198,6 @@ export default class Controller {
 	}
 
 	/**
-	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
-	 * controllers when their values have been modified outside of the GUI.
-	 * @returns {this}
-	 */
-	updateDisplay() {
-		return this;
-	}
-
-	export() {
-		return this.getValue();
-	}
-
-	import( value ) {
-		this.setValue( value );
-		return this;
-	}
-
-	/**
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
 	 * `controller._listening` to access the listening state.
 	 * @param {boolean} listen
@@ -280,6 +228,58 @@ export default class Controller {
 	_listenCallback() {
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
 		this.updateDisplay();
+	}
+
+	/**
+	 * Returns `object[ property ]`.
+	 * @returns {any}
+	 */
+	getValue() {
+		return this.object[ this.property ];
+	}
+
+	/**
+	 * todoc
+	 * @param {any} value
+	 * @returns {this}
+	 */
+	setValue( value ) {
+		this.object[ this.property ] = value;
+		this._callOnChange();
+		this.updateDisplay();
+		return this;
+	}
+
+	_callOnChange() {
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
+		}
+	}
+
+	/**
+	 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
+	 * controllers when their values have been modified outside of the GUI.
+	 * @returns {this}
+	 */
+	updateDisplay() {
+		return this;
+	}
+
+	import( value ) {
+		this.setValue( value );
+		return this;
+	}
+
+	export() {
+		return this.getValue();
+	}
+
+	/**
+	 * Destroys this controller and removes it from the parent GUI.
+	 */
+	destroy() {
+		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.$children.removeChild( this.domElement );
 	}
 
 }
