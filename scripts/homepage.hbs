@@ -19,7 +19,7 @@
 			--line-height: 1.6;
 			--rule: #b7b1ae;
 			--background: #d4c9c4;
-			--foreground: #171618;
+			--foreground: #262528;
 			--link: #005dcc;
 			--pre-code: #d1d0cc;
 			--inline-code: #926501;
@@ -33,6 +33,7 @@
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
 			--anchor-offset: -1rem;
+			--border-radius: 2px;
 		}
 
 
@@ -82,7 +83,7 @@
 			background: var(--pre-background);
 			padding: 1rem;
 			overflow: auto;
-			border-radius: 2px;
+			border-radius: var(--border-radius);
 		}
 
 
@@ -256,8 +257,16 @@
 			z-index: 1003;
 			width: var(--toc-button-size);
 			height: var(--toc-button-size);
+			font-size: calc(0.55*var(--toc-button-size));
+			line-height: 1;
 			top: var(--toc-button-margin);
 			left: var(--toc-button-margin);
+			border-radius: var(--border-radius);
+			background: var(--pre-background);
+			color: var(--pre-code);
+			outline: none;
+			cursor: pointer;
+			border: 2px solid var(--background);
 		}
 
 		@media (max-width: 900px) {
@@ -337,12 +346,20 @@
 
 	<div id="container">
 
-		<button id="toc-button">
-			TOC
-		</button>
+		<button id="toc-button">☲</button>
 
 		<nav id="toc">
 			<div>
+				<h1><a href="#Tutorial">Tutorial</a></h1>
+				<ul>
+					<li><a href="#Tutorial#Sliders">Sliders</a></li>
+					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
+					<li><a href="#Tutorial#Colors">Colors</a></li>
+					<li><a href="#Tutorial#Folders">Folders</a></li>
+					<li><a href="#Tutorial#Styling">Styling</a></li>
+					<li><a href="#Tutorial#Saving">Saving</a></li>
+				</ul>
+				<h1><a href="#API">API</a></h1>
 			</div>
 		</nav>
 
