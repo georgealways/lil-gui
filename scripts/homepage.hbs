@@ -218,7 +218,7 @@
 			max-width: 700px;
 		}
 
-		#toc {
+		#toc-container {
 			--toc-width: 230px;
 			width: var(--toc-width);
 			position: relative;
@@ -226,14 +226,18 @@
 			margin-right: 1rem;
 		}
 
-		#toc>div {
+		#toc {
 			position: fixed;
 			overflow: auto;
 			height: 100%;
 			padding: 1rem;
 			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
 			background: var(--background);
-			border-right: 2px solid var(--rule);
+			border-right: 1px solid var(--rule);
+		}
+
+		#toc a {
+			font-weight: 600;
 		}
 
 		#toc {
@@ -262,14 +266,16 @@
 			top: var(--toc-button-margin);
 			left: var(--toc-button-margin);
 			border-radius: var(--border-radius);
-			background: var(--pre-background);
-			color: var(--pre-code);
+			background: var(--background);
 			outline: none;
 			cursor: pointer;
-			border: 2px solid var(--background);
+			appearance: none;
+			border: 1px solid #0003;
+			border-bottom-width: 2px;
+			opacity: 0.85;
 		}
 
-		@media (max-width: 900px) {
+		@media (max-width: 958px) {
 			:root {
 				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
 				--anchor-offset: calc(-1*var(--padding-top));
@@ -283,13 +289,13 @@
 				display: block;
 			}
 
-			#toc>div {
+			#toc {
 				border: 0;
 				box-shadow: -23px 0 10px 20px #0007;
 				padding-top: var(--padding-top);
 			}
 
-			body:not(.toc-open) #toc>div {
+			body:not(.toc-open) #toc {
 				transform: translateX(calc(-1 * var(--toc-width)));
 			}
 
@@ -346,11 +352,15 @@
 
 	<div id="container">
 
-		<button id="toc-button">☲</button>
+		<button id="toc-button">⋯</button>
 
-		<nav id="toc">
-			<div>
-				<h1><a href="#Tutorial">Tutorial</a></h1>
+		<div id="toc-container">
+			<nav id="toc">
+
+				<h1><a href="#">{{ pkg.name }}</a></h1>
+				<p>{{ pkg.version }}</p>
+
+				<h2><a href="#Tutorial">Tutorial</a></h2>
 				<ul>
 					<li><a href="#Tutorial#Sliders">Sliders</a></li>
 					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
@@ -359,9 +369,10 @@
 					<li><a href="#Tutorial#Styling">Styling</a></li>
 					<li><a href="#Tutorial#Saving">Saving</a></li>
 				</ul>
-				<h1><a href="#API">API</a></h1>
-			</div>
-		</nav>
+				<h2><a href="#API">API</a></h2>
+
+			</nav>
+		</div>
 
 		<main>
 
@@ -382,7 +393,7 @@
 	</div>
 
 	<script>
-		const toc = document.querySelector('#toc > div');
+		const toc = document.getElementById('toc');
 
 		// todo: this should be done by homepage.js pre-render
 		const api = document.getElementById('API');

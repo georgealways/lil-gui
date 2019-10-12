@@ -30,7 +30,7 @@
 			this.object = object;
 
 			/**
-			 * Name of the property to control.
+			 * The name of the property to control.
 			 * @type {string}
 			 */
 			this.property = property;
@@ -264,7 +264,7 @@
 		}
 
 		/**
-		 * Updates the display to keep it in sync with `getValue()`. Useful for updating your
+		 * Updates the display to keep it in sync with the current value. Useful for updating your
 		 * controllers when their values have been modified outside of the GUI.
 		 * @returns {this}
 		 */

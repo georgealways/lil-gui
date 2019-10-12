@@ -2,57 +2,55 @@
 
 # API
 
-## [GUI](#GUI) 
+## [GUI](#GUI)
+  - [**constructor**](#GUI) 
+  - [**add()**](#GUI#add) → Controller
+  - [**addColor()**](#GUI#addColor) → Controller
+  - [**addFolder()**](#GUI#addFolder) → GUI
+  - [**getControllers()**](#GUI#getControllers) → Controller[]
+  - [**getFolders()**](#GUI#getFolders) → GUI[]
+  - [**reset()**](#GUI#reset) → this
+  - [**import()**](#GUI#import) → this
+  - [**export()**](#GUI#export) → object
+  - [**open()**](#GUI#open) → this
+  - [**close()**](#GUI#close) → this
+  - [**title()**](#GUI#title) → this
+  - [**destroy()**](#GUI#destroy) : void
+  - [children](#GUI#children) : Array&lt;GUI|Controller&gt;
+  - [domElement](#GUI#domElement) : HTMLElement
+  - [parent](#GUI#parent) : GUI
+  - [root](#GUI#root) : GUI
+  - [$children](#GUI#$children) : HTMLElement
+  - [$title](#GUI#$title) : HTMLElement
+  - [_closed](#GUI#_closed) : boolean
+  - [_title](#GUI#_title) : string
 
-- [**constructor**](#GUI) 
-- [**add()**](#GUI#add) → Controller
-- [**addColor()**](#GUI#addColor) → Controller
-- [**addFolder()**](#GUI#addFolder) → GUI
-- [**getControllers()**](#GUI#getControllers) → Controller[]
-- [**getFolders()**](#GUI#getFolders) → GUI[]
-- [**reset()**](#GUI#reset) → this
-- [**import()**](#GUI#import) → this
-- [**export()**](#GUI#export) → object
-- [**open()**](#GUI#open) → this
-- [**close()**](#GUI#close) → this
-- [**title()**](#GUI#title) → this
-- [**destroy()**](#GUI#destroy) : void
-- [children](#GUI#children) : Array&lt;GUI|Controller&gt;
-- [domElement](#GUI#domElement) : HTMLElement
-- [parent](#GUI#parent) : GUI
-- [root](#GUI#root) : GUI
-- [$children](#GUI#$children) : HTMLElement
-- [$title](#GUI#$title) : HTMLElement
-- [_closed](#GUI#_closed) : boolean
-- [_title](#GUI#_title) : string
-
-## [Controller](#Controller) 
-
-- [**name()**](#Controller#name) → this
-- [**onChange()**](#Controller#onChange) → this
-- [**reset()**](#Controller#reset) → this
-- [**enable()**](#Controller#enable) → this
-- [**disable()**](#Controller#disable) → this
-- [**options()**](#Controller#options) → Controller
-- [**min()**](#Controller#min) → this
-- [**max()**](#Controller#max) → this
-- [**step()**](#Controller#step) → this
-- [**listen()**](#Controller#listen) → this
-- [**getValue()**](#Controller#getValue) → any
-- [**setValue()**](#Controller#setValue) → this
-- [**updateDisplay()**](#Controller#updateDisplay) → this
-- [**destroy()**](#Controller#destroy) : void
-- [domElement](#Controller#domElement) : HTMLElement
-- [initialValue](#Controller#initialValue) : any
-- [object](#Controller#object) : object
-- [parent](#Controller#parent) : GUI
-- [property](#Controller#property) : string
-- [$name](#Controller#$name) : HTMLElement
-- [$widget](#Controller#$widget) : HTMLElement
-- [_disabled](#Controller#_disabled) : boolean
-- [_listening](#Controller#_listening) : boolean
-- [_name](#Controller#_name) : string
-- [_onChange](#Controller#_onChange) : function
+## [Controller](#Controller)
+  - [**name()**](#Controller#name) → this
+  - [**onChange()**](#Controller#onChange) → this
+  - [**reset()**](#Controller#reset) → this
+  - [**enable()**](#Controller#enable) → this
+  - [**disable()**](#Controller#disable) → this
+  - [**options()**](#Controller#options) → Controller
+  - [**min()**](#Controller#min) → this
+  - [**max()**](#Controller#max) → this
+  - [**step()**](#Controller#step) → this
+  - [**listen()**](#Controller#listen) → this
+  - [**getValue()**](#Controller#getValue) → any
+  - [**setValue()**](#Controller#setValue) → this
+  - [**updateDisplay()**](#Controller#updateDisplay) → this
+  - [**destroy()**](#Controller#destroy) : void
+  - [domElement](#Controller#domElement) : HTMLElement
+  - [initialValue](#Controller#initialValue) : any
+  - [object](#Controller#object) : object
+  - [parent](#Controller#parent) : GUI
+  - [property](#Controller#property) : string
+  - [$name](#Controller#$name) : HTMLElement
+  - [$widget](#Controller#$widget) : HTMLElement
+  - [_disabled](#Controller#_disabled) : boolean
+  - [_listening](#Controller#_listening) : boolean
+  - [_name](#Controller#_name) : string
+  - [_onChange](#Controller#_onChange) : function
 
 ***
 
@@ -621,7 +619,7 @@ Required:
 
 ## controller.**updateDisplay**()
 
-Updates the display to keep it in sync with `getValue()`. Useful for updating your
+Updates the display to keep it in sync with the current value. Useful for updating your
 controllers when their values have been modified outside of the GUI.
 
 **Returns**: `this`
@@ -678,7 +676,7 @@ The GUI this controller belongs to.
 
 ## controller.**property** : string
 
-Name of the property to control.
+The name of the property to control.
 
 <small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L26" target="_blank">src/Controller.js:26</a></small>
 ***
