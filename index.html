@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1">
-	<title>lil-gui</title>
+	<title>lil-gui 0.8.11</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -11,7 +11,7 @@
 
 		:root {
 			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-			 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace,
 				'Droid Sans Fallback';
 			--font-size: 15px;
@@ -353,9 +353,9 @@
 			<nav id="toc">
 
 				<h1><a href="#">lil-gui</a></h1>
-				<p>0.8.11</p>
 
 				<h2><a href="#Tutorial">Tutorial</a></h2>
+
 				<ul>
 					<li><a href="#Tutorial#Sliders">Sliders</a></li>
 					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
@@ -364,6 +364,7 @@
 					<li><a href="#Tutorial#Styling">Styling</a></li>
 					<li><a href="#Tutorial#Saving">Saving</a></li>
 				</ul>
+
 				<h2><a href="#API">API</a></h2>
 
 			</nav>
@@ -1044,6 +1045,9 @@ the controller.</p>
 
 	<script type="module">
 
+		// Basic demo
+		// ---------------------------------------------------------------------
+
 		import GUI from '../dist/lil-gui.esm.js';
 
 		const myObject = {
@@ -1063,6 +1067,15 @@ the controller.</p>
 		gui.add( myObject, 'number', 0, 1 );
 		gui.addColor( myObject, 'color' );
 		gui.add( myObject, 'function' );
+
+		{
+			// hide demo if scrolled
+			const onScroll = () => {
+				gui.close();
+				document.removeEventListener( 'scroll', onScroll );
+			};
+			document.addEventListener( 'scroll', onScroll );
+		}
 
 		// Table of contents
 		// ---------------------------------------------------------------------
@@ -1116,21 +1129,9 @@ the controller.</p>
 				myFunction: function () { alert( 'hi' ) }
 			};
 
-			gui.add( myObject, 'myBoolean' )
-				.onChange( v => {
-					replaceTextAfter( code, /myBoolean:\s*$/, v );
-				} );
-
-			gui.add( myObject, 'myString' )
-				.onChange( v => {
-					replaceTextAfter( code, /myString:\s*$/, stringify( v ) );
-				} );
-
-			gui.add( myObject, 'myNumber' )
-				.onChange( v => {
-					replaceTextAfter( code, /myNumber:\s*$/, v );
-				} );
-
+			gui.add( myObject, 'myBoolean' ).onChange( replacer( code, /myBoolean:\s*$/ ) );
+			gui.add( myObject, 'myString' ).onChange( replacer( code, /myString:\s*$/, stringify ) );
+			gui.add( myObject, 'myNumber' ).onChange( replacer( code, /myNumber:\s*$/ ) );
 			gui.add( myObject, 'myFunction' );
 
 		} );
@@ -1144,25 +1145,10 @@ the controller.</p>
 				color4: 0xaa00ff
 			};
 
-			gui.addColor( params, 'color1' )
-				.onChange( v => {
-					replaceTextAfter( code, /color1:\s*$/, stringify( v ) );
-				} );
-
-			gui.addColor( params, 'color2' )
-				.onChange( v => {
-					replaceTextAfter( code, /color2:\s*$/, stringify( v ) );
-				} );
-
-			gui.addColor( params, 'color3' )
-				.onChange( v => {
-					replaceTextAfter( code, /color3:\s*$/, stringify( v ) );
-				} );
-
-			gui.addColor( params, 'color4' )
-				.onChange( v => {
-					replaceTextAfter( code, /color4:\s*$/, v );
-				} );
+			gui.addColor( params, 'color1' ).onChange( replacer( code, /color1:\s*$/, stringify ) );
+			gui.addColor( params, 'color2' ).onChange( replacer( code, /color2:\s*$/, stringify ) );
+			gui.addColor( params, 'color3' ).onChange( replacer( code, /color3:\s*$/, stringify ) );
+			gui.addColor( params, 'color4' ).onChange( replacer( code, /color4:\s*$/ ) );
 
 		} );
 
@@ -1212,10 +1198,7 @@ the controller.</p>
 
 		} );
 
-		/**
-		 * @param {number} n
-		 * @param {function(GUI,HTMLElement)} callback
-		 */
+		/** @param {function(GUI,HTMLElement)} callback */
 		function example( n, callback ) {
 
 			const pre = document.querySelector( `#Tutorial > pre:nth-of-type(${n})` );
@@ -1233,33 +1216,40 @@ the controller.</p>
 			return `'${v.replace( /\\/g, '\\\\' ).replace( /'/g, "\\'" )}'`;
 		}
 
-		/**
-		 * @param {HTMLElement} element
-		 * @param {RegExp} re
-		 * @param {string} newText
-		 */
-		function replaceTextAfter( element, re, newText ) {
+		function findChildAfter( element, re ) {
 			let str = '';
-			let match;
 			for ( let i = 0; i < element.childNodes.length; i++ ) {
 				const node = element.childNodes.item( i );
 				if ( node instanceof Text ) {
 					str += node.nodeValue;
 				} else {
 					if ( re.test( str ) ) {
-						match = node;
-						break;
+						return node;
 					}
 					str += node.innerText;
 				}
 			}
-			if ( match ) {
-				match.innerHTML = newText;
-				match.classList.add( 'changed' );
-				setTimeout( () => {
-					match.classList.remove( 'changed' );
-				}, 30 );
+			console.error( 'Couldn\'t find element after ' + re );
+		}
+
+		function replaceContents( element, text ) {
+			element.innerHTML = text;
+			element.classList.add( 'changed' );
+			clearTimeout( element.timeout );
+			element.timeout = setTimeout( () => {
+				element.classList.remove( 'changed' );
+			}, 30 );
+		}
+
+		function replacer( element, re, transform = v => v ) {
+			const target = findChildAfter( element, re );
+			return function ( newValue ) {
+				replaceContents( target, transform( newValue ) );
 			}
+		}
+
+		function replaceTextAfter( element, re, text ) {
+			replaceContents( findChildAfter( element, re ), text );
 		}
 
 	</script>
