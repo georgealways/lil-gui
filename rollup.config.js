@@ -46,7 +46,7 @@ export default [
 	}
 ];
 
-function stylesheet( { min } ) {
+function stylesheet( min = false ) {
 	const path = min ? pkg.config.styleMin : pkg.config.style;
 	return {
 		name: 'stylesheet',
