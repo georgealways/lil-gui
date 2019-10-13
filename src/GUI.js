@@ -134,20 +134,6 @@ export default class GUI {
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
 
-				this._onResize = () => {
-
-					// Adds a scrollbar to an autoPlace GUI if it's taller than the window
-					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-
-					// Toggles 'mobile' class via JS (as opposed to @media query) to make the
-					// breakpoint configurable via constructor
-					this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-
-				};
-
-				window.addEventListener( 'resize', this._onResize );
-				this._onResize();
-
 				// Height is clamped on mobile
 				this.mobileMaxHeight = mobileMaxHeight;
 
@@ -157,6 +143,20 @@ export default class GUI {
 			}
 
 		}
+
+		this._onResize = () => {
+
+			// Adds a scrollbar to an autoPlace GUI if it's taller than the window
+			this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+
+			// Toggles 'mobile' class via JS (as opposed to @media query) to make the
+			// breakpoint configurable via constructor
+			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+
+		};
+
+		window.addEventListener( 'resize', this._onResize );
+		this._onResize();
 
 		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
 			this.domElement.style.display = 'none';

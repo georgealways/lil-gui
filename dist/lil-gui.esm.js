@@ -1045,6 +1045,16 @@ const stylesheet = `.lil-gui {
   --widget-border-radius:inherit;
   --checkbox-size:inherit;
 }
+.lil-gui.mobile {
+  --widget-height: 32px;
+  --padding: 8px;
+  --spacing: 8px;
+  --font-size: 16px;
+  --folder-indent: 12px;
+  --widget-padding: 0 0 0 5px;
+  --scrollbar-width: 7px;
+  width: 100%;
+}
 .lil-gui.autoPlace {
   position: fixed;
   top: 0;
@@ -1055,18 +1065,10 @@ const stylesheet = `.lil-gui {
   max-height: calc(var(--window-height) - var(--title-height));
 }
 .lil-gui.autoPlace.mobile {
-  --widget-height: 32px;
-  --padding: 8px;
-  --spacing: 8px;
-  --font-size: 16px;
-  --folder-indent: 12px;
-  --widget-padding: 0 0 0 5px;
-  --scrollbar-width: 7px;
   right: auto;
   top: auto;
   bottom: 0;
   left: 0;
-  width: 100%;
 }
 .lil-gui.autoPlace.mobile > .children {
   max-height: calc(var(--mobile-max-height) - var(--title-height));
@@ -1447,20 +1449,6 @@ class GUI {
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
 
-				this._onResize = () => {
-
-					// Adds a scrollbar to an autoPlace GUI if it's taller than the window
-					this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
-
-					// Toggles 'mobile' class via JS (as opposed to @media query) to make the
-					// breakpoint configurable via constructor
-					this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-
-				};
-
-				window.addEventListener( 'resize', this._onResize );
-				this._onResize();
-
 				// Height is clamped on mobile
 				this.mobileMaxHeight = mobileMaxHeight;
 
@@ -1470,6 +1458,20 @@ class GUI {
 			}
 
 		}
+
+		this._onResize = () => {
+
+			// Adds a scrollbar to an autoPlace GUI if it's taller than the window
+			this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+
+			// Toggles 'mobile' class via JS (as opposed to @media query) to make the
+			// breakpoint configurable via constructor
+			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+
+		};
+
+		window.addEventListener( 'resize', this._onResize );
+		this._onResize();
 
 		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
 			this.domElement.style.display = 'none';

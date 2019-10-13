@@ -93,6 +93,17 @@
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
 
+	&.mobile { 
+		--widget-height: 32px;
+		--padding: 8px;
+		--spacing: 8px;
+		--font-size: 16px;
+		--folder-indent: 12px;
+		--widget-padding: 0 0 0 5px;
+		--scrollbar-width: 7px;
+		width: 100%;
+	}
+
 	&.autoPlace {
 		position: fixed;
 		top: 0;
@@ -104,19 +115,11 @@
 		}
 
 		&.mobile {
-			--widget-height: 32px;
-			--padding: 8px;
-			--spacing: 8px;
-			--font-size: 16px;
-			--folder-indent: 12px;
-			--widget-padding: 0 0 0 5px;
-			--scrollbar-width: 7px;
 
 			right: auto;
 			top: auto;
 			bottom: 0;
 			left: 0;
-			width: 100%;
 
 			& > .children {
 				max-height: calc(var(--mobile-max-height) - var(--title-height));
