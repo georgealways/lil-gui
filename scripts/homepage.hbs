@@ -322,14 +322,22 @@
 			}
 		}
 
-		code span.changed {
+		#Tutorial code span.changed {
 			background-color: magenta;
 			transition: none;
 		}
 
-		code span {
+		#Tutorial code span {
 			background-color: transparent;
 			transition: background-color 0.5s linear;
+		}
+
+		#Tutorial .example-container {
+			border: 2px solid var(--rule);
+			padding: 1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
 	</style>
@@ -379,6 +387,10 @@
 	</div>
 
 	<script type="module">
+
+		// Basic example
+		// ---------------------------------------------------------------------
+
 		import GUI from '../dist/lil-gui.esm.js';
 
 		const myObject = {
@@ -398,6 +410,9 @@
 		gui.add(myObject, 'number', 0, 1);
 		gui.addColor(myObject, 'color');
 		gui.add(myObject, 'function');
+
+		// Table of contents
+		// ---------------------------------------------------------------------
 
 		const toc = document.getElementById('toc');
 
@@ -419,7 +434,6 @@
 			e.stopPropagation();
 		});
 
-
 		function openTOC() {
 			document.body.classList.add('toc-open');
 		}
@@ -437,13 +451,15 @@
 			a.addEventListener('click', closeTOC)
 		});
 
+		// Tutorial examples
+		// ---------------------------------------------------------------------
 
 		{
 
 			const pre = document.querySelector('#Tutorial > pre:nth-of-type(1)');
 			const code = pre.querySelector('code');
 
-			const container = makeContainerAfter(pre);
+			const container = makeExampleContainer(pre);
 
 			const gui = new GUI({ container });
 
@@ -456,30 +472,29 @@
 
 			gui.add(myObject, 'myBoolean')
 				.onChange(v => {
-					replaceTextAfter(code, /myBoolean: /, v);
+					replaceTextAfter(code, /myBoolean:\s*$/, v);
 				});
 
 			gui.add(myObject, 'myString')
 				.onChange(v => {
-					replaceTextAfter(code, /myString: /, stringify(v));
+					replaceTextAfter(code, /myString:\s*$/, stringify(v));
 				});
 
 			gui.add(myObject, 'myNumber')
 				.onChange(v => {
-					replaceTextAfter(code, /myNumber: /, v);
+					replaceTextAfter(code, /myNumber:\s*$/, v);
 				});
 
 			gui.add(myObject, 'myFunction');
 
 		}
 
-
 		{
 
 			const pre = document.querySelector('#Tutorial > pre:nth-of-type(4)');
 			const code = pre.querySelector('code');
 
-			const container = makeContainerAfter(pre);
+			const container = makeExampleContainer(pre);
 
 			const gui = new GUI({ container });
 
@@ -492,22 +507,82 @@
 
 			gui.addColor(params, 'color1')
 				.onChange(v => {
-					replaceTextAfter(code, /color1: /, stringify(v));
+					replaceTextAfter(code, /color1:\s*$/, stringify(v));
 				});
 
 			gui.addColor(params, 'color2')
 				.onChange(v => {
-					replaceTextAfter(code, /color2: /, stringify(v));
+					replaceTextAfter(code, /color2:\s*$/, stringify(v));
 				});
 
 			gui.addColor(params, 'color3')
 				.onChange(v => {
-					replaceTextAfter(code, /color3: /, stringify(v));
+					replaceTextAfter(code, /color3:\s*$/, stringify(v));
 				});
 
 			gui.addColor(params, 'color4')
 				.onChange(v => {
-					replaceTextAfter(code, /color4: /, v);
+					replaceTextAfter(code, /color4:\s*$/, v);
+				});
+
+		}
+
+		{
+
+			const pre = document.querySelector('#Tutorial > pre:nth-of-type(5)');
+			const code = pre.querySelector('code');
+
+			const container = makeExampleContainer(pre);
+
+			const gui = new GUI({ container });
+
+			const params = {
+				colorObject: { r: 0.667, g: 0, b: 1 },
+				colorArray: [0.667, 0, 1]
+			};
+
+			gui.addColor(params, 'colorObject')
+				.onChange(v => {
+					replaceTextAfter(code, /r:\s*$/, v.r);
+					replaceTextAfter(code, /g:\s*$/, v.g);
+					replaceTextAfter(code, /b:\s*$/, v.b);
+				});
+
+			gui.addColor(params, 'colorArray')
+				.onChange(v => {
+					replaceTextAfter(code, /\[\s*$/, v[0]);
+					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1]);
+					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2]);
+				});
+
+		}
+
+		{
+
+			const pre = document.querySelector('#Tutorial > pre:nth-of-type(6)');
+			const code = pre.querySelector('code');
+
+			const container = makeExampleContainer(pre);
+
+			const gui = new GUI({ container });
+
+			const params = {
+				colorObject: { r: 170, g: 0, b: 255 },
+				colorArray: [170, 0, 255]
+			};
+
+			gui.addColor(params, 'colorObject', 255)
+				.onChange(v => {
+					replaceTextAfter(code, /r:\s*$/, v.r);
+					replaceTextAfter(code, /g:\s*$/, v.g);
+					replaceTextAfter(code, /b:\s*$/, v.b);
+				});
+
+			gui.addColor(params, 'colorArray', 255)
+				.onChange(v => {
+					replaceTextAfter(code, /\[\s*$/, v[0]);
+					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1]);
+					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2]);
 				});
 
 		}
@@ -515,13 +590,6 @@
 		function stringify(v) {
 			return `'${v.replace(/'/g, "\\'")}'`;
 		}
-
-
-		// const test = document.querySelector('#Tutorial > pre:nth-child(12) > code');
-		// const test2 = document.querySelector('#Tutorial > pre:nth-child(14) > code');
-
-		// replaceTextAfter(test, /color1: /, '"YEA"');
-		// replaceTextAfter(test2, /r: /, '420');
 
 		/**
 		 * @param {HTMLElement} element
@@ -552,9 +620,9 @@
 			}
 		}
 
-		function makeContainerAfter(element) {
+		function makeExampleContainer(element) {
 			const container = document.createElement('div');
-			container.classList.add('example-gui-container');
+			container.classList.add('example-container');
 			element.parentElement.insertBefore(container, element.nextElementSibling);
 			return container;
 		}
