@@ -431,9 +431,10 @@ gui.add( object, 'property' ).onChange( v => {
 	console.log( 'The value is now ' + v );
 } );
 
-const controller = gui.add( object, 'property' ).onChange( function() {
-	console.assert(this === controller);
-} );
+const controller = gui.add( object, 'property' )
+	.onChange( function() {
+		console.assert(this === controller);
+	} );
 ```
 
 **Parameters**:
@@ -444,7 +445,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L104" target="_blank">src/Controller.js:104</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L105" target="_blank">src/Controller.js:105</a></small>
 ***
 
 <a name="Controller#reset"></a>
@@ -455,7 +456,7 @@ Sets the controller back to its initial value.
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L123" target="_blank">src/Controller.js:123</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L124" target="_blank">src/Controller.js:124</a></small>
 ***
 
 <a name="Controller#enable"></a>
@@ -477,7 +478,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L137" target="_blank">src/Controller.js:137</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L138" target="_blank">src/Controller.js:138</a></small>
 ***
 
 <a name="Controller#disable"></a>
@@ -499,7 +500,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L152" target="_blank">src/Controller.js:152</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L153" target="_blank">src/Controller.js:153</a></small>
 ***
 
 <a name="Controller#options"></a>
@@ -516,7 +517,7 @@ Required:
 
 **Returns**: `Controller`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L163" target="_blank">src/Controller.js:163</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L164" target="_blank">src/Controller.js:164</a></small>
 ***
 
 <a name="Controller#min"></a>
@@ -533,7 +534,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L176" target="_blank">src/Controller.js:176</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L177" target="_blank">src/Controller.js:177</a></small>
 ***
 
 <a name="Controller#max"></a>
@@ -550,7 +551,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L186" target="_blank">src/Controller.js:186</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L187" target="_blank">src/Controller.js:187</a></small>
 ***
 
 <a name="Controller#step"></a>
@@ -567,7 +568,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L196" target="_blank">src/Controller.js:196</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L197" target="_blank">src/Controller.js:197</a></small>
 ***
 
 <a name="Controller#listen"></a>
@@ -584,7 +585,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L206" target="_blank">src/Controller.js:206</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L207" target="_blank">src/Controller.js:207</a></small>
 ***
 
 <a name="Controller#getValue"></a>
@@ -595,7 +596,7 @@ Returns `object[ property ]`.
 
 **Returns**: `any`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L237" target="_blank">src/Controller.js:237</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L238" target="_blank">src/Controller.js:238</a></small>
 ***
 
 <a name="Controller#setValue"></a>
@@ -612,7 +613,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L246" target="_blank">src/Controller.js:246</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L247" target="_blank">src/Controller.js:247</a></small>
 ***
 
 <a name="Controller#updateDisplay"></a>
@@ -624,7 +625,7 @@ controllers when their values have been modified outside of the GUI.
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L264" target="_blank">src/Controller.js:264</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L265" target="_blank">src/Controller.js:265</a></small>
 ***
 
 <a name="Controller#destroy"></a>
@@ -633,7 +634,7 @@ controllers when their values have been modified outside of the GUI.
 
 Destroys this controller and removes it from the parent GUI.
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L280" target="_blank">src/Controller.js:280</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L281" target="_blank">src/Controller.js:281</a></small>
 ***
 
 <a name="Controller#domElement"></a>
@@ -715,7 +716,7 @@ Used to determine if the controller is disabled.
 Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
 change the listening state.
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L213" target="_blank">src/Controller.js:213</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L214" target="_blank">src/Controller.js:214</a></small>
 ***
 
 <a name="Controller#_name"></a>
@@ -735,6 +736,6 @@ A function that will be called whenever the value is modified via the GUI.
 The function receives the new value as its first parameter and `this` will be bound to
 the controller.
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L111" target="_blank">src/Controller.js:111</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/Controller.js#L112" target="_blank">src/Controller.js:112</a></small>
 ***
 
