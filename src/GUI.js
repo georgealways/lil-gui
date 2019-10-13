@@ -134,11 +134,8 @@ export default class GUI {
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
 
-				// Height is clamped on mobile
-				this.mobileMaxHeight = mobileMaxHeight;
-
 				// Allows you to change the height on mobile by dragging the title
-				this._initMobileMaxHeight();
+				this._initTitleDrag();
 
 			}
 
@@ -146,12 +143,13 @@ export default class GUI {
 
 		this._onResize = () => {
 
-			// Adds a scrollbar to an autoPlace GUI if it's taller than the window
-			this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+			// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
+			// configurable via constructor
+			const mobile = window.innerWidth <= mobileBreakpoint;
+			this.domElement.classList.toggle( 'mobile', mobile );
 
-			// Toggles 'mobile' class via JS (as opposed to @media query) to make the
-			// breakpoint configurable via constructor
-			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+			// Adds a scrollbar to an autoPlace GUI
+			this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
 
 		};
 
@@ -359,22 +357,29 @@ export default class GUI {
 
 	}
 
-	_initMobileMaxHeight() {
+	_initTitleDrag() {
 
 		let prevClientY;
 
 		const onTouchStart = e => {
-			if ( e.touches.length > 1 ) return;
+
+			const resize = this.domElement.classList.contains( 'mobile' ) &&
+				!this.domElement.classList.contains( 'closed' );
+
+			if ( !resize || e.touches.length > 1 ) return;
+
 			prevClientY = e.touches[ 0 ].clientY;
+
 			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 			window.addEventListener( 'touchend', onTouchEnd );
+
 		};
 
 		const onTouchMove = e => {
 			e.preventDefault();
 			const deltaY = e.touches[ 0 ].clientY - prevClientY;
 			prevClientY = e.touches[ 0 ].clientY;
-			this.mobileMaxHeight -= deltaY;
+			this._setMaxHeight( this._maxHeight - deltaY );
 		};
 
 		const onTouchEnd = () => {
@@ -386,13 +391,9 @@ export default class GUI {
 
 	}
 
-	get mobileMaxHeight() {
-		return this._mobileMaxHeight;
-	}
-
-	set mobileMaxHeight( v ) {
-		this._mobileMaxHeight = v;
-		this.domElement.style.setProperty( '--mobile-max-height', v + 'px' );
+	_setMaxHeight( v ) {
+		this._maxHeight = Math.min( v, window.innerHeight );
+		this.domElement.style.setProperty( '--max-height', v + 'px' );
 	}
 
 }

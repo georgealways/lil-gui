@@ -31,17 +31,15 @@
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
   --checkbox-size:calc(0.75 * var(--widget-height));
-  --width: 250px;
-  --scrollbar-width: 5px;
-  --mobile-max-height: 200px;
   --title-height: calc(var(--widget-height) + var(--spacing));
+  --scrollbar-width: 5px;
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
   margin: 0;
 }
 .lil-gui.root {
-  width: var(--width);
+  width: var(--width, 250px);
 }
 .lil-gui.root > .title {
   background: var(--title-background-color);
@@ -89,16 +87,13 @@
   z-index: 1001;
 }
 .lil-gui.autoPlace > .children {
-  max-height: calc(var(--window-height) - var(--title-height));
+  max-height: calc(var(--max-height) - var(--title-height));
 }
 .lil-gui.autoPlace.mobile {
-  right: auto;
   top: auto;
+  right: auto;
   bottom: 0;
   left: 0;
-}
-.lil-gui.autoPlace.mobile > .children {
-  max-height: calc(var(--mobile-max-height) - var(--title-height));
 }
 
 .lil-gui .controller {

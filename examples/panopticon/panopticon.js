@@ -20,6 +20,12 @@ autoPlaceGUI.add( myObject, 'function' );
 
 const panopticon = document.getElementById( 'panopticon' );
 
+if ( location.hash === '#long' ) {
+	for ( let i = 0; i < 50; i++ ) {
+		autoPlaceGUI.add( { x: i / 49 }, 'x', 0, 1 );
+	}
+}
+
 /**
  * @param {object} options
  * @param {function(GUI)} callback
@@ -150,7 +156,7 @@ make( { title: 'Folders' }, gui => {
 		const nested = getDepth( g ) > 0 ? 'Nested ' : '';
 		g.add( { x: 0.5 }, 'x', 0, 1 ).name( `${nested}Slider` );
 		g.add( { x: true }, 'x' ).name( `${nested}Boolean` );
-		g.add( { x: function(){} }, 'x' ).name( `${nested}Button` );
+		g.add( { x: function() { } }, 'x' ).name( `${nested}Button` );
 	}
 } );
 
@@ -191,7 +197,7 @@ make( { title: 'Customization' }, gui => {
 			update();
 			return true;
 		},
-		get( target, property ){
+		get( target, property ) {
 			return target[ property ];
 		}
 	} );

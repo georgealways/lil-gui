@@ -1007,17 +1007,15 @@ const stylesheet = `.lil-gui {
   --widget-padding: 0 0 0 3px;
   --widget-border-radius: 2px;
   --checkbox-size:calc(0.75 * var(--widget-height));
-  --width: 250px;
-  --scrollbar-width: 5px;
-  --mobile-max-height: 200px;
   --title-height: calc(var(--widget-height) + var(--spacing));
+  --scrollbar-width: 5px;
 }
 .lil-gui, .lil-gui * {
   box-sizing: border-box;
   margin: 0;
 }
 .lil-gui.root {
-  width: var(--width);
+  width: var(--width, 250px);
 }
 .lil-gui.root > .title {
   background: var(--title-background-color);
@@ -1065,16 +1063,13 @@ const stylesheet = `.lil-gui {
   z-index: 1001;
 }
 .lil-gui.autoPlace > .children {
-  max-height: calc(var(--window-height) - var(--title-height));
+  max-height: calc(var(--max-height) - var(--title-height));
 }
 .lil-gui.autoPlace.mobile {
-  right: auto;
   top: auto;
+  right: auto;
   bottom: 0;
   left: 0;
-}
-.lil-gui.autoPlace.mobile > .children {
-  max-height: calc(var(--mobile-max-height) - var(--title-height));
 }
 
 .lil-gui .controller {
@@ -1452,11 +1447,8 @@ class GUI {
 				this.domElement.classList.add( 'autoPlace' );
 				document.body.appendChild( this.domElement );
 
-				// Height is clamped on mobile
-				this.mobileMaxHeight = mobileMaxHeight;
-
 				// Allows you to change the height on mobile by dragging the title
-				this._initMobileMaxHeight();
+				this._initTitleDrag();
 
 			}
 
@@ -1464,12 +1456,13 @@ class GUI {
 
 		this._onResize = () => {
 
-			// Adds a scrollbar to an autoPlace GUI if it's taller than the window
-			this.domElement.style.setProperty( '--window-height', window.innerHeight + 'px' );
+			// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
+			// configurable via constructor
+			const mobile = window.innerWidth <= mobileBreakpoint;
+			this.domElement.classList.toggle( 'mobile', mobile );
 
-			// Toggles 'mobile' class via JS (as opposed to @media query) to make the
-			// breakpoint configurable via constructor
-			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
+			// Adds a scrollbar to an autoPlace GUI
+			this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
 
 		};
 
@@ -1676,22 +1669,29 @@ class GUI {
 
 	}
 
-	_initMobileMaxHeight() {
+	_initTitleDrag() {
 
 		let prevClientY;
 
 		const onTouchStart = e => {
-			if ( e.touches.length > 1 ) return;
+
+			const resize = this.domElement.classList.contains( 'mobile' ) &&
+				!this.domElement.classList.contains( 'closed' );
+
+			if ( !resize || e.touches.length > 1 ) return;
+
 			prevClientY = e.touches[ 0 ].clientY;
+
 			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 			window.addEventListener( 'touchend', onTouchEnd );
+
 		};
 
 		const onTouchMove = e => {
 			e.preventDefault();
 			const deltaY = e.touches[ 0 ].clientY - prevClientY;
 			prevClientY = e.touches[ 0 ].clientY;
-			this.mobileMaxHeight -= deltaY;
+			this._setMaxHeight( this._maxHeight - deltaY );
 		};
 
 		const onTouchEnd = () => {
@@ -1703,13 +1703,9 @@ class GUI {
 
 	}
 
-	get mobileMaxHeight() {
-		return this._mobileMaxHeight;
-	}
-
-	set mobileMaxHeight( v ) {
-		this._mobileMaxHeight = v;
-		this.domElement.style.setProperty( '--mobile-max-height', v + 'px' );
+	_setMaxHeight( v ) {
+		this._maxHeight = Math.min( v, window.innerHeight );
+		this.domElement.style.setProperty( '--max-height', v + 'px' );
 	}
 
 }

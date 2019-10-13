@@ -31,7 +31,7 @@
 	}
 
 	&.root {
-		width: var(--width);
+		width: var(--width, 250px);
 		> .title {
 			background: var(--title-background-color);
 		}
@@ -85,15 +85,13 @@
 		)
 	);
 
-	--width: 250px;
-	--scrollbar-width: 5px;
-	--mobile-max-height: 200px;
 	--title-height: calc(var(--widget-height) + var(--spacing));
+	--scrollbar-width: 5px;
 
 	// autoPlace & mobile
 	// -------------------------------------------------------------------------
 
-	&.mobile { 
+	&.mobile {
 		--widget-height: 32px;
 		--padding: 8px;
 		--spacing: 8px;
@@ -113,19 +111,14 @@
 		z-index: 1001;
 
 		& > .children {
-			max-height: calc(var(--window-height) - var(--title-height));
+			max-height: calc(var(--max-height) - var(--title-height));
 		}
 
 		&.mobile {
-
-			right: auto;
 			top: auto;
+			right: auto;
 			bottom: 0;
 			left: 0;
-
-			& > .children {
-				max-height: calc(var(--mobile-max-height) - var(--title-height));
-			}
 		}
 	}
 }
