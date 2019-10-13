@@ -23,7 +23,7 @@
   - [$children](#GUI#$children) : HTMLElement
   - [$title](#GUI#$title) : HTMLElement
   - [_closed](#GUI#_closed) : boolean
-  - [_title](#GUI#_title) : string
+  - [_title](#GUI#_title) : string|false
 
 ## [Controller](#Controller)
   - [**name()**](#Controller#name) → this
@@ -87,7 +87,7 @@ Optional:
 Pass false when using your own stylesheet.<br>
 Default: `true`
 
- - **options.title** - Name to display in the title bar.<br>
+ - **options.title** - Name to display in the title bar. Pass `false` to hide the title bar.<br>
 Default: `Controls`
 
  - **options.width** - todoc<br>
@@ -301,7 +301,7 @@ todoc
 
 <a name="GUI#title"></a>
 
-## gui.**title**( title: string )
+## gui.**title**( title: string|false )
 
 todoc
 
@@ -309,7 +309,7 @@ todoc
 
  - **title**<br>
 Required: 
-`string`
+`string` or `false`
 
 **Returns**: `this`
 
@@ -322,7 +322,7 @@ Required:
 
 todoc
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L342" target="_blank">src/GUI.js:342</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L347" target="_blank">src/GUI.js:347</a></small>
 ***
 
 <a name="GUI#children"></a>
@@ -390,7 +390,7 @@ Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to cha
 
 <a name="GUI#_title"></a>
 
-## gui.**_title** : string
+## gui.**_title** : string|false
 
 todoc
 

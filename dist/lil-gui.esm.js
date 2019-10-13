@@ -1344,8 +1344,8 @@ class GUI {
 	 * Injects the default stylesheet as the first child of `document.head`.
 	 * Pass false when using your own stylesheet.
 	 *
-	 * @param {string} [options.title=Controls]
-	 * Name to display in the title bar.
+	 * @param {string|false} [options.title=Controls]
+	 * Name to display in the title bar. Pass `false` to hide the title bar.
 	 *
 	 * @param {number} [options.width] todoc
 	 *
@@ -1635,16 +1635,21 @@ class GUI {
 
 	/**
 	 * todoc
-	 * @param {string} title
+	 * @param {string|false} title
 	 * @returns {this}
 	 */
 	title( title ) {
 		/**
 		 * todoc
-		 * @type {string}
+		 * @type {string|false}
 		 */
 		this._title = title;
-		this.$title.innerHTML = title;
+		if ( title === false ) {
+			this.$title.style.display = 'none';
+		} else {
+			this.$title.style.display = '';
+			this.$title.innerHTML = title;
+		}
 		return this;
 	}
 

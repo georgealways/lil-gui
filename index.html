@@ -516,7 +516,7 @@ gui.addColor( params, <span class="hljs-string">'colorArray'</span>, <span class
 <li><a href="#GUI#$children">$children</a> : HTMLElement</li>
 <li><a href="#GUI#$title">$title</a> : HTMLElement</li>
 <li><a href="#GUI#_closed">_closed</a> : boolean</li>
-<li><a href="#GUI#_title">_title</a> : string</li>
+<li><a href="#GUI#_title">_title</a> : string|false</li>
 </ul>
 <h2><a href="#Controller">Controller</a></h2>
 <ul>
@@ -582,7 +582,7 @@ Pass false when using your own stylesheet.<br>
 Default: <code>true</code></p>
 </li>
 <li>
-<p><strong>options.title</strong> - Name to display in the title bar.<br>
+<p><strong>options.title</strong> - Name to display in the title bar. Pass <code>false</code> to hide the title bar.<br>
 Default: <code>Controls</code></p>
 </li>
 <li>
@@ -759,13 +759,13 @@ Default: <code>true</code></li>
 <p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L318" target="_blank">src/GUI.js:318</a></small></p>
 <hr>
 <p><a name="GUI#title"></a></p>
-<h2>gui.<strong>title</strong>( title: string )</h2>
+<h2>gui.<strong>title</strong>( title: string|false )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
 <li><strong>title</strong><br>
 Required:
-<code>string</code></li>
+<code>string</code> or <code>false</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
 <p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a></small></p>
@@ -773,7 +773,7 @@ Required:
 <p><a name="GUI#destroy"></a></p>
 <h2>gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L342" target="_blank">src/GUI.js:342</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L347" target="_blank">src/GUI.js:347</a></small></p>
 <hr>
 <p><a name="GUI#children"></a></p>
 <h2>gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
@@ -811,7 +811,7 @@ Required:
 <p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L81" target="_blank">src/GUI.js:81</a></small></p>
 <hr>
 <p><a name="GUI#_title"></a></p>
-<h2>gui.<strong>_title</strong> : string</h2>
+<h2>gui.<strong>_title</strong> : string|false</h2>
 <p>todoc</p>
 <p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L334" target="_blank">src/GUI.js:334</a></small></p>
 <hr>
@@ -1120,7 +1120,7 @@ the controller.</p>
 		// Tutorial examples
 		// ---------------------------------------------------------------------
 
-		example( 1, ( gui, code ) => {
+		example( 1, {}, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -1136,7 +1136,7 @@ the controller.</p>
 
 		} );
 
-		example( 4, ( gui, code ) => {
+		example( 4, { title: false }, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -1152,7 +1152,7 @@ the controller.</p>
 
 		} );
 
-		example( 5, ( gui, code ) => {
+		example( 5, { title: false }, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -1175,7 +1175,7 @@ the controller.</p>
 
 		} );
 
-		example( 6, ( gui, code ) => {
+		example( 6, { title: false }, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -1199,7 +1199,7 @@ the controller.</p>
 		} );
 
 		/** @param {function(GUI,HTMLElement)} callback */
-		function example( n, callback ) {
+		function example( n, guiParams, callback ) {
 
 			const pre = document.querySelector( `#Tutorial > pre:nth-of-type(${n})` );
 			const code = pre.querySelector( 'code' );
@@ -1208,8 +1208,11 @@ the controller.</p>
 			container.classList.add( 'example-container' );
 			pre.parentElement.insertBefore( container, pre.nextElementSibling );
 
-			const gui = new GUI( { container } );
+			guiParams.container = container;
+
+			const gui = new GUI( guiParams );
 			callback( gui, code );
+
 		}
 
 		function stringify( v ) {
