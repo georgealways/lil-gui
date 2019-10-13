@@ -36,7 +36,6 @@
 			--border-radius: 2px;
 		}
 
-
 		:root,
 		body {
 			font-family: var(--font-family);
@@ -86,7 +85,6 @@
 			border-radius: var(--border-radius);
 		}
 
-
 		code {
 			font-family: var(--font-family-code);
 			font-size: 1em;
@@ -135,7 +133,6 @@
 		table>tbody>tr+tr>td {
 			border-top: 1px solid;
 		}
-
 
 		table>thead>tr>th {
 			text-align: left;
@@ -258,22 +255,40 @@
 		#toc-button {
 			display: none;
 			position: fixed;
+			padding: 0;
+			outline: none;
+			cursor: pointer;
+			appearance: none;
 			z-index: 1003;
 			width: var(--toc-button-size);
 			height: var(--toc-button-size);
-			font-size: calc(0.55*var(--toc-button-size));
-			line-height: 1;
+			font-size: calc(0.6*var(--toc-button-size));
 			top: var(--toc-button-margin);
 			left: var(--toc-button-margin);
 			border-radius: var(--border-radius);
 			background: var(--background);
-			outline: none;
-			cursor: pointer;
-			appearance: none;
 			border: 1px solid #0003;
 			border-bottom-width: 2px;
 			opacity: 0.925;
 			color: var(--pre-background);
+		}
+
+		#Tutorial code span.changed {
+			background-color: magenta;
+			transition: none;
+		}
+
+		#Tutorial code span {
+			background-color: transparent;
+			transition: background-color 0.5s linear;
+		}
+
+		#Tutorial .example-container {
+			border: 2px solid var(--rule);
+			padding: 1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
 		@media (max-width: 958px) {
@@ -320,24 +335,11 @@
 			body {
 				padding-bottom: 200px;
 			}
-		}
 
-		#Tutorial code span.changed {
-			background-color: magenta;
-			transition: none;
-		}
-
-		#Tutorial code span {
-			background-color: transparent;
-			transition: background-color 0.5s linear;
-		}
-
-		#Tutorial .example-container {
-			border: 2px solid var(--rule);
-			padding: 1rem;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			#Tutorial .example-container {
+				padding: 0;
+				border: 0;
+			}
 		}
 
 	</style>
@@ -1043,9 +1045,6 @@ the controller.</p>
 
 	<script type="module">
 
-		// Basic example
-		// ---------------------------------------------------------------------
-
 		import GUI from '../dist/lil-gui.esm.js';
 
 		const myObject = {
@@ -1109,14 +1108,7 @@ the controller.</p>
 		// Tutorial examples
 		// ---------------------------------------------------------------------
 
-		{
-
-			const pre = document.querySelector('#Tutorial > pre:nth-of-type(1)');
-			const code = pre.querySelector('code');
-
-			const container = makeExampleContainer(pre);
-
-			const gui = new GUI({ container });
+		example(1, (gui, code) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -1142,16 +1134,9 @@ the controller.</p>
 
 			gui.add(myObject, 'myFunction');
 
-		}
+		});
 
-		{
-
-			const pre = document.querySelector('#Tutorial > pre:nth-of-type(4)');
-			const code = pre.querySelector('code');
-
-			const container = makeExampleContainer(pre);
-
-			const gui = new GUI({ container });
+		example(4, (gui, code) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -1180,16 +1165,9 @@ the controller.</p>
 					replaceTextAfter(code, /color4:\s*$/, v);
 				});
 
-		}
+		});
 
-		{
-
-			const pre = document.querySelector('#Tutorial > pre:nth-of-type(5)');
-			const code = pre.querySelector('code');
-
-			const container = makeExampleContainer(pre);
-
-			const gui = new GUI({ container });
+		example(5, (gui, code) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -1207,19 +1185,12 @@ the controller.</p>
 				.onChange(v => {
 					replaceTextAfter(code, /\[\s*$/, v[0]);
 					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1]);
-					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2]);
+					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*$/, v[2]);
 				});
 
-		}
+		});
 
-		{
-
-			const pre = document.querySelector('#Tutorial > pre:nth-of-type(6)');
-			const code = pre.querySelector('code');
-
-			const container = makeExampleContainer(pre);
-
-			const gui = new GUI({ container });
+		example(6, (gui, code) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -1240,6 +1211,23 @@ the controller.</p>
 					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2]);
 				});
 
+		});
+
+		/**
+		 * @param {number} n
+		 * @param {function(GUI,HTMLElement)} callback
+		 */
+		function example(n, callback) {
+
+			const pre = document.querySelector(`#Tutorial > pre:nth-of-type(${n})`);
+			const code = pre.querySelector('code');
+
+			const container = document.createElement('div');
+			container.classList.add('example-container');
+			pre.parentElement.insertBefore(container, pre.nextElementSibling);
+
+			const gui = new GUI({ container });
+			callback(gui, code);
 		}
 
 		function stringify(v) {
@@ -1273,13 +1261,6 @@ the controller.</p>
 					match.classList.remove('changed');
 				}, 30);
 			}
-		}
-
-		function makeExampleContainer(element) {
-			const container = document.createElement('div');
-			container.classList.add('example-container');
-			element.parentElement.insertBefore(container, element.nextElementSibling);
-			return container;
 		}
 
 	</script>
