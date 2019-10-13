@@ -10,9 +10,8 @@
 		}
 
 		:root {
-			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-				'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-				'Segoe UI Symbol';
+			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
+			 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace,
 				'Droid Sans Fallback';
 			--font-size: 15px;
@@ -398,90 +397,90 @@
 			string: 'lil-gui',
 			number: 0.5,
 			color: '#a0f',
-			function() { alert('hi'); }
+			function() { alert( 'hi' ); }
 		};
 
 		const gui = new GUI();
 
-		gui.add(myObject, 'options', { Small: 1, Medium: 10, Large: 100 });
-		gui.add(myObject, 'boolean');
-		gui.add(myObject, 'string');
-		gui.add(myObject, 'number', 0, 1);
-		gui.addColor(myObject, 'color');
-		gui.add(myObject, 'function');
+		gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
+		gui.add( myObject, 'boolean' );
+		gui.add( myObject, 'string' );
+		gui.add( myObject, 'number', 0, 1 );
+		gui.addColor( myObject, 'color' );
+		gui.add( myObject, 'function' );
 
 		// Table of contents
 		// ---------------------------------------------------------------------
 
-		const toc = document.getElementById('toc');
+		const toc = document.getElementById( 'toc' );
 
 		// todo: this should be done by homepage.js pre-render
-		const api = document.getElementById('API');
+		const api = document.getElementById( 'API' );
 		let foundHR = false;
-		Array.from(api.children).forEach(c => {
-			if (foundHR) return;
-			if (c.tagName === 'HR') {
+		Array.from( api.children ).forEach( c => {
+			if ( foundHR ) return;
+			if ( c.tagName === 'HR' ) {
 				foundHR = true;
-			} else if (c.tagName !== 'H1') {
-				toc.appendChild(c);
+			} else if ( c.tagName !== 'H1' ) {
+				toc.appendChild( c );
 			}
-		});
+		} );
 
-		const tocButton = document.getElementById('toc-button');
-		document.body.addEventListener('click', closeTOC);
-		toc.addEventListener('click', e => {
+		const tocButton = document.getElementById( 'toc-button' );
+		document.body.addEventListener( 'click', closeTOC );
+		toc.addEventListener( 'click', e => {
 			e.stopPropagation();
-		});
+		} );
 
 		function openTOC() {
-			document.body.classList.add('toc-open');
+			document.body.classList.add( 'toc-open' );
 		}
 
 		function closeTOC() {
-			document.body.classList.remove('toc-open');
+			document.body.classList.remove( 'toc-open' );
 		}
 
-		tocButton.addEventListener('click', e => {
+		tocButton.addEventListener( 'click', e => {
 			e.stopPropagation();
-			document.body.classList.contains('toc-open') ? closeTOC() : openTOC();
-		});
+			document.body.classList.contains( 'toc-open' ) ? closeTOC() : openTOC();
+		} );
 
-		Array.from(document.querySelectorAll('nav a')).forEach(a => {
-			a.addEventListener('click', closeTOC)
-		});
+		Array.from( document.querySelectorAll( 'nav a' ) ).forEach( a => {
+			a.addEventListener( 'click', closeTOC )
+		} );
 
 		// Tutorial examples
 		// ---------------------------------------------------------------------
 
-		example(1, (gui, code) => {
+		example( 1, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
 				myString: 'lil-gui',
 				myNumber: 1,
-				myFunction: function () { alert('hi') }
+				myFunction: function () { alert( 'hi' ) }
 			};
 
-			gui.add(myObject, 'myBoolean')
-				.onChange(v => {
-					replaceTextAfter(code, /myBoolean:\s*$/, v);
-				});
+			gui.add( myObject, 'myBoolean' )
+				.onChange( v => {
+					replaceTextAfter( code, /myBoolean:\s*$/, v );
+				} );
 
-			gui.add(myObject, 'myString')
-				.onChange(v => {
-					replaceTextAfter(code, /myString:\s*$/, stringify(v));
-				});
+			gui.add( myObject, 'myString' )
+				.onChange( v => {
+					replaceTextAfter( code, /myString:\s*$/, stringify( v ) );
+				} );
 
-			gui.add(myObject, 'myNumber')
-				.onChange(v => {
-					replaceTextAfter(code, /myNumber:\s*$/, v);
-				});
+			gui.add( myObject, 'myNumber' )
+				.onChange( v => {
+					replaceTextAfter( code, /myNumber:\s*$/, v );
+				} );
 
-			gui.add(myObject, 'myFunction');
+			gui.add( myObject, 'myFunction' );
 
-		});
+		} );
 
-		example(4, (gui, code) => {
+		example( 4, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -490,93 +489,93 @@
 				color4: 0xaa00ff
 			};
 
-			gui.addColor(params, 'color1')
-				.onChange(v => {
-					replaceTextAfter(code, /color1:\s*$/, stringify(v));
-				});
+			gui.addColor( params, 'color1' )
+				.onChange( v => {
+					replaceTextAfter( code, /color1:\s*$/, stringify( v ) );
+				} );
 
-			gui.addColor(params, 'color2')
-				.onChange(v => {
-					replaceTextAfter(code, /color2:\s*$/, stringify(v));
-				});
+			gui.addColor( params, 'color2' )
+				.onChange( v => {
+					replaceTextAfter( code, /color2:\s*$/, stringify( v ) );
+				} );
 
-			gui.addColor(params, 'color3')
-				.onChange(v => {
-					replaceTextAfter(code, /color3:\s*$/, stringify(v));
-				});
+			gui.addColor( params, 'color3' )
+				.onChange( v => {
+					replaceTextAfter( code, /color3:\s*$/, stringify( v ) );
+				} );
 
-			gui.addColor(params, 'color4')
-				.onChange(v => {
-					replaceTextAfter(code, /color4:\s*$/, v);
-				});
+			gui.addColor( params, 'color4' )
+				.onChange( v => {
+					replaceTextAfter( code, /color4:\s*$/, v );
+				} );
 
-		});
+		} );
 
-		example(5, (gui, code) => {
+		example( 5, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
 				colorArray: [0.667, 0, 1]
 			};
 
-			gui.addColor(params, 'colorObject')
-				.onChange(v => {
-					replaceTextAfter(code, /r:\s*$/, v.r);
-					replaceTextAfter(code, /g:\s*$/, v.g);
-					replaceTextAfter(code, /b:\s*$/, v.b);
-				});
+			gui.addColor( params, 'colorObject' )
+				.onChange( v => {
+					replaceTextAfter( code, /r:\s*$/, v.r );
+					replaceTextAfter( code, /g:\s*$/, v.g );
+					replaceTextAfter( code, /b:\s*$/, v.b );
+				} );
 
-			gui.addColor(params, 'colorArray')
-				.onChange(v => {
-					replaceTextAfter(code, /\[\s*$/, v[0]);
-					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1]);
-					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*$/, v[2]);
-				});
+			gui.addColor( params, 'colorArray' )
+				.onChange( v => {
+					replaceTextAfter( code, /\[\s*$/, v[0] );
+					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1] );
+					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*$/, v[2] );
+				} );
 
-		});
+		} );
 
-		example(6, (gui, code) => {
+		example( 6, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
 				colorArray: [170, 0, 255]
 			};
 
-			gui.addColor(params, 'colorObject', 255)
-				.onChange(v => {
-					replaceTextAfter(code, /r:\s*$/, v.r);
-					replaceTextAfter(code, /g:\s*$/, v.g);
-					replaceTextAfter(code, /b:\s*$/, v.b);
-				});
+			gui.addColor( params, 'colorObject', 255 )
+				.onChange( v => {
+					replaceTextAfter( code, /r:\s*$/, v.r );
+					replaceTextAfter( code, /g:\s*$/, v.g );
+					replaceTextAfter( code, /b:\s*$/, v.b );
+				} );
 
-			gui.addColor(params, 'colorArray', 255)
-				.onChange(v => {
-					replaceTextAfter(code, /\[\s*$/, v[0]);
-					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1]);
-					replaceTextAfter(code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2]);
-				});
+			gui.addColor( params, 'colorArray', 255 )
+				.onChange( v => {
+					replaceTextAfter( code, /\[\s*$/, v[0] );
+					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1] );
+					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2] );
+				} );
 
-		});
+		} );
 
 		/**
 		 * @param {number} n
 		 * @param {function(GUI,HTMLElement)} callback
 		 */
-		function example(n, callback) {
+		function example( n, callback ) {
 
-			const pre = document.querySelector(`#Tutorial > pre:nth-of-type(${n})`);
-			const code = pre.querySelector('code');
+			const pre = document.querySelector( `#Tutorial > pre:nth-of-type(${n})` );
+			const code = pre.querySelector( 'code' );
 
-			const container = document.createElement('div');
-			container.classList.add('example-container');
-			pre.parentElement.insertBefore(container, pre.nextElementSibling);
+			const container = document.createElement( 'div' );
+			container.classList.add( 'example-container' );
+			pre.parentElement.insertBefore( container, pre.nextElementSibling );
 
-			const gui = new GUI({ container });
-			callback(gui, code);
+			const gui = new GUI( { container } );
+			callback( gui, code );
 		}
 
-		function stringify(v) {
-			return `'${v.replace(/'/g, "\\'")}'`;
+		function stringify( v ) {
+			return `'${v.replace( /\\/g, '\\\\' ).replace( /'/g, "\\'" )}'`;
 		}
 
 		/**
@@ -584,27 +583,27 @@
 		 * @param {RegExp} re
 		 * @param {string} newText
 		 */
-		function replaceTextAfter(element, re, newText) {
+		function replaceTextAfter( element, re, newText ) {
 			let str = '';
 			let match;
-			for (let i = 0; i < element.childNodes.length; i++) {
-				const node = element.childNodes.item(i);
-				if (node instanceof Text) {
+			for ( let i = 0; i < element.childNodes.length; i++ ) {
+				const node = element.childNodes.item( i );
+				if ( node instanceof Text ) {
 					str += node.nodeValue;
 				} else {
-					if (re.test(str)) {
+					if ( re.test( str ) ) {
 						match = node;
 						break;
 					}
 					str += node.innerText;
 				}
 			}
-			if (match) {
+			if ( match ) {
 				match.innerHTML = newText;
-				match.classList.add('changed');
-				setTimeout(() => {
-					match.classList.remove('changed');
-				}, 30);
+				match.classList.add( 'changed' );
+				setTimeout( () => {
+					match.classList.remove( 'changed' );
+				}, 30 );
 			}
 		}
 
