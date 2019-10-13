@@ -24,7 +24,7 @@
 			--pre-code: #d1d0cc;
 			--inline-code: #926501;
 			--code-number: #73c6ee;
-			--code-string: #afc56d;
+			--code-string: #a3c04a;
 			--code-literal: #db80c7;
 			--code-special: #6ed3d3;
 			--code-comment: #84858a;
@@ -313,43 +313,28 @@
 				line-height: 1.7;
 			}
 
+			pre code {
+				tab-size: 2;
+			}
+
 			body {
 				padding-bottom: 200px;
 			}
 		}
 
+		code span.changed {
+			background-color: magenta;
+			transition: none;
+		}
+
+		code span {
+			background-color: transparent;
+			transition: background-color 0.5s linear;
+		}
+
 	</style>
 </head>
 <body>
-	<script type="module">
-		import GUI from '../dist/lil-gui.esm.js';
-
-		const myObject = {
-			options: 10,
-			boolean: true,
-			string: 'lil-gui',
-			number: 0.5,
-			color: '#a0f',
-			function() { alert('hi'); }
-		};
-
-		const gui = new GUI();
-
-		gui.add(myObject, 'options', { Small: 1, Medium: 10, Large: 100 });
-		gui.add(myObject, 'boolean');
-		gui.add(myObject, 'string');
-		gui.add(myObject, 'number', 0, 1);
-		gui.addColor(myObject, 'color');
-		gui.add(myObject, 'function');
-
-		window.addEventListener('resize', onResize);
-		onResize();
-
-		function onResize() {
-			document.body.style.paddingBottom =
-				(gui.domElement.classList.contains('mobile') ? 200 : 0) + 'px';
-		}
-	</script>
 
 	<div id="container">
 
@@ -393,7 +378,27 @@
 
 	</div>
 
-	<script>
+	<script type="module">
+		import GUI from '../dist/lil-gui.esm.js';
+
+		const myObject = {
+			options: 10,
+			boolean: true,
+			string: 'lil-gui',
+			number: 0.5,
+			color: '#a0f',
+			function() { alert('hi'); }
+		};
+
+		const gui = new GUI();
+
+		gui.add(myObject, 'options', { Small: 1, Medium: 10, Large: 100 });
+		gui.add(myObject, 'boolean');
+		gui.add(myObject, 'string');
+		gui.add(myObject, 'number', 0, 1);
+		gui.addColor(myObject, 'color');
+		gui.add(myObject, 'function');
+
 		const toc = document.getElementById('toc');
 
 		// todo: this should be done by homepage.js pre-render
@@ -430,7 +435,129 @@
 
 		Array.from(document.querySelectorAll('nav a')).forEach(a => {
 			a.addEventListener('click', closeTOC)
-		})
+		});
+
+
+		{
+
+			const pre = document.querySelector('#Tutorial > pre:nth-of-type(1)');
+			const code = pre.querySelector('code');
+
+			const container = makeContainerAfter(pre);
+
+			const gui = new GUI({ container });
+
+			const myObject = {
+				myBoolean: true,
+				myString: 'lil-gui',
+				myNumber: 1,
+				myFunction: function () { alert('hi') }
+			};
+
+			gui.add(myObject, 'myBoolean')
+				.onChange(v => {
+					replaceTextAfter(code, /myBoolean: /, v);
+				});
+
+			gui.add(myObject, 'myString')
+				.onChange(v => {
+					replaceTextAfter(code, /myString: /, stringify(v));
+				});
+
+			gui.add(myObject, 'myNumber')
+				.onChange(v => {
+					replaceTextAfter(code, /myNumber: /, v);
+				});
+
+			gui.add(myObject, 'myFunction');
+
+		}
+
+
+		{
+
+			const pre = document.querySelector('#Tutorial > pre:nth-of-type(4)');
+			const code = pre.querySelector('code');
+
+			const container = makeContainerAfter(pre);
+
+			const gui = new GUI({ container });
+
+			const params = {
+				color1: '#AA00FF',
+				color2: '#a0f',
+				color3: 'rgb(170, 0, 255)',
+				color4: 0xaa00ff
+			};
+
+			gui.addColor(params, 'color1')
+				.onChange(v => {
+					replaceTextAfter(code, /color1: /, stringify(v));
+				});
+
+			gui.addColor(params, 'color2')
+				.onChange(v => {
+					replaceTextAfter(code, /color2: /, stringify(v));
+				});
+
+			gui.addColor(params, 'color3')
+				.onChange(v => {
+					replaceTextAfter(code, /color3: /, stringify(v));
+				});
+
+			gui.addColor(params, 'color4')
+				.onChange(v => {
+					replaceTextAfter(code, /color4: /, v);
+				});
+
+		}
+
+		function stringify(v) {
+			return `'${v.replace(/'/g, "\\'")}'`;
+		}
+
+
+		// const test = document.querySelector('#Tutorial > pre:nth-child(12) > code');
+		// const test2 = document.querySelector('#Tutorial > pre:nth-child(14) > code');
+
+		// replaceTextAfter(test, /color1: /, '"YEA"');
+		// replaceTextAfter(test2, /r: /, '420');
+
+		/**
+		 * @param {HTMLElement} element
+		 * @param {RegExp} re
+		 * @param {string} newText
+		 */
+		function replaceTextAfter(element, re, newText) {
+			let str = '';
+			let match;
+			for (let i = 0; i < element.childNodes.length; i++) {
+				const node = element.childNodes.item(i);
+				if (node instanceof Text) {
+					str += node.nodeValue;
+				} else {
+					if (re.test(str)) {
+						match = node;
+						break;
+					}
+					str += node.innerText;
+				}
+			}
+			if (match) {
+				match.innerHTML = newText;
+				match.classList.add('changed');
+				setTimeout(() => {
+					match.classList.remove('changed');
+				}, 30);
+			}
+		}
+
+		function makeContainerAfter(element) {
+			const container = document.createElement('div');
+			container.classList.add('example-gui-container');
+			element.parentElement.insertBefore(container, element.nextElementSibling);
+			return container;
+		}
 
 	</script>
 

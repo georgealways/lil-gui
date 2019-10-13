@@ -3,7 +3,19 @@
 Basic usage todo
 
 ```js
-// todo
+const gui = new GUI();
+
+const myObject = {
+	myBoolean: true,
+	myString: 'lil-gui',
+	myNumber: 1,
+	myFunction: function() { alert( 'hi' ) }
+};
+
+gui.add( myObject, 'myBoolean' );
+gui.add( myObject, 'myString' );
+gui.add( myObject, 'myNumber' );
+gui.add( myObject, 'myFunction' );
 ```
 
 ## Sliders
@@ -46,7 +58,7 @@ todo
 const params = {
 	colorObject: { r: 0.667, g: 0, b: 1 },
 	colorArray: [ 0.667, 0, 1 ]
-}
+};
 
 gui.addColor( params, 'colorObject' );
 gui.addColor( params, 'colorArray' );
@@ -58,7 +70,7 @@ todo
 const params = {
 	colorObject: { r: 170, g: 0, b: 255 },
 	colorArray: [ 170, 0, 255 ]
-}
+};
 
 gui.addColor( params, 'colorObject', 255 );
 gui.addColor( params, 'colorArray', 255 );
