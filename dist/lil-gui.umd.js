@@ -107,7 +107,7 @@
 		 * 	console.log( 'The value is now ' + v );
 		 * } );
 		 *
-		 * const controller = gui.add( object, 'property' ).onChange(function() {
+		 * const controller = gui.add( object, 'property' ).onChange( function() {
 		 * 	console.assert(this === controller);
 		 * } );
 		 */
