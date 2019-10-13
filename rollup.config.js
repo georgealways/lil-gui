@@ -32,7 +32,7 @@ export default [
 	{
 		input,
 		output: { ...outputModule, file: pkg.module.replace( '.js', '.min.js' ) },
-		plugins: [ stylesheet( true ), terser() ]
+		plugins: [ stylesheet( true ), terser( { module: true } ) ]
 	},
 	{
 		input,
@@ -42,11 +42,11 @@ export default [
 	{
 		input,
 		output: { ...outputUMD, file: pkg.main.replace( '.js', '.min.js' ) },
-		plugins: [ stylesheet( true ), terser() ]
+		plugins: [ stylesheet( true ), terser( { module: false } ) ]
 	}
 ];
 
-function stylesheet( min = false ) {
+function stylesheet( { min } ) {
 	const path = min ? pkg.config.styleMin : pkg.config.style;
 	return {
 		name: 'stylesheet',
@@ -83,11 +83,11 @@ function strip() {
 	};
 }
 
-function terser() {
+function terser( options ) {
 	return {
 		name: 'terser',
 		renderChunk( code ) {
-			const result = minify( code );
+			const result = minify( code, options );
 			if ( result.error ) throw result.error;
 			if ( result.warnings ) {
 				result.warnings.forEach( warning => {
