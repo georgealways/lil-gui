@@ -364,16 +364,19 @@ export default class GUI {
 
 	_initTitleDrag() {
 
-		let prevClientY;
+		let prevClientY, initialClientY;
+		const minDelta = 5;
 
 		const onTouchStart = e => {
 
-			const resize = this.domElement.classList.contains( 'mobile' ) &&
-				!this.domElement.classList.contains( 'closed' );
+			if ( e.touches.length > 1 ) return;
 
-			if ( !resize || e.touches.length > 1 ) return;
+			const classList = this.domElement.classList;
+			const resizeable = classList.contains( 'mobile' ) && !classList.contains( 'closed' );
 
-			prevClientY = e.touches[ 0 ].clientY;
+			if ( !resizeable ) return;
+
+			initialClientY = prevClientY = e.touches[ 0 ].clientY;
 
 			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 			window.addEventListener( 'touchend', onTouchEnd );
@@ -387,7 +390,10 @@ export default class GUI {
 			this._setMaxHeight( this._maxHeight - deltaY );
 		};
 
-		const onTouchEnd = () => {
+		const onTouchEnd = e => {
+			if ( Math.abs( initialClientY - prevClientY ) >= minDelta ) {
+				e.preventDefault();
+			}
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
