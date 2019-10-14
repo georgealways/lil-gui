@@ -1688,6 +1688,8 @@ class GUI {
 
 			if ( !resizeable ) return;
 
+			e.preventDefault();
+
 			initialClientY = prevClientY = e.touches[ 0 ].clientY;
 
 			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
@@ -1702,9 +1704,9 @@ class GUI {
 			this._setMaxHeight( this._maxHeight - deltaY );
 		};
 
-		const onTouchEnd = e => {
-			if ( Math.abs( initialClientY - prevClientY ) >= minDelta ) {
-				e.preventDefault();
+		const onTouchEnd = () => {
+			if ( Math.abs( initialClientY - prevClientY ) <= minDelta ) {
+				this.$title.click();
 			}
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
