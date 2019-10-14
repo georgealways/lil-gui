@@ -1,6 +1,6 @@
 /**
  * lil-gui
- * @version 0.8.14
+ * @version 0.9.0
  * @author George Michael Brower
  * @license MIT
  */
