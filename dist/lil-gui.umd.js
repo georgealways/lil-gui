@@ -1686,13 +1686,15 @@
 
 			const onTouchStart = e => {
 
+				// Ignore multi touch
 				if ( e.touches.length > 1 ) return;
 
+				// Only resizeable when open with mobile class
 				const classList = this.domElement.classList;
 				const resizeable = classList.contains( 'mobile' ) && !classList.contains( 'closed' );
-
 				if ( !resizeable ) return;
 
+				// Prevent default in case this is a drag, otherwise we'll call click() manually on touchend
 				e.preventDefault();
 
 				initialClientY = prevClientY = e.touches[ 0 ].clientY;
@@ -1710,11 +1712,14 @@
 			};
 
 			const onTouchEnd = () => {
+
 				if ( Math.abs( initialClientY - prevClientY ) <= minDelta ) {
 					this.$title.click();
 				}
+
 				window.removeEventListener( 'touchmove', onTouchMove );
 				window.removeEventListener( 'touchend', onTouchEnd );
+
 			};
 
 			this.$title.addEventListener( 'touchstart', onTouchStart );
