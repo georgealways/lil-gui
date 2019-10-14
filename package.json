@@ -1,6 +1,6 @@
 {
   "name": "lil-gui",
-  "version": "0.8.11",
+  "version": "0.8.14",
   "author": {
     "name": "George Michael Brower"
   },
@@ -24,8 +24,7 @@
     "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=$npm_package_main,index.html,examples --no-browser",
     "preversion": "npm run build && npm test",
-    "version": "npm run build:all && git add -A dist style/icons.scss",
-    "postversion": "git push --tags",
+    "version": "npm run build:all && git add -A dist style/icons.scss API.md index.html",
     "dev": "npm run build && node -r esm scripts/dev.js"
   },
   "files": [
