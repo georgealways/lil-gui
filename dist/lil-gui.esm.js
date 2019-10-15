@@ -1227,18 +1227,6 @@ const stylesheet = `.lil-gui {
 .lil-gui.closed .title:before {
   content: "▸";
 }
-.lil-gui > .children {
-  overflow: auto;
-}
-.lil-gui > .children::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  height: var(--scrollbar-width);
-  background: var(--background-color);
-}
-.lil-gui > .children::-webkit-scrollbar-thumb {
-  border-radius: var(--scrollbar-width);
-  background: var(--highlight-color);
-}
 .lil-gui .children:empty:before {
   content: "Empty";
   padding: 0 var(--padding);
