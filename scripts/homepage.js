@@ -7,7 +7,7 @@ import pkg from '../package.json';
 import jsdocData from './api';
 
 const OUTPUT = 'index.html';
-const TEMPLATE = 'scripts/homepage.hbs';
+const TEMPLATE = 'scripts/homepage.hbs.html';
 const README = 'README.md';
 const TUTORIAL = 'Tutorial.md';
 const API = 'API.md';

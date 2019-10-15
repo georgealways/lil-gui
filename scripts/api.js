@@ -2,7 +2,7 @@ import jsdoc from 'jsdoc-api';
 import hbs from 'handlebars';
 import fs from 'fs';
 
-const TEMPLATE = 'scripts/api.hbs';
+const TEMPLATE = 'scripts/api.hbs.md';
 const OUTPUT = 'API.md';
 const JSDOC_INPUT = 'src/**/*.js';
 

@@ -5,8 +5,7 @@ dev( {
 	'api': {
 		onchange: [
 			'src/**/*.js',
-			'scripts/api.hbs',
-			'scripts/api.js'
+			'scripts/api*'
 		],
 		color: 'green'
 	},
