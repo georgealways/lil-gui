@@ -221,6 +221,7 @@ export default class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
+					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
 					this.$slider.classList.add( 'active' );
 					testingForScroll = false;

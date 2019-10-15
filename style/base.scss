@@ -37,6 +37,18 @@
 		> .title {
 			background: var(--title-background-color);
 		}
+		> .children {
+			overflow: auto;
+			&::-webkit-scrollbar {
+				width: var(--scrollbar-width);
+				height: var(--scrollbar-width);
+				background: var(--background-color);
+			}
+			&::-webkit-scrollbar-thumb {
+				border-radius: var(--scrollbar-width);
+				background: var(--highlight-color);
+			}
+		}
 	}
 
 	// "Theme" properties

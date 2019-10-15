@@ -747,6 +747,7 @@ class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
+					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
 					this.$slider.classList.add( 'active' );
 					testingForScroll = false;
@@ -1021,6 +1022,18 @@ const stylesheet = `.lil-gui {
 }
 .lil-gui.root > .title {
   background: var(--title-background-color);
+}
+.lil-gui.root > .children {
+  overflow: auto;
+}
+.lil-gui.root > .children::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  background: var(--background-color);
+}
+.lil-gui.root > .children::-webkit-scrollbar-thumb {
+  border-radius: var(--scrollbar-width);
+  background: var(--highlight-color);
 }
 .lil-gui .lil-gui {
   --background-color:inherit;
