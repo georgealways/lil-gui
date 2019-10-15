@@ -31,9 +31,6 @@
 			height: var(--scrollbar-width);
 			background: var(--background-color);
 		}
-		&::-webkit-scrollbar-corner {
-			display: none;
-		}
 		&::-webkit-scrollbar-thumb {
 			border-radius: var(--scrollbar-width);
 			background: var(--highlight-color);

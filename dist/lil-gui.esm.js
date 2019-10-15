@@ -1016,6 +1016,8 @@ const stylesheet = `.lil-gui {
 }
 .lil-gui.root {
   width: var(--width, 250px);
+  display: flex;
+  flex-direction: column;
 }
 .lil-gui.root > .title {
   background: var(--title-background-color);
@@ -1057,15 +1059,14 @@ const stylesheet = `.lil-gui {
   width: 100%;
 }
 .lil-gui.autoPlace {
+  max-height: 100%;
   position: fixed;
   top: 0;
   right: 15px;
   z-index: 1001;
 }
-.lil-gui.autoPlace > .children {
-  max-height: calc(var(--max-height) - var(--title-height));
-}
 .lil-gui.autoPlace.mobile {
+  max-height: var(--max-height, 200px);
   top: auto;
   right: auto;
   bottom: 0;
@@ -1220,9 +1221,6 @@ const stylesheet = `.lil-gui {
   width: var(--scrollbar-width);
   height: var(--scrollbar-width);
   background: var(--background-color);
-}
-.lil-gui > .children::-webkit-scrollbar-corner {
-  display: none;
 }
 .lil-gui > .children::-webkit-scrollbar-thumb {
   border-radius: var(--scrollbar-width);

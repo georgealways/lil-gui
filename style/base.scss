@@ -32,6 +32,8 @@
 
 	&.root {
 		width: var(--width, 250px);
+		display: flex;
+		flex-direction: column;
 		> .title {
 			background: var(--title-background-color);
 		}
@@ -105,16 +107,14 @@
 	}
 
 	&.autoPlace {
+		max-height: 100%;
 		position: fixed;
 		top: 0;
 		right: 15px;
 		z-index: 1001;
 
-		& > .children {
-			max-height: calc(var(--max-height) - var(--title-height));
-		}
-
 		&.mobile {
+			max-height: var(--max-height, 200px);
 			top: auto;
 			right: auto;
 			bottom: 0;
