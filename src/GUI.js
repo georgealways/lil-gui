@@ -139,22 +139,22 @@ export default class GUI {
 
 			}
 
+			this._onResize = () => {
+
+				// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
+				// configurable via constructor
+				const mobile = window.innerWidth <= mobileBreakpoint;
+				this.domElement.classList.toggle( 'mobile', mobile );
+
+				// Adds a scrollbar to an autoPlace GUI
+				this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
+
+			};
+
+			window.addEventListener( 'resize', this._onResize );
+			this._onResize();
+
 		}
-
-		this._onResize = () => {
-
-			// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
-			// configurable via constructor
-			const mobile = window.innerWidth <= mobileBreakpoint;
-			this.domElement.classList.toggle( 'mobile', mobile );
-
-			// Adds a scrollbar to an autoPlace GUI
-			this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
-
-		};
-
-		window.addEventListener( 'resize', this._onResize );
-		this._onResize();
 
 		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
 			this.domElement.style.display = 'none';

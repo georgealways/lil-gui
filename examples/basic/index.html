@@ -5,26 +5,39 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<script type="module">
-import GUI from '../../dist/lil-gui.esm.js';
+	<script type="module">
+		import GUI from '../../dist/lil-gui.esm.js';
 
-const myObject = {
-	options: 10,
-	boolean: true,
-	string: 'lil-gui',
-	number: 0.5,
-	color: '#aa00ff',
-	function() { alert( 'hi' ); }
-};
+		const myObject = {
+			options: 10,
+			boolean: true,
+			string: 'lil-gui',
+			number: 0.5,
+			color: '#aa00ff',
+			function() { alert( 'hi' ); }
+		};
 
-const gui = new GUI();
+		const folderObject = {
+			number: 0,
+			boolean: false,
+			color: '#0cf'
+		}
 
-gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
-gui.add( myObject, 'boolean' );
-gui.add( myObject, 'string' );
-gui.add( myObject, 'number', 0, 1 );
-gui.addColor( myObject, 'color' );
-gui.add( myObject, 'function' );
-</script>
+		const gui = new GUI();
+
+		const folder = gui.addFolder( 'Folder' );
+
+		folder.add( folderObject, 'boolean' ).name( 'Custom Name' );
+		folder.add( folderObject, 'number' )
+		folder.addColor( folderObject, 'color' );
+		gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
+		gui.add( myObject, 'boolean' );
+		gui.add( myObject, 'string' );
+		gui.add( myObject, 'number', 0, 1 );
+		gui.addColor( myObject, 'color' );
+		gui.add( myObject, 'function' );
+
+
+	</script>
 </body>
 </html>
