@@ -22,7 +22,7 @@ export default class GUI {
 	 * Adds the GUI to `document.body` and applies fixed positioning.
 	 *
 	 * @param {number} [options.mobileBreakpoint=500] todoc
-	 * @param {number} [options.mobileMaxHeight=200] todoc
+	 * @param {number} [options.mobileMaxHeight=170] todoc
 	 *
 	 * @param {HTMLElement} [options.container]
 	 * Adds the GUI to this DOM element, overriding autoPlace.
@@ -48,7 +48,7 @@ export default class GUI {
 		parent,
 		autoPlace = parent === undefined,
 		mobileBreakpoint = 500,
-		mobileMaxHeight = 200,
+		mobileMaxHeight = 170,
 		container,
 		injectStyles = true,
 		title = 'Controls',

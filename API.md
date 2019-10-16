@@ -77,7 +77,7 @@ Default: `true`
 Default: `500`
 
  - **options.mobileMaxHeight** - todoc<br>
-Default: `200`
+Default: `170`
 
  - **options.container** - Adds the GUI to this DOM element, overriding autoPlace.<br>
 Optional:

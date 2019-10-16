@@ -1084,7 +1084,7 @@
   z-index: 1001;
 }
 .lil-gui.autoPlace.mobile {
-  max-height: var(--max-height, 200px);
+  max-height: var(--max-height, 170px);
   top: auto;
   right: auto;
   bottom: 0;
@@ -1349,7 +1349,7 @@
 		 * Adds the GUI to `document.body` and applies fixed positioning.
 		 *
 		 * @param {number} [options.mobileBreakpoint=500] todoc
-		 * @param {number} [options.mobileMaxHeight=200] todoc
+		 * @param {number} [options.mobileMaxHeight=170] todoc
 		 *
 		 * @param {HTMLElement} [options.container]
 		 * Adds the GUI to this DOM element, overriding autoPlace.
@@ -1375,7 +1375,7 @@
 			parent,
 			autoPlace = parent === undefined,
 			mobileBreakpoint = 500,
-			mobileMaxHeight = 200,
+			mobileMaxHeight = 170,
 			container,
 			injectStyles = true,
 			title = 'Controls',
