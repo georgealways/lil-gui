@@ -1416,7 +1416,7 @@ class GUI {
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
 		this.$title.addEventListener( 'click', () => {
-			this.open( this._closed );
+			this.openAnimated( this._closed );
 		} );
 
 		/**
@@ -1629,34 +1629,33 @@ class GUI {
 	open( open = true ) {
 
 		this._closed = !open;
+		this.domElement.classList.toggle( 'closed', this._closed );
+		return this;
+	}
 
-		// this used to be a very simple function (toggle 'closed' class)
-		// then i decided to try an open/close transition...
+	/**
+	 * todoc
+	 * @returns {this}
+	 */
+	close() {
+		return this.open( false );
+	}
 
-		// don't look at me
+	openAnimated( open = true ) {
+
+		this._closed = !open;
+
 		requestAnimationFrame( () => {
 
 			this.$children.style.height = this.$children.clientHeight + 'px';
-			let transitionStarted = false;
-
-			const onTransitionStart = e => {
-				if ( e.target !== this.$children ) return;
-				transitionStarted = true;
-				this.$children.removeEventListener( 'transitionstart', onTransitionStart );
-			};
 
 			const onTransitionEnd = e => {
 				if ( e.target !== this.$children ) return;
-				finishTransition();
-			};
-
-			const finishTransition = () => {
 				this.$children.style.height = '';
 				this.$children.classList.remove( 'transition' );
 				this.$children.removeEventListener( 'transitionend', onTransitionEnd );
 			};
 
-			this.$children.addEventListener( 'transitionstart', onTransitionStart );
 			this.$children.addEventListener( 'transitionend', onTransitionEnd );
 			this.$children.classList.add( 'transition' );
 
@@ -1667,22 +1666,12 @@ class GUI {
 
 			requestAnimationFrame( () => {
 				this.$children.style.height = targetHeight + 'px';
-				if ( !transitionStarted ) {
-					finishTransition();
-				}
 			} );
 
 		} );
 
 		return this;
-	}
 
-	/**
-	 * todoc
-	 * @returns {this}
-	 */
-	close() {
-		return this.open( false );
 	}
 
 	/**
