@@ -312,23 +312,24 @@ export default class GUI {
 		// this used to be a very simple function (toggle class, display none)
 		// then i decided to try an open/close transition...
 
-		const onTransitionEnd = e => {
-			if ( e.target !== this.$children ) return;
-			this.$children.style.height = '';
-			this.$children.classList.remove( 'transition' );
-			this.$children.removeEventListener( 'transitionend', onTransitionEnd );
-		};
-
-		this.$children.style.height = this.$children.getBoundingClientRect().height + 'px';
-
-		this.$children.addEventListener( 'transitionend', onTransitionEnd );
-		this.$children.classList.add( 'transition' );
-
-		// this is wrong if scroll height is greater than max height
-		const target = this._closed ? 0 : this.$children.scrollHeight;
-
 		// don't look at me
 		requestAnimationFrame( () => {
+
+			this.$children.style.height = this.$children.getBoundingClientRect().height + 'px';
+
+			const onTransitionEnd = e => {
+				if ( e.target !== this.$children ) return;
+				this.$children.style.height = '';
+				this.$children.classList.remove( 'transition' );
+				this.$children.removeEventListener( 'transitionend', onTransitionEnd );
+			};
+
+			this.$children.addEventListener( 'transitionend', onTransitionEnd );
+			this.$children.classList.add( 'transition' );
+
+			// this is wrong if scroll height is greater than max height
+			const target = this._closed ? 0 : this.$children.scrollHeight;
+
 			this.domElement.classList.toggle( 'closed', this._closed );
 			requestAnimationFrame( () => {
 				this.$children.style.height = target + 'px';
