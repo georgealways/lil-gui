@@ -1682,9 +1682,7 @@ class GUI {
 	 * @returns {this}
 	 */
 	close() {
-		this._closed = true;
-		this.domElement.classList.add( 'closed' );
-		return this;
+		return this.open( false );
 	}
 
 	/**
