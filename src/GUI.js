@@ -306,8 +306,35 @@ export default class GUI {
 	 * gui.open( gui._closed ); // toggle
 	 */
 	open( open = true ) {
+
 		this._closed = !open;
-		this.domElement.classList.toggle( 'closed', this._closed );
+
+		// this used to be a very simple function (toggle class, display none)
+		// then i decided to try an open/close transition...
+
+		const onTransitionEnd = e => {
+			if ( e.target !== this.$children ) return;
+			this.$children.style.height = '';
+			this.$children.classList.remove( 'transition' );
+			this.$children.removeEventListener( 'transitionend', onTransitionEnd );
+		};
+
+		this.$children.style.height = this.$children.getBoundingClientRect().height + 'px';
+
+		this.$children.addEventListener( 'transitionend', onTransitionEnd );
+		this.$children.classList.add( 'transition' );
+
+		// this is wrong if scroll height is greater than max height
+		const target = this._closed ? 0 : this.$children.scrollHeight;
+
+		// don't look at me
+		requestAnimationFrame( () => {
+			this.domElement.classList.toggle( 'closed', this._closed );
+			requestAnimationFrame( () => {
+				this.$children.style.height = target + 'px';
+			} );
+		} );
+
 		return this;
 	}
 

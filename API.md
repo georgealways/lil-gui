@@ -296,7 +296,7 @@ todoc
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L318" target="_blank">src/GUI.js:318</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L345" target="_blank">src/GUI.js:345</a></small>
 ***
 
 <a name="GUI#title"></a>
@@ -313,7 +313,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L329" target="_blank">src/GUI.js:329</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L356" target="_blank">src/GUI.js:356</a></small>
 ***
 
 <a name="GUI#destroy"></a>
@@ -322,7 +322,7 @@ Required:
 
 todoc
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L347" target="_blank">src/GUI.js:347</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L374" target="_blank">src/GUI.js:374</a></small>
 ***
 
 <a name="GUI#children"></a>
@@ -394,7 +394,7 @@ Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to cha
 
 todoc
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L334" target="_blank">src/GUI.js:334</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L361" target="_blank">src/GUI.js:361</a></small>
 ***
 
 <a name="Controller"></a>

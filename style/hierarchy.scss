@@ -12,13 +12,24 @@
 		}
 	}
 
-	&.closed {
-		.children {
-			display: none;
-		}
+	&.closed > {
 		.title:before {
 			content: '▸';
 		}
+		.children {
+			transform: translateY(-7px);
+			opacity: 0;
+			&:not(.transition) {
+				display: none;
+			}
+		}
+	}
+
+	.children.transition {
+		transition-duration: 300ms;
+		transition-property: height opacity transform;
+		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		overflow: hidden;
 	}
 
 	// Empty children

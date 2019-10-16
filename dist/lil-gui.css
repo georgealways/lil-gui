@@ -244,11 +244,21 @@
   font-family: "lil-gui";
   content: "▾";
 }
-.lil-gui.closed .children {
+.lil-gui.closed > .title:before {
+  content: "▸";
+}
+.lil-gui.closed > .children {
+  transform: translateY(-7px);
+  opacity: 0;
+}
+.lil-gui.closed > .children:not(.transition) {
   display: none;
 }
-.lil-gui.closed .title:before {
-  content: "▸";
+.lil-gui .children.transition {
+  transition-duration: 300ms;
+  transition-property: height opacity transform;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  overflow: hidden;
 }
 .lil-gui .children:empty:before {
   content: "Empty";
