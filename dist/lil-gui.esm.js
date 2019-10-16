@@ -1661,9 +1661,9 @@ class GUI {
 			this.$children.classList.add( 'transition' );
 
 			// this is wrong if children's scrollHeight makes for a gui taller than maxHeight
-			const targetHeight = this._closed ? 0 : this.$children.scrollHeight;
+			const targetHeight = !open ? 0 : this.$children.scrollHeight;
 
-			this.domElement.classList.toggle( 'closed', this._closed );
+			this.domElement.classList.toggle( 'closed', !open );
 
 			requestAnimationFrame( () => {
 				this.$children.style.height = targetHeight + 'px';
