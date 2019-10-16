@@ -1660,7 +1660,7 @@ class GUI {
 			this.$children.addEventListener( 'transitionend', onTransitionEnd );
 			this.$children.classList.add( 'transition' );
 
-			// this is wrong if children's scrollHeight makes for a gui taller than maxHeight
+			// todo: this is wrong if children's scrollHeight makes for a gui taller than maxHeight
 			const targetHeight = !open ? 0 : this.$children.scrollHeight;
 
 			this.domElement.classList.toggle( 'closed', !open );
