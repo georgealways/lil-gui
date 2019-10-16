@@ -1735,12 +1735,10 @@
 
 		_initTitleDrag() {
 
-			let prevClientY, initialClientY;
-			const minDelta = 5;
+			let prevClientY, moved;
 
 			const onTouchStart = e => {
 
-				// Ignore multi touch
 				if ( e.touches.length > 1 ) return;
 
 				// Only resizeable when open with mobile class
@@ -1750,8 +1748,8 @@
 
 				// Prevent default in case this is a drag, otherwise we'll call click() manually on touchend
 				e.preventDefault();
-
-				initialClientY = prevClientY = e.touches[ 0 ].clientY;
+				prevClientY = e.touches[ 0 ].clientY;
+				moved = false;
 
 				window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 				window.addEventListener( 'touchend', onTouchEnd );
@@ -1759,15 +1757,20 @@
 			};
 
 			const onTouchMove = e => {
+
 				e.preventDefault();
+				moved = true;
+
 				const deltaY = e.touches[ 0 ].clientY - prevClientY;
 				prevClientY = e.touches[ 0 ].clientY;
+
 				this._setMaxHeight( this._maxHeight - deltaY );
+
 			};
 
 			const onTouchEnd = () => {
 
-				if ( Math.abs( initialClientY - prevClientY ) <= minDelta ) {
+				if ( !moved ) {
 					this.$title.click();
 				}
 
