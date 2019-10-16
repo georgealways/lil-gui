@@ -407,4 +407,8 @@ test( unit => {
 
 	} );
 
+	unit( 'openAnimated', () => {
+		new GUI().openAnimated();
+	} );
+
 } );

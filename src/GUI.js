@@ -322,11 +322,17 @@ export default class GUI {
 
 	openAnimated( open = true ) {
 
+		// set state immediately
 		this._closed = !open;
 
+		// wait for next frame to measure $children
 		requestAnimationFrame( () => {
 
-			this.$children.style.height = this.$children.clientHeight + 'px';
+			// explicitly set initial height for transition
+			const initialHeight = this.$children.clientHeight;
+			this.$children.style.height = initialHeight + 'px';
+
+			this.$children.classList.add( 'transition' );
 
 			const onTransitionEnd = e => {
 				if ( e.target !== this.$children ) return;
@@ -336,7 +342,6 @@ export default class GUI {
 			};
 
 			this.$children.addEventListener( 'transitionend', onTransitionEnd );
-			this.$children.classList.add( 'transition' );
 
 			// todo: this is wrong if children's scrollHeight makes for a gui taller than maxHeight
 			const targetHeight = !open ? 0 : this.$children.scrollHeight;
