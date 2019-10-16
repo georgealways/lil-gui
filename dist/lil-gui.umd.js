@@ -1068,7 +1068,7 @@
   --widget-height: 32px;
   --padding: 8px;
   --spacing: 8px;
-  --font-size: 15px;
+  --font-size: 16px;
   --folder-indent: 12px;
   --widget-padding: 0 0 0 5px;
   --scrollbar-width: 7px;
