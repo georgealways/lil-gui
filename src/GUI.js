@@ -447,6 +447,10 @@ export default class GUI {
 
 		this.$title.addEventListener( 'touchstart', onTouchStart );
 
+		// todo: this fixes a bug on iOS that causes touch events to leak into $title when trying to
+		// scroll $children, resizing the GUI when you don't mean to. i have no idea why.
+		this.$children.addEventListener( 'touchmove', function(){} );
+
 	}
 
 	_setMaxHeight( v ) {
