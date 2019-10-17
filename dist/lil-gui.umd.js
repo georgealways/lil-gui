@@ -1440,8 +1440,18 @@
 
 				this.parent.children.push( this );
 				this.parent.$children.appendChild( this.domElement );
+
+				// Stop the constructor early, everything onward only applies to root GUI's
 				return;
 
+			}
+
+			this.domElement.classList.add( 'root' );
+
+			// Inject stylesheet if we haven't done that yet
+			if ( !stylesInjected && injectStyles ) {
+				_injectStyles( stylesheet );
+				stylesInjected = true;
 			}
 
 			if ( container ) {
@@ -1456,21 +1466,6 @@
 				// Allows you to change the height on mobile by dragging the title
 				this._initTitleDrag();
 
-			}
-
-			this.domElement.classList.add( 'root' );
-
-			if ( width ) {
-				this.domElement.style.setProperty( '--width', width + 'px' );
-			}
-
-			if ( !stylesInjected && injectStyles ) {
-				_injectStyles( stylesheet );
-				stylesInjected = true;
-			}
-
-			if ( title === false ) {
-				this.$title.style.display = 'none';
 			}
 
 			this._onResize = () => {
@@ -1488,6 +1483,15 @@
 			window.addEventListener( 'resize', this._onResize );
 			this._onResize();
 
+			if ( width ) {
+				this.domElement.style.setProperty( '--width', width + 'px' );
+			}
+
+			if ( title === false ) {
+				this.$title.style.display = 'none';
+			}
+
+			// todo: this probably belongs in user land
 			if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
 				this.domElement.style.display = 'none';
 			}
@@ -1635,7 +1639,6 @@
 		 * gui.open( gui._closed ); // toggle
 		 */
 		open( open = true ) {
-
 			this._closed = !open;
 			this.domElement.classList.toggle( 'closed', this._closed );
 			return this;
