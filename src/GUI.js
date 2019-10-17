@@ -107,60 +107,63 @@ export default class GUI {
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
 
+		this.title( title );
+
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
 			this.parent.$children.appendChild( this.domElement );
-
-		} else {
-
-			this.domElement.classList.add( 'root' );
-
-			if ( width ) {
-				this.domElement.style.setProperty( '--width', width + 'px' );
-			}
-
-			if ( !stylesInjected && injectStyles ) {
-				_injectStyles( stylesheet );
-				stylesInjected = true;
-			}
-
-			if ( container ) {
-
-				container.appendChild( this.domElement );
-
-			} else if ( autoPlace ) {
-
-				this.domElement.classList.add( 'autoPlace' );
-				document.body.appendChild( this.domElement );
-
-				// Allows you to change the height on mobile by dragging the title
-				this._initTitleDrag();
-
-			}
-
-			this._onResize = () => {
-
-				// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
-				// configurable via constructor
-				const mobile = window.innerWidth <= mobileBreakpoint;
-				this.domElement.classList.toggle( 'mobile', mobile );
-
-				// Adds a scrollbar to an autoPlace GUI
-				this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
-
-			};
-
-			window.addEventListener( 'resize', this._onResize );
-			this._onResize();
+			return;
 
 		}
+
+		if ( container ) {
+
+			container.appendChild( this.domElement );
+
+		} else if ( autoPlace ) {
+
+			this.domElement.classList.add( 'autoPlace' );
+			document.body.appendChild( this.domElement );
+
+			// Allows you to change the height on mobile by dragging the title
+			this._initTitleDrag();
+
+		}
+
+		this.domElement.classList.add( 'root' );
+
+		if ( width ) {
+			this.domElement.style.setProperty( '--width', width + 'px' );
+		}
+
+		if ( !stylesInjected && injectStyles ) {
+			_injectStyles( stylesheet );
+			stylesInjected = true;
+		}
+
+		if ( title === false ) {
+			this.$title.style.display = 'none';
+		}
+
+		this._onResize = () => {
+
+			// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
+			// configurable via constructor
+			const mobile = window.innerWidth <= mobileBreakpoint;
+			this.domElement.classList.toggle( 'mobile', mobile );
+
+			// Adds a scrollbar to an autoPlace GUI
+			this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
+
+		};
+
+		window.addEventListener( 'resize', this._onResize );
+		this._onResize();
 
 		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
 			this.domElement.style.display = 'none';
 		}
-
-		this.title( title );
 
 	}
 
@@ -360,21 +363,16 @@ export default class GUI {
 
 	/**
 	 * todoc
-	 * @param {string|false} title
+	 * @param {string} title
 	 * @returns {this}
 	 */
 	title( title ) {
 		/**
 		 * todoc
-		 * @type {string|false}
+		 * @type {string}
 		 */
 		this._title = title;
-		if ( title === false ) {
-			this.$title.style.display = 'none';
-		} else {
-			this.$title.style.display = '';
-			this.$title.innerHTML = title;
-		}
+		this.$title.innerHTML = title;
 		return this;
 	}
 
