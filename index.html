@@ -550,7 +550,7 @@ gui.addColor( params, <span class="hljs-string">'colorArray'</span>, <span class
 <p><a name="GUI"></a></p>
 <h1>GUI</h1>
 <p><a name="GUI"></a></p>
-<h2>new <strong>GUI</strong>( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )</h2>
+<h2>new <strong>GUI</strong>( { autoPlace, mobileBreakpoint, mobileHeight, container, injectStyles, title, width, queryKey, parent } )</h2>
 <p>todoc</p>
 <p><strong>Parameters</strong>:</p>
 <ul>
@@ -568,7 +568,7 @@ Default: <code>true</code></p>
 Default: <code>500</code></p>
 </li>
 <li>
-<p><strong>options.mobileMaxHeight</strong> - todoc<br>
+<p><strong>options.mobileHeight</strong> - todoc<br>
 Default: <code>170</code></p>
 </li>
 <li>
@@ -638,7 +638,7 @@ Optional:
 </li>
 </ul>
 <p><strong>Returns</strong>: <code>Controller</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L184" target="_blank">src/GUI.js:184</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L185" target="_blank">src/GUI.js:185</a></small></p>
 <hr>
 <p><a name="GUI#addColor"></a></p>
 <h2>gui.<strong>addColor</strong>( object: object, property: string, rgbScale=1 )</h2>
@@ -661,7 +661,7 @@ Default: <code>1</code></p>
 </li>
 </ul>
 <p><strong>Returns</strong>: <code>Controller</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L226" target="_blank">src/GUI.js:226</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L227" target="_blank">src/GUI.js:227</a></small></p>
 <hr>
 <p><a name="GUI#addFolder"></a></p>
 <h2>gui.<strong>addFolder</strong>( title: string )</h2>
@@ -673,7 +673,7 @@ Required:
 <code>string</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>GUI</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L235" target="_blank">src/GUI.js:235</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L236" target="_blank">src/GUI.js:236</a></small></p>
 <hr>
 <p><a name="GUI#getControllers"></a></p>
 <h2>gui.<strong>getControllers</strong>( recursive=true )</h2>
@@ -684,7 +684,7 @@ Required:
 Default: <code>true</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>Controller[]</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244" target="_blank">src/GUI.js:244</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L245" target="_blank">src/GUI.js:245</a></small></p>
 <hr>
 <p><a name="GUI#getFolders"></a></p>
 <h2>gui.<strong>getFolders</strong>( recursive=true )</h2>
@@ -695,7 +695,7 @@ Default: <code>true</code></li>
 Default: <code>true</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>GUI[]</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L258" target="_blank">src/GUI.js:258</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L259" target="_blank">src/GUI.js:259</a></small></p>
 <hr>
 <p><a name="GUI#reset"></a></p>
 <h2>gui.<strong>reset</strong>( recursive=true )</h2>
@@ -706,7 +706,7 @@ Default: <code>true</code></li>
 Default: <code>true</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L273" target="_blank">src/GUI.js:273</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274" target="_blank">src/GUI.js:274</a></small></p>
 <hr>
 <p><a name="GUI#import"></a></p>
 <h2>gui.<strong>import</strong>( obj: object, recursive=true )</h2>
@@ -724,7 +724,7 @@ Default: <code>true</code></p>
 </li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L284" target="_blank">src/GUI.js:284</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L285" target="_blank">src/GUI.js:285</a></small></p>
 <hr>
 <p><a name="GUI#export"></a></p>
 <h2>gui.<strong>export</strong>( recursive=true )</h2>
@@ -735,7 +735,7 @@ Default: <code>true</code></p>
 Default: <code>true</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>object</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L298" target="_blank">src/GUI.js:298</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L299" target="_blank">src/GUI.js:299</a></small></p>
 <hr>
 <p><a name="GUI#open"></a></p>
 <h2>gui.<strong>open</strong>( open=true )</h2>
@@ -750,13 +750,13 @@ gui.open( gui._closed ); <span class="hljs-comment">// toggle</span>
 Default: <code>true</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L316" target="_blank">src/GUI.js:316</a></small></p>
 <hr>
 <p><a name="GUI#close"></a></p>
 <h2>gui.<strong>close</strong>()</h2>
 <p>todoc</p>
 <p><strong>Returns</strong>: <code>this</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L325" target="_blank">src/GUI.js:325</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L326" target="_blank">src/GUI.js:326</a></small></p>
 <hr>
 <p><a name="GUI#title"></a></p>
 <h2>gui.<strong>title</strong>( title: string )</h2>
@@ -768,12 +768,12 @@ Required:
 <code>string</code></li>
 </ul>
 <p><strong>Returns</strong>: <code>this</code></p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L372" target="_blank">src/GUI.js:372</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L373" target="_blank">src/GUI.js:373</a></small></p>
 <hr>
 <p><a name="GUI#destroy"></a></p>
 <h2>gui.<strong>destroy</strong>()</h2>
 <p>todoc</p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L385" target="_blank">src/GUI.js:385</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L386" target="_blank">src/GUI.js:386</a></small></p>
 <hr>
 <p><a name="GUI#children"></a></p>
 <h2>gui.<strong>children</strong> : Array&lt;GUI|Controller&gt;</h2>
@@ -813,7 +813,7 @@ Required:
 <p><a name="GUI#_title"></a></p>
 <h2>gui.<strong>_title</strong> : string</h2>
 <p>todoc</p>
-<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L377" target="_blank">src/GUI.js:377</a></small></p>
+<p><small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L378" target="_blank">src/GUI.js:378</a></small></p>
 <hr>
 <p><a name="Controller"></a></p>
 <h1>Controller</h1>

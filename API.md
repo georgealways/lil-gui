@@ -60,7 +60,7 @@
 
 <a name="GUI"></a>
 
-## new **GUI**( { autoPlace, mobileBreakpoint, mobileMaxHeight, container, injectStyles, title, width, queryKey, parent } )
+## new **GUI**( { autoPlace, mobileBreakpoint, mobileHeight, container, injectStyles, title, width, queryKey, parent } )
 
 todoc
 
@@ -76,7 +76,7 @@ Default: `true`
  - **options.mobileBreakpoint** - todoc<br>
 Default: `500`
 
- - **options.mobileMaxHeight** - todoc<br>
+ - **options.mobileHeight** - todoc<br>
 Default: `170`
 
  - **options.container** - Adds the GUI to this DOM element, overriding autoPlace.<br>
@@ -138,7 +138,7 @@ Optional:
 
 **Returns**: `Controller`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L184" target="_blank">src/GUI.js:184</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L185" target="_blank">src/GUI.js:185</a></small>
 ***
 
 <a name="GUI#addColor"></a>
@@ -162,7 +162,7 @@ Default: `1`
 
 **Returns**: `Controller`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L226" target="_blank">src/GUI.js:226</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L227" target="_blank">src/GUI.js:227</a></small>
 ***
 
 <a name="GUI#addFolder"></a>
@@ -179,7 +179,7 @@ Required:
 
 **Returns**: `GUI`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L235" target="_blank">src/GUI.js:235</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L236" target="_blank">src/GUI.js:236</a></small>
 ***
 
 <a name="GUI#getControllers"></a>
@@ -195,7 +195,7 @@ Default: `true`
 
 **Returns**: `Controller[]`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L244" target="_blank">src/GUI.js:244</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L245" target="_blank">src/GUI.js:245</a></small>
 ***
 
 <a name="GUI#getFolders"></a>
@@ -211,7 +211,7 @@ Default: `true`
 
 **Returns**: `GUI[]`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L258" target="_blank">src/GUI.js:258</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L259" target="_blank">src/GUI.js:259</a></small>
 ***
 
 <a name="GUI#reset"></a>
@@ -227,7 +227,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L273" target="_blank">src/GUI.js:273</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L274" target="_blank">src/GUI.js:274</a></small>
 ***
 
 <a name="GUI#import"></a>
@@ -247,7 +247,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L284" target="_blank">src/GUI.js:284</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L285" target="_blank">src/GUI.js:285</a></small>
 ***
 
 <a name="GUI#export"></a>
@@ -263,7 +263,7 @@ Default: `true`
 
 **Returns**: `object`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L298" target="_blank">src/GUI.js:298</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L299" target="_blank">src/GUI.js:299</a></small>
 ***
 
 <a name="GUI#open"></a>
@@ -285,7 +285,7 @@ Default: `true`
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L315" target="_blank">src/GUI.js:315</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L316" target="_blank">src/GUI.js:316</a></small>
 ***
 
 <a name="GUI#close"></a>
@@ -296,7 +296,7 @@ todoc
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L325" target="_blank">src/GUI.js:325</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L326" target="_blank">src/GUI.js:326</a></small>
 ***
 
 <a name="GUI#title"></a>
@@ -313,7 +313,7 @@ Required:
 
 **Returns**: `this`
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L372" target="_blank">src/GUI.js:372</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L373" target="_blank">src/GUI.js:373</a></small>
 ***
 
 <a name="GUI#destroy"></a>
@@ -322,7 +322,7 @@ Required:
 
 todoc
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L385" target="_blank">src/GUI.js:385</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L386" target="_blank">src/GUI.js:386</a></small>
 ***
 
 <a name="GUI#children"></a>
@@ -394,7 +394,7 @@ Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to cha
 
 todoc
 
-<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L377" target="_blank">src/GUI.js:377</a></small>
+<small><a href="https://github.com/georgealways/gui/blob/master/src/GUI.js#L378" target="_blank">src/GUI.js:378</a></small>
 ***
 
 <a name="Controller"></a>

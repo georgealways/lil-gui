@@ -126,7 +126,7 @@
 		z-index: 1001;
 
 		&.mobile {
-			max-height: var(--max-height, 170px);
+			max-height: var(--mobile-height, 170px);
 			top: auto;
 			right: auto;
 			bottom: 0;

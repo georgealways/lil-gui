@@ -1084,7 +1084,7 @@
   z-index: 1001;
 }
 .lil-gui.autoPlace.mobile {
-  max-height: var(--max-height, 170px);
+  max-height: var(--mobile-height, 170px);
   top: auto;
   right: auto;
   bottom: 0;
@@ -1349,7 +1349,7 @@
 		 * Adds the GUI to `document.body` and applies fixed positioning.
 		 *
 		 * @param {number} [options.mobileBreakpoint=500] todoc
-		 * @param {number} [options.mobileMaxHeight=170] todoc
+		 * @param {number} [options.mobileHeight=170] todoc
 		 *
 		 * @param {HTMLElement} [options.container]
 		 * Adds the GUI to this DOM element, overriding autoPlace.
@@ -1375,7 +1375,7 @@
 			parent,
 			autoPlace = parent === undefined,
 			mobileBreakpoint = 500,
-			mobileMaxHeight = 170,
+			mobileHeight = 170,
 			container,
 			injectStyles = true,
 			title = 'Controls',
@@ -1468,15 +1468,16 @@
 
 			}
 
+			this._setMobileHeight( mobileHeight );
+
 			this._onResize = () => {
 
-				// Toggles mobile class via JS (as opposed to media query) to make the breakpoint
-				// configurable via constructor
-				const mobile = window.innerWidth <= mobileBreakpoint;
-				this.domElement.classList.toggle( 'mobile', mobile );
+				// toggle mobile class via JS (as opposed to media query)
+				// makes the breakpoint configurable via constructor
+				this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
 
-				// Adds a scrollbar to an autoPlace GUI
-				this._setMaxHeight( mobile ? mobileMaxHeight : window.innerHeight );
+				// Call during resize with stored value to make sure it stays within bounds
+				this._setMobileHeight( this._mobileHeight );
 
 			};
 
@@ -1757,7 +1758,7 @@
 				const deltaY = e.touches[ 0 ].clientY - prevClientY;
 				prevClientY = e.touches[ 0 ].clientY;
 
-				this._setMaxHeight( this._maxHeight - deltaY );
+				this._setMobileHeight( this._mobileHeight - deltaY );
 
 			};
 
@@ -1780,9 +1781,10 @@
 
 		}
 
-		_setMaxHeight( v ) {
-			this._maxHeight = Math.min( v, window.innerHeight );
-			this.domElement.style.setProperty( '--max-height', v + 'px' );
+		_setMobileHeight( v ) {
+			// todo: should probably be a lower bound here too
+			this._mobileHeight = Math.min( window.innerHeight, v );
+			this.domElement.style.setProperty( '--mobile-height', v + 'px' );
 		}
 
 	}
