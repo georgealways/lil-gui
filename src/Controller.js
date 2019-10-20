@@ -52,6 +52,9 @@ export default class Controller {
 		this.$name = document.createElement( 'div' );
 		this.$name.classList.add( 'name' );
 
+		Controller.nextNameID = Controller.nextNameID || 0;
+		this.$name.id = `lil-gui-name-${++Controller.nextNameID}`;
+
 		/**
 		 * The element that contains the controller's "widget", like a checkbox or a slider.
 		 * @type {HTMLElement}

@@ -7,6 +7,7 @@ export default class OptionController extends Controller {
 		super( parent, object, property, 'option' );
 
 		this.$select = document.createElement( 'select' );
+		this.$select.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );

@@ -12,10 +12,12 @@ export default class ColorController extends Controller {
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
 		this.$input.setAttribute( 'tabindex', -1 );
+		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$text = document.createElement( 'input' );
 		this.$text.setAttribute( 'type', 'text' );
 		this.$text.setAttribute( 'spellcheck', 'false' );
+		this.$text.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );

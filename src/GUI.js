@@ -93,8 +93,15 @@ export default class GUI {
 		 */
 		this.$title = document.createElement( 'div' );
 		this.$title.classList.add( 'title' );
-		this.$title.addEventListener( 'click', () => {
-			this.openAnimated( this._closed );
+		this.$title.setAttribute( 'role', 'button' );
+		this.$title.setAttribute( 'aria-expanded', true );
+		this.$title.setAttribute( 'tabindex', 0 );
+
+		this.$title.addEventListener( 'click', () => this.openAnimated( this._closed ) );
+		this.$title.addEventListener( 'keydown', e => {
+			if ( e.keyCode === 13 || e.keyCode === 32 ) {
+				this.$title.click();
+			}
 		} );
 
 		/**
@@ -314,9 +321,14 @@ export default class GUI {
 	 * gui.open( gui._closed ); // toggle
 	 */
 	open( open = true ) {
+
 		this._closed = !open;
+
+		this.$title.setAttribute( 'aria-expanded', !this._closed );
 		this.domElement.classList.toggle( 'closed', this._closed );
+
 		return this;
+
 	}
 
 	/**
@@ -331,6 +343,8 @@ export default class GUI {
 
 		// set state immediately
 		this._closed = !open;
+
+		this.$title.setAttribute( 'aria-expanded', !this._closed );
 
 		// wait for next frame to measure $children
 		requestAnimationFrame( () => {
