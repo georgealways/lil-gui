@@ -24,7 +24,7 @@
     "homepage": "node -r esm scripts/homepage.js",
     "server": "live-server --watch=$npm_package_main,index.html,examples --no-browser",
     "preversion": "npm run build && npm test",
-    "version": "npm run build:all && git add -A dist style/icons.scss API.md index.html",
+    "prepublish": "npm run build && npm test",
     "dev": "npm run build && node -r esm scripts/dev.js"
   },
   "files": [
