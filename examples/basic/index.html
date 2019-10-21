@@ -14,30 +14,32 @@
 		const folder = gui.addFolder( 'Folder' );
 
 		const folderParams = {
-			number: 0,
+			number: 0.5,
 			boolean: false,
-			color: '#0cf'
+			color: '#0cf',
+			function() { console.log( 'hi' ) }
 		};
 
-		folder.add( folderParams, 'boolean' ).name( 'Custom Name' );
-		folder.add( folderParams, 'number' )
+		folder.add( folderParams, 'number', 0, 1 );
+		folder.add( folderParams, 'boolean' );
 		folder.addColor( folderParams, 'color' );
+		folder.add( folderParams, 'function' );
 
 		const params = {
 			options: 10,
 			boolean: true,
 			string: 'lil-gui',
-			number: 0.5,
+			number: 0,
 			color: '#aa00ff',
-			function() { alert( 'hi' ); }
+			function() { console.log( 'hi' ) }
 		};
 
 		gui.add( params, 'options', { Small: 1, Medium: 10, Large: 100 } );
 		gui.add( params, 'boolean' );
 		gui.add( params, 'string' );
-		gui.add( params, 'number', 0, 1 );
+		gui.add( params, 'number' );
 		gui.addColor( params, 'color' );
-		gui.add( params, 'function' );
+		gui.add( params, 'function' ).name( 'Custom Name' );
 
 	</script>
 </body>
