@@ -125,19 +125,25 @@
 				background: var(--highlight-color);
 			}
 		}
+		&:focus .name { 
+			border-color: var(--highlight-color);
+		}
 		&:active .name {
 			background: var(--text-color);
+			border-color: var(--text-color);
 			color: var(--background-color);
 		}
 		.name {
 			display: block;
-			padding: 0;
 			text-align: center;
+			padding: 0;
 			width: 100%;
 			background: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
-			line-height: var(--widget-height);
+			// todo: why do i need this -2px?
+			line-height: calc(var(--widget-height) - 2px);
+			border: 2px solid transparent;
 		}
 		.widget {
 			display: none;

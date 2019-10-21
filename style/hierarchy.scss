@@ -3,12 +3,17 @@
 		height: var(--title-height);
 		font-weight: 600;
 		padding: 0 var(--padding);
+		// todo: why do i need this -2px?
 		line-height: calc(var(--title-height) - 2px);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
+		}
+		&:focus { 
+			outline: 1px solid var(--highlight-color);
+			outline-offset: -1px;
 		}
 	}
 
