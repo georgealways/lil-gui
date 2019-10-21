@@ -141,8 +141,8 @@
 			background: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			height: var(--widget-height);
-			// todo: why do i need this -2px?
-			line-height: calc(var(--widget-height) - 2px);
+			// todo: why do i need this -3px?
+			line-height: calc(var(--widget-height) - 3px);
 			border: 2px solid transparent;
 		}
 		.widget {
