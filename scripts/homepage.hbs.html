@@ -12,8 +12,7 @@
 		:root {
 			--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
 				'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace,
-				'Droid Sans Fallback';
+			--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
 			--font-size: 15px;
 			--line-height: 1.6;
 			--rule: #b7b1ae;
@@ -345,49 +344,6 @@
 </head>
 <body>
 
-	<div id="container">
-
-		<button id="toc-button">☰</button>
-
-		<div id="toc-container">
-			<nav id="toc">
-
-				<h1><a href="#">{{ pkg.name }}</a></h1>
-
-				<h2><a href="#Tutorial">Tutorial</a></h2>
-
-				<ul>
-					<li><a href="#Tutorial#Sliders">Sliders</a></li>
-					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
-					<li><a href="#Tutorial#Colors">Colors</a></li>
-					<li><a href="#Tutorial#Folders">Folders</a></li>
-					<li><a href="#Tutorial#Styling">Styling</a></li>
-					<li><a href="#Tutorial#Saving">Saving</a></li>
-				</ul>
-
-				<h2><a href="#API">API</a></h2>
-
-			</nav>
-		</div>
-
-		<main>
-
-			<section id="README">
-				{{{ readme }}}
-			</section>
-
-			<section id="Tutorial">
-				{{{ tutorial }}}
-			</section>
-
-			<section id="API">
-				{{{ api }}}
-			</section>
-
-		</main>
-
-	</div>
-
 	<script type="module">
 
 		// Basic demo
@@ -413,31 +369,10 @@
 		gui.addColor( myObject, 'color' );
 		gui.add( myObject, 'function' );
 
-		// {
-		// 	// hide demo if scrolled
-		// 	const onScroll = () => {
-		// 		gui.close();
-		// 		document.removeEventListener( 'scroll', onScroll );
-		// 	};
-		// 	document.addEventListener( 'scroll', onScroll );
-		// }
-
 		// Table of contents
 		// ---------------------------------------------------------------------
 
 		const toc = document.getElementById( 'toc' );
-
-		// todo: this should be done by homepage.js pre-render
-		const api = document.getElementById( 'API' );
-		let foundHR = false;
-		Array.from( api.children ).forEach( c => {
-			if ( foundHR ) return;
-			if ( c.tagName === 'HR' ) {
-				foundHR = true;
-			} else if ( c.tagName !== 'H1' ) {
-				toc.appendChild( c );
-			}
-		} );
 
 		const tocButton = document.getElementById( 'toc-button' );
 		document.body.addEventListener( 'click', closeTOC );
@@ -601,6 +536,53 @@
 		}
 
 	</script>
+
+	<div id="container">
+
+		<button id="toc-button">☰</button>
+
+		<div id="toc-container">
+			<nav id="toc">
+
+				<h1><a href="#">{{ pkg.name }}</a></h1>
+
+				<h2><a href="#Tutorial">Tutorial</a></h2>
+
+				<ul>
+					<li><a href="#Tutorial#Sliders">Sliders</a></li>
+					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
+					<li><a href="#Tutorial#Colors">Colors</a></li>
+					<li><a href="#Tutorial#Folders">Folders</a></li>
+					<li><a href="#Tutorial#Styling">Styling</a></li>
+					<li><a href="#Tutorial#Saving">Saving</a></li>
+				</ul>
+
+				<h2><a href="#API">API</a></h2>
+
+				{{{ apitoc }}}
+
+			</nav>
+		</div>
+
+		<main>
+
+			<section>
+				{{{ readme }}}
+			</section>
+
+			<section>
+				<a name="Tutorial"></a>
+				{{{ tutorial }}}
+			</section>
+
+			<section>
+				<a name="API"></a>
+				{{{ apibody }}}
+			</section>
+
+		</main>
+
+	</div>
 
 	{{{ jsdocDebug }}}
 

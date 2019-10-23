@@ -10,19 +10,17 @@
 
 {{/jsdocData}}
 
+<!--endtoc-->
+
 ***
 
 {{#jsdocData}}
 
-<a name="{{{longname}}}"></a>
-
-# {{name}}
+# <a name="{{{longname}}}"></a> {{name}}
 
 {{#children}}
 
-<a name="{{{longname}}}"></a>
-
-## {{{signature}}}{{{parens}}}
+## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
 
 {{{description}}}
 

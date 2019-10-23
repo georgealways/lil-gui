@@ -16,32 +16,40 @@ let stylesInjected = false;
 export default class GUI {
 
 	/**
-	 * todoc
+	 * Creates a panel that holds controllers.
+	 * @example
+	 * new GUI();
+	 * new GUI( { container: document.getElementById( 'custom' ) } );
+	 *
 	 * @param {object} [options]
 	 * @param {boolean} [options.autoPlace=true]
-	 * Adds the GUI to `document.body` and applies fixed positioning.
-	 *
-	 * @param {number} [options.mobileBreakpoint=500] todoc
-	 * @param {number} [options.mobileHeight=170] todoc
+	 * Automatically adds the GUI to document.body. On desktop, the GUI will be fixed to the top
+	 * right of the page. On mobile, the GUI will be fixed to the bottom of the page.
 	 *
 	 * @param {HTMLElement} [options.container]
-	 * Adds the GUI to this DOM element, overriding autoPlace.
+	 * Adds the GUI to this DOM element. This overrides `autoPlace`.
 	 *
 	 * @param {boolean} [options.injectStyles=true]
-	 * Injects the default stylesheet as the first child of `document.head`.
+	 * Injects the default stylesheet into the page upon creation of the first GUI.
 	 * Pass false when using your own stylesheet.
 	 *
-	 * @param {string|false} [options.title=Controls]
-	 * Name to display in the title bar. Pass `false` to hide the title bar.
+	 * @param {string} [options.title=Controls]
+	 * Name to display in the title bar.
 	 *
-	 * @param {number} [options.width] todoc
+	 * @param {number} [options.width]
+	 * Specify a width in pixels that will be applied with an inline style. You can also add more
+	 * room for names with `.lil-gui { --name-width: 55% }` or make the GUI wider on desktop
+	 * with `.lil-gui { --width: 500px }`.
 	 *
-	 * @param {string} [options.queryKey]
-	 * If defined, the GUI will be hidden unless the specified string is found in `location.search`.
-	 * You can use this to hide the GUI until you visit `url.com/?debug` for example.
+	 * @param {number} [options.mobileBreakpoint=500]
+	 * Applies mobile styles to an `autoPlace` GUI when the window's width is less than this value.
 	 *
-	 * @param {GUI} [options.parent] Adds this GUI as a child or "folder" in another GUI. Usually
-	 * this is done for you by `gui.addFolder()`.
+	 * @param {number} [options.mobileHeight=170]
+	 * Starting height of a GUI with mobile styles.
+	 *
+	 * @param {GUI} [options.parent]
+	 * Adds this GUI as a child or "folder" in another GUI.
+	 * Usually this is done for you by `addFolder()`.
 	 *
 	 */
 	constructor( {
@@ -52,8 +60,7 @@ export default class GUI {
 		container,
 		injectStyles = true,
 		title = 'Controls',
-		width,
-		queryKey
+		width
 	} = {} ) {
 
 		/**
@@ -166,15 +173,6 @@ export default class GUI {
 
 		if ( width ) {
 			this.domElement.style.setProperty( '--width', width + 'px' );
-		}
-
-		if ( title === false ) {
-			this.$title.style.display = 'none';
-		}
-
-		// todo: this probably belongs in user land
-		if ( queryKey && !new RegExp( `\\b${queryKey}\\b` ).test( location.search ) ) {
-			this.domElement.style.display = 'none';
 		}
 
 	}

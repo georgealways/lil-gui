@@ -126,6 +126,8 @@ function transform( v ) {
 		if ( rest.every( v => v.name.startsWith( prefix ) ) ) {
 
 			v.parens = `( { ${rest.map( v => v.name.replace( prefix, '' ) ).join( ', ' )} } )`;
+			v.params.splice( 0, 1 );
+			v.params.forEach( p => p.name = p.name.replace( prefix, '' ) );
 
 		} else {
 
@@ -255,18 +257,20 @@ function singleParamToSignature( param ) {
 
 	let name = param.name;
 
-	if ( param.defaultvalue !== undefined ) {
+	const hasDefault = param.defaultvalue !== undefined;
+
+	if ( hasDefault ) {
 		name += '=' + param.defaultvalue;
 	}
 
-	if ( param.defaultvalue === undefined &&
+	if ( !hasDefault &&
 		param.type &&
 		param.type.names[ 0 ] !== '*' &&
 		param.type.names[ 0 ] !== 'any' ) {
 		name += ': ' + param.type.names.join( '|' );
 	}
 
-	if ( param.defaultvalue === undefined && param.optional ) {
+	if ( param.optional || hasDefault ) {
 		name = `[${name}]`;
 	}
 

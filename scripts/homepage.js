@@ -31,9 +31,21 @@ console.log( "jsdocDebug", jsdocDebug );
 
 const template = hbs.compile( read( TEMPLATE ) );
 
+const api = read( API );
+
+let apitoc;
+
+// todo: gross
+api.replace( /# API([\s\S]*)<!--endtoc-->/m, function( a, b ) {
+	apitoc = b.replace( /^#/g, '##' );
+} );
+
+const apibody = api.replace( apitoc, '' );
+
 const html = template( {
 	readme: md.render( read( README ) ),
-	api: md.render( read( API ) ),
+	apitoc: md.render( apitoc ),
+	apibody: md.render( apibody ),
 	tutorial: md.render( read( TUTORIAL ) ),
 	jsdocDebug,
 	pkg
