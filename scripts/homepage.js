@@ -37,7 +37,7 @@ let apitoc;
 
 // todo: gross
 api.replace( /# API([\s\S]*)<!--endtoc-->/m, function( a, b ) {
-	apitoc = b.replace( /^#/g, '##' );
+	apitoc = b.replace( /^#/gm, '##' ); // demote headings
 } );
 
 const apibody = api.replace( apitoc, '' );
