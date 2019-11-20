@@ -186,12 +186,8 @@ export default class NumberController extends Controller {
 
 			if ( e.touches.length > 1 ) return;
 
-			// 2019: Android seems to take care of this automatically.
-			// I'd like to remove this test if iOS ever decided to do the same.
-
-			// If we're in a scrollable container, we should wait for
-			// the first touchmove to see if the user is trying to move
-			// horizontally or vertically.
+			// If we're in a scrollable container, we should wait for the first
+			// touchmove to see if the user is trying to slide or scroll.
 			if ( this._hasScrollBar ) {
 
 				prevClientX = e.touches[ 0 ].clientX;
@@ -303,7 +299,7 @@ export default class NumberController extends Controller {
 		let { deltaX, deltaY } = e;
 
 		// 2019: Safari and Chrome report weird non-integral values for an actual
-		// mouse with a wheel connected to a macbook, but still expose actual
+		// mouse with a wheel connected to my 2015 macbook, but still expose actual
 		// lines scrolled via wheelDelta.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
