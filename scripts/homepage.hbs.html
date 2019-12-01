@@ -271,17 +271,17 @@
 			color: var(--pre-background);
 		}
 
-		#Tutorial code span.changed {
+		#tutorial-container code span.changed {
 			background-color: magenta;
 			transition: none;
 		}
 
-		#Tutorial code span {
+		#tutorial-container code span {
 			background-color: transparent;
 			transition: background-color 0.5s linear;
 		}
 
-		#Tutorial .example-container {
+		#tutorial-container .example-container {
 			border: 2px solid var(--rule);
 			padding: 1rem;
 			display: flex;
@@ -400,7 +400,7 @@
 		// Tutorial examples
 		// ---------------------------------------------------------------------
 
-		example( 1, {}, ( gui, code ) => {
+		example( 1, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -416,7 +416,7 @@
 
 		} );
 
-		example( 4, { title: false }, ( gui, code ) => {
+		example( 4, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -432,7 +432,7 @@
 
 		} );
 
-		example( 5, { title: false }, ( gui, code ) => {
+		example( 5, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -455,7 +455,7 @@
 
 		} );
 
-		example( 6, { title: false }, ( gui, code ) => {
+		example( 6, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -479,18 +479,18 @@
 		} );
 
 		/** @param {function(GUI,HTMLElement)} callback */
-		function example( n, guiParams, callback ) {
+		function example( n, callback ) {
 
-			const pre = document.querySelector( `#Tutorial > pre:nth-of-type(${n})` );
+			const pre = document.querySelector( `#tutorial-container > pre:nth-of-type(${n})` );
 			const code = pre.querySelector( 'code' );
 
 			const container = document.createElement( 'div' );
 			container.classList.add( 'example-container' );
 			pre.parentElement.insertBefore( container, pre.nextElementSibling );
 
-			guiParams.container = container;
 
-			const gui = new GUI( guiParams );
+			const gui = new GUI( { container } );
+			gui.$title.style.display = 'none';
 			callback( gui, code );
 
 		}
@@ -570,7 +570,7 @@
 				{{{ readme }}}
 			</section>
 
-			<section>
+			<section id="tutorial-container">
 				<a name="Tutorial"></a>
 				{{{ tutorial }}}
 			</section>
