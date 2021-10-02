@@ -1,7 +1,6 @@
 # lil-gui
 
-Makes a floating panel for controllers on the web. A drop-in replacement and
-total rewrite of [dat.gui](https://github.com/dataarts/dat.gui) by its original author.
+Makes a floating panel for controllers on the web. Works as a drop-in replacement for [dat.gui](https://github.com/dataarts/dat.gui).
 
 ```js
 import GUI from 'lil-gui'; 

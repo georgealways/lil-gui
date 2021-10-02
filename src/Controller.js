@@ -8,7 +8,7 @@ export default class Controller {
 	constructor( parent, object, property, className, tagName = 'div' ) {
 
 		/**
-		 * The GUI this controller belongs to.
+		 * The GUI that contains this controller.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
@@ -26,19 +26,20 @@ export default class Controller {
 		this.property = property;
 
 		/**
-		 * Used to determine if the controller is disabled.
+		 * Used to determine if the controller is disabled. Don't modify this value directly.
+		 * Use the `controller.disable( true|false )` method instead.
 		 * @type {boolean}
 		 */
 		this._disabled = false;
 
 		/**
-		 * The value when the controller is created.
+		 * The value of `object[ property ]` when the controller was created.
 		 * @type {any}
 		 */
 		this.initialValue = this.getValue();
 
 		/**
-		 * The outermost container element.
+		 * The outermost container DOM element for this controller.
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( tagName );
@@ -46,7 +47,7 @@ export default class Controller {
 		this.domElement.classList.add( className );
 
 		/**
-		 * The element that contains the controller's name.
+		 * The DOM element that contains the controller's name.
 		 * @type {HTMLElement}
 		 */
 		this.$name = document.createElement( 'div' );
@@ -56,7 +57,7 @@ export default class Controller {
 		this.$name.id = `lil-gui-name-${++Controller.nextNameID}`;
 
 		/**
-		 * The element that contains the controller's "widget", like a checkbox or a slider.
+		 * The DOM element that contains the controller's "widget" (which differs by controller type).
 		 * @type {HTMLElement}
 		 */
 		this.$widget = document.createElement( 'div' );
@@ -81,7 +82,8 @@ export default class Controller {
 	 */
 	name( name ) {
 		/**
-		 * Used to access the controller's name.
+		 * The controller's name. Don't modify this value directly. Use the 
+		 * `controller.name( 'Name' )` method instead.
 		 * @type {string}
 		 */
 		this._name = name;
@@ -91,9 +93,10 @@ export default class Controller {
 
 	/**
 	 * Pass a function to be called whenever the value is modified by this controller.
-	 * The function receives the new value as its first parameter and `this` will be bound to the
+	 * The function receives the new value as its first parameter. The value of `this` will be the
 	 * controller.
-	 * @param {Function} callback todoc
+	 * 
+	 * @param {Function} callback
 	 * @returns {this}
 	 * @example
 	 * gui.add( object, 'property' ).onChange( v => {
@@ -107,9 +110,8 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * A function that will be called whenever the value is modified via the GUI.
-		 * The function receives the new value as its first parameter and `this` will be bound to
-		 * the controller.
+		 * Used to access the function bound to change events. Don't modify this value directly. 
+		 * Use the `controller.onChange( callback )` method instead.
 		 * @type {Function}
 		 */
 		this._onChange = callback;
@@ -160,7 +162,30 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and adds a new option controller.
+	 * Destroys this controller and replaces it with a new option controller. Provided as a more 
+	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.GUI. 
+	 * 
+	 * Use caution, as this method will destroy old references to this controller. It will also 
+	 * change controller order if called out of sequence, moving the option controller to the end of
+	 * the GUI.
+	 * 
+	 * @example
+	 * // safe usage
+	 * 
+	 * gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );
+	 * gui.add( object2, 'property' );
+	 * 
+	 * // danger
+	 * 
+	 * const c = gui.add( object1, 'property' );
+	 * gui.add( object2, 'property' );
+	 * 
+	 * c.options( [ 'a', 'b', 'c' ] );
+	 * // controller is now at the end of the GUI even though it was added first
+	 * 
+	 * assert( c.parent.children.indexOf( c ) === -1 )
+	 * // c references a controller that no longer exists
+	 * 
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -202,16 +227,15 @@ export default class Controller {
 	}
 
 	/**
-	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening, and use
-	 * `controller._listening` to access the listening state.
+	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening.
 	 * @param {boolean} listen
 	 * @returns {this}
 	 */
 	listen( listen = true ) {
 
 		/**
-		 * Used to determine if the controller is listening.  Use `controller.listen(true|false)` to
-		 * change the listening state.
+		 * Used to determine if the controller is currently listening. Don't modify this value 
+		 * directly. Use the `controller.listen( true|false )` method instead.
 		 * @type {boolean}
 		 */
 		this._listening = listen;
@@ -243,7 +267,7 @@ export default class Controller {
 	}
 
 	/**
-	 * todoc
+	 * Sets the value of `object[ property ]`, invokes any `onChange` handlers and updates the display.
 	 * @param {any} value
 	 * @returns {this}
 	 */

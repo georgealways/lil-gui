@@ -23,33 +23,31 @@ export default class GUI {
 	 *
 	 * @param {object} [options]
 	 * @param {boolean} [options.autoPlace=true]
-	 * Automatically adds the GUI to document.body. On desktop, the GUI will be fixed to the top
-	 * right of the page. On mobile, the GUI will be fixed to the bottom of the page.
+	 * Automatically adds the GUI to `document.body`. On desktop, the GUI will be fixed to the top
+	 * right of the page. On mobile, it will be fixed to the bottom.
 	 *
 	 * @param {HTMLElement} [options.container]
-	 * Adds the GUI to this DOM element. This overrides `autoPlace`.
+	 * Adds the GUI to this DOM element. Sets `autoPlace` to false.
 	 *
-	 * @param {boolean} [options.injectStyles=true]
-	 * Injects the default stylesheet into the page upon creation of the first GUI.
-	 * Pass false when using your own stylesheet.
+	 * @param {number} [options.width]
+	 * Width of the GUI in pixels, usually set when labels become too long. Note that you can make 
+	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`
 	 *
 	 * @param {string} [options.title=Controls]
 	 * Name to display in the title bar.
 	 *
-	 * @param {number} [options.width]
-	 * Specify a width in pixels that will be applied with an inline style. You can also add more
-	 * room for names with `.lil-gui { --name-width: 55% }` or make the GUI wider on desktop
-	 * with `.lil-gui { --width: 500px }`.
-	 *
+	 * @param {boolean} [options.injectStyles=true]
+	 * Injects the default stylesheet into the page if this is the first GUI.
+	 * Pass `false` to use your own stylesheet.
+	 * 
 	 * @param {number} [options.mobileBreakpoint=500]
-	 * Applies mobile styles to an `autoPlace` GUI when the window's width is less than this value.
+	 * Browser width in pixels where mobile styles take effect. Only applies to an `autoPlace` GUI.
 	 *
 	 * @param {number} [options.mobileHeight=170]
-	 * Starting height of a GUI with mobile styles.
+	 * Height of a GUI on mobile.
 	 *
 	 * @param {GUI} [options.parent]
-	 * Adds this GUI as a child or "folder" in another GUI.
-	 * Usually this is done for you by `addFolder()`.
+	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
 	 *
 	 */
 	constructor( {
@@ -64,19 +62,19 @@ export default class GUI {
 	} = {} ) {
 
 		/**
-		 * todoc
+		 * The GUI containing this folder, or `undefined` if this is the root GUI.
 		 * @type {GUI}
 		 */
 		this.parent = parent;
 
 		/**
-		 * todoc
+		 * The top level GUI containing this folder, or `this` if this is the root GUI.
 		 * @type {GUI}
 		 */
 		this.root = parent ? parent.root : this;
 
 		/**
-		 * todoc
+		 * The list of controllers and folders contained by this GUI.
 		 * @type {Array<GUI|Controller>}
 		 */
 		this.children = [];
@@ -84,6 +82,7 @@ export default class GUI {
 		/**
 		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 		 * @type {boolean}
+		 * @readonly
 		 */
 		this._closed = false;
 
@@ -95,7 +94,7 @@ export default class GUI {
 		this.domElement.classList.add( 'lil-gui' );
 
 		/**
-		 * The element that contains the title.
+		 * The DOM element that contains the title.
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'div' );
@@ -112,7 +111,7 @@ export default class GUI {
 		} );
 
 		/**
-		 * The element that contains children.
+		 * The DOM element that contains children.
 		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
@@ -179,6 +178,9 @@ export default class GUI {
 
 	/**
 	 * Adds a controller to the GUI, inferring controller type using the `typeof` operator.
+	 * @example
+	 * // todoc
+	 * 
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
 	 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
@@ -223,10 +225,14 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
-	 * @param {object} object todoc
-	 * @param {string} property todoc
-	 * @param {number} rgbScale todoc
+	 * Adds a color controller to the GUI.
+	 * @example
+	 * // todoc
+	 * 
+	 * @param {object} object The object the controller will modify.
+	 * @param {string} property Name of the property to control.
+	 * @param {number} rgbScale Maximum value for a color channel when using an RGB color. You may 
+	 * need to set this to 255 if your colors are too dark.
 	 * @returns {Controller}
 	 */
 	addColor( object, property, rgbScale = 1 ) {
@@ -234,8 +240,12 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
-	 * @param {string} title todoc
+	 * Adds a folder to the GUI, which is just another GUI. This method returns 
+	 * the nested GUI so you can add controllers to it.
+	 * @example
+	 * // todoc
+	 * 
+	 * @param {string} title Name to display in the folder's title bar.
 	 * @returns {GUI}
 	 */
 	addFolder( title ) {
@@ -243,48 +253,12 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
-	 * @param {boolean} recursive
-	 * @returns {Controller[]}
-	 */
-	getControllers( recursive = true ) {
-		let controllers = this.children.filter( c => c instanceof Controller );
-		if ( !recursive ) return controllers;
-		this.getFolders( true ).forEach( f => {
-			controllers = controllers.concat( f.getControllers( false ) );
-		} );
-		return controllers;
-	}
-
-	/**
-	 * todoc
-	 * @param {boolean} recursive
-	 * @returns {GUI[]}
-	 */
-	getFolders( recursive = true ) {
-		const folders = this.children.filter( c => c instanceof GUI );
-		if ( !recursive ) return folders;
-		let allFolders = Array.from( folders );
-		folders.forEach( f => {
-			allFolders = allFolders.concat( f.getFolders( true ) );
-		} );
-		return allFolders;
-	}
-
-	/**
-	 * Resets all controllers.
-	 * @param {boolean} recursive
-	 * @returns {this}
-	 */
-	reset( recursive = true ) {
-		this.getControllers( recursive ).forEach( c => c.reset() );
-		return this;
-	}
-
-	/**
-	 * todoc
+	 * Recalls values that were saved with `gui.export()`.
+	 * @example
+	 * // todoc
+	 * 
 	 * @param {object} obj
-	 * @param {boolean} recursive
+	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {this}
 	 */
 	import( obj, recursive = true ) {
@@ -298,7 +272,10 @@ export default class GUI {
 
 	/**
 	 * Returns an object mapping controller names to values.
-	 * @param {boolean} recursive
+	 * @example
+	 * // todoc
+
+	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {object}
 	 */
 	export( recursive = true ) {
@@ -330,7 +307,7 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
+	 * Closes the GUI.
 	 * @returns {this}
 	 */
 	close() {
@@ -378,13 +355,14 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
+	 * Change the title of this GUI.
 	 * @param {string} title
 	 * @returns {this}
 	 */
-	title( title ) {
+	 title( title ) {
 		/**
-		 * todoc
+		 * Current title of the GUI. Don't modify this value directly.
+		 * Use the `gui.title( 'Title' )` method instead.
 		 * @type {string}
 		 */
 		this._title = title;
@@ -393,7 +371,17 @@ export default class GUI {
 	}
 
 	/**
-	 * todoc
+	 * Resets all controllers to their initial values.
+	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
+	 * @returns {this}
+	 */
+	 reset( recursive = true ) {
+		this.getControllers( recursive ).forEach( c => c.reset() );
+		return this;
+	}
+	
+	/**
+	 * Destroys all DOM elements and event listeners associated with this GUI
 	 */
 	destroy() {
 
@@ -411,6 +399,35 @@ export default class GUI {
 			window.removeEventListener( 'resize', this._onResize );
 		}
 
+	}
+
+	/**
+	 * Returns an array of controllers contained by this GUI.
+	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
+	 * @returns {Controller[]}
+	 */
+	getControllers( recursive = true ) {
+		let controllers = this.children.filter( c => c instanceof Controller );
+		if ( !recursive ) return controllers;
+		this.getFolders( true ).forEach( f => {
+			controllers = controllers.concat( f.getControllers( false ) );
+		} );
+		return controllers;
+	}
+
+	/**
+	 * Returns an array of folders contained by this GUI.
+	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
+	 * @returns {GUI[]}
+	 */
+	getFolders( recursive = true ) {
+		const folders = this.children.filter( c => c instanceof GUI );
+		if ( !recursive ) return folders;
+		let allFolders = Array.from( folders );
+		folders.forEach( f => {
+			allFolders = allFolders.concat( f.getFolders( true ) );
+		} );
+		return allFolders;
 	}
 
 	_initTitleDrag() {
