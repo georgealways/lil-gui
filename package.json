@@ -32,20 +32,20 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^4.1.1",
+    "concurrently": "^6.3.0",
     "eslint": "^6.1.0",
     "eslint-plugin-jsdoc": "^15.9.1",
     "esm": "^3.2.25",
     "handlebars": "^4.3.1",
     "highlight.js": "^9.15.10",
     "jsdoc-api": "^5.0.2",
-    "live-server": "^1.2.1",
+    "live-server": "^1.1.0",
     "markdown-it": "^9.1.0",
     "onchange": "^6.0.0",
     "rollup": "^1.17.0",
     "sass": "^1.22.10",
     "terser": "^4.3.8",
-    "webfont": "^9.0.0"
+    "webfont": "^11.2.26"
   },
   "eslintIgnore": [
     "dist",
