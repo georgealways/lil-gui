@@ -81,6 +81,7 @@
 			padding: 1rem;
 			overflow: auto;
 			border-radius: var(--border-radius);
+			margin: 2rem 0 1rem;
 		}
 
 		code {
@@ -94,6 +95,10 @@
 			font-family: var(--font-family-code);
 			color: var(--pre-code);
 			tab-size: 4;
+		}
+
+		p code {
+			white-space: nowrap;
 		}
 
 		hr {
@@ -267,7 +272,7 @@
 			background: var(--background);
 			border: 1px solid #0003;
 			border-bottom-width: 2px;
-			opacity: 0.925;
+			line-height: 96%;
 			color: var(--pre-background);
 		}
 
@@ -281,12 +286,43 @@
 			transition: background-color 0.5s linear;
 		}
 
-		#tutorial-container .example-container {
-			border: 2px solid var(--rule);
-			padding: 1rem;
+		.example-container {
 			display: flex;
-			align-items: center;
-			justify-content: center;
+			align-items: flex-start;
+			justify-content: flex-end;
+			padding: 0 16px 20px 0;
+			border-top: 26px solid #505456;
+			border-radius: 5px;
+			background: #cad8d9;
+			min-height: 135px;
+			position: relative;
+			margin-bottom: 2rem;
+			box-shadow: 0 10px 30px rgba(0 0 0 / 20%)
+		}
+
+		.example-container::before { 
+			content: 'Result';
+			display: block;
+			color: var(--background);
+			position: absolute;
+			top: -22px;
+			left: 8px;
+			font-size: 11px;
+			font-weight: 600;
+		}
+
+		.autoPlace {
+			will-change: opacity;
+			transition: none;
+		}
+
+		.loaded .autoPlace {
+			transition: opacity 0.2s;
+		}
+
+		.scrolled .autoPlace {
+			opacity: 0;
+			pointer-events: none;
 		}
 
 		@media (max-width: 958px) {
@@ -334,9 +370,8 @@
 				padding-bottom: 200px;
 			}
 
-			#Tutorial .example-container {
-				padding: 0;
-				border: 0;
+			.example-container {
+				padding: 1rem;
 			}
 		}
 
@@ -368,6 +403,18 @@
 		gui.add( myObject, 'number', 0, 1 );
 		gui.addColor( myObject, 'color' );
 		gui.add( myObject, 'function' );
+
+		// Hide GUI after scroll thresh
+		// ---------------------------------------------------------------------
+
+		const onscroll = () => {
+			document.body.classList.toggle( 'scrolled', window.scrollY > 200 );
+		}
+		document.addEventListener( 'scroll', onscroll );
+		onscroll();
+
+		// Delay transition class so we don't see a fadeout flash on load
+		requestAnimationFrame( () => document.body.classList.add( 'loaded' ) );
 
 		// Table of contents
 		// ---------------------------------------------------------------------
@@ -401,6 +448,10 @@
 		// ---------------------------------------------------------------------
 
 		example( 1, ( gui, code ) => {
+			gui.add( document, 'title' );
+		} );
+
+		example( 2, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -416,7 +467,7 @@
 
 		} );
 
-		example( 4, ( gui, code ) => {
+		example( 5, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -432,7 +483,7 @@
 
 		} );
 
-		example( 5, ( gui, code ) => {
+		example( 6, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -455,7 +506,7 @@
 
 		} );
 
-		example( 6, ( gui, code ) => {
+		example( 7, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -490,7 +541,7 @@
 
 
 			const gui = new GUI( { container } );
-			gui.$title.style.display = 'none';
+			// gui.$title.style.display = 'none';
 			callback( gui, code );
 
 		}

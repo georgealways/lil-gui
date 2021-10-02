@@ -1,10 +1,27 @@
 # Tutorial
 
-Basic usage todo
+**lil-gui** gives you an interface for changing the properties of any JavaScript object at runtime.
+It's intended as a drop-in replacement for dat.gui, implemented with more modern web standards.
+
+## Installation
+
+todo
+
+## Adding Controllers
+
+This code creates an input that lets you change this page's title.
 
 ```js
 const gui = new GUI();
+gui.add( document, 'title' );
+```
 
+lil-gui will choose an appropriate controller type based on the property's value when it was added
+to the GUI. Since `document.title` was a string, a text field was created.
+
+Here are some more of the variable types you can control:
+
+```js
 const myObject = {
 	myBoolean: true,
 	myString: 'lil-gui',
@@ -12,15 +29,15 @@ const myObject = {
 	myFunction: function() { alert( 'hi' ) }
 };
 
-gui.add( myObject, 'myBoolean' );
-gui.add( myObject, 'myString' );
-gui.add( myObject, 'myNumber' );
-gui.add( myObject, 'myFunction' );
+gui.add( myObject, 'myBoolean' ); 	// checkbox
+gui.add( myObject, 'myString' ); 	// text field
+gui.add( myObject, 'myNumber' ); 	// number field
+gui.add( myObject, 'myFunction' ); 	// button
 ```
 
 ## Sliders
 
-todo
+To create a slider, add a number and specify a minimum and maximum value.
 
 ```js
 // todo
@@ -28,7 +45,8 @@ todo
 
 ## Dropdowns
 
-todo
+You can create a dropdown for any data type by providing an array of accepted values. If you pass an
+object, its keys will be used as labels for the options.
 
 ```js
 // todo
@@ -36,7 +54,8 @@ todo
 
 ## Colors
 
-todo
+You can manipulate colors in multiple formats: CSS strings or integer hex values for example.
+Color controllers are created with a special method: `addColor()`.
 
 ```js
 params = {
@@ -52,7 +71,10 @@ gui.addColor( params, 'color3' );
 gui.addColor( params, 'color4' );
 ```
 
-todo
+### RGB Objects & Arrays
+
+Some libraries use objects or arrays of RGB values to describe colors. These can also be controlled 
+by `addColor()`. By default, the color channels are assumed to be in the range of 0 to 1.
 
 ```js
 params = {
@@ -64,7 +86,11 @@ gui.addColor( params, 'colorObject' );
 gui.addColor( params, 'colorArray' );
 ```
 
-todo
+### RGB Channel Ranges
+
+The channel range for RGB objects and arrays can be overriden on a per property basis by passing 
+a third parameter to `addColor()`. If your colors are coming out too dark, you probably need to set
+this to 255.
 
 ```js
 params = {
