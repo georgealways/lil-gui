@@ -22,7 +22,9 @@ sup i'm back it's 2021
 	[ ] figure out where to link these on homepage
 	[ ] check up on pixi/threejs sandboxes
 
-todo
+[ ] why is live-server refreshing on .git
+
+stale todos from 2019
 
 [ ] i don't want to see that inline --max-height style until i've dragged
 
@@ -50,7 +52,7 @@ tests
 [x] define blank methods for controller (min,max,step,options)
 	[x] that's done ... test it?
 
-dat-gui diffs
+dat-gui diffs (for documentation)
 
 	[+] "mobile styles"
 
