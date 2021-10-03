@@ -276,12 +276,12 @@
 			color: var(--pre-background);
 		}
 
-		#tutorial-container code span.changed {
+		#guide-container code span.changed {
 			background-color: magenta;
 			transition: none;
 		}
 
-		#tutorial-container code span {
+		#guide-container code span {
 			background-color: transparent;
 			transition: background-color 0.5s linear;
 		}
@@ -300,7 +300,7 @@
 			box-shadow: 0 10px 30px rgba(0 0 0 / 20%)
 		}
 
-		.example-container::before { 
+		.example-container::before {
 			content: 'Result';
 			display: block;
 			color: var(--background);
@@ -444,7 +444,7 @@
 			a.addEventListener( 'click', closeTOC )
 		} );
 
-		// Tutorial examples
+		// Guide examples
 		// ---------------------------------------------------------------------
 
 		example( 1, ( gui, code ) => {
@@ -467,7 +467,45 @@
 
 		} );
 
+		example( 3, ( gui, code ) => {
+
+			const myObject = {
+				hasMin: 1,
+				hasMax: 99,
+				hasStep: 50,
+			};
+
+			gui.add( myObject, 'hasMin' ).min( 0 ).onChange( replacer( code, /hasMin:\s*$/ ) );
+			gui.add( myObject, 'hasMax' ).max( 100 ).onChange( replacer( code, /hasMax:\s*$/ ) );
+			gui.add( myObject, 'hasStep' ).step( 10 ).onChange( replacer( code, /hasStep:\s*$/ ) );
+
+		} );
+
+		example( 4, ( gui, code ) => {
+
+			const myObject = {
+				number1: 0.5,
+				number2: 50,
+			};
+
+			gui.add( myObject, 'number1', 0, 1 );
+			gui.add( myObject, 'number2', 0, 128, 1 );
+
+		} );
+
 		example( 5, ( gui, code ) => {
+
+			const myObject = {
+				size: 'Medium',
+				speed: 1,
+			};
+
+			gui.add( myObject, 'size', ['Small', 'Medium', 'Large'] ).onChange( replacer( code, /size:\s*$/, stringify ) );
+			gui.add( myObject, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } ).onChange( replacer( code, /speed:\s*$/ ) );
+
+		} );
+
+		example( 6, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -483,7 +521,7 @@
 
 		} );
 
-		example( 6, ( gui, code ) => {
+		example( 7, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -506,7 +544,7 @@
 
 		} );
 
-		example( 7, ( gui, code ) => {
+		example( 8, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -532,7 +570,7 @@
 		/** @param {function(GUI,HTMLElement)} callback */
 		function example( n, callback ) {
 
-			const pre = document.querySelector( `#tutorial-container > pre:nth-of-type(${n})` );
+			const pre = document.querySelector( `#guide-container > pre:nth-of-type(${n})` );
 			const code = pre.querySelector( 'code' );
 
 			const container = document.createElement( 'div' );
@@ -597,15 +635,15 @@
 
 				<h1><a href="#">{{ pkg.name }}</a></h1>
 
-				<h2><a href="#Tutorial">Tutorial</a></h2>
+				<h2><a href="#Guide">Guide</a></h2>
 
 				<ul>
-					<li><a href="#Tutorial#Sliders">Sliders</a></li>
-					<li><a href="#Tutorial#Dropdowns">Dropdowns</a></li>
-					<li><a href="#Tutorial#Colors">Colors</a></li>
-					<li><a href="#Tutorial#Folders">Folders</a></li>
-					<li><a href="#Tutorial#Styling">Styling</a></li>
-					<li><a href="#Tutorial#Saving">Saving</a></li>
+					<li><a href="#Guide#Sliders">Sliders</a></li>
+					<li><a href="#Guide#Dropdowns">Dropdowns</a></li>
+					<li><a href="#Guide#Colors">Colors</a></li>
+					<li><a href="#Guide#Folders">Folders</a></li>
+					<li><a href="#Guide#Styling">Styling</a></li>
+					<li><a href="#Guide#Saving">Saving</a></li>
 				</ul>
 
 				<h2><a href="#API">API</a></h2>
@@ -621,9 +659,9 @@
 				{{{ readme }}}
 			</section>
 
-			<section id="tutorial-container">
-				<a name="Tutorial"></a>
-				{{{ tutorial }}}
+			<section id="guide-container">
+				<a name="Guide"></a>
+				{{{ guide }}}
 			</section>
 
 			<section>

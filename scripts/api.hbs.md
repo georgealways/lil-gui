@@ -31,7 +31,7 @@
 {{/examples}}
 
 {{#with params}}
-**Parameters**:
+**Parameters**
 
 {{#.}}
  - **{{name}}**{{#with description}} - {{{.}}}{{/with}}<br>

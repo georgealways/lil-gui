@@ -1,4 +1,4 @@
-# Tutorial
+# Guide
 
 **lil-gui** gives you an interface for changing the properties of any JavaScript object at runtime.
 It's intended as a drop-in replacement for dat.gui, implemented with more modern web standards.
@@ -35,12 +35,30 @@ gui.add( myObject, 'myNumber' ); 	// number field
 gui.add( myObject, 'myFunction' ); 	// button
 ```
 
-## Sliders
+## Numbers
 
-To create a slider, add a number and specify a minimum and maximum value.
+Numbers can be constrained to an accepted input range using `min()` `max()` and `step()`.
 
 ```js
-// todo
+const myObject = { 
+	hasMin: 1,
+	hasMax: 99,
+	hasStep: 50,
+};
+
+gui.add( myObject, 'hasMin' ).min( 0 );
+gui.add( myObject, 'hasMax' ).max( 100 );
+gui.add( myObject, 'hasStep' ).step( 10 );
+```
+
+## Sliders
+
+Number controllers with a minimum and a maximum automatically become sliders. You can use an 
+abbreviated syntax to define them both at once.
+
+```js
+gui.add( myObject, 'number1', 0, 1 ); // min, max
+gui.add( myObject, 'number2', 0, 100, 10 ); // min, max, step
 ```
 
 ## Dropdowns
@@ -49,16 +67,22 @@ You can create a dropdown for any data type by providing an array of accepted va
 object, its keys will be used as labels for the options.
 
 ```js
-// todo
+const myObject = {
+	size: 'Medium',
+	speed: 1,
+};
+
+gui.add( myObject, 'size', [ 'Small', 'Medium', 'Large' ] )
+gui.add( myObject, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 ```
 
 ## Colors
 
-You can manipulate colors in multiple formats: CSS strings or integer hex values for example.
+You can manipulate colors in multiple formats: CSS strings or integer hex values, for example.
 Color controllers are created with a special method: `addColor()`.
 
 ```js
-params = {
+const params = {
 	color1: '#AA00FF',
 	color2: '#a0f',
 	color3: 'rgb(170, 0, 255)',
@@ -77,7 +101,7 @@ Some libraries use objects or arrays of RGB values to describe colors. These can
 by `addColor()`. By default, the color channels are assumed to be in the range of 0 to 1.
 
 ```js
-params = {
+const params = {
 	colorObject: { r: 0.667, g: 0, b: 1 },
 	colorArray: [ 0.667, 0, 1 ]
 };
@@ -93,7 +117,7 @@ a third parameter to `addColor()`. If your colors are coming out too dark, you p
 this to 255.
 
 ```js
-params = {
+const params = {
 	colorObject: { r: 170, g: 0, b: 255 },
 	colorArray: [ 170, 0, 255 ]
 };

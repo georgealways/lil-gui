@@ -9,7 +9,7 @@ import jsdocData from './api';
 const OUTPUT = 'index.html';
 const TEMPLATE = 'scripts/homepage.hbs.html';
 const README = 'README.md';
-const TUTORIAL = 'Tutorial.md';
+const GUIDE = 'Guide.md';
 const API = 'API.md';
 
 const JSDOC_DEBUG = false;
@@ -46,7 +46,7 @@ const html = template( {
 	readme: md.render( read( README ) ),
 	apitoc: md.render( apitoc ),
 	apibody: md.render( apibody ),
-	tutorial: md.render( read( TUTORIAL ) ),
+	guide: md.render( read( GUIDE ) ),
 	jsdocDebug,
 	pkg
 } ).replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
