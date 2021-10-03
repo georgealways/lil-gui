@@ -2,13 +2,22 @@
 
 # API
 
+<div class="api-index">
+
 {{#jsdocData}}
-## [{{name}}](#{{{longname}}})
+
+<div class="class">
+
+## [{{name}} (Class)](#{{{longname}}})
 {{#children}}
-  - [{{indexname}}](#{{{longname}}}) {{indextype}}
+  - [{{indexname}}](#{{{longname}}})
 {{/children}}
 
+</div>
+
 {{/jsdocData}}
+
+</div>
 
 <!--endtoc-->
 
@@ -16,7 +25,7 @@
 
 {{#jsdocData}}
 
-# <a name="{{{longname}}}"></a> {{name}}
+# <a name="{{{longname}}}"></a> {{name}} (Class)
 
 {{#children}}
 

@@ -27,7 +27,7 @@
 			--code-special: #6ed3d3;
 			--code-comment: #84858a;
 			--pre-background: #372d39;
-			--toc-width: 230px;
+			--toc-width: 210px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
 			--anchor-offset: -1rem;
@@ -210,6 +210,11 @@
 			font-weight: 700;
 		}
 
+		section:not(:last-child) {
+			border-bottom: 2px solid var(--rule);
+			padding-bottom: 1.5rem;
+		}
+
 		#container {
 			display: flex;
 		}
@@ -219,21 +224,21 @@
 		}
 
 		#toc-container {
-			--toc-width: 230px;
 			width: var(--toc-width);
 			position: relative;
-			z-index: 1002;
-			margin-right: 1rem;
+			margin-right: 2rem;
 		}
 
 		#toc {
 			position: fixed;
 			overflow: auto;
+			width: var(--toc-width);
 			height: 100%;
 			padding: 1rem;
 			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
 			background: var(--background);
 			border-right: 1px solid var(--rule);
+			z-index: 1002;
 		}
 
 		#toc a {
@@ -325,6 +330,14 @@
 			pointer-events: none;
 		}
 
+		main .api-index { 
+			display: flex;
+		}
+
+		main .api-index .class { 
+			width: 100%;
+		}
+
 		@media (max-width: 958px) {
 			:root {
 				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
@@ -407,10 +420,17 @@
 		// Hide GUI after scroll thresh
 		// ---------------------------------------------------------------------
 
+		let hidden = true;
 		const onscroll = () => {
-			document.body.classList.toggle( 'scrolled', window.scrollY > 200 );
+			const passed = window.scrollY > 200;
+			if ( passed && !hidden ) {
+				document.body.classList.add( 'scrolled' );
+			} else if ( !passed && hidden ) {
+				document.body.classList.remove( 'scrolled' );
+			}
+			hidden = passed;
 		}
-		document.addEventListener( 'scroll', onscroll );
+		document.addEventListener( 'scroll', onscroll, { passive: false } );
 		onscroll();
 
 		// Delay transition class so we don't see a fadeout flash on load
@@ -633,7 +653,7 @@
 		<div id="toc-container">
 			<nav id="toc">
 
-				<h1><a href="#">{{ pkg.name }}</a></h1>
+				<h1><a href="#">{{ pkg.name }} {{ pkg.version }}</a></h1>
 
 				<h2><a href="#Guide">Guide</a></h2>
 
