@@ -44,7 +44,7 @@ export default class GUI {
 	 * Browser width in pixels where mobile styles take effect. Only applies to an `autoPlace` GUI.
 	 *
 	 * @param {number} [options.mobileHeight=170]
-	 * Height of a GUI on mobile.
+	 * Height of the GUI on mobile.
 	 *
 	 * @param {GUI} [options.parent]
 	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
