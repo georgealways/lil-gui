@@ -241,23 +241,31 @@
 			z-index: 1002;
 		}
 
-		#toc a {
-			font-weight: 600;
-		}
-
 		#toc {
-			font-size: smaller;
+			font-size: 12px;
 		}
 
 		#toc h1,
-		#toc h2,
-		#toc h3 {
+		#toc h2 {
+			font-size: 14px;
 			font-weight: 600;
+		}
+
+		#toc h1 { 
+			margin-top: 1.5rem;
+		}
+
+		#toc h3 { 
+			font-size: 11px;
 		}
 
 		#toc ul {
 			padding: 0;
 			list-style: none;
+		}
+
+		#toc ol { 
+			padding-left: 1rem;
 		}
 
 		#toc-button {
@@ -340,7 +348,7 @@
 
 		@media (max-width: 958px) {
 			:root {
-				--padding-top: calc(2*var(--toc-button-margin) + var(--toc-button-size));
+				--padding-top: calc(var(--toc-button-margin) + var(--toc-button-size));
 				--anchor-offset: calc(-1*var(--padding-top));
 			}
 
@@ -426,7 +434,7 @@
 
 		let hidden = false;
 		const onscroll = () => {
-			const passed = window.scrollY > 200;
+			const passed = window.scrollY > 70;
 			if ( passed && !hidden ) {
 				document.body.classList.add( 'scrolled' );
 			} else if ( !passed && hidden ) {
@@ -661,14 +669,17 @@
 
 				<h2><a href="#Guide">Guide</a></h2>
 
-				<ul>
+				<ol>
+					<li><a href="#Guide#Installation">Installation</a></li>
+					<li><a href="#Guide#Controllers">Controllers</a></li>
+					<li><a href="#Guide#Numbers">Numbers</a></li>
 					<li><a href="#Guide#Sliders">Sliders</a></li>
 					<li><a href="#Guide#Dropdowns">Dropdowns</a></li>
 					<li><a href="#Guide#Colors">Colors</a></li>
 					<li><a href="#Guide#Folders">Folders</a></li>
 					<li><a href="#Guide#Styling">Styling</a></li>
 					<li><a href="#Guide#Saving">Saving</a></li>
-				</ul>
+				</ol>
 
 				<h2><a href="#API">API</a></h2>
 

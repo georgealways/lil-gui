@@ -16,9 +16,9 @@ const JSDOC_DEBUG = false;
 
 const md = markdownit( {
 	html: true,
-	highlight: function( str, lang ) {
-		if ( lang && hljs.getLanguage( lang ) ) {
-			return hljs.highlight( lang, str ).value;
+	highlight: function( code, language ) {
+		if ( language && hljs.getLanguage( language ) ) {
+			return hljs.highlight( code, { language } ).value;
 		}
 		return '';
 	}
