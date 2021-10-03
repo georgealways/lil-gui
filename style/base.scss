@@ -64,6 +64,7 @@
 			--number-color: #2cc9ff,
 			--string-color: #a2db3c,
 			--font-size: 11px,
+			--input-font-size: 11px,
 			--font-family: (
 				-apple-system,
 				BlinkMacSystemFont,
@@ -102,20 +103,20 @@
 	--title-height: calc(var(--widget-height) + var(--spacing));
 	--scrollbar-width: 5px;
 
-	// autoPlace & mobile
+	// autoPlace & touch
 	// -------------------------------------------------------------------------
 
-	&.mobile {
-		--widget-height: 32px;
-		--padding: 8px;
-		--spacing: 8px;
-		--font-size: 16px; // < 16px causes zoom on iOS
-		--folder-indent: 12px;
-		--widget-padding: 0 0 0 5px;
+	&.touch {
+		--widget-height: 24px;
+		--padding: 6px;
+		--spacing: 6px;
+		--font-size: 13px;
+		--input-font-size: 16px; // < 16px causes zoom on iOS
+		--folder-indent: 10px;
+		--widget-padding: 0 0 0 3px;
 		--scrollbar-width: 7px;
-		--slider-input-min-width: 65px;
+		--slider-input-min-width: 50px;
 		--color-input-min-width: 65px;
-		width: 100%;
 	}
 
 	&.autoPlace {
@@ -125,12 +126,10 @@
 		right: 15px;
 		z-index: 1001;
 
-		&.mobile {
-			max-height: var(--mobile-height, 170px);
-			top: auto;
-			right: auto;
-			bottom: 0;
-			left: 0;
+		&.touch {
+			right: 0;
 		}
+		
 	}
+
 }

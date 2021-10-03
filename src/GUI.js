@@ -40,11 +40,8 @@ export default class GUI {
 	 * Injects the default stylesheet into the page if this is the first GUI.
 	 * Pass `false` to use your own stylesheet.
 	 * 
-	 * @param {number} [options.mobileBreakpoint=500]
-	 * Browser width in pixels where mobile styles take effect. Only applies to an `autoPlace` GUI.
-	 *
-	 * @param {number} [options.mobileHeight=170]
-	 * Height of the GUI on mobile.
+	 * @param {number} [options.touchBreakpoint=500]
+	 * Browser width in pixels where touch styles take effect. Set to zero to disable touch styles.
 	 *
 	 * @param {GUI} [options.parent]
 	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
@@ -53,8 +50,7 @@ export default class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		mobileBreakpoint = 500,
-		mobileHeight = 170,
+		touchBreakpoint = 500,
 		container,
 		injectStyles = true,
 		title = 'Controls',
@@ -149,21 +145,13 @@ export default class GUI {
 			this.domElement.classList.add( 'autoPlace' );
 			document.body.appendChild( this.domElement );
 
-			// Allows you to change the height on mobile by dragging the title
-			this._initTitleDrag();
-
 		}
-
-		this._setMobileHeight( mobileHeight );
 
 		this._onResize = () => {
 
-			// toggle mobile class via JS (as opposed to media query)
+			// toggle touch class via JS (as opposed to media query)
 			// makes the breakpoint configurable via constructor
-			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-
-			// Call during resize with stored value to make sure it stays within bounds
-			this._setMobileHeight( this._mobileHeight );
+			this.domElement.classList.toggle( 'touch', window.innerWidth <= touchBreakpoint );
 
 		};
 
@@ -428,66 +416,6 @@ export default class GUI {
 			allFolders = allFolders.concat( f.getFolders( true ) );
 		} );
 		return allFolders;
-	}
-
-	_initTitleDrag() {
-
-		let prevClientY, moved;
-
-		const onTouchStart = e => {
-
-			if ( e.touches.length > 1 ) return;
-
-			// Only resizeable when open with mobile class
-			const classList = this.domElement.classList;
-			const resizeable = classList.contains( 'mobile' ) && !classList.contains( 'closed' );
-			if ( !resizeable ) return;
-
-			// Prevent default in case this is a drag, otherwise we'll call click() manually on touchend
-			e.preventDefault();
-			prevClientY = e.touches[ 0 ].clientY;
-			moved = false;
-
-			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
-			window.addEventListener( 'touchend', onTouchEnd );
-
-		};
-
-		const onTouchMove = e => {
-
-			e.preventDefault();
-			moved = true;
-
-			const deltaY = e.touches[ 0 ].clientY - prevClientY;
-			prevClientY = e.touches[ 0 ].clientY;
-
-			this._setMobileHeight( this._mobileHeight - deltaY );
-
-		};
-
-		const onTouchEnd = () => {
-
-			if ( !moved ) {
-				this.$title.click();
-			}
-
-			window.removeEventListener( 'touchmove', onTouchMove );
-			window.removeEventListener( 'touchend', onTouchEnd );
-
-		};
-
-		this.$title.addEventListener( 'touchstart', onTouchStart );
-
-		// todo: this fixes a bug on iOS that causes touch events to leak into $title when trying to
-		// scroll $children, resizing the GUI when you don't mean to. i have no idea why.
-		this.$children.addEventListener( 'touchmove', function(){} );
-
-	}
-
-	_setMobileHeight( v ) {
-		// todo: should probably be a lower bound here too
-		this._mobileHeight = Math.min( window.innerHeight, v );
-		this.domElement.style.setProperty( '--mobile-height', v + 'px' );
 	}
 
 }
