@@ -1,31 +1,37 @@
 sup i'm back it's 2021
+
+[x] remember how to deploy / update this monster
+
+[ ] are the mobile styles good? should they be on by default?
+
 [ ] finish last 3 sections of guide
 [ ] finish the 'todoc' code examples in API
+[ ] order of properties (not methods) is kinda wonky
+
 [ ] massage API list/toc index: too scary looking
+	[ ] methods (purple)
+	[ ] public vars (blue)
+	[ ] private vars (blue / not bold?)
+
 [ ] position/progress indicator on index/toc
+
 [ ] examples
 	[ ] figure out which to keep which to kill
 	[ ] figure out where to link these on homepage
 	[ ] check up on pixi/threejs sandboxes
-[ ] remember how to deploy / update this monster
 
 todo
 
 [ ] i don't want to see that inline --max-height style until i've dragged
-[x] git deploy
+
 [ ] right click to reset sliders
 [ ] vertical drag on number fields
 [ ] limit break
 
-[x] kill mixins.scss
-[x] strip /** @module */ and // eslint- from build
-[x] injectStyles: injectStyles$1 = true
- 
 title drag
 	[ ] mouse (this conflicts with open)
 	[ ] prevent default for touch (this still conflicts with scroll)
 	[ ] constraints
-
 
 docs
 	[x] -> this type chainable comeback
@@ -36,9 +42,6 @@ docs
 		[ ] gui.add
 		[ ] step
 		[ ] export/import
-
-[x] queryKey parameter...
-[x] kill onchange shorthand
 
 tests
 
@@ -83,6 +86,14 @@ dat-gui diffs
 
 archive
 
+[x] queryKey parameter...
+[x] kill onchange shorthand
+
+[x] git deploy
+[x] kill mixins.scss
+[x] strip /** @module */ and // eslint- from build
+[x] injectStyles: injectStyles$1 = true
+ 
 [x] minified css strips utf8 charset declaration, breaking gui-font
 
 [x] headers
