@@ -251,11 +251,11 @@
 			font-weight: 600;
 		}
 
-		#toc h1 { 
+		#toc h1 {
 			margin-top: 1.5rem;
 		}
 
-		#toc h3 { 
+		#toc h3 {
 			font-size: 11px;
 		}
 
@@ -264,8 +264,12 @@
 			list-style: none;
 		}
 
-		#toc ol { 
+		#toc ol {
 			padding-left: 1rem;
+		}
+
+		#toc a.active {
+			color: red;
 		}
 
 		#toc-button {
@@ -338,11 +342,11 @@
 			pointer-events: none;
 		}
 
-		main .api-index { 
+		main .api-index {
 			display: flex;
 		}
 
-		main .api-index .class { 
+		main .api-index .class {
 			width: 100%;
 		}
 
@@ -394,6 +398,7 @@
 			.example-container {
 				min-height: 0;
 			}
+
 			ul {
 				padding-left: 1.5rem;
 			}
@@ -404,76 +409,146 @@
 <body>
 
 	<script type="module">
+		import GUI from '../dist/lil-gui.esm.js';
 
 		// Basic demo
 		// ---------------------------------------------------------------------
+		{
 
-		import GUI from '../dist/lil-gui.esm.js';
+			const myObject = {
+				options: 10,
+				boolean: true,
+				string: 'lil-gui',
+				number: 0.5,
+				color: '#a0f',
+				function() { alert( 'hi' ); }
+			};
 
-		const myObject = {
-			options: 10,
-			boolean: true,
-			string: 'lil-gui',
-			number: 0.5,
-			color: '#a0f',
-			function() { alert( 'hi' ); }
-		};
+			const gui = new GUI();
 
-		const gui = new GUI();
-
-		gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
-		gui.add( myObject, 'boolean' );
-		gui.add( myObject, 'string' );
-		gui.add( myObject, 'number', 0, 1 );
-		gui.addColor( myObject, 'color' );
-		gui.add( myObject, 'function' );
+			gui.add( myObject, 'options', { Small: 1, Medium: 10, Large: 100 } );
+			gui.add( myObject, 'boolean' );
+			gui.add( myObject, 'string' );
+			gui.add( myObject, 'number', 0, 1 );
+			gui.addColor( myObject, 'color' );
+			gui.add( myObject, 'function' );
+		}
 
 		// Hide GUI after scroll thresh
 		// ---------------------------------------------------------------------
+		{
+			let hidden = false;
 
-		let hidden = false;
-		const onscroll = () => {
-			const passed = window.scrollY > 70;
-			if ( passed && !hidden ) {
-				document.body.classList.add( 'scrolled' );
-			} else if ( !passed && hidden ) {
-				document.body.classList.remove( 'scrolled' );
+			const onScroll = () => {
+				const passed = window.scrollY > 70;
+				if ( passed && !hidden ) {
+					document.body.classList.add( 'scrolled' );
+				} else if ( !passed && hidden ) {
+					document.body.classList.remove( 'scrolled' );
+				}
+				hidden = passed;
 			}
-			hidden = passed;
-		}
-		document.addEventListener( 'scroll', onscroll, { passive: false } );
-		onscroll();
+			document.addEventListener( 'scroll', onScroll, { passive: false } );
+			onScroll();
 
-		// Delay transition class so we don't see a fadeout flash on load
-		requestAnimationFrame( () => document.body.classList.add( 'loaded' ) );
+			// Delay transition class so we don't see a fadeout flash on load
+			requestAnimationFrame( () => document.body.classList.add( 'loaded' ) );
+		}
 
 		// Table of contents
 		// ---------------------------------------------------------------------
+		{
+			const toc = document.getElementById( 'toc' );
 
-		const toc = document.getElementById( 'toc' );
+			const tocButton = document.getElementById( 'toc-button' );
+			document.body.addEventListener( 'click', closeTOC );
+			toc.addEventListener( 'click', e => {
+				e.stopPropagation();
+			} );
 
-		const tocButton = document.getElementById( 'toc-button' );
-		document.body.addEventListener( 'click', closeTOC );
-		toc.addEventListener( 'click', e => {
-			e.stopPropagation();
-		} );
+			function openTOC() {
+				document.body.classList.add( 'toc-open' );
+			}
 
-		function openTOC() {
-			document.body.classList.add( 'toc-open' );
+			function closeTOC() {
+				document.body.classList.remove( 'toc-open' );
+			}
+
+			tocButton.addEventListener( 'click', e => {
+				e.stopPropagation();
+				document.body.classList.contains( 'toc-open' ) ? closeTOC() : openTOC();
+			} );
+
+			Array.from( document.querySelectorAll( 'nav a' ) ).forEach( a => {
+				a.addEventListener( 'click', closeTOC )
+			} );
 		}
 
-		function closeTOC() {
-			document.body.classList.remove( 'toc-open' );
+		// TOC Position indicator
+		// ---------------------------------------------------------------------
+		{
+			// Find all TOC links that point to an anchor
+			const tocAnchorLinks = Array.from( document.querySelectorAll( '#toc a[href^="#"]' ) );
+
+			const anchorPositions = [];
+
+			function updateAnchorPositions() {
+
+				tocAnchorLinks.forEach( link => {
+					const name = link.getAttribute( 'href' ).substr( 1 );
+					const anchor = document.querySelector( `a[name="${name}"]` );
+					if ( anchor ) {
+						anchorPositions.push( {
+							link,
+							anchor,
+							name,
+							top: getTop( anchor )
+						} );
+					}
+				} );
+
+				// Sort by position on page
+				anchorPositions.sort( ( a, b ) => a.top - b.top );
+			}
+
+			let activeLink;
+
+			const onScroll = () => {
+				const scrollTop = getScrollTop();
+				for ( let i = 0; i < anchorPositions.length; i++ ) {
+					const ap = anchorPositions[i];
+					if ( ap.top - scrollTop >= 0 ) {
+						setActive( ap.link );
+						break;
+					}
+				}
+			}
+
+			document.addEventListener( 'scroll', onScroll, { passive: false } );
+
+			requestAnimationFrame( updateAnchorPositions );
+			onScroll();
+
+			function setActive( link ) {
+				if ( activeLink ) activeLink.classList.remove( 'active' );
+				activeLink = link;
+				activeLink.classList.add( 'active' );
+			}
+
+			function getTop( elem ) {
+				const box = elem.getBoundingClientRect();
+				const top = box.top + getScrollTop();
+				return Math.round( top );
+			}
+
+			function getScrollTop() {
+				const docEl = document.documentElement;
+				const body = document.body;
+				const clientTop = docEl.clientTop || body.clientTop || 0;
+				const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+				return scrollTop - clientTop;
+			}
 		}
-
-		tocButton.addEventListener( 'click', e => {
-			e.stopPropagation();
-			document.body.classList.contains( 'toc-open' ) ? closeTOC() : openTOC();
-		} );
-
-		Array.from( document.querySelectorAll( 'nav a' ) ).forEach( a => {
-			a.addEventListener( 'click', closeTOC )
-		} );
 
 		// Guide examples
 		// ---------------------------------------------------------------------
