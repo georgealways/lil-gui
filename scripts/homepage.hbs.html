@@ -252,7 +252,7 @@
 		}
 
 		#toc h1 {
-			margin-top: 1.5rem;
+			margin-top: 0;
 		}
 
 		#toc h3 {
@@ -268,7 +268,8 @@
 			padding-left: 1rem;
 		}
 
-		#toc a.active {
+		#toc a.active:after {
+			content: ' •';
 			color: red;
 		}
 
@@ -367,7 +368,7 @@
 			#toc {
 				border: 0;
 				box-shadow: -23px 0 10px 20px #0007;
-				padding-top: var(--padding-top);
+				padding-top: calc( var(--padding-top) + var(--toc-button-margin) );
 			}
 
 			body:not(.toc-open) #toc {
@@ -500,7 +501,6 @@
 					if ( anchor ) {
 						anchorPositions.push( {
 							link,
-							anchor,
 							name,
 							top: getTop( anchor )
 						} );
@@ -509,15 +509,26 @@
 
 				// Sort by position on page
 				anchorPositions.sort( ( a, b ) => a.top - b.top );
+				for ( let i = 0; i < anchorPositions.length - 2; i++ ) {
+					const cur = anchorPositions[i];
+					const next = anchorPositions[i + 1];
+					cur.bottom = next.top;
+					cur.height = cur.bottom - cur.top;
+				}
+				const last = anchorPositions[anchorPositions.length - 1];
+				last.bottom = Math.infinity;
+				last.height = Math.infinity;
+				console.log( anchorPositions );
 			}
 
 			let activeLink;
 
 			const onScroll = () => {
-				const scrollTop = getScrollTop();
+				const scrollTop = getScrollTop() + 40;
 				for ( let i = 0; i < anchorPositions.length; i++ ) {
 					const ap = anchorPositions[i];
-					if ( ap.top - scrollTop >= 0 ) {
+					if ( ( ap.top < scrollTop && ap.bottom > scrollTop ) ||
+					 	ap.top - scrollTop >= 0 ) {
 						setActive( ap.link );
 						break;
 					}
@@ -743,17 +754,7 @@
 
 				<h2><a href="#Guide">Guide</a></h2>
 
-				<ol>
-					<li><a href="#Guide#Installation">Installation</a></li>
-					<li><a href="#Guide#Controllers">Controllers</a></li>
-					<li><a href="#Guide#Numbers">Numbers</a></li>
-					<li><a href="#Guide#Sliders">Sliders</a></li>
-					<li><a href="#Guide#Dropdowns">Dropdowns</a></li>
-					<li><a href="#Guide#Colors">Colors</a></li>
-					<li><a href="#Guide#Folders">Folders</a></li>
-					<li><a href="#Guide#Styling">Styling</a></li>
-					<li><a href="#Guide#Saving">Saving</a></li>
-				</ol>
+				{{{ guidetoc }}}
 
 				<h2><a href="#API">API</a></h2>
 
@@ -763,6 +764,8 @@
 		</div>
 
 		<main>
+
+			<a name=""></a>
 
 			<section>
 				{{{ readme }}}
