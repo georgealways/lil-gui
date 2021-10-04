@@ -2,7 +2,7 @@ sup i'm back it's 2021
 
 [x] remember how to deploy / update this monster
 
-[ ] are the mobile styles good? should they be on by default?
+[x] are the mobile styles good? should they be on by default?
 	"docked to bottom" vs "fatter controls for fingers not cursors" 
 	(should these be coupled?)
 
@@ -15,7 +15,8 @@ sup i'm back it's 2021
 	[ ] public vars (blue)
 	[ ] private vars (blue / not bold?)
 
-[ ] position/progress indicator on index/toc
+[x] position/progress indicator on index/toc
+[ ] scroll toc item into view on scroll if highlighted section not visible
 
 [ ] examples
 	[ ] figure out which to keep which to kill

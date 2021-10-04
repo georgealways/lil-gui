@@ -368,7 +368,7 @@
 			#toc {
 				border: 0;
 				box-shadow: -23px 0 10px 20px #0007;
-				padding-top: calc( var(--padding-top) + var(--toc-button-margin) );
+				padding-top: calc(var(--padding-top) + var(--toc-button-margin));
 			}
 
 			body:not(.toc-open) #toc {
@@ -488,10 +488,16 @@
 		// TOC Position indicator
 		// ---------------------------------------------------------------------
 		{
+
+			// pixel offset below scroll position to define highlighted section
+			const SCROLL_OFFSET = 125;
+
 			// Find all TOC links that point to an anchor
 			const tocAnchorLinks = Array.from( document.querySelectorAll( '#toc a[href^="#"]' ) );
 
 			const anchorPositions = [];
+
+			let activeLink;
 
 			function updateAnchorPositions() {
 
@@ -507,28 +513,16 @@
 					}
 				} );
 
-				// Sort by position on page
-				anchorPositions.sort( ( a, b ) => a.top - b.top );
-				for ( let i = 0; i < anchorPositions.length - 2; i++ ) {
-					const cur = anchorPositions[i];
-					const next = anchorPositions[i + 1];
-					cur.bottom = next.top;
-					cur.height = cur.bottom - cur.top;
-				}
-				const last = anchorPositions[anchorPositions.length - 1];
-				last.bottom = Math.infinity;
-				last.height = Math.infinity;
-				console.log( anchorPositions );
+				// Sort by position on page descending
+				anchorPositions.sort( ( a, b ) => b.top - a.top );
+
 			}
 
-			let activeLink;
-
 			const onScroll = () => {
-				const scrollTop = getScrollTop() + 40;
+				const scrollTop = getScrollTop() + SCROLL_OFFSET;
 				for ( let i = 0; i < anchorPositions.length; i++ ) {
 					const ap = anchorPositions[i];
-					if ( ( ap.top < scrollTop && ap.bottom > scrollTop ) ||
-					 	ap.top - scrollTop >= 0 ) {
+					if ( scrollTop > ap.top ){
 						setActive( ap.link );
 						break;
 					}
@@ -537,8 +531,10 @@
 
 			document.addEventListener( 'scroll', onScroll, { passive: false } );
 
-			requestAnimationFrame( updateAnchorPositions );
-			onScroll();
+			requestAnimationFrame( () => {
+				updateAnchorPositions();
+				onScroll();
+			} );
 
 			function setActive( link ) {
 				if ( activeLink ) activeLink.classList.remove( 'active' );
@@ -552,6 +548,7 @@
 				return Math.round( top );
 			}
 
+			// should it really be this tough to get the scroll position?
 			function getScrollTop() {
 				const docEl = document.documentElement;
 				const body = document.body;
@@ -559,6 +556,7 @@
 				const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 				return scrollTop - clientTop;
 			}
+
 		}
 
 		// Guide examples
