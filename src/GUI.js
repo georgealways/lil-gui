@@ -23,14 +23,13 @@ export default class GUI {
 	 *
 	 * @param {object} [options]
 	 * @param {boolean} [options.autoPlace=true]
-	 * Automatically adds the GUI to `document.body`. On desktop, the GUI will be fixed to the top
-	 * right of the page. On mobile, it will be fixed to the bottom.
+	 * Adds the GUI to `document.body` and fixes it to the top right of the page.
 	 *
 	 * @param {HTMLElement} [options.container]
-	 * Adds the GUI to this DOM element. Sets `autoPlace` to false.
+	 * Adds the GUI to this DOM element. Overrides `autoPlace`.
 	 *
 	 * @param {number} [options.width]
-	 * Width of the GUI in pixels, usually set when labels become too long. Note that you can make 
+	 * Width of the GUI in pixels, usually set when name labels become too long. Note that you can make 
 	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`
 	 *
 	 * @param {string} [options.title=Controls]
