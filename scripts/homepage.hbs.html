@@ -257,20 +257,24 @@
 
 		#toc h3 {
 			font-size: 12px;
+			font-style: italic;
 		}
 
 		#toc ul {
-			padding: 0;
-			list-style: none;
+			padding-left: 1rem;
+		}
+
+		#toc ul li { 
+			text-indent: -5px;
 		}
 
 		#toc ol {
 			padding-left: 1rem;
 		}
 
-		#toc a.active:after {
-			content: ' •';
-			color: #f44336;
+		#toc .active, 
+		#toc .active a {
+			color: var(--link);
 		}
 
 		#toc-button {
@@ -542,7 +546,7 @@
 
 			function setActive( link ) {
 				if ( activeLink ) activeLink.classList.remove( 'active' );
-				activeLink = link;
+				activeLink = link.parentElement;
 				activeLink.classList.add( 'active' );
 				activeLink.scrollIntoView( {
 					behavior: 'auto',
@@ -775,6 +779,17 @@
 
 			<section>
 				{{{ readme }}}
+			</section>
+
+			<section>
+				<a name="Examples"></a>
+				<h1>Examples</h1>
+				<ul>
+					<li><a href="examples/basic">Basic Demo</a></li>
+					<li><a href="https://lil-gui-threejs.georgealways.com/">three.js/examples Hot Swap</a> - A fork of three.js that replaces dat.gui with lil-gui across all example pages. Except for a couple pages, this was done by simply replacing the import URL!</li>
+					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
+					<li><a href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui with your own controller type.</li>
+				</ul>
 			</section>
 
 			<section id="guide-container">

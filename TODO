@@ -11,17 +11,15 @@ sup i'm back it's 2021
 [ ] order of properties (not methods) is kinda wonky
 
 [ ] massage API list/toc index: too scary looking
-	[ ] methods (purple)
-	[ ] public vars (blue)
-	[ ] private vars (blue / not bold?)
 
 [x] position/progress indicator on index/toc
-[ ] scroll toc item into view on scroll if highlighted section not visible
+[x] scroll toc item into view on scroll if highlighted section not visible
+	[ ] ...would be nice to include margin top of first h1
 
 [ ] examples
 	[ ] figure out which to keep which to kill
 	[ ] figure out where to link these on homepage
-	[ ] check up on pixi/threejs sandboxes
+	[x] check up on pixi/threejs sandboxes
 
 [x] why is live-server refreshing on .git
 
