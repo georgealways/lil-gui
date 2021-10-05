@@ -32,9 +32,12 @@ export default class ColorController extends Controller {
 		this._initialValueHexString = this.export();
 		this._textFocused = false;
 
-		this.$input.addEventListener( 'change', () => {
+		const onInputChange = () => {
 			this._setValueFromHexString( this.$input.value );
-		} );
+		};
+
+		this.$input.addEventListener( 'change', onInputChange );
+		this.$input.addEventListener( 'input', onInputChange );
 
 		this.$input.addEventListener( 'focus', () => {
 			this.$display.classList.add( 'focus' );
