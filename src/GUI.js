@@ -40,8 +40,8 @@ export default class GUI {
 	 * Injects the default stylesheet into the page if this is the first GUI.
 	 * Pass `false` to use your own stylesheet.
 	 * 
-	 * @param {number} [options.touchBreakpoint=500]
-	 * Browser width in pixels where touch styles take effect. Set to zero to disable touch styles.
+	 * @param {number} [options.mobileBreakpoint=500]
+	 * Browser width in pixels where mobile styles take effect. Set to zero to disable mobile styles.
 	 *
 	 * @param {GUI} [options.parent]
 	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
@@ -50,7 +50,7 @@ export default class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		touchBreakpoint = 500,
+		mobileBreakpoint = 500,
 		container,
 		injectStyles = true,
 		title = 'Controls',
@@ -149,9 +149,9 @@ export default class GUI {
 
 		this._onResize = () => {
 
-			// toggle touch class via JS (as opposed to media query)
+			// toggle mobile class via JS (as opposed to media query)
 			// makes the breakpoint configurable via constructor
-			this.domElement.classList.toggle( 'touch', window.innerWidth <= touchBreakpoint );
+			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
 
 		};
 

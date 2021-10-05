@@ -103,10 +103,10 @@
 	--title-height: calc(var(--widget-height) + var(--spacing));
 	--scrollbar-width: 5px;
 
-	// autoPlace & touch
+	// autoPlace & mobile
 	// -------------------------------------------------------------------------
 
-	&.touch {
+	&.mobile {
 		--widget-height: 24px;
 		--padding: 6px;
 		--spacing: 6px;
@@ -126,7 +126,7 @@
 		right: 15px;
 		z-index: 1001;
 
-		&.touch {
+		&.mobile {
 			right: 0;
 		}
 		
