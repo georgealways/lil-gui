@@ -245,18 +245,18 @@
 			font-size: 12px;
 		}
 
+		#toc h1 {
+			margin-top: 0;
+		}
+
 		#toc h1,
 		#toc h2 {
 			font-size: 14px;
 			font-weight: 600;
 		}
 
-		#toc h1 {
-			margin-top: 0;
-		}
-
 		#toc h3 {
-			font-size: 11px;
+			font-size: 12px;
 		}
 
 		#toc ul {
@@ -270,7 +270,7 @@
 
 		#toc a.active:after {
 			content: ' •';
-			color: red;
+			color: #f44336;
 		}
 
 		#toc-button {
@@ -438,10 +438,11 @@
 		// Hide GUI after scroll thresh
 		// ---------------------------------------------------------------------
 		{
+			const THRESH = 40;
 			let hidden = false;
 
 			const onScroll = () => {
-				const passed = window.scrollY > 70;
+				const passed = window.scrollY > THRESH;
 				if ( passed && !hidden ) {
 					document.body.classList.add( 'scrolled' );
 				} else if ( !passed && hidden ) {
@@ -456,7 +457,7 @@
 			requestAnimationFrame( () => document.body.classList.add( 'loaded' ) );
 		}
 
-		// Table of contents
+		// TOC open / close
 		// ---------------------------------------------------------------------
 		{
 			const toc = document.getElementById( 'toc' );
@@ -485,7 +486,7 @@
 			} );
 		}
 
-		// TOC Position indicator
+		// TOC position indicator
 		// ---------------------------------------------------------------------
 		{
 
@@ -519,14 +520,17 @@
 			}
 
 			const onScroll = () => {
+
 				const scrollTop = getScrollTop() + SCROLL_OFFSET;
+
 				for ( let i = 0; i < anchorPositions.length; i++ ) {
 					const ap = anchorPositions[i];
-					if ( scrollTop > ap.top ){
+					if ( scrollTop > ap.top ) {
 						setActive( ap.link );
 						break;
 					}
 				}
+
 			}
 
 			document.addEventListener( 'scroll', onScroll, { passive: false } );
@@ -540,6 +544,10 @@
 				if ( activeLink ) activeLink.classList.remove( 'active' );
 				activeLink = link;
 				activeLink.classList.add( 'active' );
+				activeLink.scrollIntoView( {
+					behavior: 'auto',
+					block: 'nearest'
+				} );
 			}
 
 			function getTop( elem ) {
