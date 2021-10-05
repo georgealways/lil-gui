@@ -10,7 +10,7 @@ sup i'm back it's 2021
 [ ] finish the 'todoc' code examples in API
 [ ] order of properties (not methods) is kinda wonky
 
-[ ] massage API list/toc index: too scary looking
+[x] massage API list/toc index: too scary looking
 
 [x] position/progress indicator on index/toc
 [x] scroll toc item into view on scroll if highlighted section not visible

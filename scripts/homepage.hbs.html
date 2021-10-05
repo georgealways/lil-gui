@@ -235,6 +235,7 @@
 			width: var(--toc-width);
 			height: 100%;
 			padding: 1rem;
+			padding-top: 0;
 			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
 			background: var(--background);
 			border-right: 1px solid var(--rule);
@@ -247,6 +248,7 @@
 
 		#toc h1 {
 			margin-top: 0;
+			padding-top: 1rem;
 		}
 
 		#toc h1,
@@ -264,7 +266,7 @@
 			padding-left: 1rem;
 		}
 
-		#toc ul li { 
+		#toc ul li {
 			text-indent: -5px;
 		}
 
@@ -272,7 +274,7 @@
 			padding-left: 1rem;
 		}
 
-		#toc .active, 
+		#toc .active,
 		#toc .active a {
 			color: var(--link);
 		}
@@ -372,6 +374,10 @@
 			#toc {
 				border: 0;
 				box-shadow: -23px 0 10px 20px #0007;
+			}
+
+			/* This padding is included in the h1 for scrollIntoView */
+			#toc h1 {
 				padding-top: calc(var(--padding-top) + var(--toc-button-margin));
 			}
 
@@ -495,7 +501,7 @@
 		{
 
 			// pixel offset below scroll position to define highlighted section
-			const SCROLL_OFFSET = 125;
+			const SCROLL_OFFSET = 50;
 
 			// Find all TOC links that point to an anchor
 			const tocAnchorLinks = Array.from( document.querySelectorAll( '#toc a[href^="#"]' ) );
@@ -786,9 +792,12 @@
 				<h1>Examples</h1>
 				<ul>
 					<li><a href="examples/basic">Basic Demo</a></li>
-					<li><a href="https://lil-gui-threejs.georgealways.com/">three.js/examples Hot Swap</a> - A fork of three.js that replaces dat.gui with lil-gui across all example pages. Except for a couple pages, this was done by simply replacing the import URL!</li>
+					<li><a href="https://lil-gui-threejs.georgealways.com/">three.js/examples Hot Swap</a> - A fork of
+						three.js that replaces dat.gui with lil-gui across all example pages. Except for a couple pages,
+						this was done by simply replacing the import URL!</li>
 					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
-					<li><a href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui with your own controller type.</li>
+					<li><a href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui
+						with your own controller type.</li>
 				</ul>
 			</section>
 

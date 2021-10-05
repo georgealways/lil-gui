@@ -8,7 +8,7 @@
 
 <div class="class">
 
-## [{{name}} (Class)](#{{{longname}}})
+## [{{name}} (Class)](#{{{name}}})
 {{#children}}
   - [{{indexname}}](#{{{longname}}})
 {{/children}}
@@ -25,7 +25,7 @@
 
 {{#jsdocData}}
 
-# <a name="{{{longname}}}"></a> {{name}} (Class)
+# <a name="{{{name}}}"></a> {{name}} (Class)
 
 {{#children}}
 
@@ -44,6 +44,7 @@
 
 {{#.}}
  - **{{name}}**{{#with description}} - {{{.}}}{{/with}}<br>
+ <small>
 {{#if defaultvalue}}Default: `{{{defaultvalue}}}`
 {{else}}
 {{#if optional}}Optional:
@@ -51,6 +52,7 @@
 {{/if}}
 {{#type.names}}`{{.}}`{{#unless @last}} or {{/unless}}{{/type.names}}
 {{/if}}
+</small>
 
 {{/.}}
 {{/with}}

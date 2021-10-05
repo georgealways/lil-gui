@@ -88,6 +88,8 @@ function transform( v ) {
 
 	} else if ( v.kind === 'class' ) {
 
+		topLevel[ v.longname ] = v;
+
 		if ( v.params ) {
 			v.signature = `new **${v.name}**`;
 			v.parens = paramsToSignature( v.params );
@@ -96,6 +98,9 @@ function transform( v ) {
 
 			// collect it
 			v.memberof = v.longname;
+
+			v.longname += '#constructor';
+
 		}
 
 		// sometimes get classdesc instead of regular desc for classes
@@ -103,7 +108,6 @@ function transform( v ) {
 
 		v.children = [];
 
-		topLevel[ v.longname ] = v;
 
 	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 
