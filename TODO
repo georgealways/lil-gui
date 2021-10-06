@@ -1,9 +1,5 @@
 sup i'm back it's 2021
 
-[ ] i don't like the way import export works
-	it should reflect folder hierarchy somehow
-	lest name collisions become nightmarish
-
 [ ] finish last 3 sections of guide
 [ ] finish the 'todoc' code examples in API
 
@@ -18,6 +14,9 @@ sup i'm back it's 2021
 
 [x] why is live-server refreshing on .git
 
+[x] i don't like the way import export works
+	it should reflect folder hierarchy somehow
+	lest name collisions become nightmarish
 
 [x] position/progress indicator on index/toc
 [x] scroll toc item into view on scroll if highlighted section not visible

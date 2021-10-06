@@ -306,68 +306,47 @@ test( unit => {
 
 	unit( 'export reset import', () => {
 
-		// make an obj, remember original state
+		// make some objects, remember their original state
 
-		const obj = {
+		const obj1 = {
 			boolean: false,
 			color1: '#aa00ff',
-			color2: [ 1 / 3, 2 / 3, 1 ],
+			color2: [1 / 3, 2 / 3, 1],
 			color3: { r: 2 / 3, g: 1, b: 1 / 3 },
-			color4: [ 0, 170, 255 ],
+			color4: [0, 170, 255],
 			color5: { r: 10, g: 21, b: 34 },
-			func: function() {},
+			func: function () { },
 			number: 0,
 			options: 'a',
 			string: 'foo'
 		};
 
-		const originalShallow = Object.assign( {}, obj );
+		const obj2 = {
+			string: 'collision test',
+			number: 2
+		};
 
-		function deepClone( obj ) {
-			const clone = {};
-			for ( let key in obj ) {
-				const val = obj[ key ];
-				if ( Array.isArray( val ) ) {
-					clone[ key ] = Array.from( val );
-				} else if ( typeof val !== 'function' && Object( val ) === val ) {
-					clone[ key ] = deepClone( val );
-				} else {
-					clone[ key ] = val;
-				}
-			}
-			return clone;
-		}
-
-		const originalDeep = deepClone( obj );
-
-		function compare( state ) {
-			for ( let key in obj ) {
-				const val = obj[ key ];
-				const deep = state[ key ];
-				const shallow = originalShallow[ key ];
-				if ( Object( val ) === val ) {
-					assert.deepStrictEqual( val, deep, 'deep ' + key );
-					assert.strictEqual( val, shallow, 'shallow ' + key );
-				} else {
-					assert.strictEqual( val, deep );
-				}
-			}
-		}
+		const obj1Tester = new Tester( obj1 );
+		const obj2Tester = new Tester( obj2 );
 
 		// add it to gui
 
 		const gui = new GUI();
 
-		const booleanCtrl = gui.add( obj, 'boolean' );
-		const color1Ctrl = gui.addColor( obj, 'color1' );
-		const color2Ctrl = gui.addColor( obj, 'color2' );
-		const color3Ctrl = gui.addColor( obj, 'color3' );
-		const color4Ctrl = gui.addColor( obj, 'color4', 255 );
-		const color5Ctrl = gui.addColor( obj, 'color5', 255 );
-		const funcCtrl = gui.add( obj, 'func' );
-		const numberCtrl = gui.add( obj, 'number' );
-		const optionsCtrl = gui.add( obj, 'options', [ 'a', 'b', 'c' ] );
-		const stringCtrl = gui.add( obj, 'string' );
+		const booleanCtrl = gui.add( obj1, 'boolean' );
+		const color1Ctrl = gui.addColor( obj1, 'color1' );
+		const color2Ctrl = gui.addColor( obj1, 'color2' );
+		const color3Ctrl = gui.addColor( obj1, 'color3' );
+		const color4Ctrl = gui.addColor( obj1, 'color4', 255 );
+		const color5Ctrl = gui.addColor( obj1, 'color5', 255 );
+		const funcCtrl = gui.add( obj1, 'func' );
+		const numberCtrl = gui.add( obj1, 'number' );
+		const optionsCtrl = gui.add( obj1, 'options', ['a', 'b', 'c'] );
+		const stringCtrl = gui.add( obj1, 'string' );
+
+		const folder = gui.addFolder( 'Folder' );
+		const folderString = folder.add( obj2, 'string' );
+		const folderNumber = folder.add( obj2, 'number' );
 
 		// change it via gui
 
@@ -382,28 +361,68 @@ test( unit => {
 		optionsCtrl.setValue( 'c' );
 		stringCtrl.setValue( 'bar' );
 
-		const newState = deepClone( obj );
+		folderString.setValue( 'somethin' );
+		folderNumber.setValue( 200 );
 
-		// console.log( originalDeep );
-		// console.log( newState );
+		// remember new state
+
+		obj1Tester.modified = deepClone( obj1 );
+		obj2Tester.modified = deepClone( obj2 );
 
 		// export
-		const saved = gui.export( true, false );
+		const saved = gui.export();
+
+		// console.log( JSON.stringify( saved, null, 2 ) );
 
 		// reset gui to original state
 		gui.reset();
 
-		// assert matches original state
-		// assert object types retain reference
-		compare( originalDeep );
+		obj1Tester.compare( obj1Tester.originalDeep );
+		obj2Tester.compare( obj2Tester.originalDeep );
 
 		// import
 		gui.import( saved );
 
+		obj1Tester.compare( obj1Tester.modified );
+		obj2Tester.compare( obj2Tester.modified );
+
+		function Tester( obj ) {
+
+			this.originalDeep = deepClone( obj );
+			const originalShallow = Object.assign( {}, obj );
+
 		// assert matches original state
 		// assert object types retain reference
+			this.compare = ( state ) => {
+				for ( let key in obj ) {
+					const val = obj[key];
+					const deep = state[key];
+					const shallow = originalShallow[key];
+					if ( Object( val ) === val ) {
+						assert.deepStrictEqual( val, deep, 'deep ' + key );
+						assert.strictEqual( val, shallow, 'shallow ' + key );
+					} else {
+						assert.strictEqual( val, deep );
+					}
+				}
+			}
 
-		compare( newState );
+		}
+
+		function deepClone( obj ) {
+			const clone = {};
+			for ( let key in obj ) {
+				const val = obj[key];
+				if ( Array.isArray( val ) ) {
+					clone[key] = Array.from( val );
+				} else if ( typeof val !== 'function' && Object( val ) === val ) {
+					clone[key] = deepClone( val );
+				} else {
+					clone[key] = val;
+				}
+			}
+			return clone;
+		}
 
 	} );
 

@@ -262,12 +262,23 @@ export default class GUI {
 	 * @returns {this}
 	 */
 	import( obj, recursive = true ) {
-		this.getControllers( recursive ).forEach( c => {
-			if ( c._name in obj ) {
-				c.import( obj[c._name] );
+
+		this.getControllers( false ).forEach( c => {
+			if ( c._name in obj.controllers ) {
+				c.import( obj.controllers[c._name] );
 			}
 		} );
+
+		if ( recursive ) {
+			this.getFolders().forEach( f => {
+				if ( f._title in obj.folders ) {
+					f.import( obj.folders[f._title] );
+				}
+			} );
+		}
+
 		return this;
+
 	}
 
 	/**
@@ -279,11 +290,25 @@ export default class GUI {
 	 * @returns {object}
 	 */
 	export( recursive = true ) {
-		const obj = {};
-		this.getControllers( recursive ).forEach( c => {
-			obj[c._name] = c.export();
+
+		const obj = {
+			controllers: {},
+			folders: {}
+		};
+
+		this.getControllers( false ).forEach( c => {
+			if ( c instanceof FunctionController ) return;
+			obj.controllers[c._name] = c.export();
 		} );
+
+		if ( recursive ) {
+			this.getFolders().forEach( f => {
+				obj.folders[f._title] = f.export();
+			} );
+		}
+
 		return obj;
+
 	}
 
 	/**
