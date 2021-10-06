@@ -166,7 +166,9 @@ export default class GUI {
 	/**
 	 * Adds a controller to the GUI, inferring controller type using the `typeof` operator.
 	 * @example
-	 * // todoc
+	 * gui.add( object, 'property' );
+	 * gui.add( object, 'number', 0, 100, 1 );
+	 * gui.add( object, 'options', [ 1, 2, 3 ] );
 	 * 
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
@@ -184,7 +186,7 @@ export default class GUI {
 
 		}
 
-		const initialValue = object[ property ];
+		const initialValue = object[property];
 
 		switch ( typeof initialValue ) {
 
@@ -214,7 +216,15 @@ export default class GUI {
 	/**
 	 * Adds a color controller to the GUI.
 	 * @example
-	 * // todoc
+	 * params = {
+	 * 	cssColor: '#ff00ff',
+	 * 	rgbColor: { r: 0, g: 0.2, b: 0.4 },
+	 * 	customRange: [ 0, 127, 255 ],
+	 * };
+	 * 
+	 * gui.addColor( params, 'cssColor' );
+	 * gui.addColor( params, 'rgbColor' );
+	 * gui.addColor( params, 'customRange', 255 );
 	 * 
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
@@ -230,7 +240,10 @@ export default class GUI {
 	 * Adds a folder to the GUI, which is just another GUI. This method returns 
 	 * the nested GUI so you can add controllers to it.
 	 * @example
-	 * // todoc
+	 * const folder = gui.addFolder( 'Position' );
+	 * folder.add( position, 'x' );
+	 * folder.add( position, 'y' );
+	 * folder.add( position, 'z' );
 	 * 
 	 * @param {string} title Name to display in the folder's title bar.
 	 * @returns {GUI}
@@ -251,7 +264,7 @@ export default class GUI {
 	import( obj, recursive = true ) {
 		this.getControllers( recursive ).forEach( c => {
 			if ( c._name in obj ) {
-				c.import( obj[ c._name ] );
+				c.import( obj[c._name] );
 			}
 		} );
 		return this;
@@ -268,7 +281,7 @@ export default class GUI {
 	export( recursive = true ) {
 		const obj = {};
 		this.getControllers( recursive ).forEach( c => {
-			obj[ c._name ] = c.export();
+			obj[c._name] = c.export();
 		} );
 		return obj;
 	}
@@ -346,7 +359,7 @@ export default class GUI {
 	 * @param {string} title
 	 * @returns {this}
 	 */
-	 title( title ) {
+	title( title ) {
 		/**
 		 * Current title of the GUI. Don't modify this value directly.
 		 * Use the `gui.title( 'Title' )` method instead.
@@ -362,11 +375,11 @@ export default class GUI {
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {this}
 	 */
-	 reset( recursive = true ) {
+	reset( recursive = true ) {
 		this.getControllers( recursive ).forEach( c => c.reset() );
 		return this;
 	}
-	
+
 	/**
 	 * Destroys all DOM elements and event listeners associated with this GUI
 	 */

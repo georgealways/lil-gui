@@ -1,27 +1,33 @@
 sup i'm back it's 2021
 
+[ ] i don't like the way import export works
+	it should reflect folder hierarchy somehow
+	lest name collisions become nightmarish
+
+[ ] finish last 3 sections of guide
+[ ] finish the 'todoc' code examples in API
+
+[ ] massage API list/toc index: too scary looking
+[ ] order of properties (not methods) is kinda wonky
+
+	[ ] toc link?
+[ ] examples
+	[x] figure out which to keep which to kill
+	[x] figure out where to link these on homepage
+	[x] check up on pixi/threejs sandboxes
+
+[x] why is live-server refreshing on .git
+
+
+[x] position/progress indicator on index/toc
+[x] scroll toc item into view on scroll if highlighted section not visible
+	[x] ...would be nice to include margin top of first h1
+
 [x] remember how to deploy / update this monster
 
 [x] are the mobile styles good? should they be on by default?
 	"docked to bottom" vs "fatter controls for fingers not cursors" 
 	(should these be coupled?)
-
-[ ] finish last 3 sections of guide
-[ ] finish the 'todoc' code examples in API
-[ ] order of properties (not methods) is kinda wonky
-
-[x] massage API list/toc index: too scary looking
-
-[x] position/progress indicator on index/toc
-[x] scroll toc item into view on scroll if highlighted section not visible
-	[ ] ...would be nice to include margin top of first h1
-
-[ ] examples
-	[ ] figure out which to keep which to kill
-	[ ] figure out where to link these on homepage
-	[x] check up on pixi/threejs sandboxes
-
-[x] why is live-server refreshing on .git
 
 stale todos from 2019
 

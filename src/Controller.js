@@ -230,6 +230,8 @@ export default class Controller {
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening.
 	 * @param {boolean} listen
 	 * @returns {this}
+	 * @example
+	 * // todoc
 	 */
 	listen( listen = true ) {
 
