@@ -1,13 +1,16 @@
 sup i'm back it's 2021
 
+[ ] gui.onChange
+[ ] should export yell at you if you have collisions?
+
 [ ] finish last 3 sections of guide
 [ ] finish the 'todoc' code examples in API
 
 [ ] massage API list/toc index: too scary looking
 [ ] order of properties (not methods) is kinda wonky
 
-	[ ] toc link?
 [ ] examples
+	[ ] toc link?
 	[x] figure out which to keep which to kill
 	[x] figure out where to link these on homepage
 	[x] check up on pixi/threejs sandboxes

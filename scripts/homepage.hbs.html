@@ -81,7 +81,7 @@
 			padding: 1rem;
 			overflow: auto;
 			border-radius: var(--border-radius);
-			margin: 2rem 0 1rem;
+			margin: 1.5rem 0;
 		}
 
 		code {
@@ -580,11 +580,11 @@
 		// Guide examples
 		// ---------------------------------------------------------------------
 
-		example( 1, ( gui, code ) => {
+		example( 4, ( gui, code ) => {
 			gui.add( document, 'title' );
 		} );
 
-		example( 2, ( gui, code ) => {
+		example( 5, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -600,7 +600,7 @@
 
 		} );
 
-		example( 3, ( gui, code ) => {
+		example( 6, ( gui, code ) => {
 
 			const myObject = {
 				hasMin: 1,
@@ -614,7 +614,7 @@
 
 		} );
 
-		example( 4, ( gui, code ) => {
+		example( 7, ( gui, code ) => {
 
 			const myObject = {
 				number1: 0.5,
@@ -626,7 +626,7 @@
 
 		} );
 
-		example( 5, ( gui, code ) => {
+		example( 8, ( gui, code ) => {
 
 			const myObject = {
 				size: 'Medium',
@@ -638,7 +638,7 @@
 
 		} );
 
-		example( 6, ( gui, code ) => {
+		example( 9, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -654,7 +654,7 @@
 
 		} );
 
-		example( 7, ( gui, code ) => {
+		example( 10, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -677,7 +677,7 @@
 
 		} );
 
-		example( 8, ( gui, code ) => {
+		example( 11, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -791,12 +791,12 @@
 				<a name="Examples"></a>
 				<h1>Examples</h1>
 				<ul>
-					<li><a href="examples/basic">Basic Demo</a></li>
-					<li><a href="https://lil-gui-threejs.georgealways.com/">three.js/examples Hot Swap</a> - A fork of
+					<li><a target="_blank" href="examples/basic">Basic Demo</a></li>
+					<li><a target="_blank" href="https://lil-gui-threejs.georgealways.com/examples">three.js/examples Hot Swap</a> - A fork of
 						three.js that replaces dat.gui with lil-gui across all example pages. Except for a couple pages,
 						this was done by simply replacing the import URL!</li>
-					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
-					<li><a href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui
+					<li><a target="_blank" href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
+					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui
 						with your own controller type.</li>
 				</ul>
 			</section>

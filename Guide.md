@@ -5,7 +5,28 @@ It's intended as a drop-in replacement for dat.gui, implemented with more modern
 
 ## Installation
 
-todo
+```js
+$ npm install lil-gui
+
+import { GUI } from 'lil-gui';
+```
+
+For quick sketches, you can import lil-gui directly from a CDN.
+
+```html
+<script type="module">
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js';
+</script>
+```
+
+The library is also available in UMD format under the namespace `lil`.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/lil-gui"></script>
+<script>
+const GUI = lil.GUI;
+</script>
+```
 
 ## Adding Controllers
 
@@ -134,7 +155,7 @@ todo
 // todo
 ```
 
-## Styling
+## Saving
 
 todo
 
@@ -142,7 +163,7 @@ todo
 // todo
 ```
 
-## Saving
+## Styling
 
 todo
 
