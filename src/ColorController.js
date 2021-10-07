@@ -105,6 +105,7 @@ export default class ColorController extends Controller {
 			this.$text.value = this.$input.value.substring( 1 );
 		}
 		this.$display.style.backgroundColor = this.$input.value;
+		return this;
 	}
 
 }
