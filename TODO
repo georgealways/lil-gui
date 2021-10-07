@@ -1,9 +1,11 @@
 sup i'm back it's 2021
 
 [ ] export should yell at you if you have collisions
+[ ] unit test for import/export recursive=false
 [ ] gui.onChange
+[ ] close() should accept a parameter like disable() for symmetry with open()
 
-[ ] order of properties (not methods) is kinda wonky
+[ ] order of properties (not methods) in API is kinda wonky
 
 [x] massage API list/toc index: too scary looking
 
