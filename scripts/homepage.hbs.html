@@ -43,6 +43,11 @@
 			margin: 0;
 		}
 
+		html {
+			-webkit-text-size-adjust: 100%;
+			text-size-adjust: 100%;
+		}
+
 		body {
 			background-color: var(--background);
 			color: var(--foreground);
@@ -510,6 +515,7 @@
 
 			let activeLink;
 
+			// todo: this has to happen on resize
 			function updateAnchorPositions() {
 
 				tocAnchorLinks.forEach( link => {
@@ -580,11 +586,11 @@
 		// Guide examples
 		// ---------------------------------------------------------------------
 
-		example( 4, ( gui, code ) => {
+		example( 5, ( gui, code ) => {
 			gui.add( document, 'title' );
 		} );
 
-		example( 5, ( gui, code ) => {
+		example( 6, ( gui, code ) => {
 
 			const myObject = {
 				myBoolean: true,
@@ -600,7 +606,7 @@
 
 		} );
 
-		example( 6, ( gui, code ) => {
+		example( 7, ( gui, code ) => {
 
 			const myObject = {
 				hasMin: 1,
@@ -614,19 +620,19 @@
 
 		} );
 
-		example( 7, ( gui, code ) => {
+		example( 8, ( gui, code ) => {
 
 			const myObject = {
-				number1: 0.5,
+				number1: 1,
 				number2: 50,
 			};
 
-			gui.add( myObject, 'number1', 0, 1 );
-			gui.add( myObject, 'number2', 0, 128, 1 );
+			gui.add( myObject, 'number1', 0, 1 ).onChange( replacer( code, /number1:\s*$/ ) );;
+			gui.add( myObject, 'number2', 0, 100, 10 ).onChange( replacer( code, /number2:\s*$/ ) );;;
 
 		} );
 
-		example( 8, ( gui, code ) => {
+		example( 9, ( gui, code ) => {
 
 			const myObject = {
 				size: 'Medium',
@@ -638,7 +644,7 @@
 
 		} );
 
-		example( 9, ( gui, code ) => {
+		example( 10, ( gui, code ) => {
 
 			const params = {
 				color1: '#AA00FF',
@@ -654,7 +660,7 @@
 
 		} );
 
-		example( 10, ( gui, code ) => {
+		example( 11, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 0.667, g: 0, b: 1 },
@@ -677,7 +683,7 @@
 
 		} );
 
-		example( 11, ( gui, code ) => {
+		example( 12, ( gui, code ) => {
 
 			const params = {
 				colorObject: { r: 170, g: 0, b: 255 },
@@ -697,6 +703,61 @@
 					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*$/, v[1] );
 					replaceTextAfter( code, /\[\s*\d+\.?\d*\s*,\s*\d+\.?\d*\s*,\s*/, v[2] );
 				} );
+
+		} );
+
+		example( 13, ( gui, code ) => {
+
+			const params = {
+				scale: 1,
+				position: { x: 0, y: 0, z: 0 },
+			}
+
+			gui.add( params, 'scale', 0, 1 ).onChange( replacer( code, /scale:\s*$/ ) );
+
+			const folder = gui.addFolder( 'Position' );
+
+			folder.add( params.position, 'x' ).onChange( replacer( code, /x:\s*$/ ) );
+			folder.add( params.position, 'y' ).onChange( replacer( code, /y:\s*$/ ) );
+			folder.add( params.position, 'z' ).onChange( replacer( code, /z:\s*$/ ) );
+
+		} );
+
+		example( 15, ( gui, code ) => {
+
+			const params = { feedback: 0 };
+
+			gui.add( params, 'feedback', -1, 1 ).listen();
+
+			const animate = () => {
+				params.feedback = Math.sin( Date.now() / 1000 );
+				requestAnimationFrame( animate );
+			}
+
+			animate();
+
+		} );
+
+		example( 16, ( gui, code ) => {
+
+			let saved = {};
+
+			const obj = {
+				value1: 'hey',
+				value2: 9000,
+				save() {
+					saved = gui.export();
+					loadButton.enable();
+				},
+				load() {
+					gui.import( saved );
+				}
+			}
+
+			gui.add( obj, 'value1' );
+			gui.add( obj, 'value2' );
+			gui.add( obj, 'save' );
+			const loadButton = gui.add( obj, 'load' ).disable();
 
 		} );
 
@@ -770,6 +831,8 @@
 
 				<h2><a href="#Guide">Guide</a></h2>
 
+				<h2><a href="#Guide">Guide</a></h2>
+
 				{{{ guidetoc }}}
 
 				<h2><a href="#API">API</a></h2>
@@ -792,11 +855,13 @@
 				<h1>Examples</h1>
 				<ul>
 					<li><a target="_blank" href="examples/basic">Basic Demo</a></li>
-					<li><a target="_blank" href="https://lil-gui-threejs.georgealways.com/examples">three.js/examples Hot Swap</a> - A fork of
-						three.js that replaces dat.gui with lil-gui across all example pages. Except for a couple pages,
-						this was done by simply replacing the import URL!</li>
+					<li><a target="_blank" href="https://lil-gui-threejs.georgealways.com/examples">three.js/examples
+							Hot Swap</a> - A fork of
+						three.js that replaces dat.gui with lil-gui across all example pages. Except for a few pages,
+						this was done just by replacing the import URL.</li>
 					<li><a target="_blank" href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
-					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - Demonstrates how to extend lil-gui
+					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - Demonstrates how to
+						extend lil-gui
 						with your own controller type.</li>
 				</ul>
 			</section>
