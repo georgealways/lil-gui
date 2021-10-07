@@ -1,14 +1,18 @@
 sup i'm back it's 2021
 
 [ ] export should yell at you if you have collisions
-[ ] unit test for import/export recursive=false
-[ ] gui.onChange
-	[ ] unit test
+[x] gui.onChange
 [ ] close() should accept a parameter like disable() for symmetry with open()
+[ ] booleans should look more like switches ... a single unchecked boolean controller is v confusing
+
+[ ] unit test for import/export recursive=false
+[ ] unit test for gui.onChange
+
+homepage
 
 [ ] order of properties (not methods) in API is kinda wonky
-
 [ ] update anchor positions on resize
+[ ] main api toc columns are ugly
 
 [x] massage API list/toc index: too scary looking
 

@@ -199,13 +199,12 @@ animate() {
 }
 ```
 
-You can also call `controller.updateDisplay()` at any time if you'd like to manage this behavior 
-yourself.
+You can also call `controller.updateDisplay()` at any time to manage this behavior yourself.
 
 ## Saving
 
 Using `gui.export()` you can create an object that saves the current value of all properties
-added to the GUI.
+added to the GUI. You can pass that object to `gui.import()` to restore the saved values.
 
 The following creates a GUI that can save a preset. Press the Save Preset button, then modify any
 controller. Pressing the Recall Preset button restores the values you saved.
