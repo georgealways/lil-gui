@@ -18,7 +18,7 @@ autoPlaceGUI.add( myObject, 'number', 0, 1 );
 autoPlaceGUI.addColor( myObject, 'color' );
 autoPlaceGUI.add( myObject, 'function' );
 
-const panopticon = document.getElementById( 'panopticon' );
+const container = document.getElementById( 'container' );
 
 if ( location.hash === '#long' ) {
 	for ( let i = 0; i < 50; i++ ) {
@@ -31,7 +31,7 @@ if ( location.hash === '#long' ) {
  * @param {function(GUI)} callback
  */
 function make( options, callback ) {
-	options.container = panopticon;
+	options.container = container;
 	callback( new GUI( options ) );
 }
 
@@ -164,7 +164,7 @@ make( { title: 'Customization' }, gui => {
 
 	const pre = document.createElement( 'pre' );
 	pre.id = 'custom-css';
-	panopticon.appendChild( pre );
+	container.appendChild( pre );
 
 	const styleTag = document.createElement( 'style' );
 	document.head.appendChild( styleTag );
