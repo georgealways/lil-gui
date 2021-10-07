@@ -406,6 +406,34 @@ export default class GUI {
 	}
 
 	/**
+	 * todo
+	 * @param {function} callback 
+	 * @returns {this}
+	 * @example
+	 * // todo
+	 */
+	onChange( callback ) {
+		this._onChange = callback;
+		return this;
+	}
+
+	_callOnChange( controller ) {
+
+		if ( this.parent ) {
+			this.parent._callOnChange( controller );
+		}
+
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, {
+				object: controller.object,
+				property: controller.property,
+				value: controller.getValue(),
+				controller
+			} );
+		}
+	}
+
+	/**
 	 * Destroys all DOM elements and event listeners associated with this GUI
 	 */
 	destroy() {

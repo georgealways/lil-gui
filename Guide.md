@@ -173,13 +173,21 @@ gui.add( params, 'foo' ).onChange( value => {
 } );
 
 // apply the same handler to every controller
-gui.onChange( ( object, propertyName, newValue ) => {
+gui.onChange( e => {
+
+	e.object     // object that was modified
+	e.property   // string, name of property
+	e.value      // new value of controller
+	e.controller // controller that was modified
 
 } );
 ```
 
-todo listen
-todo enable / disable
+### Listening and Updating
+
+If a value controlled by the GUI is changed in code anywhere outside of the GUI, the new value won't
+be reflected by the controller's display. You can call `listen()` to update the controller's display
+every frame.
 
 ```js
 gui.add( params, 'feedback', -1, 1 )
@@ -190,6 +198,9 @@ animate() {
 	params.feedback = Math.sin( Date.now() / 1000 );
 }
 ```
+
+You can also call `controller.updateDisplay()` at any time if you'd like to manage this behavior 
+yourself.
 
 ## Saving
 

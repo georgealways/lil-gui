@@ -118,6 +118,14 @@ export default class Controller {
 		return this;
 	}
 
+	_callOnChange() {
+		this.parent._callOnChange( this );
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
+		}
+	}
+
+	// Provided for compatability
 	onFinishChange( callback ) {
 		return this.onChange( callback );
 	}
@@ -278,12 +286,6 @@ export default class Controller {
 		this._callOnChange();
 		this.updateDisplay();
 		return this;
-	}
-
-	_callOnChange() {
-		if ( this._onChange !== undefined ) {
-			this._onChange.call( this, this.getValue() );
-		}
 	}
 
 	/**
