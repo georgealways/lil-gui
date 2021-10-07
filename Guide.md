@@ -118,7 +118,7 @@ gui.addColor( obj, 'color4' );
 
 Some libraries use objects or arrays of RGB values to describe colors. These can also be controlled 
 by `addColor()`. The color channels are assumed to be between 0 and 1, but you can also set your 
-own range.
+own range. Color objects and arrays are never replaced—only their components are modified.
 
 ```js
 obj = {
@@ -133,8 +133,7 @@ gui.addColor( obj, 'colorArray' );
 ### RGB Channel Ranges
 
 The channel range for RGB objects and arrays can be overriden per controller by passing a third 
-parameter to `addColor()`. If your colors are coming out too dark, you probably need to set this 
-to 255.
+parameter to `addColor()`. If your colors are coming out too dark, you might need to set this to 255.
 
 ```js
 obj = {
@@ -151,21 +150,17 @@ gui.addColor( obj, 'colorArray', 255 );
 todo
 
 ```js
-params = {
-	scale: 1,
-	position: { x: 0, y: 0, z: 0 }
-}
+params = { scale: 1 };
+position = { x: 0, y: 0, z: 0 };
 
 const gui = new GUI();
-
 gui.add( params, 'scale', 0, 1 );
 
-const folder = gui.addFolder( 'Position' );
-
 // folder has all the same methods as GUI
-folder.add( params.position, 'x' );
-folder.add( params.position, 'y' );
-folder.add( params.position, 'z' );
+const folder = gui.addFolder( 'Position' );
+folder.add( position, 'x' );
+folder.add( position, 'y' );
+folder.add( position, 'z' );
 ```
 
 ## Change Events
@@ -177,7 +172,7 @@ gui.add( params, 'foo' ).onChange( value => {
 	console.log( value );
 } );
 
-// apply the same onChange handler to every controller
+// apply the same handler to every controller
 gui.onChange( ( object, propertyName, newValue ) => {
 
 } );
