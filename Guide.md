@@ -229,7 +229,7 @@ const loadButton =
 
 ### Name Collisions
 
-`export()` will throw an error if the gui contains more than one controller or folder with the same
+`export()` will throw an error if the GUI contains more than one controller or folder with the same
 name. You can avoid these collisions by renaming the controllers with `name()`.
 
 ```js
