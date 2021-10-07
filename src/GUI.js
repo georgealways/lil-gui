@@ -269,7 +269,7 @@ export default class GUI {
 			}
 		} );
 
-		if ( recursive ) {
+		if ( recursive && obj.folders ) {
 			this.getFolders().forEach( f => {
 				if ( f._title in obj.folders ) {
 					f.import( obj.folders[f._title] );
