@@ -104,6 +104,7 @@
 
 		p code {
 			white-space: nowrap;
+			font-size: 0.975em;
 		}
 
 		hr {
@@ -743,8 +744,8 @@
 			let saved = {};
 
 			const obj = {
-				value1: 'hey',
-				value2: 9000,
+				value1: 'original',
+				value2: 1996,
 				save() {
 					saved = gui.export();
 					loadButton.enable();
@@ -756,8 +757,15 @@
 
 			gui.add( obj, 'value1' );
 			gui.add( obj, 'value2' );
-			gui.add( obj, 'save' );
-			const loadButton = gui.add( obj, 'load' ).disable();
+
+			gui.add( obj, 'save' )
+				.name( 'Save Preset' );
+
+			const loadButton =
+				gui.add( obj, 'load' )
+					.name( 'Recall Preset' )
+					.disable();
+
 
 		} );
 
@@ -855,14 +863,12 @@
 				<h1>Examples</h1>
 				<ul>
 					<li><a target="_blank" href="examples/basic">Basic Demo</a></li>
-					<li><a target="_blank" href="https://lil-gui-threejs.georgealways.com/examples">three.js/examples
-							Hot Swap</a> - A fork of
-						three.js that replaces dat.gui with lil-gui across all example pages. Except for a few pages,
-						this was done just by replacing the import URL.</li>
 					<li><a target="_blank" href="examples/kitchen-sink">Kitchen Sink</a> - todo describe</li>
 					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - Demonstrates how to
-						extend lil-gui
-						with your own controller type.</li>
+						extend lil-gui with your own controller type.</li>
+					<li><a target="_blank" href="https://lil-gui-threejs.georgealways.com/examples">three.js/examples
+							Hot Swap</a> - A fork of three.js that replaces dat.gui with lil-gui across all example
+						pages. Except for a few pages, this was done just by replacing the import URL.</li>
 				</ul>
 			</section>
 

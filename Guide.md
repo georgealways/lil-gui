@@ -193,15 +193,20 @@ animate() {
 
 ## Saving
 
-todo
+Using `gui.export()` you can create an object that saves the current value of all properties
+added to the GUI.
+
+The following creates a GUI that can save a preset. Press the Save Preset button, then modify any
+controller. Pressing the Recall Preset button restores the values you saved.
 
 ```js
 let saved = {};
 
 const obj = {
-	value1: 'hey',
-	value2: 9000,
+	value1: 'original',
+	value2: 1996,
 	save() {
+		// save current values to an object
 		saved = gui.export();
 		loadButton.enable();
 	},
@@ -212,12 +217,30 @@ const obj = {
 
 gui.add( obj, 'value1' );
 gui.add( obj, 'value2' );
-gui.add( obj, 'save' );
 
-const loadButton = gui.add( obj, 'load' ).disable();
+gui.add( obj, 'save' )
+   .name( 'Save Preset' );
+
+const loadButton = 
+	gui.add( obj, 'load' )
+	   .name( 'Recall Preset' )
+	   .disable();
 ```
 
-todo describe export object format
+### Name Collisions
+
+`export()` will throw an error if the gui contains more than one controller or folder with the same
+name. You can avoid these collisions by renaming the controllers with `name()`.
+
+```js
+gui.add( position, 'x' ).name( 'position.x' );
+gui.add( rotation, 'x' ).name( 'rotation.x' );
+```
+
+### Save Object Format
+
+The following is an example of an object returned by `gui.export()`. The object will be JSON 
+compatible. It can be saved to disk, *unless* you're using non-primitive data types in a dropdown (color objects and arrays are fine).
 
 ```js
 {
@@ -234,7 +257,9 @@ todo describe export object format
 }
 ```
 
-todo describe export recursive
+Both export and import accept a `recursive` parameter, which by default is true. Use 
+`export( false )` and `import( data, false )` to ignore any folders within the GUI. The exported 
+object will contain an empty folders array.
 
 ## Styling
 
