@@ -171,7 +171,7 @@ export default class Controller {
 
 	/**
 	 * Destroys this controller and replaces it with a new option controller. Provided as a more 
-	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.GUI. 
+	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.gui. 
 	 * 
 	 * Use caution, as this method will destroy old references to this controller. It will also 
 	 * change controller order if called out of sequence, moving the option controller to the end of
