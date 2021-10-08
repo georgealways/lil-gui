@@ -746,11 +746,11 @@
 			const obj = {
 				value1: 'original',
 				value2: 1996,
-				save() {
+				savePreset() {
 					saved = gui.save();
 					loadButton.enable();
 				},
-				load() {
+				loadPreset() {
 					gui.load( saved );
 				}
 			}
@@ -758,14 +758,11 @@
 			gui.add( obj, 'value1' );
 			gui.add( obj, 'value2' );
 
-			gui.add( obj, 'save' )
-				.name( 'Save Preset' );
+			gui.add( obj, 'savePreset' );
 
 			const loadButton =
-				gui.add( obj, 'load' )
-					.name( 'Recall Preset' )
+				gui.add( obj, 'loadPreset' )
 					.disable();
-
 
 		} );
 

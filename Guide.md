@@ -206,51 +206,40 @@ You can also call `controller.updateDisplay()` at any time to manage this behavi
 Using `gui.save()` you can create an object that saves the current value of all properties
 added to the GUI. You can pass that object to `gui.load()` to restore the saved values.
 
-The following creates a GUI that can save a preset. Press the Save Preset button, then modify any
-controller. Pressing the Recall Preset button restores the values you saved.
+The following creates a GUI that can save a preset. Press the savePreset button, then modify any
+controller. Pressing the recallPreset button restores the values you saved.
 
 ```js
-let saved = {};
+let preset = {};
 
 const obj = {
 	value1: 'original',
 	value2: 1996,
-	save() {
+	savePreset() {
 		// save current values to an object
-		saved = gui.save();
+		preset = gui.save();
 		loadButton.enable();
 	},
-	load() {
-		gui.load( saved );
+	loadPreset() {
+		gui.load( preset );
 	}
 }
 
 gui.add( obj, 'value1' );
 gui.add( obj, 'value2' );
 
-gui.add( obj, 'save' )
-   .name( 'Save Preset' );
+gui.add( obj, 'savePreset' );
 
 const loadButton = 
-	gui.add( obj, 'load' )
-	   .name( 'Recall Preset' )
+	gui.add( obj, 'loadPreset' )
 	   .disable();
-```
-
-### Name Collisions
-
-`save()` will throw an error if the GUI contains more than one controller or folder with the same
-name. You can avoid these collisions by renaming the controllers with `name()`.
-
-```js
-gui.add( position, 'x' ).name( 'position.x' );
-gui.add( rotation, 'x' ).name( 'rotation.x' );
 ```
 
 ### Save Object Format
 
-The following is an example of an object returned by `gui.save()`. The object will be JSON 
-compatible. It can be saved to disk, *unless* you're using non-primitive data types in a dropdown (color objects and arrays are fine).
+The following is an example of an object returned by `gui.save()`. The object will be JSON compatible. 
+It can be saved to disk, *unless* you're using non-primitive data types in a dropdown (color objects 
+and arrays are fine).
 
 ```js
 {
@@ -267,9 +256,19 @@ compatible. It can be saved to disk, *unless* you're using non-primitive data ty
 }
 ```
 
-Both save and load accept a `recursive` parameter, which by default is true. Use 
-`save( false )` and `load( data, false )` to ignore any folders within the GUI. The saved 
-object will contain an empty folders array.
+Both save and load accept a `recursive` parameter, which is true by default. Use `save( false )` and 
+`load( data, false )` to ignore any folders within the GUI. The saved object will contain an empty 
+folders object.
+
+### Name Collisions
+
+`save()` will throw an error if the GUI contains more than one controller or folder with the same
+name. You can avoid these collisions by renaming the controllers with `name()`.
+
+```js
+gui.add( position, 'x' ).name( 'position.x' );
+gui.add( rotation, 'x' ).name( 'rotation.x' );
+```
 
 ## Styling
 
