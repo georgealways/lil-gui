@@ -28,8 +28,8 @@ test( unit => {
 			assert.strictEqual( controller, controller.max() );
 			assert.strictEqual( controller, controller.min() );
 			assert.strictEqual( controller, controller.name( 'hi' ) );
-			assert.strictEqual( controller, controller.onChange( function() { } ) );
-			assert.strictEqual( controller, controller.onFinishChange( function() { } ) );
+			assert.strictEqual( controller, controller.onChange( function () { } ) );
+			assert.strictEqual( controller, controller.onFinishChange( function () { } ) );
 			assert.strictEqual( controller, controller.reset() );
 			assert.strictEqual( controller, controller.setValue() );
 			assert.strictEqual( controller, controller.step() );
@@ -39,9 +39,9 @@ test( unit => {
 		testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
 
 		testControllerType( gui.add( { x: 0 }, 'x' ), NumberController );
-		testControllerType( gui.add( { x: function() { } }, 'x' ), FunctionController );
+		testControllerType( gui.add( { x: function () { } }, 'x' ), FunctionController );
 		testControllerType( gui.add( { x: '' }, 'x' ), StringController );
-		testControllerType( gui.add( { x: '' }, 'x', [ '', 'a' ] ), OptionController );
+		testControllerType( gui.add( { x: '' }, 'x', ['', 'a'] ), OptionController );
 
 	} );
 
@@ -77,7 +77,7 @@ test( unit => {
 			b: 0.6705882352941176
 		};
 
-		const arr = [ obj.r, obj.g, obj.b ];
+		const arr = [obj.r, obj.g, obj.b];
 		const int = 0x7a26ab;
 		const string = '#7a26ab';
 
@@ -124,11 +124,11 @@ test( unit => {
 		}
 
 		function spy( instance, methodName, spy ) {
-			const method = instance[ methodName ];
+			const method = instance[methodName];
 			if ( typeof method !== 'function' ) {
 				throw Error( `Tried to spy on "${methodName}" but it's not a function: ${method}` );
 			}
-			instance[ methodName ] = function() {
+			instance[methodName] = function () {
 				method.apply( this, arguments );
 				spy.apply( this, arguments );
 			};
@@ -173,7 +173,7 @@ test( unit => {
 
 		function decimals( number ) {
 			const parts = number.toString().split( '.' );
-			return parts.length === 1 ? 0 : parts[ 1 ].length;
+			return parts.length === 1 ? 0 : parts[1].length;
 		}
 
 	} );
@@ -304,7 +304,7 @@ test( unit => {
 
 	} );
 
-	unit( 'export reset import', () => {
+	unit( 'save reset load', () => {
 
 		// make some objects, remember their original state
 
@@ -329,60 +329,57 @@ test( unit => {
 		const obj1Tester = new Tester( obj1 );
 		const obj2Tester = new Tester( obj2 );
 
-		// add it to gui
-
 		const gui = new GUI();
 
+		// add every controller type to the gui
 		const booleanCtrl = gui.add( obj1, 'boolean' );
 		const color1Ctrl = gui.addColor( obj1, 'color1' );
 		const color2Ctrl = gui.addColor( obj1, 'color2' );
 		const color3Ctrl = gui.addColor( obj1, 'color3' );
 		const color4Ctrl = gui.addColor( obj1, 'color4', 255 );
 		const color5Ctrl = gui.addColor( obj1, 'color5', 255 );
-		const funcCtrl = gui.add( obj1, 'func' );
 		const numberCtrl = gui.add( obj1, 'number' );
 		const optionsCtrl = gui.add( obj1, 'options', ['a', 'b', 'c'] );
 		const stringCtrl = gui.add( obj1, 'string' );
 
+		// and add some more to folders to test recursive
 		const folder = gui.addFolder( 'Folder' );
 		const folderString = folder.add( obj2, 'string' );
 		const folderNumber = folder.add( obj2, 'number' );
 
 		// change it via gui
-
 		booleanCtrl.setValue( true );
 		color1Ctrl._setValueFromHexString( '#0fac8f' );
 		color2Ctrl._setValueFromHexString( '#3fccea' );
 		color3Ctrl._setValueFromHexString( '#219c3a' );
 		color4Ctrl._setValueFromHexString( '#0033aa' );
 		color5Ctrl._setValueFromHexString( '#88fac3' );
-		funcCtrl; // function controller is kinda just here for symmetry. don't know what to do with it yet.
 		numberCtrl.setValue( 1 );
 		optionsCtrl.setValue( 'c' );
 		stringCtrl.setValue( 'bar' );
 
+		// also change some nested ones to test recursive
 		folderString.setValue( 'somethin' );
 		folderNumber.setValue( 200 );
 
 		// remember new state
-
 		obj1Tester.modified = deepClone( obj1 );
 		obj2Tester.modified = deepClone( obj2 );
 
 		// save
 		const saved = gui.save();
 
-		// console.log( JSON.stringify( saved, null, 2 ) );
-
 		// reset gui to original state
 		gui.reset();
 
+		// current values should be same as original
 		obj1Tester.compare( obj1Tester.originalDeep );
 		obj2Tester.compare( obj2Tester.originalDeep );
 
 		// import
 		gui.load( saved );
 
+		// current values should be same as modified
 		obj1Tester.compare( obj1Tester.modified );
 		obj2Tester.compare( obj2Tester.modified );
 
@@ -391,8 +388,8 @@ test( unit => {
 			this.originalDeep = deepClone( obj );
 			const originalShallow = Object.assign( {}, obj );
 
-		// assert matches original state
-		// assert object types retain reference
+			// assert matches original state
+			// assert object types retain reference
 			this.compare = ( state ) => {
 				for ( let key in obj ) {
 					const val = obj[key];
@@ -423,6 +420,38 @@ test( unit => {
 			}
 			return clone;
 		}
+
+	} );
+
+	unit( 'save reset load cont', () => {
+
+		let gui = new GUI();
+		const foo = 'bar';
+
+		const a = { foo }, b = { foo };
+		gui.add( a, 'foo' );
+		gui.add( b, 'foo' );
+
+		assert.throws( () => gui.save(), Error, 'throws error if controller names collide' );
+
+		gui = new GUI();
+		gui.addFolder( 'foo' );
+		gui.addFolder( 'foo' );
+
+		assert.throws( () => gui.save(), Error, 'throws error if folder names collide' );
+
+		gui = new GUI();
+		gui.add( { foo }, 'foo' );
+
+		const f1 = gui.addFolder( 'foo' );
+		f1.add( { foo }, 'foo' );
+
+		const f2 = f1.addFolder( 'foo' );
+		f2.add( { foo }, 'foo' );
+
+		assert.doesNotThrow( () => gui.save(), Error, "doesn't throw error if names collide across folders" );
+
+		assert.throws( () => gui.load( {} ), Error, "throws error if load object doesn't have a controllers object" );
 
 	} );
 

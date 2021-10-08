@@ -263,18 +263,30 @@ export default class GUI {
 	 */
 	load( obj, recursive = true ) {
 
+		if ( !( 'controllers' in obj ) ) {
+			throw new Error( 'Invalid load object. Should contain a "controllers" key.' )
+		}
+
 		this.getControllers( false ).forEach( c => {
+
+			if ( c instanceof FunctionController ) return;
+
 			if ( c._name in obj.controllers ) {
 				c.load( obj.controllers[c._name] );
 			}
+
 		} );
 
 		if ( recursive && obj.folders ) {
-			this.getFolders().forEach( f => {
+
+			this.getFolders( false ).forEach( f => {
+
 				if ( f._title in obj.folders ) {
 					f.load( obj.folders[f._title] );
 				}
+
 			} );
+
 		}
 
 		return this;
@@ -297,14 +309,29 @@ export default class GUI {
 		};
 
 		this.getControllers( false ).forEach( c => {
+
 			if ( c instanceof FunctionController ) return;
+
+			if ( c._name in obj.controllers ) {
+				throw new Error( `Cannot save GUI with duplicate property "${c._name}"` );
+			}
+
 			obj.controllers[c._name] = c.save();
+
 		} );
 
 		if ( recursive ) {
-			this.getFolders().forEach( f => {
+
+			this.getFolders( false ).forEach( f => {
+
+				if ( f._title in obj.folders ) {
+					throw new Error( `Cannot save GUI with duplicate folder "${f._title}"` );
+				}
+
 				obj.folders[f._title] = f.save();
+
 			} );
+
 		}
 
 		return obj;

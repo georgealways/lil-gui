@@ -1,11 +1,12 @@
 sup i'm back it's 2021
 
-[ ] export should yell at you if you have collisions
-[ ] import should yell if you don't have .controllers
 [ ] close() should accept a parameter like disable() for symmetry with open()
 
 [ ] unit test for import/export recursive=false
 [ ] unit test for gui.onChange
+
+[x] export should yell at you if you have collisions
+[x] import should yell if you don't have .controllers
 
 homepage
 
