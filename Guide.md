@@ -255,15 +255,15 @@ compatible. It can be saved to disk, *unless* you're using non-primitive data ty
 ```js
 {
 	controllers: {
-		value1: 'hey',
-		value2: 9000,
+		value1: 'original',
+		value2: 1996,
 	},
 	// if GUI has folders ...
-	folders: [
-		{ controllers, folders },
-		{ controllers, folders }
+	folders: {
+		folderName1: { controllers, folders },
+		folderName2: { controllers, folders }
 		...
-	]
+	}
 }
 ```
 
