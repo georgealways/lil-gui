@@ -250,7 +250,7 @@ make( { title: 'Customization' }, gui => {
 				colors.reset();
 				allVariables.reset();
 			} else {
-				colors.import( { controllers: v } );
+				colors.load( { controllers: v } );
 			}
 		} );
 

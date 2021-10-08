@@ -747,11 +747,11 @@
 				value1: 'original',
 				value2: 1996,
 				save() {
-					saved = gui.export();
+					saved = gui.save();
 					loadButton.enable();
 				},
 				load() {
-					gui.import( saved );
+					gui.load( saved );
 				}
 			}
 

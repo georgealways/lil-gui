@@ -369,8 +369,8 @@ test( unit => {
 		obj1Tester.modified = deepClone( obj1 );
 		obj2Tester.modified = deepClone( obj2 );
 
-		// export
-		const saved = gui.export();
+		// save
+		const saved = gui.save();
 
 		// console.log( JSON.stringify( saved, null, 2 ) );
 
@@ -381,7 +381,7 @@ test( unit => {
 		obj2Tester.compare( obj2Tester.originalDeep );
 
 		// import
-		gui.import( saved );
+		gui.load( saved );
 
 		obj1Tester.compare( obj1Tester.modified );
 		obj2Tester.compare( obj2Tester.modified );

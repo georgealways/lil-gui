@@ -253,7 +253,7 @@ export default class GUI {
 	}
 
 	/**
-	 * Recalls values that were saved with `gui.export()`.
+	 * Recalls values that were saved with `gui.save()`.
 	 * @example
 	 * // todoc
 	 * 
@@ -261,18 +261,18 @@ export default class GUI {
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {this}
 	 */
-	import( obj, recursive = true ) {
+	load( obj, recursive = true ) {
 
 		this.getControllers( false ).forEach( c => {
 			if ( c._name in obj.controllers ) {
-				c.import( obj.controllers[c._name] );
+				c.load( obj.controllers[c._name] );
 			}
 		} );
 
 		if ( recursive && obj.folders ) {
 			this.getFolders().forEach( f => {
 				if ( f._title in obj.folders ) {
-					f.import( obj.folders[f._title] );
+					f.load( obj.folders[f._title] );
 				}
 			} );
 		}
@@ -289,7 +289,7 @@ export default class GUI {
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {object}
 	 */
-	export( recursive = true ) {
+	save( recursive = true ) {
 
 		const obj = {
 			controllers: {},
@@ -298,12 +298,12 @@ export default class GUI {
 
 		this.getControllers( false ).forEach( c => {
 			if ( c instanceof FunctionController ) return;
-			obj.controllers[c._name] = c.export();
+			obj.controllers[c._name] = c.save();
 		} );
 
 		if ( recursive ) {
 			this.getFolders().forEach( f => {
-				obj.folders[f._title] = f.export();
+				obj.folders[f._title] = f.save();
 			} );
 		}
 

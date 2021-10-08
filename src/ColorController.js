@@ -29,7 +29,7 @@ export default class ColorController extends Controller {
 		this._format = getColorFormat( this.initialValue );
 		this._rgbScale = rgbScale;
 
-		this._initialValueHexString = this.export();
+		this._initialValueHexString = this.save();
 		this._textFocused = false;
 
 		const onInputChange = () => {
@@ -90,11 +90,11 @@ export default class ColorController extends Controller {
 
 	}
 
-	export() {
+	save() {
 		return this._format.toHexString( this.getValue(), this._rgbScale );
 	}
 
-	import( value ) {
+	load( value ) {
 		this._setValueFromHexString( value );
 		return this;
 	}

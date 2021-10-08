@@ -297,12 +297,12 @@ export default class Controller {
 		return this;
 	}
 
-	import( value ) {
+	load( value ) {
 		this.setValue( value );
 		return this;
 	}
 
-	export() {
+	save() {
 		return this.getValue();
 	}
 

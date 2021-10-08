@@ -203,8 +203,8 @@ You can also call `controller.updateDisplay()` at any time to manage this behavi
 
 ## Saving
 
-Using `gui.export()` you can create an object that saves the current value of all properties
-added to the GUI. You can pass that object to `gui.import()` to restore the saved values.
+Using `gui.save()` you can create an object that saves the current value of all properties
+added to the GUI. You can pass that object to `gui.load()` to restore the saved values.
 
 The following creates a GUI that can save a preset. Press the Save Preset button, then modify any
 controller. Pressing the Recall Preset button restores the values you saved.
@@ -217,11 +217,11 @@ const obj = {
 	value2: 1996,
 	save() {
 		// save current values to an object
-		saved = gui.export();
+		saved = gui.save();
 		loadButton.enable();
 	},
 	load() {
-		gui.import( saved );
+		gui.load( saved );
 	}
 }
 
@@ -239,7 +239,7 @@ const loadButton =
 
 ### Name Collisions
 
-`export()` will throw an error if the GUI contains more than one controller or folder with the same
+`save()` will throw an error if the GUI contains more than one controller or folder with the same
 name. You can avoid these collisions by renaming the controllers with `name()`.
 
 ```js
@@ -249,7 +249,7 @@ gui.add( rotation, 'x' ).name( 'rotation.x' );
 
 ### Save Object Format
 
-The following is an example of an object returned by `gui.export()`. The object will be JSON 
+The following is an example of an object returned by `gui.save()`. The object will be JSON 
 compatible. It can be saved to disk, *unless* you're using non-primitive data types in a dropdown (color objects and arrays are fine).
 
 ```js
@@ -267,8 +267,8 @@ compatible. It can be saved to disk, *unless* you're using non-primitive data ty
 }
 ```
 
-Both export and import accept a `recursive` parameter, which by default is true. Use 
-`export( false )` and `import( data, false )` to ignore any folders within the GUI. The exported 
+Both save and load accept a `recursive` parameter, which by default is true. Use 
+`save( false )` and `load( data, false )` to ignore any folders within the GUI. The saved 
 object will contain an empty folders array.
 
 ## Styling
