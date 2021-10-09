@@ -1,0 +1,19 @@
+.lil-gui .controller.xy svg {
+	width: 100%;
+	/* flip coordinates so that up is positive */
+	transform: scaleY(-1);
+	background-color: var(--widget-color);
+	border-radius: var(--widget-border-radius);
+	cursor: pointer;
+}
+
+.lil-gui .controller.xy circle {
+	fill: var(--text-color);
+}
+
+.lil-gui .controller.xy line {
+	stroke: var(--highlight-color);
+	stroke-width: 1px;
+	/* let us use a tiny viewbox without huge strokes */
+	vector-effect: non-scaling-stroke;
+}

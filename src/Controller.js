@@ -299,7 +299,6 @@ export default class Controller {
 
 	load( value ) {
 		this.setValue( value );
-		return this;
 	}
 
 	save() {

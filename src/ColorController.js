@@ -96,7 +96,6 @@ export default class ColorController extends Controller {
 
 	load( value ) {
 		this._setValueFromHexString( value );
-		return this;
 	}
 
 	updateDisplay() {
