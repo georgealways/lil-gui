@@ -39,6 +39,9 @@
 		}
 		> .children {
 			overflow: auto;
+			&.no-scroll { 
+				overflow: hidden;
+			}
 			&::-webkit-scrollbar {
 				width: var(--scrollbar-width);
 				height: var(--scrollbar-width);

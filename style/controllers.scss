@@ -54,6 +54,8 @@
 			background-color: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 			overflow: hidden;
+			// prevents scroll when dragging horizontally on mobile
+			touch-action: pan-y; 
 			&.active {
 				background-color: var(--highlight-color);
 				.fill {

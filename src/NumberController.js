@@ -221,6 +221,7 @@ export default class NumberController extends Controller {
 					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
 					this.$slider.classList.add( 'active' );
+					this.parent.root.$children.classList.add( 'no-scroll' );
 					testingForScroll = false;
 
 				} else {
@@ -242,6 +243,7 @@ export default class NumberController extends Controller {
 
 		const onTouchEnd = () => {
 			this.$slider.classList.remove( 'active' );
+			this.parent.root.$children.classList.remove( 'no-scroll' );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
