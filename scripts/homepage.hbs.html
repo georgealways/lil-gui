@@ -246,9 +246,6 @@
 			background: var(--background);
 			border-right: 1px solid var(--rule);
 			z-index: 1002;
-		}
-
-		#toc {
 			font-size: 12px;
 		}
 
@@ -280,30 +277,51 @@
 			padding-left: 1rem;
 		}
 
-		#toc .active,
-		#toc .active a {
+		#toc h2.active a,
+		#toc li.active,
+		#toc li.active a {
 			color: var(--link);
 		}
 
 		#toc-button {
-			display: none;
 			position: fixed;
-			padding: 0;
+			visibility: hidden;
 			outline: none;
 			cursor: pointer;
 			appearance: none;
-			z-index: 1003;
+			z-index: 1;
 			width: var(--toc-button-size);
 			height: var(--toc-button-size);
-			font-size: calc(0.6*var(--toc-button-size));
 			top: var(--toc-button-margin);
 			left: var(--toc-button-margin);
 			border-radius: var(--border-radius);
 			background: var(--background);
 			border: 1px solid #0003;
 			border-bottom-width: 2px;
-			line-height: 96%;
-			color: var(--pre-background);
+			font-size: 0;
+			display: flex;
+			padding: 10px;
+			box-sizing: border-box;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		#toc-button:before,
+		#toc-button:after {
+			content: ' ';
+			display: block;
+		}
+
+		#toc-button:before,
+		#toc-button:after,
+		#toc-button div {
+			width: 100%;
+			height: 3px;
+			background: var(--pre-background);
+		}
+
+		#example-list li { 
+			margin-bottom: 0.25rem;
 		}
 
 		#guide-container code span.changed {
@@ -316,7 +334,7 @@
 			transition: background-color 0.5s linear;
 		}
 
-		.example-container {
+		.result {
 			display: flex;
 			align-items: flex-start;
 			justify-content: flex-end;
@@ -330,7 +348,7 @@
 			box-shadow: 0 10px 30px rgba(0 0 0 / 20%)
 		}
 
-		.example-container::before {
+		.result::before {
 			content: 'Result';
 			display: block;
 			color: var(--background);
@@ -374,7 +392,7 @@
 			}
 
 			#toc-button {
-				display: block;
+				visibility: visible;
 			}
 
 			#toc {
@@ -383,9 +401,9 @@
 			}
 
 			/* This padding is included in the h1 for scrollIntoView */
-			#toc h1 {
+			/* #toc h1 {
 				padding-top: calc(var(--padding-top) + var(--toc-button-margin));
-			}
+			} */
 
 			body:not(.toc-open) #toc {
 				transform: translateX(calc(-1 * var(--toc-width)));
@@ -412,7 +430,7 @@
 				padding-bottom: 200px;
 			}
 
-			.example-container {
+			.result {
 				min-height: 0;
 			}
 
@@ -773,7 +791,7 @@
 			const code = pre.querySelector( 'code' );
 
 			const container = document.createElement( 'div' );
-			container.classList.add( 'example-container' );
+			container.classList.add( 'result' );
 			pre.parentElement.insertBefore( container, pre.nextElementSibling );
 
 
@@ -827,7 +845,9 @@
 
 	<div id="container">
 
-		<button id="toc-button">☰</button>
+		<button id="toc-button">
+			<div>Table of Contents</div>
+		</button>
 
 		<div id="toc-container">
 			<nav id="toc">
@@ -858,8 +878,8 @@
 			<section>
 				<a name="Examples"></a>
 				<h1>Examples</h1>
-				<ul>
-					<li><a target="_blank" href="examples/basic">Basic Demo</a></li>
+				<ul id="example-list">
+					<li><a target="_blank" href="examples/basic"><strong>Basic Demo</strong></a></li>
 					<li><a target="_blank" href="examples/kitchen-sink">Kitchen Sink</a> - An exhaustive demonstration
 						of features and styles.</li>
 					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - How to extend
