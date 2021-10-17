@@ -1,5 +1,7 @@
 sup i'm back it's 2021
 
+[ ] intellisense stopped caring about jsdoc?
+
 [ ] close() should accept a parameter like disable() for symmetry with open()
 
 [ ] unit test for import/export recursive=false

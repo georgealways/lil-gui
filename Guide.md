@@ -171,8 +171,11 @@ todo onChange
 gui.add( params, 'foo' ).onChange( value => {
 	console.log( value );
 } );
+```
 
-// apply the same handler to every controller
+todo apply the same handler to every controller
+
+```js
 gui.onChange( e => {
 
 	e.object     // object that was modified
@@ -272,8 +275,38 @@ gui.add( rotation, 'x' ).name( 'rotation.x' );
 
 ## Styling
 
-todo
+The GUI can be made wider by passing a pixel width to the constructor.
 
 ```js
-// todo: width, --name-width, other css vars, mobileBreakpoint
+const gui = new GUI( { width: 400 } );
+```
+
+This is usually done when controller names are too long to fit within the panel. The library provides
+a few ways to manage this using CSS variables as well.
+
+```css
+.lil-gui { 
+	--width: 400px;
+	--name-width: 65%;
+}
+```
+
+The `--width` property does the same thing the one in the constructor, but allows us to use any valid 
+CSS value. Adjusting `--name-width` allows you to increase the size of names relative to controllers,
+which might be better than enlarging the entire panel.
+
+### Mobile Styles
+
+mobileBreakpoint
+
+```js
+//todo
+```
+
+### Customization
+
+other css vars, injectStylesheet
+
+```js
+//todo
 ```
