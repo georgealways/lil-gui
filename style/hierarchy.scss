@@ -17,6 +17,10 @@
 		}
 	}
 
+	.children { 
+		will-change: opacity, height, transform;
+	}
+
 	&.closed > {
 		.title:before {
 			content: '▸';

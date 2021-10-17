@@ -1,7 +1,9 @@
 [ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open()
 
-[ ] color controller font too big on mobile
+[ ] no demo gui on mobile: annoying, conceals intro
+[ ] --hover-color should return...
+[ ] per example "toast" / intro: dismissable modal with explanation & back link
 
 homepage
 
