@@ -459,4 +459,80 @@ test( unit => {
 		new GUI().openAnimated();
 	} );
 
+	unit( 'controller.onChange', () => {
+
+		const gui = new GUI();
+
+		const controller = gui.add( { x: 0 }, 'x' );
+
+		let tracker = new assert.CallTracker();
+
+		let handler, _args, _this;
+
+		function testMethod( method ) {
+
+			handler = tracker.calls( function ( ...args ) {
+				_this = this;
+				_args = args;
+			}, 1 );
+
+			controller[method]( handler );
+
+			const value = 9;
+			controller.setValue( value );
+
+			assert.strictEqual( controller._onChange, handler, method + ': sets _onChange' );
+			assert.strictEqual( _this, controller, method + ': this is bound to controller in handler' );
+			assert.deepEqual( _args, [value], method + ': new value is the first and only argument' );
+
+			tracker.verify();
+
+		}
+
+		testMethod( 'onChange' );
+		testMethod( 'onFinishChange' );
+
+	} );
+
+	unit( 'gui.onChange', () => {
+
+		const gui = new GUI();
+
+		const object1 = { x: 0 };
+		const controller = gui.add( object1, 'x' );
+
+		const object2 = { y: 0 };
+		const nested = gui.addFolder( '' ).add( object2, 'y' );
+
+		let tracker = new assert.CallTracker();
+
+		let handler, _args;
+
+		handler = tracker.calls( ( ...args ) => _args = args );
+
+		gui.onChange( handler );
+
+		let value = 1;
+
+		controller.setValue( value );
+		assert.strictEqual( gui._onChange, handler, 'sets _onChange' );
+		assert.deepStrictEqual( _args, [{
+			object: object1,
+			property: 'x',
+			controller,
+			value
+		}], 'changes trigger change handler' );
+
+		value = 2;
+
+		nested.setValue( value );
+		assert.deepStrictEqual( _args, [{
+			object: object2,
+			property: 'y',
+			controller: nested,
+			value
+		}], 'changes to nested folder trigger parent change handler' );
+
+	} );
+
 } );

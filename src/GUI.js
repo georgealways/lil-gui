@@ -432,9 +432,10 @@ export default class GUI {
 		return this;
 	}
 
+	
 	/**
 	 * todo
-	 * @param {function} callback 
+	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback 
 	 * @returns {this}
 	 * @example
 	 * // todo

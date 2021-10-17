@@ -1,20 +1,30 @@
-sup i'm back it's 2021
-
-[ ] intellisense stopped caring about jsdoc?
-
+[ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open()
 
-[ ] unit test for import/export recursive=false
-[ ] unit test for gui.onChange
-
-[x] export should yell at you if you have collisions
-[x] import should yell if you don't have .controllers
+[ ] color controller font too big on mobile
 
 homepage
 
-[ ] order of properties (not methods) in API is kinda wonky
-[ ] update anchor positions on resize
-[ ] main api toc columns are ugly
+[ ] MIGRATING
+
+[ ] GUIDE
+	[ ] Folders
+	[ ] ctrl.onChange
+	[ ] gui.onChange
+	[ ] Mobile Styles
+	[ ] Customization
+
+OTHER
+	[ ] order of properties (not methods) in API is kinda wonky
+	[ ] update anchor positions on resize
+	[ ] main api toc columns are ugly
+
+sup i'm back it's 2021
+
+[x] unit test for gui.onChange
+
+[x] export should yell at you if you have collisions
+[x] import should yell if you don't have .controllers
 
 [x] gui.onChange
 [x] themes dont work with new load export format
