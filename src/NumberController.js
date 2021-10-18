@@ -160,7 +160,7 @@ export default class NumberController extends Controller {
 
 		const mouseDown = e => {
 			setValueFromX( e.clientX );
-			this.$slider.classList.add( 'active' );
+			this._setActiveStyle( true );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		};
@@ -170,7 +170,7 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this.$slider.classList.remove( 'active' );
+			this._setActiveStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
@@ -220,7 +220,7 @@ export default class NumberController extends Controller {
 					// We moved horizontally, set the value and stop checking.
 					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
-					this.$slider.classList.add( 'active' );
+					this._setActiveStyle( true );
 					this.parent.root.$children.classList.add( 'no-scroll' );
 					testingForScroll = false;
 
@@ -242,7 +242,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this.$slider.classList.remove( 'active' );
+			this._setActiveStyle( false );
 			this.parent.root.$children.classList.remove( 'no-scroll' );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
@@ -266,6 +266,11 @@ export default class NumberController extends Controller {
 
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
+	}
+
+	_setActiveStyle( active ) {
+		this.$slider.classList.toggle( 'active', active );
+		document.body.classList.toggle( 'lil-gui-slider-active', active );
 	}
 
 	_getImplicitStep() {

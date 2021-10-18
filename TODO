@@ -1,4 +1,7 @@
-[ ] no hover on slider drag please
+[ ] folder title hover?
+[ ] color picker hover?
+[x] no hover on slider drag please
+
 [ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] per example "toast" / intro: dismissable modal with explanation & back link

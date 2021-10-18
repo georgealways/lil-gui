@@ -39,7 +39,7 @@
 		}
 		> .children {
 			overflow: auto;
-			&.no-scroll { 
+			&.no-scroll {
 				overflow: hidden;
 			}
 			&::-webkit-scrollbar {
@@ -79,7 +79,7 @@
 				sans-serif,
 				'Apple Color Emoji',
 				'Segoe UI Emoji',
-				'Segoe UI Symbol'
+				'Segoe UI Symbol',
 			),
 			--font-family-mono: (
 				Menlo,
@@ -87,7 +87,7 @@
 				Consolas,
 				'Droid Sans Mono',
 				monospace,
-				'Droid Sans Fallback'
+				'Droid Sans Fallback',
 			),
 			--padding: 4px,
 			--spacing: 4px,
@@ -101,7 +101,7 @@
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
-			--checkbox-size: calc(0.75 * var(--widget-height))
+			--checkbox-size: calc(0.75 * var(--widget-height)),
 		)
 	);
 
@@ -134,7 +134,19 @@
 		&.mobile {
 			right: 0;
 		}
-		
+	}
+}
+
+// Disable hover styles when dragging sliders
+
+.lil-gui-slider-active {
+
+	.lil-gui {
+		--hover-color: var(--widget-color);
+	}
+
+	* {
+		cursor: default !important;
 	}
 
 }
