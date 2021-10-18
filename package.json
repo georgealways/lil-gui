@@ -5,6 +5,7 @@
     "name": "George Michael Brower"
   },
   "description": "Makes a floating panel for controllers on the web.",
+  "homepage": "https://lil-gui.georgealways.com",
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
   "config": {

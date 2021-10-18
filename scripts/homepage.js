@@ -70,7 +70,7 @@ const html = template( {
 	guide: md.render( guide ),
 	jsdocDebug,
 	pkg
-} ).replace( new RegExp( `href="${pkg.homepage}`, 'g' ), 'href="' );
+} ).replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
 // makes hardcoded links in readme relative on real site
 
 fs.writeFileSync( OUTPUT, html );
