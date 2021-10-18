@@ -49,7 +49,7 @@
 			}
 			&::-webkit-scrollbar-thumb {
 				border-radius: var(--scrollbar-width);
-				background: var(--highlight-color);
+				background: var(--focus-color);
 			}
 		}
 	}
@@ -63,7 +63,8 @@
 			--text-color: #ebebeb,
 			--title-background-color: #111111,
 			--widget-color: #424242,
-			--highlight-color: #595959,
+			--hover-color: #4f4f4f,
+			--focus-color: #595959,
 			--number-color: #2cc9ff,
 			--string-color: #a2db3c,
 			--font-size: 11px,

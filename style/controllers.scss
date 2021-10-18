@@ -55,9 +55,12 @@
 			border-radius: var(--widget-border-radius);
 			overflow: hidden;
 			// prevents scroll when dragging horizontally on mobile
-			touch-action: pan-y; 
+			touch-action: pan-y;
+			&:hover { 
+				background-color: var(--hover-color);
+			}
 			&.active {
-				background-color: var(--highlight-color);
+				background-color: var(--focus-color);
 				.fill {
 					opacity: 0.95;
 				}
@@ -122,22 +125,23 @@
 				padding-right: 0.375em;
 			}
 		}
+		.widget:hover .display { 
+			background: var(--hover-color);
+		}
 	}
 
 	.controller.function {
 		background: none;
 		@include hover {
 			.name {
-				background: var(--highlight-color);
+				background: var(--hover-color);
 			}
 		}
 		&:focus .name { 
-			border-color: var(--highlight-color);
+			border-color: var(--focus-color);
 		}
 		&:active .name {
-			background: var(--text-color);
-			border-color: var(--text-color);
-			color: var(--background-color);
+			background: var(--focus-color);
 		}
 		.name {
 			display: block;

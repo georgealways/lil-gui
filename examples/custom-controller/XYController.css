@@ -12,7 +12,7 @@
 }
 
 .lil-gui .controller.xy line {
-	stroke: var(--highlight-color);
+	stroke: var(--focus-color);
 	stroke-width: 1px;
 	/* let us use a small viewbox without huge strokes */
 	vector-effect: non-scaling-stroke;

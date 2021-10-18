@@ -12,9 +12,12 @@
 		&[type='text'] {
 			padding: var(--widget-padding);
 		}
+		&:hover { 
+			background: var(--hover-color);
+		}
 		&:focus,
 		&:active {
-			background: var(--highlight-color);
+			background: var(--focus-color);
 		}
 	}
 
@@ -50,7 +53,7 @@
 		background: var(--widget-color);
 		&.focus,
 		&.active {
-			background: var(--highlight-color);
+			background: var(--focus-color);
 		}
 	}
 }
