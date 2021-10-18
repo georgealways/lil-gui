@@ -1,6 +1,6 @@
 [ ] folder title hover?
 [ ] color picker hover?
-[x] no hover on slider drag please
+[ ] button lost active color on mobile
 
 [ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open()
@@ -23,6 +23,8 @@ OTHER
 	[ ] main api toc columns are ugly
 
 sup i'm back it's 2021
+
+[x] no hover on slider drag please
 
 [x] listen() 0 - 1, slider knob stops moving around zero...
 
