@@ -330,7 +330,7 @@ mobileBreakpoint
 //todo
 ```
 
-### CSS Variables & Custom Stylesheets
+### CSS Variables and Custom Stylesheets
 
 other css vars, injectStylesheet
 
