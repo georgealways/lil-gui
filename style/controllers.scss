@@ -13,7 +13,7 @@
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
 
-		input { 
+		input {
 			font-size: var(--input-font-size);
 		}
 
@@ -53,10 +53,15 @@
 			height: var(--widget-height);
 			background-color: var(--widget-color);
 			border-radius: var(--widget-border-radius);
+
+			// subtracts width of knob from available width
+			padding-right: var(--slider-knob-width);
 			overflow: hidden;
+
 			// prevents scroll when dragging horizontally on mobile
-			touch-action: pan-y;
-			&:hover { 
+			touch-action: pan-y; 
+
+			&:hover {
 				background-color: var(--hover-color);
 			}
 			&.active {
@@ -68,7 +73,9 @@
 		}
 		.fill {
 			height: 100%;
-			border-right: 2px solid var(--number-color);
+			border-right: var(--slider-knob-width) solid var(--number-color);
+			// don't count border width towards width
+			box-sizing: content-box;
 		}
 	}
 
@@ -125,7 +132,7 @@
 				padding-right: 0.375em;
 			}
 		}
-		.widget:hover .display { 
+		.widget:hover .display {
 			background: var(--hover-color);
 		}
 	}
@@ -137,7 +144,7 @@
 				background: var(--hover-color);
 			}
 		}
-		&:focus .name { 
+		&:focus .name {
 			border-color: var(--focus-color);
 		}
 		&:active .name {
