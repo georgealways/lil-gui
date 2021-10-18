@@ -99,14 +99,12 @@ export default class Controller {
 	 * @param {Function} callback
 	 * @returns {this}
 	 * @example
-	 * gui.add( object, 'property' ).onChange( v => {
+	 * const controller = gui.add( object, 'property' );
+	 * 
+	 * controller.onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
+	 * 	console.assert(this === controller);
 	 * } );
-	 *
-	 * const controller = gui.add( object, 'property' )
-	 * 	.onChange( function() {
-	 * 		console.assert(this === controller);
-	 * 	} );
 	 */
 	onChange( callback ) {
 		/**
