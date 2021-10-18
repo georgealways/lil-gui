@@ -150,3 +150,11 @@
 	}
 
 }
+
+// Prevent sticky hover styles on mobile
+
+@media (hover: none) {
+	.lil-gui { 
+		--hover-color: var(--widget-color) !important;
+	}
+}
