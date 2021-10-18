@@ -413,8 +413,7 @@ export default class GUI {
 	 */
 	title( title ) {
 		/**
-		 * Current title of the GUI. Don't modify this value directly.
-		 * Use the `gui.title( 'Title' )` method instead.
+		 * Current title of the GUI. Use `gui.title( 'Title' )` to modify this value.
 		 * @type {string}
 		 */
 		this._title = title;

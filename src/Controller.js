@@ -26,8 +26,8 @@ export default class Controller {
 		this.property = property;
 
 		/**
-		 * Used to determine if the controller is disabled. Don't modify this value directly.
-		 * Use the `controller.disable( true|false )` method instead.
+		 * Used to determine if the controller is disabled.
+		 * Use `controller.disable( true|false )` to modify this value
 		 * @type {boolean}
 		 */
 		this._disabled = false;
@@ -82,8 +82,7 @@ export default class Controller {
 	 */
 	name( name ) {
 		/**
-		 * The controller's name. Don't modify this value directly. Use the 
-		 * `controller.name( 'Name' )` method instead.
+		 * The controller's name. Use `controller.name( 'Name' )` to modify this value.
 		 * @type {string}
 		 */
 		this._name = name;
