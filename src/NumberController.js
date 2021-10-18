@@ -221,7 +221,6 @@ export default class NumberController extends Controller {
 					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
 					this._setActiveStyle( true );
-					this.parent.root.$children.classList.add( 'no-scroll' );
 					testingForScroll = false;
 
 				} else {
@@ -243,7 +242,6 @@ export default class NumberController extends Controller {
 
 		const onTouchEnd = () => {
 			this._setActiveStyle( false );
-			this.parent.root.$children.classList.remove( 'no-scroll' );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};

@@ -39,9 +39,6 @@
 		}
 		> .children {
 			overflow: auto;
-			&.no-scroll {
-				overflow: hidden;
-			}
 			&::-webkit-scrollbar {
 				width: var(--scrollbar-width);
 				height: var(--scrollbar-width);
@@ -137,18 +134,18 @@
 	}
 }
 
-// Disable hover styles when dragging sliders
+// Disable hover styles and scroll when dragging sliders
 
 .lil-gui-slider-active {
-
 	.lil-gui {
 		--hover-color: var(--widget-color);
 	}
-
+	.lil-gui .children { 
+		overflow: hidden !important;
+	}
 	* {
 		cursor: default !important;
 	}
-
 }
 
 // Prevent sticky hover styles on mobile
