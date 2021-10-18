@@ -374,17 +374,34 @@
 		}
 
 		main .api-index {
-			display: flex;
+			columns: 2;
+			column-rule: 1px solid var(--rule);
+			column-gap: 60px;
+			margin-bottom: 2rem;
+		}
+
+		main .api-index h2 {
+			margin-top: 0;
 		}
 
 		main .api-index .class {
 			width: 100%;
+			break-inside: avoid;
+		}
+
+		main .api-index a { 
+			color: var(--foreground);
+		}
+
+		main .api-index ul { 
+			margin-bottom: 0;
+			padding-left: 1.5rem;
 		}
 
 		@media (max-width: 958px) {
 			:root {
 				--padding-top: calc(var(--toc-button-margin) + var(--toc-button-size));
-				--anchor-offset: calc(-1*var(--padding-top));
+				--anchor-offset: -73px;
 			}
 
 			#container {
@@ -532,7 +549,7 @@
 		{
 
 			// pixel offset below scroll position to define highlighted section
-			const SCROLL_OFFSET = 50;
+			const SCROLL_OFFSET = 100;
 
 			// Find all TOC links that point to an anchor
 			const tocAnchorLinks = Array.from( document.querySelectorAll( '#toc a[href^="#"]' ) );
@@ -888,7 +905,7 @@
 				<a name="Examples"></a>
 				<h1>Examples</h1>
 				<ul id="example-list">
-					<li><a target="_blank" href="examples/basic">Basic Demo</a></li>
+					<li><a target="_blank" href="examples/basic"><strong>Basic Demo</strong></a></li>
 					<li><a target="_blank" href="examples/kitchen-sink">Kitchen Sink</a> - An exhaustive demonstration
 						of features and styles.</li>
 					<li><a target="_blank" href="examples/custom-controller">Custom Controller</a> - How to extend

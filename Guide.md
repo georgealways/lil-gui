@@ -1,7 +1,8 @@
 # Guide
 
-**lil-gui** gives you an interface for changing the properties of any JavaScript object at runtime.
-It's intended as a drop-in replacement for dat.gui, implemented with more modern web standards.
+lil-gui gives you an interface for changing the properties of any JavaScript object at runtime.
+It's intended as a drop-in replacement for dat.gui, implemented with more modern web standards and
+some new quality of life features.
 
 ## Installation
 
@@ -12,14 +13,14 @@ $ npm install lil-gui --save-dev
 ```
 
 ```js
-import { GUI } from 'lil-gui';
+import GUI from 'lil-gui';
 ```
 
 For quick sketches, you can import lil-gui directly from a CDN.
 
 ```html
 <script type="module">
-import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js';
+import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js';
 </script>
 ```
 
@@ -28,9 +29,11 @@ The library is also available in UMD format under the namespace `lil`.
 ```html
 <script src="https://cdn.jsdelivr.net/npm/lil-gui"></script>
 <script>
-const GUI = lil.GUI;
+var GUI = lil.GUI;
 </script>
 ```
+
+***
 
 ## Adding Controllers
 
@@ -60,6 +63,8 @@ gui.add( obj, 'myNumber' ); 	// number field
 gui.add( obj, 'myFunction' ); 	// button
 ```
 
+***
+
 ## Numbers and Sliders
 
 Numbers can be constrained to an accepted input range using `min()`, `max()` and `step()`.
@@ -82,6 +87,8 @@ gui.add( obj, 'number1', 0, 1 ); // min, max
 gui.add( obj, 'number2', 0, 100, 10 ); // min, max, step
 ```
 
+***
+
 ## Dropdowns
 
 You can create a dropdown for any data type by providing an array of accepted values. If you pass an
@@ -93,6 +100,8 @@ obj = { size: 'Medium', speed: 1 }
 gui.add( obj, 'size', [ 'Small', 'Medium', 'Large' ] )
 gui.add( obj, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 ```
+
+***
 
 ## Colors
 
@@ -145,6 +154,8 @@ gui.addColor( obj, 'colorObject', 255 );
 gui.addColor( obj, 'colorArray', 255 );
 ```
 
+***
+
 ## Folders
 
 todo
@@ -162,6 +173,8 @@ folder.add( position, 'x' );
 folder.add( position, 'y' );
 folder.add( position, 'z' );
 ```
+
+***
 
 ## Change Events
 
@@ -203,6 +216,8 @@ animate() {
 ```
 
 You can also call `controller.updateDisplay()` at any time to manage this behavior yourself.
+
+***
 
 ## Saving
 
@@ -273,7 +288,19 @@ gui.add( position, 'x' ).name( 'position.x' );
 gui.add( rotation, 'x' ).name( 'rotation.x' );
 ```
 
-## Styling
+***
+
+## Customization
+
+By default, the GUI is added to `document.body` and attached to the top right of the window with
+fixed positioning. You can add the GUI to a different element by passing a `container` parameter to
+the constructor.
+
+```js
+const gui = new GUI( { container: $('#gui') } );
+```
+
+### Width
 
 The GUI can be made wider by passing a pixel width to the constructor.
 
@@ -303,7 +330,7 @@ mobileBreakpoint
 //todo
 ```
 
-### Customization
+### CSS Variables & Custom Stylesheets
 
 other css vars, injectStylesheet
 
