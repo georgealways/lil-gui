@@ -1,4 +1,5 @@
 .lil-gui {
+	
 	input {
 		border: 0;
 		outline: none;
@@ -12,7 +13,7 @@
 		&[type='text'] {
 			padding: var(--widget-padding);
 		}
-		&:hover { 
+		&:hover {
 			background: var(--hover-color);
 		}
 		&:focus,
@@ -40,20 +41,35 @@
 		-webkit-tap-highlight-color: transparent;
 		outline: none;
 		cursor: pointer;
-		border: 0;
+
 		font-family: var(--font-family);
 		font-size: var(--font-size);
 		color: var(--text-color);
-		text-align: left;
-		width: 100%;
-		text-transform: none;
-	}
 
-	.display {
+		width: 100%;
+		height: var(--widget-height);
+
+		text-transform: none;
+
 		background: var(--widget-color);
-		&.focus,
-		&.active {
+		border-radius: var(--widget-border-radius);
+
+		border: 2px solid var(--widget-color);
+
+		display: flex;
+		align-items: baseline;
+		justify-content: center;
+
+		&:hover {
+			background: var(--hover-color);
+			border-color: var(--hover-color);
+		}
+		&:focus {
+			border-color: var(--focus-color);
+		}
+		&:active {
 			background: var(--focus-color);
 		}
 	}
+
 }
