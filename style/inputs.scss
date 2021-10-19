@@ -1,5 +1,9 @@
 .lil-gui {
 	
+	label, input {
+		-webkit-tap-highlight-color: transparent;
+	}
+
 	input {
 		border: 0;
 		outline: none;
@@ -38,7 +42,7 @@
 	}
 
 	button {
-		-webkit-tap-highlight-color: transparent;
+		-webkit-tap-highlight-color: #fff3;
 		outline: none;
 		cursor: pointer;
 
@@ -56,9 +60,11 @@
 
 		border: 2px solid var(--widget-color);
 
-		display: flex;
-		align-items: baseline;
-		justify-content: center;
+		text-align: center;
+
+		// .725 seemed to line up for mobile & desktop
+		// should just be 1? but 2px focus border makes this weird
+		line-height: calc( var(--widget-height) * 0.725 );
 
 		&:hover {
 			background: var(--hover-color);
@@ -71,5 +77,4 @@
 			background: var(--focus-color);
 		}
 	}
-
 }

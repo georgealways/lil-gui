@@ -11,7 +11,8 @@ export default class FunctionController extends Controller {
 		this.$button.appendChild(this.$name);
 		this.$widget.appendChild(this.$button);
 
-		this.$button.addEventListener( 'click', () => {
+		this.$button.addEventListener( 'click', e => {
+			e.preventDefault();
 			this.getValue().call( this.object );
 		} );
 
