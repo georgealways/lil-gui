@@ -1,10 +1,7 @@
 .lil-gui {
-	
-	label, input {
-		-webkit-tap-highlight-color: transparent;
-	}
 
 	input {
+		-webkit-tap-highlight-color: transparent;
 		border: 0;
 		outline: none;
 		font-family: var(--font-family);
@@ -14,9 +11,6 @@
 		background: var(--widget-color);
 		color: var(--text-color);
 		width: 100%;
-		&[type='text'] {
-			padding: var(--widget-padding);
-		}
 		&:hover {
 			background: var(--hover-color);
 		}
@@ -24,6 +18,10 @@
 		&:active {
 			background: var(--focus-color);
 		}
+	}
+
+	input[type='text'] {
+		padding: var(--widget-padding);
 	}
 
 	input[type='checkbox'] {
@@ -39,10 +37,21 @@
 			font-size: var(--checkbox-size);
 			line-height: var(--checkbox-size);
 		}
+
+		// other inputs are hot on hover and hotter on focus
+		// checkboxes are the other way around
+		&:focus,
+		&:active {
+			background: var(--hover-color);
+		}
+		&:hover {
+			background: var(--focus-color);
+		}
+
 	}
 
 	button {
-		-webkit-tap-highlight-color: #fff3;
+		-webkit-tap-highlight-color: var(--focus-color);
 		outline: none;
 		cursor: pointer;
 
@@ -58,12 +67,13 @@
 		background: var(--widget-color);
 		border-radius: var(--widget-border-radius);
 
-		border: 2px solid var(--widget-color);
+		border: 1px solid var(--widget-color);
 
 		text-align: center;
 
+		// tried to center vertically via flex, didn't work...
+		// shouldn't this just be 1? focus border makes this weird
 		// .725 seemed to line up for mobile & desktop
-		// should just be 1? but 2px focus border makes this weird
 		line-height: calc( var(--widget-height) * 0.725 );
 
 		&:hover {

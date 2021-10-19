@@ -96,6 +96,20 @@
 		}
 	}
 
+	.controller.boolean {
+		input {
+			// .widget passes click events to expand the hitbox
+			pointer-events: none;
+		}
+		.widget { 
+			cursor: pointer;
+		}
+		.widget:hover input {
+			// usually taken care of in inputs.scss, but widget needs to pass hover
+			background: var(--focus-color);
+		}
+	}
+
 	.controller.option {
 		select {
 			opacity: 0;
