@@ -1,3 +1,5 @@
+@import 'hover';
+
 .lil-gui {
 	.controller {
 		display: flex;
@@ -82,6 +84,20 @@
 			width: 100%;
 			height: var(--widget-height);
 			border-radius: var(--widget-border-radius);
+			@include on-hover { 
+				position: relative;
+				&:before { 
+					content: ' ';
+					display: block;
+					position: absolute;
+					border-radius: var(--widget-border-radius);
+					border: 1px solid #fff9;
+					left: 0;
+					right: 0;
+					top: 0;
+					bottom: 0;
+				}
+			}
 		}
 		input[type='color'] {
 			opacity: 0;
@@ -107,7 +123,7 @@
 			cursor: pointer;
 		}
 		.widget:hover input {
-			// usually taken care of in inputs.scss, but widget needs to pass hover
+			// usually taken care of in inputs.scss, but .widget needs to pass hover
 			background: var(--focus-color);
 		}
 	}
@@ -148,7 +164,8 @@
 				padding-right: 0.375em;
 			}
 		}
-		.widget, select { 
+		.widget,
+		select {
 			cursor: pointer;
 		}
 		.widget:hover .display {
