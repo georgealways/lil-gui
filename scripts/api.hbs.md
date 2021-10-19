@@ -61,7 +61,7 @@
 **Returns**: `{{{.}}}`
 {{/with}}
 
-<small><a href="{{{viewsource}}}" target="_blank">{{definedat}}</a></small>
+<small><a href="{{{viewsource}}}">{{definedat}}</a></small>
 ***
 
 {{/children}}

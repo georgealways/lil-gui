@@ -62,7 +62,7 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function ( _, heading ) {
 
 const apibody = api.replace( apitoc, '' );
 
-const html = template( {
+let html = template( {
 	readme: md.render( read( README ) ),
 	apitoc: md.render( apitoc ),
 	guidetoc: md.render( guidetoc ),
@@ -70,8 +70,13 @@ const html = template( {
 	guide: md.render( guide ),
 	jsdocDebug,
 	pkg
-} ).replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
+} );
+
 // makes hardcoded links in readme relative on real site
+html = html.replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
+
+// open non anchor links in a new window
+html = html.replace( /href="(?!#)/g, 'target="_blank" href="' );
 
 fs.writeFileSync( OUTPUT, html );
 
