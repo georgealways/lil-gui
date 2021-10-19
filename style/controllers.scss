@@ -53,6 +53,8 @@
 			// prevents scroll when dragging horizontally on mobile
 			touch-action: pan-y;
 
+			cursor: ew-resize;
+
 			&:hover {
 				background-color: var(--hover-color);
 			}
