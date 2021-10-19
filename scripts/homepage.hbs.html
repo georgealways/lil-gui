@@ -34,7 +34,7 @@
 			--border-radius: 2px;
 		}
 
-		:root,
+		html,
 		body {
 			font-family: var(--font-family);
 			line-height: var(--line-height);
@@ -414,9 +414,12 @@
 
 			#toc {
 				border: 0;
-				box-shadow: 23px 0 10px 20px #0007;
 				right: 0;
 				transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
+			}
+
+			.toc-open #toc { 
+				box-shadow: 23px 0 10px 20px #0007;
 			}
 
 			body:not(.toc-open) #toc {
@@ -438,6 +441,10 @@
 		}
 
 		@media (max-width: 500px) {
+			:root { 
+				--toc-button-margin: 0.65rem;
+			}
+
 			pre {
 				font-size: 13.5px;
 				line-height: 1.7;
