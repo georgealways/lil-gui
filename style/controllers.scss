@@ -148,6 +148,9 @@
 				padding-right: 0.375em;
 			}
 		}
+		.widget, select { 
+			cursor: pointer;
+		}
 		.widget:hover .display {
 			background: var(--hover-color);
 		}
