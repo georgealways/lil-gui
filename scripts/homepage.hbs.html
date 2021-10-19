@@ -109,7 +109,7 @@
 			background: var(--rule);
 		}
 
-		p + hr {
+		p+hr {
 			margin-top: 1.5rem;
 		}
 
@@ -242,6 +242,7 @@
 			height: 100%;
 			padding: 1rem;
 			padding-top: 0;
+			top: 0;
 			transition: transform cubic-bezier(0.215, 0.610, 0.355, 1) 0.5s;
 			background: var(--background);
 			border-right: 1px solid var(--rule);
@@ -277,7 +278,7 @@
 			padding-left: 1rem;
 		}
 
-		#toc a { 
+		#toc a {
 			color: var(--foreground);
 		}
 
@@ -297,7 +298,7 @@
 			width: var(--toc-button-size);
 			height: var(--toc-button-size);
 			top: var(--toc-button-margin);
-			left: var(--toc-button-margin);
+			right: var(--toc-button-margin);
 			border-radius: var(--border-radius);
 			background: var(--background);
 			border: 1px solid #0003;
@@ -393,20 +394,16 @@
 			break-inside: avoid;
 		}
 
-		main .api-index a { 
+		main .api-index a {
 			color: var(--foreground);
 		}
 
-		main .api-index ul { 
+		main .api-index ul {
 			padding-left: 1.5rem;
 			margin-bottom: 0;
 		}
 
 		@media (max-width: 958px) {
-			:root {
-				--padding-top: calc(var(--toc-button-margin) + var(--toc-button-size));
-				--anchor-offset: -73px;
-			}
 
 			#container {
 				display: block;
@@ -418,16 +415,12 @@
 
 			#toc {
 				border: 0;
-				box-shadow: -23px 0 10px 20px #0007;
+				box-shadow: 23px 0 10px 20px #0007;
+				right: 0;
 			}
 
-			/* This padding is included in the h1 for scrollIntoView */
-			/* #toc h1 {
-				padding-top: calc(var(--padding-top) + var(--toc-button-margin));
-			} */
-
 			body:not(.toc-open) #toc {
-				transform: translateX(calc(-1 * var(--toc-width)));
+				transform: translateX(var(--toc-width));
 			}
 
 			main {
@@ -472,7 +465,7 @@
 <body>
 
 	<script type="module">
-		import GUI from '../dist/lil-gui.esm.js';
+		import { GUI } from '../dist/lil-gui.esm.js';
 
 		// Basic demo
 		// ---------------------------------------------------------------------
