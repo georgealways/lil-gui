@@ -20,14 +20,14 @@ For quick sketches, you can import lil-gui directly from a CDN.
 
 ```html
 <script type="module">
-import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js';
+import GUI from '//cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js';
 </script>
 ```
 
 The library is also available in UMD format under the namespace `lil`.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/lil-gui"></script>
+<script src="//cdn.jsdelivr.net/npm/lil-gui"></script>
 <script>
 var GUI = lil.GUI;
 </script>
