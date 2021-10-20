@@ -300,18 +300,20 @@ the constructor.
 const gui = new GUI( { container: $('#gui') } );
 ```
 
-### Width
+***
 
-The GUI can be made wider by passing a pixel width to the constructor.
+### Width and Long Names
+
+The GUI can be made wider by passing a pixel width to the constructor. This is usually done when 
+controller names are too long to fit within the panel.
 
 ```js
 const gui = new GUI( { width: 400 } );
 ```
 
-This is usually done when controller names are too long to fit within the panel. The library provides
-a few ways to manage this using CSS variables as well.
+The library provides a few ways to manage this using CSS variables as well.
 
-```css
+```
 .lil-gui { 
 	--width: 400px;
 	--name-width: 65%;
@@ -322,13 +324,7 @@ The `--width` property does the same thing the one in the constructor, but allow
 CSS value. Adjusting `--name-width` allows you to increase the size of names relative to controllers,
 which might be better than enlarging the entire panel.
 
-### Mobile Styles
-
-mobileBreakpoint
-
-```js
-//todo
-```
+***
 
 ### CSS Variables and Custom Stylesheets
 
@@ -337,3 +333,18 @@ other css vars, injectStylesheet
 ```js
 //todo
 ```
+
+***
+
+### Mobile Styles
+
+Controllers are larger on mobile devices to make them easier to use via touch. By default, these
+styles are applied when the window is less than 500 pixels wide. You can change or disable this 
+behavior with the `mobileBreakpoint` parameter.
+
+```js
+//todo
+```
+
+You can use your own logic to determine when to apply these styles by adding the `.mobile` CSS class 
+to the GUI's root element.
