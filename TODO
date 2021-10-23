@@ -1,10 +1,12 @@
+[ ] folder title hover
+[ ] lots of adjacent closed folders could use hr's (pixi)
+[ ] horizontal mousewheel should work on sliders...
+
+[ ] close() should accept a parameter like disable() for symmetry with open()
+[ ] unit test for import/export recursive=false
+
 [ ] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
 
-[ ] folder title hover?
-[ ] color picker hover?
-
-[ ] unit test for import/export recursive=false
-[ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
 
 homepage
@@ -24,6 +26,8 @@ OTHER
 	[ ] main api toc columns are ugly
 
 sup i'm back it's 2021
+
+[x] color picker hover
 
 [x] button lost active color on mobile
 [x] no hover on slider drag please
