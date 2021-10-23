@@ -197,8 +197,9 @@ export default class NumberController extends Controller {
 			} else {
 
 				// Otherwise, we can set the value straight away on touchstart.
+				e.preventDefault();
 				setValueFromX( e.touches[ 0 ].clientX );
-				this.$slider.classList.add( 'active' );
+				this._setActiveStyle( true );
 				testingForScroll = false;
 
 			}
