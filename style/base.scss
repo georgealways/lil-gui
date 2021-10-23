@@ -139,23 +139,10 @@ body {
 	overscroll-behavior: contain;
 }
 .lil-gui-slider-active {
-	// overflow: hidden;
-	// overscroll-behavior: none;
 	.lil-gui {
 		--hover-color: var(--widget-color);
 	}
-	.lil-gui .children { 
-		overflow: hidden !important;
-	}
 	* {
 		cursor: ew-resize !important;
-	}
-}
-
-// Prevent sticky hover styles on mobile
-
-@media (hover: none) {
-	.lil-gui { 
-		--hover-color: var(--widget-color) !important;
 	}
 }

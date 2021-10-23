@@ -7,15 +7,18 @@
 		padding: 0 var(--padding);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
+		outline: none;
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
 			display: inline-block;
 			padding: 0 2px 0 1px;
 		}
-		&:focus {
-			outline: none;
-		}
+		// @include can-hover { 
+		// 	&:focus { 
+		// 		text-decoration: underline dotted var(--focus-color);
+		// 	}
+		// }
 		@include on-hover { 
 			background: var(--title-background-color);
 			opacity: 0.85;
@@ -29,6 +32,7 @@
 	&.closed > {
 		.title:before {
 			content: '▸';
+			text-decoration-color: transparent;
 		}
 		.children {
 			transform: translateY(-7px);

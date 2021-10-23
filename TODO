@@ -1,9 +1,5 @@
-[ ] folder focus style
-[x] folder hover flashes during close transition?
-[x] folder title hover
-[ ] better color picker hover
-[ ] lots of adjacent closed folders could use hr's (pixi)
 [ ] horizontal mousewheel should work on sliders...
+[ ] better color picker hover
 
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
@@ -11,6 +7,11 @@
 [ ] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
 
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
+
+[x] folder focus style
+[x] folder hover flashes during close transition?
+[x] folder title hover
+[x] lots of adjacent closed folders could use hr's (pixi)
 
 homepage
 

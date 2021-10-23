@@ -37,15 +37,18 @@
 			line-height: var(--checkbox-size);
 		}
 
-		// other inputs are hot on hover and hotter on focus
-		// checkboxes are the other way around
-		&:focus,
-		&:active {
-			background: var(--hover-color);
+		@include can-hover {
+			// other inputs are hot on hover and hotter on focus
+			// checkboxes are the other way around
+			&:focus,
+			&:active {
+				background: var(--hover-color);
+			}
+			&:hover {
+				background: var(--focus-color);
+			}
 		}
-		&:hover {
-			background: var(--focus-color);
-		}
+		
 	}
 
 	button {
