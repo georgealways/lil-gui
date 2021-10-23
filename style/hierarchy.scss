@@ -1,3 +1,5 @@
+@import 'hover';
+
 .lil-gui {
 	.title {
 		height: var(--title-height);
@@ -11,9 +13,13 @@
 			font-family: 'lil-gui';
 			content: '▾';
 		}
-		&:focus { 
-			outline: 1px solid var(--focus-color);
-			outline-offset: -1px;
+		// &:focus {
+		// 	outline: 1px solid var(--focus-color);
+		// 	outline-offset: -1px;
+		// }
+		@include on-hover { 
+			background: var(--title-background-color);
+			opacity: 0.85;
 		}
 	}
 
@@ -51,17 +57,26 @@
 		opacity: 0.5;
 	}
 
-	// Root folders
+	// Folders
 	// -------------------------------------------------------------------------
 
-	& &:not(.closed) > .title {
+	& & > .title {
 		border-bottom: 1px solid var(--widget-color);
+		transition: border-color 300ms;
 	}
 
-	&:not(.closed) + .controller {
+	& &.closed > .title {
+		border-color: var(--background-color);
+	}
+
+	& + .controller {
 		border-top: 1px solid var(--widget-color);
 		margin-top: 0;
 		padding-top: var(--spacing);
+	}
+
+	& &:not(:first-child) > .title {
+		border-top: 1px solid var(--widget-color);
 	}
 
 	// Nested folders
