@@ -28,7 +28,7 @@ export default class GUI {
 	 * @param {HTMLElement} [options.container]
 	 * Adds the GUI to this DOM element. Overrides `autoPlace`.
 	 *
-	 * @param {number} [options.width=250]
+	 * @param {number} [options.width=245]
 	 * Width of the GUI in pixels, usually set when name labels become too long. Note that you can make 
 	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`
 	 *

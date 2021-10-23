@@ -31,7 +31,7 @@
 	}
 
 	&.root {
-		width: var(--width, 250px);
+		width: var(--width, 245px);
 		display: flex;
 		flex-direction: column;
 		> .title {
@@ -135,8 +135,12 @@
 }
 
 // Disable hover styles and scroll when dragging sliders
-
+body { 
+	overscroll-behavior: contain;
+}
 .lil-gui-slider-active {
+	// overflow: hidden;
+	// overscroll-behavior: none;
 	.lil-gui {
 		--hover-color: var(--widget-color);
 	}
