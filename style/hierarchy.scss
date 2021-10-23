@@ -5,18 +5,19 @@
 		height: var(--title-height);
 		font-weight: 600;
 		padding: 0 var(--padding);
-		// todo: why do i need this -2px?
-		line-height: calc(var(--title-height) - 2px);
+		// todo: why do i need this -px?
+		line-height: calc(var(--title-height) - 3px);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
+			display: inline-block;
+			padding: 0 2px;
 		}
-		// &:focus {
-		// 	outline: 1px solid var(--focus-color);
-		// 	outline-offset: -1px;
-		// }
+		&:focus {
+			outline: none;
+		}
 		@include on-hover { 
 			background: var(--title-background-color);
 			opacity: 0.85;
