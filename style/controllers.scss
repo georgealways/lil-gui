@@ -33,51 +33,8 @@
 		}
 	}
 
-	.controller.function .name { 
+	.controller.function .name {
 		line-height: unset;
-	}
-
-	.controller.number {
-		input {
-			color: var(--number-color);
-		}
-		&.hasSlider input {
-			margin-left: var(--spacing);
-			width: var(--slider-input-width);
-			min-width: var(--slider-input-min-width);
-			flex-shrink: 0;
-		}
-		.slider {
-			width: 100%;
-			height: var(--widget-height);
-			background-color: var(--widget-color);
-			border-radius: var(--widget-border-radius);
-
-			// subtracts width of knob from available width
-			padding-right: var(--slider-knob-width);
-			overflow: hidden;
-
-			// prevents scroll when dragging horizontally on mobile
-			touch-action: pan-y;
-
-			cursor: ew-resize;
-
-			&:hover {
-				background-color: var(--hover-color);
-			}
-			&.active {
-				background-color: var(--focus-color);
-				.fill {
-					opacity: 0.95;
-				}
-			}
-		}
-		.fill {
-			height: 100%;
-			border-right: var(--slider-knob-width) solid var(--number-color);
-			// don't count border width towards width
-			box-sizing: content-box;
-		}
 	}
 
 	.controller.string input {
@@ -89,9 +46,9 @@
 			width: 100%;
 			height: var(--widget-height);
 			border-radius: var(--widget-border-radius);
-			@include on-hover { 
+			@include on-hover {
 				position: relative;
-				&:before { 
+				&:before {
 					content: ' ';
 					display: block;
 					position: absolute;
@@ -124,12 +81,14 @@
 			// .widget passes click events to expand the hitbox
 			pointer-events: none;
 		}
-		.widget { 
+		.widget {
 			cursor: pointer;
-		}
-		.widget:hover input {
-			// usually taken care of in inputs.scss, but .widget needs to pass hover
-			background: var(--focus-color);
+			@include on-hover { 
+				input {
+					// usually taken care of in inputs.scss, but .widget needs to pass hover
+					background: var(--focus-color);
+				}
+			}
 		}
 	}
 
@@ -154,9 +113,11 @@
 
 			background: var(--widget-color);
 
-			&.focus,
-			&.active {
-				background: var(--focus-color);
+			@include can-hover {
+				&.focus,
+				&.active {
+					background: var(--focus-color);
+				}
 			}
 
 			&:after {
@@ -173,8 +134,62 @@
 		select {
 			cursor: pointer;
 		}
-		.widget:hover .display {
-			background: var(--hover-color);
+		.widget {
+			@include on-hover {
+				.display {
+					background: var(--hover-color);
+				}
+			}
 		}
+	}
+
+	.controller.number {
+		input {
+			color: var(--number-color);
+		}
+		&.hasSlider input {
+			margin-left: var(--spacing);
+			width: var(--slider-input-width);
+			min-width: var(--slider-input-min-width);
+			flex-shrink: 0;
+		}
+		.slider {
+			width: 100%;
+			height: var(--widget-height);
+			background-color: var(--widget-color);
+			border-radius: var(--widget-border-radius);
+
+			// subtracts width of knob from available width
+			padding-right: var(--slider-knob-width);
+			overflow: hidden;
+			cursor: ew-resize;
+			touch-action: pan-x;
+
+			@include on-hover {
+				background-color: var(--hover-color);
+			}
+			&.active {
+				background-color: var(--focus-color);
+				.fill {
+					opacity: 0.95;
+				}
+			}
+		}
+		.fill {
+			height: 100%;
+			border-right: var(--slider-knob-width) solid var(--number-color);
+			// don't count border width towards width
+			box-sizing: content-box;
+		}
+	}
+}
+
+// Disable hover styles and scroll when dragging sliders
+.lil-gui-slider-active {
+	.lil-gui {
+		--hover-color: var(--widget-color);
+	}
+	* {
+		cursor: ew-resize !important;
 	}
 }

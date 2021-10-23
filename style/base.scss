@@ -98,11 +98,10 @@
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
-			--checkbox-size: calc(0.75 * var(--widget-height)),
+			--checkbox-size: calc(0.75 * var(--widget-height))
 		)
 	);
 
-	--title-height: calc(var(--widget-height) + var(--spacing));
 	--scrollbar-width: 5px;
 
 	// autoPlace & mobile
@@ -127,22 +126,5 @@
 		top: 0;
 		right: 15px;
 		z-index: 1001;
-
-		&.mobile {
-			right: 0;
-		}
-	}
-}
-
-// Disable hover styles and scroll when dragging sliders
-body { 
-	overscroll-behavior: contain;
-}
-.lil-gui-slider-active {
-	.lil-gui {
-		--hover-color: var(--widget-color);
-	}
-	* {
-		cursor: ew-resize !important;
 	}
 }

@@ -1,3 +1,5 @@
+@import 'hover';
+
 .lil-gui {
 	input {
 		-webkit-tap-highlight-color: transparent;
@@ -10,11 +12,15 @@
 		background: var(--widget-color);
 		color: var(--text-color);
 		width: 100%;
-		&:hover {
-			background: var(--hover-color);
+		@include can-hover {
+			&:hover {
+				background: var(--hover-color);
+			}
+			&:active {
+				background: var(--focus-color);
+			}
 		}
-		&:focus,
-		&:active {
+		&:focus {
 			background: var(--focus-color);
 		}
 	}
@@ -40,7 +46,6 @@
 		@include can-hover {
 			// other inputs are hot on hover and hotter on focus
 			// checkboxes are the other way around
-			&:focus,
 			&:active {
 				background: var(--hover-color);
 			}
@@ -48,11 +53,14 @@
 				background: var(--focus-color);
 			}
 		}
-		
+
+		&:focus {
+			background: var(--hover-color);
+		}
 	}
 
 	button {
-		-webkit-tap-highlight-color: var(--focus-color);
+		-webkit-tap-highlight-color: transparent;
 		outline: none;
 		cursor: pointer;
 
@@ -77,13 +85,16 @@
 		// .725 seemed to line up for mobile & desktop
 		line-height: calc(var(--widget-height) * 0.725);
 
-		&:hover {
-			background: var(--hover-color);
-			border-color: var(--hover-color);
+		@include can-hover {
+			&:hover {
+				background: var(--hover-color);
+				border-color: var(--hover-color);
+			}
+			&:focus {
+				border-color: var(--focus-color);
+			}
 		}
-		&:focus {
-			border-color: var(--focus-color);
-		}
+
 		&:active {
 			background: var(--focus-color);
 		}

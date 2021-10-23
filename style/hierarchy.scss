@@ -2,7 +2,12 @@
 
 .lil-gui {
 	.title {
+
+		--title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
+		
 		height: var(--title-height);
+		line-height: calc( var(--title-height) - 4px );
+
 		font-weight: 600;
 		padding: 0 var(--padding);
 		-webkit-tap-highlight-color: transparent;
@@ -11,22 +16,12 @@
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
-			display: inline-block;
-			padding: 0 2px 0 1px;
+			padding-right: 2px;
 		}
-		// @include can-hover { 
-		// 	&:focus { 
-		// 		text-decoration: underline dotted var(--focus-color);
-		// 	}
-		// }
-		@include on-hover { 
+		@include on-hover {
 			background: var(--title-background-color);
 			opacity: 0.85;
 		}
-	}
-
-	&.root > .title { 
-		line-height: calc(var(--title-height) - 2px);
 	}
 
 	&.closed > {
@@ -67,10 +62,6 @@
 
 	// Folders
 	// -------------------------------------------------------------------------
-
-	& > .title {
-		line-height: calc(var(--title-height) - 4px);
-	}
 
 	& & > .title {
 		border-bottom: 1px solid var(--widget-color);
