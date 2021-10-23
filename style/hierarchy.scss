@@ -5,15 +5,13 @@
 		height: var(--title-height);
 		font-weight: 600;
 		padding: 0 var(--padding);
-		// todo: why do i need this -px?
-		line-height: calc(var(--title-height) - 3px);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
 			display: inline-block;
-			padding: 0 2px;
+			padding: 0 2px 0 1px;
 		}
 		&:focus {
 			outline: none;
@@ -22,6 +20,10 @@
 			background: var(--title-background-color);
 			opacity: 0.85;
 		}
+	}
+
+	&.root > .title { 
+		line-height: calc(var(--title-height) - 2px);
 	}
 
 	&.closed > {
@@ -42,6 +44,7 @@
 		transition-property: height, opacity, transform;
 		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 		overflow: hidden;
+		pointer-events: none;
 	}
 
 	// Empty children
@@ -60,6 +63,10 @@
 
 	// Folders
 	// -------------------------------------------------------------------------
+
+	& > .title {
+		line-height: calc(var(--title-height) - 4px);
+	}
 
 	& & > .title {
 		border-bottom: 1px solid var(--widget-color);

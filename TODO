@@ -1,5 +1,5 @@
 [ ] folder focus style
-[ ] folder hover flashes during close transition?
+[x] folder hover flashes during close transition?
 [x] folder title hover
 [ ] better color picker hover
 [ ] lots of adjacent closed folders could use hr's (pixi)

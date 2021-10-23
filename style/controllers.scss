@@ -33,6 +33,10 @@
 		}
 	}
 
+	.controller.function .name { 
+		line-height: unset;
+	}
+
 	.controller.number {
 		input {
 			color: var(--number-color);
