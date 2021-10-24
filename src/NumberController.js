@@ -254,7 +254,8 @@ export default class NumberController extends Controller {
 
 		const onWheel = e => {
 
-			if ( this._hasScrollBar ) return;
+			// ignore vertical wheels if there's a scrollbar
+			if ( e.deltaX === 0 && this._hasScrollBar ) return;
 
 			e.preventDefault();
 
