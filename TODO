@@ -1,5 +1,4 @@
-[ ] horizontal mousewheel should work on sliders...
-[ ] better color picker hover
+[ ] use (pointer: coarse) to apply mobile style?
 
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
@@ -8,6 +7,9 @@
 
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
 
+[ ] better color picker hover
+
+[x] horizontal mousewheel should work on sliders...
 [x] folder :active style (for mob)
 [x] folder focus style
 [x] folder hover flashes during close transition?

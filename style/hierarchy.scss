@@ -12,6 +12,7 @@
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		outline: none;
+
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
@@ -21,6 +22,12 @@
 			&:hover {
 				background: var(--title-background-color);
 				opacity: 0.85;
+			}
+			&:focus {
+				// effectively erases the borders above and below it
+				// so consecutive folders don't look weird
+				outline: 2px solid var(--background-color);
+				border-color: var(--focus-color) !important;
 			}
 		}
 		&:active {
@@ -70,12 +77,12 @@
 
 	& & > .title {
 		border-bottom: 1px solid var(--widget-color);
-		transition: border-color 200ms 100ms;
+		// transition: border-color 200ms 100ms;
 	}
 
 	& &.closed > .title {
 		border-color: var(--background-color);
-		transition: border-color 100ms 200ms;
+		// transition: border-color 100ms 200ms;
 	}
 
 	& + .controller {
