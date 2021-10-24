@@ -163,7 +163,9 @@
 			padding-right: var(--slider-knob-width);
 			overflow: hidden;
 			cursor: ew-resize;
-			touch-action: pan-x;
+
+			// allows you to scroll gui by touch even if grabbing a slider
+			touch-action: pan-y;
 
 			@include on-hover {
 				background-color: var(--hover-color);
