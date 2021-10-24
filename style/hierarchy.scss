@@ -36,21 +36,21 @@
 		}
 	}
 
-	&.closed > {
-		.title:before {
+	&.closed {
+		> .title:before {
 			content: '▸';
 			text-decoration-color: transparent;
 		}
-		.children {
+		> .children {
 			transform: translateY(-7px);
 			opacity: 0;
-			&:not(.transition) {
-				display: none;
-			}
+		}
+		&:not(.transition) > .children {
+			display: none;
 		}
 	}
 
-	.children.transition {
+	&.transition > .children {
 		transition-duration: 300ms;
 		transition-property: height, opacity, transform;
 		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -77,12 +77,14 @@
 
 	& & > .title {
 		border-bottom: 1px solid var(--widget-color);
-		// transition: border-color 200ms 100ms;
+	}
+
+	& &.transition > .title { 
+		transition: border-color 300ms;
 	}
 
 	& &.closed > .title {
 		border-color: var(--background-color);
-		// transition: border-color 100ms 200ms;
 	}
 
 	& + .controller {

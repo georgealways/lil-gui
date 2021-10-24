@@ -384,12 +384,12 @@ export default class GUI {
 			const initialHeight = this.$children.clientHeight;
 			this.$children.style.height = initialHeight + 'px';
 
-			this.$children.classList.add( 'transition' );
+			this.domElement.classList.add( 'transition' );
 
 			const onTransitionEnd = e => {
 				if ( e.target !== this.$children ) return;
 				this.$children.style.height = '';
-				this.$children.classList.remove( 'transition' );
+				this.domElement.classList.remove( 'transition' );
 				this.$children.removeEventListener( 'transitionend', onTransitionEnd );
 			};
 
