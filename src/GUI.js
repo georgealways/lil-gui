@@ -100,7 +100,8 @@ export default class GUI {
 
 		this.$title.addEventListener( 'click', () => this.openAnimated( this._closed ) );
 		this.$title.addEventListener( 'keydown', e => {
-			if ( e.keyCode === 13 || e.keyCode === 32 ) {
+			if ( e.code === 'Enter' || e.code === 'Space' ) {
+				e.preventDefault();
 				this.$title.click();
 			}
 		} );

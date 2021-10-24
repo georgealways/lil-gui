@@ -187,31 +187,31 @@ test( unit => {
 		// $input
 
 		controller = gui.add( { x: 0 }, 'x' );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp' } );
 		assert.strictEqual( controller.getValue(), 1, 'no params: one arrow key = 1' );
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp' } );
 		assert.strictEqual( controller.getValue(), 0.01, 'implicit step: 100 arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38, shiftKey: true } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', shiftKey: true } );
 		assert.strictEqual( controller.getValue(), 0.1, 'implicit step: 10 shift arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38, altKey: true } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
 		assert.strictEqual( controller.getValue(), 0.001, 'implicit step: 1000 alt arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38 } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp' } );
 		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 arrow key = 1 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38, altKey: true } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
 		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 alt arrow key also = 1 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
-		controller.$input.$callEventListener( 'keydown', { keyCode: 38, shiftKey: true } );
+		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', shiftKey: true } );
 		assert.strictEqual( controller.getValue(), 10, 'explicit step: 1 shift arrow key = 10 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );

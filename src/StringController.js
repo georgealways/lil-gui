@@ -15,7 +15,7 @@ export default class StringController extends Controller {
 		} );
 
 		this.$input.addEventListener( 'keydown', e => {
-			if ( e.keyCode === 13 ) {
+			if ( e.code === 'Enter' ) {
 				this.$input.blur();
 			}
 		} );

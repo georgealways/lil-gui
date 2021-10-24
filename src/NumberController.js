@@ -87,14 +87,14 @@ export default class NumberController extends Controller {
 		};
 
 		const onKeyDown = e => {
-			if ( e.keyCode === 13 ) {
+			if ( e.code === 'Enter' ) {
 				this.$input.blur();
 			}
-			if ( e.keyCode === 38 ) {
+			if ( e.code === 'ArrowUp' ) {
 				e.preventDefault();
 				increment( this._step * this._arrowKeyMultiplier( e ) );
 			}
-			if ( e.keyCode === 40 ) {
+			if ( e.code === 'ArrowDown' ) {
 				e.preventDefault();
 				increment( -1 * this._step * this._arrowKeyMultiplier( e ) );
 			}

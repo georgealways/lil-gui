@@ -7,6 +7,7 @@
 
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
 
+[ ] checkboxes should get the outline on focus
 [ ] better color picker hover
 
 [x] horizontal mousewheel should work on sliders...
