@@ -70,11 +70,12 @@
 
 	& & > .title {
 		border-bottom: 1px solid var(--widget-color);
-		transition: border-color 300ms;
+		transition: border-color 200ms 100ms;
 	}
 
 	& &.closed > .title {
 		border-color: var(--background-color);
+		transition: border-color 100ms 200ms;
 	}
 
 	& + .controller {
