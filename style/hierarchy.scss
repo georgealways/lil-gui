@@ -2,11 +2,10 @@
 
 .lil-gui {
 	.title {
-
 		--title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
-		
+
 		height: var(--title-height);
-		line-height: calc( var(--title-height) - 4px );
+		line-height: calc(var(--title-height) - 4px);
 
 		font-weight: 600;
 		padding: 0 var(--padding);
@@ -18,9 +17,15 @@
 			content: '▾';
 			padding-right: 2px;
 		}
-		@include on-hover {
+		@include can-hover {
+			&:hover {
+				background: var(--title-background-color);
+				opacity: 0.85;
+			}
+		}
+		&:active {
 			background: var(--title-background-color);
-			opacity: 0.85;
+			opacity: 0.75;
 		}
 	}
 

@@ -1,5 +1,3 @@
-[ ] folder :active style (for mob)
-
 [ ] horizontal mousewheel should work on sliders...
 [ ] better color picker hover
 
@@ -10,6 +8,7 @@
 
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
 
+[x] folder :active style (for mob)
 [x] folder focus style
 [x] folder hover flashes during close transition?
 [x] folder title hover

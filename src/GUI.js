@@ -105,6 +105,9 @@ export default class GUI {
 			}
 		} );
 
+		// enables :active pseudo class on mobile
+		this.$title.addEventListener( 'touchstart', _ => { } );
+
 		/**
 		 * The DOM element that contains children.
 		 * @type {HTMLElement}
