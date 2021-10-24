@@ -83,7 +83,7 @@
 		}
 		.widget {
 			cursor: pointer;
-			@include on-hover { 
+			@include on-hover {
 				input {
 					// usually taken care of in inputs.scss, but .widget needs to pass hover
 					background: var(--focus-color);
@@ -114,10 +114,13 @@
 			background: var(--widget-color);
 
 			@include can-hover {
-				&.focus,
-				&.active {
+				&.focus {
 					background: var(--focus-color);
 				}
+			}
+
+			&.active {
+				background: var(--focus-color);
 			}
 
 			&:after {
