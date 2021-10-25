@@ -21,11 +21,11 @@ homepage
 [ ] MIGRATING
 
 [ ] GUIDE
-	[ ] Folders
-	[ ] ctrl.onChange
+	[x] Folders
+	[x] ctrl.onChange
 	[ ] gui.onChange
-	[x] Mobile Styles
 	[ ] CSS Variables and Custom Stylesheets
+	[x] Mobile Styles
 
 OTHER
 	[ ] !! update anchor positions on resize

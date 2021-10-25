@@ -158,27 +158,27 @@ gui.addColor( obj, 'colorArray', 255 );
 
 ## Folders
 
-todo
+You can organize controllers in collapsible groups using `addFolder()`. The method returns a new GUI
+instance representing the folder. You can add controllers to the folder just like you would with any GUI.
 
 ```js
-params = { scale: 1 };
-position = { x: 0, y: 0, z: 0 };
+// top level controller
+gui.add( obj, 'scale', 0, 1 );
 
-const gui = new GUI();
-gui.add( params, 'scale', 0, 1 );
-
-// folder has all the same methods as GUI
+// nested controllers
 const folder = gui.addFolder( 'Position' );
-folder.add( position, 'x' );
-folder.add( position, 'y' );
-folder.add( position, 'z' );
+folder.add( obj, 'x' );
+folder.add( obj, 'y' );
+folder.add( obj, 'z' );
 ```
 
 ***
 
 ## Change Events
 
-todo onChange
+If you want to call a function every time a controller is changed, you can pass it to the controller's
+`onChange` method. The new value will be passed to the function on every modification, so long as it
+originates from that controller and not from code elsewhere.
 
 ```js
 gui.add( params, 'foo' ).onChange( value => {
@@ -198,6 +198,12 @@ gui.onChange( e => {
 
 } );
 ```
+
+`GUI.onChange` events bubble upward. An onChange handler applied to the root GUI will fire for every
+change in that panel. An onChange handler applied to a folder will only be triggered by changes to 
+that folder and it's descendents.
+
+***
 
 ### Listening and Updating
 
