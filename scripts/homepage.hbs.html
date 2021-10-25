@@ -217,20 +217,27 @@
 			max-width: 700px;
 		}
 
+		/* headers */
+
+		#readme-container h1 {
+			margin-top: 1.5rem;
+			border: none;
+			padding-top: 0;
+		}
+
 		main h1 {
+			border-top: 2px solid var(--rule);
+			margin-top: 2.5rem;
+			padding-top: 1.5rem;
 			font-size: 2em;
-			margin-block-start: 0.67em;
-			margin-block-end: 0.67em;
 			font-weight: 700;
 		}
 
-		/* header borders */
-
-		main h1,
-		main h2 {
+		main h2,
+		main h3 {
 			border-top: 2px solid var(--rule);
-			padding-top: 1.5rem;
 			margin-top: 1.5rem;
+			padding-top: 1.5rem;
 		}
 
 		main h3 { 
@@ -239,11 +246,14 @@
 			padding-top: 1rem;
 		}
 
+		#guide-container h2 {
+			font-weight: 500;
+		}
+
 		/* border exceptions */
 
 		main .api-index h1,
 		main .api-index h2, 
-		#readme-container h1, 
 		h1 + h2 {
 			padding-top: 0;
 			border: none
@@ -398,7 +408,6 @@
 			pointer-events: none;
 		}
 
-
 		main .api-index {
 			columns: 2;
 			column-rule: 1px solid var(--rule);
@@ -484,8 +493,13 @@
 			ul {
 				padding-left: 1.5rem;
 			}
-		}
 
+			main .api-index {
+				column-rule: none;
+				column-gap: 0;
+			}
+
+		}
 	</style>
 </head>
 <body>
