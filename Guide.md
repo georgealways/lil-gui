@@ -1,7 +1,7 @@
 # Guide
 
-lil-gui gives you an interface for changing the properties of any JavaScript object at runtime.
-It's intended as a drop-in replacement for dat.gui, implemented with more modern web standards and
+**lil-gui** gives you an interface for changing the properties of any JavaScript object at runtime.
+It's intended as a drop-in replacement for [dat.gui](https://github.com/dataarts/dat.gui), implemented with more modern web standards and
 some new quality of life features.
 
 ## Installation
@@ -165,8 +165,8 @@ folder.add( obj, 'z' );
 ## Change Events
 
 If you want to call a function every time a controller is changed, you can pass it to the controller's
-`onChange` method. The new value will be passed to the function on every modification, so long as it
-originates from that controller and not from code elsewhere.
+`onChange` method. The new value will be passed to your function after every change (so long as it
+originates from that controller and not from code elsewhere).
 
 ```js
 gui.add( params, 'foo' ).onChange( value => {
@@ -174,22 +174,24 @@ gui.add( params, 'foo' ).onChange( value => {
 } );
 ```
 
-todo apply the same handler to every controller
+### Global Change Handlers
+
+GUI also provides an `onChange` handler that fires after changes to any of its children.
+These handlers receive an event object with details about the controller that was modified.
 
 ```js
-gui.onChange( e => {
+gui.onChange( event => {
 
-	e.object     // object that was modified
-	e.property   // string, name of property
-	e.value      // new value of controller
-	e.controller // controller that was modified
+	event.object     // object that was modified
+	event.property   // string, name of property
+	event.value      // new value of controller
+	event.controller // controller that was modified
 
 } );
 ```
 
-`GUI.onChange` events bubble upward. An onChange handler applied to the root GUI will fire for every
-change in that panel. An onChange handler applied to a folder will only be triggered by changes to 
-that folder and it's descendents.
+`GUI.onChange` events bubble upward. A handler applied to the root GUI will fire after every change. 
+Handlers applied to folders will only be called after changes to that folder or its descendents.
 
 ### Listening and Updating
 
@@ -255,8 +257,8 @@ and arrays are fine).
 		value1: 'original',
 		value2: 1996,
 	},
-	// if GUI has folders ...
 	folders: {
+		// if GUI has folders ...
 		folderName1: { controllers, folders },
 		folderName2: { controllers, folders }
 		...
