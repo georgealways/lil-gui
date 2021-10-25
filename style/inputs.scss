@@ -20,13 +20,13 @@
 				background: var(--focus-color);
 			}
 		}
-		&:focus {
-			background: var(--focus-color);
-		}
 	}
 
 	input[type='text'] {
 		padding: var(--widget-padding);
+		&:focus {
+			background: var(--focus-color);
+		}
 	}
 
 	input[type='checkbox'] {
@@ -44,19 +44,11 @@
 		}
 
 		@include can-hover {
-			// other inputs are hot on hover and hotter on focus
-			// checkboxes are the other way around
-			&:active {
-				background: var(--hover-color);
-			}
-			&:hover {
-				background: var(--focus-color);
+			&:focus {
+				box-shadow: inset 0 0 0 1px var(--focus-color);
 			}
 		}
 
-		&:focus {
-			background: var(--hover-color);
-		}
 	}
 
 	button {

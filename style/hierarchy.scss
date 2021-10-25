@@ -13,6 +13,19 @@
 		cursor: pointer;
 		outline: none;
 
+		&:before {
+			font-family: 'lil-gui';
+			content: '▾';
+			padding-right: 2px;
+			// transparent doesn't work?
+			text-decoration: 1px var(--background-color) underline;
+		}
+
+		&:active {
+			background: var(--title-background-color);
+			opacity: 0.75;
+		}
+
 		@include can-hover {
 			&:hover {
 				background: var(--title-background-color);
@@ -22,18 +35,10 @@
 				text-decoration: 1px underline var(--focus-color);
 			}
 		}
+	}
 
-		&:before {
-			font-family: 'lil-gui';
-			content: '▾';
-			padding-right: 2px;
-			// transparent doesn't work?
-			text-decoration: 1px var(--background-color) underline;
-		}
-		&:active {
-			background: var(--title-background-color);
-			opacity: 0.75;
-		}
+	&.root > .title:focus {
+		text-decoration: none !important;
 	}
 
 	&.closed {
