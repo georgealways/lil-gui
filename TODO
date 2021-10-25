@@ -1,5 +1,3 @@
-[ ] use (pointer: coarse) to apply mobile style?
-
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
 
@@ -9,6 +7,7 @@
 
 [ ] better color picker hover
 
+[x] use (pointer: coarse) to apply mobile style?
 [x] checkboxes should get the outline on focus
 [x] horizontal mousewheel should work on sliders...
 [x] folder :active style (for mob)
@@ -25,12 +24,12 @@ homepage
 	[ ] Folders
 	[ ] ctrl.onChange
 	[ ] gui.onChange
-	[ ] Mobile Styles
-	[ ] Customization
+	[x] Mobile Styles
+	[ ] CSS Variables and Custom Stylesheets
 
 OTHER
+	[ ] !! update anchor positions on resize
 	[ ] order of properties (not methods) in API is kinda wonky
-	[ ] update anchor positions on resize
 	[ ] main api toc columns are ugly
 
 sup i'm back it's 2021
