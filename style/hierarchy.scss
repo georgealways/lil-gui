@@ -13,22 +13,22 @@
 		cursor: pointer;
 		outline: none;
 
-		&:before {
-			font-family: 'lil-gui';
-			content: '▾';
-			padding-right: 2px;
-		}
 		@include can-hover {
 			&:hover {
 				background: var(--title-background-color);
 				opacity: 0.85;
 			}
 			&:focus {
-				// effectively erases the borders above and below it
-				// so consecutive folders don't look weird
-				outline: 2px solid var(--background-color);
-				border-color: var(--focus-color) !important;
+				text-decoration: 1px underline var(--focus-color);
 			}
+		}
+
+		&:before {
+			font-family: 'lil-gui';
+			content: '▾';
+			padding-right: 2px;
+			// transparent doesn't work?
+			text-decoration: 1px var(--background-color) underline;
 		}
 		&:active {
 			background: var(--title-background-color);
@@ -39,7 +39,6 @@
 	&.closed {
 		> .title:before {
 			content: '▸';
-			text-decoration-color: transparent;
 		}
 		> .children {
 			transform: translateY(-7px);
