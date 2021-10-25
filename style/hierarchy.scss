@@ -97,7 +97,7 @@
 		padding-top: var(--spacing);
 	}
 
-	& &:not(:first-child) > .title {
+	&.root > & > .title {
 		border-top: 1px solid var(--widget-color);
 	}
 
