@@ -7,10 +7,6 @@
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
 
-		input {
-			font-size: var(--input-font-size);
-		}
-
 		&.disabled {
 			opacity: 0.5;
 			pointer-events: none;
