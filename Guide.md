@@ -33,8 +33,6 @@ var GUI = lil.GUI;
 </script>
 ```
 
-***
-
 ## Adding Controllers
 
 This code creates an input that lets you change this page's title.
@@ -63,8 +61,6 @@ gui.add( obj, 'myNumber' ); 	// number field
 gui.add( obj, 'myFunction' ); 	// button
 ```
 
-***
-
 ## Numbers and Sliders
 
 Numbers can be constrained to an accepted input range using `min()`, `max()` and `step()`.
@@ -87,8 +83,6 @@ gui.add( obj, 'number1', 0, 1 ); // min, max
 gui.add( obj, 'number2', 0, 100, 10 ); // min, max, step
 ```
 
-***
-
 ## Dropdowns
 
 You can create a dropdown for any data type by providing an array of accepted values. If you pass an
@@ -100,8 +94,6 @@ obj = { size: 'Medium', speed: 1 }
 gui.add( obj, 'size', [ 'Small', 'Medium', 'Large' ] )
 gui.add( obj, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 ```
-
-***
 
 ## Colors
 
@@ -154,8 +146,6 @@ gui.addColor( obj, 'colorObject', 255 );
 gui.addColor( obj, 'colorArray', 255 );
 ```
 
-***
-
 ## Folders
 
 You can organize controllers in collapsible groups using `addFolder()`. The method returns a new GUI
@@ -171,8 +161,6 @@ folder.add( obj, 'x' );
 folder.add( obj, 'y' );
 folder.add( obj, 'z' );
 ```
-
-***
 
 ## Change Events
 
@@ -203,8 +191,6 @@ gui.onChange( e => {
 change in that panel. An onChange handler applied to a folder will only be triggered by changes to 
 that folder and it's descendents.
 
-***
-
 ### Listening and Updating
 
 If a value controlled by the GUI is changed in code anywhere outside of the GUI, the new value won't
@@ -222,8 +208,6 @@ animate() {
 ```
 
 You can also call `controller.updateDisplay()` at any time to manage this behavior yourself.
-
-***
 
 ## Saving
 
@@ -294,8 +278,6 @@ gui.add( position, 'x' ).name( 'position.x' );
 gui.add( rotation, 'x' ).name( 'rotation.x' );
 ```
 
-***
-
 ## Styling
 
 By default, the GUI is added to `document.body` and attached to the top right of the window with
@@ -305,8 +287,6 @@ the constructor.
 ```js
 const gui = new GUI( { container: $('#gui') } );
 ```
-
-***
 
 ### Width and Long Names
 
@@ -330,8 +310,6 @@ The `--width` property does the same thing the one in the constructor, but allow
 CSS value. Adjusting `--name-width` allows you to increase the size of names relative to controllers,
 which might be better than enlarging the entire panel.
 
-***
-
 ### CSS Variables and Custom Stylesheets
 
 other css vars, injectStylesheet
@@ -339,8 +317,6 @@ other css vars, injectStylesheet
 ```js
 //todo
 ```
-
-***
 
 ### Touch Styles
 

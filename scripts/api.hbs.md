@@ -21,8 +21,6 @@
 
 <!--endtoc-->
 
-***
-
 {{#jsdocData}}
 
 # <a name="{{{name}}}"></a> {{name}} (Class)
@@ -62,7 +60,6 @@
 {{/with}}
 
 <small><a href="{{{viewsource}}}">{{definedat}}</a></small>
-***
 
 {{/children}}
 
