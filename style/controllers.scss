@@ -35,10 +35,15 @@
 
 	.controller.function .name {
 		line-height: unset;
+		padding: 0;
 	}
 
 	.controller.string input {
 		color: var(--string-color);
+	}
+
+	.controller.boolean .widget {
+		cursor: pointer;
 	}
 
 	.controller.color {
@@ -46,8 +51,8 @@
 			width: 100%;
 			height: var(--widget-height);
 			border-radius: var(--widget-border-radius);
+			position: relative;
 			@include on-hover {
-				position: relative;
 				&:before {
 					content: ' ';
 					display: block;
@@ -73,22 +78,6 @@
 			min-width: var(--color-input-min-width);
 			width: var(--color-input-width);
 			flex-shrink: 0;
-		}
-	}
-
-	.controller.boolean {
-		input {
-			// .widget passes click events to expand the hitbox
-			pointer-events: none;
-		}
-		.widget {
-			cursor: pointer;
-			@include on-hover {
-				input {
-					// usually taken care of in inputs.scss, but .widget needs to pass hover
-					background: var(--focus-color);
-				}
-			}
 		}
 	}
 

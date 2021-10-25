@@ -5,7 +5,7 @@
  */
 export default class Controller {
 
-	constructor( parent, object, property, className, tagName = 'div' ) {
+	constructor( parent, object, property, className, widgetTag = 'div' ) {
 
 		/**
 		 * The GUI that contains this controller.
@@ -42,7 +42,7 @@ export default class Controller {
 		 * The outermost container DOM element for this controller.
 		 * @type {HTMLElement}
 		 */
-		this.domElement = document.createElement( tagName );
+		this.domElement = document.createElement( 'div' );
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
 
@@ -60,7 +60,7 @@ export default class Controller {
 		 * The DOM element that contains the controller's "widget" (which differs by controller type).
 		 * @type {HTMLElement}
 		 */
-		this.$widget = document.createElement( 'div' );
+		this.$widget = document.createElement( widgetTag );
 		this.$widget.classList.add( 'widget' );
 
 		this.domElement.appendChild( this.$name );
