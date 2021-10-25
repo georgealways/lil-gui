@@ -1,8 +1,6 @@
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
 
-[ ] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
-
 [ ] per example "toast" / intro: dismissable modal with explanation & back link
 
 [ ] better color picker hover
@@ -16,14 +14,20 @@
 [x] folder title hover
 [x] lots of adjacent closed folders could use hr's (pixi)
 
+[x] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
+	(this seems to be working everywhere save threejs swap. i think it's the iframe? 
+	still triggers weird safari address bar when sliding even if scroll is prevented)
+
 homepage
 
 [ ] MIGRATING
 
+[ ] content security policy?
+
 [ ] GUIDE
 	[x] Folders
 	[x] ctrl.onChange
-	[ ] gui.onChange
+	[x] gui.onChange
 	[ ] CSS Variables and Custom Stylesheets
 	[x] Mobile Styles
 
