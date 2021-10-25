@@ -76,37 +76,28 @@
 		opacity: 0.5;
 	}
 
-	// Folders
+	// Root Level Folders
 	// -------------------------------------------------------------------------
 
-	& & > .title {
-		border-bottom: 1px solid var(--widget-color);
-	}
-
-	& &.transition > .title { 
+	&.root > .children > & > .title {
+		border: 0 solid var(--widget-color);
+		border-width: 1px 0;
 		transition: border-color 300ms;
 	}
 
-	& &.closed > .title {
-		border-color: var(--background-color);
+	&.root > .children > &.closed > .title {
+		border-bottom-color: transparent;
 	}
 
+	// Seperate folders from controllers at the same level
 	& + .controller {
 		border-top: 1px solid var(--widget-color);
 		margin-top: 0;
 		padding-top: var(--spacing);
 	}
 
-	&.root > & > .title {
-		border-top: 1px solid var(--widget-color);
-	}
-
 	// Nested folders
 	// -------------------------------------------------------------------------
-
-	& & .controller {
-		border: none;
-	}
 
 	& & & {
 		> .title {
@@ -118,4 +109,10 @@
 			border-left: 2px solid var(--widget-color);
 		}
 	}
+
+	// Don't draw folder + controllr seperation rule for when double nested
+	& & .controller {
+		border: none;
+	}
+	
 }
