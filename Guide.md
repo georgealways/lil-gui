@@ -290,7 +290,7 @@ gui.add( rotation, 'x' ).name( 'rotation.x' );
 
 ***
 
-## Customization
+## Styling
 
 By default, the GUI is added to `document.body` and attached to the top right of the window with
 fixed positioning. You can add the GUI to a different element by passing a `container` parameter to
@@ -336,15 +336,16 @@ other css vars, injectStylesheet
 
 ***
 
-### Mobile Styles
+### Touch Styles
 
-Controllers are larger on mobile devices to make them easier to use via touch. By default, these
-styles are applied when the window is less than 500 pixels wide. You can change or disable this 
-behavior with the `mobileBreakpoint` parameter.
+Controllers are larger on touch devices to make them easier to use. By default, these styles are 
+applied using a CSS query `@media (pointer: coarse)`. You can disable this behavior with the  
+`touchStyles` parameter.
 
 ```js
-//todo
+gui = new GUI( { touchStyles: false } );
+gui.domElement.classList.add( 'force-touch-styles' );
 ```
 
-You can use your own logic to determine when to apply these styles by adding the `.mobile` CSS class 
+You can then apply these styles at a time of your choosing by adding the `.force-touch-styles` CSS class 
 to the GUI's root element.

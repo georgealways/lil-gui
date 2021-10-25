@@ -9,6 +9,17 @@
 	}
 }
 
+@mixin touch-vars { 
+	@media (pointer: coarse) {
+		&.allow-touch-styles {
+			@content;
+		}
+	}
+	&.force-touch-styles { 
+		@content;
+	}
+}
+
 .lil-gui {
 	font-family: var(--font-family);
 	font-size: var(--font-size);
@@ -98,16 +109,11 @@
 			--folder-indent: 7px,
 			--widget-padding: 0 0 0 3px,
 			--widget-border-radius: 2px,
-			--checkbox-size: calc(0.75 * var(--widget-height))
+			--checkbox-size: calc(0.75 * var(--widget-height)),
 		)
 	);
 
-	--scrollbar-width: 5px;
-
-	// autoPlace & mobile
-	// -------------------------------------------------------------------------
-
-	&.mobile {
+	@include touch-vars { 
 		--widget-height: 24px;
 		--padding: 6px;
 		--spacing: 6px;
@@ -120,6 +126,8 @@
 		--color-input-min-width: 65px;
 	}
 
+	--scrollbar-width: 5px;
+
 	&.autoPlace {
 		max-height: 100%;
 		position: fixed;
@@ -127,4 +135,6 @@
 		right: 15px;
 		z-index: 1001;
 	}
+
+	
 }

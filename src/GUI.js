@@ -39,8 +39,8 @@ export default class GUI {
 	 * Injects the default stylesheet into the page if this is the first GUI.
 	 * Pass `false` to use your own stylesheet.
 	 * 
-	 * @param {number} [options.mobileBreakpoint=500]
-	 * Browser width in pixels where mobile styles take effect. Set to zero to disable mobile styles.
+	 * @param {number} [options.touchStyles=true]
+	 * Makes controllers larger on touch devices. Pass `false` to disable touch styles.
 	 *
 	 * @param {GUI} [options.parent]
 	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
@@ -49,7 +49,7 @@ export default class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		mobileBreakpoint = 500,
+		touchStyles = true,
 		container,
 		injectStyles = true,
 		title = 'Controls',
@@ -150,16 +150,9 @@ export default class GUI {
 
 		}
 
-		this._onResize = () => {
-
-			// toggle mobile class via JS (as opposed to media query)
-			// makes the breakpoint configurable via constructor
-			this.domElement.classList.toggle( 'mobile', window.innerWidth <= mobileBreakpoint );
-
-		};
-
-		window.addEventListener( 'resize', this._onResize );
-		this._onResize();
+		if ( touchStyles ) {
+			this.domElement.classList.add( 'allow-touch-styles' );
+		}
 
 		if ( width ) {
 			this.domElement.style.setProperty( '--width', width + 'px' );
@@ -435,7 +428,7 @@ export default class GUI {
 		return this;
 	}
 
-	
+
 	/**
 	 * todo
 	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback 
