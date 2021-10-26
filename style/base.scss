@@ -1,10 +1,21 @@
-@mixin touch-vars {
+@mixin vars($args) {
+	@each $name, $val in $args {
+		#{$name}: $val;
+	}
+	& & {
+		@each $name, $val in $args {
+			#{$name}: inherit;
+		}
+	}
+}
+
+@mixin touch-vars { 
 	@media (pointer: coarse) {
 		&.allow-touch-styles {
 			@content;
 		}
 	}
-	&.force-touch-styles {
+	&.force-touch-styles { 
 		@content;
 	}
 }
@@ -54,44 +65,55 @@
 	// "Theme" properties
 	// -------------------------------------------------------------------------
 
-	--background-color: #1f1f1f;
-	--text-color: #ebebeb;
-	--title-background-color: #111111;
-	--widget-color: #424242;
-	--hover-color: #4f4f4f;
-	--focus-color: #595959;
-	--number-color: #2cc9ff;
-	--string-color: #a2db3c;
-	--font-size: 11px;
-	--input-font-size: 11px;
-	--font-family: -apple-system, BlinkMacSystemFont, 'Lucida Grande', 'Segoe UI', Roboto, Arial,
-		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	--font-family-mono: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-	--padding: 4px;
-	--spacing: 4px;
-	--widget-height: 20px;
-	--name-width: 45%;
-	--slider-knob-width: 2px;
-	--slider-input-width: 27%;
-	--color-input-width: 27%;
-	--slider-input-min-width: 45px;
-	--color-input-min-width: 45px;
-	--folder-indent: 7px;
-	--widget-padding: 0 0 0 3px;
-	--widget-border-radius: 2px;
-	--checkbox-size: calc(0.75 * var(--widget-height));
+	@include vars(
+		(
+			--background-color: #1f1f1f,
+			--text-color: #ebebeb,
+			--title-background-color: #111111,
+			--widget-color: #424242,
+			--hover-color: #4f4f4f,
+			--focus-color: #595959,
+			--number-color: #2cc9ff,
+			--string-color: #a2db3c,
+			--font-size: 11px,
+			--input-font-size: 11px,
+			--font-family: (
+				-apple-system,
+				BlinkMacSystemFont,
+				'Lucida Grande',
+				'Segoe UI',
+				Roboto,
+				Arial,
+				sans-serif,
+				'Apple Color Emoji',
+				'Segoe UI Emoji',
+				'Segoe UI Symbol',
+			),
+			--font-family-mono: (
+				Menlo,
+				Monaco,
+				Consolas,
+				'Droid Sans Mono',
+				monospace,
+				'Droid Sans Fallback',
+			),
+			--padding: 4px,
+			--spacing: 4px,
+			--widget-height: 20px,
+			--name-width: 45%,
+			--slider-knob-width: 2px,
+			--slider-input-width: 27%,
+			--color-input-width: 27%,
+			--slider-input-min-width: 45px,
+			--color-input-min-width: 45px,
+			--folder-indent: 7px,
+			--widget-padding: 0 0 0 3px,
+			--widget-border-radius: 2px,
+			--checkbox-size: calc(0.75 * var(--widget-height)),
+		)
+	);
 
-	--scrollbar-width: 5px;
-
-	&.autoPlace {
-		max-height: 100%;
-		position: fixed;
-		top: 0;
-		right: 15px;
-		z-index: 1001;
-	}
-
-	@include touch-vars {
+	@include touch-vars { 
 		--widget-height: 24px;
 		--padding: 6px;
 		--spacing: 6px;
@@ -104,4 +126,15 @@
 		--color-input-min-width: 65px;
 	}
 
+	--scrollbar-width: 5px;
+
+	&.autoPlace {
+		max-height: 100%;
+		position: fixed;
+		top: 0;
+		right: 15px;
+		z-index: 1001;
+	}
+
+	
 }
