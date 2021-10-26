@@ -109,14 +109,17 @@
 			background: var(--rule);
 		}
 
-		p+hr {
-			margin-top: 1.5rem;
+		h1 { 
+			font-weight: 700;
 		}
 
-		h1,
-		h2,
-		h3 {
-			font-weight: normal;
+		h2, h3 { 
+			font-weight: 600;
+		}
+
+		h3 { 
+			font-weight: 600;
+			font-size: 1em;
 		}
 
 		h1 code,
@@ -220,7 +223,7 @@
 
 		/* headers */
 
-		#readme-container h1 {
+		#section-readme h1 {
 			margin-top: 1.5rem;
 			border: none;
 			padding-top: 0;
@@ -229,33 +232,27 @@
 		main h1 {
 			border-top: 2px solid var(--rule);
 			margin-top: 2.5rem;
-			padding-top: 1.5rem;
+			padding-top: 2rem;
 			font-size: 2em;
-			font-weight: 700;
 		}
 
-		main h2,
-		main h3 {
+		main h2 { 
 			border-top: 2px solid var(--rule);
-			margin-top: 1.5rem;
+			margin-top: 2rem;
 			padding-top: 1.5rem;
 		}
 
 		main h3 { 
 			border-top: 1px solid var(--rule);
-			margin-top: 1.5rem;
-			padding-top: 1rem;
+			margin-top: 2rem;
+			padding-top: 1.25rem;
 		}
 
-		#guide-container h2 {
-			font-weight: 500;
-		}
 
 		/* border exceptions */
 
 		main .api-index h1,
-		main .api-index h2, 
-		h1 + h2 {
+		main .api-index h2 {
 			padding-top: 0;
 			border: none
 		}
@@ -280,6 +277,8 @@
 			z-index: 1002;
 			font-size: 12px;
 		}
+
+		/* toc */
 
 		#toc h1 {
 			margin-top: 0;
@@ -356,16 +355,20 @@
 			background: var(--pre-background);
 		}
 
-		#example-list li {
+		/* examples */
+
+		#section-examples li:not(:last-child) {
 			margin-bottom: 0.25rem;
 		}
 
-		#guide-container code span.changed {
+		/* guide */
+
+		#section-guide code span.changed {
 			background-color: magenta;
 			transition: none;
 		}
 
-		#guide-container code span {
+		#section-guide code span {
 			background-color: transparent;
 			transition: background-color 0.5s linear;
 		}
@@ -380,8 +383,8 @@
 			background: #c8c9cd;
 			min-height: 150px;
 			position: relative;
+			box-shadow: 0 10px 30px rgba(0 0 0 / 10%);
 			margin-bottom: 2rem;
-			box-shadow: 0 10px 30px rgba(0 0 0 / 20%)
 		}
 
 		.result::before {
@@ -394,6 +397,8 @@
 			font-size: 11px;
 			font-weight: 600;
 		}
+
+		/* demo */
 
 		.autoPlace {
 			will-change: opacity;
@@ -408,6 +413,8 @@
 			opacity: 0;
 			pointer-events: none;
 		}
+
+		/* api */
 
 		main .api-index {
 			columns: 2;
@@ -433,6 +440,12 @@
 			padding-left: 1.5rem;
 			margin-bottom: 0;
 		}
+
+		#section-api h2 { 
+			font-weight: normal;
+		}
+
+		/* small desktop */
 
 		@media (max-width: 958px) {
 
@@ -471,6 +484,8 @@
 			}
 
 		}
+
+		/* mobile */
 
 		@media (max-width: 500px) {
 
@@ -849,7 +864,7 @@
 		/** @param {function(GUI,HTMLElement)} callback */
 		function example( n, callback ) {
 
-			const pre = document.querySelector( `#guide-container > pre:nth-of-type(${n})` );
+			const pre = document.querySelector( `#section-guide > pre:nth-of-type(${n})` );
 			const code = pre.querySelector( 'code' );
 
 			const container = document.createElement( 'div' );
@@ -935,14 +950,14 @@
 
 			<a name=""></a>
 
-			<section id="readme-container">
+			<section id="section-readme">
 				{{{ readme }}}
 			</section>
 
-			<section>
+			<section id="section-examples">
 				<a name="Examples"></a>
 				<h1>Examples</h1>
-				<ul id="example-list">
+				<ul>
 					<li><a href="examples/basic"><strong>Basic Demo</strong></a></li>
 					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - An exhaustive demonstration
 						of features and styles.</li>
@@ -954,17 +969,17 @@
 				</ul>
 			</section>
 
-			<section id="guide-container">
+			<section id="section-guide">
 				<a name="Guide"></a>
 				{{{ guide }}}
 			</section>
 
-			<section>
+			<section id="section-migrating">
 				<a name="Migrating"></a>
 				<h1>Migrating</h1>
 			</section>
 
-			<section>
+			<section id="section-api">
 				<a name="API"></a>
 				{{{ apibody }}}
 			</section>
