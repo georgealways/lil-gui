@@ -35,6 +35,9 @@
 	user-select: none;
 	-webkit-user-select: none;
 
+	// prevent double tap zooming
+	touch-action: manipulation;
+
 	&,
 	& * {
 		box-sizing: border-box;
