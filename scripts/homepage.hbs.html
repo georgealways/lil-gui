@@ -30,7 +30,7 @@
 			--toc-width: 210px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
-			--anchor-offset: -1rem;
+			--header-padding: 1.25rem;
 			--border-radius: 2px;
 		}
 
@@ -53,9 +53,11 @@
 			color: var(--foreground);
 		}
 
-		a[name]:not([href]):empty {
+		h1 a[name],
+		h2 a[name],
+		h3 a[name] {
 			position: absolute;
-			margin-top: var(--anchor-offset);
+			margin-top: calc( -1 * var(--header-padding) );
 		}
 
 		strong {
@@ -110,6 +112,7 @@
 		}
 
 		h1 { 
+			font-size: 2em;
 			font-weight: 700;
 		}
 
@@ -118,43 +121,10 @@
 		}
 
 		h3 { 
-			font-weight: 600;
 			font-size: 1em;
 		}
 
-		h1 code,
-		h2 code,
-		h3 code,
-		h4 code,
-		h5 code,
-		h6 code {
-			line-height: auto;
-		}
-
-		table {
-			border-collapse: collapse;
-		}
-
-		table>thead>tr>th,
-		table>thead>tr>td,
-		table>tbody>tr>th,
-		table>tbody>tr>td {
-			padding: 5px 10px;
-		}
-
-		table>tbody>tr+tr>td {
-			border-top: 1px solid;
-		}
-
-		table>thead>tr>th {
-			text-align: left;
-			border-bottom: 1px solid;
-			border-color: var(--rule);
-		}
-
-		table>tbody>tr+tr>td {
-			border-color: var(--rule);
-		}
+		/* code highlighting */
 
 		.hljs-keyword,
 		.hljs-selector-tag,
@@ -223,40 +193,32 @@
 
 		/* headers */
 
+		main h1,
+		main h2, 
+		main h3 { 
+			border-top: 2px solid var(--rule);
+			padding-top: var(--header-padding);
+		}
+
+		main h1 {
+			margin-top: 2.5rem;
+		}
+
+		main h2 { 
+			margin-top: 2rem;
+		}
+
+		main h3 { 
+			margin-top: 1.5rem;
+		}
+
 		#section-readme h1 {
 			margin-top: 1.5rem;
 			border: none;
 			padding-top: 0;
 		}
 
-		main h1 {
-			font-size: 2em;
-			border-top: 2px solid var(--rule);
-			margin-top: 2.5rem;
-			padding-top: 1.75rem;
-		}
-
-		main h2 { 
-			border-top: 2px solid var(--rule);
-			margin-top: 2rem;
-			padding-top: 1.25rem;
-		}
-
-		main h3 { 
-			border-top: 1px solid var(--rule);
-			margin-top: 1.5rem;
-			padding-top: 1.25rem;
-		}
-
-
-		/* border exceptions */
-
-		main .api-index h1,
-		main .api-index h2 {
-			padding-top: 0;
-			border: none
-		}
-
+		/* toc */
 
 		#toc-container {
 			width: var(--toc-width);
@@ -277,8 +239,6 @@
 			z-index: 1002;
 			font-size: 12px;
 		}
-
-		/* toc */
 
 		#toc h1 {
 			margin-top: 0;
@@ -312,11 +272,14 @@
 			color: var(--foreground);
 		}
 
+		/* active section highlight */
 		#toc h2.active a,
 		#toc li.active,
 		#toc li.active a {
 			color: var(--link);
 		}
+
+		/* toc button */
 
 		#toc-button {
 			position: fixed;
@@ -373,6 +336,8 @@
 			transition: background-color 0.5s linear;
 		}
 
+		/* guide demos */
+
 		.result {
 			display: flex;
 			align-items: flex-start;
@@ -397,8 +362,6 @@
 			font-size: 11px;
 			font-weight: 600;
 		}
-
-		/* demo */
 
 		.autoPlace {
 			will-change: opacity;
@@ -441,8 +404,15 @@
 			margin-bottom: 0;
 		}
 
+		/* member declarations vary weight */
 		#section-api h2 { 
 			font-weight: normal;
+		}
+
+		#section-api h1 + h2 {
+			margin-top: 0;
+			border: none;
+			padding: 0;
 		}
 
 		/* small desktop */
