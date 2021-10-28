@@ -17,7 +17,7 @@ CSS class names are also different:
 
 - `.dg.ac` becomes `.lil-gui.autoPlace`
 
-## Iterating over folders and controllers
+## Iterating Over Controllers and Folders
 
 An instance of dat.gui stores its controllers and folders in two properties: a `__controllers` array 
 and a `__folders` object. lil-gui stores both in a mixed array called `gui.children`. 
@@ -35,7 +35,7 @@ as that property is an object/map instead of an array.
 You may want to store these results of these methods in a variable: both methods iterate over GUI's 
 children with an `instanceof` check per call.
 
-## Color Controllers
+## Color Controller Changes
 
 There's one major difference in the way dat.gui and lil-gui handle color controllers: channel ranges
 for RGB objects and RGB arrays are assumed to be in the range of `[0-255]` in dat.gui and `[0-1]` in
@@ -66,7 +66,7 @@ The other differences in color handling are fairly minor:
 - lil-gui uses the native HTML `input[type=color]` tag instead of a custom color picker.
 - lil-gui doesn't support any HSL color formats.
 
-## Removing Folders & Controllers
+## Removing Controllers and Folders
 
 The two methods for removing a GUI's children have been renamed and moved.
 

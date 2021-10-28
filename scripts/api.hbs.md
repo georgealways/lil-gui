@@ -8,7 +8,7 @@
 
 <div class="class">
 
-## [{{name}} (Class)](#{{{name}}})
+## [**{{name}}** (Class)](#{{{name}}})
 {{#children}}
   - [{{indexname}}](#{{{longname}}})
 {{/children}}

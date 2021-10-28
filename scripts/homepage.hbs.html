@@ -53,12 +53,7 @@
 			color: var(--foreground);
 		}
 
-		h1 a[name],
-		h2 a[name],
-		h3 a[name] {
-			position: absolute;
-			margin-top: calc( -1 * var(--header-padding) );
-		}
+		/* basic markdown */
 
 		strong {
 			font-weight: 600;
@@ -112,8 +107,10 @@
 		}
 
 		h1 { 
-			font-size: 2em;
+			font-size: 2.5em;
 			font-weight: 700;
+			margin-bottom: 1.25rem;
+			line-height: 1.5;
 		}
 
 		h2, h3 { 
@@ -411,6 +408,15 @@
 			border: none;
 			padding: 0;
 		}
+
+		/* pull up nested anchors, which are only a thing because markdown */
+		h1 a[name],
+		h2 a[name],
+		h3 a[name] {
+			position: absolute;
+			margin-top: calc( -1 * var(--header-padding) );
+		}
+
 
 		/* small desktop */
 
@@ -840,7 +846,6 @@
 
 
 			const gui = new GUI( { container } );
-			// gui.$title.style.display = 'none';
 			callback( gui, code );
 
 		}
@@ -923,7 +928,7 @@
 
 			<section id="section-examples">
 				<a name="Examples"></a>
-				<h1>Examples</h1>
+				<h2>Examples</h2>
 				<ul>
 					<li><a href="examples/basic"><strong>Basic Demo</strong></a></li>
 					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - An exhaustive demonstration
