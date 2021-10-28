@@ -10,6 +10,7 @@ const OUTPUT = 'index.html';
 const TEMPLATE = 'scripts/homepage.hbs.html';
 const README = 'README.md';
 const GUIDE = 'Guide.md';
+const MIGRATING = 'Migrating.md';
 const API = 'API.md';
 
 const JSDOC_DEBUG = false;
@@ -64,10 +65,11 @@ const apibody = api.replace( apitoc, '' );
 
 let html = template( {
 	readme: md.render( read( README ) ),
-	apitoc: md.render( apitoc ),
 	guidetoc: md.render( guidetoc ),
-	apibody: md.render( apibody ),
 	guide: md.render( guide ),
+	migrating: md.render( read( MIGRATING ) ),
+	apitoc: md.render( apitoc ),
+	apibody: md.render( apibody ),
 	jsdocDebug,
 	pkg
 } );

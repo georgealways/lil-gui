@@ -1,7 +1,7 @@
 # Migrating
 
 For most projects, moving from dat.gui to lil-gui should be as simple as changing
-the import URL. The API was designed to be as backwards-compatible as possible, but this
+the import URL. The API is designed to be as backwards-compatible as is reasonably possible, but this
 section aims to address any breaking changes.
 
 ## DOM Structure
@@ -19,34 +19,34 @@ CSS class names are also different:
 
 ## Iterating over folders and controllers
 
-An instance of dat.gui stores its controllers and folders in two separate properties: a 
-`__controllers` array and a `__folders` object. lil-gui stores both in a mixed array called 
-`gui.children`. 
+An instance of dat.gui stores its controllers and folders in two properties: a `__controllers` array 
+and a `__folders` object. lil-gui stores both in a mixed array called `gui.children`. 
 
-lil-gui provides two methods to make it easier to iterate over the folders or controllers in a GUI.
+lil-gui provides two methods to make it easier to iterate over the folders or controllers in a GUI:
 
 ```js
-todo getFolders() / getChildren() example
+// todo getFolders/Children() example
 ```
 
 You should be able to replace any appearances of dat.gui's `gui.__controllers` with 
-`gui.getControllers( false )`. You may want to store this in a variable: both methods iterate over 
-the GUI's children with an `instanceof` check on each call.
+`gui.getControllers( false )`. Code that interacts with dat.gui's `__folders` will be different however,
+as that property is an object/map instead of an array.
 
-## Color Controller
+You may want to store these results of these methods in a variable: both methods iterate over GUI's 
+children with an `instanceof` check per call.
 
-There's one major difference in the way dat.gui and lil-gui handle color controllers: Channel ranges
+## Color Controllers
+
+There's one major difference in the way dat.gui and lil-gui handle color controllers: channel ranges
 for RGB objects and RGB arrays are assumed to be in the range of `[0-255]` in dat.gui and `[0-1]` in
 lil-gui. 
 
-In general, this shouldn't have much of an impact, as it's common practice to work use hex values 
+In general, this shouldn't have much of an impact, as it's common practice to use hex values 
 and an `onChange` handler when using dat.gui with a library like three.js that expects RGB `[0-1]`.
 
 ```js
 // common three.js + dat.gui color pattern
-params = { 
-    color: color.getHex()
-};
+params = { color: color.getHex() };
 
 dat_gui.addColor( params, 'color' ).onChange( v => {
     color.setHex( v ) 
@@ -63,13 +63,12 @@ lil_gui.addColor( params, 'color' );
 
 The other differences in color handling are fairly minor: 
 
-- lil-gui uses the native HTML `input[type=color]` tag, whereas dat.gui has a custom color picker.
-- dat.gui accomodates some HSL color formats. lil-gui drops support for HSL.
+- lil-gui uses the native HTML `input[type=color]` tag instead of a custom color picker.
+- lil-gui doesn't support any HSL color formats.
 
-## Removing folders and controllers
+## Removing Folders & Controllers
 
-The two methods for removing a GUI's children have been renamed and moved to the 
-children.
+The two methods for removing a GUI's children have been renamed and moved.
 
 - `gui.remove( controller )` => `controller.destroy()`
 - `gui.removeFolder( folder )` => `folder.destroy()`
@@ -77,6 +76,8 @@ children.
 ## Other Changes
 
 - **Changed:** Folders are open by default.
-- **Removed:** "Presets" and `gui.remember()` are gone in favor of `save/load()`, which also removes mentions of `localStorage`.
+- **Removed:** "Presets" and `gui.remember()` are gone in favor of `save/load()`, which also removes 
+mentions of `localStorage`.
 - **Removed:** `gui.hide/show/hideAll()` and the <key>H</key> to hide hotkey.
-- **Removed:** `onFinishChange`. The method is left as an `onChange` synonym for backwards compatibility.
+- **Removed:** `onFinishChange`. The method is left as an `onChange` synonym for backwards 
+compatibility.
