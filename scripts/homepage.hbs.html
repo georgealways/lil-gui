@@ -106,17 +106,18 @@
 			background: var(--rule);
 		}
 
-		h1 { 
+		h1 {
 			font-size: 2.35em;
 			font-weight: 700;
 			margin-bottom: 1.25rem;
 		}
 
-		h2, h3 { 
+		h2,
+		h3 {
 			font-weight: 600;
 		}
 
-		h3 { 
+		h3 {
 			font-size: 1em;
 		}
 
@@ -179,8 +180,8 @@
 		/* headers */
 
 		main h1,
-		main h2, 
-		main h3 { 
+		main h2,
+		main h3 {
 			border-top: 2px solid var(--rule);
 			padding-top: var(--header-padding);
 		}
@@ -189,11 +190,11 @@
 			margin-top: 2.5rem;
 		}
 
-		main h2 { 
+		main h2 {
 			margin-top: 2rem;
 		}
 
-		main h3 { 
+		main h3 {
 			margin-top: 1.5rem;
 			border-top-width: 1px;
 		}
@@ -387,12 +388,12 @@
 		}
 
 		/* member declarations vary weight */
-		#section-api h2 { 
+		#section-api h2 {
 			font-weight: normal;
 		}
 
 		main .api-index h2,
-		#section-api h1 + h2 {
+		#section-api h1+h2 {
 			margin-top: 0;
 			border: none;
 			padding: 0;
@@ -403,9 +404,8 @@
 		h2 a[name],
 		h3 a[name] {
 			position: absolute;
-			margin-top: calc( -1 * var(--header-padding) );
+			margin-top: calc(-1 * var(--header-padding));
 		}
-
 
 		/* small desktop */
 
@@ -478,6 +478,7 @@
 			}
 
 		}
+
 	</style>
 </head>
 <body>
@@ -616,7 +617,7 @@
 				activeLink.scrollIntoView( { block: 'nearest' } );
 			}
 
-			document.addEventListener( 'scroll', onScroll, { passive: true } ); 
+			document.addEventListener( 'scroll', onScroll, { passive: true } );
 			window.addEventListener( 'resize', debounce( updateAnchorPositions ) );
 
 			requestAnimationFrame( () => {
