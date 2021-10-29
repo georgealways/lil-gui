@@ -101,7 +101,7 @@ export default class Controller {
 	 *
 	 * controller.onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
-	 * 	console.assert(this === controller);
+	 * 	console.assert( this === controller );
 	 * } );
 	 */
 	onChange( callback ) {
@@ -233,8 +233,6 @@ export default class Controller {
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening.
 	 * @param {boolean} listen
 	 * @returns {this}
-	 * @example
-	 * // todoc
 	 */
 	listen( listen = true ) {
 

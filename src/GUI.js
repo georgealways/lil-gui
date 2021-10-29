@@ -251,9 +251,6 @@ export default class GUI {
 
 	/**
 	 * Recalls values that were saved with `gui.save()`.
-	 * @example
-	 * // todoc
-	 *
 	 * @param {object} obj
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {this}
@@ -291,10 +288,22 @@ export default class GUI {
 	}
 
 	/**
-	 * Returns an object mapping controller names to values.
+	 * Returns an object mapping controller names to values. The object can be passed to `gui.load()` to
+	 * recall these values.
 	 * @example
-	 * // todoc
-
+	 * {
+	 * 	controllers: {
+	 * 		prop1: 1,
+	 * 		prop2: 'value',
+	 * 		...
+	 * 	},
+	 * 	folders: {
+	 * 		folderName1: { controllers, folders },
+	 * 		folderName2: { controllers, folders }
+	 * 		...
+	 * 	}
+	 * }
+	 *
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {object}
 	 */
@@ -429,11 +438,16 @@ export default class GUI {
 	}
 
 	/**
-	 * todo
+	 * Pass a function to be called whenever a controller in this GUI changes.
 	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback
 	 * @returns {this}
 	 * @example
-	 * // todo
+	 * gui.onChange( event => {
+	 * 	event.object     // object that was modified
+	 * 	event.property   // string, name of property
+	 * 	event.value      // new value of controller
+	 * 	event.controller // controller that was modified
+	 * } );
 	 */
 	onChange( callback ) {
 		this._onChange = callback;
