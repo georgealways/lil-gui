@@ -314,10 +314,11 @@ which might be better than enlarging the entire panel.
 
 ### CSS Variables and Custom Stylesheets
 
-other css vars, injectStylesheet
+If you want to start a new stylesheet from scratch, the default styles can be left out entirely with 
+the `injectStyles` parameter.
 
 ```js
-//todo
+new GUI( { injectStyles: false } );
 ```
 
 ### Touch Styles
