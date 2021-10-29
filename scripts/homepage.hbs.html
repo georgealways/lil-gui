@@ -133,7 +133,7 @@
 			font-weight: 600;
 
 			border-top: 1px solid var(--rule);
-			padding-top: 1.25rem;
+			padding-top: 1.35rem;
 			margin-bottom: 1rem;
 		}
 
@@ -157,11 +157,12 @@
 			margin-bottom: calc(var(--line-height) * 1.25rem);
 		}
 
-		pre+.result,
-		pre+p,
 		p+p,
 		p+ul,
-		ul+p {
+		ul+p,
+		pre+p,
+		pre+.result,
+		.result+p {
 			margin-top: calc(var(--line-height) * -0.25rem);
 		}
 
