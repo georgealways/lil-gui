@@ -189,9 +189,8 @@
 
 		main {
 			max-width: 700px;
-			padding: 2rem 0;
 		}
-		
+
 		/* headers */
 
 		main h1 {
@@ -214,7 +213,6 @@
 
 		#section-readme h1 {
 			border: none;
-			padding-top: 0;
 		}
 
 		/* hide border when scrolling to anchor */
@@ -339,6 +337,10 @@
 
 		/* examples */
 
+		#section-examples {
+			margin-bottom: 2rem;
+		}
+
 		#section-examples li {
 			margin-bottom: 0.25rem;
 		}
@@ -401,7 +403,7 @@
 			columns: 2;
 			column-rule: 1px solid var(--rule);
 			column-gap: 60px;
-			/* margin-bottom: 2rem; */
+			margin-bottom: 2rem;
 		}
 
 		main .api-index .class {
@@ -415,6 +417,7 @@
 
 		main .api-index ul {
 			padding-left: 1.5rem;
+			margin: 0;
 		}
 
 		/* member declarations vary weight */
@@ -429,8 +432,11 @@
 			padding: 0;
 		}
 
-		#section-api li p { 
+		#section-api li p {
 			margin-bottom: 1rem;
+		}
+		#section-api li:last-child p { 
+			margin: 0;
 		}
 
 		/* small desktop */
@@ -461,7 +467,7 @@
 
 			main {
 				margin: 0 auto;
-				padding: 2rem 1rem;
+				padding: 0 1rem;
 			}
 
 			.autoPlace {
@@ -951,7 +957,7 @@
 
 			<section id="section-examples">
 				<a name="Examples"></a>
-				<h2>Examples</h2>
+				<h1>Examples</h1>
 				<ul>
 					<li><a href="examples/basic"><strong>Basic Demo</strong></a></li>
 					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - An exhaustive demonstration
