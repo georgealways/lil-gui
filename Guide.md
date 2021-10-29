@@ -314,6 +314,17 @@ which might be better than enlarging the entire panel.
 
 ### CSS Variables and Custom Stylesheets
 
+lil-gui exposes a number of CSS variables that allow you to customize colors and dimensions. You can
+see an exhaustive list of these variables in the [Kitchen Sink](https://lil-gui.georgealways.com/examples/kitchen-sink) demo.
+
+```
+.lil-gui { 
+	--background-color: #000;
+	--widget-color: #0af;
+	--padding: 2px;
+}
+```
+
 If you want to start a new stylesheet from scratch, the default styles can be left out entirely with 
 the `injectStyles` parameter.
 

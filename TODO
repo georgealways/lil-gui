@@ -28,7 +28,7 @@ homepage
 	[x] Folders
 	[x] ctrl.onChange
 	[x] gui.onChange
-	[ ] CSS Variables and Custom Stylesheets
+	[x] CSS Variables and Custom Stylesheets
 	[x] Mobile Styles
 
 OTHER

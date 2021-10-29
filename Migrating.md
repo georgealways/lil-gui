@@ -17,7 +17,7 @@ CSS class names are also different:
 
 - `.dg.ac` becomes `.lil-gui.autoPlace`
 
-## Iterating Over Controllers and Folders
+## Iterating Controllers and Folders
 
 An instance of dat.gui stores its controllers and folders in two properties: a `__controllers` array 
 and a `__folders` object. lil-gui stores both in a mixed array called `gui.children`. 
