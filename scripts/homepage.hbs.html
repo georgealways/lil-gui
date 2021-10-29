@@ -811,13 +811,13 @@
 				position: { x: 0, y: 0, z: 0 },
 			}
 
-			gui.add( params, 'scale', 0, 1 ).onChange( replacer( code, /scale:\s*$/ ) );
+			gui.add( params, 'scale', 0, 1 );
 
 			const folder = gui.addFolder( 'Position' );
 
-			folder.add( params.position, 'x' ).onChange( replacer( code, /x:\s*$/ ) );
-			folder.add( params.position, 'y' ).onChange( replacer( code, /y:\s*$/ ) );
-			folder.add( params.position, 'z' ).onChange( replacer( code, /z:\s*$/ ) );
+			folder.add( params.position, 'x' );
+			folder.add( params.position, 'y' );
+			folder.add( params.position, 'z' );
 
 		} );
 
