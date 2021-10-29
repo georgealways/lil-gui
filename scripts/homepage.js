@@ -80,6 +80,11 @@ html = html.replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
 // open non anchor links in a new window
 html = html.replace( /href="(?!#)/g, 'target="_blank" href="' );
 
+// move anchors from inside to before headers
+html = html.replace(/(<h[12]>)(<a name=".*"><\/a>)\s*/g, (...args) => {
+	return `${args[2]}\n${args[1]}`;
+});
+
 fs.writeFileSync( OUTPUT, html );
 
 function read( path ) {

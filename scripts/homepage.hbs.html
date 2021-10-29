@@ -7,6 +7,7 @@
 	<style>
 		* {
 			box-sizing: border-box;
+			margin: 0;
 		}
 
 		:root {
@@ -30,7 +31,6 @@
 			--toc-width: 210px;
 			--toc-button-size: 40px;
 			--toc-button-margin: 1rem;
-			--header-padding: 1.25rem;
 			--border-radius: 2px;
 		}
 
@@ -40,10 +40,10 @@
 			line-height: var(--line-height);
 			font-size: var(--font-size);
 			padding: 0;
-			margin: 0;
 		}
 
 		html {
+			-webkit-font-smoothing: antialiased;
 			-webkit-text-size-adjust: 100%;
 			text-size-adjust: 100%;
 		}
@@ -79,7 +79,6 @@
 			padding: 1rem;
 			overflow: auto;
 			border-radius: var(--border-radius);
-			margin: 1.5rem 0;
 		}
 
 		code {
@@ -108,17 +107,33 @@
 
 		h1 {
 			font-size: 2.35em;
+			line-height: 1;
 			font-weight: 700;
-			margin-bottom: 1.25rem;
 		}
 
-		h2,
-		h3 {
-			font-weight: 600;
+		h2 {
+			font-size: 1.5em;
+			line-height: 1.25;
+			font-weight: 500;
 		}
 
 		h3 {
 			font-size: 1em;
+			line-height: var(--line-height);
+			font-weight: 600;
+		}
+
+		pre,
+		p,
+		ul,
+		.result {
+			margin-bottom: calc(var(--line-height) * 1rem);
+		}
+
+		p+p,
+		p+ul,
+		p+ol {
+			margin-top: calc(var(--line-height) * -0.25rem);
 		}
 
 		/* code highlighting */
@@ -170,39 +185,42 @@
 
 		#container {
 			display: flex;
-			-webkit-font-smoothing: antialiased;
 		}
 
 		main {
 			max-width: 700px;
+			padding: 2rem 0;
 		}
-
+		
 		/* headers */
 
-		main h1,
-		main h2,
-		main h3 {
-			border-top: 2px solid var(--rule);
-			padding-top: var(--header-padding);
-		}
-
 		main h1 {
-			margin-top: 2.5rem;
+			border-top: 2px solid var(--rule);
+			padding-top: 1.75rem;
+			margin-bottom: 1.75rem;
 		}
 
 		main h2 {
-			margin-top: 2rem;
+			border-top: 2px solid var(--rule);
+			padding-top: 1.2em;
+			margin-bottom: 1.2rem;
 		}
 
 		main h3 {
-			margin-top: 1.5rem;
-			border-top-width: 1px;
+			border-top: 1px solid var(--rule);
+			padding-top: 1.2rem;
+			margin-bottom: 1rem;
 		}
 
 		#section-readme h1 {
-			margin-top: 1.5rem;
 			border: none;
 			padding-top: 0;
+		}
+
+		/* hide border when scrolling to anchor */
+		a[name]:empty {
+			position: absolute;
+			margin-top: 4px;
 		}
 
 		/* toc */
@@ -218,8 +236,7 @@
 			overflow: auto;
 			width: var(--toc-width);
 			height: 100%;
-			padding: 1rem;
-			padding-top: 0;
+			padding: 0 1rem;
 			top: 0;
 			background: var(--background);
 			border-right: 1px solid var(--rule);
@@ -227,12 +244,21 @@
 			font-size: 12px;
 		}
 
+		#toc h1,
+		#toc h2,
+		#toc h3 {
+			margin-bottom: 1rem;
+		}
+
 		#toc h1 {
+			font-size: 14px;
+			font-weight: 600;
+			/* spacing lives in h1 so it has 
+			 * padding when scrolled into view */
 			margin-top: 0;
 			padding-top: 1rem;
 		}
 
-		#toc h1,
 		#toc h2 {
 			font-size: 14px;
 			font-weight: 600;
@@ -240,7 +266,13 @@
 
 		#toc h3 {
 			font-size: 12px;
+			font-weight: 400;
 			font-style: italic;
+		}
+
+		#toc ol,
+		#toc ul {
+			margin-bottom: 1rem;
 		}
 
 		#toc ul {
@@ -307,7 +339,7 @@
 
 		/* examples */
 
-		#section-examples li:not(:last-child) {
+		#section-examples li {
 			margin-bottom: 0.25rem;
 		}
 
@@ -336,7 +368,6 @@
 			min-height: 150px;
 			position: relative;
 			box-shadow: 0 10px 30px rgba(0 0 0 / 10%);
-			margin-bottom: 2rem;
 		}
 
 		.result::before {
@@ -370,7 +401,7 @@
 			columns: 2;
 			column-rule: 1px solid var(--rule);
 			column-gap: 60px;
-			margin-bottom: 2rem;
+			/* margin-bottom: 2rem; */
 		}
 
 		main .api-index .class {
@@ -384,7 +415,6 @@
 
 		main .api-index ul {
 			padding-left: 1.5rem;
-			margin-bottom: 0;
 		}
 
 		/* member declarations vary weight */
@@ -392,19 +422,15 @@
 			font-weight: normal;
 		}
 
+		/* kill borders for some headers */
 		main .api-index h2,
-		#section-api h1+h2 {
-			margin-top: 0;
+		#section-api h1+a+h2 {
 			border: none;
 			padding: 0;
 		}
 
-		/* pull up nested anchors, which are only a thing because markdown */
-		h1 a[name],
-		h2 a[name],
-		h3 a[name] {
-			position: absolute;
-			margin-top: calc(-1 * var(--header-padding));
+		#section-api li p { 
+			margin-bottom: 1rem;
 		}
 
 		/* small desktop */
@@ -435,8 +461,7 @@
 
 			main {
 				margin: 0 auto;
-				padding: 1rem;
-				padding-top: var(--padding-top);
+				padding: 2rem 1rem;
 			}
 
 			.autoPlace {
