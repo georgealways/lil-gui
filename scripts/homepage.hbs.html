@@ -105,34 +105,63 @@
 			background: var(--rule);
 		}
 
+		/* headers */
+
 		h1 {
 			font-size: 2.35em;
 			line-height: 1;
 			font-weight: 700;
+
+			border-top: 2px solid var(--rule);
+			padding-top: 2rem;
+			margin-bottom: 1.75rem;
 		}
 
 		h2 {
 			font-size: 1.5em;
-			line-height: 1.25;
+			line-height: 1.35;
 			font-weight: 500;
+
+			border-top: 1px solid var(--rule);
+			padding-top: 1.25rem;
+			margin-bottom: 1.25rem;
 		}
 
 		h3 {
 			font-size: 1em;
 			line-height: var(--line-height);
 			font-weight: 600;
+
+			border-top: 1px solid var(--rule);
+			padding-top: 1.25rem;
+			margin-bottom: 1rem;
 		}
+
+		/* hide header border when scrolling to anchor */
+
+		a[name]:empty {
+			position: absolute;
+			margin-top: 3px;
+		}
+
+		/* vertical spacing */
 
 		pre,
 		p,
-		ul,
-		.result {
+		ul {
 			margin-bottom: calc(var(--line-height) * 1rem);
 		}
 
+		pre,
+		.result {
+			margin-bottom: calc(var(--line-height) * 1.25rem);
+		}
+
+		pre+.result,
+		pre+p,
 		p+p,
 		p+ul,
-		p+ol {
+		ul+p {
 			margin-top: calc(var(--line-height) * -0.25rem);
 		}
 
@@ -191,36 +220,6 @@
 			max-width: 700px;
 		}
 
-		/* headers */
-
-		main h1 {
-			border-top: 2px solid var(--rule);
-			padding-top: 1.75rem;
-			margin-bottom: 1.75rem;
-		}
-
-		main h2 {
-			border-top: 2px solid var(--rule);
-			padding-top: 1.2em;
-			margin-bottom: 1.2rem;
-		}
-
-		main h3 {
-			border-top: 1px solid var(--rule);
-			padding-top: 1.2rem;
-			margin-bottom: 1rem;
-		}
-
-		#section-readme h1 {
-			border: none;
-		}
-
-		/* hide border when scrolling to anchor */
-		a[name]:empty {
-			position: absolute;
-			margin-top: 4px;
-		}
-
 		/* toc */
 
 		#toc-container {
@@ -245,6 +244,8 @@
 		#toc h1,
 		#toc h2,
 		#toc h3 {
+			border: none;
+			padding-top: 0;
 			margin-bottom: 1rem;
 		}
 
@@ -335,13 +336,19 @@
 			background: var(--pre-background);
 		}
 
+		/* readme */
+
+		#section-readme h1 {
+			border: none;
+		}
+
 		/* examples */
 
 		#section-examples {
-			margin-bottom: 2rem;
+			margin: 2.5rem 0;
 		}
 
-		#section-examples li {
+		#section-examples li:not(:last-child) {
 			margin-bottom: 0.25rem;
 		}
 
@@ -435,7 +442,8 @@
 		#section-api li p {
 			margin-bottom: 1rem;
 		}
-		#section-api li:last-child p { 
+
+		#section-api li:last-child p {
 			margin: 0;
 		}
 

@@ -335,8 +335,7 @@ new GUI( { injectStyles: false } );
 ### Touch Styles
 
 Controllers are larger on touch devices to make them easier to use. By default, these styles are 
-applied using a CSS query `@media (pointer: coarse)`. You can disable this behavior with the  
-`touchStyles` parameter.
+applied using a CSS query `@media (pointer: coarse)`. You can disable this behavior with the `touchStyles` parameter.
 
 ```js
 gui = new GUI( { touchStyles: false } );
