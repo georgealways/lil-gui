@@ -94,12 +94,11 @@ export default class Controller {
 	 * Pass a function to be called whenever the value is modified by this controller.
 	 * The function receives the new value as its first parameter. The value of `this` will be the
 	 * controller.
-	 * 
 	 * @param {Function} callback
 	 * @returns {this}
 	 * @example
 	 * const controller = gui.add( object, 'property' );
-	 * 
+	 *
 	 * controller.onChange( v => {
 	 * 	console.log( 'The value is now ' + v );
 	 * 	console.assert(this === controller);
@@ -107,7 +106,7 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * Used to access the function bound to change events. Don't modify this value directly. 
+		 * Used to access the function bound to change events. Don't modify this value directly.
 		 * Use the `controller.onChange( callback )` method instead.
 		 * @type {Function}
 		 */
@@ -167,30 +166,29 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and replaces it with a new option controller. Provided as a more 
-	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.gui. 
-	 * 
-	 * Use caution, as this method will destroy old references to this controller. It will also 
+	 * Destroys this controller and replaces it with a new option controller. Provided as a more
+	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.gui.
+	 *
+	 * Use caution, as this method will destroy old references to this controller. It will also
 	 * change controller order if called out of sequence, moving the option controller to the end of
 	 * the GUI.
-	 * 
 	 * @example
 	 * // safe usage
-	 * 
+	 *
 	 * gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );
 	 * gui.add( object2, 'property' );
-	 * 
+	 *
 	 * // danger
-	 * 
+	 *
 	 * const c = gui.add( object1, 'property' );
 	 * gui.add( object2, 'property' );
-	 * 
+	 *
 	 * c.options( [ 'a', 'b', 'c' ] );
 	 * // controller is now at the end of the GUI even though it was added first
-	 * 
+	 *
 	 * assert( c.parent.children.indexOf( c ) === -1 )
 	 * // c references a controller that no longer exists
-	 * 
+	 *
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */
@@ -241,7 +239,7 @@ export default class Controller {
 	listen( listen = true ) {
 
 		/**
-		 * Used to determine if the controller is currently listening. Don't modify this value 
+		 * Used to determine if the controller is currently listening. Don't modify this value
 		 * directly. Use the `controller.listen( true|false )` method instead.
 		 * @type {boolean}
 		 */

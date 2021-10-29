@@ -28,8 +28,8 @@ test( unit => {
 			assert.strictEqual( controller, controller.max() );
 			assert.strictEqual( controller, controller.min() );
 			assert.strictEqual( controller, controller.name( 'hi' ) );
-			assert.strictEqual( controller, controller.onChange( function () { } ) );
-			assert.strictEqual( controller, controller.onFinishChange( function () { } ) );
+			assert.strictEqual( controller, controller.onChange( function() { } ) );
+			assert.strictEqual( controller, controller.onFinishChange( function() { } ) );
 			assert.strictEqual( controller, controller.reset() );
 			assert.strictEqual( controller, controller.setValue() );
 			assert.strictEqual( controller, controller.step() );
@@ -39,9 +39,9 @@ test( unit => {
 		testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
 
 		testControllerType( gui.add( { x: 0 }, 'x' ), NumberController );
-		testControllerType( gui.add( { x: function () { } }, 'x' ), FunctionController );
+		testControllerType( gui.add( { x: function() { } }, 'x' ), FunctionController );
 		testControllerType( gui.add( { x: '' }, 'x' ), StringController );
-		testControllerType( gui.add( { x: '' }, 'x', ['', 'a'] ), OptionController );
+		testControllerType( gui.add( { x: '' }, 'x', [ '', 'a' ] ), OptionController );
 
 	} );
 
@@ -77,7 +77,7 @@ test( unit => {
 			b: 0.6705882352941176
 		};
 
-		const arr = [obj.r, obj.g, obj.b];
+		const arr = [ obj.r, obj.g, obj.b ];
 		const int = 0x7a26ab;
 		const string = '#7a26ab';
 
@@ -124,11 +124,11 @@ test( unit => {
 		}
 
 		function spy( instance, methodName, spy ) {
-			const method = instance[methodName];
+			const method = instance[ methodName ];
 			if ( typeof method !== 'function' ) {
 				throw Error( `Tried to spy on "${methodName}" but it's not a function: ${method}` );
 			}
-			instance[methodName] = function () {
+			instance[ methodName ] = function() {
 				method.apply( this, arguments );
 				spy.apply( this, arguments );
 			};
@@ -173,7 +173,7 @@ test( unit => {
 
 		function decimals( number ) {
 			const parts = number.toString().split( '.' );
-			return parts.length === 1 ? 0 : parts[1].length;
+			return parts.length === 1 ? 0 : parts[ 1 ].length;
 		}
 
 	} );
@@ -311,11 +311,11 @@ test( unit => {
 		const obj1 = {
 			boolean: false,
 			color1: '#aa00ff',
-			color2: [1 / 3, 2 / 3, 1],
+			color2: [ 1 / 3, 2 / 3, 1 ],
 			color3: { r: 2 / 3, g: 1, b: 1 / 3 },
-			color4: [0, 170, 255],
+			color4: [ 0, 170, 255 ],
 			color5: { r: 10, g: 21, b: 34 },
-			func: function () { },
+			func: function() { },
 			number: 0,
 			options: 'a',
 			string: 'foo'
@@ -339,7 +339,7 @@ test( unit => {
 		const color4Ctrl = gui.addColor( obj1, 'color4', 255 );
 		const color5Ctrl = gui.addColor( obj1, 'color5', 255 );
 		const numberCtrl = gui.add( obj1, 'number' );
-		const optionsCtrl = gui.add( obj1, 'options', ['a', 'b', 'c'] );
+		const optionsCtrl = gui.add( obj1, 'options', [ 'a', 'b', 'c' ] );
 		const stringCtrl = gui.add( obj1, 'string' );
 
 		// and add some more to folders to test recursive
@@ -392,9 +392,9 @@ test( unit => {
 			// assert object types retain reference
 			this.compare = ( state ) => {
 				for ( let key in obj ) {
-					const val = obj[key];
-					const deep = state[key];
-					const shallow = originalShallow[key];
+					const val = obj[ key ];
+					const deep = state[ key ];
+					const shallow = originalShallow[ key ];
 					if ( Object( val ) === val ) {
 						assert.deepStrictEqual( val, deep, 'deep ' + key );
 						assert.strictEqual( val, shallow, 'shallow ' + key );
@@ -402,20 +402,20 @@ test( unit => {
 						assert.strictEqual( val, deep );
 					}
 				}
-			}
+			};
 
 		}
 
 		function deepClone( obj ) {
 			const clone = {};
 			for ( let key in obj ) {
-				const val = obj[key];
+				const val = obj[ key ];
 				if ( Array.isArray( val ) ) {
-					clone[key] = Array.from( val );
+					clone[ key ] = Array.from( val );
 				} else if ( typeof val !== 'function' && Object( val ) === val ) {
-					clone[key] = deepClone( val );
+					clone[ key ] = deepClone( val );
 				} else {
-					clone[key] = val;
+					clone[ key ] = val;
 				}
 			}
 			return clone;
@@ -449,9 +449,9 @@ test( unit => {
 		const f2 = f1.addFolder( 'foo' );
 		f2.add( { foo }, 'foo' );
 
-		assert.doesNotThrow( () => gui.save(), Error, "doesn't throw error if names collide across folders" );
+		assert.doesNotThrow( () => gui.save(), Error, 'doesn\'t throw error if names collide across folders' );
 
-		assert.throws( () => gui.load( {} ), Error, "throws error if load object doesn't have a controllers object" );
+		assert.throws( () => gui.load( {} ), Error, 'throws error if load object doesn\'t have a controllers object' );
 
 	} );
 
@@ -471,19 +471,19 @@ test( unit => {
 
 		function testMethod( method ) {
 
-			handler = tracker.calls( function ( ...args ) {
+			handler = tracker.calls( function( ...args ) {
 				_this = this;
 				_args = args;
 			}, 1 );
 
-			controller[method]( handler );
+			controller[ method ]( handler );
 
 			const value = 9;
 			controller.setValue( value );
 
 			assert.strictEqual( controller._onChange, handler, method + ': sets _onChange' );
 			assert.strictEqual( _this, controller, method + ': this is bound to controller in handler' );
-			assert.deepEqual( _args, [value], method + ': new value is the first and only argument' );
+			assert.deepEqual( _args, [ value ], method + ': new value is the first and only argument' );
 
 			tracker.verify();
 
@@ -516,22 +516,22 @@ test( unit => {
 
 		controller.setValue( value );
 		assert.strictEqual( gui._onChange, handler, 'sets _onChange' );
-		assert.deepStrictEqual( _args, [{
+		assert.deepStrictEqual( _args, [ {
 			object: object1,
 			property: 'x',
 			controller,
 			value
-		}], 'changes trigger change handler' );
+		} ], 'changes trigger change handler' );
 
 		value = 2;
 
 		nested.setValue( value );
-		assert.deepStrictEqual( _args, [{
+		assert.deepStrictEqual( _args, [ {
 			object: object2,
 			property: 'y',
 			controller: nested,
 			value
-		}], 'changes to nested folder trigger parent change handler' );
+		} ], 'changes to nested folder trigger parent change handler' );
 
 	} );
 

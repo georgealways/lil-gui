@@ -3,7 +3,7 @@ import { Controller } from '../../dist/lil-gui.esm.js';
 /**
  * Creates a 2D XY controller for an object with properties { x, y } in the
  * range of 0 to 1. Note that this is a lot of effort for something that could
- * be accomplished with two sliders, but it aims to demonstrate extending the 
+ * be accomplished with two sliders, but it aims to demonstrate extending the
  * GUI with a custom data type.
  */
 export default class XYController extends Controller {
@@ -48,9 +48,9 @@ export default class XYController extends Controller {
 			const rect = svg.getBoundingClientRect();
 			const x = inverseLerp( e.clientX, rect.left, rect.right );
 			const y = inverseLerp( e.clientY, rect.bottom, rect.top );
-			
-			// We can't use this.setValue since this controller is for a non-primitive data type 
-			// (most custom controllers will be: lil-gui takes care of primitive data types). 
+
+			// We can't use this.setValue since this controller is for a non-primitive data type
+			// (most custom controllers will be: lil-gui takes care of primitive data types).
 			// setValue would overwrite the object and destroy references.
 
 			// Instead we'll usually be modifying properties of the target object.
@@ -120,7 +120,7 @@ export default class XYController extends Controller {
 		this.$handle.setAttribute( 'cy', v.y );
 	}
 
-	// We have to override the load method when using an object type. 
+	// We have to override the load method when using an object type.
 	// If we don't, object types will be overwritten on load, destroying references.
 	load( value ) {
 		const v = this.getValue();

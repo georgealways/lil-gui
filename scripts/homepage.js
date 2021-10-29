@@ -17,7 +17,7 @@ const JSDOC_DEBUG = false;
 
 const md = markdownit( {
 	html: true,
-	highlight: function ( code, language ) {
+	highlight: function( code, language ) {
 		if ( language && hljs.getLanguage( language ) ) {
 			return hljs.highlight( code, { language } ).value;
 		}
@@ -37,7 +37,7 @@ const api = read( API );
 let apitoc;
 
 // this regex catches everything after the first heading, up until a certain comment
-api.replace( /^# API([\s\S]*)<!--endtoc-->/m, function ( a, b ) {
+api.replace( /^# API([\s\S]*)<!--endtoc-->/m, function( a, b ) {
 	apitoc = b.replace( /^#/gm, '##' ); // demote headings
 } );
 
@@ -48,7 +48,7 @@ let guidetocIndex = 1;
 const guidePrefix = 'Guide#';
 
 // the regex catches all h2's
-guide = guide.replace( /^## ([\s\S]*?)$/gm, function ( _, heading ) {
+guide = guide.replace( /^## ([\s\S]*?)$/gm, function( _, heading ) {
 
 	// sanitize title for url
 	const slug = heading.replace( /[^a-zA-Z]+/gm, '-' );
@@ -57,7 +57,7 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function ( _, heading ) {
 	guidetocIndex++;
 
 	// inject anchor into guide md
-	return `## <a name="${guidePrefix}${slug}"></a> ${heading}`
+	return `## <a name="${guidePrefix}${slug}"></a> ${heading}`;
 
 } );
 

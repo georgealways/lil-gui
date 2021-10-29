@@ -29,7 +29,7 @@ export default class GUI {
 	 * Adds the GUI to this DOM element. Overrides `autoPlace`.
 	 *
 	 * @param {number} [options.width=245]
-	 * Width of the GUI in pixels, usually set when name labels become too long. Note that you can make 
+	 * Width of the GUI in pixels, usually set when name labels become too long. Note that you can make
 	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`
 	 *
 	 * @param {string} [options.title=Controls]
@@ -38,7 +38,7 @@ export default class GUI {
 	 * @param {boolean} [options.injectStyles=true]
 	 * Injects the default stylesheet into the page if this is the first GUI.
 	 * Pass `false` to use your own stylesheet.
-	 * 
+	 *
 	 * @param {number} [options.touchStyles=true]
 	 * Makes controllers larger on touch devices. Pass `false` to disable touch styles.
 	 *
@@ -166,7 +166,7 @@ export default class GUI {
 	 * gui.add( object, 'property' );
 	 * gui.add( object, 'number', 0, 100, 1 );
 	 * gui.add( object, 'options', [ 1, 2, 3 ] );
-	 * 
+	 *
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
 	 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
@@ -183,7 +183,7 @@ export default class GUI {
 
 		}
 
-		const initialValue = object[property];
+		const initialValue = object[ property ];
 
 		switch ( typeof initialValue ) {
 
@@ -218,14 +218,14 @@ export default class GUI {
 	 * 	rgbColor: { r: 0, g: 0.2, b: 0.4 },
 	 * 	customRange: [ 0, 127, 255 ],
 	 * };
-	 * 
+	 *
 	 * gui.addColor( params, 'cssColor' );
 	 * gui.addColor( params, 'rgbColor' );
 	 * gui.addColor( params, 'customRange', 255 );
-	 * 
+	 *
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
-	 * @param {number} rgbScale Maximum value for a color channel when using an RGB color. You may 
+	 * @param {number} rgbScale Maximum value for a color channel when using an RGB color. You may
 	 * need to set this to 255 if your colors are too dark.
 	 * @returns {Controller}
 	 */
@@ -234,14 +234,14 @@ export default class GUI {
 	}
 
 	/**
-	 * Adds a folder to the GUI, which is just another GUI. This method returns 
+	 * Adds a folder to the GUI, which is just another GUI. This method returns
 	 * the nested GUI so you can add controllers to it.
 	 * @example
 	 * const folder = gui.addFolder( 'Position' );
 	 * folder.add( position, 'x' );
 	 * folder.add( position, 'y' );
 	 * folder.add( position, 'z' );
-	 * 
+	 *
 	 * @param {string} title Name to display in the folder's title bar.
 	 * @returns {GUI}
 	 */
@@ -253,7 +253,7 @@ export default class GUI {
 	 * Recalls values that were saved with `gui.save()`.
 	 * @example
 	 * // todoc
-	 * 
+	 *
 	 * @param {object} obj
 	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
 	 * @returns {this}
@@ -261,7 +261,7 @@ export default class GUI {
 	load( obj, recursive = true ) {
 
 		if ( !( 'controllers' in obj ) ) {
-			throw new Error( 'Invalid load object. Should contain a "controllers" key.' )
+			throw new Error( 'Invalid load object. Should contain a "controllers" key.' );
 		}
 
 		this.getControllers( false ).forEach( c => {
@@ -269,7 +269,7 @@ export default class GUI {
 			if ( c instanceof FunctionController ) return;
 
 			if ( c._name in obj.controllers ) {
-				c.load( obj.controllers[c._name] );
+				c.load( obj.controllers[ c._name ] );
 			}
 
 		} );
@@ -279,7 +279,7 @@ export default class GUI {
 			this.getFolders( false ).forEach( f => {
 
 				if ( f._title in obj.folders ) {
-					f.load( obj.folders[f._title] );
+					f.load( obj.folders[ f._title ] );
 				}
 
 			} );
@@ -313,7 +313,7 @@ export default class GUI {
 				throw new Error( `Cannot save GUI with duplicate property "${c._name}"` );
 			}
 
-			obj.controllers[c._name] = c.save();
+			obj.controllers[ c._name ] = c.save();
 
 		} );
 
@@ -325,7 +325,7 @@ export default class GUI {
 					throw new Error( `Cannot save GUI with duplicate folder "${f._title}"` );
 				}
 
-				obj.folders[f._title] = f.save();
+				obj.folders[ f._title ] = f.save();
 
 			} );
 
@@ -428,10 +428,9 @@ export default class GUI {
 		return this;
 	}
 
-
 	/**
 	 * todo
-	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback 
+	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback
 	 * @returns {this}
 	 * @example
 	 * // todo

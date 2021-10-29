@@ -108,7 +108,6 @@ function transform( v ) {
 
 		v.children = [];
 
-
 	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 
 		v.signature = `${v.memberof.toLowerCase()}.**${v.name}**`;
