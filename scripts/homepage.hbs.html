@@ -576,6 +576,8 @@
 			// todo: this has to happen on resize
 			function updateAnchorPositions() {
 
+				anchorPositions.length = 0;
+
 				tocAnchorLinks.forEach( link => {
 					const name = link.getAttribute( 'href' ).substr( 1 );
 					const anchor = document.querySelector( `a[name="${name}"]` );
@@ -593,7 +595,7 @@
 
 			}
 
-			const onScroll = () => {
+			function onScroll() {
 
 				const scrollTop = getScrollTop() + SCROLL_OFFSET;
 
@@ -607,22 +609,20 @@
 
 			}
 
-			document.addEventListener( 'scroll', onScroll, { passive: false } );
+			function setActive( link ) {
+				if ( activeLink ) activeLink.classList.remove( 'active' );
+				activeLink = link.parentElement;
+				activeLink.classList.add( 'active' );
+				activeLink.scrollIntoView( { block: 'nearest' } );
+			}
+
+			document.addEventListener( 'scroll', onScroll, { passive: true } ); 
+			window.addEventListener( 'resize', debounce( updateAnchorPositions ) );
 
 			requestAnimationFrame( () => {
 				updateAnchorPositions();
 				onScroll();
 			} );
-
-			function setActive( link ) {
-				if ( activeLink ) activeLink.classList.remove( 'active' );
-				activeLink = link.parentElement;
-				activeLink.classList.add( 'active' );
-				activeLink.scrollIntoView( {
-					behavior: 'auto',
-					block: 'nearest'
-				} );
-			}
 
 			function getTop( elem ) {
 				const box = elem.getBoundingClientRect();
@@ -630,14 +630,22 @@
 				return Math.round( top );
 			}
 
-			// should it really be this tough to get the scroll position?
 			function getScrollTop() {
+				// is it really this tough to get the scroll position?
 				const docEl = document.documentElement;
 				const body = document.body;
 				const clientTop = docEl.clientTop || body.clientTop || 0;
 				const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 				return scrollTop - clientTop;
 			}
+
+			function debounce( func, millis ) {
+				let timeout;
+				return () => {
+					clearTimeout( timeout );
+					timeout = setTimeout( func, millis );
+				}
+			};
 
 		}
 
