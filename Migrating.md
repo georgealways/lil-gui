@@ -25,12 +25,16 @@ and a `__folders` object. lil-gui stores both in a mixed array called `gui.child
 lil-gui provides two methods to make it easier to iterate over the folders or controllers in a GUI:
 
 ```js
-// todo getFolders/Children() example
+gui.getControllers().forEach( contoller => { ... } );
+gui.getFolders().forEach( folder => { ... } );
 ```
 
-You should be able to replace any appearances of dat.gui's `gui.__controllers` with 
-`gui.getControllers( false )`. Code that interacts with dat.gui's `__folders` will be different however,
-as that property is an object/map instead of an array.
+By default, either method returns controllers or folders contained by child folders. You can stop
+either method from recursing through descendents by passing `false`.
+
+You can safely replace any reference to dat.gui's `__controllers` with `getControllers( false )`. Code 
+that interacts with dat.gui's `__folders` will be different however, as that property is an object/map 
+instead of an array.
 
 You may want to store these results of these methods in a variable: both methods iterate over GUI's 
 children with an `instanceof` check per call.

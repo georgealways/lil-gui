@@ -1,9 +1,7 @@
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
 
-[ ] per example "toast" / intro: dismissable modal with explanation & back link
-
-[ ] better color picker hover
+[ ] can't enter decimal numbers on ios
 
 [x] use (pointer: coarse) to apply mobile style?
 [x] checkboxes should get the outline on focus
@@ -13,6 +11,7 @@
 [x] folder hover flashes during close transition?
 [x] folder title hover
 [x] lots of adjacent closed folders could use hr's (pixi)
+[x] better color picker hover
 
 [x] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
 	(this seems to be working everywhere save threejs swap. i think it's the iframe? 
@@ -20,11 +19,11 @@
 
 homepage
 
-[ ] MIGRATING
+[x] MIGRATING
 
 [ ] content security policy?
 
-[ ] GUIDE
+[x] GUIDE
 	[x] Folders
 	[x] ctrl.onChange
 	[x] gui.onChange
@@ -32,9 +31,11 @@ homepage
 	[x] Mobile Styles
 
 OTHER
-	[ ] !! update anchor positions on resize
+	[ ] i don't like how some anchors are inside h1/2/3 and some aren't. if they're all above the 
+		header in question i don't need --anchor offset. they only hafta be inside the header for .md
 	[ ] order of properties (not methods) in API is kinda wonky
-	[ ] main api toc columns are ugly
+	[x] main api toc columns are ugly
+	[x] !! update anchor positions on resize
 
 sup i'm back it's 2021
 
