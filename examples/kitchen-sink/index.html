@@ -203,26 +203,67 @@
 
 		make( { title: 'Disable' }, gui => {
 
-			gui.add( { number: 0 }, 'number' ).disable().enable();
-			gui.add( { number: 0 }, 'number' ).disable();
+			gui.add( { Number: 0 }, 'Number' ).disable().enable();
+			gui.add( { Number: 0 }, 'Number' ).disable();
 
-			gui.add( { slider: 0 }, 'slider', 0, 1 ).disable().enable();
-			gui.add( { slider: 0 }, 'slider', 0, 1 ).disable();
+			gui.add( { Slider: 0 }, 'Slider', 0, 1 ).disable().enable();
+			gui.add( { Slider: 0 }, 'Slider', 0, 1 ).disable();
 
-			gui.add( { string: 'foo' }, 'string' ).disable().enable();
-			gui.add( { string: 'foo' }, 'string' ).disable();
+			gui.add( { String: 'foo' }, 'String' ).disable().enable();
+			gui.add( { String: 'foo' }, 'String' ).disable();
 
-			gui.add( { boolean: true }, 'boolean' ).disable().enable();
-			gui.add( { boolean: true }, 'boolean' ).disable();
+			gui.add( { Boolean: true }, 'Boolean' ).disable().enable();
+			gui.add( { Boolean: true }, 'Boolean' ).disable();
 
-			gui.add( { options: 'a' }, 'options', ['a', 'b', 'c'] ).disable().enable();
-			gui.add( { options: 'a' }, 'options', ['a', 'b', 'c'] ).disable();
+			gui.add( { Options: 'a' }, 'Options', ['a', 'b', 'c'] ).disable().enable();
+			gui.add( { Options: 'a' }, 'Options', ['a', 'b', 'c'] ).disable();
 
-			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).disable().enable();
-			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).disable();
+			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).name('Function').disable().enable();
+			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).name('Function').disable();
 
-			gui.addColor( { color: 0xaa00ff }, 'color' ).disable().enable();
-			gui.addColor( { color: 0xaa00ff }, 'color' ).disable();
+			gui.addColor( { Color: 0xaa00ff }, 'Color' ).disable().enable();
+			gui.addColor( { Color: 0xaa00ff }, 'Color' ).disable();
+
+		} );
+
+		make( { title: 'Listen' }, gui => {
+
+			const params = { animate: true };
+
+			gui.add( params, 'animate' )
+
+			function listenTester( name, cycle, ...addArgs ) {
+
+				const obj = {};
+				obj[name] = cycle[cycle.length - 1];
+				gui.add( obj, name, ...addArgs ).listen();
+				let index = 0;
+
+				const loop = () => {
+
+					if ( params.animate ) obj[name] = cycle[index];
+					if ( ++index > cycle.length - 1 ) {
+						index = 0;
+					}
+
+					setTimeout( loop, 1000 );
+
+				};
+
+				loop();
+
+			}
+
+			listenTester( 'Number', [1, 2, 3, 4, 5] );
+			listenTester( 'Slider', [5, 4, 3, 2, 1], 1, 5 );
+
+			listenTester( 'String', ['foo', 'bar', 'baz'] );
+			listenTester( 'Boolean', [true, false] );
+
+			listenTester( 'Options', ['a', 'b', 'c'], ['a', 'b', 'c'] );
+
+			gui.add = gui.addColor; // hehe
+			listenTester( 'Color', [0xaa00ff, 0x00aaff, 0xffaa00] );
 
 		} );
 

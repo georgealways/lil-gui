@@ -257,8 +257,19 @@ export default class Controller {
 	}
 
 	_listenCallback() {
+
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
-		this.updateDisplay();
+		
+		const value = this.getValue();
+
+		// Only update the DOM if the value has changed. Controllers that control non-primitive data
+		// types get updated every frame to avoid the complexity of comparing objects
+		if ( value !== this._listenValuePrev || Object( value ) === value ) {
+			this.updateDisplay();
+		}
+
+		this._listenValuePrev = value;
+
 	}
 
 	/**
