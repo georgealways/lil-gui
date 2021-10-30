@@ -39,7 +39,6 @@
 <body>
 	<div id="container"></div>
 	<script type="module">
-		
 		import GUI from '../../dist/lil-gui.esm.js';
 
 		const myObject = {
@@ -200,6 +199,31 @@
 				g.add( { x: true }, 'x' ).name( `${nested}Boolean` );
 				g.add( { x: function () { } }, 'x' ).name( `${nested}Button` );
 			}
+		} );
+
+		make( { title: 'Disable' }, gui => {
+
+			gui.add( { number: 0 }, 'number' ).disable().enable();
+			gui.add( { number: 0 }, 'number' ).disable();
+
+			gui.add( { slider: 0 }, 'slider', 0, 1 ).disable().enable();
+			gui.add( { slider: 0 }, 'slider', 0, 1 ).disable();
+
+			gui.add( { string: 'foo' }, 'string' ).disable().enable();
+			gui.add( { string: 'foo' }, 'string' ).disable();
+
+			gui.add( { boolean: true }, 'boolean' ).disable().enable();
+			gui.add( { boolean: true }, 'boolean' ).disable();
+
+			gui.add( { options: 'a' }, 'options', ['a', 'b', 'c'] ).disable().enable();
+			gui.add( { options: 'a' }, 'options', ['a', 'b', 'c'] ).disable();
+
+			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).disable().enable();
+			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).disable();
+
+			gui.addColor( { color: 0xaa00ff }, 'color' ).disable().enable();
+			gui.addColor( { color: 0xaa00ff }, 'color' ).disable();
+
 		} );
 
 		make( { title: 'Customization' }, gui => {
