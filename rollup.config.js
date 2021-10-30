@@ -5,6 +5,7 @@ const input = 'src/index.js';
 
 const banner = `/**
  * ${pkg.name}
+ * ${pkg.homepage}
  * @version ${pkg.version}
  * @author ${pkg.author.name}
  * @license ${pkg.license}

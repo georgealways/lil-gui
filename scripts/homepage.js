@@ -32,6 +32,11 @@ console.log( "jsdocDebug", jsdocDebug );
 
 const template = hbs.compile( read( TEMPLATE ) );
 
+let readme = read( README );
+
+// remove homepage link
+readme = readme.replace('[**Homepage**](https://lil-gui.georgealways.com/) • ', '');
+
 // build TOC from API
 const api = read( API );
 let apitoc;
@@ -64,7 +69,7 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function( _, heading ) {
 const apibody = api.replace( apitoc, '' );
 
 let html = template( {
-	readme: md.render( read( README ) ),
+	readme: md.render( readme ),
 	guidetoc: md.render( guidetoc ),
 	guide: md.render( guide ),
 	migrating: md.render( read( MIGRATING ) ),
