@@ -1,8 +1,11 @@
 # Guide
 
 **lil-gui** gives you an interface for changing the properties of any JavaScript object at runtime.
-It's intended as a drop-in replacement for [dat.gui](https://github.com/dataarts/dat.gui), implemented with more modern web standards and
-some new quality of life features.
+It's intended as a drop-in replacement for [dat.gui](https://github.com/dataarts/dat.gui), 
+implemented with more modern web standards and some new quality of life features.
+
+If you've used dat.gui before, the beginning of this guide will be review. The [Migrating](#Migrating) 
+section points out the notable differences between the two libraries.
 
 ## Installation
 
