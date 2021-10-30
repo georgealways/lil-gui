@@ -1,8 +1,9 @@
 three js pr revelations
 
-[ ] listen should only touch the dom if the value changes
-[ ] button enable/disable only changes appearance lol
-[ ] restore .controllers & .folders
+[x] listen should only touch the dom if the value changes
+[x] button enable/disable only changes appearance (not true, page had styles that break through)
+[x] restore .controllers & .folders
+[ ] --title-text-color per langley
 
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
@@ -37,7 +38,7 @@ homepage
 	[x] Mobile Styles
 
 OTHER
-	[ ] i don't like how some anchors are inside h1/2/3 and some aren't. if they're all above the 
+	[x] i don't like how some anchors are inside h1/2/3 and some aren't. if they're all above the 
 		header in question i don't need --anchor offset. they only hafta be inside the header for .md
 	[ ] order of properties (not methods) in API is kinda wonky
 	[x] main api toc columns are ugly
