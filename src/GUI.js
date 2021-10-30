@@ -72,7 +72,19 @@ export default class GUI {
 		 * The list of controllers and folders contained by this GUI.
 		 * @type {Array<GUI|Controller>}
 		 */
-		this.children = [];
+		 this.children = [];
+
+		/**
+		 * The list of controllers contained by this GUI.
+		 * @type {Array<Controller>}
+		 */
+		 this.controllers = [];
+
+		/**
+		 * The list of folders contained by this GUI.
+		 * @type {Array<GUI>}
+		 */
+		 this.folders = [];
 
 		/**
 		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
@@ -124,6 +136,8 @@ export default class GUI {
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
+			this.parent.folders.push( this );
+
 			this.parent.$children.appendChild( this.domElement );
 
 			// Stop the constructor early, everything onward only applies to root GUI's
@@ -261,7 +275,7 @@ export default class GUI {
 			throw new Error( 'Invalid load object. Should contain a "controllers" key.' );
 		}
 
-		this.getControllers( false ).forEach( c => {
+		this.controllers.forEach( c => {
 
 			if ( c instanceof FunctionController ) return;
 
@@ -273,7 +287,7 @@ export default class GUI {
 
 		if ( recursive && obj.folders ) {
 
-			this.getFolders( false ).forEach( f => {
+			this.folders.forEach( f => {
 
 				if ( f._title in obj.folders ) {
 					f.load( obj.folders[ f._title ] );
@@ -314,7 +328,7 @@ export default class GUI {
 			folders: {}
 		};
 
-		this.getControllers( false ).forEach( c => {
+		this.controllers.forEach( c => {
 
 			if ( c instanceof FunctionController ) return;
 
@@ -328,7 +342,7 @@ export default class GUI {
 
 		if ( recursive ) {
 
-			this.getFolders( false ).forEach( f => {
+			this.folders.forEach( f => {
 
 				if ( f._title in obj.folders ) {
 					throw new Error( `Cannot save GUI with duplicate folder "${f._title}"` );
@@ -433,7 +447,8 @@ export default class GUI {
 	 * @returns {this}
 	 */
 	reset( recursive = true ) {
-		this.getControllers( recursive ).forEach( c => c.reset() );
+		const controllers = recursive ? this.controllersRecursive() : this.controllers;
+		controllers.forEach( c => c.reset() );
 		return this;
 	}
 
@@ -477,6 +492,7 @@ export default class GUI {
 
 		if ( this.parent ) {
 			this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+			this.parent.folders.splice( this.parent.folders.indexOf( this ), 1 );
 		}
 
 		if ( this.domElement.parentElement ) {
@@ -492,32 +508,27 @@ export default class GUI {
 	}
 
 	/**
-	 * Returns an array of controllers contained by this GUI.
-	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
+	 * Returns an array of controllers contained by this GUI and its descendents.
 	 * @returns {Controller[]}
 	 */
-	getControllers( recursive = true ) {
-		let controllers = this.children.filter( c => c instanceof Controller );
-		if ( !recursive ) return controllers;
-		this.getFolders( true ).forEach( f => {
-			controllers = controllers.concat( f.getControllers( false ) );
+	controllersRecursive() {
+		let controllers = Array.from( this.controllers );
+		this.folders.forEach( f => {
+			controllers = controllers.concat( f.controllersRecursive() );
 		} );
 		return controllers;
 	}
 
 	/**
-	 * Returns an array of folders contained by this GUI.
-	 * @param {boolean} recursive Pass false to exclude folders descending from this GUI.
+	 * Returns an array of folders contained by this GUI and its descendents.
 	 * @returns {GUI[]}
 	 */
-	getFolders( recursive = true ) {
-		const folders = this.children.filter( c => c instanceof GUI );
-		if ( !recursive ) return folders;
-		let allFolders = Array.from( folders );
-		folders.forEach( f => {
-			allFolders = allFolders.concat( f.getFolders( true ) );
+	foldersRecursive() {
+		let folders = Array.from( this.folders );
+		this.folders.forEach( f => {
+			folders = folders.concat( f.foldersRecursive() );
 		} );
-		return allFolders;
+		return folders;
 	}
 
 }

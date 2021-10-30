@@ -234,7 +234,7 @@ test( unit => {
 
 	} );
 
-	unit( 'getControllers', () => {
+	unit( 'controllers/foldersRecursive', () => {
 
 		const gui = new GUI();
 
@@ -258,48 +258,48 @@ test( unit => {
 
 		const controllersVisited = [];
 		const visit = c => {
-			assert.strictEqual( controllersVisited.indexOf( c ), -1, 'forEachController visits each controller exactly once' );
+			assert.strictEqual( controllersVisited.indexOf( c ), -1, 'visits each controller exactly once' );
 			controllersVisited.push( c );
 		};
 
 		controllersVisited.length = 0;
-		gui.getControllers().forEach( visit );
+		gui.controllersRecursive().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 11, 'recursive defaults to true' );
 
 		controllersVisited.length = 0;
-		gui.getControllers( false ).forEach( visit );
+		gui.controllers.forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3, 'recursive' );
 
 		controllersVisited.length = 0;
-		folder1.getControllers( false ).forEach( visit );
+		folder1.controllers.forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited.length = 0;
-		folder1.getControllers().forEach( visit );
+		folder1.controllersRecursive().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 6 );
 
 		controllersVisited.length = 0;
-		folder2.getControllers( false ).forEach( visit );
+		folder2.controllers.forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited.length = 0;
-		folder2.getControllers().forEach( visit );
+		folder2.controllersRecursive().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited.length = 0;
-		folder3.getControllers( false ).forEach( visit );
+		folder3.controllers.forEach( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
 		controllersVisited.length = 0;
-		folder3.getControllers().forEach( visit );
+		folder3.controllersRecursive().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
 		controllersVisited.length = 0;
-		gui.getFolders().forEach( visit );
+		gui.foldersRecursive().forEach( visit );
 		assert.strictEqual( controllersVisited.length, 3 );
 
 		controllersVisited.length = 0;
-		gui.getFolders( false ).forEach( visit );
+		gui.folders.forEach( visit );
 		assert.strictEqual( controllersVisited.length, 2 );
 
 	} );

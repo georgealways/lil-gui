@@ -73,6 +73,8 @@ export default class Controller {
 		this.domElement.appendChild( this.$widget );
 
 		this.parent.children.push( this );
+		this.parent.controllers.push( this );
+
 		this.parent.$children.appendChild( this.domElement );
 
 		this._listenCallback = this._listenCallback.bind( this );
@@ -330,6 +332,7 @@ export default class Controller {
 	 */
 	destroy() {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
+		this.parent.controllers.splice( this.parent.controllers.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
 	}
 

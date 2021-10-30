@@ -17,28 +17,6 @@ CSS class names are also different:
 
 - `.dg.ac` becomes `.lil-gui.autoPlace`
 
-## Iterating Controllers and Folders
-
-An instance of dat.gui stores its controllers and folders in two properties: a `__controllers` array 
-and a `__folders` object. lil-gui stores both in a mixed array called `gui.children`. 
-
-lil-gui provides two methods to make it easier to iterate over the folders or controllers in a GUI:
-
-```js
-gui.getControllers().forEach( contoller => { ... } );
-gui.getFolders().forEach( folder => { ... } );
-```
-
-By default, either method returns controllers or folders contained by child folders. You can stop
-either method from recursing through descendents by passing `false`.
-
-You can safely replace any reference to dat.gui's `__controllers` with `getControllers( false )`. Code 
-that interacts with dat.gui's `__folders` will be different however, as that property is an object/map 
-instead of an array.
-
-You may want to store these results of these methods in a variable: both methods iterate over GUI's 
-children with an `instanceof` check per call.
-
 ## Color Controller Changes
 
 There's one major difference in the way dat.gui and lil-gui handle color controllers: channel ranges
@@ -70,18 +48,18 @@ The other differences in color handling are fairly minor:
 - lil-gui uses the native HTML `input[type=color]` tag instead of a custom color picker.
 - lil-gui doesn't support any HSL color formats.
 
-## Removing Controllers and Folders
+## Removed
 
-The two methods for removing a GUI's children have been renamed and moved.
-
-- `gui.remove( controller )` => `controller.destroy()`
-- `gui.removeFolder( folder )` => `folder.destroy()`
+- "Presets" and `gui.remember()` are gone in favor of `save/load()`, which also removes 
+mention of `localStorage`.
+- `gui.hide/show/hideAll()` and the <key>H</key> to hide hotkey.
+- `onFinishChange`. The method is left as an `onChange` synonym for backwards 
+compatibility.
 
 ## Other Changes
 
-- **Changed:** Folders are open by default.
-- **Removed:** "Presets" and `gui.remember()` are gone in favor of `save/load()`, which also removes 
-mentions of `localStorage`.
-- **Removed:** `gui.hide/show/hideAll()` and the <key>H</key> to hide hotkey.
-- **Removed:** `onFinishChange`. The method is left as an `onChange` synonym for backwards 
-compatibility.
+- `gui.__children` is now `gui.children`.
+- `gui.__folders` is now `gui.folders` and it's an array, not a map.
+- `gui.remove( controller )` is now `controller.destroy()`
+- `gui.removeFolder( folder )` is now `folder.destroy()`
+- Folders are open by default.
