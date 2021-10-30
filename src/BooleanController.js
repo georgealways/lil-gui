@@ -15,6 +15,8 @@ export default class BooleanController extends Controller {
 			this.setValue( this.$input.checked );
 		} );
 
+		this.$disable = this.$input;
+
 		this.updateDisplay();
 
 	}

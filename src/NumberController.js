@@ -62,6 +62,8 @@ export default class NumberController extends Controller {
 
 		this.$widget.appendChild( this.$input );
 
+		this.$disable = this.$input;
+
 		const onInput = () => {
 
 			const value = parseFloat( this.$input.value );

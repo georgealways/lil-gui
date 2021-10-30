@@ -64,6 +64,8 @@ export default class ColorController extends Controller {
 			this.updateDisplay();
 		} );
 
+		this.$disable = this.$text;
+
 		this.updateDisplay();
 
 	}

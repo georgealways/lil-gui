@@ -63,6 +63,12 @@ export default class Controller {
 		this.$widget = document.createElement( widgetTag );
 		this.$widget.classList.add( 'widget' );
 
+		/**
+		 * The DOM element that receives the disabled attribute when using disable()
+		 * @type {HTMLElement}
+		 */
+		this.$disable = this.$widget;
+
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
 
@@ -144,7 +150,7 @@ export default class Controller {
 	 * controller.enable( false ); // disable
 	 * controller.enable( controller._disabled ); // toggle
 	 */
-	 enable( enabled = true ) {
+	enable( enabled = true ) {
 		return this.disable( !enabled );
 	}
 
@@ -159,18 +165,17 @@ export default class Controller {
 	 */
 	disable( disabled = true ) {
 
+		if ( disabled === this._disabled ) return this;
+
 		this._disabled = disabled;
-		this.domElement.classList.toggle( 'disabled', this._disabled );
 
-		const keyable = this.domElement.querySelectorAll( 'input, button' );
-
-		Array.from( keyable ).forEach( el => {
-			if ( disabled ) {
-				el.setAttribute( 'disabled', 'disabled' );
-			} else {
-				el.removeAttribute( 'disabled' );
-			}
-		} );
+		this.domElement.classList.toggle( 'disabled', disabled );
+		
+		if ( disabled ) {
+			this.$disable.setAttribute( 'disabled', 'disabled' );
+		} else {
+			this.$disable.removeAttribute( 'disabled' );
+		}
 
 		return this;
 
@@ -270,7 +275,7 @@ export default class Controller {
 	_listenCallback() {
 
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
-		
+
 		const value = this.getValue();
 
 		// Only update the DOM if the value has changed. Controllers that control non-primitive data
@@ -288,7 +293,7 @@ export default class Controller {
 	 * @returns {any}
 	 */
 	getValue() {
-		return this.object[ this.property ];
+		return this.object[this.property];
 	}
 
 	/**
@@ -297,7 +302,7 @@ export default class Controller {
 	 * @returns {this}
 	 */
 	setValue( value ) {
-		this.object[ this.property ] = value;
+		this.object[this.property] = value;
 		this._callOnChange();
 		this.updateDisplay();
 		return this;

@@ -61,9 +61,6 @@ class Element extends EventTarget {
 	querySelector() {
 		return new Element();
 	}
-	querySelectorAll() {
-		return [ new Element(), new Element() ]
-	}
 }
 
 function createElement() {
@@ -79,5 +76,3 @@ document.body = new Element();
 document.createElement = createElement;
 
 global.document = document;
-
-

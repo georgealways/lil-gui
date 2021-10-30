@@ -22,6 +22,8 @@ export default class StringController extends Controller {
 
 		this.$widget.appendChild( this.$input );
 
+		this.$disable = this.$input;
+
 		this.updateDisplay();
 
 	}

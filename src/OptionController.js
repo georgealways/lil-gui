@@ -36,6 +36,8 @@ export default class OptionController extends Controller {
 		this.$widget.appendChild( this.$select );
 		this.$widget.appendChild( this.$display );
 
+		this.$disable = this.$select;
+
 		this.updateDisplay();
 
 	}
