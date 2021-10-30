@@ -1,3 +1,9 @@
+three js pr revelations
+
+[ ] listen should only touch the dom if the value changes
+[ ] button enable/disable only changes appearance lol
+[ ] restore .controllers & .folders
+
 [ ] close() should accept a parameter like disable() for symmetry with open()
 [ ] unit test for import/export recursive=false
 
