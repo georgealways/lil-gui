@@ -42,6 +42,7 @@ class Element extends EventTarget {
 	removeChild() {}
 	insertBefore() {}
 	setAttribute() {}
+	removeAttribute() {}
 	getBoundingClientRect() {
 
 		const rect = {
@@ -57,6 +58,12 @@ class Element extends EventTarget {
 		return rect;
 
 	}
+	querySelector() {
+		return new Element();
+	}
+	querySelectorAll() {
+		return [ new Element(), new Element() ]
+	}
 }
 
 function createElement() {
@@ -65,9 +72,12 @@ function createElement() {
 
 global.window = new EventTarget();
 global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
-global.document = {
-	body: createElement(),
-	head: createElement(),
-	createElement: createElement,
-	querySelector: createElement
-};
+
+const document = new Element();
+document.head = new Element();
+document.body = new Element();
+document.createElement = createElement;
+
+global.document = document;
+
+

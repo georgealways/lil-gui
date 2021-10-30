@@ -144,10 +144,8 @@ export default class Controller {
 	 * controller.enable( false ); // disable
 	 * controller.enable( controller._disabled ); // toggle
 	 */
-	enable( enabled = true ) {
-		this._disabled = !enabled;
-		this.domElement.classList.toggle( 'disabled', this._disabled );
-		return this;
+	 enable( enabled = true ) {
+		return this.disable( !enabled );
 	}
 
 	/**
@@ -160,9 +158,22 @@ export default class Controller {
 	 * controller.disable( !controller._disabled ); // toggle
 	 */
 	disable( disabled = true ) {
+
 		this._disabled = disabled;
 		this.domElement.classList.toggle( 'disabled', this._disabled );
+
+		const keyable = this.domElement.querySelectorAll( 'input, button' );
+
+		Array.from( keyable ).forEach( el => {
+			if ( disabled ) {
+				el.setAttribute( 'disabled', 'disabled' );
+			} else {
+				el.removeAttribute( 'disabled' );
+			}
+		} );
+
 		return this;
+
 	}
 
 	/**
