@@ -172,7 +172,7 @@ export default class Controller {
 		this._disabled = disabled;
 
 		this.domElement.classList.toggle( 'disabled', disabled );
-		
+
 		if ( disabled ) {
 			this.$disable.setAttribute( 'disabled', 'disabled' );
 		} else {
@@ -295,7 +295,7 @@ export default class Controller {
 	 * @returns {any}
 	 */
 	getValue() {
-		return this.object[this.property];
+		return this.object[ this.property ];
 	}
 
 	/**
@@ -304,7 +304,7 @@ export default class Controller {
 	 * @returns {this}
 	 */
 	setValue( value ) {
-		this.object[this.property] = value;
+		this.object[ this.property ] = value;
 		this._callOnChange();
 		this.updateDisplay();
 		return this;

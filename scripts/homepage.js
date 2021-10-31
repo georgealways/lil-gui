@@ -35,7 +35,7 @@ const template = hbs.compile( read( TEMPLATE ) );
 let readme = read( README );
 
 // remove homepage link
-readme = readme.replace('[**Homepage**](https://lil-gui.georgealways.com/) • ', '');
+readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) • ', '' );
 
 // build TOC from API
 const api = read( API );
@@ -86,9 +86,9 @@ html = html.replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
 html = html.replace( /href="(?!#)/g, 'target="_blank" href="' );
 
 // move anchors from inside to before headers
-html = html.replace(/(<h[12]>)(<a name=".*"><\/a>)\s*/g, (...args) => {
-	return `${args[2]}\n${args[1]}`;
-});
+html = html.replace( /(<h[12]>)(<a name=".*"><\/a>)\s*/g, ( ...args ) => {
+	return `${args[ 2 ]}\n${args[ 1 ]}`;
+} );
 
 fs.writeFileSync( OUTPUT, html );
 

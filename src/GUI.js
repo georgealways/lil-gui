@@ -72,19 +72,19 @@ export default class GUI {
 		 * The list of controllers and folders contained by this GUI.
 		 * @type {Array<GUI|Controller>}
 		 */
-		 this.children = [];
+		this.children = [];
 
 		/**
 		 * The list of controllers contained by this GUI.
 		 * @type {Array<Controller>}
 		 */
-		 this.controllers = [];
+		this.controllers = [];
 
 		/**
 		 * The list of folders contained by this GUI.
 		 * @type {Array<GUI>}
 		 */
-		 this.folders = [];
+		this.folders = [];
 
 		/**
 		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
@@ -119,7 +119,7 @@ export default class GUI {
 		} );
 
 		// enables :active pseudo class on mobile
-		this.$title.addEventListener( 'touchstart', _ => { } );
+		this.$title.addEventListener( 'touchstart', () => { } );
 
 		/**
 		 * The DOM element that contains children.
