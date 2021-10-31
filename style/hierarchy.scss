@@ -13,12 +13,14 @@
 		cursor: pointer;
 		outline: none;
 
+		// we use an underline to indicate focus, don't underline arrow
+		text-decoration-skip: objects;
+
 		&:before {
 			font-family: 'lil-gui';
 			content: '▾';
 			padding-right: 2px;
-			// transparent doesn't work?
-			text-decoration: 1px var(--background-color) underline;
+			display: inline-block; // so skip: objects works
 		}
 
 		&:active {
@@ -32,7 +34,7 @@
 				opacity: 0.85;
 			}
 			&:focus {
-				text-decoration: 1px underline var(--focus-color);
+				text-decoration: underline var(--focus-color);
 			}
 		}
 	}
