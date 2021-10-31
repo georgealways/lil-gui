@@ -50,6 +50,7 @@
 		flex-direction: column;
 		> .title {
 			background: var(--title-background-color);
+			color: var(--title-text-color);
 		}
 		> .children {
 			overflow: auto;
@@ -73,6 +74,7 @@
 			--background-color: #1f1f1f,
 			--text-color: #ebebeb,
 			--title-background-color: #111111,
+			--title-text-color: #ebebeb,
 			--widget-color: #424242,
 			--hover-color: #4f4f4f,
 			--focus-color: #595959,
