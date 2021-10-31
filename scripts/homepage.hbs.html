@@ -429,15 +429,20 @@
 		}
 
 		/* member declarations vary weight */
+		.api-index h2,
 		#section-api h2 {
 			font-weight: normal;
 		}
 
-		/* kill borders for some headers */
-		main .api-index h2,
-		#section-api h1+a+h2 {
+		.api-index h2 { 
 			border: none;
 			padding: 0;
+		}
+
+		#section-api h1 + a + h2 { 
+			border-top: 0;
+			margin-top: -1.25rem;
+			/* h2 padding-top */
 		}
 
 		#section-api li p {
@@ -515,6 +520,12 @@
 			main .api-index {
 				column-rule: none;
 				column-gap: 0;
+				font-size: 0.95rem;
+			}
+
+			main .api-index ul { 
+				padding-left: 0;
+				list-style: none;
 			}
 
 		}
