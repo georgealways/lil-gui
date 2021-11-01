@@ -4,6 +4,14 @@ For most projects, moving from dat.gui to lil-gui should be as simple as changin
 the import URL. The API is designed to be as backwards-compatible as is reasonably possible, but this
 section aims to address any breaking changes.
 
+## API Changes
+
+- `gui.__children` is now `gui.children`.
+- `gui.__folders` is now `gui.folders` and it's an array, not a map.
+- `gui.remove( controller )` is now `controller.destroy()`
+- `gui.removeFolder( folder )` is now `folder.destroy()`
+- Folders are open by default.
+
 ## DOM Structure
 
 The DOM structure of the GUI has changed, so code that interacts with dat.gui's inner DOM elements 
@@ -55,11 +63,3 @@ mention of `localStorage`.
 - `gui.hide/show/hideAll()` and the <key>H</key> to hide hotkey.
 - `onFinishChange`. The method is left as an `onChange` synonym for backwards 
 compatibility.
-
-## Other Changes
-
-- `gui.__children` is now `gui.children`.
-- `gui.__folders` is now `gui.folders` and it's an array, not a map.
-- `gui.remove( controller )` is now `controller.destroy()`
-- `gui.removeFolder( folder )` is now `folder.destroy()`
-- Folders are open by default.

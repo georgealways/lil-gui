@@ -66,7 +66,7 @@ gui.add( obj, 'myFunction' ); 	// button
 
 ## Numbers and Sliders
 
-Numbers can be constrained to an accepted input range using `min()`, `max()` and `step()`.
+Numbers can be constrained to a range using `min()` and `max()`. You can use `step()` to round values to multiples of a given number.
 
 ```js
 obj = { hasMin: 1, hasMax: 99, hasStep: 50 }
@@ -102,7 +102,7 @@ gui.add( obj, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 
 lil-gui recognizes colors in a number of formats: CSS strings, RGB objects or integer hex values to 
 name a few. You can use `addColor()` to create a color picker for controlling these values. lil-gui
-writes updated color values in the format they were authored.
+uses an RRGGBB format for display, but it always honors the original data type when updating colors.
 
 ```js
 obj = {
