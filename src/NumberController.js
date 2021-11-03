@@ -110,7 +110,9 @@ export default class NumberController extends Controller {
 		let testingForVerticalDrag = false,
 			initClientX,
 			initClientY,
-			prevClientY;
+			prevClientY,
+			initValue,
+			dragDelta;
 
 		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
 		// on the user's intent: Horizontal means highlight, vertical means drag.
@@ -121,6 +123,9 @@ export default class NumberController extends Controller {
 			initClientX = e.clientX;
 			initClientY = prevClientY = e.clientY;
 			testingForVerticalDrag = true;
+
+			initValue = this.getValue();
+			dragDelta = 0;
 
 			window.addEventListener( 'mousemove', onMouseMove );
 			window.addEventListener( 'mouseup', onMouseUp );
@@ -151,7 +156,12 @@ export default class NumberController extends Controller {
 
 				const dy = e.clientY - prevClientY;
 
-				increment( -dy * this._step * this._arrowKeyMultiplier( e ) );
+				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
+
+				this._snapClampSetValue( initValue + dragDelta );
+
+				// effectively clamps drag delta
+				dragDelta = this.getValue() - initValue;
 
 			}
 
