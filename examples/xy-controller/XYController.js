@@ -1,6 +1,10 @@
 import { Controller } from '../../dist/lil-gui.esm.js';
 
 /**
+ * 11/2021: Not crazy about this for a custom controller example. Too complicated.
+ * Tried doing a Vector3 controller with three number inputs to make it simpler,
+ * but that comes with some headaches of its own (examples/vector3-controller)
+ *
  * Creates a 2D XY controller for an object with properties { x, y } in the
  * range of 0 to 1. Note that this is a lot of effort for something that could
  * be accomplished with two sliders, but it aims to demonstrate extending the
