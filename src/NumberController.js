@@ -104,12 +104,22 @@ export default class NumberController extends Controller {
 			}
 		};
 
-		let testingForVerticalDrag = false, prevClientX, prevClientY;
+		// Vertical drag number fields
+		// ---------------------------------------------------------------------
+
+		let testingForVerticalDrag = false,
+			initClientX,
+			initClientY,
+			prevClientY;
+
+		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
+		// on the user's intent: Horizontal means highlight, vertical means drag.
+		const DRAG_THRESH = 3;
 
 		const onMouseDown = e => {
 
-			prevClientX = e.clientX;
-			prevClientY = e.clientY;
+			initClientX = e.clientX;
+			initClientY = prevClientY = e.clientY;
 			testingForVerticalDrag = true;
 
 			window.addEventListener( 'mousemove', onMouseMove );
@@ -119,25 +129,30 @@ export default class NumberController extends Controller {
 
 		const onMouseMove = e => {
 
-			const dx = e.clientX - prevClientX;
-			const dy = e.clientY - prevClientY;
-
-			// Seems like 'mousemove' gets triggered even if delta === 0?
-			if ( dx === dy && dx === 0 ) return;
-
 			if ( testingForVerticalDrag ) {
 
-				if ( Math.abs( dy ) > Math.abs( dx ) ) {
+				const dx = e.clientX - initClientX;
+				const dy = e.clientY - initClientY;
+
+				if ( Math.abs( dy ) > DRAG_THRESH ) {
+
 					e.preventDefault();
 					this.$input.blur();
-					this._setDraggingStyle( true, 'vertical' );
 					testingForVerticalDrag = false;
-				} else {
+					this._setDraggingStyle( true, 'vertical' );
+
+				} else if ( Math.abs( dx ) > DRAG_THRESH ) {
+
 					onMouseUp();
+
 				}
 
 			} else {
+
+				const dy = e.clientY - prevClientY;
+
 				increment( -dy * this._step * this._arrowKeyMultiplier( e ) );
+
 			}
 
 			prevClientY = e.clientY;
@@ -149,6 +164,8 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mousemove', onMouseMove );
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
+
+		// Keep track of focus state
 
 		const onFocus = () => {
 			this._inputFocused = true;
