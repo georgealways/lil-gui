@@ -23,7 +23,7 @@
     "test": "node -r esm scripts/test.js",
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
-    "server": "live-server --watch='$npm_package_main',index.html,examples --no-browser",
+    "server": "browser-sync start -s -f '$npm_package_main' 'index.html' 'examples' --no-open --no-notify --no-ui",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run build && npm test",
     "dev": "npm run build && node -r esm scripts/dev.js"
@@ -33,14 +33,14 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.27.7",
     "concurrently": "^6.3.0",
-    "eslint": "^6.1.0",
-    "eslint-plugin-jsdoc": "^15.9.1",
+    "eslint": "^8.1.0",
+    "eslint-plugin-jsdoc": "^37.0.3",
     "esm": "^3.2.25",
     "handlebars": "^4.3.1",
     "highlight.js": "^10.7.3",
     "jsdoc-api": "^5.0.2",
-    "live-server": "^1.1.0",
     "markdown-it": "^9.1.0",
     "onchange": "^6.0.0",
     "rollup": "^1.17.0",
@@ -49,7 +49,6 @@
     "webfont": "^11.2.26"
   },
   "eslintIgnore": [
-    "dist",
-    "examples/vendor"
+    "dist"
   ]
 }

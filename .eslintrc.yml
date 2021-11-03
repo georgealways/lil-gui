@@ -46,6 +46,7 @@ rules:
   jsdoc/require-param-description: off
   jsdoc/require-returns-description: off
   jsdoc/require-description: warn
+  jsdoc/tag-lines: [ warn, any ]
 overrides:
   - files: [ rollup.config.js, scripts/**/*.js ]
     env:
