@@ -1,14 +1,8 @@
-three js pr revelations
+[ ] i'd like to make it easier to find/view the built source.
 
-[x] listen should only touch the dom if the value changes
-[x] button enable/disable only changes appearance (not true, page had styles that break through)
-[x] restore .controllers & .folders
-[ ] --title-text-color per langley
-
-[ ] close() should accept a parameter like disable() for symmetry with open()
+[ ] can't enter decimal numbers on ios (no . in numpad input)
 [ ] unit test for import/export recursive=false
-
-[ ] can't enter decimal numbers on ios
+[ ] close() should accept a parameter like disable() for symmetry with open() ?
 
 [x] use (pointer: coarse) to apply mobile style?
 [x] checkboxes should get the outline on focus
@@ -23,6 +17,13 @@ three js pr revelations
 [x] try binding a window / document touchmove listener on slider drag to squash mobile scrolling...
 	(this seems to be working everywhere save threejs swap. i think it's the iframe? 
 	still triggers weird safari address bar when sliding even if scroll is prevented)
+
+three js pr revelations
+
+[x] listen should only touch the dom if the value changes
+[x] button enable/disable only changes appearance (not true, page had styles that break through)
+[x] restore .controllers & .folders
+[x] --title-text-color per langley
 
 homepage
 
