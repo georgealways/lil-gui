@@ -1,9 +1,10 @@
 [ ] i'd like to make it easier to find/view the built source.
 
-[x] can't enter decimal numbers on ios (no . in numpad input)
+[ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
 
+[x] can't enter decimal numbers on ios (no . in numpad input)
 [x] use (pointer: coarse) to apply mobile style?
 [x] checkboxes should get the outline on focus
 [x] horizontal mousewheel should work on sliders...
