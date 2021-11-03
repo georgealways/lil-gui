@@ -68,5 +68,13 @@ export default class Vector3Controller extends Controller {
 		vector.z = v.z;
 	}
 
+	// You should also override save() when using an object, otherwise it will return
+	// this.getValue() verbatim. If you're using something like three.js, that will include all of
+	// Vector3's methods, etc. You want this to be serializable.
+	save() {
+		const { x, y, z } = this.getValue();
+		return { x, y, z };
+	}
+
 }
 
