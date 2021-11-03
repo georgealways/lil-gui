@@ -207,10 +207,6 @@ test( unit => {
 		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 arrow key = 1 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
-		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
-		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 alt arrow key also = 1 step' );
-
-		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
 		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', shiftKey: true } );
 		assert.strictEqual( controller.getValue(), 10, 'explicit step: 1 shift arrow key = 10 step' );
 

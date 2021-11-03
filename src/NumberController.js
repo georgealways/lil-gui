@@ -109,6 +109,79 @@ export default class NumberController extends Controller {
 			}
 		};
 
+		// Vertical drag number fields
+		// ---------------------------------------------------------------------
+
+		let testingForVerticalDrag = false,
+			initClientX,
+			initClientY,
+			prevClientY,
+			initValue,
+			dragDelta;
+
+		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
+		// on the user's intent: Horizontal means highlight, vertical means drag.
+		const DRAG_THRESH = 5;
+
+		const onMouseDown = e => {
+
+			initClientX = e.clientX;
+			initClientY = prevClientY = e.clientY;
+			testingForVerticalDrag = true;
+
+			initValue = this.getValue();
+			dragDelta = 0;
+
+			window.addEventListener( 'mousemove', onMouseMove );
+			window.addEventListener( 'mouseup', onMouseUp );
+
+		};
+
+		const onMouseMove = e => {
+
+			if ( testingForVerticalDrag ) {
+
+				const dx = e.clientX - initClientX;
+				const dy = e.clientY - initClientY;
+
+				if ( Math.abs( dy ) > DRAG_THRESH ) {
+
+					e.preventDefault();
+					this.$input.blur();
+					testingForVerticalDrag = false;
+					this._setDraggingStyle( true, 'vertical' );
+
+				} else if ( Math.abs( dx ) > DRAG_THRESH ) {
+
+					onMouseUp();
+
+				}
+
+			} else {
+
+				const dy = e.clientY - prevClientY;
+
+				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
+
+				this._snapClampSetValue( initValue + dragDelta );
+
+				// effectively clamps drag delta
+				dragDelta = this.getValue() - initValue;
+
+			}
+
+			prevClientY = e.clientY;
+
+		};
+
+		const onMouseUp = () => {
+			this._setDraggingStyle( false, 'vertical' );
+			window.removeEventListener( 'mousemove', onMouseMove );
+			window.removeEventListener( 'mouseup', onMouseUp );
+		};
+
+		// Keep track of focus state
+
 		const onFocus = () => {
 			this._inputFocused = true;
 		};
@@ -123,6 +196,7 @@ export default class NumberController extends Controller {
 		this.$input.addEventListener( 'blur', onBlur );
 		this.$input.addEventListener( 'keydown', onKeyDown );
 		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
+		this.$input.addEventListener( 'mousedown', onMouseDown );
 
 	}
 
@@ -162,7 +236,7 @@ export default class NumberController extends Controller {
 
 		const mouseDown = e => {
 			setValueFromX( e.clientX );
-			this._setActiveStyle( true );
+			this._setDraggingStyle( true );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		};
@@ -172,7 +246,7 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this._setActiveStyle( false );
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
@@ -201,7 +275,7 @@ export default class NumberController extends Controller {
 				// Otherwise, we can set the value straight away on touchstart.
 				e.preventDefault();
 				setValueFromX( e.touches[ 0 ].clientX );
-				this._setActiveStyle( true );
+				this._setDraggingStyle( true );
 				testingForScroll = false;
 
 			}
@@ -223,7 +297,7 @@ export default class NumberController extends Controller {
 					// We moved horizontally, set the value and stop checking.
 					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
-					this._setActiveStyle( true );
+					this._setDraggingStyle( true );
 					testingForScroll = false;
 
 				} else {
@@ -244,7 +318,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this._setActiveStyle( false );
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
@@ -271,9 +345,12 @@ export default class NumberController extends Controller {
 
 	}
 
-	_setActiveStyle( active ) {
-		this.$slider.classList.toggle( 'active', active );
-		document.body.classList.toggle( 'lil-gui-slider-active', active );
+	_setDraggingStyle( active, axis = 'horizontal' ) {
+		if ( this.$slider ) {
+			this.$slider.classList.toggle( 'active', active );
+		}
+		document.body.classList.toggle( 'lil-gui-dragging', active );
+		document.body.classList.toggle( `lil-gui-${axis}`, active );
 	}
 
 	_getImplicitStep() {
@@ -324,14 +401,15 @@ export default class NumberController extends Controller {
 
 	_arrowKeyMultiplier( e ) {
 
-		if ( this._stepExplicit ) {
-			return e.shiftKey ? 10 : 1;
-		} else if ( e.shiftKey ) {
-			return 100;
+		let mult = this._stepExplicit ? 1 : 10;
+
+		if ( e.shiftKey ) {
+			mult *= 10;
 		} else if ( e.altKey ) {
-			return 1;
+			mult /= 10;
 		}
-		return 10;
+
+		return mult;
 
 	}
 
