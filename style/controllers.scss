@@ -177,11 +177,15 @@
 }
 
 // Disable hover styles and scroll when dragging sliders
-.lil-gui-slider-active {
+.lil-gui-dragging {
 	.lil-gui {
 		--hover-color: var(--widget-color);
 	}
 	* {
 		cursor: ew-resize !important;
 	}
+}
+
+.lil-gui-dragging.lil-gui-vertical * { 
+	cursor: ns-resize !important;
 }

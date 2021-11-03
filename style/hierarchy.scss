@@ -29,7 +29,7 @@
 		}
 
 		@include can-hover {
-			&:hover {
+			body:not(.lil-gui-dragging) &:hover {
 				background: var(--title-background-color);
 				opacity: 0.85;
 			}

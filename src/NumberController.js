@@ -45,9 +45,7 @@ export default class NumberController extends Controller {
 			this.$fill.style.setProperty( 'width', percent * 100 + '%' );
 		}
 
-		if ( !this._inputFocused ) {
-			this.$input.value = value;
-		}
+		this.$input.value = value;
 
 		return this;
 
@@ -70,7 +68,7 @@ export default class NumberController extends Controller {
 
 			if ( isNaN( value ) ) return;
 
-			this.setValue( this._clamp( value ) );
+			this._snapClampSetValue( value );
 
 		};
 
@@ -82,9 +80,6 @@ export default class NumberController extends Controller {
 			if ( isNaN( value ) ) return;
 
 			this._snapClampSetValue( value + delta );
-
-			// Force the input to updateDisplay when it's focused
-			this.$input.value = this.getValue();
 
 		};
 
@@ -109,6 +104,52 @@ export default class NumberController extends Controller {
 			}
 		};
 
+		let testingForVerticalDrag = false, prevClientX, prevClientY;
+
+		const onMouseDown = e => {
+
+			prevClientX = e.clientX;
+			prevClientY = e.clientY;
+			testingForVerticalDrag = true;
+
+			window.addEventListener( 'mousemove', onMouseMove );
+			window.addEventListener( 'mouseup', onMouseUp );
+
+		};
+
+		const onMouseMove = e => {
+
+			const dx = e.clientX - prevClientX;
+			const dy = e.clientY - prevClientY;
+
+			// Seems like 'mousemove' gets triggered even if delta === 0?
+			if ( dx === dy && dx === 0 ) return;
+
+			if ( testingForVerticalDrag ) {
+
+				if ( Math.abs( dy ) > Math.abs( dx ) ) {
+					e.preventDefault();
+					this.$input.blur();
+					this._setDraggingStyle( true, 'vertical' );
+					testingForVerticalDrag = false;
+				} else {
+					onMouseUp();
+				}
+
+			} else {
+				increment( -dy * this._step * this._arrowKeyMultiplier( e ) );
+			}
+
+			prevClientY = e.clientY;
+
+		};
+
+		const onMouseUp = () => {
+			this._setDraggingStyle( false, 'vertical' );
+			window.removeEventListener( 'mousemove', onMouseMove );
+			window.removeEventListener( 'mouseup', onMouseUp );
+		};
+
 		const onFocus = () => {
 			this._inputFocused = true;
 		};
@@ -123,6 +164,7 @@ export default class NumberController extends Controller {
 		this.$input.addEventListener( 'blur', onBlur );
 		this.$input.addEventListener( 'keydown', onKeyDown );
 		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
+		this.$input.addEventListener( 'mousedown', onMouseDown );
 
 	}
 
@@ -162,7 +204,7 @@ export default class NumberController extends Controller {
 
 		const mouseDown = e => {
 			setValueFromX( e.clientX );
-			this._setActiveStyle( true );
+			this._setDraggingStyle( true );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		};
@@ -172,7 +214,7 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this._setActiveStyle( false );
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
@@ -201,7 +243,7 @@ export default class NumberController extends Controller {
 				// Otherwise, we can set the value straight away on touchstart.
 				e.preventDefault();
 				setValueFromX( e.touches[ 0 ].clientX );
-				this._setActiveStyle( true );
+				this._setDraggingStyle( true );
 				testingForScroll = false;
 
 			}
@@ -223,7 +265,7 @@ export default class NumberController extends Controller {
 					// We moved horizontally, set the value and stop checking.
 					e.preventDefault();
 					setValueFromX( e.touches[ 0 ].clientX );
-					this._setActiveStyle( true );
+					this._setDraggingStyle( true );
 					testingForScroll = false;
 
 				} else {
@@ -244,7 +286,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this._setActiveStyle( false );
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
@@ -271,9 +313,12 @@ export default class NumberController extends Controller {
 
 	}
 
-	_setActiveStyle( active ) {
-		this.$slider.classList.toggle( 'active', active );
-		document.body.classList.toggle( 'lil-gui-slider-active', active );
+	_setDraggingStyle( active, axis = 'horizontal' ) {
+		if ( this.$slider ) {
+			this.$slider.classList.toggle( 'active', active );
+		}
+		document.body.classList.toggle( 'lil-gui-dragging', active );
+		document.body.classList.toggle( `lil-gui-${axis}`, active );
 	}
 
 	_getImplicitStep() {
