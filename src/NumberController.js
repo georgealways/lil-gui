@@ -68,7 +68,7 @@ export default class NumberController extends Controller {
 
 			if ( isNaN( value ) ) return;
 
-			this._snapClampSetValue( value );
+			this.setValue( this._clamp( value ) );
 
 		};
 
