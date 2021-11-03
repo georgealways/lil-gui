@@ -83,6 +83,9 @@ export default class NumberController extends Controller {
 
 			this._snapClampSetValue( value + delta );
 
+			// Force the input to updateDisplay when it's focused
+			this.$input.value = this.getValue();
+
 		};
 
 		const onKeyDown = e => {
