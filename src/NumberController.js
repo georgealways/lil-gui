@@ -116,7 +116,7 @@ export default class NumberController extends Controller {
 
 		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
 		// on the user's intent: Horizontal means highlight, vertical means drag.
-		const DRAG_THRESH = 3;
+		const DRAG_THRESH = 5;
 
 		const onMouseDown = e => {
 
