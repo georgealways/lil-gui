@@ -501,10 +501,6 @@ export default class GUI {
 
 		Array.from( this.children ).forEach( c => c.destroy() );
 
-		if ( this._onResize ) {
-			window.removeEventListener( 'resize', this._onResize );
-		}
-
 	}
 
 	/**
