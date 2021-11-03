@@ -45,7 +45,9 @@ export default class NumberController extends Controller {
 			this.$fill.style.setProperty( 'width', percent * 100 + '%' );
 		}
 
-		this.$input.value = value;
+		if ( !this._inputFocused ) {
+			this.$input.value = value;
+		}
 
 		return this;
 
