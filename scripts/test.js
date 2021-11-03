@@ -200,7 +200,6 @@ test( unit => {
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
 		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
-		console.log( controller.getValue() );
 		assert.strictEqual( controller.getValue(), 0.001, 'implicit step: 1000 alt arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
