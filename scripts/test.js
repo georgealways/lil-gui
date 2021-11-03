@@ -200,15 +200,12 @@ test( unit => {
 
 		controller = gui.add( { x: 0 }, 'x', 0, 1 );
 		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
+		console.log( controller.getValue() );
 		assert.strictEqual( controller.getValue(), 0.001, 'implicit step: 1000 alt arrow keys = full range' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
 		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp' } );
 		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 arrow key = 1 step' );
-
-		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
-		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', altKey: true } );
-		assert.strictEqual( controller.getValue(), 1, 'explicit step: 1 alt arrow key also = 1 step' );
 
 		controller = gui.add( { x: 0 }, 'x' ).step( 1 );
 		controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', shiftKey: true } );

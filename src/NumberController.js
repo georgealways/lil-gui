@@ -386,14 +386,15 @@ export default class NumberController extends Controller {
 
 	_arrowKeyMultiplier( e ) {
 
-		if ( this._stepExplicit ) {
-			return e.shiftKey ? 10 : 1;
-		} else if ( e.shiftKey ) {
-			return 100;
+		let mult = this._stepExplicit ? 1 : 10;
+
+		if ( e.shiftKey ) {
+			mult *= 10;
 		} else if ( e.altKey ) {
-			return 1;
+			mult /= 10;
 		}
-		return 10;
+
+		return mult;
 
 	}
 
