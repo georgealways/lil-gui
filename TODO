@@ -1,6 +1,6 @@
 [ ] i'd like to make it easier to find/view the built source.
 
-[ ] can't enter decimal numbers on ios (no . in numpad input)
+[x] can't enter decimal numbers on ios (no . in numpad input)
 [ ] unit test for import/export recursive=false
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
 
