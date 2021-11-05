@@ -163,10 +163,14 @@ export default class NumberController extends Controller {
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				this._snapClampSetValue( initValue + dragDelta );
+				// clamp drag delta
+				if ( initValue + dragDelta > this._max ) {
+					dragDelta = this._max - initValue;
+				} else if ( initValue + dragDelta < this._min ) {
+					dragDelta = this._min - initValue;
+				}
 
-				// effectively clamps drag delta
-				dragDelta = this.getValue() - initValue;
+				this._snapClampSetValue( initValue + dragDelta );
 
 			}
 
