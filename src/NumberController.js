@@ -163,7 +163,8 @@ export default class NumberController extends Controller {
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				// clamp drag delta
+				// clamp drag delta so you don't have dead space if dragging past bounds
+				// we're okay with the fact that bounds can be undefined here
 				if ( initValue + dragDelta > this._max ) {
 					dragDelta = this._max - initValue;
 				} else if ( initValue + dragDelta < this._min ) {
