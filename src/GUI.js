@@ -133,6 +133,10 @@ export default class GUI {
 
 		this.title( title );
 
+		if ( touchStyles ) {
+			this.domElement.classList.add( 'allow-touch-styles' );
+		}
+
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
@@ -162,10 +166,6 @@ export default class GUI {
 			this.domElement.classList.add( 'autoPlace' );
 			document.body.appendChild( this.domElement );
 
-		}
-
-		if ( touchStyles ) {
-			this.domElement.classList.add( 'allow-touch-styles' );
 		}
 
 		if ( width ) {
