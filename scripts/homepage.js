@@ -2,6 +2,7 @@ import fs from 'fs';
 import markdownit from 'markdown-it';
 import hljs from 'highlight.js';
 import hbs from 'handlebars';
+import { execSync } from 'child_process';
 
 import pkg from '../package.json';
 import jsdocData from './api';
@@ -69,6 +70,18 @@ window.jsdocDebug = ${JSON.stringify( jsdocData )};
 console.log( "jsdocDebug", jsdocDebug );
 </script>` : '';
 
+// built file size
+// -----------------------------------------------------------------------------
+
+const cmdToKB = cmd => {
+	const bytes = parseInt( execSync( cmd ).toString() );
+	return ( bytes / 1000 ).toFixed( 2 );
+};
+
+const build = pkg.main.replace( '.js', '.min.js' );
+const size = cmdToKB( `cat ${build} | wc -c` );
+const gzipSize = cmdToKB( `gzip -c ${build} | wc -c` );
+
 // render
 // -----------------------------------------------------------------------------
 
@@ -91,6 +104,8 @@ let html = template( {
 	migrating: md.render( read( MIGRATING ) ),
 	apitoc: md.render( apitoc ),
 	apibody: md.render( apibody ),
+	size,
+	gzipSize,
 	jsdocDebug,
 	pkg
 } );
