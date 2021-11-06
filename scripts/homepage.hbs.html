@@ -346,7 +346,7 @@
 		/* examples */
 
 		#section-examples {
-			margin: 2.5rem 0;
+			margin: 2rem 0 2.5rem;
 		}
 
 		#section-examples li:not(:last-child) {
@@ -968,8 +968,9 @@
 			<section id="section-readme">
 				{{{ readme }}}
 
-				<a href="https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.js">Built source</a> • 
-				<a href="https://cdn.jsdelivr.net/npm/lil-gui/dist/lil-gui.esm.min.js">Minified</a> ({{ size }}KB / {{ gzipSize }}KB gzip)
+				<a href="{{ builds.module }}">Built source</a> • 
+				<a href="{{ builds.moduleMin }}">Minified</a> = <strong>{{ sizeMin }}kb</strong>, {{ sizeGzip }}kb gzipped.
+				
 			</section>
 
 			<section id="section-examples">

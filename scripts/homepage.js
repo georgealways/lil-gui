@@ -70,17 +70,21 @@ window.jsdocDebug = ${JSON.stringify( jsdocData )};
 console.log( "jsdocDebug", jsdocDebug );
 </script>` : '';
 
-// built file size
+// build info
 // -----------------------------------------------------------------------------
+
+const builds = {
+	module: pkg.module,
+	moduleMin: pkg.module.replace( '.js', '.min.js' )
+};
 
 const cmdToKB = cmd => {
 	const bytes = parseInt( execSync( cmd ).toString() );
-	return ( bytes / 1000 ).toFixed( 2 );
+	return ( bytes / 1000 ).toFixed( 1 );
 };
 
-const build = pkg.main.replace( '.js', '.min.js' );
-const size = cmdToKB( `cat ${build} | wc -c` );
-const gzipSize = cmdToKB( `gzip -c ${build} | wc -c` );
+const sizeMin = cmdToKB( `cat ${builds.moduleMin} | wc -c` );
+const sizeGzip = cmdToKB( `gzip -c ${builds.moduleMin} | wc -c` );
 
 // render
 // -----------------------------------------------------------------------------
@@ -104,8 +108,9 @@ let html = template( {
 	migrating: md.render( read( MIGRATING ) ),
 	apitoc: md.render( apitoc ),
 	apibody: md.render( apibody ),
-	size,
-	gzipSize,
+	builds,
+	sizeMin,
+	sizeGzip,
 	jsdocDebug,
 	pkg
 } );
