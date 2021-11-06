@@ -22,7 +22,7 @@ console.time( 'homepage' );
 let readme = read( README );
 
 // remove homepage link
-readme = readme.replace( `[**Homepage**](${pkg.homepage}) • `, '' );
+readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) • ', '' );
 
 // API.md
 // -----------------------------------------------------------------------------
