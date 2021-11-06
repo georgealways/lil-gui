@@ -1,4 +1,7 @@
 [ ] i'd like to make it easier to find/view the built source.
+	[ ] @VERSION swapout for guide in cdn example
+	[ ] include version-dev (0.11.0-dev) in build comment if not on master
+	[ ] disable hotlinking to dist via .htaccess
 
 [ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
