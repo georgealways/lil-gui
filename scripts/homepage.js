@@ -24,17 +24,8 @@ let readme = read( README );
 // remove homepage link
 readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) • ', '' );
 
-// API.md
+// Guide.md
 // -----------------------------------------------------------------------------
-
-// build TOC from API
-const api = read( API );
-let apitoc;
-
-// this regex catches everything after the first heading, up until a certain comment
-api.replace( /^# API([\s\S]*)<!--endtoc-->/m, function( a, b ) {
-	apitoc = b.replace( /^#/gm, '##' ); // demote headings
-} );
 
 // build TOC from guide & insert anchors beside guide headers
 let guide = read( GUIDE );
@@ -54,6 +45,21 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function( _, heading ) {
 	// inject anchor into guide md
 	return `## <a name="${guidePrefix}${slug}"></a> ${heading}`;
 
+} );
+
+// include version in CDN examples, bad form to use bare/latest
+guide = guide.replace( /@VERSION/g, '@' + pkg.version );
+
+// API.md
+// -----------------------------------------------------------------------------
+
+// build TOC from API
+const api = read( API );
+let apitoc;
+
+// this regex catches everything after the first heading, up until a certain comment
+api.replace( /^# API([\s\S]*)<!--endtoc-->/m, function( a, b ) {
+	apitoc = b.replace( /^#/gm, '##' ); // demote headings
 } );
 
 const apibody = api.replace( apitoc, '' );
