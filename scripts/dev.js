@@ -12,6 +12,7 @@ dev( {
 	'homepage': {
 		onchange: [
 			'scripts/homepage*',
+			'package.json',
 			'*.md'
 		],
 		color: 'white'
