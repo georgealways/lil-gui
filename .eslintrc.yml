@@ -58,6 +58,6 @@ overrides:
       no-console: off
       max-len: off
       jsdoc/require-description: off
-  - files: [ scripts/test* ]
+  - files: [ scripts/test.js ]
     rules:
       no-console: warn
