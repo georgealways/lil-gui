@@ -13,29 +13,18 @@ const GUIDE = 'Guide.md';
 const MIGRATING = 'Migrating.md';
 const API = 'API.md';
 
-const JSDOC_DEBUG = false;
+console.time( 'homepage' );
 
-const md = markdownit( {
-	html: true,
-	highlight: function( code, language ) {
-		if ( language && hljs.getLanguage( language ) ) {
-			return hljs.highlight( code, { language } ).value;
-		}
-		return '';
-	}
-} );
-
-const jsdocDebug = JSDOC_DEBUG ? `<script type="text/javascript">
-window.jsdocDebug = ${JSON.stringify( jsdocData )};
-console.log( "jsdocDebug", jsdocDebug );
-</script>` : '';
-
-const template = hbs.compile( read( TEMPLATE ) );
+// README.md
+// -----------------------------------------------------------------------------
 
 let readme = read( README );
 
 // remove homepage link
-readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) • ', '' );
+readme = readme.replace( `[**Homepage**](${pkg.homepage}) • `, '' );
+
+// API.md
+// -----------------------------------------------------------------------------
 
 // build TOC from API
 const api = read( API );
@@ -68,6 +57,33 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function( _, heading ) {
 
 const apibody = api.replace( apitoc, '' );
 
+// api.js debug helper
+// -----------------------------------------------------------------------------
+
+// console.logs the jsdocData object on the generated html file
+// so you can inspect it in dev tools
+const JSDOC_DEBUG = false;
+
+const jsdocDebug = JSDOC_DEBUG ? `<script type="text/javascript">
+window.jsdocDebug = ${JSON.stringify( jsdocData )};
+console.log( "jsdocDebug", jsdocDebug );
+</script>` : '';
+
+// render
+// -----------------------------------------------------------------------------
+
+const template = hbs.compile( read( TEMPLATE ) );
+
+const md = markdownit( {
+	html: true,
+	highlight: function( code, language ) {
+		if ( language && hljs.getLanguage( language ) ) {
+			return hljs.highlight( code, { language } ).value;
+		}
+		return '';
+	}
+} );
+
 let html = template( {
 	readme: md.render( readme ),
 	guidetoc: md.render( guidetoc ),
@@ -78,6 +94,9 @@ let html = template( {
 	jsdocDebug,
 	pkg
 } );
+
+// html final processing
+// -----------------------------------------------------------------------------
 
 // makes hardcoded links in readme relative on real site
 html = html.replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
@@ -96,3 +115,4 @@ function read( path ) {
 	return fs.readFileSync( path ).toString();
 }
 
+console.timeEnd( 'homepage' );
