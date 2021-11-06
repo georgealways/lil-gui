@@ -18,7 +18,7 @@
 
 		&:before {
 			font-family: 'lil-gui';
-			content: '▾';
+			content: '▾' / ''; // prevents screen readers from narrating arrow
 			padding-right: 2px;
 			display: inline-block; // so skip: objects works
 		}
@@ -45,7 +45,7 @@
 
 	&.closed {
 		> .title:before {
-			content: '▸';
+			content: '▸' / '';
 		}
 		> .children {
 			transform: translateY(-7px);

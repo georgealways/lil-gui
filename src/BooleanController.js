@@ -8,6 +8,7 @@ export default class BooleanController extends Controller {
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'checkbox' );
+		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$widget.appendChild( this.$input );
 
