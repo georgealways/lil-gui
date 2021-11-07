@@ -1,11 +1,14 @@
-[x] i'd like to make it easier to find/view the built source.
-	[x] @VERSION swapout for guide in cdn example
-	[ ] include version-dev (0.11.0-dev) in build comment if not on master
-	[x] disable hotlinking to dist via .htaccess
-
 [ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
+[ ] unit test for number box vertical drag
+
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
+[ ] show()/hide(), ._hidden, hideKey: 'h'
+
+[x] i'd like to make it easier to find/view the built source.
+	[x] @VERSION swapout for guide in cdn example
+	[x] include version-dev (0.11.0-dev) in build comment if not on master
+	[x] disable hotlinking to dist via .htaccess
 
 [x] can't enter decimal numbers on ios (no . in numpad input)
 [x] use (pointer: coarse) to apply mobile style?
@@ -95,26 +98,26 @@ sup i'm back it's 2021
 
 stale todos from 2019
 
-[ ] i don't want to see that inline --max-height style until i've dragged
+[x] i don't want to see that inline --max-height style until i've dragged
 
-[ ] right click to reset sliders
-[ ] vertical drag on number fields
-[ ] limit break
+[ ] right click to reset sliders?
+[x] vertical drag on number fields
+[ ] limit break?
 
-title drag
+[-] title drag
 	[ ] mouse (this conflicts with open)
 	[ ] prevent default for touch (this still conflicts with scroll)
 	[ ] constraints
 
-docs
+[x] docs
 	[x] -> this type chainable comeback
 	[n] transform ugly longnames
 	[x] logical, not alphabetical order...
 	hardstuff
-		[ ] GUIOptions
-		[ ] gui.add
-		[ ] step
-		[ ] export/import
+		[x] GUIOptions
+		[x] gui.add
+		[x] step
+		[x] export/import
 
 tests
 
