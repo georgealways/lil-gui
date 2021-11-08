@@ -157,7 +157,10 @@ export default class NumberController extends Controller {
 
 				}
 
-			} else {
+			}
+
+			// this isn't an else, the first move counts towards dragDelta
+			if ( !testingForVerticalDrag ) {
 
 				const dy = e.clientY - prevClientY;
 
