@@ -36,16 +36,13 @@ export default class ColorController extends Controller {
 			this._setValueFromHexString( this.$input.value );
 		};
 
-		this.$input.addEventListener( 'change', onInputChange );
 		this.$input.addEventListener( 'input', onInputChange );
 
 		this.$input.addEventListener( 'focus', () => {
-			this.$display.classList.add( 'focus' );
 			this._changed = false;
 		} );
 
 		this.$input.addEventListener( 'blur', () => {
-			this.$display.classList.remove( 'focus' );
 			this._callOnFinishChange();
 		} );
 
