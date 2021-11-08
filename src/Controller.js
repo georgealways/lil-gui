@@ -127,11 +127,39 @@ export default class Controller {
 		if ( this._onChange !== undefined ) {
 			this._onChange.call( this, this.getValue() );
 		}
+
+		/**
+		 * Used to determine whether to call onFinishChange when this controller's
+		 * widgets lose focus. Should be set to `false` by Controllers when they gain focus.
+		 * @protected
+		 */
+		this._changed = true;
 	}
 
-	// Provided for compatability
+	/**
+	 * Pass a function to be called whenever todo
+	 * @param {Function} callback
+	 * @returns {this}
+	 */
 	onFinishChange( callback ) {
-		return this.onChange( callback );
+		/**
+		 * Used to access the function bound to change events. Don't modify this value directly.
+		 * Use the `controller.onFinishChange( callback )` method instead.
+		 * @type {Function}
+		 */
+		this._onFinishChange = callback;
+		return this;
+	}
+
+	/**
+	 * Should be called by Controller when its widgets lose focus.
+	 * @protected
+	 */
+	_callOnFinishChange() {
+		if ( this._changed && this._onFinishChange !== undefined ) {
+			this._onFinishChange.call( this, this.getValue() );
+		}
+		this._changed = false;
 	}
 
 	/**

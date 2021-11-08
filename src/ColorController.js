@@ -41,10 +41,12 @@ export default class ColorController extends Controller {
 
 		this.$input.addEventListener( 'focus', () => {
 			this.$display.classList.add( 'focus' );
+			this._changed = false;
 		} );
 
 		this.$input.addEventListener( 'blur', () => {
 			this.$display.classList.remove( 'focus' );
+			this._callOnFinishChange();
 		} );
 
 		this.$text.addEventListener( 'input', () => {
@@ -57,11 +59,13 @@ export default class ColorController extends Controller {
 		this.$text.addEventListener( 'focus', () => {
 			this._textFocused = true;
 			this.$text.select();
+			this._changed = false;
 		} );
 
 		this.$text.addEventListener( 'blur', () => {
 			this._textFocused = false;
 			this.updateDisplay();
+			this._callOnFinishChange();
 		} );
 
 		this.$disable = this.$text;
