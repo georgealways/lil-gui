@@ -11,7 +11,7 @@
 
 28.12kb, 8.17kb gzipped
 
-- Added `controllers` and `folders` aray to `GUI`.
+- Added `controllers` and `folders` array to `GUI`.
 - Added `controllersRecursive` and `controllersRecursive` methods to `GUI`.
 - Fixed a bug that allowed disabled controllers to be focused via keyboard.
 - Fixed a bug that caused controllers to lose interactivity after calling `listen()`.
