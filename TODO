@@ -1,3 +1,4 @@
+[ ] gui.add/addColor failure message could be better
 [ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
 [ ] unit test for number box vertical drag
