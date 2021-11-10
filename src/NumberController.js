@@ -347,9 +347,10 @@ export default class NumberController extends Controller {
 
 		// There's no way to tell when the user is "done" with a mousewheel.
 		// We get around this in the number field by waiting for blur. The slider has no focus,
-		// so we have to use a debounce function to call onFinishChange.
+		// so we use a debounced function to call onFinishChange.
 
-		const WHEEL_DEBOUNCE = 400; // ms to wait after last wheel event to call onFinishChange
+		const WHEEL_DEBOUNCE = 400; // ms to wait after last wheel event before calling onFinishChange
+		const callOnFinishChange = this._callOnFinishChange.bind( this );
 		let wheelFinishChangeTimeout;
 
 		const onWheel = e => {
@@ -365,9 +366,7 @@ export default class NumberController extends Controller {
 
 			// debounce onFinishChange
 			clearTimeout( wheelFinishChangeTimeout );
-			wheelFinishChangeTimeout = setTimeout( () => {
-				this._callOnFinishChange();
-			}, WHEEL_DEBOUNCE );
+			wheelFinishChangeTimeout = setTimeout( callOnFinishChange, WHEEL_DEBOUNCE );
 
 		};
 
