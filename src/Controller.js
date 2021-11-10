@@ -122,6 +122,10 @@ export default class Controller {
 		return this;
 	}
 
+	/**
+	 * Calls the onChange methods of this controller and its parent GUI.
+	 * @protected
+	 */
 	_callOnChange() {
 
 		this.parent._callOnChange( this );
