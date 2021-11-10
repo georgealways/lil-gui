@@ -1,5 +1,7 @@
 import Controller from './Controller';
 
+import debounce from './utils/debounce';
+
 export default class NumberController extends Controller {
 
 	constructor( parent, object, property, min, max, step ) {
@@ -344,6 +346,11 @@ export default class NumberController extends Controller {
 		// Bind wheel listeners
 		// ---------------------------------------------------------------------
 
+		// There's no way to tell when the user is "done" with a mousewheel.
+		// We get around this in the number field by waiting for blur. The slider has no focus,
+		// so we have to use a debounce function to call onFinishChange.
+		const debounceFinishChange = debounce( this._callOnFinishChange.bind( this ), 400 );
+
 		const onWheel = e => {
 
 			// ignore vertical wheels if there's a scrollbar
@@ -355,7 +362,7 @@ export default class NumberController extends Controller {
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
-			// not yet sure how onFinishChange works with mousewheel
+			debounceFinishChange();
 
 		};
 
