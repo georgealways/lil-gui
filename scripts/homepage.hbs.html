@@ -447,6 +447,15 @@
 			margin: 0;
 		}
 
+		@media (max-width: 1200px) {
+
+			.autoPlace {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+		}
+
 		/* small desktop */
 
 		@media (max-width: 958px) {
@@ -476,12 +485,6 @@
 			main {
 				margin: 0 auto;
 				padding: 0 1rem;
-			}
-
-			.autoPlace {
-				opacity: 0;
-				pointer-events: none;
-				transition: none !important;
 			}
 
 		}
@@ -968,7 +971,7 @@
 			<section id="section-readme">
 				{{{ readme }}}
 
-				<a href="{{ builds.module }}">Built source</a> • 
+				<a href="{{ builds.module }}">Built Source</a> • 
 				<a href="{{ builds.moduleMin }}">Minified</a> = <strong>{{ sizeMin }}kb</strong>, {{ sizeGzip }}kb gzipped
 				
 			</section>
