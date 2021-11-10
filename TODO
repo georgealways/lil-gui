@@ -1,7 +1,9 @@
+[ ] gui.add/addColor failure message could be better
 [ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
 [ ] unit test for number box vertical drag
 
+[ ] number slider should blur input on mousewheel
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
 [ ] show()/hide(), ._hidden, hideKey: 'h'
 

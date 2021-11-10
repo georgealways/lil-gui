@@ -230,6 +230,66 @@ test( unit => {
 
 	} );
 
+	unit( 'number vertical drag', () => {
+
+		const gui = new GUI();
+		const obj = { x: 3 };
+		const num = gui.add( obj, 'x' );
+
+		simulateDrag( 'mouse', num.$input, { dx: 235, dy: 0 } );
+		assert.strictEqual( obj.x, 3, 'horizontal drags don\'t trigger change' );
+
+		simulateDrag( 'mouse', num.$input, { dx: -200, dy: 4 } );
+		assert.strictEqual( obj.x, 3, 'ambiguous drags don\'t trigger change' );
+
+		simulateDrag( 'mouse', num.$input, { dx: 0, dy: 4 } );
+		assert.strictEqual( obj.x, 3, 'small vertical drags don\'t trigger change' );
+
+		simulateDrag( 'mouse', num.$input, { dx: 0, dy: -25 } );
+		assert.strictEqual( obj.x, 28, 'vertical drags change' );
+
+		simulateDrag( 'mouse', num.$input, { dx: 0, dy: 131, altKey: true } );
+		assert.strictEqual( obj.x, 14.9, 'vertical drags change with modifier keys' );
+
+		simulateDrag( 'mouse', num.$input, { dx: 0, dy: 34, shiftKey: true } );
+		assert.strictEqual( obj.x, -325.1, 'vertical drags change with modifier keys' );
+
+		num.step( 0.1 );
+		simulateDrag( 'mouse', num.$input, { dx: 0, dy: 23 } );
+		assert.strictEqual( obj.x, obj.x, -325.1, 'vertical drags uses step' );
+
+		// hope to recycle this elsewhere
+		function simulateDrag( type, el, {
+			x = 0.5,
+			y = 0.5,
+			dx = 0,
+			dy = 0,
+			altKey = false,
+			shiftKey = false
+		} = {} ) {
+
+			const rect = el.getBoundingClientRect();
+			x = rect.left + rect.width * x;
+			y = rect.top + rect.height * y;
+
+			const events = {
+				touch: { start: 'touchstart', move: 'touchmove', end: 'touchend' },
+				mouse: { start: 'mousedown', move: 'mousemove', end: 'mouseup' }
+			};
+
+			el.$callEventListener( events[ type ].start, pointEvent( type, x, y ) );
+			window.$callEventListener( events[ type ].move, pointEvent( type, x + dx, y + dy ) );
+			window.$callEventListener( events[ type ].end, pointEvent( type, x + dx, y + dy ) );
+
+			function pointEvent( type, clientX, clientY ) {
+				let event = { clientX, clientY, altKey, shiftKey };
+				return type === 'touch' ? { touches: [ event ] } : event;
+			}
+
+		}
+
+	} );
+
 	unit( 'controllers/foldersRecursive', () => {
 
 		const gui = new GUI();

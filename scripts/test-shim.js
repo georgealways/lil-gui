@@ -63,12 +63,21 @@ class Element extends EventTarget {
 	}
 }
 
-function createElement() {
+class InputElement extends Element {
+	blur() {}
+	select() {}
+}
+
+function createElement( tag ) {
+	if ( [ 'input', 'select', 'button' ].includes( tag ) ) {
+		return new InputElement();
+	}
 	return new Element();
 }
 
 global.window = new EventTarget();
 global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
+global.cancelAnimationFrame = id => clearTimeout( id );
 
 const document = new Element();
 document.head = new Element();
