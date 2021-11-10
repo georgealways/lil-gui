@@ -258,36 +258,6 @@ test( unit => {
 		simulateDrag( 'mouse', num.$input, { dx: 0, dy: 23 } );
 		assert.strictEqual( obj.x, obj.x, -325.1, 'vertical drags uses step' );
 
-		// hope to recycle this elsewhere
-		function simulateDrag( type, el, {
-			x = 0.5,
-			y = 0.5,
-			dx = 0,
-			dy = 0,
-			altKey = false,
-			shiftKey = false
-		} = {} ) {
-
-			const rect = el.getBoundingClientRect();
-			x = rect.left + rect.width * x;
-			y = rect.top + rect.height * y;
-
-			const events = {
-				touch: { start: 'touchstart', move: 'touchmove', end: 'touchend' },
-				mouse: { start: 'mousedown', move: 'mousemove', end: 'mouseup' }
-			};
-
-			el.$callEventListener( events[ type ].start, pointEvent( type, x, y ) );
-			window.$callEventListener( events[ type ].move, pointEvent( type, x + dx, y + dy ) );
-			window.$callEventListener( events[ type ].end, pointEvent( type, x + dx, y + dy ) );
-
-			function pointEvent( type, clientX, clientY ) {
-				let event = { clientX, clientY, altKey, shiftKey };
-				return type === 'touch' ? { touches: [ event ] } : event;
-			}
-
-		}
-
 	} );
 
 	unit( 'controllers/foldersRecursive', () => {
@@ -525,28 +495,85 @@ test( unit => {
 
 		let handler, _args, _this;
 
-		function testMethod( method ) {
+		handler = tracker.calls( function( ...args ) {
+			_this = this;
+			_args = args;
+		}, 1 );
 
-			handler = tracker.calls( function( ...args ) {
-				_this = this;
-				_args = args;
-			}, 1 );
+		controller.onChange( handler );
 
-			controller[ method ]( handler );
+		const value = 9;
+		controller.setValue( value );
 
-			const value = 9;
-			controller.setValue( value );
+		assert.strictEqual( controller._onChange, handler, 'onChange: sets _onChange' );
+		assert.strictEqual( _this, controller, 'onChange: this is bound to controller in handler' );
+		assert.deepEqual( _args, [ value ], 'onChange: new value is the first and only argument' );
 
-			assert.strictEqual( controller._onChange, handler, method + ': sets _onChange' );
-			assert.strictEqual( _this, controller, method + ': this is bound to controller in handler' );
-			assert.deepEqual( _args, [ value ], method + ': new value is the first and only argument' );
+		tracker.verify();
 
-			tracker.verify();
+	} );
 
-		}
+	unit( 'NumberController.onFinishChange', () => {
 
-		testMethod( 'onChange' );
-		testMethod( 'onFinishChange' );
+		const gui = new GUI();
+
+		const obj = { x: 0 };
+		const ctrl = gui.add( obj, 'x', 0, 1000 );
+
+		let tracker = new assert.CallTracker();
+
+		let handler, _args, _this;
+
+		handler = tracker.calls( function( ...args ) {
+			_this = this;
+			_args = args;
+		}, 4 ); // expecting this many onFinishChange
+
+		ctrl.onFinishChange( handler );
+		assert.strictEqual( ctrl._onFinishChange, handler, 'Number.onFinishChange: sets _onFinishChange' );
+
+		let prefix;
+
+		// onFinishChange 1
+		prefix = 'number finish change (mouse, drag slider)';
+
+		simulateDrag( 'mouse', ctrl.$slider, { dx: 20 } );
+		assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
+		assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+
+		// todo: nit picky, but tapping in the same place on the slider shouldn't trigger onFinishChange
+
+		// onFinishChange 2
+		prefix = 'number finish change (touch, drag slider)';
+
+		simulateDrag( 'touch', ctrl.$slider, { dx: -30 } );
+		assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
+		assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+
+		// onFinishChange 3
+		prefix = 'number finish change (mouse, drag input)';
+
+		simulateDrag( 'mouse', ctrl.$input, { dy: 20 } );
+		assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
+		assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+
+		// onFinishChange 4: blur input
+		prefix = 'number finish change (blur input)';
+		ctrl.$input.focus();
+		ctrl.$input.value = '666';
+		ctrl.$input.$callEventListener( 'input' );
+		ctrl.$input.blur();
+
+		assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
+		assert.deepEqual( _args, [ 666 ], `${prefix}: new value is the first and only argument` );
+
+		// blurs without changes don't call onFinishChange
+		ctrl.$input.focus();
+		ctrl.$input.blur();
+
+		// the final onFinishChange would be wheel on slider, but that uses debounce and tests can't do async yet...
+
+		tracker.verify();
 
 	} );
 
@@ -592,3 +619,37 @@ test( unit => {
 	} );
 
 } );
+
+// where to put these...
+function simulateDrag( type, el, {
+	x = 0.5,
+	y = 0.5,
+	dx = 0,
+	dy = 0,
+	altKey = false,
+	shiftKey = false
+} = {} ) {
+
+	const rect = el.getBoundingClientRect();
+	x = rect.left + rect.width * x;
+	y = rect.top + rect.height * y;
+
+	const events = {
+		touch: { start: 'touchstart', move: 'touchmove', end: 'touchend' },
+		mouse: { start: 'mousedown', move: 'mousemove', end: 'mouseup' }
+	};
+
+	el.$callEventListener( events[ type ].start, pointEvent( type, x, y ) );
+
+	if ( dx !== 0 || dy !== 0 ) {
+		window.$callEventListener( events[ type ].move, pointEvent( type, x + dx, y + dy ) );
+	}
+
+	window.$callEventListener( events[ type ].end, pointEvent( type, x + dx, y + dy ) );
+
+	function pointEvent( type, clientX, clientY ) {
+		let event = { clientX, clientY, altKey, shiftKey };
+		return type === 'touch' ? { touches: [ event ] } : event;
+	}
+
+}
