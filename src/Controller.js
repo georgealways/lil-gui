@@ -107,7 +107,7 @@ export default class Controller {
 	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 *
-	 * controller.onChange( v => {
+	 * controller.onChange( function( v ) {
 	 * 	console.log( 'The value is now ' + v );
 	 * 	console.assert( this === controller );
 	 * } );
