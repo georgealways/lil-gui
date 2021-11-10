@@ -1,11 +1,13 @@
-[ ] gui.add/addColor failure message could be better
+[ ] better gui.add/addColor failure message
 [ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
 [ ] unit test for import/export recursive=false
-[ ] unit test for number box vertical drag
+[x] unit test for number box vertical drag
 
 [ ] number slider should blur input on mousewheel
+[ ] mousewheel key modifiers
+
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
-[ ] show()/hide(), ._hidden, hideKey: 'h'
+[ ] show()/hide(), ._hidden, hideKey: 'h' ?
 
 [x] i'd like to make it easier to find/view the built source.
 	[x] @VERSION swapout for guide in cdn example
