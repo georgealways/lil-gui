@@ -269,13 +269,23 @@
 
 		make( { title: 'onChange' }, gui => {
 
+			const tallies = { onChange: 0, onFinishChange: 0 };
+
 			function change() {
 				console.log( this.property + ' onChange' );
+				tallies.onChange++;
 			}
 
 			function finishChange() {
 				console.log( this.property + ' onFinishChange' );
+				tallies.onFinishChange++;
 			}
+
+			let folder;
+
+			folder = gui.addFolder('Tallies');
+			folder.add( tallies, 'onChange' ).disable().listen();
+			folder.add( tallies, 'onFinishChange' ).disable().listen();
 
 			gui.add( { Number: 0 }, 'Number' ).onChange( change ).onFinishChange( finishChange );
 
