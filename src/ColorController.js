@@ -39,7 +39,7 @@ export default class ColorController extends Controller {
 		this.$input.addEventListener( 'input', onInputChange );
 
 		this.$input.addEventListener( 'focus', () => {
-			this._changed = false;
+			this._onChangeStart();
 		} );
 
 		this.$input.addEventListener( 'blur', () => {
@@ -56,7 +56,7 @@ export default class ColorController extends Controller {
 		this.$text.addEventListener( 'focus', () => {
 			this._textFocused = true;
 			this.$text.select();
-			this._changed = false;
+			this._onChangeStart();
 		} );
 
 		this.$text.addEventListener( 'blur', () => {

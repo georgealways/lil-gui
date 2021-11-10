@@ -123,6 +123,16 @@ export default class Controller {
 	}
 
 	/**
+	 * Used to determine whether to call onFinishChange when this controller's
+	 * widgets lose focus. Should be called by Controllers that allow continuous changes
+	 * when they gain focus.
+	 * @protected
+	 */
+	_onChangeStart() {
+		this._changed = false;
+	}
+
+	/**
 	 * Calls the onChange methods of this controller and its parent GUI.
 	 * @protected
 	 */
@@ -134,11 +144,6 @@ export default class Controller {
 			this._onChange.call( this, this.getValue() );
 		}
 
-		/**
-		 * Used to determine whether to call onFinishChange when this controller's
-		 * widgets lose focus. Should be set to `false` by Controllers when they gain focus.
-		 * @protected
-		 */
 		this._changed = true;
 
 	}

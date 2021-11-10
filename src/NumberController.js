@@ -135,7 +135,7 @@ export default class NumberController extends Controller {
 			window.addEventListener( 'mousemove', onMouseMove );
 			window.addEventListener( 'mouseup', onMouseUp );
 
-			this._changed = false;
+			this._onChangeStart();
 
 		};
 
@@ -247,7 +247,7 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
-			this._changed = false;
+			this._onChangeStart();
 			setValueFromX( e.clientX );
 			this._setDraggingStyle( true );
 			window.addEventListener( 'mousemove', mouseMove );
@@ -274,7 +274,7 @@ export default class NumberController extends Controller {
 
 		const beginTouchDrag = e => {
 			e.preventDefault();
-			this._changed = false;
+			this._onChangeStart();
 			setValueFromX( e.touches[ 0 ].clientX );
 			this._setDraggingStyle( true );
 			testingForScroll = false;
