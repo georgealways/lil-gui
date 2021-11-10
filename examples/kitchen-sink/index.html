@@ -47,7 +47,9 @@
 			string: 'lil-gui',
 			number: 0.5,
 			color: '#aa00ff',
-			function() { alert( 'hi' ); }
+			hide() {
+				autoPlaceGUI.domElement.style.display = 'none';
+			}
 		};
 
 		const autoPlaceGUI = new GUI( { title: 'autoPlace' } );
@@ -57,7 +59,7 @@
 		autoPlaceGUI.add( myObject, 'string' );
 		autoPlaceGUI.add( myObject, 'number', 0, 1 );
 		autoPlaceGUI.addColor( myObject, 'color' );
-		autoPlaceGUI.add( myObject, 'function' );
+		autoPlaceGUI.add( myObject, 'hide' );
 
 		const container = document.getElementById( 'container' );
 
@@ -65,6 +67,10 @@
 			for ( let i = 0; i < 50; i++ ) {
 				autoPlaceGUI.add( { x: i / 49 }, 'x', 0, 1 );
 			}
+		}
+
+		if ( location.hash === '#hide' ) {
+			myObject.hide();
 		}
 
 		/**
