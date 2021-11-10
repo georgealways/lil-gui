@@ -1,4 +1,4 @@
-export default function debounce( func, delay ) {
+export default function( func, delay ) {
 
 	let timeout;
 
