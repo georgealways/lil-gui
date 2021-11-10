@@ -147,6 +147,13 @@ export default class Controller {
 	 * Pass a function to be called after this controller has been modified and loses focus.
 	 * @param {Function} callback
 	 * @returns {this}
+	 * @example
+	 * const controller = gui.add( object, 'property' );
+	 *
+	 * controller.onFinishChange( function( v ) {
+	 * 	console.log( 'Changes complete: ' + v );
+	 * 	console.assert( this === controller );
+	 * } );
 	 */
 	onFinishChange( callback ) {
 		/**
