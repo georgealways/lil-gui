@@ -123,7 +123,9 @@ export default class Controller {
 	}
 
 	_callOnChange() {
+
 		this.parent._callOnChange( this );
+
 		if ( this._onChange !== undefined ) {
 			this._onChange.call( this, this.getValue() );
 		}
@@ -134,6 +136,7 @@ export default class Controller {
 		 * @protected
 		 */
 		this._changed = true;
+
 	}
 
 	/**
