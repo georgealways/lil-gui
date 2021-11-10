@@ -114,7 +114,7 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * Used to access the function bound to change events. Don't modify this value directly.
+		 * Used to access the function bound to `onChange` events. Don't modify this value directly.
 		 * Use the `controller.onChange( callback )` method instead.
 		 * @type {Function}
 		 */
@@ -137,13 +137,13 @@ export default class Controller {
 	}
 
 	/**
-	 * Pass a function to be called whenever todo
+	 * Pass a function to be called after this controller has been modified and loses focus.
 	 * @param {Function} callback
 	 * @returns {this}
 	 */
 	onFinishChange( callback ) {
 		/**
-		 * Used to access the function bound to change events. Don't modify this value directly.
+		 * Used to access the function bound to `onFinishChange` events. Don't modify this value directly.
 		 * Use the `controller.onFinishChange( callback )` method instead.
 		 * @type {Function}
 		 */
