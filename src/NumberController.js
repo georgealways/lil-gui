@@ -368,6 +368,9 @@ export default class NumberController extends Controller {
 			clearTimeout( wheelFinishChangeTimeout );
 			wheelFinishChangeTimeout = setTimeout( callOnFinishChange, WHEEL_DEBOUNCE );
 
+			// force the input to updateDisplay when it's focused
+			this.$input.value = this.getValue();
+
 		};
 
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );

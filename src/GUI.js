@@ -220,7 +220,10 @@ export default class GUI {
 		}
 
 		// eslint-disable-next-line no-console
-		console.error( `Failed to add controller for "${property}"`, initialValue, object );
+		console.error( `gui.add failed
+		property:`, property, `
+		object:`, object, `
+		value:`, initialValue );
 
 	}
 
