@@ -123,9 +123,8 @@ export default class Controller {
 	}
 
 	/**
-	 * Used to determine whether to call onFinishChange when this controller's
-	 * widgets lose focus. Should be called by Controllers that allow continuous changes
-	 * when they gain focus.
+	 * Should be called by a controller that allow continuous changes when it gains focus.
+	 * Used to determine whether to call onFinishChange when that controller loses focus.
 	 * @protected
 	 */
 	_onChangeStart() {
@@ -162,8 +161,8 @@ export default class Controller {
 	 */
 	onFinishChange( callback ) {
 		/**
-		 * Used to access the function bound to `onFinishChange` events. Don't modify this value directly.
-		 * Use the `controller.onFinishChange( callback )` method instead.
+		 * Used to access the function bound to `onFinishChange` events. Don't modify this value
+		 * directly. Use the `controller.onFinishChange( callback )` method instead.
 		 * @type {Function}
 		 */
 		this._onFinishChange = callback;
