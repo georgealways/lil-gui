@@ -1,11 +1,10 @@
-[ ] better gui.add/addColor failure message
-[ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
-[ ] unit test for import/export recursive=false
+[x] better gui.add/addColor failure message
+	too many ways addColor can fail, just gonna let it yell at you for now
 [x] unit test for number box vertical drag
 
 [ ] number slider should blur input on mousewheel
 [ ] mousewheel key modifiers
-
+	would require keeping track of a cumulative delta like vertical drag
 [ ] close() should accept a parameter like disable() for symmetry with open() ?
 [ ] show()/hide(), ._hidden, hideKey: 'h' ?
 
@@ -52,7 +51,8 @@ homepage
 OTHER
 	[x] i don't like how some anchors are inside h1/2/3 and some aren't. if they're all above the 
 		header in question i don't need --anchor offset. they only hafta be inside the header for .md
-	[ ] order of properties (not methods) in API is kinda wonky
+	[-] order of properties (not methods) in API is kinda wonky
+		no it's not it's a-z$_
 	[x] main api toc columns are ugly
 	[x] !! update anchor positions on resize
 
@@ -239,7 +239,6 @@ archive
 	tried both of these but was gross
 	will try again
 	[x] i like it
-
 
 [x] move kitchen sink from homepage to panopticon.
 	(that should be a simple demo) 
