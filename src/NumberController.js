@@ -74,7 +74,11 @@ export default class NumberController extends Controller {
 
 		};
 
-		// invoked on wheel or arrow key up/down
+		this.$input.addEventListener( 'input', onInput );
+
+		// Keys & Mouse Wheel
+		// ---------------------------------------------------------------------
+
 		const increment = delta => {
 
 			const value = parseFloat( this.$input.value );
@@ -98,18 +102,22 @@ export default class NumberController extends Controller {
 			}
 			if ( e.code === 'ArrowDown' ) {
 				e.preventDefault();
-				increment( -1 * this._step * this._arrowKeyMultiplier( e ) );
+				increment( this._step * this._arrowKeyMultiplier( e ) * -1 );
 			}
 		};
+
+		this.$input.addEventListener( 'keydown', onKeyDown );
 
 		const onWheel = e => {
 			if ( this._inputFocused ) {
 				e.preventDefault();
-				increment( this._normalizeMouseWheel( e ) * this._step );
+				increment( this._step * this._normalizeMouseWheel( e ) );
 			}
 		};
 
-		// Vertical drag number fields
+		this.$input.addEventListener( 'wheel', onWheel );
+
+		// Vertical Drag
 		// ---------------------------------------------------------------------
 
 		let testingForVerticalDrag = false,
@@ -120,7 +128,7 @@ export default class NumberController extends Controller {
 			dragDelta;
 
 		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
-		// on the user's intent: Horizontal means highlight, vertical means drag.
+		// on the user's intent: horizontal means highlight, vertical means drag.
 		const DRAG_THRESH = 5;
 
 		const onMouseDown = e => {
@@ -161,14 +169,14 @@ export default class NumberController extends Controller {
 
 			}
 
-			// this isn't an else, the first move counts towards dragDelta
+			// not an else so that the first move counts towards dragDelta
 			if ( !testingForVerticalDrag ) {
 
 				const dy = e.clientY - prevClientY;
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				// clamp drag delta so you don't have dead space if dragging past bounds
+				// clamp drag delta so we don't have 'dead space' after dragging past bounds
 				// we're okay with the fact that bounds can be undefined here
 				if ( initValue + dragDelta > this._max ) {
 					dragDelta = this._max - initValue;
@@ -191,7 +199,10 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
 
-		// Keep track of focus state
+		this.$input.addEventListener( 'mousedown', onMouseDown );
+
+		// Focus state & finishChange
+		// ---------------------------------------------------------------------
 
 		const onFocus = () => {
 			this._inputFocused = true;
@@ -204,11 +215,7 @@ export default class NumberController extends Controller {
 		};
 
 		this.$input.addEventListener( 'focus', onFocus );
-		this.$input.addEventListener( 'input', onInput );
 		this.$input.addEventListener( 'blur', onBlur );
-		this.$input.addEventListener( 'keydown', onKeyDown );
-		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
-		this.$input.addEventListener( 'mousedown', onMouseDown );
 
 	}
 
@@ -372,7 +379,7 @@ export default class NumberController extends Controller {
 
 		};
 
-		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
+		this.$slider.addEventListener( 'wheel', onWheel );
 
 	}
 
