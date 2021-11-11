@@ -177,6 +177,12 @@ gui.add( params, 'foo' ).onChange( value => {
 } );
 ```
 
+The `onFinishChange` handler fires after a controller changes and loses focus. This comes in handy if you're using a slow function with a controller that produces continuous change events (like numbers or colors for example). 
+
+```js
+gui.add( params, 'mySlider', 0, 1 ).onFinishChange( complexFunction );
+```
+
 ### Global Change Handlers
 
 GUI also provides an `onChange` handler that fires after changes to any of its children.

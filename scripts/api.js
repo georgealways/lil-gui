@@ -38,6 +38,8 @@ jsdoc.explainSync( { files: JSDOC_INPUT } )
 
 function transform( v ) {
 
+	if ( v.access === 'protected' ) return;
+
 	forEachRecursive( v, ( object, key, value ) => {
 
 		if ( typeof value === 'string' ) {

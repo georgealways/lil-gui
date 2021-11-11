@@ -23,6 +23,7 @@ export default class OptionController extends Controller {
 
 		this.$select.addEventListener( 'change', () => {
 			this.setValue( this._values[ this.$select.selectedIndex ] );
+			this._callOnFinishChange();
 		} );
 
 		this.$select.addEventListener( 'focus', () => {

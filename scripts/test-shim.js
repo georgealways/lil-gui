@@ -64,8 +64,8 @@ class Element extends EventTarget {
 }
 
 class InputElement extends Element {
+	blur() { this.$callEventListener( 'blur' ); }
 	focus() { this.$callEventListener( 'focus' ); }
-	blur() {}
 	select() {}
 }
 

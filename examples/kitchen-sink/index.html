@@ -273,6 +273,42 @@
 
 		} );
 
+		make( { title: 'onChange' }, gui => {
+
+			const tallies = { onChange: 0, onFinishChange: 0 };
+
+			function change() {
+				console.log( this.property + ' onChange' );
+				tallies.onChange++;
+			}
+
+			function finishChange() {
+				console.log( this.property + ' onFinishChange' );
+				tallies.onFinishChange++;
+			}
+
+			let folder;
+
+			folder = gui.addFolder('Tallies');
+			folder.add( tallies, 'onChange' ).disable().listen();
+			folder.add( tallies, 'onFinishChange' ).disable().listen();
+
+			gui.add( { Number: 0 }, 'Number' ).onChange( change ).onFinishChange( finishChange );
+
+			gui.add( { Slider: 0 }, 'Slider', 0, 1 ).onChange( change ).onFinishChange( finishChange );
+
+			gui.add( { String: 'foo' }, 'String' ).onChange( change ).onFinishChange( finishChange );
+
+			gui.add( { Boolean: true }, 'Boolean' ).onChange( change ).onFinishChange( finishChange );
+
+			gui.add( { Options: 'a' }, 'Options', ['a', 'b', 'c'] ).onChange( change ).onFinishChange( finishChange );
+
+			gui.add( { func() { console.log( 'hi' ) } }, 'func' ).onChange( change ).onFinishChange( finishChange );
+
+			gui.addColor( { Color: 0xaa00ff }, 'Color' ).onChange( change ).onFinishChange( finishChange );
+
+		} );
+
 		make( { title: 'Customization' }, gui => {
 
 			const pre = document.createElement( 'pre' );

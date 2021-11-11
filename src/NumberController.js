@@ -135,6 +135,8 @@ export default class NumberController extends Controller {
 			window.addEventListener( 'mousemove', onMouseMove );
 			window.addEventListener( 'mouseup', onMouseUp );
 
+			this._onChangeStart();
+
 		};
 
 		const onMouseMove = e => {
@@ -184,6 +186,7 @@ export default class NumberController extends Controller {
 
 		const onMouseUp = () => {
 			this._setDraggingStyle( false, 'vertical' );
+			this._callOnFinishChange();
 			window.removeEventListener( 'mousemove', onMouseMove );
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
@@ -197,6 +200,7 @@ export default class NumberController extends Controller {
 		const onBlur = () => {
 			this._inputFocused = false;
 			this.updateDisplay();
+			this._callOnFinishChange();
 		};
 
 		this.$input.addEventListener( 'focus', onFocus );
@@ -243,6 +247,7 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
+			this._onChangeStart();
 			setValueFromX( e.clientX );
 			this._setDraggingStyle( true );
 			window.addEventListener( 'mousemove', mouseMove );
@@ -255,6 +260,7 @@ export default class NumberController extends Controller {
 
 		const mouseUp = () => {
 			this._setDraggingStyle( false );
+			this._callOnFinishChange();
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
@@ -265,6 +271,14 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
+
+		const beginTouchDrag = e => {
+			e.preventDefault();
+			this._onChangeStart();
+			setValueFromX( e.touches[ 0 ].clientX );
+			this._setDraggingStyle( true );
+			testingForScroll = false;
+		};
 
 		const onTouchStart = e => {
 
@@ -281,10 +295,7 @@ export default class NumberController extends Controller {
 			} else {
 
 				// Otherwise, we can set the value straight away on touchstart.
-				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
-				this._setDraggingStyle( true );
-				testingForScroll = false;
+				beginTouchDrag( e );
 
 			}
 
@@ -303,10 +314,7 @@ export default class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					e.preventDefault();
-					setValueFromX( e.touches[ 0 ].clientX );
-					this._setDraggingStyle( true );
-					testingForScroll = false;
+					beginTouchDrag( e );
 
 				} else {
 
@@ -327,6 +335,7 @@ export default class NumberController extends Controller {
 
 		const onTouchEnd = () => {
 			this._setDraggingStyle( false );
+			this._callOnFinishChange();
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
@@ -336,6 +345,12 @@ export default class NumberController extends Controller {
 		// Bind wheel listeners
 		// ---------------------------------------------------------------------
 
+		// We have to use a debounced function to call onFinishChange because
+		// there's no way to tell when the user is "done" mouse-wheeling.
+		const callOnFinishChange = this._callOnFinishChange.bind( this );
+		const WHEEL_DEBOUNCE_TIME = 400;
+		let wheelFinishChangeTimeout;
+
 		const onWheel = e => {
 
 			// ignore vertical wheels if there's a scrollbar
@@ -344,11 +359,16 @@ export default class NumberController extends Controller {
 
 			e.preventDefault();
 
+			// set value
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
-			// Force the input to updateDisplay when it's focused
+			// force the input to updateDisplay when it's focused
 			this.$input.value = this.getValue();
+
+			// debounce onFinishChange
+			clearTimeout( wheelFinishChangeTimeout );
+			wheelFinishChangeTimeout = setTimeout( callOnFinishChange, WHEEL_DEBOUNCE_TIME );
 
 		};
 

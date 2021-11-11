@@ -20,6 +20,10 @@ export default class StringController extends Controller {
 			}
 		} );
 
+		this.$input.addEventListener( 'blur', () => {
+			this._callOnFinishChange();
+		} );
+
 		this.$widget.appendChild( this.$input );
 
 		this.$disable = this.$input;

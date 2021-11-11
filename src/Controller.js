@@ -114,7 +114,7 @@ export default class Controller {
 	 */
 	onChange( callback ) {
 		/**
-		 * Used to access the function bound to change events. Don't modify this value directly.
+		 * Used to access the function bound to `onChange` events. Don't modify this value directly.
 		 * Use the `controller.onChange( callback )` method instead.
 		 * @type {Function}
 		 */
@@ -122,16 +122,62 @@ export default class Controller {
 		return this;
 	}
 
+	/**
+	 * Should be called by a controller that allow continuous changes when it gains focus.
+	 * Used to determine whether to call onFinishChange when that controller loses focus.
+	 * @protected
+	 */
+	_onChangeStart() {
+		this._changed = false;
+	}
+
+	/**
+	 * Calls the onChange methods of this controller and its parent GUI.
+	 * @protected
+	 */
 	_callOnChange() {
+
 		this.parent._callOnChange( this );
+
 		if ( this._onChange !== undefined ) {
 			this._onChange.call( this, this.getValue() );
 		}
+
+		this._changed = true;
+
 	}
 
-	// Provided for compatability
+	/**
+	 * Pass a function to be called after this controller has been modified and loses focus.
+	 * @param {Function} callback
+	 * @returns {this}
+	 * @example
+	 * const controller = gui.add( object, 'property' );
+	 *
+	 * controller.onFinishChange( function( v ) {
+	 * 	console.log( 'Changes complete: ' + v );
+	 * 	console.assert( this === controller );
+	 * } );
+	 */
 	onFinishChange( callback ) {
-		return this.onChange( callback );
+		/**
+		 * Used to access the function bound to `onFinishChange` events. Don't modify this value
+		 * directly. Use the `controller.onFinishChange( callback )` method instead.
+		 * @type {Function}
+		 */
+		this._onFinishChange = callback;
+		return this;
+	}
+
+	/**
+	 * Should be called by Controller when its widgets lose focus.
+	 * @protected
+	 */
+	_callOnFinishChange() {
+		if ( this._changed && this._onFinishChange !== undefined ) {
+			this._onFinishChange.call( this, this.getValue() );
+		}
+		this._changed = false;
 	}
 
 	/**

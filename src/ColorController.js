@@ -38,6 +38,14 @@ export default class ColorController extends Controller {
 
 		this.$input.addEventListener( 'input', onInputChange );
 
+		this.$input.addEventListener( 'focus', () => {
+			this._onChangeStart();
+		} );
+
+		this.$input.addEventListener( 'blur', () => {
+			this._callOnFinishChange();
+		} );
+
 		this.$text.addEventListener( 'input', () => {
 			const tryParse = normalizeColorString( this.$text.value );
 			if ( tryParse ) {
@@ -48,11 +56,13 @@ export default class ColorController extends Controller {
 		this.$text.addEventListener( 'focus', () => {
 			this._textFocused = true;
 			this.$text.select();
+			this._onChangeStart();
 		} );
 
 		this.$text.addEventListener( 'blur', () => {
 			this._textFocused = false;
 			this.updateDisplay();
+			this._callOnFinishChange();
 		} );
 
 		this.$disable = this.$text;
