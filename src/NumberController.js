@@ -255,8 +255,8 @@ export default class NumberController extends Controller {
 
 		const mouseDown = e => {
 			this._onChangeStart();
-			setValueFromX( e.clientX );
 			this._setDraggingStyle( true );
+			setValueFromX( e.clientX );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		};
@@ -266,8 +266,8 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this._setDraggingStyle( false );
 			this._callOnFinishChange();
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
@@ -282,8 +282,8 @@ export default class NumberController extends Controller {
 		const beginTouchDrag = e => {
 			e.preventDefault();
 			this._onChangeStart();
-			setValueFromX( e.touches[ 0 ].clientX );
 			this._setDraggingStyle( true );
+			setValueFromX( e.touches[ 0 ].clientX );
 			testingForScroll = false;
 		};
 
@@ -341,8 +341,8 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this._setDraggingStyle( false );
 			this._callOnFinishChange();
+			this._setDraggingStyle( false );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
