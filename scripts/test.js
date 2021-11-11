@@ -178,6 +178,32 @@ test( unit => {
 
 	} );
 
+	unit( 'slider mousewheel', () => {
+
+		// make sure a focused input updates while wheeling slider
+
+		const gui = new GUI();
+
+		const original = 3;
+
+		const obj = { x: original };
+		const c = gui.add( obj, 'x', 0, 100 );
+
+		// focus input
+		c.$input.focus();
+
+		// modify value, don't blur
+		c.$input.value = 30;
+		c.$input.$callEventListener( 'input' );
+
+		// mousewheel slider
+		c.$slider.$callEventListener( 'wheel', { deltaY: 50, deltaX: 0 } );
+
+		assert.notStrictEqual( obj.x, original, 'value changed' );
+		assert.strictEqual( c.$input.value, obj.x, 'input still updates while focused' );
+
+	} );
+
 	unit( 'arrow keys and mousewheel', () => {
 
 		const gui = new GUI();

@@ -347,6 +347,9 @@ export default class NumberController extends Controller {
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
+			// Force the input to updateDisplay when it's focused
+			this.$input.value = this.getValue();
+
 		};
 
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
