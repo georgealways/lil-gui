@@ -363,12 +363,12 @@ export default class NumberController extends Controller {
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
+			// force the input to updateDisplay when it's focused
+			this.$input.value = this.getValue();
+
 			// debounce onFinishChange
 			clearTimeout( wheelFinishChangeTimeout );
 			wheelFinishChangeTimeout = setTimeout( callOnFinishChange, WHEEL_DEBOUNCE_TIME );
-
-			// force the input to updateDisplay when it's focused
-			this.$input.value = this.getValue();
 
 		};
 
