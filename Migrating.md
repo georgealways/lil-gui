@@ -61,5 +61,3 @@ The other differences in color handling are fairly minor:
 - "Presets" and `gui.remember()` are gone in favor of `save/load()`, which also removes 
 mention of `localStorage`.
 - `gui.hide/show/hideAll()` and the <key>H</key> to hide hotkey.
-- `onFinishChange`. The method is left as an `onChange` synonym for backwards 
-compatibility.
