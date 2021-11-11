@@ -503,7 +503,7 @@ test( unit => {
 
 		assert.doesNotThrow( () => gui.save(), Error, 'doesn\'t throw error if names collide across folders' );
 
-		assert.throws( () => gui.load( {} ), Error, 'throws error if load object doesn\'t have a controllers object' );
+		assert.doesNotThrow( () => gui.load( {} ), Error, 'does nothing with an empty object' );
 
 	} );
 
