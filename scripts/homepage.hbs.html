@@ -572,7 +572,7 @@
 				}
 				hidden = passed;
 			}
-			document.addEventListener( 'scroll', onScroll, { passive: false } );
+			document.addEventListener( 'scroll', onScroll );
 			onScroll();
 
 			// Delay transition class so we don't see a fadeout flash on load
@@ -665,7 +665,7 @@
 				activeLink.scrollIntoView( { block: 'nearest' } );
 			}
 
-			document.addEventListener( 'scroll', onScroll, { passive: true } );
+			document.addEventListener( 'scroll', onScroll );
 			window.addEventListener( 'resize', debounce( updateAnchorPositions ) );
 
 			requestAnimationFrame( () => {
