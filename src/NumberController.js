@@ -467,9 +467,10 @@ export default class NumberController extends Controller {
 	}
 
 	_clamp( value ) {
-		const min = this._hasMin ? this._min : -Infinity;
-		const max = this._hasMax ? this._max : Infinity;
-		return Math.max( min, Math.min( max, value ) );
+		// either condition is false if min or max is undefined
+		if ( value < this._min ) value = this._min;
+		if ( value > this._max ) value = this._max;
+		return value;
 	}
 
 	_snapClampSetValue( value ) {
