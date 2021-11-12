@@ -27,7 +27,7 @@ dev( {
 	'test': {
 		onchange: [
 			pkg.module,
-			'scripts/test*'
+			'tests/**/*.js'
 		],
 		flag: '--soft-fail',
 		color: 'yellow'
