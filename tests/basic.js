@@ -59,4 +59,8 @@ export default () => {
 
 	assert.strictEqual( controller4.$name.innerHTML, name, 'name sets innerHTML' );
 
+	// make sure title click isn't throwing errors
+
+	assert.doesNotThrow( () => new GUI().openAnimated() );
+
 };
