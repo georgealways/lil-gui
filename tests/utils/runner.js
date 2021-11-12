@@ -4,7 +4,7 @@ import { AssertionError } from 'assert';
 import fs from 'fs';
 
 // run with "--soft-fail" to exit with code 0 even if tests don't pass
-const SOFT_FAIL = !!process.argv.slice( 2 ).find( v => v === '--soft-fail' );
+const SOFT_FAIL = process.argv.includes( '--soft-fail' );
 
 let failures = 0;
 const tests = [];
