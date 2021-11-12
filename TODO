@@ -1,4 +1,4 @@
-[ ] onFinishChange on reset
+[x] onFinishChange on reset
 
 [ ] mousewheel/slider key modifiers
 	would require keeping track of a cumulative delta like vertical drag

@@ -186,6 +186,7 @@ export default class Controller {
 	 */
 	reset() {
 		this.setValue( this.initialValue );
+		this._callOnFinishChange();
 		return this;
 	}
 
