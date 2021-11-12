@@ -15,6 +15,8 @@ export default () => {
 
 	const gui = new GUI();
 
+	// test each controller type for methods & chainability
+
 	function testControllerType( controller, type ) {
 		assert( controller instanceof type );
 		assert.strictEqual( controller, controller.disable() );
@@ -31,11 +33,30 @@ export default () => {
 		assert.strictEqual( controller, controller.updateDisplay() );
 	}
 
-	testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
+	// make sure gui.add creates the right controller type
 
+	testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
 	testControllerType( gui.add( { x: 0 }, 'x' ), NumberController );
 	testControllerType( gui.add( { x: function() { } }, 'x' ), FunctionController );
 	testControllerType( gui.add( { x: '' }, 'x' ), StringController );
 	testControllerType( gui.add( { x: '' }, 'x', [ '', 'a' ] ), OptionController );
+
+	// make sure sliders show up with min and max
+
+	const controller1 = gui.add( { x: 0 }, 'x' );
+	const controller2 = gui.add( { x: 0 }, 'x', 0 );
+	const controller3 = gui.add( { x: 0 }, 'x', 0, 1 );
+
+	assert.strictEqual( controller1.$slider, undefined, 'no sliders without range' );
+	assert.strictEqual( controller2.$slider, undefined, 'no sliders without range' );
+
+	assert( controller3.$slider, 'min and max creates slider' );
+
+	// name()
+
+	const name = 'david';
+	const controller4 = gui.add( { x: 0 }, 'x' ).name( name );
+
+	assert.strictEqual( controller4.$name.innerHTML, name, 'name sets innerHTML' );
 
 };
