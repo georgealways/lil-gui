@@ -1,6 +1,7 @@
 [x] onFinishChange on reset
 [ ] reset color arr/obj test
-[ ] load return this
+[ ] load should return this
+[ ] load should call onfinishchange
 [ ] color test malform/edge cases
 
 [ ] mousewheel/slider key modifiers
