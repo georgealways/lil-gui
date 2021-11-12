@@ -35,7 +35,6 @@ const SUFFIX = /\.test\.js$/;
 
 fs.readdirSync( 'tests' ).forEach( filename => {
 
-	console.log( filename );
 	if ( filename.match( SUFFIX ) ) {
 		const name = filename.replace( SUFFIX, '' );
 		const test = require( '../' + filename ).default;
