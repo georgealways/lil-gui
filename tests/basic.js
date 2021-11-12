@@ -17,7 +17,7 @@ export default () => {
 
 	// test each controller type for methods & chainability
 
-	function testControllerType( controller, type ) {
+	function testControllerType( type, controller ) {
 		assert( controller instanceof type );
 		assert.strictEqual( controller, controller.disable() );
 		assert.strictEqual( controller, controller.enable() );
@@ -35,11 +35,11 @@ export default () => {
 
 	// make sure gui.add creates the right controller type
 
-	testControllerType( gui.add( { x: false }, 'x' ), BooleanController );
-	testControllerType( gui.add( { x: 0 }, 'x' ), NumberController );
-	testControllerType( gui.add( { x: function() { } }, 'x' ), FunctionController );
-	testControllerType( gui.add( { x: '' }, 'x' ), StringController );
-	testControllerType( gui.add( { x: '' }, 'x', [ '', 'a' ] ), OptionController );
+	testControllerType( BooleanController,	gui.add( { x: false }, 'x' ) );
+	testControllerType( NumberController,	gui.add( { x: 0 }, 'x' ) );
+	testControllerType( FunctionController,	gui.add( { x() {} }, 'x' ) );
+	testControllerType( StringController,	gui.add( { x: '' }, 'x' ) );
+	testControllerType( OptionController,	gui.add( { x: '' }, 'x', [ '', 'a' ] ) );
 
 	// make sure sliders show up with min and max
 
