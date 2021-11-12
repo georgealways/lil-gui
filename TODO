@@ -1,6 +1,7 @@
 [x] onFinishChange on reset
 [ ] reset color arr/obj test
 [ ] load return this
+[ ] color test malform/edge cases
 
 [ ] mousewheel/slider key modifiers
 	would require keeping track of a cumulative delta like vertical drag
