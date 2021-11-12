@@ -1,6 +1,8 @@
 import assert from 'assert';
 import GUI from '..';
 
+import spy from './utils/spy';
+
 export default () => {
 
 	const gui = new GUI();
@@ -34,17 +36,6 @@ export default () => {
 		if ( child.children ) {
 			child.children.forEach( spyDestroyRecursive );
 		}
-	}
-
-	function spy( instance, methodName, spy ) {
-		const method = instance[ methodName ];
-		if ( typeof method !== 'function' ) {
-			throw Error( `Tried to spy on "${methodName}" but it's not a function: ${method}` );
-		}
-		instance[ methodName ] = function() {
-			method.apply( this, arguments );
-			spy.apply( this, arguments );
-		};
 	}
 
 };
