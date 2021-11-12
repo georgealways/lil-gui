@@ -33,6 +33,8 @@ export default () => {
 	controller.$input.$callEventListener( 'keydown', { code: 'ArrowUp', shiftKey: true } );
 	assert.strictEqual( controller.getValue(), 10, 'explicit step: 1 shift arrow key = 10 step' );
 
+	// todo: down arrow
+
 	controller = gui.add( { x: 0 }, 'x' ).step( 1 );
 	controller.$input.$callEventListener( 'wheel', { deltaY: -1, deltaX: 0 } );
 	assert.strictEqual( controller.getValue(), 0, 'mousewheel on input only works when input is focused' );

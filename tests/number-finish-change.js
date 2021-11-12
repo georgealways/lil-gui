@@ -61,7 +61,7 @@ export default () => {
 	ctrl.$input.focus();
 	ctrl.$input.blur();
 
-	// the final onFinishChange would be wheel on slider, but that uses debounce and tests can't do async yet...
+	// todo: the final onFinishChange would be wheel on slider, but that uses debounce and tests can't do async yet...
 
 	tracker.verify();
 
