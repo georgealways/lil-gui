@@ -48,16 +48,16 @@ rules:
   jsdoc/require-description: warn
   jsdoc/tag-lines: [ warn, any ]
 overrides:
-  - files: [ rollup.config.js, scripts/**/*.js ]
+  - files: [ rollup.config.js, scripts/**/*.js, tests/**/*.js ]
     env:
       node: true
     parserOptions:
       ecmaVersion: 9
-  - files: [ rollup.config.js, scripts/**/*.js, examples/**/*.js ]
+  - files: [ rollup.config.js, scripts/**/*.js, tests/**/*.js, examples/**/*.js ]
     rules:
       no-console: off
       max-len: off
       jsdoc/require-description: off
-  - files: [ scripts/test.js ]
+  - files: [ tests/*.test.js ]
     rules:
       no-console: warn
