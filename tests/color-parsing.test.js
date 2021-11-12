@@ -21,4 +21,6 @@ export default () => {
 	assert.strictEqual( gui.addColor( { int }, 'int' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { string }, 'string' ).$input.value, string );
 
+	// todo: it doesn't get hit with any edge cases or malformed colors
+
 };
