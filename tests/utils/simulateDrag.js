@@ -1,16 +1,16 @@
 /**
  * Used to simulate mouse or touch drags in conjunction with shim.js
- * @param {string} type mouse or touch
- * @param {*} el
+ * @param {'mouse'|'touch'} type
+ * @param {*} target
  * @param {object} [options]
  * @param {number} [options.x=0.5] start x of drag, defined as a percentage of width from rect.left
  * @param {number} [options.y=0.5] start y of drag, defined as a percentage of height from rect.top
  * @param {number} [options.dx=0] distance in px to move
  * @param {number} [options.dy=0] distance in px to move
- * @param {boolean} options.altKey
- * @param {boolean} options.shiftKey
+ * @param {boolean} [options.altKey]
+ * @param {boolean} [options.shiftKey]
  */
-export default function( type, el, {
+export default function( type, target, {
 	x = 0.5,
 	y = 0.5,
 	dx = 0,
@@ -19,7 +19,7 @@ export default function( type, el, {
 	shiftKey = false
 } = {} ) {
 
-	const rect = el.getBoundingClientRect();
+	const rect = target.getBoundingClientRect();
 	x = rect.left + rect.width * x;
 	y = rect.top + rect.height * y;
 
@@ -28,7 +28,7 @@ export default function( type, el, {
 		mouse: { start: 'mousedown', move: 'mousemove', end: 'mouseup' }
 	};
 
-	el.$callEventListener( events[ type ].start, pointEvent( type, x, y ) );
+	target.$callEventListener( events[ type ].start, pointEvent( type, x, y ) );
 
 	if ( dx !== 0 || dy !== 0 ) {
 		window.$callEventListener( events[ type ].move, pointEvent( type, x + dx, y + dy ) );
