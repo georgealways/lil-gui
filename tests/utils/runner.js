@@ -31,12 +31,10 @@ class Test {
 	}
 }
 
-const SUFFIX = /\.test\.js$/;
-
 fs.readdirSync( 'tests' ).forEach( filename => {
 
-	if ( filename.match( SUFFIX ) ) {
-		const name = filename.replace( SUFFIX, '' );
+	if ( filename.endsWith( '.js' ) ) {
+		const name = filename.replace( '.js', '' );
 		const test = require( '../' + filename ).default;
 		tests.push( new Test( name, test ) );
 	}
