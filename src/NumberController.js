@@ -74,9 +74,7 @@ export default class NumberController extends Controller {
 
 		};
 
-		this.$input.addEventListener( 'input', onInput );
-
-		// Keys & Mouse Wheel
+		// Keys & mouse wheel
 		// ---------------------------------------------------------------------
 
 		const increment = delta => {
@@ -106,8 +104,6 @@ export default class NumberController extends Controller {
 			}
 		};
 
-		this.$input.addEventListener( 'keydown', onKeyDown );
-
 		const onWheel = e => {
 			if ( this._inputFocused ) {
 				e.preventDefault();
@@ -115,9 +111,7 @@ export default class NumberController extends Controller {
 			}
 		};
 
-		this.$input.addEventListener( 'wheel', onWheel );
-
-		// Vertical Drag
+		// Vertical drag
 		// ---------------------------------------------------------------------
 
 		let testingForVerticalDrag = false,
@@ -199,8 +193,6 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
 
-		this.$input.addEventListener( 'mousedown', onMouseDown );
-
 		// Focus state & finishChange
 		// ---------------------------------------------------------------------
 
@@ -214,6 +206,10 @@ export default class NumberController extends Controller {
 			this._callOnFinishChange();
 		};
 
+		this.$input.addEventListener( 'input', onInput );
+		this.$input.addEventListener( 'keydown', onKeyDown );
+		this.$input.addEventListener( 'wheel', onWheel );
+		this.$input.addEventListener( 'mousedown', onMouseDown );
 		this.$input.addEventListener( 'focus', onFocus );
 		this.$input.addEventListener( 'blur', onBlur );
 
@@ -250,7 +246,7 @@ export default class NumberController extends Controller {
 			this._snapClampSetValue( value );
 		};
 
-		// Bind mouse listeners
+		// Mouse drag
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
@@ -272,9 +268,7 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
 
-		this.$slider.addEventListener( 'mousedown', mouseDown );
-
-		// Bind touch listeners
+		// Touch drag
 		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
@@ -347,9 +341,7 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
 
-		this.$slider.addEventListener( 'touchstart', onTouchStart );
-
-		// Bind wheel listeners
+		// Mouse wheel
 		// ---------------------------------------------------------------------
 
 		// We have to use a debounced function to call onFinishChange because
@@ -379,6 +371,8 @@ export default class NumberController extends Controller {
 
 		};
 
+		this.$slider.addEventListener( 'mousedown', mouseDown );
+		this.$slider.addEventListener( 'touchstart', onTouchStart );
 		this.$slider.addEventListener( 'wheel', onWheel );
 
 	}
