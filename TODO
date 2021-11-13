@@ -1,13 +1,27 @@
-[x] onFinishChange on reset
-[ ] reset color arr/obj test
-[ ] load should return this
-[ ] load should call onfinishchange
+[ ] ios negative numbers
+[ ] function controller on(finish)change?
 [ ] color test malform/edge cases
+[ ] reset color arr/obj test
+[ ] revert the change check in listen().
+	i thought this was needed to keep controllers interactive because of
+	a three example "webgl_clipping_advanced" -- there was a checkbox that is
+	deliberately uncheckable and i thought listen() was causing this. should have
+	checked to see what dat.gui was doing on that page! good news is we can 
+	simplify listen
 
-[ ] mousewheel/slider key modifiers
+0.13
+	- Added support for `onFinishChange`.
+	- Added a less confusing error message for when `gui.add` fails.
+
+[-] close() should accept a parameter like disable() for symmetry with open()
+[x] onFinishChange on reset
+[x] load should return this
+[x] load should call onfinishchange
+
+[-] mousewheel/slider key modifiers
 	would require keeping track of a cumulative delta like vertical drag
-[ ] close() should accept a parameter like disable() for symmetry with open() ?
-[ ] show()/hide(), ._hidden, hideKey: 'h' ?
+[-] show()/hide(), ._hidden, hideKey: 'h' ?
+	rarely find myself needing anything more than gui.domElement.style.display = 'none';
 
 [x] better gui.add/addColor failure message
 	too many ways addColor can fail, just gonna let it yell at you for now
