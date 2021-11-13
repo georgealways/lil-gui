@@ -417,12 +417,13 @@ export default class NumberController extends Controller {
 
 		let { deltaX, deltaY } = e;
 
-		// 2019: Safari and Chrome report weird non-integral values for an actual
-		// mouse with a wheel connected to my 2015 macbook, but still expose actual
-		// lines scrolled via wheelDelta.
+		// Safari and Chrome report weird non-integral values for a notched wheel,
+		// but still expose actual lines scrolled via wheelDelta. Notched wheels
+		// should behave the same way as arrow keys.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
 			deltaY = -e.wheelDelta / 120;
+			deltaY *= this._stepExplicit ? 1 : 10;
 		}
 
 		const wheel = deltaX + -deltaY;
