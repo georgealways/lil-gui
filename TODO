@@ -1,5 +1,10 @@
-[ ] ios negative numbers
-[ ] function controller on(finish)change?
+[ ] GUI.onFinishChange (branch: undo)
+[ ] ios negative numbers (branch: typenumber)
+	only way to default to a keyboard with numbers, decimals and a negative sign
+	on ios is with input[type=number]. costs ~250 bytes to unstyle that thing
+
+[ ] test color malform/edge cases
+[ ] test reset color arr/obj
 
 [x] revert the change check in listen().
 	i thought this was needed to keep controllers interactive because of
@@ -7,14 +12,8 @@
 	deliberately uncheckable and i thought listen() was causing this. should have
 	checked to see what dat.gui was doing on that page! good news is we can 
 	simplify listen
-
-[ ] test color malform/edge cases
-[ ] test reset color arr/obj
-
-0.13
-	- Added support for `onFinishChange`.
-	- Added a less confusing error message for when `gui.add` fails.
-
+	
+[-] function controller on(finish)change?
 [-] close() should accept a parameter like disable() for symmetry with open()
 [x] onFinishChange on reset
 [x] load should return this
