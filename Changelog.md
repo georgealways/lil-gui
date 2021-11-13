@@ -1,10 +1,10 @@
 # 0.13.0
 
-28.73kb, 8.27kb gzipped
+28.74kb, 8.27kb gzipped
 
 - Added support for `onFinishChange`.
 - The error message when `gui.add` fails is easier to read.
-- Reverted `listen()` fix from 0.11.0. ([Note](https://github.com/georgealways/lil-gui/commit/c789516bc2e52530dc3e756b305148a2c2dd20f9))
+- Reverted `listen()` fix from 0.11.0. ([Note](https://github.com/georgealways/lil-gui/pull/11/files#r748771870))
 
 # 0.12.0
 
