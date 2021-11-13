@@ -56,8 +56,8 @@ export default class NumberController extends Controller {
 	_initInput() {
 
 		this.$input = document.createElement( 'input' );
-		this.$input.setAttribute( 'type', 'text' );
-		this.$input.setAttribute( 'inputmode', 'decimal' );
+		this.$input.setAttribute( 'type', 'number' );
+		this.$input.setAttribute( 'step', 'any' );
 		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$widget.appendChild( this.$input );
