@@ -1,13 +1,15 @@
 [ ] ios negative numbers
 [ ] function controller on(finish)change?
-[ ] color test malform/edge cases
-[ ] reset color arr/obj test
+
 [x] revert the change check in listen().
 	i thought this was needed to keep controllers interactive because of
 	a three example "webgl_clipping_advanced" -- there was a checkbox that is
 	deliberately uncheckable and i thought listen() was causing this. should have
 	checked to see what dat.gui was doing on that page! good news is we can 
 	simplify listen
+
+[ ] test color malform/edge cases
+[ ] test reset color arr/obj
 
 0.13
 	- Added support for `onFinishChange`.
