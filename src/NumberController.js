@@ -163,15 +163,15 @@ export default class NumberController extends Controller {
 
 			}
 
-			// not an else so that the first move counts towards dragDelta
+			// This isn't an else so that the first move counts towards dragDelta
 			if ( !testingForVerticalDrag ) {
 
 				const dy = e.clientY - prevClientY;
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				// clamp drag delta so we don't have 'dead space' after dragging past bounds
-				// we're okay with the fact that bounds can be undefined here
+				// Clamp dragDelta so we don't have 'dead space' after dragging past bounds.
+				// We're okay with the fact that bounds can be undefined here.
 				if ( initValue + dragDelta > this._max ) {
 					dragDelta = this._max - initValue;
 				} else if ( initValue + dragDelta < this._min ) {
@@ -193,7 +193,7 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
 
-		// Focus state & finishChange
+		// Focus state & onFinishChange
 		// ---------------------------------------------------------------------
 
 		const onFocus = () => {
