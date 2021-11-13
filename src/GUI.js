@@ -221,9 +221,9 @@ export default class GUI {
 
 		// eslint-disable-next-line no-console
 		console.error( `gui.add failed
-		property:`, property, `
-		object:`, object, `
-		value:`, initialValue );
+	property:`, property, `
+	object:`, object, `
+	value:`, initialValue );
 
 	}
 
