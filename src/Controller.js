@@ -322,20 +322,8 @@ export default class Controller {
 	}
 
 	_listenCallback() {
-
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
-
-		// We use save() here to get a primitive representation of a controller's value. This lets
-		// us use !== for change detection in objects that would otherwise need a deep comparison.
-		const value = this.save();
-
-		// Only update the DOM if the value has changed.
-		if ( value !== this._listenValuePrev ) {
-			this.updateDisplay();
-		}
-
-		this._listenValuePrev = value;
-
+		this.updateDisplay();
 	}
 
 	/**
