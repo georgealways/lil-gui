@@ -123,7 +123,7 @@ export default class Controller {
 	}
 
 	/**
-	 * Should be called by a controller that allow continuous changes when it gains focus.
+	 * Should be called by a controller when it gains focus, if it allows continuous changes.
 	 * Used to determine whether to call onFinishChange when that controller loses focus.
 	 * @protected
 	 */
