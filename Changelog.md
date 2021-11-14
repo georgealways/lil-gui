@@ -4,7 +4,9 @@
 
 - Added support for `onFinishChange`.
 - The error message when `gui.add` fails is easier to read.
-- Reverted `listen()` fix from 0.11.0. ([Note](https://github.com/georgealways/lil-gui/pull/11/files#r748771870))
+- `gui.load` ignores empty objects instead of failing.
+- Fixed a bug that caused mouse wheels to change values too slowly.
+- Reverted `listen()` fix from 0.11.0. ([Note](https://github.com/georgealways/lil-gui/pull/11/files#r748852628))
 
 # 0.12.0
 
