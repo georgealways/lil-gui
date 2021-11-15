@@ -32,11 +32,9 @@ export default class ColorController extends Controller {
 		this._initialValueHexString = this.save();
 		this._textFocused = false;
 
-		const onInputChange = () => {
+		this.$input.addEventListener( 'input', () => {
 			this._setValueFromHexString( this.$input.value );
-		};
-
-		this.$input.addEventListener( 'input', onInputChange );
+		} );
 
 		this.$input.addEventListener( 'blur', () => {
 			this._callOnFinishChange();
