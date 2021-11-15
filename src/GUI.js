@@ -220,7 +220,10 @@ export default class GUI {
 		}
 
 		// eslint-disable-next-line no-console
-		console.error( `Failed to add controller for "${property}"`, initialValue, object );
+		console.error( `gui.add failed
+	property:`, property, `
+	object:`, object, `
+	value:`, initialValue );
 
 	}
 
@@ -271,19 +274,19 @@ export default class GUI {
 	 */
 	load( obj, recursive = true ) {
 
-		if ( !( 'controllers' in obj ) ) {
-			throw new Error( 'Invalid load object. Should contain a "controllers" key.' );
+		if ( obj.controllers ) {
+
+			this.controllers.forEach( c => {
+
+				if ( c instanceof FunctionController ) return;
+
+				if ( c._name in obj.controllers ) {
+					c.load( obj.controllers[ c._name ] );
+				}
+
+			} );
+
 		}
-
-		this.controllers.forEach( c => {
-
-			if ( c instanceof FunctionController ) return;
-
-			if ( c._name in obj.controllers ) {
-				c.load( obj.controllers[ c._name ] );
-			}
-
-		} );
 
 		if ( recursive && obj.folders ) {
 

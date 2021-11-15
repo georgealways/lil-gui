@@ -74,7 +74,9 @@ export default class NumberController extends Controller {
 
 		};
 
-		// invoked on wheel or arrow key up/down
+		// Keys & mouse wheel
+		// ---------------------------------------------------------------------
+
 		const increment = delta => {
 
 			const value = parseFloat( this.$input.value );
@@ -98,18 +100,18 @@ export default class NumberController extends Controller {
 			}
 			if ( e.code === 'ArrowDown' ) {
 				e.preventDefault();
-				increment( -1 * this._step * this._arrowKeyMultiplier( e ) );
+				increment( this._step * this._arrowKeyMultiplier( e ) * -1 );
 			}
 		};
 
 		const onWheel = e => {
 			if ( this._inputFocused ) {
 				e.preventDefault();
-				increment( this._normalizeMouseWheel( e ) * this._step );
+				increment( this._step * this._normalizeMouseWheel( e ) );
 			}
 		};
 
-		// Vertical drag number fields
+		// Vertical drag
 		// ---------------------------------------------------------------------
 
 		let testingForVerticalDrag = false,
@@ -120,7 +122,7 @@ export default class NumberController extends Controller {
 			dragDelta;
 
 		// Once the mouse is dragged more than DRAG_THRESH px on any axis, we decide
-		// on the user's intent: Horizontal means highlight, vertical means drag.
+		// on the user's intent: horizontal means highlight, vertical means drag.
 		const DRAG_THRESH = 5;
 
 		const onMouseDown = e => {
@@ -159,15 +161,15 @@ export default class NumberController extends Controller {
 
 			}
 
-			// this isn't an else, the first move counts towards dragDelta
+			// This isn't an else so that the first move counts towards dragDelta
 			if ( !testingForVerticalDrag ) {
 
 				const dy = e.clientY - prevClientY;
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				// clamp drag delta so you don't have dead space if dragging past bounds
-				// we're okay with the fact that bounds can be undefined here
+				// Clamp dragDelta so we don't have 'dead space' after dragging past bounds.
+				// We're okay with the fact that bounds can be undefined here.
 				if ( initValue + dragDelta > this._max ) {
 					dragDelta = this._max - initValue;
 				} else if ( initValue + dragDelta < this._min ) {
@@ -184,11 +186,13 @@ export default class NumberController extends Controller {
 
 		const onMouseUp = () => {
 			this._setDraggingStyle( false, 'vertical' );
+			this._callOnFinishChange();
 			window.removeEventListener( 'mousemove', onMouseMove );
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
 
-		// Keep track of focus state
+		// Focus state & onFinishChange
+		// ---------------------------------------------------------------------
 
 		const onFocus = () => {
 			this._inputFocused = true;
@@ -197,14 +201,15 @@ export default class NumberController extends Controller {
 		const onBlur = () => {
 			this._inputFocused = false;
 			this.updateDisplay();
+			this._callOnFinishChange();
 		};
 
-		this.$input.addEventListener( 'focus', onFocus );
 		this.$input.addEventListener( 'input', onInput );
-		this.$input.addEventListener( 'blur', onBlur );
 		this.$input.addEventListener( 'keydown', onKeyDown );
-		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
+		this.$input.addEventListener( 'wheel', onWheel );
 		this.$input.addEventListener( 'mousedown', onMouseDown );
+		this.$input.addEventListener( 'focus', onFocus );
+		this.$input.addEventListener( 'blur', onBlur );
 
 	}
 
@@ -239,12 +244,12 @@ export default class NumberController extends Controller {
 			this._snapClampSetValue( value );
 		};
 
-		// Bind mouse listeners
+		// Mouse drag
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
-			setValueFromX( e.clientX );
 			this._setDraggingStyle( true );
+			setValueFromX( e.clientX );
 			window.addEventListener( 'mousemove', mouseMove );
 			window.addEventListener( 'mouseup', mouseUp );
 		};
@@ -254,17 +259,23 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
+			this._callOnFinishChange();
 			this._setDraggingStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
 		};
 
-		this.$slider.addEventListener( 'mousedown', mouseDown );
-
-		// Bind touch listeners
+		// Touch drag
 		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
+
+		const beginTouchDrag = e => {
+			e.preventDefault();
+			this._setDraggingStyle( true );
+			setValueFromX( e.touches[ 0 ].clientX );
+			testingForScroll = false;
+		};
 
 		const onTouchStart = e => {
 
@@ -281,14 +292,11 @@ export default class NumberController extends Controller {
 			} else {
 
 				// Otherwise, we can set the value straight away on touchstart.
-				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
-				this._setDraggingStyle( true );
-				testingForScroll = false;
+				beginTouchDrag( e );
 
 			}
 
-			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
+			window.addEventListener( 'touchmove', onTouchMove );
 			window.addEventListener( 'touchend', onTouchEnd );
 
 		};
@@ -303,10 +311,7 @@ export default class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					e.preventDefault();
-					setValueFromX( e.touches[ 0 ].clientX );
-					this._setDraggingStyle( true );
-					testingForScroll = false;
+					beginTouchDrag( e );
 
 				} else {
 
@@ -326,15 +331,20 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
+			this._callOnFinishChange();
 			this._setDraggingStyle( false );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
 
-		this.$slider.addEventListener( 'touchstart', onTouchStart );
-
-		// Bind wheel listeners
+		// Mouse wheel
 		// ---------------------------------------------------------------------
+
+		// We have to use a debounced function to call onFinishChange because
+		// there's no way to tell when the user is "done" mouse-wheeling.
+		const callOnFinishChange = this._callOnFinishChange.bind( this );
+		const WHEEL_DEBOUNCE_TIME = 400;
+		let wheelFinishChangeTimeout;
 
 		const onWheel = e => {
 
@@ -344,12 +354,22 @@ export default class NumberController extends Controller {
 
 			e.preventDefault();
 
+			// set value
 			const delta = this._normalizeMouseWheel( e ) * this._step;
 			this._snapClampSetValue( this.getValue() + delta );
 
+			// force the input to updateDisplay when it's focused
+			this.$input.value = this.getValue();
+
+			// debounce onFinishChange
+			clearTimeout( wheelFinishChangeTimeout );
+			wheelFinishChangeTimeout = setTimeout( callOnFinishChange, WHEEL_DEBOUNCE_TIME );
+
 		};
 
-		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
+		this.$slider.addEventListener( 'mousedown', mouseDown );
+		this.$slider.addEventListener( 'touchstart', onTouchStart );
+		this.$slider.addEventListener( 'wheel', onWheel );
 
 	}
 
@@ -393,12 +413,13 @@ export default class NumberController extends Controller {
 
 		let { deltaX, deltaY } = e;
 
-		// 2019: Safari and Chrome report weird non-integral values for an actual
-		// mouse with a wheel connected to my 2015 macbook, but still expose actual
-		// lines scrolled via wheelDelta.
+		// Safari and Chrome report weird non-integral values for a notched wheel,
+		// but still expose actual lines scrolled via wheelDelta. Notched wheels
+		// should behave the same way as arrow keys.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
 			deltaY = -e.wheelDelta / 120;
+			deltaY *= this._stepExplicit ? 1 : 10;
 		}
 
 		const wheel = deltaX + -deltaY;
@@ -437,9 +458,10 @@ export default class NumberController extends Controller {
 	}
 
 	_clamp( value ) {
-		const min = this._hasMin ? this._min : -Infinity;
-		const max = this._hasMax ? this._max : Infinity;
-		return Math.max( min, Math.min( max, value ) );
+		// either condition is false if min or max is undefined
+		if ( value < this._min ) value = this._min;
+		if ( value > this._max ) value = this._max;
+		return value;
 	}
 
 	_snapClampSetValue( value ) {

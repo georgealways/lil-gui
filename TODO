@@ -1,10 +1,39 @@
-[ ] feels like a lot of uneccessary { passive: false }, esp numbercontroller
-[ ] unit test for import/export recursive=false
-[ ] unit test for number box vertical drag
+0.14
 
-[ ] number slider should blur input on mousewheel
-[ ] close() should accept a parameter like disable() for symmetry with open() ?
-[ ] show()/hide(), ._hidden, hideKey: 'h'
+[ ] GUI.onFinishChange (branch: undo)
+[ ] ios negative numbers (branch: typenumber)
+	the spec for inputmode=decimal doesn't mandate a negative sign
+	only way to default to a keyboard with numbers, decimals and a negative sign
+	on ios is with input[type=number]. i hate unstyling that thing
+
+0.13
+
+[-] test color malform/edge cases
+	current behavior is fine imo, don't want to bloat it with error message strings
+[x] test reset color arr/obj
+
+[x] revert the change check in listen().
+	i thought this was needed to keep controllers interactive because of
+	a three.js example "webgl_clipping_advanced" -- there was a checkbox that is
+	deliberately uncheckable and i thought listen() was causing this
+	
+[-] function controller on(finish)change?
+[-] close() should accept a parameter like disable() for symmetry with open()
+[x] onFinishChange on reset
+[x] load should return this
+[x] load should call onfinishchange
+
+[-] mousewheel/slider key modifiers
+	would require keeping track of a cumulative delta like vertical drag
+[-] show()/hide(), ._hidden, hideKey: 'h' ?
+	rarely find myself needing anything more than gui.domElement.style.display = 'none';
+
+[x] better gui.add/addColor failure message
+	too many ways addColor can fail, just gonna let it yell at you for now
+[x] unit test for number box vertical drag
+
+[x] number slider should blur input on mousewheel
+[x] no more passive false
 
 [x] i'd like to make it easier to find/view the built source.
 	[x] @VERSION swapout for guide in cdn example
@@ -49,7 +78,8 @@ homepage
 OTHER
 	[x] i don't like how some anchors are inside h1/2/3 and some aren't. if they're all above the 
 		header in question i don't need --anchor offset. they only hafta be inside the header for .md
-	[ ] order of properties (not methods) in API is kinda wonky
+	[-] order of properties (not methods) in API is kinda wonky
+		no it's not it's a-z$_
 	[x] main api toc columns are ugly
 	[x] !! update anchor positions on resize
 
@@ -236,7 +266,6 @@ archive
 	tried both of these but was gross
 	will try again
 	[x] i like it
-
 
 [x] move kitchen sink from homepage to panopticon.
 	(that should be a simple demo) 

@@ -447,6 +447,15 @@
 			margin: 0;
 		}
 
+		@media (max-width: 1200px) {
+
+			.autoPlace {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+		}
+
 		/* small desktop */
 
 		@media (max-width: 958px) {
@@ -476,12 +485,6 @@
 			main {
 				margin: 0 auto;
 				padding: 0 1rem;
-			}
-
-			.autoPlace {
-				opacity: 0;
-				pointer-events: none;
-				transition: none !important;
 			}
 
 		}
@@ -569,7 +572,7 @@
 				}
 				hidden = passed;
 			}
-			document.addEventListener( 'scroll', onScroll, { passive: false } );
+			document.addEventListener( 'scroll', onScroll );
 			onScroll();
 
 			// Delay transition class so we don't see a fadeout flash on load
@@ -662,7 +665,7 @@
 				activeLink.scrollIntoView( { block: 'nearest' } );
 			}
 
-			document.addEventListener( 'scroll', onScroll, { passive: true } );
+			document.addEventListener( 'scroll', onScroll );
 			window.addEventListener( 'resize', debounce( updateAnchorPositions ) );
 
 			requestAnimationFrame( () => {
@@ -835,7 +838,7 @@
 
 		} );
 
-		example( 16, ( gui, code ) => {
+		example( 17, ( gui, code ) => {
 
 			const params = { feedback: 0 };
 
@@ -850,7 +853,7 @@
 
 		} );
 
-		example( 17, ( gui, code ) => {
+		example( 18, ( gui, code ) => {
 
 			let saved = {};
 
@@ -968,7 +971,7 @@
 			<section id="section-readme">
 				{{{ readme }}}
 
-				<a href="{{ builds.module }}">Built source</a> • 
+				<a href="{{ builds.module }}">Built Source</a> • 
 				<a href="{{ builds.moduleMin }}">Minified</a> = <strong>{{ sizeMin }}kb</strong>, {{ sizeGzip }}kb gzipped
 				
 			</section>

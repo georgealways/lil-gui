@@ -107,14 +107,14 @@ export default class Controller {
 	 * @example
 	 * const controller = gui.add( object, 'property' );
 	 *
-	 * controller.onChange( v => {
+	 * controller.onChange( function( v ) {
 	 * 	console.log( 'The value is now ' + v );
 	 * 	console.assert( this === controller );
 	 * } );
 	 */
 	onChange( callback ) {
 		/**
-		 * Used to access the function bound to change events. Don't modify this value directly.
+		 * Used to access the function bound to `onChange` events. Don't modify this value directly.
 		 * Use the `controller.onChange( callback )` method instead.
 		 * @type {Function}
 		 */
@@ -122,16 +122,56 @@ export default class Controller {
 		return this;
 	}
 
+	/**
+	 * Calls the onChange methods of this controller and its parent GUI.
+	 * @protected
+	 */
 	_callOnChange() {
+
 		this.parent._callOnChange( this );
+
 		if ( this._onChange !== undefined ) {
 			this._onChange.call( this, this.getValue() );
 		}
+
+		this._changed = true;
+
 	}
 
-	// Provided for compatability
+	/**
+	 * Pass a function to be called after this controller has been modified and loses focus.
+	 * @param {Function} callback
+	 * @returns {this}
+	 * @example
+	 * const controller = gui.add( object, 'property' );
+	 *
+	 * controller.onFinishChange( function( v ) {
+	 * 	console.log( 'Changes complete: ' + v );
+	 * 	console.assert( this === controller );
+	 * } );
+	 */
 	onFinishChange( callback ) {
-		return this.onChange( callback );
+		/**
+		 * Used to access the function bound to `onFinishChange` events. Don't modify this value
+		 * directly. Use the `controller.onFinishChange( callback )` method instead.
+		 * @type {Function}
+		 */
+		this._onFinishChange = callback;
+		return this;
+	}
+
+	/**
+	 * Should be called by Controller when its widgets lose focus.
+	 * @protected
+	 */
+	_callOnFinishChange() {
+
+		if ( this._changed && this._onFinishChange !== undefined ) {
+			this._onFinishChange.call( this, this.getValue() );
+		}
+
+		this._changed = false;
+
 	}
 
 	/**
@@ -140,6 +180,7 @@ export default class Controller {
 	 */
 	reset() {
 		this.setValue( this.initialValue );
+		this._callOnFinishChange();
 		return this;
 	}
 
@@ -275,19 +316,8 @@ export default class Controller {
 	}
 
 	_listenCallback() {
-
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
-
-		const value = this.getValue();
-
-		// Only update the DOM if the value has changed. Controllers that control non-primitive data
-		// types get updated every frame to avoid the complexity of comparing objects
-		if ( value !== this._listenValuePrev || Object( value ) === value ) {
-			this.updateDisplay();
-		}
-
-		this._listenValuePrev = value;
-
+		this.updateDisplay();
 	}
 
 	/**
@@ -321,6 +351,8 @@ export default class Controller {
 
 	load( value ) {
 		this.setValue( value );
+		this._callOnFinishChange();
+		return this;
 	}
 
 	save() {

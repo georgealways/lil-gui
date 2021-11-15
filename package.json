@@ -1,6 +1,6 @@
 {
   "name": "lil-gui",
-  "version": "0.12.0",
+  "version": "0.13.0-dev",
   "author": {
     "name": "George Michael Brower"
   },
@@ -20,7 +20,7 @@
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
-    "test": "node -r esm scripts/test.js",
+    "test": "node -r esm tests/utils/runner.js",
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "browser-sync start -s -f '$npm_package_main' 'index.html' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
