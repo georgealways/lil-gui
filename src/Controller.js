@@ -165,10 +165,13 @@ export default class Controller {
 	 * @protected
 	 */
 	_callOnFinishChange() {
+
 		if ( this._changed && this._onFinishChange !== undefined ) {
 			this._onFinishChange.call( this, this.getValue() );
 		}
+
 		this._changed = false;
+
 	}
 
 	/**
