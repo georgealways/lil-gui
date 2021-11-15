@@ -123,15 +123,6 @@ export default class Controller {
 	}
 
 	/**
-	 * Should be called by a controller when it gains focus, if it allows continuous changes.
-	 * Used to determine whether to call onFinishChange when that controller loses focus.
-	 * @protected
-	 */
-	_onChangeStart() {
-		this._changed = false;
-	}
-
-	/**
 	 * Calls the onChange methods of this controller and its parent GUI.
 	 * @protected
 	 */
