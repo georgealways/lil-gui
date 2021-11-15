@@ -1,6 +1,6 @@
 # 0.13.0
 
-28.74kb, 8.27kb gzipped
+28.56kb, 8.24kb gzipped
 
 - Added support for `onFinishChange`.
 - The error message when `gui.add` fails is easier to read.
