@@ -21,6 +21,9 @@
 				background: var(--focus-color);
 			}
 		}
+		&:disabled { 
+			opacity: 1; // override default iOS style, we already dim .controller
+		}
 	}
 
 	input[type='text'] {
