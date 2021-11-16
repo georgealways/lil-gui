@@ -40,6 +40,7 @@
 		width: var(--checkbox-size);
 		border-radius: var(--widget-border-radius);
 		text-align: center;
+		cursor: pointer;
 		&:checked:before {
 			font-family: 'lil-gui';
 			content: '✓';
