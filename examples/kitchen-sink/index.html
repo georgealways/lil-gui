@@ -308,6 +308,10 @@
 
 			gui.addColor( { Color: 0xaa00ff }, 'Color' ).onChange( change ).onFinishChange( finishChange );
 
+			gui.onFinishChange( e => {
+				console.log( 'gui.onFinishChange', e );
+			} );
+
 		} );
 
 		make( { title: 'Customization' }, gui => {

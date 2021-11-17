@@ -137,8 +137,6 @@ export default class NumberController extends Controller {
 			window.addEventListener( 'mousemove', onMouseMove );
 			window.addEventListener( 'mouseup', onMouseUp );
 
-			this._onChangeStart();
-
 		};
 
 		const onMouseMove = e => {
@@ -163,15 +161,15 @@ export default class NumberController extends Controller {
 
 			}
 
-			// not an else so that the first move counts towards dragDelta
+			// This isn't an else so that the first move counts towards dragDelta
 			if ( !testingForVerticalDrag ) {
 
 				const dy = e.clientY - prevClientY;
 
 				dragDelta -= dy * this._step * this._arrowKeyMultiplier( e );
 
-				// clamp drag delta so we don't have 'dead space' after dragging past bounds
-				// we're okay with the fact that bounds can be undefined here
+				// Clamp dragDelta so we don't have 'dead space' after dragging past bounds.
+				// We're okay with the fact that bounds can be undefined here.
 				if ( initValue + dragDelta > this._max ) {
 					dragDelta = this._max - initValue;
 				} else if ( initValue + dragDelta < this._min ) {
@@ -193,7 +191,7 @@ export default class NumberController extends Controller {
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
 
-		// Focus state & finishChange
+		// Focus state & onFinishChange
 		// ---------------------------------------------------------------------
 
 		const onFocus = () => {
@@ -250,7 +248,6 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
-			this._onChangeStart();
 			this._setDraggingStyle( true );
 			setValueFromX( e.clientX );
 			window.addEventListener( 'mousemove', mouseMove );
@@ -275,7 +272,6 @@ export default class NumberController extends Controller {
 
 		const beginTouchDrag = e => {
 			e.preventDefault();
-			this._onChangeStart();
 			this._setDraggingStyle( true );
 			setValueFromX( e.touches[ 0 ].clientX );
 			testingForScroll = false;
@@ -417,12 +413,13 @@ export default class NumberController extends Controller {
 
 		let { deltaX, deltaY } = e;
 
-		// 2019: Safari and Chrome report weird non-integral values for an actual
-		// mouse with a wheel connected to my 2015 macbook, but still expose actual
-		// lines scrolled via wheelDelta.
+		// Safari and Chrome report weird non-integral values for a notched wheel,
+		// but still expose actual lines scrolled via wheelDelta. Notched wheels
+		// should behave the same way as arrow keys.
 		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
 			deltaX = 0;
 			deltaY = -e.wheelDelta / 120;
+			deltaY *= this._stepExplicit ? 1 : 10;
 		}
 
 		const wheel = deltaX + -deltaY;

@@ -202,6 +202,8 @@ gui.onChange( event => {
 `GUI.onChange` events bubble upward. A handler applied to the root GUI will fire after every change. 
 Handlers applied to folders will only be called after changes to that folder or its descendents.
 
+`GUI.onFinishChange` works just like `GUI.onChange`, but it only fires at the end of change events.
+
 ### Listening and Updating
 
 If a value controlled by the GUI is changed in code anywhere outside of the GUI, the new value won't

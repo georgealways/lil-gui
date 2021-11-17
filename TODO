@@ -1,10 +1,13 @@
 0.14
 
-[ ] GUI.onFinishChange (branch: undo)
+[x] GUI.onFinishChange (branch: undo)
 [ ] ios negative numbers (branch: typenumber)
 	the spec for inputmode=decimal doesn't mandate a negative sign
 	only way to default to a keyboard with numbers, decimals and a negative sign
 	on ios is with input[type=number]. i hate unstyling that thing
+
+[ ] -webkit-tap-highlight is still on boolean and option
+	but there's no :active style on either without it
 
 0.13
 
