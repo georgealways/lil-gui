@@ -1,6 +1,8 @@
 # 0.14.0
 
 - Added `gui.onFinishChange` for symmetry with `gui.onChange`.
+- Fixed a bug that stopped iOS users from typing negative numbers. ([Note](#))
+- Minor CSS fixes.
 
 # 0.13.0
 
