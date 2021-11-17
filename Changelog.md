@@ -1,3 +1,7 @@
+# 0.14.0
+
+- Added `gui.onFinishChange` for symmetry with `gui.onChange`.
+
 # 0.13.0
 
 28.56kb, 8.24kb gzipped

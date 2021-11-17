@@ -166,6 +166,8 @@ export default class Controller {
 	 */
 	_callOnFinishChange() {
 
+		this.parent._callOnFinishChange( this );
+
 		if ( this._changed && this._onFinishChange !== undefined ) {
 			this._onFinishChange.call( this, this.getValue() );
 		}
