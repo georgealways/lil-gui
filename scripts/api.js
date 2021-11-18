@@ -254,7 +254,7 @@ function paramsToSignature( params ) {
 		.map( singleParamToSignature )
 		.join( ', ' );
 
-	return `(&nbsp;${paramList}&nbsp;)`;
+	return `( ${paramList} )`;
 
 }
 
