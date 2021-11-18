@@ -89,10 +89,7 @@
 
 		text-align: center;
 
-		// tried to center vertically via flex, didn't work...
-		// shouldn't this just be 1? focus border makes this weird
-		// .725 seemed to line up for mobile & desktop
-		line-height: calc(var(--widget-height) * 0.725);
+		line-height: calc(var(--widget-height) - 4px);
 
 		@include can-hover {
 			&:hover {
