@@ -1,7 +1,9 @@
 # 0.14.0
 
+29.04kb, 8.31kb gzipped
+
 - Added `gui.onFinishChange` for symmetry with `gui.onChange`.
-- Fixed a bug that stopped iOS users from typing negative numbers. ([Note](#))
+- Fixed a bug that stopped iOS users from typing negative numbers. ([Note](https://github.com/georgealways/lil-gui/pull/16))
 - Minor CSS fixes.
 
 # 0.13.0
