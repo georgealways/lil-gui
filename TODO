@@ -6,10 +6,14 @@
 	only way to default to a keyboard with numbers, decimals and a negative sign
 	on ios is with input[type=number]. i hate unstyling that thing
 
-[ ] -webkit-tap-highlight is still on boolean and option
-	but there's no :active style on either without it
+[-] -webkit-tap-highlight is still on boolean and option
+	but there's no :active style on either without it (branch: mobileactivestates)
 
-[ ] move --string-color and --number-color to inputs.scss
+[ ] button text-transform: none
+	this was there to compensate for a very broad css selector in the three.js 
+	examples while developing, shouldn't be there
+
+[-] move --string-color and --number-color to inputs.scss
 
 0.13
 
