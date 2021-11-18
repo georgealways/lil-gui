@@ -14,7 +14,9 @@
 			}
 		}
 
-		.name {
+		// > is used here to avoid styling FunctionController's .name,
+		// which gets put inside of its widget.
+		> .name {
 			min-width: var(--name-width);
 			flex-shrink: 0;
 			white-space: pre;
@@ -29,11 +31,6 @@
 			width: 100%;
 			min-height: var(--widget-height);
 		}
-	}
-
-	.controller.function .name {
-		line-height: unset;
-		padding: 0;
 	}
 
 	.controller.string input {

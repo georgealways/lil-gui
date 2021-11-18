@@ -23,7 +23,7 @@
     "test": "node -r esm tests/utils/runner.js",
     "api": "node -r esm scripts/api.js --write",
     "homepage": "node -r esm scripts/homepage.js",
-    "server": "browser-sync start -s -f '$npm_package_main' 'index.html' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
+    "server": "browser-sync start -s -f 'dist' 'index.html' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run build && npm test",
     "dev": "npm run build:all && node -r esm scripts/dev.js"
