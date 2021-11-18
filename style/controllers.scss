@@ -54,10 +54,7 @@
 					position: absolute;
 					border-radius: var(--widget-border-radius);
 					border: 1px solid #fff9;
-					left: 0;
-					right: 0;
-					top: 0;
-					bottom: 0;
+					inset: 0;
 				}
 			}
 		}
@@ -111,9 +108,7 @@
 				font-family: 'lil-gui';
 				content: '↕';
 				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
+				inset: 0 0 0 auto;
 				padding-right: 0.375em;
 			}
 		}
