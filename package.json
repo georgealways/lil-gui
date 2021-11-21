@@ -8,6 +8,7 @@
   "homepage": "https://lil-gui.georgealways.com",
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
+  "types": "dist/lil-gui.esm.d.ts",
   "config": {
     "style": "dist/lil-gui.css",
     "styleMin": "dist/lil-gui.min.css"
@@ -22,10 +23,11 @@
     "icons": "node -r esm scripts/icons.js",
     "test": "node -r esm tests/utils/runner.js",
     "api": "node -r esm scripts/api.js --write",
+    "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
     "preversion": "npm run build && npm test",
-    "prepublishOnly": "npm run build && npm test",
+    "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
     "dev": "npm run build:all && node -r esm scripts/dev.js"
   },
   "files": [
@@ -46,6 +48,7 @@
     "rollup": "^1.17.0",
     "sass": "^1.22.10",
     "terser": "^4.3.8",
+    "typescript": "^4.5.2",
     "webfont": "^11.2.26"
   },
   "eslintIgnore": [
