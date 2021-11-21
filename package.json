@@ -26,6 +26,7 @@
     "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
+    "clean": "rimraf -rf dist/*",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
     "dev": "npm run build:all && node -r esm scripts/dev.js"
@@ -45,6 +46,7 @@
     "jsdoc-api": "^5.0.2",
     "markdown-it": "^9.1.0",
     "onchange": "^6.0.0",
+    "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "sass": "^1.22.10",
     "terser": "^4.3.8",
