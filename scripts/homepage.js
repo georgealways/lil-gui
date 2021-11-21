@@ -47,8 +47,8 @@ guide = guide.replace( /^## ([\s\S]*?)$/gm, function( _, heading ) {
 
 } );
 
-// include version in CDN examples, bad form to use bare/latest
-guide = guide.replace( /@VERSION/g, '@' + pkg.version );
+// include major & minor version in CDN examples, bad form to use bare/latest
+guide = guide.replace( /@VERSION/g, '@' + pkg.version.substring( 0, pkg.version.lastIndexOf( '.' ) ) );
 
 // API.md
 // -----------------------------------------------------------------------------
