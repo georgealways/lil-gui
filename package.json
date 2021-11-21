@@ -15,7 +15,7 @@
   "scripts": {
     "build": "npm run icons && npm run sass && npm run sass:min && npm run rollup",
     "build:all": "npm run build && npm run api && npm run homepage",
-    "sass": "sass style/index.scss dist/lil-gui.css --no-source-map --no-charset",
+    "sass": "sass style/index.scss dist/lil-gui.css --no-charset --no-source-map",
     "sass:min": "sass style/index.scss dist/lil-gui.min.css --no-charset --no-source-map --style=compressed",
     "rollup": "rollup -c",
     "lint": "eslint .",
