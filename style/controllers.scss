@@ -14,7 +14,9 @@
 			}
 		}
 
-		.name {
+		// > is used here to avoid styling FunctionController's .name,
+		// which gets put inside of its widget.
+		> .name {
 			min-width: var(--name-width);
 			flex-shrink: 0;
 			white-space: pre;
@@ -29,11 +31,6 @@
 			width: 100%;
 			min-height: var(--widget-height);
 		}
-	}
-
-	.controller.function .name {
-		line-height: unset;
-		padding: 0;
 	}
 
 	.controller.string input {
@@ -57,10 +54,7 @@
 					position: absolute;
 					border-radius: var(--widget-border-radius);
 					border: 1px solid #fff9;
-					left: 0;
-					right: 0;
-					top: 0;
-					bottom: 0;
+					inset: 0;
 				}
 			}
 		}
@@ -114,9 +108,7 @@
 				font-family: 'lil-gui';
 				content: '↕';
 				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
+				inset: 0 0 0 auto;
 				padding-right: 0.375em;
 			}
 		}

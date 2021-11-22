@@ -489,6 +489,39 @@ export default class GUI {
 	}
 
 	/**
+	 * Pass a function to be called whenever a controller in this GUI has finished changing.
+	 * @param {function({object:object, property:string, value:any, controller:Controller})} callback
+	 * @returns {this}
+	 * @example
+	 * gui.onFinishChange( event => {
+	 * 	event.object     // object that was modified
+	 * 	event.property   // string, name of property
+	 * 	event.value      // new value of controller
+	 * 	event.controller // controller that was modified
+	 * } );
+	 */
+	onFinishChange( callback ) {
+		this._onFinishChange = callback;
+		return this;
+	}
+
+	_callOnFinishChange( controller ) {
+
+		if ( this.parent ) {
+			this.parent._callOnFinishChange( controller );
+		}
+
+		if ( this._onFinishChange !== undefined ) {
+			this._onFinishChange.call( this, {
+				object: controller.object,
+				property: controller.property,
+				value: controller.getValue(),
+				controller
+			} );
+		}
+	}
+
+	/**
 	 * Destroys all DOM elements and event listeners associated with this GUI
 	 */
 	destroy() {

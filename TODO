@@ -1,10 +1,20 @@
 0.14
 
-[ ] GUI.onFinishChange (branch: undo)
-[ ] ios negative numbers (branch: typenumber)
+[x] GUI.onFinishChange (branch: undo)
+[x] ios negative numbers (branch: typenumber)
 	the spec for inputmode=decimal doesn't mandate a negative sign
 	only way to default to a keyboard with numbers, decimals and a negative sign
 	on ios is with input[type=number]. i hate unstyling that thing
+
+[-] -webkit-tap-highlight is still on boolean and option
+	but there's no :active style on either without it (branch: mobileactivestates)
+
+[-] button text-transform: none
+	this was there to compensate for a very broad css selector in the three.js 
+	examples while developing, shouldn't be there.
+	well, in truth there's a bunch of 'resets' in the .lil-gui { selector too
+
+[-] move --string-color and --number-color to inputs.scss
 
 0.13
 

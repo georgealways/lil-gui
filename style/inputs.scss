@@ -21,13 +21,29 @@
 				background: var(--focus-color);
 			}
 		}
+		&:disabled { 
+			opacity: 1; // override default iOS style, we already dim .controller
+		}
 	}
 
-	input[type='text'] {
+	input[type='text'],
+	input[type='number'] {
 		padding: var(--widget-padding);
 		&:focus {
 			background: var(--focus-color);
 		}
+	}
+
+	// Hide number spinners
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	
+	input[type='number'] {
+		-moz-appearance: textfield;
 	}
 
 	input[type='checkbox'] {
@@ -37,6 +53,7 @@
 		width: var(--checkbox-size);
 		border-radius: var(--widget-border-radius);
 		text-align: center;
+		cursor: pointer;
 		&:checked:before {
 			font-family: 'lil-gui';
 			content: '✓';
@@ -49,7 +66,6 @@
 				box-shadow: inset 0 0 0 1px var(--focus-color);
 			}
 		}
-
 	}
 
 	button {
@@ -73,10 +89,7 @@
 
 		text-align: center;
 
-		// tried to center vertically via flex, didn't work...
-		// shouldn't this just be 1? focus border makes this weird
-		// .725 seemed to line up for mobile & desktop
-		line-height: calc(var(--widget-height) * 0.725);
+		line-height: calc(var(--widget-height) - 4px);
 
 		@include can-hover {
 			&:hover {
