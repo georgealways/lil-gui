@@ -1,3 +1,25 @@
+vc
+	[ ] better comments on numberinput
+	[ ] guide
+
+internal
+	[ ] get rid of all the -r esm
+		i had errors when i tried to use "type": "module" in package.json
+	[ ] get a linter that also deals w html, css/sass
+	[ ] dark scheme for homepage
+
+examples
+	[ ] custom-controller
+		does it need a 'readout' input? 
+		can we highlight the dang injectStyles`` css content?
+	[ ] save-server
+		needs to run locally...just show client & server.js? docco'd?
+		server.js copied from the actual source
+	[ ] undo-redo
+		simple
+	[ ] auto-gui
+		simple
+
 0.14
 
 [x] GUI.onFinishChange (branch: undo)
