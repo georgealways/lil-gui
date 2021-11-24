@@ -31,6 +31,7 @@
 	& * {
 		box-sizing: border-box;
 		margin: 0;
+		padding: 0;
 	}
 
 	&.root {
@@ -42,7 +43,8 @@
 			color: var(--title-text-color);
 		}
 		> .children {
-			overflow: auto;
+			overflow-x: hidden;
+			overflow-y: auto;
 			&::-webkit-scrollbar {
 				width: var(--scrollbar-width);
 				height: var(--scrollbar-width);
