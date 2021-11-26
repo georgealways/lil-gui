@@ -96,6 +96,11 @@
 			guiStep.add( { x: 0 }, 'x' ).step( 1 ).name( '1' );
 			guiStep.add( { x: 0 }, 'x' ).step( 10 ).name( '10' );
 
+			const guiRange = gui.addFolder( 'Out of range' );
+
+			guiRange.add( { x: 2 }, 'x', 0, 1 ).name( 'Too high' );
+			guiRange.add( { x: -2 }, 'x', 0, 1 ).name( 'Too low' );
+
 		} );
 
 		make( { title: 'Sliders' }, gui => {
