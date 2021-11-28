@@ -1,8 +1,18 @@
+open threads
+[x] slider out of bounds display
+	[ ] red styling for knob (branch: oob)
+[ ] stop-propagation
+	[ ] captureKeys (stop-propagation-option)
+
 internal
-	[ ] get rid of all the -r esm
-		i had errors when i tried to use "type": "module" in package.json
 	[ ] get a linter that also deals w html, css/sass
-	[ ] dark scheme for homepage
+	jsdoc and html plugins don't play nice
+	there's a disable plugin, could turn off jsdoc plugin in html files
+	and all of this also applies to markdown examples, so that's 4 eslint plugins...
+	[-] get rid of all the -r esm
+	standard-things/esm/issues/896 is the primary offender
+	the experimental modules flag is kinda wack ... was slower than -r esm
+	[x] dark scheme for homepage
 
 0.14
 
