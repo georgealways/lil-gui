@@ -137,7 +137,7 @@ gui.addColor( obj, 'colorArray' );
 ### RGB Channel Ranges
 
 The channel range for RGB objects and arrays can be overriden per controller by passing a third 
-parameter to `addColor()`. If your colors are coming out too dark, you might need to set this to 255.
+parameter to `addColor()`. If your colors are coming out too bright, you might need to set this to 255.
 
 ```js
 obj = {
@@ -228,7 +228,7 @@ Using `gui.save()` you can create an object that saves the current value of all 
 added to the GUI. You can pass that object to `gui.load()` to restore the saved values.
 
 The following creates a GUI that can save a preset. Press the savePreset button, then modify any
-controller. Pressing the recallPreset button restores the values you saved.
+controller. Pressing the loadPreset button restores the values you saved.
 
 ```js
 let preset = {};
