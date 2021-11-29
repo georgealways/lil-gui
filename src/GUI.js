@@ -49,11 +49,11 @@ export default class GUI {
 	constructor( {
 		parent,
 		autoPlace = parent === undefined,
-		touchStyles = true,
 		container,
-		injectStyles = true,
+		width,
 		title = 'Controls',
-		width
+		injectStyles = true,
+		touchStyles = true
 	} = {} ) {
 
 		/**
