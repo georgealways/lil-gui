@@ -89,7 +89,6 @@ export default class GUI {
 		/**
 		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
 		 * @type {boolean}
-		 * @readonly
 		 */
 		this._closed = false;
 
