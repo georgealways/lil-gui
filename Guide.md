@@ -101,8 +101,7 @@ gui.add( obj, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 ## Colors
 
 lil-gui recognizes colors in a number of formats: CSS strings, RGB objects or integer hex values to 
-name a few. You can use `addColor()` to create a color picker for controlling these values. lil-gui
-uses an RRGGBB format for display, but it always honors the original data type when updating colors.
+name a few. You can use `addColor()` to create a color picker for controlling these values. 
 
 ```js
 obj = {
@@ -117,6 +116,8 @@ gui.addColor( obj, 'color2' );
 gui.addColor( obj, 'color3' );
 gui.addColor( obj, 'color4' );
 ```
+
+lil-gui uses an `rrggbb` format for display, but it always honors the original _data type_ when writing colors (numbers remain numbers, strings remain strings). However, it will normalize all _string_ based colors to `#rrggbb` format on update.
 
 ### RGB Objects & Arrays
 

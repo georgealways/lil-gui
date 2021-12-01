@@ -53,8 +53,9 @@ lil_gui.addColor( params, 'color' );
 
 The other differences in color handling are fairly minor: 
 
+- lil-gui always writes to `#rrggbb` format for strings, even those defined as `rgb()` or `#RGB`.
 - lil-gui uses the native HTML `input[type=color]` tag instead of a custom color picker.
-- lil-gui doesn't support any HSL color formats.
+- lil-gui doesn't support any HSL or alpha color formats.
 
 ## Removed
 
