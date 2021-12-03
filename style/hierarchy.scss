@@ -59,7 +59,7 @@
 	&.transition > .children {
 		transition-duration: 300ms;
 		transition-property: height, opacity, transform;
-		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		transition-timing-function: cubic-bezier(0.2, 0.6, 0.35, 1);
 		overflow: hidden;
 		pointer-events: none;
 	}

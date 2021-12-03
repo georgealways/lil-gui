@@ -32,8 +32,13 @@ dev( {
 		flag: '--soft-fail',
 		color: 'yellow'
 	},
+	'postcss': {
+		onchange: [
+			pkg.config.style
+		],
+		color: 'magenta'
+	},
 	'sass': 	{ flag: '--watch', color: 'magenta' },
-	'sass:min': { flag: '--watch', color: 'magenta' },
 	'rollup': 	{ flag: '-w', color: 'cyan' },
 	'server': 	{ color: 'gray' }
 } );
