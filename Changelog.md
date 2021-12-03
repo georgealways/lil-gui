@@ -2,9 +2,9 @@
 
 28.90kb, 8.23kb gzipped
 
-- Fixed a bug that caused sliders to disappear when outside of min/max. (#21)
+- Fixed a bug that caused sliders to disappear when outside of min/max. ([#21](https://github.com/georgealways/lil-gui/issues/21))
 - Improved compression for the minified stylesheet.
-(#26)
+([#26](https://github.com/georgealways/lil-gui/pull/26))
 - CSS fixes for Safari.
 
 # 0.14.0
@@ -13,7 +13,7 @@
 
 - Added `gui.onFinishChange` for symmetry with `gui.onChange`.
 - Added a `d.ts` file for TypeScript users.
-- Fixed a bug that stopped iOS users from typing negative numbers. (#16)
+- Fixed a bug that stopped iOS users from typing negative numbers. ([#16](https://github.com/georgealways/lil-gui/pull/16))
 - Minor CSS fixes.
 
 # 0.13.0
