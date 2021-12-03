@@ -33,7 +33,12 @@ dev( {
 		color: 'yellow'
 	},
 	'sass': 	{ flag: '--watch', color: 'magenta' },
-	'sass:min': { flag: '--watch', color: 'magenta' },
+	'postcss': {
+		onchange: [
+			pkg.config.style
+		],
+		color: 'magenta'
+	},
 	'rollup': 	{ flag: '-w', color: 'cyan' },
 	'server': 	{ color: 'gray' }
 } );

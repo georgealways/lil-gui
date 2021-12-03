@@ -14,10 +14,10 @@
     "styleMin": "dist/lil-gui.min.css"
   },
   "scripts": {
-    "build": "npm run icons && npm run sass && npm run sass:min && npm run rollup",
+    "build": "npm run icons && npm run sass && npm run postcss && npm run rollup",
     "build:all": "npm run build && npm run api && npm run homepage",
     "sass": "sass style/index.scss dist/lil-gui.css --no-charset --no-source-map",
-    "sass:min": "sass style/index.scss dist/lil-gui.min.css --no-charset --no-source-map --style=compressed",
+    "postcss": "postcss dist/lil-gui.css -u postcss-combine-media-query -u postcss-minify --no-map -o dist/lil-gui.min.css",
     "rollup": "rollup -c",
     "lint": "eslint .",
     "icons": "node -r esm scripts/icons.js",
@@ -46,6 +46,10 @@
     "jsdoc-api": "^5.0.2",
     "markdown-it": "^9.1.0",
     "onchange": "^6.0.0",
+    "postcss": "^8.4.4",
+    "postcss-cli": "^9.0.2",
+    "postcss-combine-media-query": "^1.0.1",
+    "postcss-minify": "^1.1.0",
     "rimraf": "^3.0.2",
     "rollup": "^1.17.0",
     "sass": "^1.22.10",
