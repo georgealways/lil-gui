@@ -127,8 +127,8 @@ let html = template( {
 // makes hardcoded links in readme relative on real site
 html = html.replace( new RegExp( `href="${pkg.homepage}/?`, 'g' ), 'href="' );
 
-// open non anchor links in a new window
-html = html.replace( /href="(?!#)/g, 'target="_blank" href="' );
+// open external links in a new window
+html = html.replace( /href="(https?:)?\/\//g, m => `target="_blank" ${m}` );
 
 // move anchors from inside to before headers
 html = html.replace( /(<h[12]>)(<a name=".*"><\/a>)\s*/g, ( ...args ) => {
