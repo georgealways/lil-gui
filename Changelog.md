@@ -1,7 +1,8 @@
 # dev
 
-28.90kb, 8.23kb gzipped
+29.13kb, 8.28kb gzipped
 
+- Typing in the GUI will no longer trigger global key listeners. ([#27](https://github.com/georgealways/lil-gui/pull/27))
 - Fixed a bug that caused sliders to disappear when outside of min/max. ([#21](https://github.com/georgealways/lil-gui/issues/21))
 - Improved compression for the minified stylesheet.
 ([#26](https://github.com/georgealways/lil-gui/pull/26))
