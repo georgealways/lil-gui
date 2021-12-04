@@ -26,6 +26,7 @@ class EventTarget {
 		const listeners = this.__eventListeners[ name ];
 		if ( !listeners ) return;
 		event.preventDefault = function() {};
+		event.stopPropagation = function() {};
 		listeners.forEach( l => l( event ) );
 	}
 
