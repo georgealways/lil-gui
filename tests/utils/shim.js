@@ -44,6 +44,7 @@ class Element extends EventTarget {
 	insertBefore() {}
 	setAttribute() {}
 	removeAttribute() {}
+	toggleAttribute() {}
 	getBoundingClientRect() {
 
 		const rect = {

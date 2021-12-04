@@ -219,12 +219,7 @@ export default class Controller {
 		this._disabled = disabled;
 
 		this.domElement.classList.toggle( 'disabled', disabled );
-
-		if ( disabled ) {
-			this.$disable.setAttribute( 'disabled', 'disabled' );
-		} else {
-			this.$disable.removeAttribute( 'disabled' );
-		}
+		this.$disable.toggleAttribute( 'disabled', disabled );
 
 		return this;
 
