@@ -65,6 +65,8 @@ export default class NumberController extends Controller {
 
 		this.$disable = this.$input;
 
+		this._captureKeyEvents( this.$input );
+
 		const onInput = () => {
 
 			const value = parseFloat( this.$input.value );
