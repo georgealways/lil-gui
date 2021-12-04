@@ -58,12 +58,10 @@ make( { title: 'Explicit step' }, gui => {
 	explicitStep( 0, 15, .015 );
 	explicitStep( 0, 5, 1 / 3, '1/3' );
 
-} );
+	const oob = gui.addFolder( 'Out of bounds' );
 
-make( { title: 'Out of range' }, gui => {
-
-	gui.add( { x: 2 }, 'x', 0, 1 ).name( '[0,1] Too high' );
-	gui.add( { x: -2 }, 'x', 0, 1 ).name( '[0,1] Too low' );
+	oob.add( { x: 2 }, 'x', 0, 1 ).name( '[0,1] Too high' );
+	oob.add( { x: -2 }, 'x', 0, 1 ).name( '[0,1] Too low' );
 
 } );
 
