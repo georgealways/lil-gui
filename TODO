@@ -1,8 +1,8 @@
 open threads
 [x] slider out of bounds display
-	[ ] red styling for knob (branch: oob)
-[ ] stop-propagation
-	[ ] captureKeys (stop-propagation-option)
+	[-] red styling for knob (branch: oob)
+[x] stop-propagation
+	[-] captureKeys (stop-propagation-option)
 
 internal
 	[ ] get a linter that also deals w html, css/sass
