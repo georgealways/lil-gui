@@ -117,7 +117,7 @@ gui.addColor( obj, 'color3' );
 gui.addColor( obj, 'color4' );
 ```
 
-lil-gui uses an `rrggbb` format for display, but it always honors the original _data type_ when writing colors (numbers remain numbers, strings remain strings). However, it will normalize all _string_ based colors to `#rrggbb` format on update.
+lil-gui uses an `rrggbb` format for display, but it honors the original _data type_ when writing colors (numbers remain numbers, strings remain strings). However, all string-based colors are normalized to `#rrggbb` format on update.
 
 ### RGB Objects & Arrays
 
@@ -320,7 +320,7 @@ The library provides a few ways to manage this using CSS variables as well.
 }
 ```
 
-The `--width` property does the same thing the one in the constructor, but allows us to use any valid 
+The `--width` property does the same thing as the one in the constructor, but allows us to use any valid 
 CSS value. Adjusting `--name-width` allows you to increase the size of names relative to controllers,
 which might be better than enlarging the entire panel.
 
