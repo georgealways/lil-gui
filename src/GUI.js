@@ -467,6 +467,11 @@ export default class GUI {
 	 * } );
 	 */
 	onChange( callback ) {
+		/**
+		 * Used to access the function bound to `onChange` events. Don't modify this value
+		 * directly. Use the `gui.onChange( callback )` method instead.
+		 * @type {Function}
+		 */
 		this._onChange = callback;
 		return this;
 	}
@@ -500,6 +505,11 @@ export default class GUI {
 	 * } );
 	 */
 	onFinishChange( callback ) {
+		/**
+		 * Used to access the function bound to `onFinishChange` events. Don't modify this value
+		 * directly. Use the `gui.onFinishChange( callback )` method instead.
+		 * @type {Function}
+		 */
 		this._onFinishChange = callback;
 		return this;
 	}
