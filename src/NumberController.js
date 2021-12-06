@@ -41,8 +41,12 @@ export default class NumberController extends Controller {
 		const value = this.getValue();
 
 		if ( this._hasSlider ) {
-			const percent = ( value - this._min ) / ( this._max - this._min );
-			this.$fill.style.setProperty( 'width', percent * 100 + '%' );
+
+			let percent = ( value - this._min ) / ( this._max - this._min );
+			percent = Math.max( 0, Math.min( percent, 1 ) );
+
+			this.$fill.style.width = percent * 100 + '%';
+
 		}
 
 		if ( !this._inputFocused ) {
@@ -63,6 +67,8 @@ export default class NumberController extends Controller {
 		this.$widget.appendChild( this.$input );
 
 		this.$disable = this.$input;
+
+		this._captureKeyEvents( this.$input );
 
 		const onInput = () => {
 

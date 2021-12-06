@@ -101,8 +101,7 @@ gui.add( obj, 'speed', { Slow: 0.1, Normal: 1, Fast: 5 } )
 ## Colors
 
 lil-gui recognizes colors in a number of formats: CSS strings, RGB objects or integer hex values to 
-name a few. You can use `addColor()` to create a color picker for controlling these values. lil-gui
-uses an RRGGBB format for display, but it always honors the original data type when updating colors.
+name a few. You can use `addColor()` to create a color picker for controlling these values. 
 
 ```js
 obj = {
@@ -117,6 +116,8 @@ gui.addColor( obj, 'color2' );
 gui.addColor( obj, 'color3' );
 gui.addColor( obj, 'color4' );
 ```
+
+lil-gui uses an `rrggbb` format for display, but it honors the original _data type_ when writing colors (numbers remain numbers, strings remain strings). However, all string-based colors are normalized to `#rrggbb` format on update.
 
 ### RGB Objects & Arrays
 
@@ -137,7 +138,7 @@ gui.addColor( obj, 'colorArray' );
 ### RGB Channel Ranges
 
 The channel range for RGB objects and arrays can be overriden per controller by passing a third 
-parameter to `addColor()`. If your colors are coming out too dark, you might need to set this to 255.
+parameter to `addColor()`. If your colors are coming out too bright, you might need to set this to 255.
 
 ```js
 obj = {
@@ -228,7 +229,7 @@ Using `gui.save()` you can create an object that saves the current value of all 
 added to the GUI. You can pass that object to `gui.load()` to restore the saved values.
 
 The following creates a GUI that can save a preset. Press the savePreset button, then modify any
-controller. Pressing the recallPreset button restores the values you saved.
+controller. Pressing the loadPreset button restores the values you saved.
 
 ```js
 let preset = {};
@@ -319,7 +320,7 @@ The library provides a few ways to manage this using CSS variables as well.
 }
 ```
 
-The `--width` property does the same thing the one in the constructor, but allows us to use any valid 
+The `--width` property does the same thing as the one in the constructor, but allows us to use any valid 
 CSS value. Adjusting `--name-width` allows you to increase the size of names relative to controllers,
 which might be better than enlarging the entire panel.
 

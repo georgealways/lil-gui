@@ -219,12 +219,7 @@ export default class Controller {
 		this._disabled = disabled;
 
 		this.domElement.classList.toggle( 'disabled', disabled );
-
-		if ( disabled ) {
-			this.$disable.setAttribute( 'disabled', 'disabled' );
-		} else {
-			this.$disable.removeAttribute( 'disabled' );
-		}
+		this.$disable.toggleAttribute( 'disabled', disabled );
 
 		return this;
 
@@ -372,6 +367,17 @@ export default class Controller {
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		this.parent.controllers.splice( this.parent.controllers.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
+	}
+
+	/**
+	 * Stops propagation of `keyup` and `keydown` events for `el`. Used on inputs
+	 * that allow typing to prevent triggering global key commands.
+	 * @param {HTMLElement} el
+	 * @protected
+	 */
+	_captureKeyEvents( el ) {
+		el.addEventListener( 'keydown', e => e.stopPropagation() );
+		el.addEventListener( 'keyup', e => e.stopPropagation() );
 	}
 
 }

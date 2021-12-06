@@ -1,10 +1,20 @@
+# 0.15.0
+
+29.07kb, 8.26kb gzipped
+
+- Typing in the GUI will no longer trigger global key listeners. ([#27](https://github.com/georgealways/lil-gui/pull/27))
+- Fixed a bug that caused sliders to disappear when outside of min/max. ([#21](https://github.com/georgealways/lil-gui/issues/21))
+- Improved compression for the minified stylesheet.
+([#26](https://github.com/georgealways/lil-gui/pull/26))
+- CSS fixes for Safari.
+
 # 0.14.0
 
 29.04kb, 8.31kb gzipped
 
 - Added `gui.onFinishChange` for symmetry with `gui.onChange`.
 - Added a `d.ts` file for TypeScript users.
-- Fixed a bug that stopped iOS users from typing negative numbers. ([Note](https://github.com/georgealways/lil-gui/pull/16))
+- Fixed a bug that stopped iOS users from typing negative numbers. ([#16](https://github.com/georgealways/lil-gui/pull/16))
 - Minor CSS fixes.
 
 # 0.13.0
@@ -31,7 +41,7 @@
 28.12kb, 8.17kb gzipped
 
 - Added `controllers` and `folders` array to `GUI`.
-- Added `controllersRecursive` and `controllersRecursive` methods to `GUI`.
+- Added `controllersRecursive` and `foldersRecursive` methods to `GUI`.
 - Fixed a bug that allowed disabled controllers to be focused via keyboard.
 - Fixed a bug that caused controllers to lose interactivity after calling `listen()`.
 - Removed `getControllers()` and `getFolders()`.
