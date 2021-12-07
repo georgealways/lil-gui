@@ -2,7 +2,12 @@
 
 Makes a floating panel for controllers on the web. Works as a drop-in replacement for dat.gui.
 
-[**Homepage**](https://lil-gui.georgealways.com/) • [**Basic Demo**](https://lil-gui.georgealways.com/examples/basic/) • [Examples](https://lil-gui.georgealways.com/#Examples) • [Guide](https://lil-gui.georgealways.com/#Guide) • [API](https://lil-gui.georgealways.com/#API) • [GitHub](https://github.com/georgealways/lil-gui)
+[**Homepage**](https://lil-gui.georgealways.com/) •
+[**Basic Demo**](https://lil-gui.georgealways.com/examples/basic/) •
+[Examples](https://lil-gui.georgealways.com/#Examples) •
+[Guide](https://lil-gui.georgealways.com/#Guide) •
+[API](https://lil-gui.georgealways.com/#API) •
+[GitHub](https://github.com/georgealways/lil-gui)
 
 ```js
 import GUI from 'lil-gui'; 
