@@ -87,7 +87,6 @@ import { GUI } from '../dist/lil-gui.esm.js';
 
 	let activeLink;
 
-	// todo: this has to happen on resize
 	function updateAnchorPositions() {
 
 		anchorPositions.length = 0;
@@ -145,7 +144,6 @@ import { GUI } from '../dist/lil-gui.esm.js';
 	}
 
 	function getScrollTop() {
-		// is it really this tough to get the scroll position?
 		const docEl = document.documentElement;
 		const body = document.body;
 		const clientTop = docEl.clientTop || body.clientTop || 0;
