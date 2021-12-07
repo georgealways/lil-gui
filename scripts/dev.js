@@ -11,7 +11,8 @@ dev( {
 	},
 	'homepage': {
 		onchange: [
-			'scripts/homepage*',
+			'scripts/homepage.js',
+			'homepage/homepage.hbs.html',
 			'package.json',
 			'*.md'
 		],
