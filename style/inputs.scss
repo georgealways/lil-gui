@@ -21,7 +21,7 @@
 				background: var(--focus-color);
 			}
 		}
-		&:disabled { 
+		&:disabled {
 			opacity: 1; // override default iOS style, we already dim .controller
 		}
 	}
@@ -41,7 +41,7 @@
 		-webkit-appearance: none;
 		margin: 0;
 	}
-	
+
 	input[type='number'] {
 		-moz-appearance: textfield;
 	}
