@@ -87,7 +87,7 @@ export default () => {
 
 		// assert matches original state
 		// assert object types retain reference
-		this.compare = ( state ) => {
+		this.compare = state => {
 			for ( let key in obj ) {
 				const val = obj[ key ];
 				const deep = state[ key ];

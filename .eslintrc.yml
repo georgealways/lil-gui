@@ -8,6 +8,7 @@ extends:
   - eslint:recommended
 rules:
   array-bracket-spacing: [ warn, always ]
+  arrow-parens: [ warn, as-needed ]
   arrow-spacing: warn
   brace-style: [ warn, 1tbs, { allowSingleLine: true } ]
   comma-spacing: warn
