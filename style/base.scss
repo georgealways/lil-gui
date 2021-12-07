@@ -1,10 +1,10 @@
-@mixin touch-vars { 
+@mixin touch-vars {
 	@media (pointer: coarse) {
 		&.allow-touch-styles {
 			@content;
 		}
 	}
-	&.force-touch-styles { 
+	&.force-touch-styles {
 		@content;
 	}
 }
@@ -88,7 +88,7 @@
 	--checkbox-size: calc(0.75 * var(--widget-height));
 	--scrollbar-width: 5px;
 
-	@include touch-vars { 
+	@include touch-vars {
 		--widget-height: 28px;
 		--padding: 6px;
 		--spacing: 6px;
@@ -108,5 +108,5 @@
 		right: 15px;
 		z-index: 1001;
 	}
-	
+
 }
