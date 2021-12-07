@@ -1,0 +1,10 @@
+{
+    "end_with_newline": true,
+    "extra_liners": [],
+    "indent_with_tabs": true,
+    "indent_inner_html": false,
+    "max_preserve_newlines": 1,
+    "newline_between_rules": false,
+    "selector_separator_newline": false,
+    "space_around_combinator": true
+}
