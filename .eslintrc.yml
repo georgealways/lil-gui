@@ -6,9 +6,6 @@ parserOptions:
   sourceType: module
 extends: 
   - eslint:recommended
-  - plugin:jsdoc/recommended
-plugins: 
-  - jsdoc
 rules:
   array-bracket-spacing: [ warn, always ]
   arrow-spacing: warn
@@ -25,9 +22,9 @@ rules:
   linebreak-style: [ warn, unix ]
   max-len: [ warn, { code: 120 } ]
   new-parens: warn
-  no-console: warn
   no-empty: warn
   no-extra-semi: warn
+  no-inner-declarations: off
   no-multiple-empty-lines: [ warn, { max: 1, maxEOF: 1 } ]
   no-trailing-spaces: [ warn ]
   no-unused-vars: warn
@@ -40,24 +37,25 @@ rules:
   space-before-function-paren: [ warn, never ]
   space-in-parens: [ warn, always, { exceptions: [ empty ] } ]
   space-infix-ops: warn
-  jsdoc/newline-after-description: [ warn, never ]
-  jsdoc/no-undefined-types: [ warn, { definedTypes: [ GUI, this, "false" ] } ]
-  jsdoc/require-jsdoc: off
-  jsdoc/require-param-description: off
-  jsdoc/require-returns-description: off
-  jsdoc/require-description: warn
-  jsdoc/tag-lines: [ warn, any ]
 overrides:
+  - files: [ src/**/*.js ]
+    plugins: 
+      - jsdoc
+    extends:
+      - plugin:jsdoc/recommended
+    rules:
+      jsdoc/newline-after-description: [ warn, never ]
+      jsdoc/no-undefined-types: [ warn, { definedTypes: [ GUI, this, "false" ] } ]
+      jsdoc/require-jsdoc: off
+      jsdoc/require-param-description: off
+      jsdoc/require-returns-description: off
+      jsdoc/require-description: warn
+      jsdoc/tag-lines: [ warn, any ]
   - files: [ rollup.config.js, scripts/**/*.js, tests/**/*.js ]
     env:
       node: true
     parserOptions:
       ecmaVersion: 9
-  - files: [ rollup.config.js, scripts/**/*.js, tests/**/*.js, examples/**/*.js ]
-    rules:
-      no-console: off
-      max-len: off
-      jsdoc/require-description: off
-  - files: [ tests/*.test.js ]
+  - files: [ src/**/*.js, tests/*.test.js ]
     rules:
       no-console: warn
