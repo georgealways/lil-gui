@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "editor.insertSpaces": false,
   "files.insertFinalNewline": true,
   // js
   "eslint.format.enable": true,
