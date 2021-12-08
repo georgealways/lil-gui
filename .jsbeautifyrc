@@ -6,5 +6,9 @@
     "max_preserve_newlines": 1,
     "newline_between_rules": false,
     "selector_separator_newline": false,
-    "space_around_combinator": true
+    "space_around_combinator": true,
+    "unformatted": [
+        "script",
+        "pre"
+    ]
 }
