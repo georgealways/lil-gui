@@ -1,22 +1,36 @@
 {
-    "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "[html][css][scss]": {
-        "editor.defaultFormatter": "HookyQR.beautify"
-    },
-    "beautify.config": {
-        "end_with_newline": true,
-        "extra_liners": [],
-        "indent_with_tabs": true,
-        "indent_inner_html": false,
-        "max_preserve_newlines": 1,
-        "newline_between_rules": false,
-        "selector_separator_newline": false,
-        "space_around_combinator": true,
-        "unformatted": [
-            "script",
-            "pre"
-        ]
-    }
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  // js
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  // html/css
+  "editor.defaultFormatter": "HookyQR.beautify",
+  "beautify.config": {
+    "end_with_newline": true,
+    "extra_liners": [],
+    "indent_with_tabs": true,
+    "indent_inner_html": false,
+    "max_preserve_newlines": 1,
+    "newline_between_rules": false,
+    "selector_separator_newline": false,
+    "space_around_combinator": true,
+    "unformatted": [
+      "script",
+      "pre"
+    ]
+  },
+  // json
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+  },
 }
