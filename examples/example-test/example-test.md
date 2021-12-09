@@ -3,7 +3,7 @@
 Backtick fences work normally:
 
 ```js
-console.log( 'This doesn\'t run' );
+console.log( "This doesn't run" );
 ```
 
 But squiggle fences will also run the code:
