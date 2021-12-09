@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "npm run icons && npm run sass && npm run postcss && npm run rollup",
-    "build:all": "npm run build && npm run api && npm run homepage",
+    "build:all": "npm run build && npm run api && npm run homepage && npm run examples",
     "sass": "sass style/index.scss dist/lil-gui.css --no-charset --no-source-map",
     "postcss": "postcss dist/lil-gui.css -u postcss-combine-media-query -u cssnano --no-map -o dist/lil-gui.min.css",
     "rollup": "rollup -c",
