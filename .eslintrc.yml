@@ -32,7 +32,7 @@ rules:
   no-var: warn
   no-whitespace-before-property: warn
   object-curly-spacing: [ warn, always ]
-  quotes: [ warn, single ]
+  quotes: [ warn, single, { avoidEscape: true } ]
   semi-spacing: warn
   semi: [ warn, always ]
   space-before-function-paren: [ warn, never ]
