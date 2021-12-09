@@ -35,16 +35,19 @@ glob( 'examples/*/.gitignore', ( err, files ) => {
 
 console.timeEnd( 'examples' );
 
-function makeExample( dir ) {
+// regexp for special markdown directives
+const BACKTICK_FENCE = /```\S+\n([\s\S]*?)\n```/gmi;
+const SQUIGGLE_FENCE = /~~~js([\s\S]*?)\n~~~/gmi;
+const SHOW_EXTERNAL = /<!-- show (\S+) -->/gmi;
+const HEADING = /^#+ ([\S\s]*?)$/gmi;
 
-	const PRE = /```\S+\n([\s\S]*?)\n```/gmi;
-	const PRE_EXT = /<!-- show (\S+) -->/gmi;
-	const PRE_RUN = /~~~js([\s\S]*?)\n~~~/gmi;
+function makeExample( dir ) {
 
 	const slug = dir.substr( dir.lastIndexOf( '/' ) + 1 );
 
-	// read example contents
 	let body;
+
+	// read example contents
 	try {
 		body = readFileSync( join( dir, slug + '.md' ), 'utf-8' );
 	} catch ( e ) {
@@ -52,30 +55,32 @@ function makeExample( dir ) {
 		return;
 	}
 
-	const HEADING = /^#+ ([^\n]*)/i;
-
+	// find title
 	let title = dir;
 	try {
-		title = body.match( HEADING )[ 1 ];
+		title = HEADING.exec( body )[ 1 ];
 	} catch ( e ) {
-		console.error( dir, 'doesn\'t have a title' );
+		console.error( dir, "doesn't have a title" );
 	}
 
 	// demote headings
 	body = body.replace( HEADING, a => '#' + a );
 
-	// pre's are broken out of <main> for full bleed style
-	body = body.replace( PRE, fence => {
+	// backtick code blocks are broken out of <main> for full bleed style
+	body = body.replace( BACKTICK_FENCE, fence => {
 		return breakMain( scriptSection( fence ) );
 	} );
 
-	// render to a pre and run
-	body = body.replace( PRE_RUN, ( fence, contents ) => {
+	// same for squiggle blocks, but they also get a header, and are executed
+	body = body.replace( SQUIGGLE_FENCE, ( fence, contents ) => {
 
 		let replaced = '';
+
 		replaced += '<script type="module">';
+		// remove whitespace that could confuse markdown
 		replaced += contents.replace( /\n{2,}/g, '\n' );
 		replaced += '</script>';
+
 		replaced += scriptSection( fence, 'This page:' );
 		replaced = breakMain( replaced );
 
@@ -83,8 +88,8 @@ function makeExample( dir ) {
 
 	} );
 
-	// render external file to pre
-	body = body.replace( PRE_EXT, ( _, scriptPath ) => {
+	// external code blocks work like squiggle blocks, but they aren't executed
+	body = body.replace( SHOW_EXTERNAL, ( _, scriptPath ) => {
 
 		let file = readFileSync( join( dir, scriptPath ), 'utf-8' );
 		file = scriptSection( '```js\n' + file.trim() + '\n```', scriptPath );
@@ -93,9 +98,10 @@ function makeExample( dir ) {
 
 	} );
 
-	body = md.render( body );
+	// render markdown and hbs.html
+	let html = template( { title, body: md.render( body ) } );
 
-	let html = template( { title, body } );
+	// clean up any uneccessary mains from breakMain
 	html = html.replace( /<main>\s*<\/main>/gmi, '' );
 
 	writeFileSync( join( dir, 'index.html' ), html );

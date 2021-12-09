@@ -6,7 +6,7 @@ Backtick fences work normally:
 console.log( "This doesn't run" );
 ```
 
-But squiggle fences will also run the code:
+Squiggle fences will also run the code:
 
 ~~~js
 import GUI from 'lil-gui';
