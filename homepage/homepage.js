@@ -374,7 +374,7 @@ function findChildAfter( element, re ) {
 			str += node.innerText;
 		}
 	}
-	console.error( 'Couldn\'t find element after ' + re );
+	console.error( "Couldn't find element after " + re );
 }
 
 function replaceContents( element, text ) {
