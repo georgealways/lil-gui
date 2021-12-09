@@ -2,7 +2,7 @@ env:
   browser: true
   es6: true
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 9
   sourceType: module
 extends: 
   - eslint:recommended
@@ -55,8 +55,10 @@ overrides:
   - files: [ rollup.config.js, scripts/**/*.js, tests/**/*.js ]
     env:
       node: true
-    parserOptions:
-      ecmaVersion: 9
   - files: [ src/**/*.js, tests/*.test.js ]
     rules:
       no-console: warn
+  - files: [ examples/**/*.md ]
+    plugins:
+      - markdown
+    processor: markdown/markdown

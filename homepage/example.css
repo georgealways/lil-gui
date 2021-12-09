@@ -1,0 +1,51 @@
+:root {
+	--padding: 2rem;
+}
+
+/* small desktop */
+
+@media (max-width: 958px) {
+	:root {
+		--padding: 1rem;
+	}
+
+	main {
+		/* no centering */
+		margin: 0;
+	}
+
+}
+
+pre {
+	font-size: 13.5px;
+	border-radius: 0;
+	margin: 0;
+	padding: 1rem var(--padding);
+	border-top: 1px solid var(--rule);
+	border-bottom: 1px solid var(--rule);
+}
+
+header + pre {
+	border-top: none;
+}
+
+section.script:not(:last-child) {
+	margin-bottom: 1.5rem;
+}
+
+section.script header {
+	position: sticky;
+	top: 0;
+	background: var(--background);
+	padding: 0 var(--padding);
+	display: flex;
+	align-items: center;
+	height: 3rem;
+	border-bottom: 1px solid var(--rule);
+	font-size: 0.8em;
+	margin-top: -1rem;
+}
+
+h1 {
+	border-top: none;
+}

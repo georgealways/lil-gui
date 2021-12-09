@@ -7,6 +7,10 @@
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
+  // examples/**/*.md
+  "[markdown]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
   // html/css
   "editor.defaultFormatter": "HookyQR.beautify",
   "beautify.config": {

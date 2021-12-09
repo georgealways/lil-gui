@@ -18,6 +18,14 @@ dev( {
 		],
 		color: 'white'
 	},
+	'examples': {
+		onchange: [
+			'examples/**/*.(md|js)',
+			'homepage/example.hbs.html',
+			'scripts/examples.js'
+		],
+		color: 'black'
+	},
 	'icons': {
 		onchange: [
 			'style/icons/*.svg',
