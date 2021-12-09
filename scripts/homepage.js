@@ -22,7 +22,7 @@ console.time( 'homepage' );
 let readme = read( README );
 
 // remove homepage link
-readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) • ', '' );
+readme = readme.replace( '[**Homepage**](https://lil-gui.georgealways.com/) •', '' );
 
 // Guide.md
 // -----------------------------------------------------------------------------
