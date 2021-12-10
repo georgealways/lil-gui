@@ -4,14 +4,14 @@ import hljs from 'highlight.js';
 import hbs from 'handlebars';
 import rimraf from 'rimraf';
 
-import { readFileSync, writeFileSync } from 'fs';
+import fs from 'fs';
 import { join } from 'path';
 
 // deletes generated index.html files from markdown-based examples
 const CLEAN = process.argv.includes( '--clean' );
 
 const TEMPLATE = 'homepage/example.hbs.html';
-const template = hbs.compile( readFileSync( TEMPLATE, 'utf-8' ) );
+const template = hbs.compile( fs.readFileSync( TEMPLATE, 'utf-8' ) );
 
 const md = markdownit( {
 	html: true,
@@ -32,16 +32,11 @@ glob( 'examples/*/.gitignore', ( err, files ) => {
 	const dirs = files.map( f => f.replace( '/.gitignore', '' ) );
 
 	if ( CLEAN ) {
-		dirs
-			.map( dir => join( dir, 'index.html' ) )
-			.map( index => rimraf( index, err => {
-				if ( err ) console.error( err );
-			} ) );
-		return;
+		return clean( dirs );
 	}
 
 	console.time( 'examples' );
-	dirs.map( makeExample );
+	dirs.forEach( makeExample );
 	console.timeEnd( 'examples' );
 
 } );
@@ -60,7 +55,7 @@ function makeExample( dir ) {
 
 	// read example contents
 	try {
-		body = readFileSync( join( dir, slug + '.md' ), 'utf-8' );
+		body = fs.readFileSync( join( dir, slug + '.md' ), 'utf-8' );
 	} catch ( e ) {
 		console.error( dir, `doesn't have ${slug}.md` );
 		return;
@@ -102,7 +97,7 @@ function makeExample( dir ) {
 	// external code blocks work like squiggle blocks, but they aren't executed
 	body = body.replace( SHOW_EXTERNAL, ( _, scriptPath ) => {
 
-		let file = readFileSync( join( dir, scriptPath ), 'utf-8' );
+		let file = fs.readFileSync( join( dir, scriptPath ), 'utf-8' );
 		file = scriptSection( '```js\n' + file.trim() + '\n```', scriptPath );
 		file = breakMain( file );
 		return file;
@@ -115,7 +110,7 @@ function makeExample( dir ) {
 	// clean up any uneccessary mains from breakMain
 	html = html.replace( /<main>\s*<\/main>/gmi, '' );
 
-	writeFileSync( join( dir, 'index.html' ), html );
+	fs.writeFileSync( join( dir, 'index.html' ), html );
 
 }
 
@@ -130,4 +125,21 @@ function scriptSection( contents, header ) {
 	section += contents;
 	section += '\n\n</section>\n\n';
 	return section;
+}
+
+function clean( dirs ) {
+
+	dirs
+		.map( dir => join( dir, 'index.html' ) )
+		.filter( fs.existsSync )
+		.map( index => rimraf( index, err => {
+
+			if ( err ) {
+				return console.error( err );
+			}
+
+			console.log( 'deleted', index );
+
+		} ) );
+
 }
