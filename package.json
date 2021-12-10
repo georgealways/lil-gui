@@ -26,7 +26,7 @@
     "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist",
     "homepage": "node -r esm scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'homepage' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
-    "clean": "rimraf -rf dist/* index.html API.md style/icons.scss",
+    "clean": "rimraf -rf dist index.html API.md style/icons.scss",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
     "dev": "npm run build:all && node -r esm scripts/dev.js"
