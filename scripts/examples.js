@@ -1,10 +1,14 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-
 import glob from 'glob';
 import markdownit from 'markdown-it';
 import hljs from 'highlight.js';
 import hbs from 'handlebars';
+import rimraf from 'rimraf';
+
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
+// deletes generated index.html files from markdown-based examples
+const CLEAN = process.argv.includes( '--clean' );
 
 const TEMPLATE = 'homepage/example.hbs.html';
 const template = hbs.compile( readFileSync( TEMPLATE, 'utf-8' ) );
@@ -19,21 +23,28 @@ const md = markdownit( {
 	}
 } );
 
-console.time( 'examples' );
-
 glob( 'examples/*/.gitignore', ( err, files ) => {
 
 	if ( err ) {
 		return console.error( err );
 	}
 
-	files
-		.map( f => f.replace( '/.gitignore', '' ) )
-		.map( makeExample );
+	const dirs = files.map( f => f.replace( '/.gitignore', '' ) );
+
+	if ( CLEAN ) {
+		dirs
+			.map( dir => join( dir, 'index.html' ) )
+			.map( index => rimraf( index, err => {
+				if ( err ) console.error( err );
+			} ) );
+		return;
+	}
+
+	console.time( 'examples' );
+	dirs.map( makeExample );
+	console.timeEnd( 'examples' );
 
 } );
-
-console.timeEnd( 'examples' );
 
 // regexp for special markdown directives
 const BACKTICK_FENCE = /```\S+\n([\s\S]*?)\n```/gmi;
