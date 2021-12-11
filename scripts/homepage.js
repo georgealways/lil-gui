@@ -10,6 +10,7 @@ import jsdocData from './api';
 const OUTPUT = 'index.html';
 const TEMPLATE = 'homepage/homepage.hbs.html';
 const README = 'README.md';
+const EXAMPLES = 'Examples.md';
 const GUIDE = 'Guide.md';
 const MIGRATING = 'Migrating.md';
 const API = 'API.md';
@@ -109,6 +110,7 @@ const md = markdownit( {
 
 let html = template( {
 	readme: md.render( readme ),
+	examples: md.render( read( EXAMPLES ) ),
 	guidetoc: md.render( guidetoc ),
 	guide: md.render( guide ),
 	migrating: md.render( read( MIGRATING ) ),
