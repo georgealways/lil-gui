@@ -37,8 +37,9 @@ header a {
 	color: var(--foreground);
 }
 
-header .chevron {
-	margin: 0 0.8rem;
+header .sep {
+	margin: 0 0.3rem;
+	opacity: 0.5;
 }
 
 header + pre {
@@ -47,6 +48,10 @@ header + pre {
 
 section.script:not(:last-child) {
 	margin-bottom: 1.5rem;
+}
+
+section.script:last-child pre {
+	border-bottom: none;
 }
 
 section.script header {
@@ -59,6 +64,10 @@ section.script header {
 section.script header a {
 	color: var(--inline-code);
 	font-family: var(--font-family-code);
+}
+
+.lil-gui.autoPlace {
+	box-shadow: 0 0 20px var(--shadow);
 }
 
 /* small desktop */

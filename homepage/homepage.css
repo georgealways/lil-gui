@@ -159,7 +159,7 @@ section:first-of-type h1 {
 	background: var(--result-background);
 	min-height: 150px;
 	position: relative;
-	box-shadow: 0 10px 30px var(--result-shadow);
+	box-shadow: 0 10px 30px var(--shadow);
 }
 
 .result::before {

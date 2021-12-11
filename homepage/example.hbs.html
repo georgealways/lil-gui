@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>lil-gui - {{ title }}</title>
+	<title>{{ pkg.name }} {{ pkg.version }} - {{ title }}</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../../homepage/shared.css">
@@ -11,6 +11,7 @@
 
 	<!-- todo: drop this polyfill when safari supports import maps -->
 	<script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
+
 	<script type="importmap">
 		{
 			"imports":{
@@ -20,15 +21,19 @@
 		}
 	</script>
 
-	<header>
-		<a href="/">{{ pkg.name }} {{ pkg.version }}</a>
-		<div class="chevron">&rsaquo;</div>
-		<a href="/#Examples">Examples</a>
-	</header>
+	<div id="example">
 
-	<main>
-		{{{ body }}}
-	</main>
+		<header>
+			<a href="/">{{ pkg.name }} {{ pkg.version }}</a>
+			<div class="sep">/</div>
+			<a href="/#Examples">#Examples</a>
+		</header>
+
+		<main>
+			{{{ body }}}
+		</main>
+
+	</div>
 
 </body>
 </html>

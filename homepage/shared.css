@@ -24,7 +24,7 @@
 	--pre-background: #372d39;
 	--result-header: #676a76;
 	--result-background: #c8c9cd;
-	--result-shadow: rgba(0 0 0 / 10%);
+	--shadow: rgba(0 0 0 / 10%);
 	--toc-width: 210px;
 	--toc-button-size: 40px;
 	--toc-button-margin: 1rem;
@@ -42,7 +42,7 @@
 		--inline-code: #cbaf72;
 		--result-header: #434f5b;
 		--result-background: #666c75;
-		--result-shadow: rgba(0 0 0 / 20%);
+		--shadow: rgba(0 0 0 / 20%);
 		--toc-button-border: #0007;
 	}
 }
