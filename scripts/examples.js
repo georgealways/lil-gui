@@ -47,7 +47,7 @@ glob( 'examples/*/.gitignore', ( err, files ) => {
 const BACKTICK_FENCE = /```\S+\n([\s\S]*?)\n```/gmi;
 const SQUIGGLE_FENCE = /~~~js([\s\S]*?)\n~~~/gmi;
 const SHOW_EXTERNAL = /<!-- show (\S+) -->/gmi;
-const HEADING = /^#+ ([\S\s]*?)$/gmi;
+const HEADING = /^#+ ([\S\s]*?)$/mi;
 
 function makeExample( dir ) {
 
@@ -66,7 +66,7 @@ function makeExample( dir ) {
 	// find title
 	let title = dir;
 	try {
-		title = HEADING.exec( body )[ 1 ];
+		title = body.match( HEADING )[ 1 ];
 	} catch ( e ) {
 		console.error( dir, "doesn't have a title" );
 	}
