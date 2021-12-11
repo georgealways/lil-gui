@@ -4,10 +4,11 @@
 	<title>lil-gui - {{ title }}</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="../../homepage/homepage.css">
+	<link rel="stylesheet" href="../../homepage/shared.css">
 	<link rel="stylesheet" href="../../homepage/example.css">
 </head>
 <body>
+
 	<!-- todo: drop this polyfill when safari supports import maps -->
 	<script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
 	<script type="importmap">
@@ -18,11 +19,16 @@
 			}
 		}
 	</script>
-	<div id="example">
-		<main>
-			<h1><a href="/#Examples">lil-gui</a></h1>
-			{{{ body }}}
-		</main>
-	</div>
+
+	<header>
+		<a href="/">{{ pkg.name }} {{ pkg.version }}</a>
+		<div class="chevron">&rsaquo;</div>
+		<a href="/#Examples">Examples</a>
+	</header>
+
+	<main>
+		{{{ body }}}
+	</main>
+
 </body>
 </html>

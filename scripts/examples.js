@@ -7,6 +7,8 @@ import rimraf from 'rimraf';
 import fs from 'fs';
 import { join } from 'path';
 
+import pkg from '../package.json';
+
 // deletes generated index.html files from markdown-based examples
 const CLEAN = process.argv.includes( '--clean' );
 
@@ -69,9 +71,6 @@ function makeExample( dir ) {
 		console.error( dir, "doesn't have a title" );
 	}
 
-	// demote headings
-	body = body.replace( HEADING, a => '#' + a );
-
 	// backtick code blocks are broken out of <main> for full bleed style
 	body = body.replace( BACKTICK_FENCE, fence => {
 		return breakMain( scriptSection( fence ) );
@@ -97,15 +96,19 @@ function makeExample( dir ) {
 	// external code blocks work like squiggle blocks, but they aren't executed
 	body = body.replace( SHOW_EXTERNAL, ( _, scriptPath ) => {
 
+		const header = `<a href="${scriptPath}">${scriptPath}</a>`;
+
 		let file = fs.readFileSync( join( dir, scriptPath ), 'utf-8' );
-		file = scriptSection( '```js\n' + file.trim() + '\n```', scriptPath );
+		file = scriptSection( '```js\n' + file.trim() + '\n```', header );
 		file = breakMain( file );
 		return file;
 
 	} );
 
+	body = md.render( body );
+
 	// render markdown and hbs.html
-	let html = template( { title, body: md.render( body ) } );
+	let html = template( { title, body, pkg } );
 
 	// clean up any uneccessary mains from breakMain
 	html = html.replace( /<main>\s*<\/main>/gmi, '' );

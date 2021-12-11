@@ -1,28 +1,44 @@
 :root {
-	--padding: 2rem;
+	--body-padding: 2rem;
 }
 
-/* small desktop */
+main {
+	padding: 0 var(--body-padding);
+}
 
-@media (max-width: 958px) {
-	:root {
-		--padding: 1rem;
-	}
-
-	main {
-		/* no centering */
-		margin: 0;
-	}
-
+main:first-of-type h1 {
+	border: none;
 }
 
 pre {
 	font-size: 13.5px;
-	border-radius: 0;
 	margin: 0;
-	padding: 1rem var(--padding);
-	border-top: 1px solid var(--rule);
+	padding: 1rem var(--body-padding);
+	border: 1px solid var(--rule);
+	border-width: 1px 0;
+	border-radius: 0;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	background: var(--background);
+	height: 3rem;
+	padding: 0 var(--body-padding);
+	font-size: 0.9em;
+	font-weight: 600;
 	border-bottom: 1px solid var(--rule);
+}
+
+header a {
+	display: flex;
+	align-items: center;
+	align-self: stretch;
+	color: var(--foreground);
+}
+
+header .chevron {
+	margin: 0 0.8rem;
 }
 
 header + pre {
@@ -35,17 +51,35 @@ section.script:not(:last-child) {
 
 section.script header {
 	position: sticky;
-	top: 0;
-	background: var(--background);
-	padding: 0 var(--padding);
-	display: flex;
-	align-items: center;
-	height: 3rem;
-	border-bottom: 1px solid var(--rule);
-	font-size: 0.8em;
 	margin-top: -1rem;
+	top: 0;
+	font-weight: normal;
 }
 
-h1 {
-	border-top: none;
+section.script header a {
+	color: var(--inline-code);
+	font-family: var(--font-family-code);
+}
+
+/* small desktop */
+
+@media (max-width: 958px) {
+	:root {
+		--body-padding: 1rem;
+	}
+
+	/* no centering */
+	main {
+		margin: 0;
+	}
+}
+
+/* mobile */
+
+@media (max-width: 500px) {
+	.lil-gui.autoPlace {
+		top: auto;
+		bottom: 0;
+		right: 0;
+	}
 }

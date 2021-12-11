@@ -4,79 +4,76 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ pkg.name }} {{ pkg.version }}</title>
+	<link rel="stylesheet" href="homepage/shared.css">
 	<link rel="stylesheet" href="homepage/homepage.css">
 </head>
 <body>
 
 	<script type="module" src="homepage/homepage.js"></script>
 
-	<div id="container">
+	<button id="toc-button">
+		<div>Table of Contents</div>
+	</button>
 
-		<button id="toc-button">
-			<div>Table of Contents</div>
-		</button>
+	<div id="toc-container">
+		<nav id="toc">
 
-		<div id="toc-container">
-			<nav id="toc">
+			<h1><a href="#">{{ pkg.name }} {{ pkg.version }}</a></h1>
 
-				<h1><a href="#">{{ pkg.name }} {{ pkg.version }}</a></h1>
+			<h2><a href="#Examples">Examples</a></h2>
 
-				<h2><a href="#Examples">Examples</a></h2>
+			<h2><a href="#Guide">Guide</a></h2>
 
-				<h2><a href="#Guide">Guide</a></h2>
+			{{{ guidetoc }}}
 
-				{{{ guidetoc }}}
+			<h2><a href="#Migrating">Migrating</a></h2>
 
-				<h2><a href="#Migrating">Migrating</a></h2>
+			<h2><a href="#API">API</a></h2>
 
-				<h2><a href="#API">API</a></h2>
+			{{{ apitoc }}}
 
-				{{{ apitoc }}}
-
-			</nav>
-		</div>
-
-		<main>
-
-			<a name=""></a>
-
-			<section id="section-readme">
-				{{{ readme }}}
-
-				<a href="{{ builds.module }}">Built Source</a> •
-				<a href="{{ builds.moduleMin }}">Minified</a> = {{ sizeMin }}kb, <strong>{{ sizeGzip }}kb</strong> gzipped
-
-			</section>
-
-			<section id="section-examples">
-				<a name="Examples"></a>
-				<h1>Examples</h1>
-				<ul>
-					<li><a href="examples/basic"><strong>Basic Demo</strong></a></li>
-					<li><a href="examples/kitchen-sink">Kitchen Sink</a> - Exhaustive demonstration of features and styles.</li>
-					<li><a href="https://lil-gui-threejs.georgealways.com/examples/">three.js/examples Hot Swap</a> - Replaces dat.gui across all three.js example pages. Except for a few, this was done just by replacing the import URL.</li>
-					<li><a href="https://lil-gui-pixi.georgealways.com/tools/demo/">PixiJS Filters Demo Hot Swap</a> - Replaces a very long dat.gui.</li>
-				</ul>
-			</section>
-
-			<section id="section-guide">
-				<a name="Guide"></a>
-				{{{ guide }}}
-			</section>
-
-			<section id="section-migrating">
-				<a name="Migrating"></a>
-				{{{ migrating }}}
-			</section>
-
-			<section id="section-api">
-				<a name="API"></a>
-				{{{ apibody }}}
-			</section>
-
-		</main>
-
+		</nav>
 	</div>
+
+	<main>
+
+		<a name=""></a>
+
+		<section id="section-readme">
+			{{{ readme }}}
+
+			<a href="{{ builds.module }}">Built Source</a> •
+			<a href="{{ builds.moduleMin }}">Minified</a> = {{ sizeMin }}kb, <strong>{{ sizeGzip }}kb</strong> gzipped
+
+		</section>
+
+		<section id="section-examples">
+			<a name="Examples"></a>
+			<h1>Examples</h1>
+			<ul>
+				<li><a href="examples/basic"><strong>Basic Demo</strong></a></li>
+				<li><a href="examples/kitchen-sink">Kitchen Sink</a> - Exhaustive demonstration of features and styles.</li>
+				<li><a href="https://lil-gui-threejs.georgealways.com/examples/">three.js/examples Hot Swap</a> - Replaces dat.gui across all three.js example pages. Except for a few, this was done just by replacing the import URL.</li>
+				<li><a href="https://lil-gui-pixi.georgealways.com/tools/demo/">PixiJS Filters Demo Hot Swap</a> - Replaces a very long dat.gui.</li>
+			</ul>
+		</section>
+
+		<section id="section-guide">
+			<a name="Guide"></a>
+			{{{ guide }}}
+		</section>
+
+		<section id="section-migrating">
+			<a name="Migrating"></a>
+			{{{ migrating }}}
+		</section>
+
+		<section id="section-api">
+			<a name="API"></a>
+			{{{ apibody }}}
+		</section>
+
+	</main>
 
 	{{{ jsdocDebug }}}
 
