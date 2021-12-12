@@ -21,6 +21,7 @@
 	--code-literal: #bd75cb;
 	--code-special: #80d3c7;
 	--code-comment: #84858a;
+	--code-custom: #9f71e8;
 	--pre-background: #372d39;
 	--result-header: #676a76;
 	--result-background: #c8c9cd;
@@ -237,4 +238,9 @@ pre + .result,
 
 .hljs-emphasis {
 	font-style: italic;
+}
+
+.hljs-custom {
+	font-weight: bold;
+	color: var(--code-custom);
 }

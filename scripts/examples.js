@@ -15,15 +15,7 @@ const CLEAN = process.argv.includes( '--clean' );
 const TEMPLATE = 'homepage/example.hbs.html';
 const template = hbs.compile( fs.readFileSync( TEMPLATE, 'utf-8' ) );
 
-const md = markdownit( {
-	html: true,
-	highlight: function( code, language ) {
-		if ( language && hljs.getLanguage( language ) ) {
-			return hljs.highlight( code, { language } ).value;
-		}
-		return '';
-	}
-} );
+const md = getMarkdown();
 
 glob( 'examples/*/.gitignore', ( err, files ) => {
 
@@ -128,6 +120,48 @@ function scriptSection( contents, header ) {
 	section += contents;
 	section += '\n\n</section>\n\n';
 	return section;
+}
+
+function getMarkdown() {
+
+	const CUSTOM_TOKENS = [
+		'$customToken',
+		'$constructor',
+		'$widget',
+		'$onFinishChange',
+		'$prepareFormElement',
+		'$updateDisplay',
+		'$save',
+		'$load',
+		'$modifyValue'
+	];
+
+	const tokenREs = CUSTOM_TOKENS
+		.map( escapeRegExp )
+		.map( str => new RegExp( `${str}\\b`, 'g' ) );
+		// ^ why won't this work with a preceding \b?
+
+	return markdownit( {
+		html: true,
+		highlight: function( code, language ) {
+
+			if ( !language || !hljs.getLanguage( language ) ) return '';
+
+			let v = hljs.highlight( code, { language } ).value;
+			for ( let token of tokenREs ) {
+				v = v.replace( token, '<span class="hljs-custom">$&</span>' );
+			}
+
+			return v;
+
+		}
+	} );
+
+}
+
+function escapeRegExp( string ) {
+	// $& means the whole matched string
+	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
 }
 
 function clean( dirs ) {

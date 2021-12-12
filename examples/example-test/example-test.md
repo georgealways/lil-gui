@@ -4,6 +4,8 @@ Backtick fences work normally:
 
 ```js
 console.log( "This doesn't run" );
+
+this.$customToken();
 ```
 
 Squiggle fences will also run the code:
