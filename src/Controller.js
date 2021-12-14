@@ -369,15 +369,4 @@ export default class Controller {
 		this.parent.$children.removeChild( this.domElement );
 	}
 
-	/**
-	 * Stops propagation of `keyup` and `keydown` events for `el`. Used on inputs
-	 * that allow typing to prevent triggering global key commands.
-	 * @param {HTMLElement} el
-	 * @protected
-	 */
-	_captureKeyEvents( el ) {
-		el.addEventListener( 'keydown', e => e.stopPropagation() );
-		el.addEventListener( 'keyup', e => e.stopPropagation() );
-	}
-
 }

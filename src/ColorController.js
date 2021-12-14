@@ -60,8 +60,6 @@ export default class ColorController extends Controller {
 
 		this.$disable = this.$text;
 
-		this._captureKeyEvents( this.$text );
-
 		this.updateDisplay();
 
 	}
