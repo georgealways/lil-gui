@@ -28,8 +28,6 @@ export default class StringController extends Controller {
 
 		this.$disable = this.$input;
 
-		this._captureKeyEvents( this.$input );
-
 		this.updateDisplay();
 
 	}
