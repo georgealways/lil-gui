@@ -27,7 +27,7 @@
     "homepage": "node -r esm scripts/homepage.js",
     "examples": "node -r esm scripts/examples.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'homepage' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
-    "clean": "rimraf -rf dist index.html API.md style/icons.scss",
+    "clean": "rimraf -rf dist index.html API.md style/icons.scss && npm run examples -- --clean",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
     "dev": "npm run build:all && node -r esm scripts/dev.js"
