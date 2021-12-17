@@ -12,11 +12,13 @@ import pkg from '../package.json';
 // deletes generated index.html files from markdown-based examples
 const CLEAN = process.argv.includes( '--clean' );
 
+// creates a markdown parser with a custom syntax highlighting pass for code blocks
+const md = getMarkdown();
+
 const TEMPLATE = 'homepage/example.hbs.html';
 const template = hbs.compile( fs.readFileSync( TEMPLATE, 'utf-8' ) );
 
-const md = getMarkdown();
-
+// markdown examples are expected to have a .gitignore containing index.html
 glob( 'examples/*/.gitignore', ( err, files ) => {
 
 	if ( err ) {
@@ -36,7 +38,7 @@ glob( 'examples/*/.gitignore', ( err, files ) => {
 } );
 
 // regexp for special markdown directives
-const BACKTICK_FENCE = /```\S+\n([\s\S]*?)\n```/gmi;
+const BACKTICK_FENCE = /```\S+\n[\s\S]*?\n```/gmi;
 const SQUIGGLE_FENCE = /~~~js([\s\S]*?)\n~~~/gmi;
 const SHOW_EXTERNAL = /<!-- show (\S+) -->/gmi;
 const HEADING = /^#+ ([\S\s]*?)$/mi;
@@ -47,7 +49,7 @@ function makeExample( dir ) {
 
 	let body;
 
-	// read example contents
+	// read example contents from examples/xyz/xyz.md
 	try {
 		body = fs.readFileSync( join( dir, slug + '.md' ), 'utf-8' );
 	} catch ( e ) {
@@ -64,36 +66,31 @@ function makeExample( dir ) {
 	}
 
 	// backtick code blocks are broken out of <main> for full bleed style
-	body = body.replace( BACKTICK_FENCE, fence => {
-		return breakMain( scriptSection( fence ) );
-	} );
+	body = body.replace( BACKTICK_FENCE, block => scriptSection( block ) );
 
 	// same for squiggle blocks, but they also get a header, and are executed
-	body = body.replace( SQUIGGLE_FENCE, ( fence, contents ) => {
+	body = body.replace( SQUIGGLE_FENCE, ( block, code ) => {
 
-		let replaced = '';
-
-		replaced += '<script type="module">';
 		// remove whitespace that could confuse markdown
-		replaced += contents.replace( /\n{2,}/g, '\n' );
-		replaced += '</script>';
+		code = code.replace( /\n{2,}/g, '\n' );
 
-		replaced += scriptSection( fence, 'This page:' );
-		replaced = breakMain( replaced );
+		const script = `<script type="module">${code}</script>`;
+		const section = scriptSection( block, 'This page:' );
 
-		return replaced;
+		return script + section;
 
 	} );
 
-	// external code blocks work like squiggle blocks, but they aren't executed
+	// external code blocks aren't executed, but they get a header like squiggle blocks
 	body = body.replace( SHOW_EXTERNAL, ( _, scriptPath ) => {
 
 		const header = `<a href="${scriptPath}">${scriptPath}</a>`;
 
-		let file = fs.readFileSync( join( dir, scriptPath ), 'utf-8' );
-		file = scriptSection( '```js\n' + file.trim() + '\n```', header );
-		file = breakMain( file );
-		return file;
+		const file = fs.readFileSync( join( dir, scriptPath ), 'utf-8' );
+
+		const block = '```js\n' + file.trim() + '\n```';
+
+		return scriptSection( block, header );
 
 	} );
 
@@ -102,24 +99,27 @@ function makeExample( dir ) {
 	// render markdown and hbs.html
 	let html = template( { title, body, pkg } );
 
-	// clean up any uneccessary mains from breakMain
+	// clean up any lingering mains from scriptSection
 	html = html.replace( /<main>\s*<\/main>/gmi, '' );
 
 	fs.writeFileSync( join( dir, 'index.html' ), html );
 
 }
 
-function breakMain( str ) {
-	return `</main>${str}<main>`;
-}
+function scriptSection( fenceBlock, header ) {
 
-function scriptSection( contents, header ) {
-	let section = '\n\n<section class="script">';
+	let section = '<section class="script">';
+
 	if ( header ) section += `<header>${header}</header>`;
+
 	section += '\n\n';
-	section += contents;
-	section += '\n\n</section>\n\n';
-	return section;
+	section += fenceBlock;
+	section += '\n\n';
+
+	section += '</section>';
+
+	return `</main>${section}<main>`;
+
 }
 
 function getMarkdown() {
@@ -148,6 +148,8 @@ function getMarkdown() {
 			if ( !language || !hljs.getLanguage( language ) ) return '';
 
 			let v = hljs.highlight( code, { language } ).value;
+
+			// wraps whole word matches for any CUSTOM_TOKEN in span.hljs-custom
 			for ( let token of tokenREs ) {
 				v = v.replace( token, '<span class="hljs-custom">$&</span>' );
 			}
@@ -159,8 +161,8 @@ function getMarkdown() {
 
 }
 
+// adds backslashes to special regex characters
 function escapeRegExp( string ) {
-	// $& means the whole matched string
 	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
 }
 
