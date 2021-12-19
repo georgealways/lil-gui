@@ -106,7 +106,8 @@ pre code {
 	color: var(--pre-code);
 }
 
-p code {
+p code,
+li code {
 	white-space: nowrap;
 	font-size: 0.95em;
 }
