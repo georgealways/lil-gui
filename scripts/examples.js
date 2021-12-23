@@ -41,6 +41,7 @@ glob( 'examples/*/.gitignore', ( err, files ) => {
 const BACKTICK_FENCE = /```\S+\n[\s\S]*?\n```/gmi;
 const SQUIGGLE_FENCE = /~~~js([\s\S]*?)\n~~~/gmi;
 const SHOW_EXTERNAL = /<!-- show (\S+) -->/gmi;
+const INCLUDE_EXTERNAL = /<!-- include (\S+) -->/gmi;
 const HEADING = /^#+ ([\S\s]*?)$/mi;
 
 function makeExample( dir ) {
@@ -94,9 +95,15 @@ function makeExample( dir ) {
 
 	} );
 
+	// render markdown
 	body = md.render( body );
 
-	// render markdown and hbs.html
+	// include external html after markdown is rendered
+	body = body.replace( INCLUDE_EXTERNAL, ( _, path ) => {
+		return fs.readFileSync( join( dir, path ), 'utf-8' ).trim();
+	} );
+
+	// render hbs.html
 	let html = template( { title, body, pkg } );
 
 	// clean up any lingering mains from scriptSection
@@ -125,21 +132,19 @@ function scriptSection( fenceBlock, header ) {
 function getMarkdown() {
 
 	const CUSTOM_TOKENS = [
-		'$customToken',
-		'$constructor',
-		'$widget',
-		'$onFinishChange',
-		'$prepareFormElement',
-		'$updateDisplay',
-		'$save',
-		'$load',
-		'$modifyValue'
-	];
-
-	const tokenREs = CUSTOM_TOKENS
-		.map( escapeRegExp )
-		.map( str => new RegExp( `${str}\\b`, 'g' ) );
-		// ^ why won't this work with a preceding \b?
+		'\\$customToken',
+		'\\$constructor',
+		'\\$widget',
+		'\\$onFinishChange',
+		'\\$updateDisplay',
+		'\\$save',
+		'\\$load',
+		'\\$onModifyValue',
+		'register',
+		'\\$id',
+		'\\$style',
+		'(?<=this\\<\\/span\\>\\.)value'
+	].map( str => new RegExp( `${str}\\b`, 'g' ) );
 
 	return markdownit( {
 		html: true,
@@ -150,7 +155,7 @@ function getMarkdown() {
 			let v = hljs.highlight( code, { language } ).value;
 
 			// wraps whole word matches for any CUSTOM_TOKEN in span.hljs-custom
-			for ( let token of tokenREs ) {
+			for ( let token of CUSTOM_TOKENS ) {
 				v = v.replace( token, '<span class="hljs-custom">$&</span>' );
 			}
 
@@ -159,11 +164,6 @@ function getMarkdown() {
 		}
 	} );
 
-}
-
-// adds backslashes to special regex characters
-function escapeRegExp( string ) {
-	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
 }
 
 function clean( dirs ) {

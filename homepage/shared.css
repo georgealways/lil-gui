@@ -108,17 +108,16 @@ code {
 	font-family: var(--font-family-code);
 	font-size: 1em;
 	color: var(--inline-code);
-}
-
-pre code {
-	color: var(--pre-code);
-}
-
-p code,
-li code {
 	white-space: nowrap;
 	font-size: 0.95em;
 }
+
+pre code {
+	white-space: pre;
+	color: var(--pre-code);
+	font-size: 1em;
+}
+
 
 hr {
 	height: 1px;
@@ -208,8 +207,9 @@ pre + .result,
 	font-weight: bold;
 }
 
-.hljs-comment {
-	color: var(--code-comment);
+.hljs-comment,
+.hljs-comment .hljs-custom {
+	color: var(--code-comment) !important;
 }
 
 .hljs-title,
