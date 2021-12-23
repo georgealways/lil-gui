@@ -28,7 +28,7 @@
 
 	input[type='text'],
 	input[type='number'] {
-		padding: var(--widget-padding);
+		padding: var(--input-padding);
 		&:focus {
 			background: var(--focus-color);
 		}
