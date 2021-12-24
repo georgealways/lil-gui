@@ -93,6 +93,12 @@ export default class GUI {
 		this._closed = false;
 
 		/**
+		 * Used to determine if the GUI is hidden. Use `gui.show()` or `gui.hide()` to change this.
+		 * @type {boolean}
+		 */
+		this._hidden = false;
+
+		/**
 		 * The outermost container element.
 		 * @type {HTMLElement}
 		 */
@@ -390,6 +396,33 @@ export default class GUI {
 	 */
 	close() {
 		return this.open( false );
+	}
+
+	/**
+	 * Shows the GUI after it's been hidden.
+	 * @param {boolean} show
+	 * @returns {this}
+	 * @example
+	 * gui.show();
+	 * gui.show( false ); // hide
+	 * gui.show( gui._hidden ); // toggle
+	 */
+	show( show = true ) {
+
+		this._hidden = !show;
+
+		this.domElement.style.display = this._hidden ? 'none' : '';
+
+		return this;
+
+	}
+
+	/**
+	 * Hides the GUI.
+	 * @returns {this}
+	 */
+	hide() {
+		return this.show( false );
 	}
 
 	openAnimated( open = true ) {
