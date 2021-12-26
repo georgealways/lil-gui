@@ -256,20 +256,18 @@ make( { title: 'autoPlace' }, gui => {
 	const guis = Object.values( opts ).filter( v => v );
 
 	const hideAll = () => {
-		guis.forEach( gui => {
-			if ( gui ) gui.hide();
-		} );
+		guis.forEach( gui => gui.hide() );
 	};
 
 	hideAll();
 
-	const picker = gui.add( {}, 'Show', opts ).onChange( show => {
+	const picker = gui.add( {}, 'Show', opts ).onChange( gui => {
 
 		hideAll();
 
-		if ( show ) {
-			show.show();
-			location.hash = show.hash;
+		if ( gui ) {
+			gui.show();
+			location.hash = gui.hash;
 		} else {
 			location.hash = '';
 		}
@@ -278,7 +276,6 @@ make( { title: 'autoPlace' }, gui => {
 
 	// parse hash
 	guis.forEach( gui => {
-		if ( !gui ) return;
 		if ( gui.hash === location.hash ) {
 			picker.setValue( gui );
 		}
