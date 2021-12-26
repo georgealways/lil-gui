@@ -257,7 +257,7 @@ make( { title: 'autoPlace' }, gui => {
 
 	const hideAll = () => {
 		guis.forEach( gui => {
-			if ( gui ) gui.domElement.style.display = 'none';
+			if ( gui ) gui.hide();
 		} );
 	};
 
@@ -268,7 +268,7 @@ make( { title: 'autoPlace' }, gui => {
 		hideAll();
 
 		if ( show ) {
-			show.domElement.style.display = '';
+			show.show();
 			location.hash = show.hash;
 		} else {
 			location.hash = '';
