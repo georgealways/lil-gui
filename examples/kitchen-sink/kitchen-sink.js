@@ -177,7 +177,7 @@ make( { title: 'Disable' }, gui => {
 
 make( { title: 'Listen' }, gui => {
 
-	const params = { animate: true };
+	const params = { animate: false };
 
 	gui.add( params, 'animate' );
 
