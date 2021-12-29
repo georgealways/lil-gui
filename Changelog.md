@@ -1,3 +1,9 @@
+# 0.16.0
+
+29.05kb, 8.28kb gzipped
+
+- Added `gui.show()` and `hide()`.
+
 # 0.15.0
 
 29.07kb, 8.26kb gzipped
