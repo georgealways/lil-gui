@@ -83,7 +83,7 @@
 	--slider-input-min-width: 45px;
 	--color-input-min-width: 45px;
 	--folder-indent: 7px;
-	--input-padding: 0 0 0 3px;
+	--widget-padding: 0 0 0 3px;
 	--widget-border-radius: 2px;
 	--checkbox-size: calc(0.75 * var(--widget-height));
 	--scrollbar-width: 5px;
@@ -107,5 +107,4 @@
 		right: 15px;
 		z-index: 1001;
 	}
-
 }
