@@ -318,7 +318,11 @@ export default class Controller {
 
 	_listenCallback() {
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
-		this.updateDisplay();
+		const curValue = this.save();
+		if ( curValue !== this._listenPrevValue ) {
+			this.updateDisplay();
+		}
+		this._listenPrevValue = curValue;
 	}
 
 	/**
