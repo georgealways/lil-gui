@@ -364,6 +364,7 @@ export default class Controller {
 	 * Destroys this controller and removes it from the parent GUI.
 	 */
 	destroy() {
+		this.listen( false );
 		this.parent.children.splice( this.parent.children.indexOf( this ), 1 );
 		this.parent.controllers.splice( this.parent.controllers.indexOf( this ), 1 );
 		this.parent.$children.removeChild( this.domElement );
