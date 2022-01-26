@@ -317,12 +317,21 @@ export default class Controller {
 	}
 
 	_listenCallback() {
+
 		this._listenCallbackID = requestAnimationFrame( this._listenCallback );
+
+		// To prevent framerate loss, make sure the value has changed before updating the display.
+		// Note: save() is used here instead of getValue() only because of ColorController. The !== operator
+		// won't work for color objects or arrays, but ColorController.save() always returns a string.
+
 		const curValue = this.save();
+
 		if ( curValue !== this._listenPrevValue ) {
 			this.updateDisplay();
 		}
+
 		this._listenPrevValue = curValue;
+
 	}
 
 	/**
