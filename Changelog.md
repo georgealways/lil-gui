@@ -1,3 +1,9 @@
+# 0.16.0-dev
+
+29.14kb, 8.31kb gzipped
+
+- Improved performance for GUI's that make heavy use of `listen()`.
+
 # 0.16.0
 
 29.05kb, 8.28kb gzipped
