@@ -4,8 +4,9 @@
 It's intended as a drop-in replacement for [dat.gui](https://github.com/dataarts/dat.gui), 
 implemented with more modern web standards and some new quality of life features.
 
-If you've used dat.gui before, the beginning of this guide will be review. The [Migrating](#Migrating) 
-section points out the notable differences between the two libraries.
+The [Migrating](#Migrating) section lists any breaking changes between the two libraries. The changes are limited to the lesser-used portions of the API, but you should read it before moving a project to lil-gui.
+
+If you've used dat.gui before, the beginning of this guide will be review. New features are introduced beginning in the [Change Events](/#Guide#Change-Events) section.
 
 ## Installation
 
