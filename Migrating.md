@@ -6,7 +6,7 @@ section aims to address any breaking changes.
 
 ## API Changes
 
-- `gui.__children` is now `gui.children`.
+- `gui.__controllers` is now `gui.controllers`.
 - `gui.__folders` is now `gui.folders` and it's an array, not a map.
 - `gui.remove( controller )` is now `controller.destroy()`
 - `gui.removeFolder( folder )` is now `folder.destroy()`
