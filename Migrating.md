@@ -8,8 +8,8 @@ section aims to address any breaking changes.
 
 - `gui.__controllers` is now `gui.controllers`.
 - `gui.__folders` is now `gui.folders` and it's an array, not a map.
-- `gui.remove( controller )` is now `controller.destroy()`
-- `gui.removeFolder( folder )` is now `folder.destroy()`
+- `gui.remove( controller )` is now `controller.destroy()`.
+- `gui.removeFolder( folder )` is now `folder.destroy()`.
 - Folders are open by default.
 
 ## DOM Structure
@@ -23,7 +23,7 @@ is likely to break.
 
 CSS class names are also different:
 
-- `.dg.ac` becomes `.lil-gui.autoPlace`
+- `.dg.ac` is now `.lil-gui.autoPlace`.
 
 ## Color Controller Changes
 
