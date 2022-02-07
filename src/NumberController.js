@@ -210,7 +210,7 @@ export default class NumberController extends Controller {
 
 		this.$input.addEventListener( 'input', onInput );
 		this.$input.addEventListener( 'keydown', onKeyDown );
-		this.$input.addEventListener( 'wheel', onWheel );
+		this.$input.addEventListener( 'wheel', onWheel, { passive: false } );
 		this.$input.addEventListener( 'mousedown', onMouseDown );
 		this.$input.addEventListener( 'focus', onFocus );
 		this.$input.addEventListener( 'blur', onBlur );
@@ -372,8 +372,8 @@ export default class NumberController extends Controller {
 		};
 
 		this.$slider.addEventListener( 'mousedown', mouseDown );
-		this.$slider.addEventListener( 'touchstart', onTouchStart );
-		this.$slider.addEventListener( 'wheel', onWheel );
+		this.$slider.addEventListener( 'touchstart', onTouchStart, { passive: false } );
+		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
 	}
 
