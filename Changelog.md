@@ -1,8 +1,9 @@
 # 0.16.0-dev
 
-29.14kb, 8.31kb gzipped
+29.21kb, 8.33kb gzipped
 
 - Improved performance for GUI's that make heavy use of `listen()`.
+- Eliminated console warnings about passive event listeners.
 
 # 0.16.0
 
