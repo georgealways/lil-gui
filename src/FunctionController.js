@@ -17,7 +17,7 @@ export default class FunctionController extends Controller {
 		} );
 
 		// enables :active pseudo class on mobile
-		this.$button.addEventListener( 'touchstart', () => { } );
+		this.$button.addEventListener( 'touchstart', () => {}, { passive: true } );
 
 		this.$disable = this.$button;
 
