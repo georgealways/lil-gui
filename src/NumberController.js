@@ -38,7 +38,12 @@ export default class NumberController extends Controller {
 
 	updateDisplay() {
 
-		const value = this.getValue();
+		let value = this.getValue();
+		//rounds the displayed value to the same decimal point as the step
+		if (this._stepExplicit && this._step % 1 !== 0) {
+			var decimalPoints = this._step.toString().split(".")[1].length;
+			value = Math.round(value*Math.pow(10,decimalPoints)) / Math.pow(10,decimalPoints);
+		}
 
 		if ( this._hasSlider ) {
 
