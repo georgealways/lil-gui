@@ -1,9 +1,9 @@
-# 0.16.0-dev
+# 0.16.1
 
 29.21kb, 8.33kb gzipped
 
-- Improved performance for GUI's that make heavy use of `listen()`.
-- Eliminated console warnings about passive event listeners.
+- Improved performance for GUI's that make heavy use of `listen()`. ([#36](https://github.com/georgealways/lil-gui/pull/36))
+- Eliminated console warnings about passive event listeners. ([#42](https://github.com/georgealways/lil-gui/pull/42))
 
 # 0.16.0
 
