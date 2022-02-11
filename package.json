@@ -1,6 +1,6 @@
 {
   "name": "lil-gui",
-  "version": "0.16.0",
+  "version": "0.16.0-dev",
   "author": {
     "name": "George Michael Brower"
   },
@@ -45,7 +45,7 @@
     "handlebars": "^4.3.1",
     "highlight.js": "^10.7.3",
     "jsdoc-api": "^5.0.2",
-    "markdown-it": "^9.1.0",
+    "markdown-it": "^12.3.2",
     "onchange": "^6.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",

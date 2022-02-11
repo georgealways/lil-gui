@@ -1,6 +1,6 @@
 # lil-gui
 
-Makes a floating panel for controllers on the web. Works as a drop-in replacement for dat.gui.
+Makes a floating panel for controllers on the web. Works as a drop-in replacement for dat.gui in most projects. See [Migrating](https://lil-gui.georgealways.com/#Migrating) for a list of breaking changes.
 
 [**Homepage**](https://lil-gui.georgealways.com/) •
 [**Basic Demo**](https://lil-gui.georgealways.com/examples/basic/) •
