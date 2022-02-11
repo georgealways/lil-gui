@@ -39,7 +39,7 @@ export default () => {
 	expectedDisplay = "3.1"
 	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision that is not an integer doesn't correctly add round display value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
 
-	//much larger decimals will start changing display value due to floating point accuracy, probably not really an issue
+	//much larger decimals will start changing display value when adding trailing zeroes due to floating point accuracy, probably not really an issue
 	num.decimals(15);
 	expectedDisplay = "3.100700000000000"
 	assert.strictEqual(obj.x, 3.1007, "setting large decimal precision affects actual value");
@@ -54,5 +54,10 @@ export default () => {
 	num.decimals(undefined);
 	assert.strictEqual(obj.x, 12345.67, "setting undefined decimal precision affects actual value");
 	assert.strictEqual(num.$input.value, 12345.67,"Undefined decimal affects actual value")
-
+	
+	obj.x = 3.6666666666666666666;
+	num.decimals(15);
+	expectedDisplay = "3.666666666666667"
+	assert.strictEqual(obj.x, 3.6666666666666666666, "setting large decimal precision affects actual value");
+	assert.strictEqual(num.$input.value, expectedDisplay, `setting large decimal precision doesn't correctly round display value without trailing zeroes \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
 };
