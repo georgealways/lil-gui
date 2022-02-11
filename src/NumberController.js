@@ -18,6 +18,15 @@ export default class NumberController extends Controller {
 
 	}
 
+	decimals( decimals ) {
+		if (decimals < 0) {
+			return this;
+		}
+		this._decimals = decimals;
+		this.updateDisplay();
+		return this;
+	}
+
 	min( min ) {
 		this._min = min;
 		this._onUpdateMinMax();
@@ -38,12 +47,7 @@ export default class NumberController extends Controller {
 
 	updateDisplay() {
 
-		let value = this.getValue();
-		//rounds the displayed value to the same decimal point as the step
-		if (this._stepExplicit && this._step % 1 !== 0) {
-			var decimalPoints = this._step.toString().split(".")[1].length;
-			value = Math.round(value*Math.pow(10,decimalPoints)) / Math.pow(10,decimalPoints);
-		}
+		const value = this.getValue();
 
 		if ( this._hasSlider ) {
 
@@ -54,8 +58,8 @@ export default class NumberController extends Controller {
 
 		}
 
-		if ( !this._inputFocused ) {
-			this.$input.value = value;
+		if (!this._inputFocused) {
+			this.$input.value = this._decimals !==undefined? value.toFixed(this._decimals) : value;
 		}
 
 		return this;

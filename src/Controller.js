@@ -290,6 +290,21 @@ export default class Controller {
 	}
 
 	/**
+	 * Forces the display to use a fixed number of decimal places. Useful when listening to values
+	 * with a high precision. Note this will only affect displayed values. Use `controlller.step( step )`
+	 * for rounding the values set by the controller. 
+	 * Only affects number controllers.
+	 * @example
+	 * gui.add( object, 'property' ).listen().decimals( 4 );
+	 * @param {number} decimals 
+	 * @returns {this}
+	 */
+	// eslint-disable-next-line no-unused-vars
+	decimals( decimals ) {
+		return this;
+	}
+
+	/**
 	 * Calls `updateDisplay()` every animation frame. Pass `false` to stop listening.
 	 * @param {boolean} listen
 	 * @returns {this}
