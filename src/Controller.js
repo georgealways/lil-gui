@@ -290,10 +290,10 @@ export default class Controller {
 	}
 
 	/**
-	 * Forces the display to use a fixed number of decimal places. Useful when listening to values
-	 * with a high precision. Note this will only affect displayed values. Use `controlller.step( step )`
-	 * for rounding the values set by the controller. 
-	 * Only affects number controllers.
+	 * Forces the display to use a fixed number of decimal places. 
+	 * Useful when listening to long decimals. Note that this method only affects display. 
+	 * Use  `controlller.step( step )` to round the values set by this controller. 
+	 * Only works on number controllers.
 	 * @example
 	 * gui.add( object, 'property' ).listen().decimals( 4 );
 	 * @param {number} decimals 

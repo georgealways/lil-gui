@@ -19,18 +19,6 @@ export default () => {
 	assert.strictEqual(obj.x, 3.1007, "setting decimal precision affects actual value");
 	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision doesn't correctly round display value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
 
-	num.decimals(-1);
-	assert.strictEqual(obj.x, 3.1007, "setting negative decimal precision affects actual value");
-	assert.strictEqual(num.$input.value, expectedDisplay, `setting negative decimal precision changes display value \nExpected:  ${expectedDisplay} \nActual: ${num.$input.value}`)
-
-	num.decimals(3);
-	expectedDisplay = "3.101"
-	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision doesn't correctly round display value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
-
-	num.decimals(4);
-	expectedDisplay = "3.1007"
-	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision doesn't correctly round display value \nExpected:  ${expectedDisplay} \nActual: ${num.$input.value}`)
-
 	num.decimals(5);
 	expectedDisplay = "3.10070"
 	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision doesn't correctly add trailing zeroes to display value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
@@ -44,20 +32,15 @@ export default () => {
 	expectedDisplay = "3.100700000000000"
 	assert.strictEqual(obj.x, 3.1007, "setting large decimal precision affects actual value");
 	assert.strictEqual(num.$input.value, expectedDisplay, `setting large decimal precision doesn't correctly add trailing zeroes to display value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
-	
-	obj.x = 12345.67;
-	num.decimals(1);
-	expectedDisplay = "12345.7"
-	assert.strictEqual(obj.x, 12345.67, "setting decimal precision affects actual value");
-	assert.strictEqual(num.$input.value, expectedDisplay, `setting decimal precision correclty rounds value after object value has been changed outside of controller \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
 
 	num.decimals(undefined);
-	assert.strictEqual(obj.x, 12345.67, "setting undefined decimal precision affects actual value");
-	assert.strictEqual(num.$input.value, 12345.67,"Undefined decimal affects actual value")
+	assert.strictEqual(obj.x, 3.1007, "setting undefined decimal precision affects actual value");
+	assert.strictEqual(num.$input.value, 3.1007, "Undefined decimal affects actual value");
+
+	obj.x = 24.56;
+	num.decimals(1);
+	expectedDisplay = "24.6";
+	assert.strictEqual(num.$input.value, expectedDisplay, `setting object value outside of controller doesn't correctly update duisplay value \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
 	
-	obj.x = 3.6666666666666666666;
-	num.decimals(15);
-	expectedDisplay = "3.666666666666667"
-	assert.strictEqual(obj.x, 3.6666666666666666666, "setting large decimal precision affects actual value");
-	assert.strictEqual(num.$input.value, expectedDisplay, `setting large decimal precision doesn't correctly round display value without trailing zeroes \nExpected: ${expectedDisplay} \nActual: ${num.$input.value}`)
+	
 };
