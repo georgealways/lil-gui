@@ -42,7 +42,7 @@ export default class Controller {
 		 * The outermost container DOM element for this controller.
 		 * @type {HTMLElement}
 		 */
-		this.domElement = document.createElement( 'div' );
+		this.domElement = document.createElement( 'label' );
 		this.domElement.classList.add( 'controller' );
 		this.domElement.classList.add( className );
 
