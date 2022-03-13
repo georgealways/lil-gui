@@ -46,7 +46,6 @@
     "highlight.js": "^10.7.3",
     "jsdoc-api": "^5.0.2",
     "markdown-it": "^12.3.2",
-    "onchange": "^6.0.0",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",
     "postcss-combine-media-query": "^1.0.1",
