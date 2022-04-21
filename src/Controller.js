@@ -33,6 +33,13 @@ export default class Controller {
 		this._disabled = false;
 
 		/**
+		 * Used to determine if the Controller is hidden.
+		 * Use `controller.show()` or `controller.hide()` to change this.
+		 * @type {boolean}
+		 */
+		this._hidden = false;
+
+		/**
 		 * The value of `object[ property ]` when the controller was created.
 		 * @type {any}
 		 */
@@ -223,6 +230,33 @@ export default class Controller {
 
 		return this;
 
+	}
+
+	/**
+	 * Shows the Controller after it's been hidden.
+	 * @param {boolean} show
+	 * @returns {this}
+	 * @example
+	 * controller.show();
+	 * controller.show( false ); // hide
+	 * controller.show( controller._hidden ); // toggle
+	 */
+	show( show = true ) {
+
+		this._hidden = !show;
+
+		this.domElement.style.display = this._hidden ? 'none' : '';
+
+		return this;
+
+	}
+
+	/**
+	 * Hides the Controller.
+	 * @returns {this}
+	 */
+	hide() {
+		return this.show( false );
 	}
 
 	/**
