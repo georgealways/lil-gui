@@ -133,8 +133,17 @@ export default class GUI {
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
-		this.domElement.appendChild( this.$title );
-		this.domElement.appendChild( this.$children );
+		if ( this.parent ) {
+			this.container = this.domElement;
+		} else if ( !stylesInjected && injectStyles ) {
+			this.container = this.domElement.attachShadow( { mode: 'open' } );
+			const style = document.createElement( 'style' );
+			style.textContent = stylesheet;
+			this.container.appendChild( style );
+		}
+
+		this.container.appendChild( this.$title );
+		this.container.appendChild( this.$children );
 
 		this.title( title );
 
@@ -157,10 +166,10 @@ export default class GUI {
 		this.domElement.classList.add( 'root' );
 
 		// Inject stylesheet if we haven't done that yet
-		if ( !stylesInjected && injectStyles ) {
-			_injectStyles( stylesheet );
-			stylesInjected = true;
-		}
+		// if ( !stylesInjected && injectStyles ) {
+		// 	_injectStyles( stylesheet );
+		// 	stylesInjected = true;
+		// }
 
 		if ( container ) {
 

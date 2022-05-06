@@ -1,22 +1,18 @@
 @mixin touch-vars {
 	@media (pointer: coarse) {
-		&.allow-touch-styles {
+		:host(.allow-touch-styles) {
 			@content;
 		}
 	}
-	&.force-touch-styles {
+	:host(.force-touch-styles) {
 		@content;
 	}
 }
 
-.lil-gui {
+:host {
 	font-family: var(--font-family);
 	font-size: var(--font-size);
 	line-height: 1;
-
-	font-weight: normal;
-	font-style: normal;
-	text-align: left;
 
 	background-color: var(--background-color);
 	color: var(--text-color);
@@ -34,26 +30,24 @@
 		padding: 0;
 	}
 
-	&.root {
-		width: var(--width, 245px);
-		display: flex;
-		flex-direction: column;
-		> .title {
-			background: var(--title-background-color);
-			color: var(--title-text-color);
+	width: var(--width, 245px);
+	display: flex;
+	flex-direction: column;
+	> .title {
+		background: var(--title-background-color);
+		color: var(--title-text-color);
+	}
+	> .children {
+		overflow-x: hidden;
+		overflow-y: auto;
+		&::-webkit-scrollbar {
+			width: var(--scrollbar-width);
+			height: var(--scrollbar-width);
+			background: var(--background-color);
 		}
-		> .children {
-			overflow-x: hidden;
-			overflow-y: auto;
-			&::-webkit-scrollbar {
-				width: var(--scrollbar-width);
-				height: var(--scrollbar-width);
-				background: var(--background-color);
-			}
-			&::-webkit-scrollbar-thumb {
-				border-radius: var(--scrollbar-width);
-				background: var(--focus-color);
-			}
+		&::-webkit-scrollbar-thumb {
+			border-radius: var(--scrollbar-width);
+			background: var(--focus-color);
 		}
 	}
 
@@ -87,24 +81,24 @@
 	--widget-border-radius: 2px;
 	--checkbox-size: calc(0.75 * var(--widget-height));
 	--scrollbar-width: 5px;
+}
 
-	@include touch-vars {
-		--widget-height: 28px;
-		--padding: 6px;
-		--spacing: 6px;
-		--font-size: 13px;
-		--input-font-size: 16px; // < 16px causes zoom on iOS
-		--folder-indent: 10px;
-		--scrollbar-width: 7px;
-		--slider-input-min-width: 50px;
-		--color-input-min-width: 65px;
-	}
+@include touch-vars {
+	--widget-height: 28px;
+	--padding: 6px;
+	--spacing: 6px;
+	--font-size: 13px;
+	--input-font-size: 16px; // < 16px causes zoom on iOS
+	--folder-indent: 10px;
+	--scrollbar-width: 7px;
+	--slider-input-min-width: 50px;
+	--color-input-min-width: 65px;
+}
 
-	&.autoPlace {
-		max-height: 100%;
-		position: fixed;
-		top: 0;
-		right: 15px;
-		z-index: 1001;
-	}
+:host(.autoPlace) {
+	max-height: 100%;
+	position: fixed;
+	top: 0;
+	right: 15px;
+	z-index: 1001;
 }

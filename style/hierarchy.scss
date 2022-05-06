@@ -1,44 +1,44 @@
 @import 'hover';
 
-.lil-gui {
-	.title {
-		--title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
+.title {
+	--title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
 
-		height: var(--title-height);
-		line-height: calc(var(--title-height) - 4px);
+	height: var(--title-height);
+	line-height: calc(var(--title-height) - 4px);
 
-		font-weight: 600;
-		padding: 0 var(--padding);
-		-webkit-tap-highlight-color: transparent;
-		cursor: pointer;
-		outline: none;
+	font-weight: 600;
+	padding: 0 var(--padding);
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	outline: none;
 
-		// we use an underline to indicate focus, don't underline arrow
-		text-decoration-skip: objects;
+	// we use an underline to indicate focus, don't underline arrow
+	text-decoration-skip: objects;
 
-		&:before {
-			font-family: 'lil-gui';
-			content: '▾';
-			padding-right: 2px;
-			display: inline-block; // so skip: objects works
-		}
-
-		&:active {
-			background: var(--title-background-color);
-			opacity: 0.75;
-		}
-
-		@include can-hover {
-			body:not(.lil-gui-dragging) &:hover {
-				background: var(--title-background-color);
-				opacity: 0.85;
-			}
-			&:focus {
-				text-decoration: underline var(--focus-color);
-			}
-		}
+	&:before {
+		font-family: 'lil-gui';
+		content: '▾';
+		padding-right: 2px;
+		display: inline-block; // so skip: objects works
 	}
 
+	&:active {
+		background: var(--title-background-color);
+		opacity: 0.75;
+	}
+
+	@include can-hover {
+		body:not(.lil-gui-dragging) &:hover {
+			background: var(--title-background-color);
+			opacity: 0.85;
+		}
+		&:focus {
+			text-decoration: underline var(--focus-color);
+		}
+	}
+}
+
+.lil-gui {
 	&.root > .title:focus {
 		text-decoration: none !important;
 	}
@@ -63,58 +63,56 @@
 		overflow: hidden;
 		pointer-events: none;
 	}
+}
 
-	// Empty children
-	// -------------------------------------------------------------------------
+// Empty children
+// -------------------------------------------------------------------------
 
-	.children:empty:before {
-		content: 'Empty';
-		padding: 0 var(--padding);
-		margin: var(--spacing) 0;
-		display: block;
-		height: var(--widget-height);
-		font-style: italic;
-		line-height: var(--widget-height);
-		opacity: 0.5;
+.children:empty:before {
+	content: 'Empty';
+	padding: 0 var(--padding);
+	margin: var(--spacing) 0;
+	display: block;
+	height: var(--widget-height);
+	font-style: italic;
+	line-height: var(--widget-height);
+	opacity: 0.5;
+}
+
+// Root Level Folders
+// -------------------------------------------------------------------------
+
+:host > .children > .lil-gui > .title {
+	border: 0 solid var(--widget-color);
+	border-width: 1px 0;
+	transition: border-color 300ms;
+}
+
+:host > .children > .lil-gui > .title {
+	border-bottom-color: transparent;
+}
+
+// Seperate folders from controllers at the same level
+.lil-gui + .controller {
+	border-top: 1px solid var(--widget-color);
+	margin-top: 0;
+	padding-top: var(--spacing);
+}
+
+// Nested folders
+// -------------------------------------------------------------------------
+
+.lil-gui {
+	& & > .title {
+		border: none;
 	}
-
-	// Root Level Folders
-	// -------------------------------------------------------------------------
-
-	&.root > .children > & > .title {
-		border: 0 solid var(--widget-color);
-		border-width: 1px 0;
-		transition: border-color 300ms;
+	& & > .children {
+		border: none;
+		margin-left: var(--folder-indent);
+		border-left: 2px solid var(--widget-color);
 	}
-
-	&.root > .children > &.closed > .title {
-		border-bottom-color: transparent;
-	}
-
-	// Seperate folders from controllers at the same level
-	& + .controller {
-		border-top: 1px solid var(--widget-color);
-		margin-top: 0;
-		padding-top: var(--spacing);
-	}
-
-	// Nested folders
-	// -------------------------------------------------------------------------
-
-	& & & {
-		> .title {
-			border: none;
-		}
-		> .children {
-			border: none;
-			margin-left: var(--folder-indent);
-			border-left: 2px solid var(--widget-color);
-		}
-	}
-
 	// Don't draw folder + controller seperation rule for when double nested
 	& & .controller {
 		border: none;
 	}
-
 }

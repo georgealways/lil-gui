@@ -1,175 +1,174 @@
 @import 'hover';
 
-.lil-gui {
-	.controller {
+.controller {
+	display: flex;
+	align-items: center;
+	padding: 0 var(--padding);
+	margin: var(--spacing) 0;
+
+	&.disabled {
+		opacity: 0.5;
+		&,
+		& * {
+			pointer-events: none !important;
+		}
+	}
+
+	// > is used here to avoid styling FunctionController's .name,
+	// which gets put inside of its widget.
+	> .name {
+		min-width: var(--name-width);
+		flex-shrink: 0;
+		white-space: pre;
+		padding-right: var(--spacing);
+		line-height: var(--widget-height);
+	}
+
+	.widget {
+		position: relative; // many w/ pos absolute inside
 		display: flex;
 		align-items: center;
-		padding: 0 var(--padding);
-		margin: var(--spacing) 0;
-
-		&.disabled {
-			opacity: 0.5;
-			&, & * {
-				pointer-events: none !important;
-			}
-		}
-
-		// > is used here to avoid styling FunctionController's .name,
-		// which gets put inside of its widget.
-		> .name {
-			min-width: var(--name-width);
-			flex-shrink: 0;
-			white-space: pre;
-			padding-right: var(--spacing);
-			line-height: var(--widget-height);
-		}
-
-		.widget {
-			position: relative; // many w/ pos absolute inside
-			display: flex;
-			align-items: center;
-			width: 100%;
-			min-height: var(--widget-height);
-		}
+		width: 100%;
+		min-height: var(--widget-height);
 	}
+}
 
-	.controller.string input {
-		color: var(--string-color);
-	}
+.controller.string input {
+	color: var(--string-color);
+}
 
-	.controller.boolean .widget {
-		cursor: pointer;
-	}
+.controller.boolean .widget {
+	cursor: pointer;
+}
 
-	.controller.color {
-		.display {
-			width: 100%;
-			height: var(--widget-height);
-			border-radius: var(--widget-border-radius);
-			position: relative;
-			@include on-hover {
-				&:before {
-					content: ' ';
-					display: block;
-					position: absolute;
-					border-radius: var(--widget-border-radius);
-					border: 1px solid #fff9;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
-				}
-			}
-		}
-		input[type='color'] {
-			opacity: 0;
-			width: 100%;
-			height: 100%;
-			cursor: pointer;
-		}
-		input[type='text'] {
-			margin-left: var(--spacing);
-			font-family: var(--font-family-mono);
-			min-width: var(--color-input-min-width);
-			width: var(--color-input-width);
-			flex-shrink: 0;
-		}
-	}
-
-	.controller.option {
-		select {
-			opacity: 0;
-			position: absolute;
-			width: 100%;
-			max-width: 100%;
-		}
-		.display {
-			position: relative;
-			pointer-events: none;
-			border-radius: var(--widget-border-radius);
-			height: var(--widget-height);
-			line-height: var(--widget-height);
-			max-width: 100%;
-			overflow: hidden;
-			word-break: break-all;
-			padding-left: 0.55em;
-			padding-right: 1.75em;
-
-			background: var(--widget-color);
-
-			@include can-hover {
-				&.focus {
-					background: var(--focus-color);
-				}
-			}
-
-			&.active {
-				background: var(--focus-color);
-			}
-
-			&:after {
-				font-family: 'lil-gui';
-				content: '↕';
+.controller.color {
+	.display {
+		width: 100%;
+		height: var(--widget-height);
+		border-radius: var(--widget-border-radius);
+		position: relative;
+		@include on-hover {
+			&:before {
+				content: ' ';
+				display: block;
 				position: absolute;
+				border-radius: var(--widget-border-radius);
+				border: 1px solid #fff9;
 				top: 0;
 				right: 0;
 				bottom: 0;
-				padding-right: 0.375em;
-			}
-		}
-		.widget,
-		select {
-			cursor: pointer;
-		}
-		.widget {
-			@include on-hover {
-				.display {
-					background: var(--hover-color);
-				}
+				left: 0;
 			}
 		}
 	}
+	input[type='color'] {
+		opacity: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	input[type='text'] {
+		margin-left: var(--spacing);
+		font-family: var(--font-family-mono);
+		min-width: var(--color-input-min-width);
+		width: var(--color-input-width);
+		flex-shrink: 0;
+	}
+}
 
-	.controller.number {
-		input {
-			color: var(--number-color);
-		}
-		&.hasSlider input {
-			margin-left: var(--spacing);
-			width: var(--slider-input-width);
-			min-width: var(--slider-input-min-width);
-			flex-shrink: 0;
-		}
-		.slider {
-			width: 100%;
-			height: var(--widget-height);
-			background-color: var(--widget-color);
-			border-radius: var(--widget-border-radius);
+.controller.option {
+	select {
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		max-width: 100%;
+	}
+	.display {
+		position: relative;
+		pointer-events: none;
+		border-radius: var(--widget-border-radius);
+		height: var(--widget-height);
+		line-height: var(--widget-height);
+		max-width: 100%;
+		overflow: hidden;
+		word-break: break-all;
+		padding-left: 0.55em;
+		padding-right: 1.75em;
 
-			// subtracts width of knob from available width
-			padding-right: var(--slider-knob-width);
-			overflow: hidden;
-			cursor: ew-resize;
+		background: var(--widget-color);
 
-			// allows you to scroll gui by touch even if grabbing a slider
-			touch-action: pan-y;
-
-			@include on-hover {
-				background-color: var(--hover-color);
+		@include can-hover {
+			&.focus {
+				background: var(--focus-color);
 			}
-			&.active {
-				background-color: var(--focus-color);
-				.fill {
-					opacity: 0.95;
-				}
+		}
+
+		&.active {
+			background: var(--focus-color);
+		}
+
+		&:after {
+			font-family: 'lil-gui';
+			content: '↕';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			padding-right: 0.375em;
+		}
+	}
+	.widget,
+	select {
+		cursor: pointer;
+	}
+	.widget {
+		@include on-hover {
+			.display {
+				background: var(--hover-color);
 			}
 		}
-		.fill {
-			height: 100%;
-			border-right: var(--slider-knob-width) solid var(--number-color);
-			// don't count border width towards width
-			box-sizing: content-box;
+	}
+}
+
+.controller.number {
+	input {
+		color: var(--number-color);
+	}
+	&.hasSlider input {
+		margin-left: var(--spacing);
+		width: var(--slider-input-width);
+		min-width: var(--slider-input-min-width);
+		flex-shrink: 0;
+	}
+	.slider {
+		width: 100%;
+		height: var(--widget-height);
+		background-color: var(--widget-color);
+		border-radius: var(--widget-border-radius);
+
+		// subtracts width of knob from available width
+		padding-right: var(--slider-knob-width);
+		overflow: hidden;
+		cursor: ew-resize;
+
+		// allows you to scroll gui by touch even if grabbing a slider
+		touch-action: pan-y;
+
+		@include on-hover {
+			background-color: var(--hover-color);
 		}
+		&.active {
+			background-color: var(--focus-color);
+			.fill {
+				opacity: 0.95;
+			}
+		}
+	}
+	.fill {
+		height: 100%;
+		border-right: var(--slider-knob-width) solid var(--number-color);
+		// don't count border width towards width
+		box-sizing: content-box;
 	}
 }
 

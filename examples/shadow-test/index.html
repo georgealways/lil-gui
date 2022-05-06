@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>lil-gui - Basic Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.title {
+			color: red;
+		}
+
+		.name {
+			color: blue;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="title">This is my very own <code>.title</code> class.</div>
+	<div class="name">This is my very own <code>.name</code> class.</div>
+	<script type="module">
+
+		import GUI from '../../dist/lil-gui.esm.js';
+
+		const gui = new GUI();
+
+		const folder = gui.addFolder( 'Folder' );
+
+		const folderParams = {
+			number: 0.5,
+			boolean: false,
+			color: '#0cf',
+			function() { console.log( 'hi' ) }
+		};
+
+		folder.add( folderParams, 'number', 0, 1 );
+		folder.add( folderParams, 'boolean' );
+		folder.addColor( folderParams, 'color' );
+		folder.add( folderParams, 'function' );
+
+		const params = {
+			options: 10,
+			boolean: true,
+			string: 'lil-gui',
+			number: 0,
+			color: '#aa00ff',
+			function() { console.log( 'hi' ) }
+		};
+
+		gui.add( params, 'options', { Small: 1, Medium: 10, Large: 100 } );
+		gui.add( params, 'boolean' );
+		gui.add( params, 'string' );
+		gui.add( params, 'number' );
+		gui.addColor( params, 'color' );
+		gui.add( params, 'function' ).name( 'Custom Name' );
+
+	</script>
+</body>
+</html>
