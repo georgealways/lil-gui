@@ -55,8 +55,8 @@ export default class NumberController extends Controller {
 
 		}
 
-		if (!this._inputFocused) {
-			this.$input.value = this._decimals === undefined ? value : value.toFixed(this._decimals);
+		if ( !this._inputFocused ) {
+			this.$input.value = this._decimals === undefined ? value : value.toFixed( this._decimals );
 		}
 
 		return this;
