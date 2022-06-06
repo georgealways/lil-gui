@@ -58,10 +58,31 @@ make( { title: 'Explicit step' }, gui => {
 	explicitStep( 0, 15, .015 );
 	explicitStep( 0, 5, 1 / 3, '1/3' );
 
-	const oob = gui.addFolder( 'Out of bounds' );
+} );
 
-	oob.add( { x: 2 }, 'x', 0, 1 ).name( '[0,1] Too high' );
-	oob.add( { x: -2 }, 'x', 0, 1 ).name( '[0,1] Too low' );
+make( { title: 'Numbers Misc.' }, gui => {
+
+	let folder = gui.addFolder( 'Out of bounds' );
+
+	folder.add( { x: 2 }, 'x', 0, 1 ).name( '[0,1] Too high' );
+	folder.add( { x: -2 }, 'x', 0, 1 ).name( '[0,1] Too low' );
+
+	folder = gui.addFolder( 'Decimals' );
+
+	const decimalsObj = { x: 5 };
+
+	const addDecimalCtrl = ( v, argName = v ) => {
+		folder
+			.add( decimalsObj, 'x', 0, 10 )
+			.name( `decimals( ${argName} )` )
+			.decimals( v )
+			.listen();
+	};
+
+	addDecimalCtrl( 0 );
+	addDecimalCtrl( 1 );
+	addDecimalCtrl( 2 );
+	addDecimalCtrl( undefined, 'undef' );
 
 } );
 

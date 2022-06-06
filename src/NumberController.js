@@ -18,6 +18,12 @@ export default class NumberController extends Controller {
 
 	}
 
+	decimals( decimals ) {
+		this._decimals = decimals;
+		this.updateDisplay();
+		return this;
+	}
+
 	min( min ) {
 		this._min = min;
 		this._onUpdateMinMax();
@@ -50,7 +56,7 @@ export default class NumberController extends Controller {
 		}
 
 		if ( !this._inputFocused ) {
-			this.$input.value = value;
+			this.$input.value = this._decimals === undefined ? value : value.toFixed( this._decimals );
 		}
 
 		return this;
