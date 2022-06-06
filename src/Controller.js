@@ -280,7 +280,8 @@ export default class Controller {
 	}
 
 	/**
-	 * Sets the step. Only works on number controllers.
+	 * Values set by this controller will be rounded to multiples of `step`. Only works on number
+	 * controllers.
 	 * @param {number} step
 	 * @returns {this}
 	 */
