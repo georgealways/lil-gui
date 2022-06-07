@@ -8,22 +8,22 @@ export default () => {
 
 	assert.strictEqual( controller.domElement.style.display, undefined, 'Undefined by default' );
 
-  controller.show()
+	controller.show();
 	assert.strictEqual( controller.domElement.style.display, '', 'Shown after call to .show()' );
 
-  controller.hide()
+	controller.hide();
 	assert.strictEqual( controller.domElement.style.display, 'none', 'Hidden after call to .hide()' );
 
-  controller.show( true )
+	controller.show( true );
 	assert.strictEqual( controller.domElement.style.display, '', 'Shown after call to .show(true)' );
 
-  controller.show( false )
+	controller.show( false );
 	assert.strictEqual( controller.domElement.style.display, 'none', 'Hidden after call to .show(false)' );
 
-  controller.show( controller._hidden )
+	controller.show( controller._hidden );
 	assert.strictEqual( controller.domElement.style.display, '', 'Shown after toggle' );
 
-  controller.show( controller._hidden )
+	controller.show( controller._hidden );
 	assert.strictEqual( controller.domElement.style.display, 'none', 'Hidden after toggle' );
 
 };
