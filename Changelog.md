@@ -1,3 +1,7 @@
+# 0.16.1-dev
+
+- Added `decimals()` to number controllers. ([#44](https://github.com/georgealways/lil-gui/pull/44))
+
 # 0.16.1
 
 29.21kb, 8.33kb gzipped

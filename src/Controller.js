@@ -314,12 +314,26 @@ export default class Controller {
 	}
 
 	/**
-	 * Sets the step. Only works on number controllers.
+	 * Values set by this controller will be rounded to multiples of `step`. Only works on number
+	 * controllers.
 	 * @param {number} step
 	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
+		return this;
+	}
+
+	/**
+	 * Rounds the displayed value to a fixed number of decimals, without affecting the actual value
+	 * like `step()`. Only works on number controllers.
+	 * @example
+	 * gui.add( object, 'property' ).listen().decimals( 4 );
+	 * @param {number} decimals
+	 * @returns {this}
+	 */
+	// eslint-disable-next-line no-unused-vars
+	decimals( decimals ) {
 		return this;
 	}
 
