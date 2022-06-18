@@ -76,9 +76,13 @@ export default class NumberController extends Controller {
 
 		const onInput = () => {
 
-			const value = parseFloat( this.$input.value );
+			let value = parseFloat( this.$input.value );
 
 			if ( isNaN( value ) ) return;
+
+			if ( this._stepExplicit ) {
+				value = this._snap( value );
+			}
 
 			this.setValue( this._clamp( value ) );
 
