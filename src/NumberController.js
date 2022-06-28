@@ -254,98 +254,81 @@ export default class NumberController extends Controller {
 			this._snapClampSetValue( value );
 		};
 
-		// Mouse drag
-		// ---------------------------------------------------------------------
-
-		const mouseDown = e => {
-			this._setDraggingStyle( true );
-			setValueFromX( e.clientX );
-			window.addEventListener( 'mousemove', mouseMove );
-			window.addEventListener( 'mouseup', mouseUp );
-		};
-
-		const mouseMove = e => {
-			setValueFromX( e.clientX );
-		};
-
-		const mouseUp = () => {
-			this._callOnFinishChange();
-			this._setDraggingStyle( false );
-			window.removeEventListener( 'mousemove', mouseMove );
-			window.removeEventListener( 'mouseup', mouseUp );
-		};
-
-		// Touch drag
+		// Pointer drag
 		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
 
-		const beginTouchDrag = e => {
-			e.preventDefault();
-			this._setDraggingStyle( true );
-			setValueFromX( e.touches[ 0 ].clientX );
-			testingForScroll = false;
-		};
+		const onPointerDown = e => {
 
-		const onTouchStart = e => {
+			if ( !e.isPrimary ) return;
 
-			if ( e.touches.length > 1 ) return;
+			if ( e.pointerType === 'mouse' || !this._hasScrollBar ) {
 
-			// If we're in a scrollable container, we should wait for the first
-			// touchmove to see if the user is trying to slide or scroll.
-			if ( this._hasScrollBar ) {
-
-				prevClientX = e.touches[ 0 ].clientX;
-				prevClientY = e.touches[ 0 ].clientY;
-				testingForScroll = true;
+				beginDrag( e );
 
 			} else {
 
-				// Otherwise, we can set the value straight away on touchstart.
-				beginTouchDrag( e );
+				prevClientX = e.clientX;
+				prevClientY = e.clientY;
+				testingForScroll = true;
 
 			}
 
-			window.addEventListener( 'touchmove', onTouchMove );
-			window.addEventListener( 'touchend', onTouchEnd );
+			window.addEventListener( 'pointermove', onPointerMove, { passive: false } );
+			window.addEventListener( 'pointerup', onPointerUp );
+			window.addEventListener( 'pointercancel', onPointerUp );
 
 		};
 
-		const onTouchMove = e => {
+		const beginDrag = e => {
+			e.preventDefault();
+			this._setDraggingStyle( true );
+			setValueFromX( e.clientX );
+			testingForScroll = false;
+		};
+
+		const onPointerUp = () => {
+			this._callOnFinishChange();
+			this._setDraggingStyle( false );
+			removeListeners();
+		};
+
+		const onPointerMove = e => {
 
 			if ( testingForScroll ) {
 
-				const dx = e.touches[ 0 ].clientX - prevClientX;
-				const dy = e.touches[ 0 ].clientY - prevClientY;
+				const dx = e.clientX - prevClientX;
+				const dy = e.clientY - prevClientY;
 
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					beginTouchDrag( e );
+					beginDrag( e );
 
 				} else {
 
 					// This was, in fact, an attempt to scroll. Abort.
-					window.removeEventListener( 'touchmove', onTouchMove );
-					window.removeEventListener( 'touchend', onTouchEnd );
+					removeListeners();
 
 				}
 
 			} else {
 
 				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
+				setValueFromX( e.clientX );
 
 			}
 
 		};
 
-		const onTouchEnd = () => {
-			this._callOnFinishChange();
-			this._setDraggingStyle( false );
-			window.removeEventListener( 'touchmove', onTouchMove );
-			window.removeEventListener( 'touchend', onTouchEnd );
+		const removeListeners = () => {
+			window.removeEventListener( 'pointermove', onPointerMove );
+			window.removeEventListener( 'pointerup', onPointerUp );
+			window.removeEventListener( 'pointercancel', onPointerUp );
 		};
+
+		this.$slider.addEventListener( 'pointerdown', onPointerDown, { passive: false } );
 
 		// Mouse wheel
 		// ---------------------------------------------------------------------
@@ -377,8 +360,6 @@ export default class NumberController extends Controller {
 
 		};
 
-		this.$slider.addEventListener( 'mousedown', mouseDown );
-		this.$slider.addEventListener( 'touchstart', onTouchStart, { passive: false } );
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
 
 	}
