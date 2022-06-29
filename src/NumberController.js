@@ -283,15 +283,16 @@ export default class NumberController extends Controller {
 
 		const beginDrag = e => {
 			e.preventDefault();
+			this.$slider.setPointerCapture( e.pointerId );
 			this._setDraggingStyle( true );
 			setValueFromX( e.clientX );
 			testingForScroll = false;
 		};
 
-		const onPointerUp = () => {
+		const onPointerUp = e => {
 			this._callOnFinishChange();
 			this._setDraggingStyle( false );
-			removeListeners();
+			removeListeners( e );
 		};
 
 		const onPointerMove = e => {
@@ -309,7 +310,7 @@ export default class NumberController extends Controller {
 				} else {
 
 					// This was, in fact, an attempt to scroll. Abort.
-					removeListeners();
+					removeListeners( e );
 
 				}
 
@@ -322,10 +323,11 @@ export default class NumberController extends Controller {
 
 		};
 
-		const removeListeners = () => {
-			window.removeEventListener( 'pointermove', onPointerMove );
+		const removeListeners = e => {
+			window.removeEventListener( 'pointermove', onPointerMove, { passive: false } );
 			window.removeEventListener( 'pointerup', onPointerUp );
 			window.removeEventListener( 'pointercancel', onPointerUp );
+			this.$slider.releasePointerCapture( e.pointerId );
 		};
 
 		this.$slider.addEventListener( 'pointerdown', onPointerDown, { passive: false } );
