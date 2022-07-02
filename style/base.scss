@@ -25,7 +25,7 @@
 	-webkit-user-select: none;
 
 	// prevent double tap zooming
-	touch-action: manipulation;
+	touch-action: none;
 
 	&,
 	& * {
