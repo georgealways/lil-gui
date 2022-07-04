@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>lil-gui - Basic Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="touch-scroll-tests.css">
+</head>
+<body>
+
+	<strong>Ambiguous Touch/Scroll Scenarios</strong>
+
+	<ul class="cases">
+
+		<li><a href="./">Auto-Place</a></li>
+
+		<li class="current"><a href="./long-auto-place.html">Long Auto-Place</a></li>
+
+		<li><a href="./long-page.html">Non Auto-Place, Scrollable Page</a></li>
+
+	</ul>
+
+	<div class="should">
+		When the GUI is auto-placed, and it has a scrollbar, dragging on a slider should respect the primary direction
+		of the first move event. Horizontal movement should be interpreted as a slide and vertical movement as a scroll.
+		These should never happen simultaneously.
+	</div>
+
+	<script type="module">
+
+		import GUI from '../../dist/lil-gui.esm.js';
+
+		const gui = new GUI();
+		for ( let i = 0; i < 50; i++ ) {
+			gui.add( { x: i / 50 }, 'x', 0, 1 );
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>lil-gui - Basic Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="touch-scroll-tests.css">
+</head>
+<body>
+
+	<strong>Ambiguous Touch/Scroll Scenarios</strong>
+
+	<ul class="cases">
+
+		<li class="current"><a href="./">Auto-Place</a></li>
+
+		<li><a href="./long-auto-place.html">Long Auto-Place</a></li>
+
+		<li><a href="./long-page.html">Non Auto-Place, Scrollable Page</a></li>
+
+	</ul>
+
+	<div class="should">
+		When the GUI is auto placed, dragging on the slider should never trigger the pull-to-refresh gesture.
+	</div>
+
+	<script type="module">
+
+		import GUI from '../../dist/lil-gui.esm.js';
+
+		new GUI().add( { x: 0.5 }, 'x', 0, 1 );
+
+	</script>
+</body>
+</html>
