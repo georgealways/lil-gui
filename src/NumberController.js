@@ -306,7 +306,7 @@ export default class NumberController extends Controller {
 
 			}
 
-			window.addEventListener( 'touchmove', onTouchMove );
+			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 			window.addEventListener( 'touchend', onTouchEnd );
 
 		};
