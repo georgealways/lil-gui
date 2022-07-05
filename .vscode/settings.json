@@ -23,8 +23,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  // html/css
-  "[html][css][scss]": {
+  // todo: not working if combined
+  "[html]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[scss]": {
     "editor.defaultFormatter": "HookyQR.beautify"
   },
   // json
