@@ -297,17 +297,6 @@ main {
 #toc ol,
 #toc ul {
 	margin-bottom: 1rem;
-}
-
-#toc ul {
-	padding-left: 1rem;
-}
-
-#toc ul li {
-	text-indent: -5px;
-}
-
-#toc ol {
 	padding-left: 1rem;
 }
 
