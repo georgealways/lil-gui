@@ -275,9 +275,10 @@ export default class NumberController extends Controller {
 
 			}
 
-			window.addEventListener( 'pointermove', onPointerMove, { passive: false } );
-			window.addEventListener( 'pointerup', onPointerUp );
-			window.addEventListener( 'pointercancel', onPointerUp );
+			this.$slider.setPointerCapture( e.pointerId );
+			this.$slider.addEventListener( 'pointermove', onPointerMove, { passive: false } );
+			this.$slider.addEventListener( 'pointerup', onPointerUp );
+			this.$slider.addEventListener( 'pointercancel', onPointerCancel, { passive: false } );
 
 		};
 
@@ -288,10 +289,17 @@ export default class NumberController extends Controller {
 			testingForScroll = false;
 		};
 
-		const onPointerUp = () => {
+		const onPointerUp = e => {
 			this._callOnFinishChange();
 			this._setDraggingStyle( false );
-			removeListeners();
+			removeListeners( e );
+		};
+
+		const onPointerCancel = e => {
+			console.log( 'pointercancel' );
+			// Doesn't work, seems like the browser won't let me control this if I've set a touch-action
+			e.preventDefault();
+			onPointerUp( e );
 		};
 
 		const onPointerMove = e => {
@@ -309,7 +317,7 @@ export default class NumberController extends Controller {
 				} else {
 
 					// This was, in fact, an attempt to scroll. Abort.
-					removeListeners();
+					removeListeners( e );
 
 				}
 
@@ -322,10 +330,11 @@ export default class NumberController extends Controller {
 
 		};
 
-		const removeListeners = () => {
-			window.removeEventListener( 'pointermove', onPointerMove, { passive: false } );
-			window.removeEventListener( 'pointerup', onPointerUp );
-			window.removeEventListener( 'pointercancel', onPointerUp );
+		const removeListeners = e => {
+			this.$slider.releasePointerCapture( e.pointerId );
+			this.$slider.removeEventListener( 'pointermove', onPointerMove );
+			this.$slider.removeEventListener( 'pointerup', onPointerUp );
+			this.$slider.removeEventListener( 'pointercancel', onPointerCancel );
 		};
 
 		this.$slider.addEventListener( 'pointerdown', onPointerDown, { passive: false } );
