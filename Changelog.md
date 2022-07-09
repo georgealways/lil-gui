@@ -1,4 +1,4 @@
-# 0.16.1-dev
+# 0.17.0
 
 - Added `decimals()` to number controllers for limiting display precision. ([#44](https://github.com/georgealways/lil-gui/pull/44))
 - Added `show()` and `hide()` to controllers. ([#60](https://github.com/georgealways/lil-gui/pull/60))
