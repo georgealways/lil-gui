@@ -1,5 +1,7 @@
 # 0.17.0
 
+29.53kb, 8.38kb gzipped
+
 - Added `decimals()` to number controllers for limiting display precision. ([#44](https://github.com/georgealways/lil-gui/pull/44))
 - Added `show()` and `hide()` to controllers. ([#60](https://github.com/georgealways/lil-gui/pull/60))
 - Fixed a bug where typing in a number field did not respect `step`. ([#63](https://github.com/georgealways/lil-gui/pull/63))
