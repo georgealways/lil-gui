@@ -35,6 +35,9 @@ export default class GUI {
 	 * @param {string} [options.title=Controls]
 	 * Name to display in the title bar.
 	 *
+	 * @param {boolean} [options.closeFolders=false]
+	 * Pass `true` to close all folders in this GUI by default.
+	 *
 	 * @param {boolean} [options.injectStyles=true]
 	 * Injects the default stylesheet into the page if this is the first GUI.
 	 * Pass `false` to use your own stylesheet.
@@ -52,6 +55,7 @@ export default class GUI {
 		container,
 		width,
 		title = 'Controls',
+		closeFolders = false,
 		injectStyles = true,
 		touchStyles = true
 	} = {} ) {
@@ -177,6 +181,8 @@ export default class GUI {
 			this.domElement.style.setProperty( '--width', width + 'px' );
 		}
 
+		this._closeFolders = closeFolders;
+
 		// Don't fire global key events while typing in the GUI:
 		this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
 		this.domElement.addEventListener( 'keyup', e => e.stopPropagation() );
@@ -272,7 +278,9 @@ export default class GUI {
 	 * @returns {GUI}
 	 */
 	addFolder( title ) {
-		return new GUI( { parent: this, title } );
+		const folder = new GUI( { parent: this, title } );
+		if ( this.root._closeFolders ) folder.close();
+		return folder;
 	}
 
 	/**

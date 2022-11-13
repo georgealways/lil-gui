@@ -304,6 +304,13 @@ make( { title: 'autoPlace' }, gui => {
 
 } );
 
+make( { title: 'closeFolders', closeFolders: true }, gui => {
+	addFiller( gui.addFolder() );
+	const nested = gui.addFolder();
+	addFiller( nested );
+	addFiller( nested.addFolder() );
+} );
+
 make( { title: 'onChange' }, gui => {
 
 	const tallies = { onChange: 0, onFinishChange: 0 };
