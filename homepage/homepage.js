@@ -8,6 +8,8 @@ import { GUI } from '../dist/lil-gui.esm.js';
 		boolean: true,
 		string: 'lil-gui',
 		number: 0.5,
+		number2: 0.5,
+		number3: 0.5,
 		color: '#a0f',
 		function() { alert( 'hi' ); }
 	};
@@ -18,6 +20,8 @@ import { GUI } from '../dist/lil-gui.esm.js';
 	gui.add( myObject, 'boolean' );
 	gui.add( myObject, 'string' );
 	gui.add( myObject, 'number', 0, 1 );
+	gui.add( myObject, 'number2', 0, 1 );
+	gui.add( myObject, 'number3', 0, 1 );
 	gui.addColor( myObject, 'color' );
 	gui.add( myObject, 'function' );
 }
