@@ -283,30 +283,48 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		let testingForScroll = false, prevClientX, prevClientY;
+		let activeTouchId;
 
-		const beginTouchDrag = e => {
-			e.preventDefault();
+		// const beginTouchDrag = e => {
+		// 	e.preventDefault();
+		// 	this._setDraggingStyle( true );
+		// 	setValueFromX( e.touches[ 0 ].clientX );
+		// 	activeTouchId = e.touches[ 0 ].identifier;
+		// 	testingForScroll = false;
+		// };
+		const beginTouchDrag = touch => {
 			this._setDraggingStyle( true );
-			setValueFromX( e.touches[ 0 ].clientX );
+			setValueFromX( touch.clientX );
 			testingForScroll = false;
+		};
+
+		const myTouchFromEvent = e => {
+			for ( let i = 0; i < e.changedTouches.length; i++ ) {
+				if ( e.changedTouches[ i ].identifier === activeTouchId ) {
+					return e.changedTouches[ i ];
+				}
+			}
 		};
 
 		const onTouchStart = e => {
 
-			if ( e.touches.length > 1 ) return;
+			// if ( e.touches.length > 1 ) return;
+			const touch = e.changedTouches[ 0 ];
+			activeTouchId = touch.identifier;
 
 			// If we're in a scrollable container, we should wait for the first
 			// touchmove to see if the user is trying to slide or scroll.
 			if ( this._hasScrollBar ) {
 
-				prevClientX = e.touches[ 0 ].clientX;
-				prevClientY = e.touches[ 0 ].clientY;
+				prevClientX = touch.clientX;
+				prevClientY = touch.clientY;
 				testingForScroll = true;
 
 			} else {
 
 				// Otherwise, we can set the value straight away on touchstart.
-				beginTouchDrag( e );
+				beginTouchDrag( touch );
+				e.preventDefault();
 
 			}
 
@@ -317,19 +335,24 @@ export default class NumberController extends Controller {
 
 		const onTouchMove = e => {
 
+			const touch = myTouchFromEvent( e );
+			if ( !touch ) return;
+
 			if ( testingForScroll ) {
 
-				const dx = e.touches[ 0 ].clientX - prevClientX;
-				const dy = e.touches[ 0 ].clientY - prevClientY;
+				const dx = touch.clientX - prevClientX;
+				const dy = touch.clientY - prevClientY;
 
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					beginTouchDrag( e );
+					beginTouchDrag( touch );
+					e.preventDefault();
 
 				} else {
 
 					// This was, in fact, an attempt to scroll. Abort.
+					activeTouchId = undefined;
 					window.removeEventListener( 'touchmove', onTouchMove );
 					window.removeEventListener( 'touchend', onTouchEnd );
 
@@ -337,16 +360,25 @@ export default class NumberController extends Controller {
 
 			} else {
 
-				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
+				e.preventDefault(); ///check...
+				setValueFromX( touch.clientX );
 
 			}
 
 		};
 
-		const onTouchEnd = () => {
+		const onTouchEnd = e => {
+
+			const touch = myTouchFromEvent( e );
+			// alert(JSON.stringify(e.touches));
+			if ( touch === undefined ) {
+				// alert('a different touch ended?');
+				return;
+			}
+
 			this._callOnFinishChange();
 			this._setDraggingStyle( false );
+			activeTouchId = undefined;
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
