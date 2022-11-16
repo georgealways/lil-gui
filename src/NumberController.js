@@ -285,14 +285,8 @@ export default class NumberController extends Controller {
 		let testingForScroll = false, prevClientX, prevClientY;
 		let activeTouchId;
 
-		// const beginTouchDrag = e => {
-		// 	e.preventDefault();
-		// 	this._setDraggingStyle( true );
-		// 	setValueFromX( e.touches[ 0 ].clientX );
-		// 	activeTouchId = e.touches[ 0 ].identifier;
-		// 	testingForScroll = false;
-		// };
-		const beginTouchDrag = touch => {
+		const beginTouchDrag = ( touch, e ) => {
+			e.preventDefault();
 			this._setDraggingStyle( true );
 			setValueFromX( touch.clientX );
 			testingForScroll = false;
@@ -308,7 +302,7 @@ export default class NumberController extends Controller {
 
 		const onTouchStart = e => {
 
-			// if ( e.touches.length > 1 ) return;
+			if ( e.changedTouches.length > 1 ) return;
 			const touch = e.changedTouches[ 0 ];
 			activeTouchId = touch.identifier;
 
@@ -323,8 +317,7 @@ export default class NumberController extends Controller {
 			} else {
 
 				// Otherwise, we can set the value straight away on touchstart.
-				beginTouchDrag( touch );
-				e.preventDefault();
+				beginTouchDrag( touch, e );
 
 			}
 
@@ -346,8 +339,7 @@ export default class NumberController extends Controller {
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
 					// We moved horizontally, set the value and stop checking.
-					beginTouchDrag( touch );
-					e.preventDefault();
+					beginTouchDrag( touch, e );
 
 				} else {
 
@@ -360,7 +352,7 @@ export default class NumberController extends Controller {
 
 			} else {
 
-				e.preventDefault(); ///check...
+				e.preventDefault();
 				setValueFromX( touch.clientX );
 
 			}
@@ -370,9 +362,7 @@ export default class NumberController extends Controller {
 		const onTouchEnd = e => {
 
 			const touch = myTouchFromEvent( e );
-			// alert(JSON.stringify(e.touches));
 			if ( touch === undefined ) {
-				// alert('a different touch ended?');
 				return;
 			}
 
