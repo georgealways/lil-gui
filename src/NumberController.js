@@ -262,6 +262,7 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		const mouseDown = e => {
+			// we might want to return if there's an active touch?
 			this._setDraggingStyle( true );
 			setValueFromX( e.clientX );
 			window.addEventListener( 'mousemove', mouseMove );
@@ -306,6 +307,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchStart = e => {
+			// we might want to return if there's an active mouse drag?
 
 			// it should be enough to return if we have an activeTouchID
 			// but it is somehow possible in rare situations for that to remain assigned
