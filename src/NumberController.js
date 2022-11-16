@@ -282,25 +282,42 @@ export default class NumberController extends Controller {
 		// Touch drag
 		// ---------------------------------------------------------------------
 
-		let testingForScroll = false, prevClientX, prevClientY;
+		let activeTouchID,
+			testingForScroll = false,
+			prevClientX,
+			prevClientY;
+
+		const getActiveTouch = e => {
+			for ( let i = 0; i < e.changedTouches.length; i++ ) {
+				if ( e.changedTouches[ i ].identifier === activeTouchID ) {
+					return e.changedTouches[ i ];
+				}
+			}
+		};
 
 		const beginTouchDrag = e => {
 			e.preventDefault();
 			this._setDraggingStyle( true );
-			setValueFromX( e.touches[ 0 ].clientX );
+
+			const touch = getActiveTouch( e );
+
+			setValueFromX( touch.clientX );
 			testingForScroll = false;
 		};
 
 		const onTouchStart = e => {
 
-			if ( e.touches.length > 1 ) return;
+			if ( activeTouchID !== undefined ) return;
+			activeTouchID = e.changedTouches[ 0 ].identifier;
+
+			const touch = getActiveTouch( e );
 
 			// If we're in a scrollable container, we should wait for the first
 			// touchmove to see if the user is trying to slide or scroll.
 			if ( this._hasScrollBar ) {
 
-				prevClientX = e.touches[ 0 ].clientX;
-				prevClientY = e.touches[ 0 ].clientY;
+				prevClientX = touch.clientX;
+				prevClientY = touch.clientY;
 				testingForScroll = true;
 
 			} else {
@@ -317,10 +334,15 @@ export default class NumberController extends Controller {
 
 		const onTouchMove = e => {
 
+			const touch = getActiveTouch( e );
+
+			// "touchmove" is bound to window, our touch may not be among the "changedTouches"
+			if ( !touch ) return;
+
 			if ( testingForScroll ) {
 
-				const dx = e.touches[ 0 ].clientX - prevClientX;
-				const dy = e.touches[ 0 ].clientY - prevClientY;
+				const dx = touch.clientX - prevClientX;
+				const dy = touch.clientY - prevClientY;
 
 				if ( Math.abs( dx ) > Math.abs( dy ) ) {
 
@@ -338,15 +360,21 @@ export default class NumberController extends Controller {
 			} else {
 
 				e.preventDefault();
-				setValueFromX( e.touches[ 0 ].clientX );
+				setValueFromX( touch.clientX );
 
 			}
 
 		};
 
-		const onTouchEnd = () => {
+		const onTouchEnd = e => {
+			const touch = getActiveTouch( e );
+			if ( !touch ) return;
+
+			activeTouchID = undefined;
+
 			this._callOnFinishChange();
 			this._setDraggingStyle( false );
+
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
 		};
