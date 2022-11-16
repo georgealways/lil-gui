@@ -289,6 +289,7 @@ export default class NumberController extends Controller {
 			prevClientY;
 
 		const getActiveTouch = touchList => {
+			if ( activeTouchID === undefined ) return;
 			for ( let i = 0; i < touchList.length; i++ ) {
 				if ( touchList[ i ].identifier === activeTouchID ) {
 					return touchList[ i ];
