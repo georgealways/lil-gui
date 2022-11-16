@@ -287,10 +287,10 @@ export default class NumberController extends Controller {
 			prevClientX,
 			prevClientY;
 
-		const getActiveTouch = e => {
-			for ( let i = 0; i < e.changedTouches.length; i++ ) {
-				if ( e.changedTouches[ i ].identifier === activeTouchID ) {
-					return e.changedTouches[ i ];
+		const getActiveTouch = touchList => {
+			for ( let i = 0; i < touchList.length; i++ ) {
+				if ( touchList[ i ].identifier === activeTouchID ) {
+					return touchList[ i ];
 				}
 			}
 		};
@@ -299,7 +299,7 @@ export default class NumberController extends Controller {
 			e.preventDefault();
 			this._setDraggingStyle( true );
 
-			const touch = getActiveTouch( e );
+			const touch = getActiveTouch( e.changedTouches );
 
 			setValueFromX( touch.clientX );
 			testingForScroll = false;
@@ -307,10 +307,12 @@ export default class NumberController extends Controller {
 
 		const onTouchStart = e => {
 
-			if ( activeTouchID !== undefined ) return;
+			// it should be enough to return if we have an activeTouchID
+			// but it is somehow possible in rare situations for that to remain assigned
+			if ( getActiveTouch( e.touches ) !== undefined ) return;
 			activeTouchID = e.changedTouches[ 0 ].identifier;
 
-			const touch = getActiveTouch( e );
+			const touch = getActiveTouch( e.changedTouches );
 
 			// If we're in a scrollable container, we should wait for the first
 			// touchmove to see if the user is trying to slide or scroll.
@@ -334,7 +336,7 @@ export default class NumberController extends Controller {
 
 		const onTouchMove = e => {
 
-			const touch = getActiveTouch( e );
+			const touch = getActiveTouch( e.changedTouches );
 
 			// "touchmove" is bound to window, our touch may not be among the "changedTouches"
 			if ( !touch ) return;
@@ -367,7 +369,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = e => {
-			const touch = getActiveTouch( e );
+			const touch = getActiveTouch( e.changedTouches );
 			if ( !touch ) return;
 
 			activeTouchID = undefined;
