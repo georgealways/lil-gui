@@ -28,7 +28,7 @@
 	}
 
 	@include can-hover {
-		body:not(.lil-gui-dragging) &:hover {
+		:host-context(body:not(.lil-gui-dragging)) &:hover {
 			background: var(--title-background-color);
 			opacity: 0.85;
 		}
@@ -86,9 +86,10 @@
 	border: 0 solid var(--widget-color);
 	border-width: 1px 0;
 	transition: border-color 300ms;
+
 }
 
-:host > .children > .lil-gui > .title {
+:host > .children > .lil-gui.closed > .title {
 	border-bottom-color: transparent;
 }
 

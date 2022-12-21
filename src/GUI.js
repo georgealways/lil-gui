@@ -137,13 +137,13 @@ export default class GUI {
 		this.$children = document.createElement( 'div' );
 		this.$children.classList.add( 'children' );
 
-		if ( this.parent ) {
-			this.container = this.domElement;
-		} else if ( !stylesInjected && injectStyles ) {
+		if ( !this.parent ) {
 			this.container = this.domElement.attachShadow( { mode: 'open' } );
 			const style = document.createElement( 'style' );
 			style.textContent = stylesheet;
 			this.container.appendChild( style );
+		} else {
+			this.container = this.domElement;
 		}
 
 		this.container.appendChild( this.$title );
