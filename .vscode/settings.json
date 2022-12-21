@@ -1,14 +1,9 @@
 {
+  "editor.defaultFormatter": "HookyQR.beautify",
   "editor.formatOnSave": true,
   "editor.insertSpaces": false,
+  "editor.detectIndentation": false,
   "files.insertFinalNewline": true,
-  // js
-  "eslint.format.enable": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  // html/css
-  "editor.defaultFormatter": "HookyQR.beautify",
   "beautify.config": {
     "end_with_newline": true,
     "extra_liners": [],
@@ -23,13 +18,23 @@
       "pre"
     ]
   },
-  // json
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
+  // js
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "[jsonc]": {
+  // todo: not working if combined
+  "[html]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  // json
+  "[json][jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.insertSpaces": true,
     "editor.tabSize": 2,

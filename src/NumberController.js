@@ -18,6 +18,12 @@ export default class NumberController extends Controller {
 
 	}
 
+	decimals( decimals ) {
+		this._decimals = decimals;
+		this.updateDisplay();
+		return this;
+	}
+
 	min( min ) {
 		this._min = min;
 		this._onUpdateMinMax();
@@ -50,7 +56,7 @@ export default class NumberController extends Controller {
 		}
 
 		if ( !this._inputFocused ) {
-			this.$input.value = value;
+			this.$input.value = this._decimals === undefined ? value : value.toFixed( this._decimals );
 		}
 
 		return this;
@@ -70,9 +76,13 @@ export default class NumberController extends Controller {
 
 		const onInput = () => {
 
-			const value = parseFloat( this.$input.value );
+			let value = parseFloat( this.$input.value );
 
 			if ( isNaN( value ) ) return;
+
+			if ( this._stepExplicit ) {
+				value = this._snap( value );
+			}
 
 			this.setValue( this._clamp( value ) );
 
@@ -300,7 +310,7 @@ export default class NumberController extends Controller {
 
 			}
 
-			window.addEventListener( 'touchmove', onTouchMove );
+			window.addEventListener( 'touchmove', onTouchMove, { passive: false } );
 			window.addEventListener( 'touchend', onTouchEnd );
 
 		};

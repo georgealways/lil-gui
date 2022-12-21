@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>lil-gui - Basic Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="touch-scroll-tests.css">
+	<style>
+		body {
+			height: 9000px;
+		}
+
+		#container {
+			margin-top: 200px;
+		}
+
+		.lil-gui {
+			margin: 0 auto;
+		}
+
+	</style>
+</head>
+<body>
+
+	<strong>Ambiguous Touch/Scroll Scenarios</strong>
+
+	<ul class="cases">
+
+		<li><a href="./">Auto-Place</a></li>
+
+		<li><a href="./long-auto-place.html">Long Auto-Place</a></li>
+
+		<li class="current"><a href="./long-page.html">Non Auto-Place, Scrollable Page</a></li>
+
+	</ul>
+
+	<div class="should">
+		On a long page, where the GUI is <em>not</em> auto-placed, dragging on the slider should never scroll the page,
+		even if movement is mostly vertical.
+	</div>
+
+	<div id="container"></div>
+
+	<script type="module">
+
+		import GUI from '../../dist/lil-gui.esm.js';
+
+		const container = document.getElementById( 'container' );
+
+		new GUI( { autoPlace: false, container } ).add( { x: 0.5 }, 'x', 0, 1 );
+
+	</script>
+</body>
+</html>

@@ -261,7 +261,7 @@ export default class GUI {
 	 * @param {object} object The object the controller will modify.
 	 * @param {string} property Name of the property to control.
 	 * @param {number} rgbScale Maximum value for a color channel when using an RGB color. You may
-	 * need to set this to 255 if your colors are too dark.
+	 * need to set this to 255 if your colors are too bright.
 	 * @returns {Controller}
 	 */
 	addColor( object, property, rgbScale = 1 ) {

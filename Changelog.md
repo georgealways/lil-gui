@@ -1,3 +1,10 @@
+# 0.17.0
+
+- Added `decimals()` to number controllers for limiting display precision. ([#44](https://github.com/georgealways/lil-gui/pull/44))
+- Added `show()` and `hide()` to controllers. ([#60](https://github.com/georgealways/lil-gui/pull/60))
+- Fixed a bug where typing in a number field did not respect `step`. ([#63](https://github.com/georgealways/lil-gui/pull/63))
+- Improved touch-scrolling for scrollable GUI's with many sliders. 
+
 # 0.16.1
 
 29.21kb, 8.33kb gzipped

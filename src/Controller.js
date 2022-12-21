@@ -33,6 +33,13 @@ export default class Controller {
 		this._disabled = false;
 
 		/**
+		 * Used to determine if the Controller is hidden.
+		 * Use `controller.show()` or `controller.hide()` to change this.
+		 * @type {boolean}
+		 */
+		this._hidden = false;
+
+		/**
 		 * The value of `object[ property ]` when the controller was created.
 		 * @type {any}
 		 */
@@ -226,6 +233,33 @@ export default class Controller {
 	}
 
 	/**
+	 * Shows the Controller after it's been hidden.
+	 * @param {boolean} show
+	 * @returns {this}
+	 * @example
+	 * controller.show();
+	 * controller.show( false ); // hide
+	 * controller.show( controller._hidden ); // toggle
+	 */
+	show( show = true ) {
+
+		this._hidden = !show;
+
+		this.domElement.style.display = this._hidden ? 'none' : '';
+
+		return this;
+
+	}
+
+	/**
+	 * Hides the Controller.
+	 * @returns {this}
+	 */
+	hide() {
+		return this.show( false );
+	}
+
+	/**
 	 * Destroys this controller and replaces it with a new option controller. Provided as a more
 	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.gui.
 	 *
@@ -280,12 +314,26 @@ export default class Controller {
 	}
 
 	/**
-	 * Sets the step. Only works on number controllers.
+	 * Values set by this controller will be rounded to multiples of `step`. Only works on number
+	 * controllers.
 	 * @param {number} step
 	 * @returns {this}
 	 */
 	// eslint-disable-next-line no-unused-vars
 	step( step ) {
+		return this;
+	}
+
+	/**
+	 * Rounds the displayed value to a fixed number of decimals, without affecting the actual value
+	 * like `step()`. Only works on number controllers.
+	 * @example
+	 * gui.add( object, 'property' ).listen().decimals( 4 );
+	 * @param {number} decimals
+	 * @returns {this}
+	 */
+	// eslint-disable-next-line no-unused-vars
+	decimals( decimals ) {
 		return this;
 	}
 
