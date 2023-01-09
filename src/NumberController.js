@@ -8,6 +8,8 @@ export default class NumberController extends Controller {
 
 		this._initInput();
 
+		this._sliderWheelEnabled = true;
+
 		this.min( min );
 		this.max( max );
 
@@ -361,6 +363,9 @@ export default class NumberController extends Controller {
 		let wheelFinishChangeTimeout;
 
 		const onWheel = e => {
+			
+			// ignore wheels if user disables it
+			if( !this._sliderWheelEnabled ) return;
 
 			// ignore vertical wheels if there's a scrollbar
 			const isVertical = Math.abs( e.deltaX ) < Math.abs( e.deltaY );
