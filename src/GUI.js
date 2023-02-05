@@ -389,7 +389,7 @@ export default class GUI {
 	 */
 	open( open = true ) {
 
-		this._closed = !open;
+		this._setClosed( !open );
 
 		this.$title.setAttribute( 'aria-expanded', !this._closed );
 		this.domElement.classList.toggle( 'closed', this._closed );
@@ -404,6 +404,12 @@ export default class GUI {
 	 */
 	close() {
 		return this.open( false );
+	}
+
+	_setClosed( closed ) {
+		if ( this._closed === closed ) return;
+		this._closed = closed;
+		this._callOnOpenClose( this );
 	}
 
 	/**
@@ -436,7 +442,7 @@ export default class GUI {
 	openAnimated( open = true ) {
 
 		// set state immediately
-		this._closed = !open;
+		this._setClosed( !open );
 
 		this.$title.setAttribute( 'aria-expanded', !this._closed );
 
@@ -572,6 +578,30 @@ export default class GUI {
 				value: controller.getValue(),
 				controller
 			} );
+		}
+	}
+
+	/**
+	 * Pass a function to be called when this GUI or its descendants are opened or closed.
+	 * @param {function(GUI)} callback
+	 * @returns {this}
+	 * @example
+	 * gui.onOpenClose( changedGUI => {
+	 * 	console.log( changedGUI._closed );
+	 * } );
+	 */
+	onOpenClose( callback ) {
+		this._onOpenClose = callback;
+		return this;
+	}
+
+	_callOnOpenClose( changedGUI ) {
+		if ( this.parent ) {
+			this.parent._callOnOpenClose( changedGUI );
+		}
+
+		if ( this._onOpenClose !== undefined ) {
+			this._onOpenClose.call( this, changedGUI );
 		}
 	}
 
