@@ -27,4 +27,15 @@ export default () => {
 
 	tracker.verify();
 
+	// function controller should call onChange after click
+
+	tracker = new assert.CallTracker();
+	handler = tracker.calls( () => {}, 1 );
+
+	const functionController = gui.add( { fnc() {} }, 'fnc' );
+	functionController.onChange( handler );
+	functionController.$button.$callEventListener( 'click' );
+
+	tracker.verify();
+
 };

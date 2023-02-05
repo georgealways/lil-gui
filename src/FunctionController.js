@@ -14,6 +14,7 @@ export default class FunctionController extends Controller {
 		this.$button.addEventListener( 'click', e => {
 			e.preventDefault();
 			this.getValue().call( this.object );
+			this._callOnChange();
 		} );
 
 		// enables :active pseudo class on mobile

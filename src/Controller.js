@@ -109,6 +109,9 @@ export default class Controller {
 	 * Pass a function to be called whenever the value is modified by this controller.
 	 * The function receives the new value as its first parameter. The value of `this` will be the
 	 * controller.
+	 *
+	 * For function controllers, the `onChange` callback will be fired on click, after the function
+	 * executes.
 	 * @param {Function} callback
 	 * @returns {this}
 	 * @example
