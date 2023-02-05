@@ -2,7 +2,6 @@
 
 .lil-gui {
 	.title {
-		--title-height: calc(var(--widget-height) + var(--spacing) * 1.25);
 
 		height: var(--title-height);
 		line-height: calc(var(--title-height) - 4px);
