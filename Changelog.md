@@ -1,10 +1,11 @@
 # 0.18.0
 
-??.??kb, ?.??kb gzipped
+29.89kb, 8.47kb gzipped
 
 - Added `gui.onOpenClose()`, which allows you to observe when a folder is opened or closed.
 - Passing `{ closeFolders: true }` to GUI's constructor will close folders by default.
 - Function controllers will now fire their `onChange` handler after a button press.
+- CSS: Moved `--title-height` declaration from `.title` to `.lil-gui`.
 
 # 0.17.0
 
