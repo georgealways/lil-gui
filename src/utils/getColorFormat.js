@@ -16,7 +16,7 @@ const INT = {
 
 const ARRAY = {
 	isPrimitive: false,
-	match: Array.isArray,
+	match: v => Array.isArray( v ),
 	fromHexString( string, target, rgbScale = 1 ) {
 
 		const int = INT.fromHexString( string );
