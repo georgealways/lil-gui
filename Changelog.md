@@ -6,6 +6,7 @@
 - Passing `{ closeFolders: true }` to GUI's constructor will close folders by default.
 - Function controllers will now fire their `onChange` handler after a button press.
 - CSS: Moved `--title-height` declaration from `.title` to `.lil-gui`.
+- Improved compatibility with tree shaking bundlers.
 
 # 0.17.0
 
