@@ -9,6 +9,7 @@
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
   "types": "dist/lil-gui.esm.d.ts",
+  "sideEffects": false,
   "config": {
     "style": "dist/lil-gui.css",
     "styleMin": "dist/lil-gui.min.css"
