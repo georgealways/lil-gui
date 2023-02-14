@@ -65,27 +65,21 @@ export default class NumberController extends Controller {
 
 	_initInput() {
 
-		// Detect if the device has touch as his primary pointer input.
-		// This will targets only phones and tablets.
-		const hasTouchAsPrimaryPointerInput = window.matchMedia( '(pointer: coarse)' ).matches;
-
 		this.$input = document.createElement( 'input' );
+		this.$input.setAttribute( 'type', 'text' );
+		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
-		if ( hasTouchAsPrimaryPointerInput ) {
+		// On touch devices only, use input[type=number] to force a numeric keyboard.
+		// Ideally we could use one input type everywhere, but [type=number] has quirks
+		// on desktop, and [inputmode=decimal] has quirks on iOS.
+		// See https://github.com/georgealways/lil-gui/pull/16
 
-			// Only use type number for touch device in order to show a fully functional numeric keyboard
+		const isTouch = window.matchMedia( '(pointer: coarse)' ).matches;
+
+		if ( isTouch ) {
 			this.$input.setAttribute( 'type', 'number' );
 			this.$input.setAttribute( 'step', 'any' );
-
-		} else {
-
-			// Otherwise use a text input on Desktop to prevent the field displaying a comma instead of a period for countries that use comma as decimal mark
-			// https://docs.moodle.org/dev/Decimal_separator#Countries_where_a_comma_.22.2C.22_is_used_as_decimal_mark:
-			this.$input.setAttribute( 'type', 'text' );
-
 		}
-
-		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$widget.appendChild( this.$input );
 
