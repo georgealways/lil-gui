@@ -1,5 +1,7 @@
 import Controller from './Controller';
 
+/* eslint-disable jsdoc/require-description */
+
 export default class StringController extends Controller {
 
 	constructor( parent, object, property ) {
@@ -32,6 +34,9 @@ export default class StringController extends Controller {
 
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	updateDisplay() {
 		this.$input.value = this.getValue();
 		return this;

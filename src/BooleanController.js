@@ -1,5 +1,7 @@
 import Controller from './Controller';
 
+/* eslint-disable jsdoc/require-description */
+
 export default class BooleanController extends Controller {
 
 	constructor( parent, object, property ) {
@@ -23,6 +25,9 @@ export default class BooleanController extends Controller {
 
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	updateDisplay() {
 		this.$input.checked = this.getValue();
 		return this;

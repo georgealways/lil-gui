@@ -1,5 +1,7 @@
 import Controller from './Controller';
 
+/* eslint-disable jsdoc/require-description, jsdoc/require-param */
+
 export default class NumberController extends Controller {
 
 	constructor( parent, object, property, min, max, step ) {
@@ -18,30 +20,45 @@ export default class NumberController extends Controller {
 
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	decimals( decimals ) {
 		this._decimals = decimals;
 		this.updateDisplay();
 		return this;
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	min( min ) {
 		this._min = min;
 		this._onUpdateMinMax();
 		return this;
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	max( max ) {
 		this._max = max;
 		this._onUpdateMinMax();
 		return this;
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	step( step, explicit = true ) {
 		this._step = step;
 		this._stepExplicit = explicit;
 		return this;
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	updateDisplay() {
 
 		const value = this.getValue();

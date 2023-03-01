@@ -1,5 +1,7 @@
 import Controller from './Controller';
 
+/* eslint-disable jsdoc/require-description */
+
 export default class OptionController extends Controller {
 
 	constructor( parent, object, property, options ) {
@@ -43,6 +45,9 @@ export default class OptionController extends Controller {
 
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	updateDisplay() {
 		const value = this.getValue();
 		const index = this._values.indexOf( value );

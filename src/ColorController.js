@@ -3,6 +3,8 @@ import Controller from './Controller';
 import getColorFormat from './utils/getColorFormat';
 import normalizeColorString from './utils/normalizeColorString';
 
+/* eslint-disable jsdoc/require-description */
+
 export default class ColorController extends Controller {
 
 	constructor( parent, object, property, rgbScale ) {
@@ -64,6 +66,9 @@ export default class ColorController extends Controller {
 
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	reset() {
 		this._setValueFromHexString( this._initialValueHexString );
 		return this;
@@ -96,6 +101,9 @@ export default class ColorController extends Controller {
 		return this;
 	}
 
+	/**
+	 * @returns {this}
+	 */
 	updateDisplay() {
 		this.$input.value = this._format.toHexString( this.getValue(), this._rgbScale );
 		if ( !this._textFocused ) {
