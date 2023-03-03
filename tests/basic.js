@@ -7,7 +7,7 @@ import GUI,
 	FunctionController,
 	NumberController,
 	OptionController
-} from '..';
+} from 'lil-gui';
 
 export default () => {
 

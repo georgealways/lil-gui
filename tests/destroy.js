@@ -1,7 +1,7 @@
 import assert from 'assert';
-import GUI from '..';
+import GUI from 'lil-gui';
 
-import spy from './utils/spy';
+import spy from './utils/spy.js';
 
 export default () => {
 

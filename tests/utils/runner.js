@@ -1,4 +1,4 @@
-import './shim';
+import './shim.js';
 
 import { AssertionError } from 'assert';
 import fs from 'fs';
@@ -12,16 +12,14 @@ console.time( 'tests' );
 // collect tests
 
 const tests = [];
-fs.readdirSync( 'tests' ).forEach( filename => {
+const testFiles = fs.readdirSync( 'tests' );
 
-	if ( !filename.endsWith( '.js' ) ) return;
-
-	const test = require( '../' + filename ).default;
+for ( const filename of testFiles ) {
+	if ( !filename.endsWith( '.js' ) ) continue;
+	const test = await import( '../' + filename );
 	const name = filename.replace( '.js', '' );
-
-	tests.push( new Test( name, test ) );
-
-} );
+	tests.push( new Test( name, test.default ) );
+}
 
 // run tests
 

@@ -6,6 +6,8 @@
   },
   "description": "Makes a floating panel for controllers on the web.",
   "homepage": "https://lil-gui.georgealways.com",
+  "type": "module",
+  "exports": "./dist/lil-gui.esm.js",
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
   "types": "dist/lil-gui.esm.d.ts",
@@ -21,16 +23,16 @@
     "postcss": "postcss dist/lil-gui.css -u postcss-combine-media-query -u cssnano --no-map -o dist/lil-gui.min.css",
     "rollup": "rollup -c",
     "lint": "eslint .",
-    "icons": "node -r esm scripts/icons.js",
-    "test": "node -r esm tests/utils/runner.js",
-    "api": "node -r esm scripts/api.js --write",
+    "icons": "node scripts/icons.js",
+    "test": "node tests/utils/runner.js",
+    "api": "node scripts/api.js --write",
     "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist",
-    "homepage": "node -r esm scripts/homepage.js",
+    "homepage": "node scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'homepage' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
     "clean": "rimraf -rf dist index.html API.md style/icons.scss",
     "preversion": "npm run build && npm test",
     "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
-    "dev": "npm run build:all && node -r esm scripts/dev.js"
+    "dev": "npm run build:all && node scripts/dev.js"
   },
   "files": [
     "dist"
@@ -42,7 +44,6 @@
     "cssnano": "^5.0.12",
     "eslint": "^8.1.0",
     "eslint-plugin-jsdoc": "^37.0.3",
-    "esm": "^3.2.25",
     "handlebars": "^4.3.1",
     "highlight.js": "^10.7.3",
     "jsdoc-api": "^5.0.2",

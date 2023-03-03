@@ -4,8 +4,8 @@ import hljs from 'highlight.js';
 import hbs from 'handlebars';
 import { execSync } from 'child_process';
 
-import pkg from '../package.json';
-import jsdocData from './api';
+import pkg from './package.js';
+import jsdocData from './api.js';
 
 const OUTPUT = 'index.html';
 const TEMPLATE = 'homepage/homepage.hbs.html';

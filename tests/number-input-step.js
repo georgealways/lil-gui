@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { GUI } from '..';
+import { GUI } from 'lil-gui';
 
 export default () => {
 
