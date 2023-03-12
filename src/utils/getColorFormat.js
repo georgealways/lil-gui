@@ -16,11 +16,11 @@ const INT = {
 
 const ARRAY = {
 	isPrimitive: false,
-	
+
 	// The arrow function is here to appease tree shakers like esbuild or webpack.
 	// See https://esbuild.github.io/api/#tree-shaking
 	match: v => Array.isArray( v ),
-	
+
 	fromHexString( string, target, rgbScale = 1 ) {
 
 		const int = INT.fromHexString( string );
