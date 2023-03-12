@@ -1,3 +1,9 @@
+# 0.18.1
+
+29.89kb, 8.47kb gzipped
+
+- Fixes errors in TypeScript definitions. ([#93](https://github.com/georgealways/lil-gui/issues/93#issuecomment-1450399004))
+
 # 0.18.0
 
 29.89kb, 8.47kb gzipped

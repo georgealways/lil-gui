@@ -1,6 +1,6 @@
 {
   "name": "lil-gui",
-  "version": "0.18.0-dev",
+  "version": "0.18.1-dev",
   "author": {
     "name": "George Michael Brower"
   },
@@ -27,11 +27,12 @@
     "test": "node tests/utils/runner.js",
     "api": "node scripts/api.js --write",
     "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist",
+    "types:test": "tsc dist/lil-gui.esm.d.ts --noEmit",
     "homepage": "node scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'homepage' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
     "clean": "rimraf -rf dist index.html API.md style/icons.scss",
     "preversion": "npm run build && npm test",
-    "prepublishOnly": "npm run clean && npm run build && npm run types && npm test",
+    "prepublishOnly": "npm run clean && npm run build && npm run types && npm run types:test && npm test",
     "dev": "npm run build:all && node scripts/dev.js"
   },
   "files": [
@@ -56,7 +57,7 @@
     "rollup": "^1.17.0",
     "sass": "^1.22.10",
     "terser": "^4.3.8",
-    "typescript": "^4.5.2",
+    "typescript": "~4.5.5",
     "webfont": "^11.2.26"
   },
   "eslintIgnore": [
