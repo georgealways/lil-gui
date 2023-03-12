@@ -7,7 +7,6 @@
   "description": "Makes a floating panel for controllers on the web.",
   "homepage": "https://lil-gui.georgealways.com",
   "type": "module",
-  "exports": "./dist/lil-gui.esm.js",
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
   "types": "dist/lil-gui.esm.d.ts",
