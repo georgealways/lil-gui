@@ -1,5 +1,5 @@
 import fs from 'fs';
-import webfont from 'webfont';
+import { webfont } from 'webfont';
 
 const INPUT = 'style/icons/*.svg';
 const OUTPUT = 'style/icons.scss';

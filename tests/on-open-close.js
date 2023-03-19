@@ -1,5 +1,5 @@
 import assert from 'assert';
-import GUI from '..';
+import GUI from '../dist/lil-gui.esm.js';
 
 export default () => {
 

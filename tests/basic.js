@@ -7,7 +7,7 @@ import GUI,
 	FunctionController,
 	NumberController,
 	OptionController
-} from '..';
+} from '../dist/lil-gui.esm.js';
 
 export default () => {
 

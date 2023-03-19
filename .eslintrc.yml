@@ -56,7 +56,7 @@ overrides:
     env:
       node: true
     parserOptions:
-      ecmaVersion: 9
+      ecmaVersion: 2022
   - files: [ src/**/*.js, tests/*.test.js ]
     rules:
       no-console: warn

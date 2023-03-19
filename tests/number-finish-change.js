@@ -1,7 +1,7 @@
 import assert from 'assert';
-import GUI from '..';
+import GUI from '../dist/lil-gui.esm.js';
 
-import simulateDrag from './utils/simulateDrag';
+import simulateDrag from './utils/simulateDrag.js';
 
 export default () => {
 
