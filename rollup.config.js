@@ -32,7 +32,7 @@ export default [
 	},
 	{
 		input,
-		output: { ...outputModule, file: pkg.module.replace( '.js', '.min.js' ) },
+		output: { ...outputModule, file: pkg.config.moduleMin },
 		plugins: [ stylesheet( true ), terser( { module: true } ) ]
 	},
 	{
@@ -42,7 +42,7 @@ export default [
 	},
 	{
 		input,
-		output: { ...outputUMD, file: pkg.main.replace( '.js', '.min.js' ) },
+		output: { ...outputUMD, file: pkg.config.mainMin },
 		plugins: [ stylesheet( true ), terser( { module: false } ) ]
 	}
 ];

@@ -27,7 +27,7 @@ dev( {
 	},
 	'test': {
 		onchange: [
-			pkg.module,
+			pkg.config.moduleMin,
 			'tests/**/*.js'
 		],
 		flag: '--soft-fail',

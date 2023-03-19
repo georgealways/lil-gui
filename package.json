@@ -13,7 +13,9 @@
   "sideEffects": false,
   "config": {
     "style": "dist/lil-gui.css",
-    "styleMin": "dist/lil-gui.min.css"
+    "styleMin": "dist/lil-gui.min.css",
+    "mainMin": "dist/lil-gui.umd.min.js",
+    "moduleMin": "dist/lil-gui.esm.min.js"
   },
   "scripts": {
     "build": "npm run icons && npm run sass && npm run postcss && npm run rollup",
