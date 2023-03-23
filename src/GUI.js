@@ -122,7 +122,7 @@ export default class GUI {
 		this.$title.addEventListener( 'click', () => this.openAnimated( this._closed ) );
 		this.$title.addEventListener( 'keydown', e => {
 			if ( e.code === 'Enter' || e.code === 'Space' ) {
-				e.preventDefault();
+				e.stopPropagation();
 				this.$title.click();
 			}
 		} );
@@ -182,10 +182,6 @@ export default class GUI {
 		}
 
 		this._closeFolders = closeFolders;
-
-		// Don't fire global key events while typing in the GUI:
-		this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
-		this.domElement.addEventListener( 'keyup', e => e.stopPropagation() );
 
 	}
 
