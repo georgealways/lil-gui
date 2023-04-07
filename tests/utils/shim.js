@@ -35,7 +35,13 @@ class EventTarget {
 class Element extends EventTarget {
 	constructor() {
 		super();
-		this.classList = { add() {}, remove() {}, toggle() {} };
+		const classes = new Set();
+		this.classList = {
+			add: c => classes.add( c ),
+			contains: c => classes.has( c ),
+			remove() {},
+			toggle() {}
+		};
 		this.style = { setProperty() {} };
 		this.parentElement = { removeChild() {} };
 	}
