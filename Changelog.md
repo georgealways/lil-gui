@@ -1,8 +1,17 @@
+# 0.18.1-dev
+
+??.??kb, ?.??kb gzipped
+
+- Fixed a bug that caused decimals to be rendered with commas in certain locales.
+- Fixed a bug where `touchStyles: false` did apply to folders.
+- Fixed a bug that captured key events after clicking a folder header.
+- Fixed a bug where number controllers ignored the numpad enter key.
+
 # 0.18.1
 
 29.89kb, 8.47kb gzipped
 
-- Fixes errors in TypeScript definitions. ([#93](https://github.com/georgealways/lil-gui/issues/93#issuecomment-1450399004))
+- Fixed errors in TypeScript definitions. ([#93](https://github.com/georgealways/lil-gui/issues/93#issuecomment-1450399004))
 
 # 0.18.0
 
