@@ -39,7 +39,6 @@ class Element extends EventTarget {
 		this.classList = {
 			add: c => classes.add( c ),
 			contains: c => classes.has( c ),
-			remove() {},
 			toggle() {}
 		};
 		this.style = { setProperty() {} };
