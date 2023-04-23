@@ -185,10 +185,6 @@ export default class GUI {
 
 		this._closeFolders = closeFolders;
 
-		// Don't fire global key events while typing in the GUI:
-		this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
-		this.domElement.addEventListener( 'keyup', e => e.stopPropagation() );
-
 	}
 
 	/**
