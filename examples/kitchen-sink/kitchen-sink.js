@@ -2,6 +2,11 @@ import GUI from '../../dist/lil-gui.esm.js';
 
 export const container = document.getElementById( 'container' );
 
+const logKeyEvents = e => console.log( `window.${e.type}: ${e.key}` );
+
+window.addEventListener( 'keydown', logKeyEvents );
+window.addEventListener( 'keyup', logKeyEvents );
+
 /**
  * @param {object} options
  * @param {function(GUI):GUI?} callback
