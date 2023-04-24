@@ -142,9 +142,7 @@ export default class GUI {
 
 		this.title( title );
 
-		this._touchStyles = parent ? parent._touchStyles : touchStyles;
-
-		if ( this._touchStyles ) {
+		if ( !this.parent && touchStyles ) {
 			this.domElement.classList.add( 'allow-touch-styles' );
 		}
 
