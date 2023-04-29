@@ -1,12 +1,17 @@
 @mixin touch-vars {
+
 	@media (pointer: coarse) {
-		&.allow-touch-styles {
+		&.allow-touch-styles,
+		&.allow-touch-styles & {
 			@content;
 		}
 	}
-	&.force-touch-styles {
+
+	&.force-touch-styles,
+	&.force-touch-styles & {
 		@content;
 	}
+
 }
 
 .lil-gui {

@@ -142,12 +142,6 @@ export default class GUI {
 
 		this.title( title );
 
-		this._touchStyles = parent ? parent._touchStyles : touchStyles;
-
-		if ( this._touchStyles ) {
-			this.domElement.classList.add( 'allow-touch-styles' );
-		}
-
 		if ( this.parent ) {
 
 			this.parent.children.push( this );
@@ -161,6 +155,10 @@ export default class GUI {
 		}
 
 		this.domElement.classList.add( 'root' );
+
+		if ( touchStyles ) {
+			this.domElement.classList.add( 'allow-touch-styles' );
+		}
 
 		// Inject stylesheet if we haven't done that yet
 		if ( !stylesInjected && injectStyles ) {

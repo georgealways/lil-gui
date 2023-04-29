@@ -3,7 +3,8 @@
 ??.??kb, ?.??kb gzipped
 
 - Fixed a bug that caused decimals to be rendered with commas in certain locales.
-- Fixed a bug where `touchStyles: false` did not apply to folders.
+- Fixed a bug where `new GUI({ touchStyles: false })` did not apply to folders.
+- Fixed a bug where the `.force-touch-styles` class did not apply to folders.
 - Fixed a bug that captured key events after clicking a folder header.
 - Fixed a bug where number controllers ignored the numpad enter key.
 
