@@ -105,7 +105,8 @@ export default class NumberController extends Controller {
 		};
 
 		const onKeyDown = e => {
-			if ( e.code === 'Enter' ) {
+			// Using `e.key` instead of `e.code` also catches NumpadEnter
+			if ( e.key === 'Enter' ) {
 				this.$input.blur();
 			}
 			if ( e.code === 'ArrowUp' ) {
