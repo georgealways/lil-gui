@@ -79,6 +79,7 @@ function createElement( tag ) {
 }
 
 global.window = new EventTarget();
+global.window.matchMedia = () => { return { matches: true }; };
 global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
 global.cancelAnimationFrame = id => clearTimeout( id );
 

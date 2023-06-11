@@ -66,9 +66,20 @@ export default class NumberController extends Controller {
 	_initInput() {
 
 		this.$input = document.createElement( 'input' );
-		this.$input.setAttribute( 'type', 'number' );
-		this.$input.setAttribute( 'step', 'any' );
+		this.$input.setAttribute( 'type', 'text' );
 		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
+
+		// On touch devices only, use input[type=number] to force a numeric keyboard.
+		// Ideally we could use one input type everywhere, but [type=number] has quirks
+		// on desktop, and [inputmode=decimal] has quirks on iOS.
+		// See https://github.com/georgealways/lil-gui/pull/16
+
+		const isTouch = window.matchMedia( '(pointer: coarse)' ).matches;
+
+		if ( isTouch ) {
+			this.$input.setAttribute( 'type', 'number' );
+			this.$input.setAttribute( 'step', 'any' );
+		}
 
 		this.$widget.appendChild( this.$input );
 
