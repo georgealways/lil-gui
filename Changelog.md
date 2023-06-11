@@ -1,6 +1,6 @@
 # 0.18.1-dev
 
-??.??kb, ?.??kb gzipped
+30.06kb, 8.51kb gzipped
 
 - Fixed a bug that caused decimals to be rendered with commas in certain locales.
 - Fixed a bug where `new GUI({ touchStyles: false })` did not apply to folders.
