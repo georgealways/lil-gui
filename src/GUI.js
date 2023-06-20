@@ -10,6 +10,7 @@ import StringController from './StringController';
 
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
+import { disableGui, showGui } from './utils/guiUtils';
 
 let stylesInjected = false;
 
@@ -423,18 +424,9 @@ export default class GUI {
 	 * gui.disable( !gui._disabled ); // toggle
 	 */
 	disable( disabled = true ) {
+		if ( disabled ) this.close();
 
-		if ( disabled === this._disabled ) return this;
-
-		this._disabled = disabled;
-
-		this.domElement.classList.toggle( 'disabled', disabled );
-		this.domElement.toggleAttribute( 'disabled', disabled );
-
-		if ( !disabled ) this.close();
-
-		return this;
-
+		return disableGui( this, disabled );
 	}
 
 	/**
@@ -461,13 +453,7 @@ export default class GUI {
 	 * gui.show( gui._hidden ); // toggle
 	 */
 	show( show = true ) {
-
-		this._hidden = !show;
-
-		this.domElement.style.display = this._hidden ? 'none' : '';
-
-		return this;
-
+		return showGui( this, show );
 	}
 
 	/**
