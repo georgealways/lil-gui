@@ -11,6 +11,10 @@
   "main": "dist/lil-gui.umd.js",
   "types": "dist/lil-gui.esm.d.ts",
   "sideEffects": false,
+  "exports": {
+    "import": "./dist/lil-gui.esm.js",
+    "require": "./dist/lil-gui.umd.js"
+  },
   "config": {
     "style": "dist/lil-gui.css",
     "styleMin": "dist/lil-gui.min.css"
