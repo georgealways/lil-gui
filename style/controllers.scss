@@ -1,4 +1,4 @@
-@import 'hover';
+@import 'shared';
 
 .lil-gui {
 	.controller {
@@ -7,12 +7,7 @@
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
 
-		&.disabled {
-			opacity: 0.5;
-			&, & * {
-				pointer-events: none !important;
-			}
-		}
+		@include disabled;
 
 		// > is used here to avoid styling FunctionController's .name,
 		// which gets put inside of its widget.

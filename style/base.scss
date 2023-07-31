@@ -1,3 +1,5 @@
+@import 'shared';
+
 @mixin touch-vars {
 
 	@media (pointer: coarse) {
@@ -62,12 +64,7 @@
 		}
 	}
 
-	&.disabled {
-		opacity: 0.5;
-		&, & * {
-			pointer-events: none !important;
-		}
-	}
+	@include disabled;
 
 	// "Theme" properties
 	// -------------------------------------------------------------------------
