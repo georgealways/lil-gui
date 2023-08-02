@@ -2,9 +2,19 @@
 
 /**
  * Base class for all controllers.
+ *
+ * @template [T=Record<string, unknown>]
+ * @template {keyof T} [K=keyof T]
  */
 export default class Controller {
 
+  /**
+   * @param {GUI} parent
+   * @param {T} object
+   * @param {K} property
+   * @param {string} className
+   * @param {string} widgetTag
+   */
 	constructor( parent, object, property, className, widgetTag = 'div' ) {
 
 		/**
@@ -15,13 +25,13 @@ export default class Controller {
 
 		/**
 		 * The object this controller will modify.
-		 * @type {object}
+		 * @type {T}
 		 */
 		this.object = object;
 
 		/**
 		 * The name of the property to control.
-		 * @type {string}
+		 * @type {K}
 		 */
 		this.property = property;
 
@@ -116,7 +126,7 @@ export default class Controller {
 	 *
 	 * For function controllers, the `onChange` callback will be fired on click, after the function
 	 * executes.
-	 * @param {Function} callback
+	 * @param {(v: T[K]) => void} callback
 	 * @returns {this}
 	 * @example
 	 * const controller = gui.add( object, 'property' );
@@ -130,7 +140,7 @@ export default class Controller {
 		/**
 		 * Used to access the function bound to `onChange` events. Don't modify this value directly.
 		 * Use the `controller.onChange( callback )` method instead.
-		 * @type {Function}
+		 * @type {(v: T[K]) => void}
 		 */
 		this._onChange = callback;
 		return this;
@@ -154,7 +164,7 @@ export default class Controller {
 
 	/**
 	 * Pass a function to be called after this controller has been modified and loses focus.
-	 * @param {Function} callback
+	 * @param {(v: T[K]) => void} callback
 	 * @returns {this}
 	 * @example
 	 * const controller = gui.add( object, 'property' );
@@ -168,7 +178,7 @@ export default class Controller {
 		/**
 		 * Used to access the function bound to `onFinishChange` events. Don't modify this value
 		 * directly. Use the `controller.onFinishChange( callback )` method instead.
-		 * @type {Function}
+		 * @type {(v: T[K]) => void}
 		 */
 		this._onFinishChange = callback;
 		return this;
@@ -391,7 +401,7 @@ export default class Controller {
 
 	/**
 	 * Returns `object[ property ]`.
-	 * @returns {any}
+	 * @returns {T[K]}
 	 */
 	getValue() {
 		return this.object[ this.property ];
@@ -399,7 +409,7 @@ export default class Controller {
 
 	/**
 	 * Sets the value of `object[ property ]`, invokes any `onChange` handlers and updates the display.
-	 * @param {any} value
+	 * @param {T[K]} value
 	 * @returns {this}
 	 */
 	setValue( value ) {

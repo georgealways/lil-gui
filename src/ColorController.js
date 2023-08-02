@@ -3,8 +3,19 @@ import Controller from './Controller';
 import getColorFormat from './utils/getColorFormat';
 import normalizeColorString from './utils/normalizeColorString';
 
+/**
+ * @template [T=Record<string, unknown>]
+ * @template {keyof T} [K=keyof T]
+ * @extends {Controller<T, K>}
+ */
 export default class ColorController extends Controller {
 
+	/**
+	 * @param {GUI} parent
+	 * @param {T} object
+	 * @param {K} property
+	 * @param {number} rgbScale
+	 */
 	constructor( parent, object, property, rgbScale ) {
 
 		super( parent, object, property, 'color' );
@@ -86,6 +97,9 @@ export default class ColorController extends Controller {
 
 	}
 
+	/**
+	 * @returns {T[K]}
+	 */
 	save() {
 		return this._format.toHexString( this.getValue(), this._rgbScale );
 	}

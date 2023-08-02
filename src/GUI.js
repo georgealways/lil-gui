@@ -192,13 +192,16 @@ export default class GUI {
 	 * gui.add( object, 'number', 0, 100, 1 );
 	 * gui.add( object, 'options', [ 1, 2, 3 ] );
 	 *
-	 * @param {object} object The object the controller will modify.
-	 * @param {string} property Name of the property to control.
-	 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
+	 * @template T
+	 * @template {keyof T} K
+	 *
+	 * @param {T} object The object the controller will modify.
+	 * @param {K} property Name of the property to control.
+	 * @param {number|Record<string, T[K]>|ReadonlyArray<T[K]>} [$1] Minimum value for number controllers, or the set of
 	 * selectable values for a dropdown.
 	 * @param {number} [max] Maximum value for number controllers.
 	 * @param {number} [step] Step value for number controllers.
-	 * @returns {Controller}
+	 * @returns {Controller<T, K>}
 	 */
 	add( object, property, $1, max, step ) {
 
@@ -251,11 +254,14 @@ export default class GUI {
 	 * gui.addColor( params, 'rgbColor' );
 	 * gui.addColor( params, 'customRange', 255 );
 	 *
-	 * @param {object} object The object the controller will modify.
-	 * @param {string} property Name of the property to control.
+	 * @template T
+	 * @template {keyof T} K
+	 *
+	 * @param {T} object The object the controller will modify.
+	 * @param {K} property Name of the property to control.
 	 * @param {number} rgbScale Maximum value for a color channel when using an RGB color. You may
 	 * need to set this to 255 if your colors are too bright.
-	 * @returns {Controller}
+	 * @returns {ColorController<T, K>}
 	 */
 	addColor( object, property, rgbScale = 1 ) {
 		return new ColorController( this, object, property, rgbScale );

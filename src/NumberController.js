@@ -1,7 +1,20 @@
 import Controller from './Controller';
 
+/**
+ * @template [T=Record<string, unknown>]
+ * @template {keyof T} [K=keyof T]
+ * @extends {Controller<T, K>}
+ */
 export default class NumberController extends Controller {
 
+	/**
+	 * @param {GUI} parent
+	 * @param {T} object
+	 * @param {K} property
+	 * @param {number} [min]
+	 * @param {number} [max]
+	 * @param {number} [step]
+	 */
 	constructor( parent, object, property, min, max, step ) {
 
 		super( parent, object, property, 'number' );

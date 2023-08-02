@@ -1,7 +1,17 @@
 import Controller from './Controller';
 
+/**
+ * @template [T=Record<string, unknown>]
+ * @template {keyof T} [K=keyof T]
+ * @extends {Controller<T, K>}
+ */
 export default class FunctionController extends Controller {
 
+	/**
+	 * @param {GUI} parent
+	 * @param {T} object
+	 * @param {K} property
+	 */
 	constructor( parent, object, property ) {
 
 		super( parent, object, property, 'function' );

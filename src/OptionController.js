@@ -1,7 +1,18 @@
 import Controller from './Controller';
 
+/**
+ * @template [T=Record<string, unknown>]
+ * @template {keyof T} [K=keyof T]
+ * @extends {Controller<T, K>}
+ */
 export default class OptionController extends Controller {
 
+	/**
+	 * @param {GUI} parent
+	 * @param {T} object
+	 * @param {K} property
+	 * @param {Record<string, T[K]>|ReadonlyArray<T[K]>} options
+	 */
 	constructor( parent, object, property, options ) {
 
 		super( parent, object, property, 'option' );
