@@ -1,3 +1,9 @@
+# 0.18.2-dev
+
+??.??kb, ?.??kb gzipped
+
+- Added `exports` field to package.json.
+
 # 0.18.2
 
 30.06kb, 8.51kb gzipped
