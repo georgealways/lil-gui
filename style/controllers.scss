@@ -7,7 +7,7 @@
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
 
-		@include disabled;
+		@include can-disable;
 
 		// > is used here to avoid styling FunctionController's .name,
 		// which gets put inside of its widget.

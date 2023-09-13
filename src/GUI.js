@@ -10,7 +10,7 @@ import StringController from './StringController';
 
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
-import { disableGui, showGui } from './utils/guiUtils';
+import { disableItem, showItem } from './utils/itemUtils';
 
 let stylesInjected = false;
 
@@ -426,7 +426,7 @@ export default class GUI {
 	disable( disabled = true ) {
 		if ( disabled ) this.close();
 
-		return disableGui( this, disabled );
+		return disableItem( this, disabled );
 	}
 
 	/**
@@ -453,7 +453,7 @@ export default class GUI {
 	 * gui.show( gui._hidden ); // toggle
 	 */
 	show( show = true ) {
-		return showGui( this, show );
+		return showItem( this, show );
 	}
 
 	/**

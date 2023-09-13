@@ -14,7 +14,7 @@
 	}
 }
 
-@mixin disabled {
+@mixin can-disable {
 	&.disabled {
 		opacity: 0.5;
 		&, & * {

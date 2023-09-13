@@ -1,6 +1,6 @@
 /** @module Controller */
 
-import { disableGui, showGui } from './utils/guiUtils';
+import { disableItem, showItem } from './utils/itemUtils';
 
 /**
  * Base class for all controllers.
@@ -229,7 +229,7 @@ export default class Controller {
 	 * controller.disable( !controller._disabled ); // toggle
 	 */
 	disable( disabled = true ) {
-		return disableGui( this, disabled );
+		return disableItem( this, disabled );
 	}
 
 	/**
@@ -242,7 +242,7 @@ export default class Controller {
 	 * controller.show( controller._hidden ); // toggle
 	 */
 	show( show = true ) {
-		return showGui( this, show );
+		return showItem( this, show );
 	}
 
 	/**
