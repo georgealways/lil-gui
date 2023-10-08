@@ -3,6 +3,7 @@
 ??.??kb, ?.??kb gzipped
 
 - Added `exports` field to package.json.
+- Checkbox labels will now toggle checkboxes on click.
 
 # 0.18.2
 
