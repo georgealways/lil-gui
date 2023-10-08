@@ -12,15 +12,6 @@ export default class OptionController extends Controller {
 		this.$display = document.createElement( 'div' );
 		this.$display.classList.add( 'display' );
 
-		this._values = Array.isArray( options ) ? options : Object.values( options );
-		this._names = Array.isArray( options ) ? options : Object.keys( options );
-
-		this._names.forEach( name => {
-			const $option = document.createElement( 'option' );
-			$option.innerHTML = name;
-			this.$select.appendChild( $option );
-		} );
-
 		this.$select.addEventListener( 'change', () => {
 			this.setValue( this._values[ this.$select.selectedIndex ] );
 			this._callOnFinishChange();
@@ -39,7 +30,26 @@ export default class OptionController extends Controller {
 
 		this.$disable = this.$select;
 
+		this.options( options );
+
+	}
+
+	options( options ) {
+
+		this._values = Array.isArray( options ) ? options : Object.values( options );
+		this._names = Array.isArray( options ) ? options : Object.keys( options );
+
+		this.$select.replaceChildren();
+
+		this._names.forEach( name => {
+			const $option = document.createElement( 'option' );
+			$option.innerHTML = name;
+			this.$select.appendChild( $option );
+		} );
+
 		this.updateDisplay();
+
+		return this;
 
 	}
 

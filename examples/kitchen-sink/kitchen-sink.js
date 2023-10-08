@@ -101,6 +101,20 @@ make( { title: 'Options' }, gui => {
 	const longString = 'Anoptionorvaluewithaproblematicallylongname';
 	gui.add( { x: longString }, 'x', [ longString, 1, 2 ] ).name( 'Long names' );
 
+	const modifyOptions = gui.add( { x: 1 }, 'x', [ 0, 1, 2 ] ).name( 'Modify options' );
+
+	const randomizeOptions = () => {
+		const numOptions = randInt( 1, 5 );
+		const options = new Array( numOptions ).fill().map( () => randInt( 0, 5 ) );
+		modifyOptions.options( options );
+	};
+
+	const randInt = ( min, max ) => {
+		return min + Math.floor( Math.random() * ( max - min ) );
+	};
+
+	gui.add( { randomizeOptions }, 'randomizeOptions' ).name( 'Randomize options' );
+
 } );
 
 make( { title: 'Colors' }, gui => {
