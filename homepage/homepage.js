@@ -1,3 +1,5 @@
+/* eslint-disable no-inner-declarations */
+
 import { GUI } from '../dist/lil-gui.esm.js';
 
 // Basic demo

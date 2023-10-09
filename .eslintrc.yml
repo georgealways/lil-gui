@@ -12,6 +12,7 @@ rules:
   arrow-parens: [ warn, as-needed ]
   arrow-spacing: warn
   brace-style: [ warn, 1tbs, { allowSingleLine: true } ]
+  block-spacing: [ warn, always ]
   comma-spacing: warn
   comma-dangle: [ warn, never ]
   computed-property-spacing: [ warn, always ]
@@ -26,9 +27,9 @@ rules:
   new-parens: warn
   no-empty: warn
   no-extra-semi: warn
-  no-inner-declarations: off
-  no-multiple-empty-lines: [ warn, { max: 1, maxEOF: 1 } ]
-  no-trailing-spaces: [ warn ]
+  no-multi-spaces: warn
+  no-multiple-empty-lines: [ warn, { max: 1, maxBOF: 0, maxEOF: 1 } ]
+  no-trailing-spaces: warn
   no-unused-vars: warn
   no-var: warn
   no-whitespace-before-property: warn
@@ -36,6 +37,7 @@ rules:
   quotes: [ warn, single, { avoidEscape: true } ]
   semi-spacing: warn
   semi: [ warn, always ]
+  space-before-blocks: [ warn, always ]
   space-before-function-paren: [ warn, never ]
   space-in-parens: [ warn, always, { exceptions: [ empty ] } ]
   space-infix-ops: warn
