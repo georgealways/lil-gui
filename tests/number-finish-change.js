@@ -2,6 +2,7 @@ import assert from 'assert';
 import GUI from '../dist/lil-gui.esm.min.js';
 
 import simulateDrag from './utils/simulateDrag.js';
+import CallTracker from './utils/CallTracker.js';
 
 export default () => {
 
@@ -10,17 +11,14 @@ export default () => {
 	const obj = { x: 0 };
 	const ctrl = gui.add( obj, 'x', 0, 1000 );
 
-	let tracker = new assert.CallTracker();
-
-	let handler, _args, _this;
-
-	handler = tracker.calls( function( ...args ) {
+	let _args, _this;
+	let tracker = new CallTracker( function( ...args ) {
 		_this = this;
 		_args = args;
-	}, 4 ); // expecting this many onFinishChange
+	} );
 
-	ctrl.onFinishChange( handler );
-	assert.strictEqual( ctrl._onFinishChange, handler, 'Number.onFinishChange: sets _onFinishChange' );
+	ctrl.onFinishChange( tracker.handler );
+	assert.strictEqual( ctrl._onFinishChange, tracker.handler, 'Number.onFinishChange: sets _onFinishChange' );
 
 	let prefix;
 
@@ -63,6 +61,7 @@ export default () => {
 
 	// todo: the final onFinishChange would be wheel on slider, but that involves a 400ms timeout
 
-	tracker.verify();
+	// 3 simulateDrags + the `$input` based update.
+	assert.strictEqual( tracker.calls, 4 );
 
 };
