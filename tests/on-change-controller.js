@@ -9,12 +9,7 @@ export default () => {
 
 	const controller = gui.add( { x: 0 }, 'x' );
 
-	let _args, _this;
-
-	let tracker = new CallTracker( function( ...args ) {
-		_this = this;
-		_args = args;
-	} );
+	let tracker = new CallTracker();
 
 	controller.onChange( tracker.handler );
 
@@ -22,8 +17,8 @@ export default () => {
 	controller.setValue( value );
 
 	assert.strictEqual( controller._onChange, tracker.handler, 'onChange: sets _onChange' );
-	assert.strictEqual( _this, controller, 'onChange: this is bound to controller in handler' );
-	assert.deepEqual( _args, [ value ], 'onChange: new value is the first and only argument' );
+	assert.strictEqual( tracker.lastThis, controller, 'onChange: this is bound to controller in handler' );
+	assert.deepEqual( tracker.lastArgs, [ value ], 'onChange: new value is the first and only argument' );
 
 	assert.strictEqual( tracker.calls, 1 );
 
