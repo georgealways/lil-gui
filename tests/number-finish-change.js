@@ -11,11 +11,7 @@ export default () => {
 	const obj = { x: 0 };
 	const ctrl = gui.add( obj, 'x', 0, 1000 );
 
-	let _args, _this;
-	let tracker = new CallTracker( function( ...args ) {
-		_this = this;
-		_args = args;
-	} );
+	const tracker = new CallTracker();
 
 	ctrl.onFinishChange( tracker.handler );
 	assert.strictEqual( ctrl._onFinishChange, tracker.handler, 'Number.onFinishChange: sets _onFinishChange' );
@@ -26,8 +22,8 @@ export default () => {
 	prefix = 'number finish change (mouse, drag slider)';
 
 	simulateDrag( 'mouse', ctrl.$slider, { dx: 20 } );
-	assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
-	assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+	assert.strictEqual( tracker.lastThis, ctrl, `${prefix}: this is bound to controller in handler` );
+	assert.deepEqual( tracker.lastArgs, [ obj.x ], `${prefix}: new value is the first and only argument` );
 
 	// todo: nit picky, but tapping in the same place on the slider shouldn't trigger onFinishChange
 
@@ -35,15 +31,15 @@ export default () => {
 	prefix = 'number finish change (touch, drag slider)';
 
 	simulateDrag( 'touch', ctrl.$slider, { dx: -30 } );
-	assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
-	assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+	assert.strictEqual( tracker.lastThis, ctrl, `${prefix}: this is bound to controller in handler` );
+	assert.deepEqual( tracker.lastArgs, [ obj.x ], `${prefix}: new value is the first and only argument` );
 
 	// onFinishChange 3
 	prefix = 'number finish change (mouse, drag input)';
 
 	simulateDrag( 'mouse', ctrl.$input, { dy: 20 } );
-	assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
-	assert.deepEqual( _args, [ obj.x ], `${prefix}: new value is the first and only argument` );
+	assert.strictEqual( tracker.lastThis, ctrl, `${prefix}: this is bound to controller in handler` );
+	assert.deepEqual( tracker.lastArgs, [ obj.x ], `${prefix}: new value is the first and only argument` );
 
 	// onFinishChange 4: blur input
 	prefix = 'number finish change (blur input)';
@@ -52,8 +48,8 @@ export default () => {
 	ctrl.$input.$callEventListener( 'input' );
 	ctrl.$input.blur();
 
-	assert.strictEqual( _this, ctrl, `${prefix}: this is bound to controller in handler` );
-	assert.deepEqual( _args, [ 666 ], `${prefix}: new value is the first and only argument` );
+	assert.strictEqual( tracker.lastThis, ctrl, `${prefix}: this is bound to controller in handler` );
+	assert.deepEqual( tracker.lastArgs, [ 666 ], `${prefix}: new value is the first and only argument` );
 
 	// blurs without changes don't call onFinishChange
 	ctrl.$input.focus();
