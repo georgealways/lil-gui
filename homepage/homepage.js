@@ -1,5 +1,3 @@
-/* eslint-disable no-inner-declarations */
-
 import { GUI } from '../dist/lil-gui.esm.js';
 
 // Basic demo
@@ -51,23 +49,16 @@ import { GUI } from '../dist/lil-gui.esm.js';
 {
 	const toc = document.getElementById( 'toc' );
 
+	const closeTOC = () => document.body.classList.remove( 'toc-open' );
+
 	const tocButton = document.getElementById( 'toc-button' );
 	document.body.addEventListener( 'click', closeTOC );
-	toc.addEventListener( 'click', e => {
-		e.stopPropagation();
-	} );
 
-	function openTOC() {
-		document.body.classList.add( 'toc-open' );
-	}
-
-	function closeTOC() {
-		document.body.classList.remove( 'toc-open' );
-	}
+	toc.addEventListener( 'click', e => e.stopPropagation() );
 
 	tocButton.addEventListener( 'click', e => {
 		e.stopPropagation();
-		document.body.classList.contains( 'toc-open' ) ? closeTOC() : openTOC();
+		document.body.classList.toggle( 'toc-open' );
 	} );
 
 	Array.from( document.querySelectorAll( 'nav a' ) ).forEach( a => {
@@ -89,7 +80,7 @@ import { GUI } from '../dist/lil-gui.esm.js';
 
 	let activeLink;
 
-	function updateAnchorPositions() {
+	const updateAnchorPositions = () => {
 
 		anchorPositions.length = 0;
 
@@ -108,9 +99,9 @@ import { GUI } from '../dist/lil-gui.esm.js';
 		// Sort by position on page descending
 		anchorPositions.sort( ( a, b ) => b.top - a.top );
 
-	}
+	};
 
-	function onScroll() {
+	const onScroll = () => {
 
 		const scrollTop = getScrollTop() + SCROLL_OFFSET;
 
@@ -122,14 +113,36 @@ import { GUI } from '../dist/lil-gui.esm.js';
 			}
 		}
 
-	}
+	};
 
-	function setActive( link ) {
+	const setActive = link => {
 		if ( activeLink ) activeLink.classList.remove( 'active' );
 		activeLink = link.parentElement;
 		activeLink.classList.add( 'active' );
 		activeLink.scrollIntoView( { block: 'nearest' } );
-	}
+	};
+
+	const getTop = elem => {
+		const box = elem.getBoundingClientRect();
+		const top = box.top + getScrollTop();
+		return Math.round( top );
+	};
+
+	const getScrollTop = () => {
+		const docEl = document.documentElement;
+		const body = document.body;
+		const clientTop = docEl.clientTop || body.clientTop || 0;
+		const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+		return scrollTop - clientTop;
+	};
+
+	const debounce = ( func, millis ) => {
+		let timeout;
+		return () => {
+			clearTimeout( timeout );
+			timeout = setTimeout( func, millis );
+		};
+	};
 
 	document.addEventListener( 'scroll', onScroll );
 	window.addEventListener( 'resize', debounce( updateAnchorPositions ) );
@@ -138,28 +151,6 @@ import { GUI } from '../dist/lil-gui.esm.js';
 		updateAnchorPositions();
 		onScroll();
 	} );
-
-	function getTop( elem ) {
-		const box = elem.getBoundingClientRect();
-		const top = box.top + getScrollTop();
-		return Math.round( top );
-	}
-
-	function getScrollTop() {
-		const docEl = document.documentElement;
-		const body = document.body;
-		const clientTop = docEl.clientTop || body.clientTop || 0;
-		const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-		return scrollTop - clientTop;
-	}
-
-	function debounce( func, millis ) {
-		let timeout;
-		return () => {
-			clearTimeout( timeout );
-			timeout = setTimeout( func, millis );
-		};
-	}
 
 }
 
