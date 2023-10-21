@@ -15,6 +15,6 @@ export default () => {
 
 	c.reset();
 
-	assert.strictEqual( tracker.calls, 1 );
+	assert.strictEqual( tracker.numCalls, 1 );
 
 };

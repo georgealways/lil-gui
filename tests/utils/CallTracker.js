@@ -4,14 +4,14 @@ export default class CallTracker {
 
 	constructor( handler ) {
 
-		this.calls = 0;
+		this.numCalls = 0;
 		this.lastThis = undefined;
 		this.lastArgs = undefined;
 
 		const _this = this;
 
 		this.handler = function( ...args ) {
-			_this.calls++;
+			_this.numCalls++;
 			_this.lastThis = this;
 			_this.lastArgs = args;
 			handler && handler.call( this, ...args );

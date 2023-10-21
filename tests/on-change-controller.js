@@ -20,7 +20,7 @@ export default () => {
 	assert.strictEqual( tracker.lastThis, controller, 'onChange: this is bound to controller in handler' );
 	assert.deepEqual( tracker.lastArgs, [ value ], 'onChange: new value is the first and only argument' );
 
-	assert.strictEqual( tracker.calls, 1 );
+	assert.strictEqual( tracker.numCalls, 1 );
 
 	// function controller should call onChange after click
 
@@ -30,6 +30,6 @@ export default () => {
 	functionController.onChange( tracker.handler );
 	functionController.$button.$callEventListener( 'click' );
 
-	assert.strictEqual( tracker.calls, 1 );
+	assert.strictEqual( tracker.numCalls, 1 );
 
 };

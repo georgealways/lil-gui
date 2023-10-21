@@ -58,6 +58,6 @@ export default () => {
 	// todo: the final onFinishChange would be wheel on slider, but that involves a 400ms timeout
 
 	// 3 simulateDrags + the `$input` based update.
-	assert.strictEqual( tracker.calls, 4 );
+	assert.strictEqual( tracker.numCalls, 4 );
 
 };

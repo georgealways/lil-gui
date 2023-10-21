@@ -25,7 +25,7 @@ export default () => {
 	// ignore redundant calls
 	folder2.close();
 
-	assert.deepEqual( tracker.calls, 2 );
+	assert.deepEqual( tracker.numCalls, 2 );
 
 };
 
