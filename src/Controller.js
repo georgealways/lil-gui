@@ -267,29 +267,28 @@ export default class Controller {
 	}
 
 	/**
-	 * Destroys this controller and replaces it with a new option controller. Provided as a more
-	 * descriptive syntax for `gui.add`, but primarily for compatibility with dat.gui.
+	 * Changes this controller into a dropdown of options.
 	 *
-	 * Use caution, as this method will destroy old references to this controller. It will also
-	 * change controller order if called out of sequence, moving the option controller to the end of
-	 * the GUI.
+	 * Calling this method on an option controller will simply update the options. However, if this
+	 * controller was not already an option controller, old references to this controller are
+	 * destroyed, and a new controller is added to the end of the GUI.
 	 * @example
 	 * // safe usage
 	 *
-	 * gui.add( object1, 'property' ).options( [ 'a', 'b', 'c' ] );
-	 * gui.add( object2, 'property' );
+	 * gui.add( obj, 'prop1' ).options( [ 'a', 'b', 'c' ] );
+	 * gui.add( obj, 'prop2' ).options( { Big: 10, Small: 1 } );
+	 * gui.add( obj, 'prop3' );
 	 *
 	 * // danger
 	 *
-	 * const c = gui.add( object1, 'property' );
-	 * gui.add( object2, 'property' );
+	 * const ctrl1 = gui.add( obj, 'prop1' );
+	 * gui.add( obj, 'prop2' );
 	 *
-	 * c.options( [ 'a', 'b', 'c' ] );
-	 * // controller is now at the end of the GUI even though it was added first
+	 * // calling options out of order adds a new controller to the end...
+	 * const ctrl2 = ctrl1.options( [ 'a', 'b', 'c' ] );
 	 *
-	 * assert( c.parent.children.indexOf( c ) === -1 )
-	 * // c references a controller that no longer exists
-	 *
+	 * // ...and ctrl1 now references a controller that doesn't exist
+	 * assert( ctrl2 !== ctrl1 )
 	 * @param {object|Array} options
 	 * @returns {Controller}
 	 */

@@ -41,6 +41,7 @@ class Element extends EventTarget {
 	}
 	appendChild() {}
 	removeChild() {}
+	replaceChildren() {}
 	insertBefore() {}
 	setAttribute() {}
 	removeAttribute() {}
