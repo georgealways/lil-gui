@@ -2,8 +2,9 @@
 
 ??.??kb, ?.??kb gzipped
 
+- Calling `options()` on an option controller will no longer move it to the end of the GUI.
+- Checkboxes can now be toggled by clicking their label.
 - Added `exports` field to package.json.
-- Checkbox labels will now toggle checkboxes on click.
 
 # 0.18.2
 
