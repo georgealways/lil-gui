@@ -27,7 +27,7 @@
 
 ## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
 
-{{{description}}}
+{{{description}}} <small>(<a href="{{{sourcelink}}}">{{sourcetext}}</a>)</small>
 
 {{#examples}}
 ```js
@@ -36,7 +36,6 @@
 {{/examples}}
 
 {{#with params}}
-**Parameters**
 
 {{#.}}
  - **{{name}}**{{#with description}} - {{{.}}}{{/with}}<br>
@@ -57,7 +56,6 @@
 **Returns**: `{{{.}}}`
 {{/with}}
 
-<small><a href="{{{viewsource}}}">{{definedat}}</a></small>
 
 {{/children}}
 
