@@ -9,21 +9,21 @@
 	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
 	--font-size: 15px;
 	--line-height: 1.6;
-	--rule: #c2b8b3;
+	--rule: #bbaea8c4;
 	--background: #d3c7c0;
-	--foreground: #2d2730;
-	--link: #0071bf;
+	--foreground: #2f2c30;
+	--link: #0064c8;
 	--pre-code: #d1d0cc;
 	--inline-code: #865c00;
-	--code-number: #5bc9f0;
-	--code-string: #a2cb64;
-	--code-literal: #cf8af5;
-	--code-special: #6ee4e6;
+	--code-number: #5ed4ff;
+	--code-string: #b4ee64d4;
+	--code-literal: #c36ff0;
+	--code-special: #6ee6d2;
 	--code-comment: #84858a;
-	--pre-background: #3e313d;
-	--result-header: #6f737d;
-	--result-background: #c8c5c6;
-	--result-shadow: rgba(0 0 0 / 10%);
+	--pre-background: #2e2631;
+	--result-header: #5e6371;
+	--result-background: #bcbec0;
+	--result-shadow: #503a1540;
 	--toc-width: 210px;
 	--toc-button-size: 40px;
 	--toc-button-margin: 1rem;
@@ -34,14 +34,14 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--rule: #43444c;
-		--background: #262831;
-		--foreground: #d2d2d0;
-		--pre-background: #3b3141;
-		--link: #60cce0;
-		--inline-code: #cbaf72;
+		--background: #27282c;
+		--foreground: #dcdccf;
+		--pre-background: #1f1d22;
+		--link: #5ed4ff;
+		--inline-code: #e1bd70;
 		--result-header: #434f5b;
 		--result-background: #666c75;
-		--result-shadow: rgba(0 0 0 / 20%);
+		--result-shadow: #00000040;
 		--toc-button-border: #0007;
 	}
 }
@@ -190,21 +190,10 @@ pre + .result,
 
 /* code highlighting */
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-title,
-.hljs-section,
-.hljs-doctag,
-.hljs-name,
-.hljs-strong {
-	font-weight: bold;
-}
-
 .hljs-comment {
 	color: var(--code-comment);
 }
 
-.hljs-title,
 .hljs-section,
 .hljs-type,
 .hljs-addition,
@@ -227,10 +216,6 @@ pre + .result,
 
 .hljs-string {
 	color: var(--code-string);
-}
-
-.hljs-emphasis {
-	font-style: italic;
 }
 
 /* main */
@@ -386,7 +371,7 @@ main {
 	background: var(--result-background);
 	min-height: 150px;
 	position: relative;
-	box-shadow: 0 10px 30px var(--result-shadow);
+	box-shadow: 0 5px 30px var(--result-shadow);
 }
 
 .result::before {
