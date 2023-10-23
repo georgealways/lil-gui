@@ -27,7 +27,7 @@ export default class Controller {
 
 		/**
 		 * Used to determine if the controller is disabled.
-		 * Use `controller.disable( true|false )` to modify this value
+		 * Use `controller.disable( true|false )` to modify this value.
 		 * @type {boolean}
 		 */
 		this._disabled = false;
@@ -71,7 +71,7 @@ export default class Controller {
 		this.$widget.classList.add( 'widget' );
 
 		/**
-		 * The DOM element that receives the disabled attribute when using disable()
+		 * The DOM element that receives the disabled attribute when using disable().
 		 * @type {HTMLElement}
 		 */
 		this.$disable = this.$widget;

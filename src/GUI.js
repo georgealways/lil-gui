@@ -30,7 +30,7 @@ export default class GUI {
 	 *
 	 * @param {number} [options.width=245]
 	 * Width of the GUI in pixels, usually set when name labels become too long. Note that you can make
-	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`
+	 * name labels wider in CSS with `.lil‑gui { ‑‑name‑width: 55% }`.
 	 *
 	 * @param {string} [options.title=Controls]
 	 * Name to display in the title bar.
@@ -376,7 +376,7 @@ export default class GUI {
 
 	/**
 	 * Opens a GUI or folder. GUI and folders are open by default.
-	 * @param {boolean} open Pass false to close
+	 * @param {boolean} open Pass false to close.
 	 * @returns {this}
 	 * @example
 	 * gui.open(); // open
@@ -602,7 +602,7 @@ export default class GUI {
 	}
 
 	/**
-	 * Destroys all DOM elements and event listeners associated with this GUI
+	 * Destroys all DOM elements and event listeners associated with this GUI.
 	 */
 	destroy() {
 
