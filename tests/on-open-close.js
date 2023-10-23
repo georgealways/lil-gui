@@ -1,36 +1,31 @@
 import assert from 'assert';
 import GUI from '../dist/lil-gui.esm.min.js';
 
+import CallTracker from './utils/CallTracker.js';
+
 export default () => {
 
-	const tracker = new assert.CallTracker();
-
-	let _args, _this;
-
-	const rootHandler = tracker.calls( function( ...args ) {
-		_args = args;
-		_this = this;
-	}, 2 );
+	const tracker = new CallTracker();
 
 	const root = new GUI();
 
 	const folder1 = root.addFolder();
 	const folder2 = root.addFolder();
 
-	root.onOpenClose( rootHandler );
+	root.onOpenClose( tracker.handler );
 
 	folder1.close();
-	assert.strictEqual( _args[ 0 ], folder1 );
-	assert.strictEqual( _this, root );
+	assert.strictEqual( tracker.lastArgs[ 0 ], folder1 );
+	assert.strictEqual( tracker.lastThis, root );
 
 	folder2.close();
-	assert.strictEqual( _args[ 0 ], folder2 );
-	assert.strictEqual( _this, root );
+	assert.strictEqual( tracker.lastArgs[ 0 ], folder2 );
+	assert.strictEqual( tracker.lastThis, root );
 
 	// ignore redundant calls
 	folder2.close();
 
-	tracker.verify();
+	assert.deepEqual( tracker.numCalls, 2 );
 
 };
 
