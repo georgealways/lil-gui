@@ -2,7 +2,7 @@
 
 ??.??kb, ?.??kb gzipped
 
-- Calling `options()` on an option controller will no longer move it to the end of the GUI.
+- Calling `options()` on an option controller will no longer create a new controller.
 - Checkboxes can now be toggled by clicking their label.
 - Added `exports` field to package.json.
 
