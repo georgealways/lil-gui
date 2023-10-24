@@ -142,9 +142,8 @@ function transform( v ) {
 	}
 
 	// view source url
-	const joined = v.meta.path + '/' + v.meta.filename;
-	v.viewsource = `${joined}#L${v.meta.lineno}`;
-	v.definedat = joined.replace( REPO, '' ) + ':' + v.meta.lineno;
+	v.sourcelink = `${v.meta.path + '/' + v.meta.filename}#L${v.meta.lineno}`;
+	v.sourcetext = v.meta.filename + ':' + v.meta.lineno;
 
 	// clogging up my debug
 	delete v.comment;

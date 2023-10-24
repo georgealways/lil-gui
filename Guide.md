@@ -253,9 +253,8 @@ gui.add( obj, 'value2' );
 
 gui.add( obj, 'savePreset' );
 
-const loadButton = 
-	gui.add( obj, 'loadPreset' )
-	   .disable();
+const loadButton = gui.add( obj, 'loadPreset' );
+loadButton.disable();
 ```
 
 ### Save Object Format

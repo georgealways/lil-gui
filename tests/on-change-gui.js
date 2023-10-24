@@ -1,6 +1,8 @@
 import assert from 'assert';
 import GUI from '../dist/lil-gui.esm.min.js';
 
+import CallTracker from './utils/CallTracker.js';
+
 export default () => {
 
 	const gui = new GUI();
@@ -11,19 +13,15 @@ export default () => {
 	const object2 = { y: 0 };
 	const nested = gui.addFolder( '' ).add( object2, 'y' );
 
-	let tracker = new assert.CallTracker();
+	let tracker = new CallTracker();
 
-	let handler, _args;
-
-	handler = tracker.calls( ( ...args ) => _args = args );
-
-	gui.onChange( handler );
+	gui.onChange( tracker.handler );
 
 	let value = 1;
 
 	controller.setValue( value );
-	assert.strictEqual( gui._onChange, handler, 'sets _onChange' );
-	assert.deepStrictEqual( _args, [ {
+	assert.strictEqual( gui._onChange, tracker.handler, 'sets _onChange' );
+	assert.deepStrictEqual( tracker.lastArgs, [ {
 		object: object1,
 		property: 'x',
 		controller,
@@ -33,7 +31,7 @@ export default () => {
 	value = 2;
 
 	nested.setValue( value );
-	assert.deepStrictEqual( _args, [ {
+	assert.deepStrictEqual( tracker.lastArgs, [ {
 		object: object2,
 		property: 'y',
 		controller: nested,
