@@ -1,8 +1,12 @@
 @import 'hover';
 
 .lil-gui {
-	input {
+
+	label, input {
 		-webkit-tap-highlight-color: transparent;
+	}
+
+	input {
 		border: 0;
 		outline: none;
 		font-family: var(--font-family);
