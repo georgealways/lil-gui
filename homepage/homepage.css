@@ -195,6 +195,14 @@ pre + .result,
 
 /* code highlighting */
 
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-doctag,
+.hljs-strong {
+	font-weight: bold;
+}
+
 .hljs-comment {
 	color: var(--code-comment);
 }
