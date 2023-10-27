@@ -2,7 +2,7 @@
 
 .lil-gui {
 
-	label, input {
+	label, input, button {
 		-webkit-tap-highlight-color: transparent;
 	}
 
@@ -11,7 +11,6 @@
 		outline: none;
 		font-family: var(--font-family);
 		font-size: var(--input-font-size);
-
 		border-radius: var(--widget-border-radius);
 		height: var(--widget-height);
 		background: var(--widget-color);
@@ -40,9 +39,8 @@
 
 	input[type='checkbox'] {
 		appearance: none;
-		-webkit-appearance: none;
-		height: var(--checkbox-size);
 		width: var(--checkbox-size);
+		height: var(--checkbox-size);
 		border-radius: var(--widget-border-radius);
 		text-align: center;
 		cursor: pointer;
@@ -61,7 +59,6 @@
 	}
 
 	button {
-		-webkit-tap-highlight-color: transparent;
 		outline: none;
 		cursor: pointer;
 
@@ -78,10 +75,6 @@
 		border-radius: var(--widget-border-radius);
 
 		border: 1px solid var(--widget-color);
-
-		text-align: center;
-
-		line-height: calc(var(--widget-height) - 4px);
 
 		@include can-hover {
 			&:hover {
