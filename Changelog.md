@@ -1,10 +1,11 @@
-# 0.18.2-dev
+# 0.19.0
 
-??.??kb, ?.??kb gzipped
+29.77kb, 8.48kb gzipped
 
 - Calling `options()` on an option controller will no longer create a new controller.
 - Checkboxes can now be toggled by clicking their label.
 - Added `exports` field to package.json.
+- Removed unused CSS.
 
 # 0.18.2
 
@@ -90,7 +91,7 @@
 - Added support for dragging number fields vertically.
 - Fixed a bug that stopped you from entering decimals in number fields on mobile.
 - Fixed a bug that stopped screen readers from reading names in `BooleanController`.
-- Removed some dead CSS and JS.
+- Removed unused CSS and JS.
 
 # 0.11.0
 
