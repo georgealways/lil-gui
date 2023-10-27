@@ -23,7 +23,6 @@
 	font-style: normal;
 	text-align: left;
 
-	background-color: var(--background-color);
 	color: var(--text-color);
 
 	user-select: none;
@@ -43,6 +42,7 @@
 		width: var(--width, 245px);
 		display: flex;
 		flex-direction: column;
+		background: var(--background-color);
 		> .title {
 			background: var(--title-background-color);
 			color: var(--title-text-color);
