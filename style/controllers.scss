@@ -143,7 +143,7 @@
 		.slider {
 			width: 100%;
 			height: var(--widget-height);
-			background-color: var(--widget-color);
+			background: var(--widget-color);
 			border-radius: var(--widget-border-radius);
 
 			// subtracts width of knob from available width
@@ -155,10 +155,10 @@
 			touch-action: pan-y;
 
 			@include on-hover {
-				background-color: var(--hover-color);
+				background: var(--hover-color);
 			}
 			&.active {
-				background-color: var(--focus-color);
+				background: var(--focus-color);
 				.fill {
 					opacity: 0.95;
 				}
