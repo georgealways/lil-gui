@@ -74,15 +74,14 @@
 		background: var(--widget-color);
 		border-radius: var(--widget-border-radius);
 
-		border: 1px solid var(--widget-color);
+		border: none;
 
 		@include can-hover {
 			&:hover {
 				background: var(--hover-color);
-				border-color: var(--hover-color);
 			}
 			&:focus {
-				border-color: var(--focus-color);
+				box-shadow: inset 0 0 0 1px var(--focus-color);
 			}
 		}
 
