@@ -69,6 +69,7 @@
 		width: 100%;
 		height: var(--widget-height);
 
+		// todo: this is only here because three.js defines a global button style
 		text-transform: none;
 
 		background: var(--widget-color);
