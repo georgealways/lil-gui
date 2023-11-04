@@ -32,6 +32,7 @@
 	input[type='text'],
 	input[type='number'] {
 		padding: var(--widget-padding);
+		-moz-appearance: textfield; // needed to hide number spinners on android firefox
 		&:focus {
 			background: var(--focus-color);
 		}

@@ -1,3 +1,9 @@
+# 0.19.1
+
+29.80kb, 8.49kb gzipped
+
+- Fixed a CSS regression in Firefox for Android. ([#122](https://github.com/georgealways/lil-gui/issues/122))
+
 # 0.19.0
 
 29.77kb, 8.48kb gzipped
