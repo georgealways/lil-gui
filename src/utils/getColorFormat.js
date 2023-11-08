@@ -43,6 +43,44 @@ const ARRAY = {
 	}
 };
 
+const _target = { r: 0, g: 0, b: 0 };
+
+/**
+ * THREE.Color instances are stored with Linear-sRGB ("srgb-linear") components,
+ * but users will interact with the color picker using sRGB ("srgb"). Convert
+ * to Linear-sRGB when updating the THREE.Color instance, and to sRGB when
+ * updating the color picker. If THREE.ColorManagement is disabled, no
+ * conversions occur.
+ */
+const CLASS = {
+	isPrimitive: false,
+	match: v => Object( v ) === v && v.isColor === true,
+	fromHexString( string, target, rgbScale = 1 ) {
+
+		const int = INT.fromHexString( string );
+
+		const r = ( int >> 16 & 255 ) / 255 * rgbScale;
+		const g = ( int >> 8 & 255 ) / 255 * rgbScale;
+		const b = ( int & 255 ) / 255 * rgbScale;
+
+		target.setRGB( r, g, b, 'srgb' );
+
+	},
+	toHexString( target, rgbScale = 1 ) {
+
+		target.getRGB( _target, 'srgb' );
+
+		rgbScale = 255 / rgbScale;
+
+		const int = ( _target.r * rgbScale ) << 16 ^
+			( _target.g * rgbScale ) << 8 ^
+			( _target.b * rgbScale ) << 0;
+
+		return INT.toHexString( int );
+
+	}
+};
+
 const OBJECT = {
 	isPrimitive: false,
 	match: v => Object( v ) === v,
@@ -68,7 +106,7 @@ const OBJECT = {
 	}
 };
 
-const FORMATS = [ STRING, INT, ARRAY, OBJECT ];
+const FORMATS = [ STRING, INT, ARRAY, CLASS, OBJECT ];
 
 export default function( value ) {
 	return FORMATS.find( format => format.match( value ) );
