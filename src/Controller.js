@@ -140,12 +140,12 @@ export default class Controller {
 	 * Calls the onChange methods of this controller and its parent GUI.
 	 * @protected
 	 */
-	_callOnChange() {
+	_callOnChange(value, previousValue) {
 
 		this.parent._callOnChange( this );
 
 		if ( this._onChange !== undefined ) {
-			this._onChange.call( this, this.getValue() );
+			this._onChange.call( this, value, previousValue );
 		}
 
 		this._changed = true;
@@ -401,10 +401,13 @@ export default class Controller {
 	 * @param {any} value
 	 * @returns {this}
 	 */
-	setValue( value ) {
-		this.object[ this.property ] = value;
-		this._callOnChange();
-		this.updateDisplay();
+	setValue(value) {
+		const previousValue = this.getValue();
+		if (value !== previousValue) {
+			this.object[ this.property ] = value;
+			this._callOnChange();
+			this.updateDisplay();
+		}
 		return this;
 	}
 
