@@ -208,45 +208,31 @@ export default class Controller {
 	 * Enables this controller.
 	 * @param {boolean} enabled
 	 * @returns {this}
-	 * @example
-	 * controller.enable();
-	 * controller.enable( false ); // disable
-	 * controller.enable( controller._disabled ); // toggle
 	 */
 	enable( enabled = true ) {
-		return this.disable( !enabled );
-	}
 
-	/**
-	 * Disables this controller.
-	 * @param {boolean} disabled
-	 * @returns {this}
-	 * @example
-	 * controller.disable();
-	 * controller.disable( false ); // enable
-	 * controller.disable( !controller._disabled ); // toggle
-	 */
-	disable( disabled = true ) {
+		this._disabled = !enabled;
 
-		if ( disabled === this._disabled ) return this;
-
-		this._disabled = disabled;
-
-		this.domElement.classList.toggle( 'disabled', disabled );
-		this.$disable.toggleAttribute( 'disabled', disabled );
+		this.domElement.classList.toggle( 'disabled', !enabled );
+		this.$disable.toggleAttribute( 'disabled', !enabled );
 
 		return this;
 
 	}
 
 	/**
+	 * Disables this controller.
+	 * @param {boolean} disabled
+	 * @returns {this}
+	 */
+	disable( disabled = true ) {
+		return this.enable( !disabled );
+	}
+
+	/**
 	 * Shows the Controller after it's been hidden.
 	 * @param {boolean} show
 	 * @returns {this}
-	 * @example
-	 * controller.show();
-	 * controller.show( false ); // hide
-	 * controller.show( controller._hidden ); // toggle
 	 */
 	show( show = true ) {
 
@@ -260,10 +246,11 @@ export default class Controller {
 
 	/**
 	 * Hides the Controller.
+	 * @param {boolean} hide
 	 * @returns {this}
 	 */
-	hide() {
-		return this.show( false );
+	hide( hide = true ) {
+		return this.show( !hide );
 	}
 
 	/**

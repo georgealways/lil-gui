@@ -375,7 +375,7 @@ export default class GUI {
 	}
 
 	/**
-	 * Opens a GUI or folder. GUI and folders are open by default.
+	 * Opens a GUI or folder. GUI and folders are open by default. Use `gui._closed` to access this value.
 	 * @param {boolean} open Pass false to close.
 	 * @returns {this}
 	 * @example
@@ -396,10 +396,11 @@ export default class GUI {
 
 	/**
 	 * Closes the GUI.
+	 * @param {boolean} close
 	 * @returns {this}
 	 */
-	close() {
-		return this.open( false );
+	close( close = true ) {
+		return this.open( !close );
 	}
 
 	_setClosed( closed ) {
@@ -412,10 +413,6 @@ export default class GUI {
 	 * Shows the GUI after it's been hidden.
 	 * @param {boolean} show
 	 * @returns {this}
-	 * @example
-	 * gui.show();
-	 * gui.show( false ); // hide
-	 * gui.show( gui._hidden ); // toggle
 	 */
 	show( show = true ) {
 
@@ -429,10 +426,11 @@ export default class GUI {
 
 	/**
 	 * Hides the GUI.
+	 * @param {boolean} hide
 	 * @returns {this}
 	 */
-	hide() {
-		return this.show( false );
+	hide( hide = true ) {
+		return this.show( !hide );
 	}
 
 	openAnimated( open = true ) {
