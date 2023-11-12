@@ -410,6 +410,30 @@ export default class GUI {
 	}
 
 	/**
+	 * Enables this GUI.
+	 * @param {boolean} enabled
+	 * @returns {this}
+	 */
+	enable( enabled = true ) {
+
+		this._disabled = !enabled;
+
+		this.domElement.classList.toggle( 'disabled', !enabled );
+
+		return this;
+
+	}
+
+	/**
+	 * Disables this GUI.
+	 * @param {boolean} disabled
+	 * @returns {this}
+	 */
+	disable( disabled = true ) {
+		return this.enable( !disabled );
+	}
+
+	/**
 	 * Shows the GUI after it's been hidden.
 	 * @param {boolean} show
 	 * @returns {this}

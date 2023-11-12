@@ -215,6 +215,23 @@ make( { title: 'Disable' }, gui => {
 
 } );
 
+make( { title: 'Disabled Folders' }, gui => {
+
+	const filler = g => {
+		g.add( { Slider: 0 }, 'Slider', 0, 1 );
+		g.add( { Slider: 0 }, 'Slider', 0, 1 ).name( 'Disabled Slider' ).disable();
+		g.add( { Slider: 0 }, 'Slider', 0, 1 );
+	};
+
+	gui.addFolder().disable();
+	gui.addFolder().addFolder();
+
+	filler( gui );
+
+	gui.foldersRecursive().forEach( filler );
+
+} );
+
 make( { title: 'Listen' }, gui => {
 
 	const params = { animate: false };

@@ -1,18 +1,25 @@
 @import 'hover';
 
 .lil-gui {
+
+	// todo: doesn't belong in this file
+	&.disabled .children, .controller.disabled {
+		opacity: 0.5;
+		&, & * {
+			pointer-events: none !important;
+		}
+	}
+
+	&.disabled .title {
+		opacity: 0.5;
+	}
+
 	.controller {
 		display: flex;
 		align-items: center;
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
 
-		&.disabled {
-			opacity: 0.5;
-			&, & * {
-				pointer-events: none !important;
-			}
-		}
 
 		// > is used here to avoid styling FunctionController's .name,
 		// which gets put inside of its widget.
