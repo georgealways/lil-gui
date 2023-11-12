@@ -405,7 +405,7 @@ export default class Controller {
 		const previousValue = this.getValue();
 		if (value !== previousValue) {
 			this.object[ this.property ] = value;
-			this._callOnChange();
+			this._callOnChange(value, previousValue);
 			this.updateDisplay();
 		}
 		return this;
