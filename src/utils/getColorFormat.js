@@ -43,8 +43,6 @@ const ARRAY = {
 	}
 };
 
-const _target = { r: 0, g: 0, b: 0 };
-
 /**
  * When getHex/setHex methods are available, prefer them over modifying RGB
  * components directly. In some software (e.g. three.js and Blender), hex
