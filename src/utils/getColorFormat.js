@@ -46,37 +46,22 @@ const ARRAY = {
 const _target = { r: 0, g: 0, b: 0 };
 
 /**
- * THREE.Color instances are stored with Linear-sRGB ("srgb-linear") components,
- * but users will interact with the color picker using sRGB ("srgb"). Convert
- * to Linear-sRGB when updating the THREE.Color instance, and to sRGB when
- * updating the color picker. If THREE.ColorManagement is disabled, no
- * conversions occur.
+ * When getHex/setHex methods are available, prefer them over modifying RGB
+ * components directly. In some software (e.g. three.js and Blender), hex
+ * triplets are sRGB by convention, like the color picker's input and display,
+ * while RGB components are Linear sRGB.
  */
 const CLASS = {
 	isPrimitive: false,
-	match: v => Object( v ) === v && v.isColor === true,
-	fromHexString( string, target, rgbScale = 1 ) {
+	match: v => Object( v ) === v && v.getHex && v.setHex,
+	fromHexString( string, target ) {
 
-		const int = INT.fromHexString( string );
-
-		const r = ( int >> 16 & 255 ) / 255 * rgbScale;
-		const g = ( int >> 8 & 255 ) / 255 * rgbScale;
-		const b = ( int & 255 ) / 255 * rgbScale;
-
-		target.setRGB( r, g, b, 'srgb' );
+		target.setHex( INT.fromHexString( string ) );
 
 	},
-	toHexString( target, rgbScale = 1 ) {
+	toHexString( target ) {
 
-		target.getRGB( _target, 'srgb' );
-
-		rgbScale = 255 / rgbScale;
-
-		const int = ( _target.r * rgbScale ) << 16 ^
-			( _target.g * rgbScale ) << 8 ^
-			( _target.b * rgbScale ) << 0;
-
-		return INT.toHexString( int );
+		return INT.toHexString( target.getHex() );
 
 	}
 };

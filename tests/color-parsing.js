@@ -12,14 +12,24 @@ export default () => {
 		b: 0.6705882352941176
 	};
 
+
+	class Color {
+		_hex = 0x7a26ab;
+		getHex() { return this._hex; }
+		setHex( hex ) { this._hex = hex }
+	}
+	const color = new Color();
+
 	const arr = [ obj.r, obj.g, obj.b ];
 	const int = 0x7a26ab;
 	const string = '#7a26ab';
+
 
 	assert.strictEqual( gui.addColor( { obj }, 'obj' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { arr }, 'arr' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { int }, 'int' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { string }, 'string' ).$input.value, string );
+	assert.strictEqual( gui.addColor( { color }, 'color' ).$input.value, string );
 
 	// todo: it doesn't get hit with any edge cases or malformed colors
 
