@@ -215,7 +215,7 @@ function findChildAfter( element, re ) {
 }
 
 function replaceContents( element, text ) {
-	element.innerHTML = text;
+	element.textContent = text;
 	element.classList.add( 'changed' );
 	clearTimeout( element.timeout );
 	element.timeout = setTimeout( () => {

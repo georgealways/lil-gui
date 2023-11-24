@@ -43,7 +43,7 @@ export default class OptionController extends Controller {
 
 		this._names.forEach( name => {
 			const $option = document.createElement( 'option' );
-			$option.innerHTML = name;
+			$option.textContent = name;
 			this.$select.appendChild( $option );
 		} );
 
@@ -57,7 +57,7 @@ export default class OptionController extends Controller {
 		const value = this.getValue();
 		const index = this._values.indexOf( value );
 		this.$select.selectedIndex = index;
-		this.$display.innerHTML = index === -1 ? value : this._names[ index ];
+		this.$display.textContent = index === -1 ? value : this._names[ index ];
 		return this;
 	}
 

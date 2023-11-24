@@ -486,7 +486,7 @@ export default class GUI {
 		 * @type {string}
 		 */
 		this._title = title;
-		this.$title.innerHTML = title;
+		this.$title.textContent = title;
 		return this;
 	}
 

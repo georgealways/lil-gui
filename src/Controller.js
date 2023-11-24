@@ -105,7 +105,7 @@ export default class Controller {
 		 * @type {string}
 		 */
 		this._name = name;
-		this.$name.innerHTML = name;
+		this.$name.textContent = name;
 		return this;
 	}
 

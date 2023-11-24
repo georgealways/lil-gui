@@ -97,18 +97,18 @@ function updateStylesheet() {
 	}
 	if ( style ) {
 		style = '.lil-gui {\n' + style + '}';
-		customDisplay.innerHTML = style;
-		customStyleTag.innerHTML = style;
+		customDisplay.textContent = style;
+		customStyleTag.textContent = style;
 	} else {
-		customDisplay.innerHTML = '';
-		customStyleTag.innerHTML = '';
+		customDisplay.textContent = '';
+		customStyleTag.textContent = '';
 	}
 }
 
 const defaultStyleTag = Array.from( document.querySelectorAll( 'style' ) )
-	.find( tag => tag.innerHTML.includes( 'lil-gui' ) );
+	.find( tag => tag.textContent.includes( 'lil-gui' ) );
 
-defaultStyleTag.innerHTML.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, ( _, property, value ) => {
+defaultStyleTag.textContent.replace( /(--[a-z0-9-]+)\s*:\s*([^;}]*)[;}]/ig, ( _, property, value ) => {
 
 	if ( property in stylesheet ) return;
 
