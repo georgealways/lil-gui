@@ -4,6 +4,7 @@
 
 - Redundant calls to `setValue` will no longer produce `onChange` events.
 - Spellcheck is now disabled for string controllers.
+- `name()` and `title()` will no longer render elements if passed an HTML string.
 
 # 0.19.1
 
