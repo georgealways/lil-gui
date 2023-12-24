@@ -1,3 +1,10 @@
+# 0.19.2
+
+??.??kb, ?.??kb gzipped
+
+- Redundant calls to `setValue` will no longer produce `onChange` events.
+- Spellcheck is now disabled for string controllers.
+
 # 0.19.1
 
 29.80kb, 8.49kb gzipped
