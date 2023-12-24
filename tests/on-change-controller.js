@@ -22,6 +22,10 @@ export default () => {
 
 	assert.strictEqual( tracker.numCalls, 1 );
 
+	controller.setValue( value );
+
+	assert.strictEqual( tracker.numCalls, 1, 'redundant calls to setValue do not trigger onChange' );
+
 	// function controller should call onChange after click
 
 	tracker = new CallTracker();
