@@ -57,7 +57,7 @@ export default () => {
 	const name = 'david';
 	const controller4 = gui.add( { x: 0 }, 'x' ).name( name );
 
-	assert.strictEqual( controller4.$name.innerHTML, name, 'name sets innerHTML' );
+	assert.strictEqual( controller4.$name.textContent, name, 'name sets textContent' );
 
 	// make sure title click isn't throwing errors
 
