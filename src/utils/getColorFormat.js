@@ -43,13 +43,11 @@ const ARRAY = {
 	}
 };
 
-/**
- * When getHex/setHex methods are available, prefer them over modifying RGB
- * components directly. In some software (e.g. three.js and Blender), hex
- * triplets are sRGB by convention, like the color picker's input and display,
- * while RGB components are Linear sRGB.
- */
-const CLASS = {
+// When getHex/setHex methods are available, prefer them over modifying RGB
+// components directly. In some software (e.g. three.js and Blender), hex
+// triplets are sRGB by convention, like the color picker's input and display,
+// while RGB components are Linear sRGB.
+const CUSTOM = {
 	isPrimitive: false,
 	match: v => Object( v ) === v && v.getHex && v.setHex,
 	fromHexString( string, target ) {
@@ -89,7 +87,7 @@ const OBJECT = {
 	}
 };
 
-const FORMATS = [ STRING, INT, ARRAY, CLASS, OBJECT ];
+const FORMATS = [ STRING, INT, ARRAY, CUSTOM, OBJECT ];
 
 export default function( value ) {
 	return FORMATS.find( format => format.match( value ) );
