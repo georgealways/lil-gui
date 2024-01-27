@@ -13,11 +13,12 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial();
+const material = new THREE.MeshBasicMaterial( { color: 0x00aaff } );
 const cube = new THREE.Mesh( geometry, material );
 
 scene.add( cube );
-new GUI().addColor( material, 'color' );
+const gui = new GUI();
+const ctrl = gui.addColor( material, 'color' );
 
 function animate() {
 
@@ -26,7 +27,7 @@ function animate() {
 	cube.rotation.x += 0.01;
 	cube.rotation.y += 0.01;
 
-	debugDiv.style.backgroundColor = '#' + material.color.getHexString();
+	debugDiv.style.backgroundColor = '#' + ctrl.$text.value;
 
 	renderer.render( scene, camera );
 
