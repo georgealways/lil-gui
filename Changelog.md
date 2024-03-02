@@ -2,7 +2,7 @@
 
 ??.??kb, ?.??kb gzipped
 
-- Redundant calls to `setValue` will no longer produce `onChange` events.
+- Fixed an issue where stepped number controllers emitted extraneous `onChange` events.
 - Spellcheck is now disabled for string controllers.
 - `name()` and `title()` will no longer render elements if passed an HTML string.
 
@@ -16,7 +16,7 @@
 
 29.77kb, 8.48kb gzipped
 
-- Calling `options()` on an option controller will no longer create a new controller.
+- Calling `options()` on an option controller will no longer create a new controller at the end of the GUI.
 - Checkboxes can now be toggled by clicking their label.
 - Added `exports` field to package.json.
 - Removed unused CSS.
