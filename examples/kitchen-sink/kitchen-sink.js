@@ -350,19 +350,21 @@ make( { title: 'onChange' }, gui => {
 	folder.add( tallies, 'onChange' ).disable().listen();
 	folder.add( tallies, 'onFinishChange' ).disable().listen();
 
-	gui.add( { Number: 0 }, 'Number' ).onChange( change ).onFinishChange( finishChange );
+	gui.add( { Number: 0 }, 'Number' ),
+	gui.add( { Slider: 0 }, 'Slider', 0, 1 ),
+	gui.add( { Stepped: 0 }, 'Stepped', 0, 10, 1 ),
+	gui.add( { String: 'foo' }, 'String' ),
+	gui.add( { Boolean: true }, 'Boolean' ),
+	gui.add( { Options: 'a' }, 'Options', [ 'a', 'b', 'c' ] ),
+	gui.add( { func() { console.log( 'hi' ); } }, 'func' ),
+	gui.addColor( { ColorHex: 0xaa00ff }, 'ColorHex' ),
+	gui.addColor( { ColorArr: [ 0.6875, 0, 1 ] }, 'ColorArr' ),
+	gui.addColor( { ColorObj: { r: 0.6875, g: 0, b: 1 } }, 'ColorObj' );
 
-	gui.add( { Slider: 0 }, 'Slider', 0, 1 ).onChange( change ).onFinishChange( finishChange );
-
-	gui.add( { String: 'foo' }, 'String' ).onChange( change ).onFinishChange( finishChange );
-
-	gui.add( { Boolean: true }, 'Boolean' ).onChange( change ).onFinishChange( finishChange );
-
-	gui.add( { Options: 'a' }, 'Options', [ 'a', 'b', 'c' ] ).onChange( change ).onFinishChange( finishChange );
-
-	gui.add( { func() { console.log( 'hi' ); } }, 'func' ).onChange( change ).onFinishChange( finishChange );
-
-	gui.addColor( { Color: 0xaa00ff }, 'Color' ).onChange( change ).onFinishChange( finishChange );
+	gui.controllers.forEach( c => {
+		c.onChange( change );
+		c.onFinishChange( finishChange );
+	} );
 
 	gui.onFinishChange( e => {
 		console.log( 'gui.onFinishChange', e );
