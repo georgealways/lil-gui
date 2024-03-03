@@ -1,10 +1,10 @@
 # 0.19.2
 
-??.??kb, ?.??kb gzipped
+29.87kb, 8.51kb gzipped
 
 - Fixed an issue where stepped number controllers emitted extraneous `onChange` events.
 - Spellcheck is now disabled for string controllers.
-- `name()` and `title()` will no longer render elements if passed an HTML string.
+- `name()` and `title()` will no longer render DOM elements if passed an HTML string.
 
 # 0.19.1
 
