@@ -402,10 +402,17 @@ export default class Controller {
 	 * @returns {this}
 	 */
 	setValue( value ) {
-		this.object[ this.property ] = value;
-		this._callOnChange();
-		this.updateDisplay();
+
+		if ( this.getValue() !== value ) {
+
+			this.object[ this.property ] = value;
+			this._callOnChange();
+			this.updateDisplay();
+
+		}
+
 		return this;
+
 	}
 
 	/**
