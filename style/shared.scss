@@ -13,3 +13,12 @@
 		}
 	}
 }
+
+@mixin can-disable {
+	&.disabled {
+		opacity: 0.5;
+		&, & * {
+			pointer-events: none !important;
+		}
+	}
+}
