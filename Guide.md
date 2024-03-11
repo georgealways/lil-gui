@@ -150,6 +150,24 @@ gui.addColor( obj, 'colorObject', 255 );
 gui.addColor( obj, 'colorArray', 255 );
 ```
 
+### Custom Color Spaces
+
+lil-gui allows you to work with colors outside of the typical sRGB color space, so long as they provide conversion methods to and from sRGB hex integers.
+
+```js
+class MyColor { 
+
+	// convert this color to hex int (0xff00aa)
+	getHex() { return hexInt; }
+
+	// parse int and convert to this color space
+	setHex( hexInt ) {}
+
+}
+```
+
+If present, lil-gui will use these methods instead of reading or writing the `{ r, g, b }` components directly. 
+
 ## Folders
 
 You can organize controllers in collapsible groups using `addFolder()`. The method returns a new GUI
