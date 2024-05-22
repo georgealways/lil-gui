@@ -4,13 +4,16 @@
 	.title {
 
 		height: var(--title-height);
-		line-height: calc(var(--title-height) - 4px);
 
 		font-weight: 600;
 		padding: 0 var(--padding);
 		-webkit-tap-highlight-color: transparent;
 		cursor: pointer;
 		outline: none;
+
+		width: 100%;
+		text-align: left;
+		background: none;
 
 		// we use an underline to indicate focus, don't underline arrow
 		text-decoration-skip: objects;
