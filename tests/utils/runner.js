@@ -1,4 +1,4 @@
-import './shim.js';
+import { initShim } from './shim.js';
 import fs from 'fs';
 
 // run with --soft-fail to exit with code 0 even if tests don't pass
@@ -34,6 +34,7 @@ if ( failures > 0 ) {
 }
 
 function run( name, test ) {
+	initShim();
 	try {
 		test();
 	} catch ( e ) {

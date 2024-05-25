@@ -371,3 +371,9 @@ make( { title: 'onChange' }, gui => {
 	} );
 
 } );
+
+make( { title: '{ captureKeys: false }', captureKeys: false }, gui => {
+
+	gui.add( { str: 'I trigger window.keydown/up' }, 'str' );
+
+} );

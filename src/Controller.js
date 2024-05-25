@@ -79,10 +79,6 @@ export default class Controller {
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
 
-		// Don't fire global key events while typing in a controller
-		this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
-		this.domElement.addEventListener( 'keyup', e => e.stopPropagation() );
-
 		this.parent.children.push( this );
 		this.parent.controllers.push( this );
 
