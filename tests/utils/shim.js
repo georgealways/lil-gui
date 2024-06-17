@@ -79,14 +79,18 @@ function createElement( tag ) {
 	return new Element();
 }
 
-global.window = new EventTarget();
-global.window.matchMedia = () => { return { matches: true }; };
-global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
-global.cancelAnimationFrame = id => clearTimeout( id );
+export function defineGlobals() {
 
-const document = new Element();
-document.head = new Element();
-document.body = new Element();
-document.createElement = createElement;
+	global.window = new EventTarget();
+	global.window.matchMedia = () => { return { matches: true }; };
+	global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
+	global.cancelAnimationFrame = id => clearTimeout( id );
 
-global.document = document;
+	const document = new Element();
+	document.head = new Element();
+	document.body = new Element();
+	document.createElement = createElement;
+
+	global.document = document;
+
+}

@@ -1,4 +1,4 @@
-import './shim.js';
+import { defineGlobals } from './shim.js';
 import fs from 'fs';
 
 // run with --soft-fail to exit with code 0 even if tests don't pass
@@ -14,6 +14,7 @@ const tests = fs.readdirSync( 'tests' )
 	.filter( file => file.endsWith( '.js' ) )
 	.map( async file => {
 		const module = await import( '../' + file );
+		defineGlobals();
 		run( file, module.default );
 	} );
 
