@@ -40,7 +40,7 @@ export default () => {
 		const target = { x: start };
 		const controller = gui.add( target, 'x', min, max, step );
 
-		const actualValues = new Set();
+		const actualValues = [];
 
 		assert.strictEqual( target.x, start, "value isn't modified until user interaction." );
 
@@ -50,7 +50,7 @@ export default () => {
 			const code = min !== undefined ? 'ArrowUp' : 'ArrowDown';
 
 			controller.$input.$callEventListener( 'keydown', { code } );
-			actualValues.add( target.x );
+			actualValues.push( target.x );
 
 		}
 
@@ -58,7 +58,7 @@ export default () => {
 
 		assert.deepStrictEqual(
 			actualValues,
-			new Set( expectedValues ),
+			expectedValues,
 			'slider steps correctly even when min/max are not divisible by step. ' +
 			`actual: ${[ ...actualValues ]} ` +
 			`expected: ${[ ...expectedValues ]}`
