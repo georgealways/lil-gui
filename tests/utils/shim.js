@@ -1,9 +1,11 @@
 // shim just enough browser stuff to run in node
 
-// collects event listeners by name and exposes them for unit tests
-class EventTarget {
+class Element {
 
-	constructor() {
+	constructor( parentElement ) {
+		this.classList = { add() {}, remove() {}, toggle() {} };
+		this.style = { setProperty() {} };
+		this.parentElement = parentElement;
 		this.__eventListeners = {};
 	}
 
@@ -22,25 +24,38 @@ class EventTarget {
 		listeners.splice( index, 1 );
 	}
 
-	$callEventListener( name, event = {} ) {
+	$callEventListener( name, event = {}, simulatePropagation = true ) {
+
 		const listeners = this.__eventListeners[ name ];
-		if ( !listeners ) return;
-		event.preventDefault = function() {};
-		event.stopPropagation = function() {};
-		listeners.forEach( l => l( event ) );
+
+		let propagate = true;
+
+		if ( !event.stopPropagation ) {
+			event.stopPropagation = () => { propagate = false; };
+		}
+
+		if ( !event.preventDefault ) {
+			event.preventDefault = () => {};
+		}
+
+		listeners?.forEach( l => l( event ) );
+
+		if ( !simulatePropagation ) return;
+
+		let parent = this.parentElement;
+		while ( propagate && parent ) {
+			parent.$callEventListener( name, event, false );
+			parent = parent.parentElement;
+		}
+
 	}
 
-}
-
-class Element extends EventTarget {
-	constructor() {
-		super();
-		this.classList = { add() {}, remove() {}, toggle() {} };
-		this.style = { setProperty() {} };
-		this.parentElement = { removeChild() {} };
+	appendChild( element ) {
+		element.parentElement = this;
 	}
-	appendChild() {}
-	removeChild() {}
+	removeChild( element ) {
+		element.parentElement = undefined;
+	}
 	replaceChildren() {}
 	insertBefore() {}
 	setAttribute() {}
@@ -79,18 +94,16 @@ function createElement( tag ) {
 	return new Element();
 }
 
-export function defineGlobals() {
-
-	global.window = new EventTarget();
+export function initShim() {
+	global.window = new Element();
 	global.window.matchMedia = () => { return { matches: true }; };
 	global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
 	global.cancelAnimationFrame = id => clearTimeout( id );
 
-	const document = new Element();
-	document.head = new Element();
-	document.body = new Element();
+	const document = new Element( window );
+	document.head = new Element( document );
+	document.body = new Element( document );
 	document.createElement = createElement;
 
 	global.document = document;
-
 }
