@@ -54,8 +54,6 @@ export default () => {
 
 		}
 
-		window.$callEventListener( 'mouseup' );
-
 		assert.deepStrictEqual(
 			actualValues,
 			expectedValues,
