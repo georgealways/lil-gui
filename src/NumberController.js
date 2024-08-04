@@ -470,9 +470,8 @@ export default class NumberController extends Controller {
 
 	_snap( value ) {
 
+		// Make the steps "start" at min or max.
 		let offset = 0;
-
-		// used to align step with min or max
 		if ( this._hasMin ) {
 			offset = this._min;
 		} else if ( this._hasMax ) {
@@ -485,8 +484,10 @@ export default class NumberController extends Controller {
 
 		value += offset;
 
-		// toPrecision and parseFloat are used to avoid floating point errors
-		return parseFloat( value.toPrecision( 15 ) );
+		// Used to prevent "flyaway" decimals like 1.00000000000001
+		value = parseFloat( value.toPrecision( 15 ) );
+
+		return value;
 
 	}
 
