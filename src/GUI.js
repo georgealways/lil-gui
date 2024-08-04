@@ -113,19 +113,11 @@ export default class GUI {
 		 * The DOM element that contains the title.
 		 * @type {HTMLElement}
 		 */
-		this.$title = document.createElement( 'div' );
+		this.$title = document.createElement( 'button' );
 		this.$title.classList.add( 'title' );
-		this.$title.setAttribute( 'role', 'button' );
 		this.$title.setAttribute( 'aria-expanded', true );
-		this.$title.setAttribute( 'tabindex', 0 );
 
 		this.$title.addEventListener( 'click', () => this.openAnimated( this._closed ) );
-		this.$title.addEventListener( 'keydown', e => {
-			if ( e.code === 'Enter' || e.code === 'Space' ) {
-				e.preventDefault();
-				this.$title.click();
-			}
-		} );
 
 		// enables :active pseudo class on mobile
 		this.$title.addEventListener( 'touchstart', () => {}, { passive: true } );
