@@ -2,10 +2,11 @@
 
 class Element {
 
-	constructor( parentElement ) {
+	constructor( tagName, parentElement ) {
 		this.classList = { add() {}, remove() {}, toggle() {} };
 		this.style = { setProperty() {} };
 		this.parentElement = parentElement;
+		this.tagName = tagName;
 		this.__eventListeners = {};
 	}
 
@@ -29,6 +30,8 @@ class Element {
 		const listeners = this.__eventListeners[ name ];
 
 		let propagate = true;
+
+		event.target = event.target || this;
 
 		if ( !event.stopPropagation ) {
 			event.stopPropagation = () => { propagate = false; };
@@ -58,7 +61,9 @@ class Element {
 	}
 	replaceChildren() {}
 	insertBefore() {}
-	setAttribute() {}
+	setAttribute( attr, val ) {
+		this[ attr ] = val;
+	}
 	removeAttribute() {}
 	toggleAttribute() {}
 	getBoundingClientRect() {
@@ -82,16 +87,23 @@ class Element {
 }
 
 class InputElement extends Element {
+	constructor( tagName, parentElement ) {
+		super( tagName, parentElement );
+		if ( tagName === 'INPUT' ) {
+			this.setAttribute( 'type', 'text' );
+		}
+	}
 	blur() { this.$callEventListener( 'blur' ); }
 	focus() { this.$callEventListener( 'focus' ); }
 	select() {}
 }
 
 function createElement( tag ) {
+	const tagName = tag.toUpperCase();
 	if ( [ 'input', 'select', 'button' ].includes( tag ) ) {
-		return new InputElement();
+		return new InputElement( tagName );
 	}
-	return new Element();
+	return new Element( tagName );
 }
 
 export function initShim() {
@@ -100,9 +112,9 @@ export function initShim() {
 	global.requestAnimationFrame = fnc => setTimeout( fnc, 100 / 6 );
 	global.cancelAnimationFrame = id => clearTimeout( id );
 
-	const document = new Element( window );
-	document.head = new Element( document );
-	document.body = new Element( document );
+	const document = new Element( 'DOCUMENT', window );
+	document.head = new Element( 'HEAD', document );
+	document.body = new Element( 'BODY', document );
 	document.createElement = createElement;
 
 	global.document = document;

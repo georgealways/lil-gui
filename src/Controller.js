@@ -79,6 +79,15 @@ export default class Controller {
 		this.domElement.appendChild( this.$name );
 		this.domElement.appendChild( this.$widget );
 
+		const stopPropagation = e => {
+			const { tagName, type } = e.target;
+			if ( tagName === 'INPUT' && [ 'text', 'number' ].includes( type ) ) {
+				e.stopPropagation();
+			}
+		};
+		this.domElement.addEventListener( 'keydown', stopPropagation );
+		this.domElement.addEventListener( 'keyup', stopPropagation );
+
 		this.parent.children.push( this );
 		this.parent.controllers.push( this );
 

@@ -35,10 +35,6 @@ export default class GUI {
 	 * @param {string} [options.title=Controls]
 	 * Name to display in the title bar.
 	 *
-	 * @param {boolean} [options.captureKeys=true]
-	 * Calls `stopPropagation()` on `keyup` and `keydown` events originating from the GUI. Pass
-	 * `false` to handle propagation manually.
-	 *
 	 * @param {boolean} [options.closeFolders=false]
 	 * Pass `true` to close all folders in this GUI by default.
 	 *
@@ -59,7 +55,6 @@ export default class GUI {
 		container,
 		width,
 		title = 'Controls',
-		captureKeys = true,
 		closeFolders = false,
 		injectStyles = true,
 		touchStyles = true
@@ -176,11 +171,6 @@ export default class GUI {
 
 		if ( width ) {
 			this.domElement.style.setProperty( '--width', width + 'px' );
-		}
-
-		if ( captureKeys ) {
-			this.domElement.addEventListener( 'keydown', e => e.stopPropagation() );
-			this.domElement.addEventListener( 'keyup', e => e.stopPropagation() );
 		}
 
 		this._closeFolders = closeFolders;
