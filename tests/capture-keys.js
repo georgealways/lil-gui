@@ -42,6 +42,13 @@ export default () => {
 		keyCode: 'Backspace'
 	} );
 
+	test( 'key events propagate from controllers if captureKeys is false', {
+		captureKeys: false,
+		elementToTest: gui => gui.add( { str: '' }, 'str' ).domElement,
+		expectedCalls: 1,
+		keyCode: 'Backspace'
+	} );
+
 	test( 'key events propagate from folder titles if captureKeys is false', {
 		captureKeys: false,
 		elementToTest: gui => gui.$title,
