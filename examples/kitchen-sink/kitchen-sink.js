@@ -374,6 +374,13 @@ make( { title: 'onChange' }, gui => {
 
 make( { title: '{ captureKeys: false }', captureKeys: false }, gui => {
 
-	gui.add( { str: 'I trigger window.keydown/up' }, 'str' );
+	gui.add( { String: 'I trigger window.keydown/up' }, 'String' );
+	gui.add( { Boolean: false }, 'Boolean' );
+	gui.add( { Options: 'a' }, 'Options', [ 'a', 'b', 'c' ] );
+
+	const folder = gui.addFolder( 'Folder' );
+	folder.add( { Filler: 0 }, 'Filler' );
+	folder.add( { Filler: 0 }, 'Filler' );
+	folder.add( { Filler: 0 }, 'Filler' );
 
 } );
