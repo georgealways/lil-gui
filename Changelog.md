@@ -1,3 +1,11 @@
+# 0.20.0
+
+??.??kb, ?.??kb gzipped
+
+- Passing `{ captureKeys: false }` to GUI's constructor will allow keyup and keydown events to propagate from the GUI. ([#138](https://github.com/georgealways/lil-gui/pull/138))
+- Fixed an issue where `step()` did not work as expected when min or max was not divisible by step. ([#142](https://github.com/georgealways/lil-gui/pull/142))
+- Folder headers now use the `<button>` element. ([#137](https://github.com/georgealways/lil-gui/pull/137))
+
 # 0.19.2
 
 29.87kb, 8.51kb gzipped
