@@ -192,8 +192,9 @@ export default class GUI {
 	 * gui.add( object, 'number', 0, 100, 1 );
 	 * gui.add( object, 'options', [ 1, 2, 3 ] );
 	 *
-	 * @param {object} object The object the controller will modify.
-	 * @param {string} property Name of the property to control.
+	 * @template T
+	 * @param {T} object The object the controller will modify.
+	 * @param {keyof T} property Name of the property to control.
 	 * @param {number|object|Array} [$1] Minimum value for number controllers, or the set of
 	 * selectable values for a dropdown.
 	 * @param {number} [max] Maximum value for number controllers.
