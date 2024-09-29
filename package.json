@@ -53,7 +53,7 @@
     "jsdoc-api": "^9.3.1",
     "markdown-it": "^12.3.2",
     "onchange": "^6.0.0",
-    "postcss": "^8.4.4",
+    "postcss": "^8.4.47",
     "postcss-cli": "^9.0.2",
     "postcss-combine-media-query": "^1.0.1",
     "rimraf": "^3.0.2",
