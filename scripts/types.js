@@ -1,3 +1,5 @@
+// jsdoc-api doesn't support "keyof", so we need to patch the generated types
+
 import fs from 'fs';
 
 const TYPES_FILE = 'dist/lil-gui.esm.d.ts';
@@ -7,7 +9,7 @@ let contents = fs.readFileSync( TYPES_FILE, 'utf-8' );
 const OLD_PARAMS = '(object: object, property: string';
 const NEW_PARAMS = '<T>(object: T, property: keyof T';
 
-console.log( 'Updating types file...\n' );
+console.log( `Types: Patching ${TYPES_FILE}...\n` );
 
 replace(
 	`add${OLD_PARAMS}`,
@@ -36,17 +38,21 @@ function replace( before, after ) {
 	const matches = contents.match( regex );
 	const count = matches ? matches.length : 0;
 	if ( count === 0 ) {
-		console.log( 'Error: Could not find any instances of:\n' );
-		console.log( `  ${before}\n` );
+		console.log( `Error: Could not find any instances of: "${before}"` );
 		process.exit( 1 );
 	} else {
 		console.log( `Replaced ${count} instances:` );
-		console.log( `-   ${before}` );
-		console.log( `+   ${after}\n` );
+		console.log( dim( before ) );
+		console.log( after );
+		console.log();
 		contents = contents.replace( regex, after );
 	}
 }
 
 function escapeRegExp( string ) {
 	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
+}
+
+function dim( str ) {
+	return `\x1b[2m${str}\x1b[0m`;
 }
