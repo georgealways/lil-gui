@@ -1,6 +1,5 @@
 /** @module GUI */
 
-import Controller from './Controller';
 import BooleanController from './BooleanController';
 import ColorController from './ColorController';
 import FunctionController from './FunctionController';
@@ -47,7 +46,6 @@ export default class GUI {
 	 *
 	 * @param {GUI} [options.parent]
 	 * Adds this GUI as a child in another GUI. Usually this is done for you by `addFolder()`.
-	 *
 	 */
 	constructor( {
 		parent,
