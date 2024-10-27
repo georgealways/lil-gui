@@ -1,4 +1,4 @@
-// jsdoc-api doesn't support "keyof", so we need to patch the generated types
+// jsdoc doesn't support "keyof", so we need to patch the generated types
 
 import fs from 'fs';
 
@@ -11,34 +11,36 @@ const NEW_PARAMS = '<T>(object: T, property: keyof T';
 
 console.log( `Types: Patching ${TYPES_FILE}...\n` );
 
-replace(
+replace( 1,
 	`add${OLD_PARAMS}`,
 	`add${NEW_PARAMS}`
 );
 
-replace(
+replace( 1,
 	`addColor${OLD_PARAMS}`,
 	`addColor${NEW_PARAMS}`
 );
 
-replace(
+replace( 2,
 	'* @param {object} object',
 	'* @param {T} object'
 );
 
-replace(
+replace( 2,
 	'* @param {string} property',
 	'* @param {keyof T} property'
 );
 
 fs.writeFileSync( TYPES_FILE, contents );
 
-function replace( before, after ) {
+function replace( expected, before, after ) {
 	const regex = new RegExp( escapeRegExp( before ), 'g' );
 	const matches = contents.match( regex );
 	const count = matches ? matches.length : 0;
-	if ( count === 0 ) {
-		console.log( `Error: Could not find any instances of: "${before}"` );
+	if ( count !== expected ) {
+		console.error( `Error: Expected ${expected} instances:` );
+		console.error( before );
+		console.error( `Found ${count}.` );
 		process.exit( 1 );
 	} else {
 		console.log( `Replaced ${count} instances:` );
