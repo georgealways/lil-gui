@@ -190,7 +190,7 @@ function getDepth( g ) {
 	return depth;
 }
 
-make( { title: 'Disable' }, gui => {
+make( { title: 'Disable Controllers' }, gui => {
 
 	gui.add( { Number: 0 }, 'Number' ).disable().enable();
 	gui.add( { Number: 0 }, 'Number' ).disable();
@@ -213,6 +213,15 @@ make( { title: 'Disable' }, gui => {
 	gui.addColor( { Color: 0xaa00ff }, 'Color' ).disable().enable();
 	gui.addColor( { Color: 0xaa00ff }, 'Color' ).disable();
 
+	const folder = gui.addFolder( 'Disable Folders' );
+	folder.add( { Number: 0 }, 'Number' );
+	folder.disable();
+
+} );
+
+make( { title: 'Disable Root' }, gui => {
+	gui.add( { Number: 0 }, 'Number' );
+	gui.disable();
 } );
 
 make( { title: 'Listen' }, gui => {

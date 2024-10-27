@@ -9,6 +9,7 @@ import StringController from './StringController';
 
 import stylesheet from 'stylesheet';
 import _injectStyles from './utils/injectStyles';
+import { disableItem, showItem } from './utils/itemUtils';
 
 let stylesInjected = false;
 
@@ -87,6 +88,12 @@ export default class GUI {
 		 * @type {Array<GUI>}
 		 */
 		this.folders = [];
+
+		/**
+		 * Used to determine if the GUI is disabled. * Use `gui.disable( true|false )` to modify this value.
+		 * @type {boolean}
+		 */
+		this._disabled = false;
 
 		/**
 		 * Used to determine if the GUI is closed. Use `gui.open()` or `gui.close()` to change this.
@@ -385,6 +392,34 @@ export default class GUI {
 	}
 
 	/**
+	 * Enables this GUI.
+	 * @param {boolean} enabled
+	 * @returns {this}
+	 * @example
+	 * gui.enable();
+	 * gui.enable( false ); // disable
+	 * gui.enable( gui._disabled ); // toggle
+	 */
+	enable( enabled = true ) {
+		return this.disable( !enabled );
+	}
+
+	/**
+	 * Disables this GUI.
+	 * @param {boolean} disabled
+	 * @returns {this}
+	 * @example
+	 * gui.disable();
+	 * gui.disable( false ); // enable
+	 * gui.disable( !gui._disabled ); // toggle
+	 */
+	disable( disabled = true ) {
+		if ( disabled ) this.close();
+
+		return disableItem( this, disabled );
+	}
+
+	/**
 	 * Closes the GUI.
 	 * @returns {this}
 	 */
@@ -408,13 +443,7 @@ export default class GUI {
 	 * gui.show( gui._hidden ); // toggle
 	 */
 	show( show = true ) {
-
-		this._hidden = !show;
-
-		this.domElement.style.display = this._hidden ? 'none' : '';
-
-		return this;
-
+		return showItem( this, show );
 	}
 
 	/**

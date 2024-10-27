@@ -1,5 +1,7 @@
 /** @module Controller */
 
+import { disableItem, showItem } from './utils/itemUtils';
+
 /**
  * Base class for all controllers.
  */
@@ -227,16 +229,7 @@ export default class Controller {
 	 * controller.disable( !controller._disabled ); // toggle
 	 */
 	disable( disabled = true ) {
-
-		if ( disabled === this._disabled ) return this;
-
-		this._disabled = disabled;
-
-		this.domElement.classList.toggle( 'disabled', disabled );
-		this.$disable.toggleAttribute( 'disabled', disabled );
-
-		return this;
-
+		return disableItem( this, disabled );
 	}
 
 	/**
@@ -249,13 +242,7 @@ export default class Controller {
 	 * controller.show( controller._hidden ); // toggle
 	 */
 	show( show = true ) {
-
-		this._hidden = !show;
-
-		this.domElement.style.display = this._hidden ? 'none' : '';
-
-		return this;
-
+		return showItem( this, show );
 	}
 
 	/**
