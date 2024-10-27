@@ -25,7 +25,7 @@
     "sass": "sass style/index.scss dist/lil-gui.css --no-charset --no-source-map",
     "postcss": "postcss dist/lil-gui.css -u postcss-combine-media-query -u cssnano --no-map -o dist/lil-gui.min.css",
     "rollup": "rollup -c",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "icons": "node scripts/icons.js",
     "test": "node tests/utils/runner.js",
     "api": "node scripts/api.js --write",
