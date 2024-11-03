@@ -1,5 +1,5 @@
-import pkg from './package.json';
-import { minify } from 'terser';
+import terser from '@rollup/plugin-terser';
+import pkg from './scripts/package.js';
 
 const input = 'src/index.js';
 
@@ -13,8 +13,7 @@ const banner = `/**
 
 const outputModule = {
 	banner,
-	format: 'es',
-	preferConst: true
+	format: 'es'
 };
 
 const outputUMD = {
@@ -80,26 +79,6 @@ function strip() {
 				code,
 				map: { mappings: '' }
 			};
-		}
-	};
-}
-
-function terser( options ) {
-	return {
-		name: 'terser',
-		renderChunk( code ) {
-			const result = minify( code, options );
-			if ( result.error ) throw result.error;
-			if ( result.warnings ) {
-				result.warnings.forEach( warning => {
-					this.warn( warning );
-				} );
-			}
-			return {
-				code: result.code,
-				map: result.map
-			};
-
 		}
 	};
 }

@@ -28,8 +28,9 @@ const transformed = [];
 // then stored in this map by longname
 const topLevel = {};
 
-jsdoc.explainSync( { files: JSDOC_INPUT } )
-	.filter( v => v.undocumented !== true )
+const data = await jsdoc.explain( { files: JSDOC_INPUT } );
+
+data.filter( v => v.undocumented !== true )
 	.filter( v => v.kind !== 'package' )
 	.filter( v => v.kind !== 'module' )
 	.forEach( transform );
