@@ -1,8 +1,8 @@
-# 0.19.2-dev
+# 0.20.0
 
-??.??kb, ?.??kb gzipped
+29.81kb, 8.51kb gzipped
 
-- TypeScript: `gui.add` ensures that the property exists on the target object. ([#146](https://github.com/georgealways/lil-gui/pull/146))
+- Improved TypeScript defintions: `gui.add` & `addColor` ensure that the property exists on the target object. ([#146](https://github.com/georgealways/lil-gui/pull/146))
 - Fixed an issue where `step()` did not work as expected when min or max was not divisible by step. ([#142](https://github.com/georgealways/lil-gui/pull/142))
 - Folder headers now use the `<button>` element. ([#137](https://github.com/georgealways/lil-gui/pull/137))
 
