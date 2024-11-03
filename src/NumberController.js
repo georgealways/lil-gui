@@ -470,16 +470,24 @@ export default class NumberController extends Controller {
 
 	_snap( value ) {
 
-		// This would be the logical way to do things, but floating point errors.
-		// return Math.round( value / this._step ) * this._step;
+		// Make the steps "start" at min or max.
+		let offset = 0;
+		if ( this._hasMin ) {
+			offset = this._min;
+		} else if ( this._hasMax ) {
+			offset = this._max;
+		}
 
-		// Using inverse step solves a lot of them, but not all
-		// const inverseStep = 1 / this._step;
-		// return Math.round( value * inverseStep ) / inverseStep;
+		value -= offset;
 
-		// Not happy about this, but haven't seen it break.
-		const r = Math.round( value / this._step ) * this._step;
-		return parseFloat( r.toPrecision( 15 ) );
+		value = Math.round( value / this._step ) * this._step;
+
+		value += offset;
+
+		// Used to prevent "flyaway" decimals like 1.00000000000001
+		value = parseFloat( value.toPrecision( 15 ) );
+
+		return value;
 
 	}
 

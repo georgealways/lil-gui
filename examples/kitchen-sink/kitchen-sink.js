@@ -52,8 +52,9 @@ make( { title: 'Implicit step' }, gui => {
 
 make( { title: 'Explicit step' }, gui => {
 
-	const explicitStep = ( min, max, step, label = step ) => {
-		gui.add( { x: max }, 'x', min, max, step ).name( `[${min},${max}] step ${label}` );
+	const explicitStep = ( min, max, step, label, folder = gui ) => {
+		let x = min === undefined ? max : min;
+		folder.add( { x }, 'x', min, max, step ).name( label || `[${min},${max}] step ${step}` );
 	};
 
 	explicitStep( 0, 100, 1 );
@@ -61,7 +62,14 @@ make( { title: 'Explicit step' }, gui => {
 	explicitStep( -1, 1, 0.25 );
 	explicitStep( 1, 16, .01 );
 	explicitStep( 0, 15, .015 );
-	explicitStep( 0, 5, 1 / 3, '1/3' );
+	explicitStep( 0, 5, 1 / 3, '[0,5] step 1/3' );
+
+	const folder = gui.addFolder( 'Unaligned step' );
+
+	explicitStep( 1, 11, 2, '', folder );
+	explicitStep( 1, 11, 3, '', folder );
+	explicitStep( 1, undefined, 3, '[1,∞] step 3', folder );
+	explicitStep( undefined, 10, 3, '[-∞,10] step 3', folder );
 
 } );
 
