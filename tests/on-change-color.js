@@ -11,7 +11,8 @@ export default () => {
 		string: '#00ffaa',
 		hex: 0x00ffaa,
 		obj: { r: 0, g: 1, b: 0.6 },
-		arr: [ 0, 1, 0.6 ]
+		arr: [ 0, 1, 0.6 ],
+		view: new Float32Array( [ 0, 1, 0.6 ] )
 	};
 
 	for ( const kind in colors ) {

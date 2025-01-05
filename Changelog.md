@@ -1,3 +1,9 @@
+# 0.20.0-dev
+
+??.??kb, ?.??kb gzipped
+
+- `addColor` now supports `Float32Array` and other typed arrays.
+
 # 0.20.0
 
 29.81kb, 8.51kb gzipped

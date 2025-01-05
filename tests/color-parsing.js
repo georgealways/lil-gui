@@ -13,11 +13,13 @@ export default () => {
 	};
 
 	const arr = [ obj.r, obj.g, obj.b ];
+	const view = new Float32Array( arr );
 	const int = 0x7a26ab;
 	const string = '#7a26ab';
 
 	assert.strictEqual( gui.addColor( { obj }, 'obj' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { arr }, 'arr' ).$input.value, string );
+	assert.strictEqual( gui.addColor( { view }, 'view' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { int }, 'int' ).$input.value, string );
 	assert.strictEqual( gui.addColor( { string }, 'string' ).$input.value, string );
 

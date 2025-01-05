@@ -14,11 +14,18 @@ export default () => {
 
 	assert.strictEqual( ctrl1.getValue(), colorArr, 'reset color array retains reference' );
 
-	const colorObj = { r: 0, g: 0.2, b: 0 };
-	const ctrl2 = gui.addColor( { colorObj }, 'colorObj' );
+	const colorView = new Float32Array( colorArr );
+	const ctrl2 = gui.addColor( { colorView }, 'colorView' );
 	ctrl2._setValueFromHexString( '#00f' );
 	ctrl2.reset();
 
-	assert.strictEqual( ctrl2.getValue(), colorObj, 'reset color obj retains reference' );
+	assert.strictEqual( ctrl2.getValue(), colorView, 'reset color view retains reference' );
+
+	const colorObj = { r: 0, g: 0.2, b: 0 };
+	const ctrl3 = gui.addColor( { colorObj }, 'colorObj' );
+	ctrl3._setValueFromHexString( '#00f' );
+	ctrl3.reset();
+
+	assert.strictEqual( ctrl3.getValue(), colorObj, 'reset color obj retains reference' );
 
 };
