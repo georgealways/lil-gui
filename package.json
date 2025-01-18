@@ -6,6 +6,10 @@
   },
   "description": "Makes a floating panel for controllers on the web.",
   "homepage": "https://lil-gui.georgealways.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/georgealways/lil-gui"
+  },
   "type": "module",
   "module": "dist/lil-gui.esm.js",
   "main": "dist/lil-gui.umd.js",
