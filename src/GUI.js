@@ -527,6 +527,7 @@ export default class GUI {
 				controller
 			} );
 		}
+
 	}
 
 	/**
@@ -565,6 +566,7 @@ export default class GUI {
 				controller
 			} );
 		}
+
 	}
 
 	/**

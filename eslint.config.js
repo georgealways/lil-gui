@@ -8,6 +8,15 @@ export default [
 
 	{ ignores: [ 'dist' ] },
 
+	// custom
+	{
+		rules: {
+			'no-param-reassign': 'off',
+			'import/order': 'off',
+			'@gmb/comma-dangle-single': 'off',
+		}
+	},
+
 	// jsdoc
 	{
 		files: [ 'src/**/*.js' ],
