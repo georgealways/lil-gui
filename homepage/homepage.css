@@ -7,23 +7,23 @@
 	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
 		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-	--font-size: 15px;
-	--line-height: 1.6;
-	--rule: #bbaea8c4;
-	--background: #d3c7c0;
+	--font-size: 16px;
+	--line-height: 1.7;
+	--rule: #bbaea89c;
+	--background: #e1dad6;
 	--foreground: #2f2c30;
-	--link: #0064c8;
+	--link: #1174d7;
 	--pre-code: #d1d0cc;
 	--inline-code: #865c00;
 	--code-number: #5ed4ff;
 	--code-string: #b4ee64d4;
-	--code-literal: #c36ff0;
+	--code-literal: #c466f3;
 	--code-special: #6ee6d2;
 	--code-comment: #84858a;
-	--pre-background: #262128;
+	--pre-background: #212728;
 	--result-header: #5e6371;
-	--result-background: #cbc4c4;
-	--result-shadow: #503a1540;
+	--result-background: #e7e0dd;
+	--result-shadow: #503a1538;
 	--toc-width: 210px;
 	--toc-button-size: 40px;
 	--toc-button-margin: 1rem;
@@ -33,11 +33,12 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
+		-webkit-font-smoothing: antialiased;
 		--rule: #43444c;
-		--background: #27282c;
+		--background: #21272f;
 		--foreground: #cdcac7;
-		--pre-background: #1f1d22;
-		--link: #5ed4ff;
+		--pre-background: #131a22;
+		--link: #6fe3ff;
 		--inline-code: #e1bd70;
 		--result-header: #434f5b;
 		--result-background: #7b8087;
@@ -55,7 +56,6 @@ body {
 }
 
 html {
-	-webkit-font-smoothing: antialiased;
 	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;
 }
@@ -93,6 +93,7 @@ pre {
 	font-family: var(--font-family-code);
 	border-radius: var(--border-radius);
 	tab-size: 4;
+	font-size: 14px;
 }
 
 code {
@@ -258,7 +259,6 @@ main {
 	padding: 0 1rem;
 	top: 0;
 	background: var(--background);
-	border-right: 1px solid var(--rule);
 	z-index: 1002;
 	font-size: 12px;
 	line-height: 21px;
@@ -275,10 +275,10 @@ main {
 #toc h1 {
 	font-size: 14px;
 	font-weight: 600;
-	/* spacing lives in h1 so it has 
-     * padding when scrolled into view */
+	/* spacing lives in h1 so it has padding when scrolled into view */
 	margin-top: 0;
 	padding-top: 1rem;
+	opacity: 0.5;
 }
 
 #toc h2 {
@@ -292,14 +292,20 @@ main {
 	font-style: italic;
 }
 
-#toc ol,
-#toc ul {
+#toc ol {
+	margin-top: -0.5rem;
 	margin-bottom: 1rem;
-	padding-left: 1rem;
+	padding-left: 1.6rem;
+	border-left: 2px solid var(--rule);
+	margin-left: 0.3rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 }
 
 #toc a {
 	color: var(--foreground);
+	display: block;
+	width: 100%;
 }
 
 /* active section highlight */
@@ -446,6 +452,12 @@ main .api-index ul {
 .autoPlace {
 	will-change: opacity;
 	transition: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	.autoPlace {
+		box-shadow: 0 0 65px -25px #4f555e;
+	}
 }
 
 .loaded .autoPlace {
