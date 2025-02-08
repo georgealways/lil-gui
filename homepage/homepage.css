@@ -38,7 +38,7 @@
 		--background: #21272f;
 		--foreground: #cdcac7;
 		--pre-background: #131a22;
-		--link: #6fe3ff;
+		--link: #5bd2ed;
 		--inline-code: #e1bd70;
 		--result-header: #434f5b;
 		--result-background: #7b8087;
@@ -457,12 +457,6 @@ main .api-index h3 {
 .autoPlace {
 	will-change: opacity;
 	transition: none;
-}
-
-@media (prefers-color-scheme: dark) {
-	.autoPlace {
-		box-shadow: 0 0 65px -25px #4f555e;
-	}
 }
 
 .loaded .autoPlace {
