@@ -295,11 +295,9 @@ main {
 #toc ol {
 	margin-top: -0.5rem;
 	margin-bottom: 1rem;
-	padding-left: 1.6rem;
+	padding-left: 1.5rem;
 	border-left: 2px solid var(--rule);
-	margin-left: 0.3rem;
-	padding-top: 0.25rem;
-	padding-bottom: 0.25rem;
+	margin-left: 0.25rem;
 }
 
 #toc a {
@@ -424,8 +422,15 @@ main .api-index a {
 	color: var(--foreground);
 }
 
-main .api-index ul {
-	margin: 0;
+main .api-index h3 {
+	border: none;
+	list-style: none;
+	font-size: 0.7em;
+	letter-spacing: 0.25em;
+	opacity: 0.5;
+	text-transform: uppercase;
+	padding-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 /* member declarations vary weight */

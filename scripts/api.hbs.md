@@ -6,10 +6,15 @@
 
 <div class="class">
 
-## [**{{name}}** (Class)](#{{{name}}})
-{{#children}}
+## [**{{name}}**](#{{{name}}})
+### Methods
+{{#methods}}
   - [{{indexname}}](#{{{longname}}})
-{{/children}}
+{{/methods}}
+### Properties
+{{#properties}}
+  - [{{indexname}}](#{{{longname}}})
+{{/properties}}
 
 </div>
 
