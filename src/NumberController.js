@@ -4,7 +4,7 @@ export default class NumberController extends Controller {
 
 	constructor( parent, object, property, min, max, step ) {
 
-		super( parent, object, property, 'number' );
+		super( parent, object, property, 'lg-number' );
 
 		this._initInput();
 
