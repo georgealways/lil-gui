@@ -42,7 +42,7 @@
 		text-decoration: none !important;
 	}
 
-	&.closed {
+	&.lg-closed {
 		> .lg-title:before {
 			content: '▸';
 		}
@@ -86,7 +86,7 @@
 		transition: border-color 300ms;
 	}
 
-	&.lg-root > .lg-children > &.closed > .lg-title {
+	&.lg-root > .lg-children > &.lg-closed > .lg-title {
 		border-bottom-color: transparent;
 	}
 
