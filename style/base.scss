@@ -1,14 +1,14 @@
 @mixin touch-vars {
 
 	@media (pointer: coarse) {
-		&.allow-touch-styles,
-		&.allow-touch-styles & {
+		&.lg-allow-touch-styles,
+		&.lg-allow-touch-styles & {
 			@content;
 		}
 	}
 
-	&.force-touch-styles,
-	&.force-touch-styles & {
+	&.lg-force-touch-styles,
+	&.lg-force-touch-styles & {
 		@content;
 	}
 
@@ -38,16 +38,16 @@
 		padding: 0;
 	}
 
-	&.root {
+	&.lg-root {
 		width: var(--width, 245px);
 		display: flex;
 		flex-direction: column;
 		background: var(--background-color);
-		> .title {
+		> .lg-title {
 			background: var(--title-background-color);
 			color: var(--title-text-color);
 		}
-		> .children {
+		> .lg-children {
 			overflow-x: hidden;
 			overflow-y: auto;
 			&::-webkit-scrollbar {
@@ -106,7 +106,7 @@
 		--color-input-min-width: 65px;
 	}
 
-	&.autoPlace {
+	&.lg-auto-place {
 		max-height: 100%;
 		position: fixed;
 		top: 0;

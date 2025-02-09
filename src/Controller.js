@@ -50,7 +50,7 @@ export default class Controller {
 		 * @type {HTMLElement}
 		 */
 		this.domElement = document.createElement( elementType );
-		this.domElement.classList.add( 'controller' );
+		this.domElement.classList.add( 'lg-controller' );
 		this.domElement.classList.add( className );
 
 		/**
@@ -58,7 +58,7 @@ export default class Controller {
 		 * @type {HTMLElement}
 		 */
 		this.$name = document.createElement( 'div' );
-		this.$name.classList.add( 'name' );
+		this.$name.classList.add( 'lg-name' );
 
 		Controller.nextNameID = Controller.nextNameID || 0;
 		this.$name.id = `lil-gui-name-${++Controller.nextNameID}`;
@@ -68,7 +68,7 @@ export default class Controller {
 		 * @type {HTMLElement}
 		 */
 		this.$widget = document.createElement( 'div' );
-		this.$widget.classList.add( 'widget' );
+		this.$widget.classList.add( 'lg-widget' );
 
 		/**
 		 * The DOM element that receives the disabled attribute when using disable().
@@ -232,7 +232,7 @@ export default class Controller {
 
 		this._disabled = disabled;
 
-		this.domElement.classList.toggle( 'disabled', disabled );
+		this.domElement.classList.toggle( 'lg-disabled', disabled );
 		this.$disable.toggleAttribute( 'disabled', disabled );
 
 		return this;

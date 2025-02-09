@@ -23,7 +23,7 @@ is likely to break.
 
 CSS class names are also different:
 
-- `.dg.ac` is now `.lil-gui.autoPlace`.
+- `.dg.ac` is now `.lg-auto-place`.
 
 ## Color Controller Changes
 

@@ -71,7 +71,7 @@
 		border: none;
 	}
 
-	.controller button {
+	.lg-controller button {
 		height: var(--widget-height);
 
 		// todo: this is only here because three.js defines a global button style
@@ -79,7 +79,6 @@
 
 		background: var(--widget-color);
 		border-radius: var(--widget-border-radius);
-
 
 		@include can-hover {
 			&:hover {

@@ -7,7 +7,7 @@ export default class ColorController extends Controller {
 
 	constructor( parent, object, property, rgbScale ) {
 
-		super( parent, object, property, 'color' );
+		super( parent, object, property, 'lg-color' );
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'color' );
@@ -20,7 +20,7 @@ export default class ColorController extends Controller {
 		this.$text.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$display = document.createElement( 'div' );
-		this.$display.classList.add( 'display' );
+		this.$display.classList.add( 'lg-display' );
 
 		this.$display.appendChild( this.$input );
 		this.$widget.appendChild( this.$display );

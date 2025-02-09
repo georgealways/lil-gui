@@ -4,7 +4,7 @@ export default class BooleanController extends Controller {
 
 	constructor( parent, object, property ) {
 
-		super( parent, object, property, 'boolean', 'label' );
+		super( parent, object, property, 'lg-boolean', 'label' );
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'checkbox' );

@@ -247,15 +247,15 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		this.$slider = document.createElement( 'div' );
-		this.$slider.classList.add( 'slider' );
+		this.$slider.classList.add( 'lg-slider' );
 
 		this.$fill = document.createElement( 'div' );
-		this.$fill.classList.add( 'fill' );
+		this.$fill.classList.add( 'lg-fill' );
 
 		this.$slider.appendChild( this.$fill );
 		this.$widget.insertBefore( this.$slider, this.$input );
 
-		this.domElement.classList.add( 'hasSlider' );
+		this.domElement.classList.add( 'lg-has-slider' );
 
 		// Map clientX to value
 		// ---------------------------------------------------------------------
@@ -401,10 +401,10 @@ export default class NumberController extends Controller {
 
 	_setDraggingStyle( active, axis = 'horizontal' ) {
 		if ( this.$slider ) {
-			this.$slider.classList.toggle( 'active', active );
+			this.$slider.classList.toggle( 'lg-active', active );
 		}
-		document.body.classList.toggle( 'lil-gui-dragging', active );
-		document.body.classList.toggle( `lil-gui-${axis}`, active );
+		document.body.classList.toggle( 'lg-dragging', active );
+		document.body.classList.toggle( `lg-${axis}`, active );
 	}
 
 	_getImplicitStep() {
