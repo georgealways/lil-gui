@@ -109,7 +109,10 @@ pre code {
 p code,
 li code {
 	white-space: nowrap;
-	font-size: 0.95em;
+	font-size: 0.8em;
+	background-color: var(--pre-background);
+	padding: 5px;
+	border-radius: 3px;
 }
 
 hr {
@@ -278,23 +281,30 @@ main {
 	padding-top: 1rem;
 }
 
-#toc h2 {
+#toc h2,
+#toc h3 {
 	font-size: 14px;
 	font-weight: 600;
 }
 
-#toc h3 {
-	font-size: 12px;
-	font-weight: 400;
-	font-style: italic;
-}
 
-#toc ol {
+#toc ol,
+#toc ul {
 	margin-top: -0.5rem;
 	margin-bottom: 1rem;
 	padding-left: 1.5rem;
 	border-left: 2px solid var(--rule);
-	margin-left: 0.25rem;
+}
+
+#toc ul {
+	padding-left: 1.25rem;
+}
+
+#toc ul li:has(strong) {
+	color: var(--code-literal);
+}
+#toc ul li {
+	color: var(--code-number);
 }
 
 #toc a {
@@ -304,10 +314,10 @@ main {
 
 /* active section highlight */
 #toc h2.active a,
-#toc li.active,
 #toc li.active a {
 	color: var(--link);
 }
+
 
 /* toc button */
 

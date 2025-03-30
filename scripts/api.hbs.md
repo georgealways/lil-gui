@@ -7,14 +7,9 @@
 <div class="class">
 
 ## [**{{name}}**](#{{{name}}})
-### Methods
-{{#methods}}
+{{#children}}
   - [{{indexname}}](#{{{longname}}})
-{{/methods}}
-### Properties
-{{#properties}}
-  - [{{indexname}}](#{{{longname}}})
-{{/properties}}
+{{/children}}
 
 </div>
 
@@ -26,7 +21,7 @@
 
 {{#jsdocData}}
 
-# <a name="{{{name}}}"></a> {{name}} (Class)
+# <a name="{{{name}}}"></a> {{name}}
 
 {{#children}}
 

@@ -108,8 +108,6 @@ function transform( v ) {
 		v.description = v.description || v.classdesc;
 
 		v.children = [];
-		v.methods = [];
-		v.properties = [];
 
 	} else if ( v.kind === 'member' && v.scope === 'instance' ) {
 
@@ -169,12 +167,6 @@ transformed.forEach( v => {
 			delete v.children;
 		}
 
-		if ( v.kind === 'function' || v.kind === 'class' ) {
-			parent.methods.push( v );
-		} else {
-			parent.properties.push( v );
-		}
-
 		parent.children.push( v );
 
 	}
@@ -191,13 +183,7 @@ jsdocData.sort( ( a, b ) => {
 
 // sort children by kind, then alphabetically with special chars at the end
 jsdocData.forEach( t => {
-
-	const sort = arr => arr.sort( childSort( [ ...arr ] ) );
-
-	sort( t.methods );
-	sort( t.properties );
-	sort( t.children );
-
+	t.children.sort( childSort( Array.from( t.children ) ) );
 } );
 
 // write to markdown
