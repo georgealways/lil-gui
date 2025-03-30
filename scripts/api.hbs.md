@@ -32,7 +32,7 @@
 
 ## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
 
-{{{description}}} <small>(<a href="{{{sourcelink}}}">{{sourcetext}}</a>)</small>
+{{{description}}}
 
 {{#examples}}
 ```js
