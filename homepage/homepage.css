@@ -4,46 +4,30 @@
 }
 
 :root {
-	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	--font-family-code: Menlo, Monaco, Consolas, 'Droid Sans Mono', monospace, 'Droid Sans Fallback';
-	--font-size: 15px;
-	--line-height: 1.6;
-	--rule: #bbaea8c4;
-	--background: #d3c7c0;
-	--foreground: #2f2c30;
-	--link: #0064c8;
+	--font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	--font-family-code: Menlo, Monaco, Consolas, 'Courier New', monospace;
+	--font-size: 16px;
+	--line-height: 1.7;
+	--rule: #52525952;
+	--background: #272727;
+	--foreground: #ebebebde;
+	--pre-background: #1a1a1a;
+	--link: #8ad0f5;
+	--inline-code: #cbaf72;
 	--pre-code: #d1d0cc;
-	--inline-code: #865c00;
 	--code-number: #5ed4ff;
 	--code-string: #b4ee64d4;
-	--code-literal: #c36ff0;
+	--code-literal: #c466f3;
 	--code-special: #6ee6d2;
 	--code-comment: #84858a;
-	--pre-background: #262128;
-	--result-header: #5e6371;
-	--result-background: #cbc4c4;
-	--result-shadow: #503a1540;
+	--result-header: #434f5b;
+	--result-background: #5d6b79;
+	--result-shadow: #00000063;
 	--toc-width: 210px;
 	--toc-button-size: 40px;
 	--toc-button-margin: 1rem;
-	--toc-button-border: #0003;
-	--border-radius: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--rule: #43444c;
-		--background: #27282c;
-		--foreground: #cdcac7;
-		--pre-background: #1f1d22;
-		--link: #5ed4ff;
-		--inline-code: #e1bd70;
-		--result-header: #434f5b;
-		--result-background: #7b8087;
-		--result-shadow: #00000040;
-		--toc-button-border: #0007;
-	}
+	--toc-button-border: #00000073;
+	--border-radius: 4px;
 }
 
 html,
@@ -93,6 +77,7 @@ pre {
 	font-family: var(--font-family-code);
 	border-radius: var(--border-radius);
 	tab-size: 4;
+	font-size: 14px;
 }
 
 code {
@@ -109,7 +94,10 @@ pre code {
 p code,
 li code {
 	white-space: nowrap;
-	font-size: 0.95em;
+	font-size: 0.8em;
+	background-color: var(--pre-background);
+	padding: 5px;
+	border-radius: 3px;
 }
 
 hr {
@@ -258,7 +246,6 @@ main {
 	padding: 0 1rem;
 	top: 0;
 	background: var(--background);
-	border-right: 1px solid var(--rule);
 	z-index: 1002;
 	font-size: 12px;
 	line-height: 21px;
@@ -274,40 +261,47 @@ main {
 
 #toc h1 {
 	font-size: 14px;
-	font-weight: 600;
-	/* spacing lives in h1 so it has 
-     * padding when scrolled into view */
+	font-weight: 800;
 	margin-top: 0;
 	padding-top: 1rem;
 }
 
-#toc h2 {
+#toc h2,
+#toc h3 {
 	font-size: 14px;
 	font-weight: 600;
 }
 
-#toc h3 {
-	font-size: 12px;
-	font-weight: 400;
-	font-style: italic;
-}
 
 #toc ol,
 #toc ul {
+	margin-top: -0.5rem;
 	margin-bottom: 1rem;
 	padding-left: 1rem;
 }
 
 #toc a {
 	color: var(--foreground);
+	display: block;
+}
+
+/* api toc */
+
+.api-index li:has(strong) {
+	color: var(--code-literal);
+}
+
+.api-index li {
+	list-style: square;
+	color: var(--code-number);
 }
 
 /* active section highlight */
 #toc h2.active a,
-#toc li.active,
 #toc li.active a {
 	color: var(--link);
 }
+
 
 /* toc button */
 
@@ -388,16 +382,17 @@ main {
 }
 
 .result::before {
-	content: 'Result';
-	color: var(--pre-code);
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	content: '';
 	position: absolute;
 	left: 8px;
-	font-size: 11px;
-	font-weight: 600;
-	top: calc(-1 * var(--header-size));
-	height: var(--header-size);
-	display: flex;
-	align-items: center;
+	background-color: #ff5f56;
+	box-shadow:
+		18px 0 0 0 #ffbd2e,
+		36px 0 0 0 #27c93f;
+	top: calc(-1 * var(--header-size) + 7px);
 }
 
 /* api */
@@ -418,8 +413,12 @@ main .api-index a {
 	color: var(--foreground);
 }
 
-main .api-index ul {
-	margin: 0;
+main .api-index h3 {
+	border: none;
+	list-style: none;
+	opacity: 0.5;
+	padding-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
 /* member declarations vary weight */
