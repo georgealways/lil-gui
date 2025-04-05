@@ -292,26 +292,23 @@ main {
 #toc ul {
 	margin-top: -0.5rem;
 	margin-bottom: 1rem;
-	padding-left: 1.5rem;
-	border-left: 2px solid var(--rule);
-}
-
-#toc ul {
-	padding-left: 1.25rem;
-}
-
-#toc ul li:has(strong) {
-	color: var(--code-literal);
-}
-
-#toc ul li {
-	list-style: square;
-	color: var(--code-number);
+	padding-left: 1rem;
 }
 
 #toc a {
 	color: var(--foreground);
 	display: block;
+}
+
+/* api toc */
+
+.api-index li:has(strong) {
+	color: var(--code-literal);
+}
+
+.api-index li {
+	list-style: square;
+	color: var(--code-number);
 }
 
 /* active section highlight */
