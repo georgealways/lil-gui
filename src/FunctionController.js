@@ -4,7 +4,7 @@ export default class FunctionController extends Controller {
 
 	constructor( parent, object, property ) {
 
-		super( parent, object, property, 'lg-function' );
+		super( parent, object, property, 'lil-function' );
 
 		// Buttons are the only case where widget contains name
 		this.$button = document.createElement( 'button' );

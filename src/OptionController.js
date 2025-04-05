@@ -4,13 +4,13 @@ export default class OptionController extends Controller {
 
 	constructor( parent, object, property, options ) {
 
-		super( parent, object, property, 'lg-option' );
+		super( parent, object, property, 'lil-option' );
 
 		this.$select = document.createElement( 'select' );
 		this.$select.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$display = document.createElement( 'div' );
-		this.$display.classList.add( 'lg-display' );
+		this.$display.classList.add( 'lil-display' );
 
 		this.$select.addEventListener( 'change', () => {
 			this.setValue( this._values[ this.$select.selectedIndex ] );
@@ -18,11 +18,11 @@ export default class OptionController extends Controller {
 		} );
 
 		this.$select.addEventListener( 'focus', () => {
-			this.$display.classList.add( 'lg-focus' );
+			this.$display.classList.add( 'lil-focus' );
 		} );
 
 		this.$select.addEventListener( 'blur', () => {
-			this.$display.classList.remove( 'lg-focus' );
+			this.$display.classList.remove( 'lil-focus' );
 		} );
 
 		this.$widget.appendChild( this.$select );
