@@ -6,7 +6,7 @@
 
 <div class="class">
 
-## [**{{name}}** (Class)](#{{{name}}})
+## [**{{name}}**](#{{{name}}})
 {{#children}}
   - [{{indexname}}](#{{{longname}}})
 {{/children}}
@@ -21,13 +21,13 @@
 
 {{#jsdocData}}
 
-# <a name="{{{name}}}"></a> {{name}} (Class)
+# <a name="{{{name}}}"></a> {{name}}
 
 {{#children}}
 
 ## <a name="{{{longname}}}"></a> {{{signature}}}{{{parens}}}
 
-{{{description}}} <small>(<a href="{{{sourcelink}}}">{{sourcetext}}</a>)</small>
+{{{description}}}
 
 {{#examples}}
 ```js
