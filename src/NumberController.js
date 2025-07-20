@@ -382,7 +382,7 @@ export default class NumberController extends Controller {
 
 			// set value
 			const delta = this._normalizeMouseWheel( e ) * this._step;
-			this._snapClampSetValue( this.getValue() + delta );
+			this._snapClampSetValue( this.getValue() + delta, false );
 
 			// force the input to updateDisplay when it's focused
 			this.$input.value = this.getValue();
