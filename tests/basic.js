@@ -1,12 +1,12 @@
 import assert from 'assert';
 import GUI,
 {
-	GUI as _GUI,
 	BooleanController,
-	StringController,
 	FunctionController,
 	NumberController,
-	OptionController
+	OptionController,
+	StringController,
+	GUI as _GUI
 } from '../dist/lil-gui.esm.min.js';
 
 export default () => {

@@ -1,5 +1,3 @@
-/* eslint-disable no-cond-assign */
-
 export default function( string ) {
 
 	let match, result;

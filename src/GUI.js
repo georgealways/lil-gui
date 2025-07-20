@@ -24,7 +24,7 @@ export default class GUI {
 	 * @param {boolean} [options.autoPlace=true]
 	 * Adds the GUI to `document.body` and fixes it to the top right of the page.
 	 *
-	 * @param {HTMLElement} [options.container]
+	 * @param {Node} [options.container]
 	 * Adds the GUI to this DOM element. Overrides `autoPlace`.
 	 *
 	 * @param {number} [options.width=245]
@@ -527,6 +527,7 @@ export default class GUI {
 				controller
 			} );
 		}
+
 	}
 
 	/**
@@ -565,6 +566,7 @@ export default class GUI {
 				controller
 			} );
 		}
+
 	}
 
 	/**

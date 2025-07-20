@@ -101,7 +101,6 @@ function transform( v ) {
 			v.memberof = v.longname;
 
 			v.longname += '#constructor';
-
 		}
 
 		// sometimes get classdesc instead of regular desc for classes
