@@ -200,7 +200,6 @@ export default class Controller {
 	 */
 	reset() {
 		this.setValue( this.initialValue );
-		this._callOnFinishChange();
 		return this;
 	}
 
@@ -401,12 +400,15 @@ export default class Controller {
 	 * @param {any} value
 	 * @returns {this}
 	 */
-	setValue( value ) {
+	setValue( value, finishChange = true ) {
 
 		if ( this.getValue() !== value ) {
 
 			this.object[ this.property ] = value;
 			this._callOnChange();
+			if ( finishChange ) {
+				this._callOnFinishChange();
+			}
 			this.updateDisplay();
 
 		}
@@ -426,7 +428,6 @@ export default class Controller {
 
 	load( value ) {
 		this.setValue( value );
-		this._callOnFinishChange();
 		return this;
 	}
 

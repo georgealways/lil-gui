@@ -95,7 +95,7 @@ export default class NumberController extends Controller {
 				value = this._snap( value );
 			}
 
-			this.setValue( this._clamp( value ) );
+			this.setValue( this._clamp( value ), false );
 
 		};
 
@@ -108,7 +108,7 @@ export default class NumberController extends Controller {
 
 			if ( isNaN( value ) ) return;
 
-			this._snapClampSetValue( value + delta );
+			this._snapClampSetValue( value + delta, false );
 
 			// Force the input to updateDisplay when it's focused
 			this.$input.value = this.getValue();
@@ -202,7 +202,7 @@ export default class NumberController extends Controller {
 					dragDelta = this._min - initValue;
 				}
 
-				this._snapClampSetValue( initValue + dragDelta );
+				this._snapClampSetValue( initValue + dragDelta, false );
 
 			}
 
@@ -226,8 +226,8 @@ export default class NumberController extends Controller {
 
 		const onBlur = () => {
 			this._inputFocused = false;
-			this.updateDisplay();
 			this._callOnFinishChange();
+			this.updateDisplay();
 		};
 
 		this.$input.addEventListener( 'input', onInput );
@@ -267,7 +267,7 @@ export default class NumberController extends Controller {
 		const setValueFromX = clientX => {
 			const rect = this.$slider.getBoundingClientRect();
 			let value = map( clientX, rect.left, rect.right, this._min, this._max );
-			this._snapClampSetValue( value );
+			this._snapClampSetValue( value, false );
 		};
 
 		// Mouse drag
@@ -498,8 +498,8 @@ export default class NumberController extends Controller {
 		return value;
 	}
 
-	_snapClampSetValue( value ) {
-		this.setValue( this._clamp( this._snap( value ) ) );
+	_snapClampSetValue( value, finishChange = true ) {
+		this.setValue( this._clamp( this._snap( value ) ), finishChange );
 	}
 
 	get _hasScrollBar() {

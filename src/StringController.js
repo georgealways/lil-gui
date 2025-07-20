@@ -12,7 +12,7 @@ export default class StringController extends Controller {
 		this.$input.setAttribute( 'aria-labelledby', this.$name.id );
 
 		this.$input.addEventListener( 'input', () => {
-			this.setValue( this.$input.value );
+			this.setValue( this.$input.value, false );
 		} );
 
 		this.$input.addEventListener( 'keydown', e => {
