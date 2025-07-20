@@ -24,7 +24,14 @@ export default [
 		rules: {
 			'jsdoc/require-description-complete-sentence': 'warn',
 			'jsdoc/require-description': 'warn',
-			'jsdoc/tag-lines': [ 'warn', 'any', { tags: { description: { lines: 'never' } } } ],
+			// forbid newlines after description
+			'jsdoc/tag-lines': [ 'warn', 'any', {
+				tags: {
+					description: {
+						lines: 'never'
+					}
+				}
+			} ],
 		}
 	},
 
