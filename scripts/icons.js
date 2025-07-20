@@ -17,10 +17,10 @@ const getIconId = ( { basename } ) => `icon-${basename}`;
 const codepoints = {};
 const files = await fs.readdir( INPUT_DIR );
 
-// get codepoints from the file names
+// get codepoints from the file names (uXXXX-icon-name)
 for ( const file of files ) {
 	const basename = path.basename( file, '.svg' );
-	const codepoint = parseInt( basename.substring( 0, 4 ), 16 );
+	const codepoint = parseInt( basename.substring( 1, 5 ), 16 );
 	const iconId = getIconId( { basename } );
 	codepoints[ iconId ] = codepoint;
 }
