@@ -1,4 +1,4 @@
-import { make, container } from './kitchen-sink.js';
+import { container, make } from './kitchen-sink.js';
 
 const Default = {};
 const themes = {

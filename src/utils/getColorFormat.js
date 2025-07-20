@@ -30,9 +30,9 @@ const ARRAY = {
 
 		rgbScale = 255 / rgbScale;
 
-		const int = ( r * rgbScale ) << 16 ^
-			( g * rgbScale ) << 8 ^
-			( b * rgbScale ) << 0;
+		const int = r * rgbScale << 16 ^
+			 g * rgbScale << 8 ^
+			 b * rgbScale << 0;
 
 		return INT.toHexString( int );
 
@@ -55,9 +55,9 @@ const OBJECT = {
 
 		rgbScale = 255 / rgbScale;
 
-		const int = ( r * rgbScale ) << 16 ^
-			( g * rgbScale ) << 8 ^
-			( b * rgbScale ) << 0;
+		const int = r * rgbScale << 16 ^
+			 g * rgbScale << 8 ^
+			 b * rgbScale << 0;
 
 		return INT.toHexString( int );
 
