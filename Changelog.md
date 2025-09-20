@@ -2,7 +2,7 @@
 
 ??.??kb, ?.??kb gzipped
 
-- **Breaking change:** CSS classes have been prefixed to avoid conflicts with common class names. Example: `.title` has become `.lil-title`. ([Read more](https://github.com/georgealways/lil-gui/pull/154))
+- **Breaking change for custom CSS:** Classes have been prefixed to avoid conflicts with common class names. Example: `.title` → `.lil-title`. ([Read more](https://github.com/georgealways/lil-gui/pull/154))
 - `addColor` now supports `Float32Array` and other typed arrays.
 
 # 0.20.0
