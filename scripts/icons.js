@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import os from 'os';
 import { FontAssetType, generateFonts } from 'fantasticon';
 
 const INPUT_DIR = 'style/icons';
@@ -26,19 +27,23 @@ for ( const file of files ) {
 }
 
 // write font to a temp directory, then delete it after we're done
-const outputDir = await fs.mkdtemp( 'lil-gui-icons' );
+const tmpPrefix = path.join( os.tmpdir(), 'lil-gui-icons-' );
+const outputDir = await fs.mkdtemp( tmpPrefix );
 
-const results = await generateFonts( {
-	inputDir: INPUT_DIR,
-	name: FONT_NAME,
-	fontTypes: [ FontAssetType.WOFF2 ],
-	assetTypes: [],
-	codepoints,
-	getIconId,
-	outputDir
-} );
-
-await fs.rm( outputDir, { recursive: true, force: true } );
+let results;
+try {
+	results = await generateFonts( {
+		inputDir: INPUT_DIR,
+		name: FONT_NAME,
+		fontTypes: [ FontAssetType.WOFF2 ],
+		assetTypes: [],
+		codepoints,
+		getIconId,
+		outputDir
+	} );
+} finally {
+	await fs.rm( outputDir, { recursive: true, force: true } );
+}
 
 // get font data as a base64 string
 const data = results.assetsOut[ FontAssetType.WOFF2 ].toString( 'base64' );
