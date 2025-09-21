@@ -7,6 +7,13 @@
 	- `.autoPlace` → `.lil-auto-place`
 	- [Read more](https://github.com/georgealways/lil-gui/pull/154)
 - `addColor` now supports `Float32Array` and other typed arrays.
+- Internal changes:
+	- Renamed default branch to `main`
+	- Updated to `eslint@9`
+	- Moved to `fantasticon` for icon font generation.
+	- Added repository field to package.json
+	- Homepage style tweaks
+	
 
 # 0.20.0
 
