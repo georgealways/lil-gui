@@ -5,7 +5,7 @@
 - **Breaking change:** Class names have been prefixed to avoid conflicts with common user class names. Others have been renamed for consistency.
 	- `.title` → `.lil-title`
 	- `.autoPlace` → `.lil-auto-place`
-	- [Read more…](https://github.com/georgealways/lil-gui/pull/154)
+	- [Full list…](https://github.com/georgealways/lil-gui/pull/154)
 - `addColor` now supports `Float32Array` and other typed arrays.
 - Internal changes:
 	- Renamed default branch to `main`.
