@@ -35,9 +35,9 @@ class EventTarget {
 class Element extends EventTarget {
 	constructor() {
 		super();
-		this.classList = { add() {}, remove() {}, toggle() {} };
 		this.style = { setProperty() {} };
 		this.parentElement = { removeChild() {} };
+		this.classList = new ClassList();
 	}
 	appendChild() {}
 	removeChild() {}
@@ -63,6 +63,41 @@ class Element extends EventTarget {
 	}
 	querySelector() {
 		return new Element();
+	}
+}
+
+class ClassList {
+	constructor() {
+		this.set = new Set();
+	}
+	add() {
+		for ( let i = 0; i < arguments.length; i++ ) {
+			this.set.add( arguments[ i ] );
+		}
+	}
+	remove() {
+		for ( let i = 0; i < arguments.length; i++ ) {
+			this.set.delete( arguments[ i ] );
+		}
+	}
+	toggle( token, force ) {
+		if ( force === true ) {
+			this.set.add( token );
+			return true;
+		}
+		if ( force === false ) {
+			this.set.delete( token );
+			return false;
+		}
+		if ( this.set.has( token ) ) {
+			this.set.delete( token );
+			return false;
+		}
+		this.set.add( token );
+		return true;
+	}
+	contains( token ) {
+		return this.set.has( token );
 	}
 }
 
