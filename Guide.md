@@ -302,7 +302,7 @@ the constructor.
 const gui = new GUI( { container: $('#my-container') } );
 ```
 
-Use `.lil-root` to target the GUI's root element. `.lil-gui` will also match folders.
+Use `.lil-root` to target the GUI's root element.
 
 ### Width and Long Names
 
