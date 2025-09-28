@@ -106,7 +106,11 @@
 		--color-input-min-width: 65px;
 	}
 
-	&.lil-auto-place {
+	&.lil-auto-place,
+	// https://github.com/georgealways/lil-gui/pull/154
+	// .autoPlace is deprecated in 0.21.0, but unlikely to conflict with user styles.
+	// keeping it for backwards compatibility.
+	&.autoPlace {
 		max-height: 100%;
 		position: fixed;
 		top: 0;

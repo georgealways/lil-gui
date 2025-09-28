@@ -162,7 +162,10 @@ export default class GUI {
 
 		} else if ( autoPlace ) {
 
-			this.domElement.classList.add( 'lil-auto-place' );
+			// https://github.com/georgealways/lil-gui/pull/154
+			// .autoPlace is deprecated in 0.21.0, but unlikely to conflict with user styles.
+			// keeping it for backwards compatibility.
+			this.domElement.classList.add( 'lil-auto-place', 'autoPlace' );
 			document.body.appendChild( this.domElement );
 
 		}
