@@ -1,6 +1,6 @@
-# 0.20.0-dev
+# 0.21.0
 
-??.??kb, ?.??kb gzipped
+29.40kb, 7.94kb gzipped
 
 - **Breaking change:** Class names have been prefixed to avoid conflicts with common user class names. Others have been renamed for consistency.
 	- `.title` → `.lil-title`
@@ -13,7 +13,6 @@
 	- Moved to `fantasticon` for icon font generation.
 	- Added `repository` field to package.json.
 	- Homepage style tweaks.
-	
 
 # 0.20.0
 
