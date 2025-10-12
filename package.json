@@ -24,7 +24,7 @@
     "styleMin": "dist/lil-gui.min.css"
   },
   "scripts": {
-    "build": "npm run icons && npm run sass && npm run postcss && npm run rollup",
+    "build": "npm run icons && npm run sass && npm run postcss && npm run rollup && npm run types",
     "build:all": "npm run build && npm run api && npm run homepage",
     "sass": "sass style/index.scss dist/lil-gui.css --no-charset --no-source-map",
     "postcss": "postcss dist/lil-gui.css -u postcss-combine-media-query -u cssnano --no-map -o dist/lil-gui.min.css",
@@ -32,14 +32,14 @@
     "lint": "eslint . --max-warnings 0",
     "icons": "node scripts/icons.js",
     "test": "node tests/utils/runner.js",
+    "test:types": "tsc dist/lil-gui.esm.d.ts tests/*.ts --noEmit",
     "api": "node scripts/api.js --write",
     "types": "tsc dist/lil-gui.esm.js --declaration --allowJs --emitDeclarationOnly --outDir dist && node scripts/types.js",
-    "types:test": "tsc dist/lil-gui.esm.d.ts --noEmit",
     "homepage": "node scripts/homepage.js",
     "server": "browser-sync start -s -f 'dist' 'index.html' 'homepage' 'examples' --no-open --no-notify --no-ui --no-ghost-mode --no-inject-changes",
     "clean": "rimraf -rf dist index.html API.md style/icons.scss",
     "preversion": "npm run build && npm test",
-    "prepublishOnly": "npm run clean && npm run build && npm run types && npm run types:test && npm test",
+    "prepublishOnly": "npm run clean && npm run build && npm run test:types && npm test",
     "dev": "npm run build:all && node scripts/dev.js"
   },
   "files": [
