@@ -46,7 +46,7 @@ export default [
 
 	// no-console
 	{
-		files: [ 'src/**/*.js', 'tests/*.test.js' ],
+		files: [ 'src/**/*.js', 'tests/*' ],
 		rules: { 'no-console': 'warn' },
 	}
 
