@@ -1,7 +1,7 @@
 @import 'hover';
 
 .lil-gui {
-	.title {
+	.lil-title {
 
 		height: var(--title-height);
 
@@ -28,7 +28,7 @@
 		}
 
 		@include can-hover {
-			body:not(.lil-gui-dragging) &:hover {
+			body:not(.lil-dragging) &:hover {
 				background: var(--title-background-color);
 				opacity: 0.85;
 			}
@@ -38,24 +38,24 @@
 		}
 	}
 
-	&.root > .title:focus {
+	&.lil-root > .lil-title:focus {
 		text-decoration: none !important;
 	}
 
-	&.closed {
-		> .title:before {
+	&.lil-closed {
+		> .lil-title:before {
 			content: '▸';
 		}
-		> .children {
+		> .lil-children {
 			transform: translateY(-7px);
 			opacity: 0;
 		}
-		&:not(.transition) > .children {
+		&:not(.lil-transition) > .lil-children {
 			display: none;
 		}
 	}
 
-	&.transition > .children {
+	&.lil-transition > .lil-children {
 		transition-duration: 300ms;
 		transition-property: height, opacity, transform;
 		transition-timing-function: cubic-bezier(0.2, 0.6, 0.35, 1);
@@ -66,7 +66,7 @@
 	// Empty children
 	// -------------------------------------------------------------------------
 
-	.children:empty:before {
+	.lil-children:empty:before {
 		content: 'Empty';
 		padding: 0 var(--padding);
 		margin: var(--spacing) 0;
@@ -80,18 +80,18 @@
 	// Root Level Folders
 	// -------------------------------------------------------------------------
 
-	&.root > .children > & > .title {
+	&.lil-root > .lil-children > & > .lil-title {
 		border: 0 solid var(--widget-color);
 		border-width: 1px 0;
 		transition: border-color 300ms;
 	}
 
-	&.root > .children > &.closed > .title {
+	&.lil-root > .lil-children > &.lil-closed > .lil-title {
 		border-bottom-color: transparent;
 	}
 
 	// Seperate folders from controllers at the same level
-	& + .controller {
+	& + .lil-controller {
 		border-top: 1px solid var(--widget-color);
 		margin-top: 0;
 		padding-top: var(--spacing);
@@ -101,10 +101,10 @@
 	// -------------------------------------------------------------------------
 
 	& & & {
-		> .title {
+		> .lil-title {
 			border: none;
 		}
-		> .children {
+		> .lil-children {
 			border: none;
 			margin-left: var(--folder-indent);
 			border-left: 2px solid var(--widget-color);
@@ -112,7 +112,7 @@
 	}
 
 	// Don't draw folder + controller seperation rule for when double nested
-	& & .controller {
+	& & .lil-controller {
 		border: none;
 	}
 

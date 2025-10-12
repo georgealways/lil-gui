@@ -442,23 +442,23 @@ main .api-index h3 {
 
 /* autoPlace demo */
 
-.autoPlace {
+.lil-auto-place {
 	will-change: opacity;
 	transition: none;
 }
 
-.loaded .autoPlace {
+.loaded .lil-auto-place {
 	transition: opacity 0.2s;
 }
 
-.scrolled .autoPlace {
+.scrolled .lil-auto-place {
 	opacity: 0;
 	pointer-events: none;
 }
 
 @media (max-width: 1200px) {
 
-	.autoPlace {
+	.lil-auto-place {
 		opacity: 0;
 		pointer-events: none;
 	}

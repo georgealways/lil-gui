@@ -4,7 +4,7 @@ export default class StringController extends Controller {
 
 	constructor( parent, object, property ) {
 
-		super( parent, object, property, 'string' );
+		super( parent, object, property, 'lil-string' );
 
 		this.$input = document.createElement( 'input' );
 		this.$input.setAttribute( 'type', 'text' );

@@ -1,14 +1,14 @@
 @mixin touch-vars {
 
 	@media (pointer: coarse) {
-		&.allow-touch-styles,
-		&.allow-touch-styles & {
+		&.lil-allow-touch-styles,
+		&.lil-allow-touch-styles & {
 			@content;
 		}
 	}
 
-	&.force-touch-styles,
-	&.force-touch-styles & {
+	&.lil-force-touch-styles,
+	&.lil-force-touch-styles & {
 		@content;
 	}
 
@@ -38,16 +38,16 @@
 		padding: 0;
 	}
 
-	&.root {
+	&.lil-root {
 		width: var(--width, 245px);
 		display: flex;
 		flex-direction: column;
 		background: var(--background-color);
-		> .title {
+		> .lil-title {
 			background: var(--title-background-color);
 			color: var(--title-text-color);
 		}
-		> .children {
+		> .lil-children {
 			overflow-x: hidden;
 			overflow-y: auto;
 			&::-webkit-scrollbar {
@@ -106,6 +106,10 @@
 		--color-input-min-width: 65px;
 	}
 
+	&.lil-auto-place,
+	// https://github.com/georgealways/lil-gui/pull/154
+	// .autoPlace is deprecated in 0.21.0, but unlikely to conflict with user styles.
+	// keeping it for backwards compatibility.
 	&.autoPlace {
 		max-height: 100%;
 		position: fixed;

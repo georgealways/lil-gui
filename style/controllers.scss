@@ -1,48 +1,45 @@
 @import 'hover';
 
-.lil-gui {
-	.controller {
-		display: flex;
-		align-items: center;
-		padding: 0 var(--padding);
-		margin: var(--spacing) 0;
+.lil-controller {
+	display: flex;
+	align-items: center;
+	padding: 0 var(--padding);
+	margin: var(--spacing) 0;
 
-		&.disabled {
-			opacity: 0.5;
-			&, & * {
-				pointer-events: none !important;
-			}
-		}
-
-		// > is used here to avoid styling FunctionController's .name,
-		// which gets put inside of its widget.
-		> .name {
-			min-width: var(--name-width);
-			flex-shrink: 0;
-			white-space: pre;
-			padding-right: var(--spacing);
-			line-height: var(--widget-height);
-		}
-
-		.widget {
-			position: relative; // many w/ pos absolute inside
-			display: flex;
-			align-items: center;
-			width: 100%;
-			min-height: var(--widget-height);
+	&.lil-disabled {
+		opacity: 0.5;
+		&, & * {
+			pointer-events: none !important;
 		}
 	}
 
-	.controller.string input {
+	// > is used here to avoid styling FunctionController's .name,
+	// which gets put inside of its widget.
+	> .lil-name {
+		min-width: var(--name-width);
+		flex-shrink: 0;
+		white-space: pre;
+		padding-right: var(--spacing);
+		line-height: var(--widget-height);
+	}
+
+	.lil-widget {
+		position: relative; // many w/ pos absolute inside
+		display: flex;
+		align-items: center;
+		width: 100%;
+		min-height: var(--widget-height);
+	}
+	&.lil-string input {
 		color: var(--string-color);
 	}
 
-	.controller.boolean {
+	&.lil-boolean {
 		cursor: pointer;
 	}
 
-	.controller.color {
-		.display {
+	&.lil-color {
+		.lil-display {
 			width: 100%;
 			height: var(--widget-height);
 			border-radius: var(--widget-border-radius);
@@ -76,14 +73,14 @@
 		}
 	}
 
-	.controller.option {
+	&.lil-option {
 		select {
 			opacity: 0;
 			position: absolute;
 			width: 100%;
 			max-width: 100%;
 		}
-		.display {
+		.lil-display {
 			position: relative;
 			pointer-events: none;
 			border-radius: var(--widget-border-radius);
@@ -98,12 +95,12 @@
 			background: var(--widget-color);
 
 			@include can-hover {
-				&.focus {
+				&.lil-focus {
 					background: var(--focus-color);
 				}
 			}
 
-			&.active {
+			&.lil-active {
 				background: var(--focus-color);
 			}
 
@@ -117,30 +114,30 @@
 				padding-right: 0.375em;
 			}
 		}
-		.widget,
+		.lil-widget,
 		select {
 			cursor: pointer;
 		}
-		.widget {
+		.lil-widget {
 			@include on-hover {
-				.display {
+				.lil-display {
 					background: var(--hover-color);
 				}
 			}
 		}
 	}
 
-	.controller.number {
+	&.lil-number {
 		input {
 			color: var(--number-color);
 		}
-		&.hasSlider input {
+		&.lil-has-slider input {
 			margin-left: var(--spacing);
 			width: var(--slider-input-width);
 			min-width: var(--slider-input-min-width);
 			flex-shrink: 0;
 		}
-		.slider {
+		.lil-slider {
 			width: 100%;
 			height: var(--widget-height);
 			background: var(--widget-color);
@@ -157,14 +154,14 @@
 			@include on-hover {
 				background: var(--hover-color);
 			}
-			&.active {
+			&.lil-active {
 				background: var(--focus-color);
-				.fill {
+				.lil-fill {
 					opacity: 0.95;
 				}
 			}
 		}
-		.fill {
+		.lil-fill {
 			height: 100%;
 			border-right: var(--slider-knob-width) solid var(--number-color);
 			// don't count border width towards width
@@ -173,16 +170,17 @@
 	}
 }
 
-// Disable hover styles and scroll when dragging sliders
-.lil-gui-dragging {
+
+
+// Disable hover styles when dragging sliders
+.lil-dragging {
 	.lil-gui {
 		--hover-color: var(--widget-color);
 	}
 	* {
 		cursor: ew-resize !important;
 	}
-}
-
-.lil-gui-dragging.lil-gui-vertical * {
-	cursor: ns-resize !important;
+	&.lil-vertical * {
+		cursor: ns-resize !important;
+	}
 }

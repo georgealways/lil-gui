@@ -4,7 +4,7 @@ export default class NumberController extends Controller {
 
 	constructor( parent, object, property, min, max, step ) {
 
-		super( parent, object, property, 'number' );
+		super( parent, object, property, 'lil-number' );
 
 		this._initInput();
 
@@ -247,15 +247,15 @@ export default class NumberController extends Controller {
 		// ---------------------------------------------------------------------
 
 		this.$slider = document.createElement( 'div' );
-		this.$slider.classList.add( 'slider' );
+		this.$slider.classList.add( 'lil-slider' );
 
 		this.$fill = document.createElement( 'div' );
-		this.$fill.classList.add( 'fill' );
+		this.$fill.classList.add( 'lil-fill' );
 
 		this.$slider.appendChild( this.$fill );
 		this.$widget.insertBefore( this.$slider, this.$input );
 
-		this.domElement.classList.add( 'hasSlider' );
+		this.domElement.classList.add( 'lil-has-slider' );
 
 		// Map clientX to value
 		// ---------------------------------------------------------------------
@@ -401,10 +401,10 @@ export default class NumberController extends Controller {
 
 	_setDraggingStyle( active, axis = 'horizontal' ) {
 		if ( this.$slider ) {
-			this.$slider.classList.toggle( 'active', active );
+			this.$slider.classList.toggle( 'lil-active', active );
 		}
-		document.body.classList.toggle( 'lil-gui-dragging', active );
-		document.body.classList.toggle( `lil-gui-${axis}`, active );
+		document.body.classList.toggle( 'lil-dragging', active );
+		document.body.classList.toggle( `lil-${axis}`, active );
 	}
 
 	_getImplicitStep() {

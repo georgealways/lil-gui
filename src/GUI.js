@@ -112,7 +112,7 @@ export default class GUI {
 		 * @type {HTMLElement}
 		 */
 		this.$title = document.createElement( 'button' );
-		this.$title.classList.add( 'title' );
+		this.$title.classList.add( 'lil-title' );
 		this.$title.setAttribute( 'aria-expanded', true );
 
 		this.$title.addEventListener( 'click', () => this.openAnimated( this._closed ) );
@@ -125,7 +125,7 @@ export default class GUI {
 		 * @type {HTMLElement}
 		 */
 		this.$children = document.createElement( 'div' );
-		this.$children.classList.add( 'children' );
+		this.$children.classList.add( 'lil-children' );
 
 		this.domElement.appendChild( this.$title );
 		this.domElement.appendChild( this.$children );
@@ -144,10 +144,10 @@ export default class GUI {
 
 		}
 
-		this.domElement.classList.add( 'root' );
+		this.domElement.classList.add( 'lil-root' );
 
 		if ( touchStyles ) {
-			this.domElement.classList.add( 'allow-touch-styles' );
+			this.domElement.classList.add( 'lil-allow-touch-styles' );
 		}
 
 		// Inject stylesheet if we haven't done that yet
@@ -162,7 +162,10 @@ export default class GUI {
 
 		} else if ( autoPlace ) {
 
-			this.domElement.classList.add( 'autoPlace' );
+			// https://github.com/georgealways/lil-gui/pull/154
+			// .autoPlace is deprecated in 0.21.0, but unlikely to conflict with user styles.
+			// keeping it for backwards compatibility.
+			this.domElement.classList.add( 'lil-auto-place', 'autoPlace' );
 			document.body.appendChild( this.domElement );
 
 		}
@@ -378,7 +381,7 @@ export default class GUI {
 		this._setClosed( !open );
 
 		this.$title.setAttribute( 'aria-expanded', !this._closed );
-		this.domElement.classList.toggle( 'closed', this._closed );
+		this.domElement.classList.toggle( 'lil-closed', this._closed );
 
 		return this;
 
@@ -439,12 +442,12 @@ export default class GUI {
 			const initialHeight = this.$children.clientHeight;
 			this.$children.style.height = initialHeight + 'px';
 
-			this.domElement.classList.add( 'transition' );
+			this.domElement.classList.add( 'lil-transition' );
 
 			const onTransitionEnd = e => {
 				if ( e.target !== this.$children ) return;
 				this.$children.style.height = '';
-				this.domElement.classList.remove( 'transition' );
+				this.domElement.classList.remove( 'lil-transition' );
 				this.$children.removeEventListener( 'transitionend', onTransitionEnd );
 			};
 
@@ -453,7 +456,7 @@ export default class GUI {
 			// todo: this is wrong if children's scrollHeight makes for a gui taller than maxHeight
 			const targetHeight = !open ? 0 : this.$children.scrollHeight;
 
-			this.domElement.classList.toggle( 'closed', !open );
+			this.domElement.classList.toggle( 'lil-closed', !open );
 
 			requestAnimationFrame( () => {
 				this.$children.style.height = targetHeight + 'px';
