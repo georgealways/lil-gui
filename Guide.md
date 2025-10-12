@@ -299,7 +299,7 @@ fixed positioning. You can add the GUI to a different element by passing a `cont
 the constructor.
 
 ```js
-const gui = new GUI( { container: $('#my-container') } );
+const gui = new GUI( { container: $( '#gui' ) } );
 ```
 
 Use `.lil-root` to target the GUI's root element.
