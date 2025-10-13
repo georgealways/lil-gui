@@ -122,7 +122,7 @@ example( 12, ( gui, code ) => {
 
 } );
 
-example( 13, gui => {
+example( 14, gui => {
 
 	const params = {
 		scale: 1,
@@ -139,7 +139,7 @@ example( 13, gui => {
 
 } );
 
-example( 17, gui => {
+example( 18, gui => {
 
 	const params = { feedback: 0 };
 
@@ -154,7 +154,7 @@ example( 17, gui => {
 
 } );
 
-example( 18, gui => {
+example( 19, gui => {
 
 	let saved = {};
 

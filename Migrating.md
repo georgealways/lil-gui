@@ -51,6 +51,8 @@ params = { color };
 lil_gui.addColor( params, 'color' );
 ```
 
+_Note: lil-gui is automatically converting color spaces under the hood since THREE.Color provides getHex/setHex methods._
+
 The other differences in color handling are fairly minor: 
 
 - lil-gui always writes to `#rrggbb` format for strings, even those defined as `rgb()` or `#RGB`.
