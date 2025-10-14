@@ -14,7 +14,6 @@ export default class BooleanController extends Controller {
 
 		this.$input.addEventListener( 'change', () => {
 			this.setValue( this.$input.checked );
-			this._callOnFinishChange();
 		} );
 
 		this.$disable = this.$input;
