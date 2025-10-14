@@ -437,15 +437,25 @@ export default class NumberController extends Controller {
 
 	_normalizeMouseWheel( e ) {
 
+		// Distinguish between continuous and notched scrolling (trackpad vs wheel)
+		// so that one notched scroll equals one step. As of 2022, only Safari & Chrome
+		// allow you to distinguish between these types of scrolls. In other browsers,
+		// notched scrolling will result in large increments.
+
 		let { deltaX, deltaY } = e;
 
-		// Safari and Chrome report weird non-integral values for a notched wheel,
-		// but still expose actual lines scrolled via wheelDelta. Notched wheels
-		// should behave the same way as arrow keys.
-		if ( Math.floor( e.deltaY ) !== e.deltaY && e.wheelDelta ) {
-			deltaX = 0;
-			deltaY = -e.wheelDelta / 120;
-			deltaY *= this._stepExplicit ? 1 : 10;
+		// Smooth wheels are always integral in these browsers.
+		const isNotched = Math.floor( deltaY ) !== deltaY;
+
+		if ( isNotched ) {
+
+			// The magnitude of deltaY is different in each browser.
+			// We can only reliably determine the direction.
+			deltaY = deltaY < 0 ? -1 : 1;
+
+			// Implicit steps are too small to wheel with.
+			if ( !this._stepExplicit ) deltaY *= 10;
+
 		}
 
 		const wheel = deltaX + -deltaY;
