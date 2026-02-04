@@ -153,6 +153,20 @@ export default class Controller {
 	}
 
 	/**
+	 * Calls the onChange callback with the controller's current value.
+	 * Useful for triggering the onChange callback immediately after setting up the controller.
+	 * @returns {this}
+	 * @example
+	 * gui.add( object, 'property' ).onChange( value => {
+	 * 	console.log( value );
+	 * } ).trigger();
+	 */
+	trigger() {
+		this._callOnChange();
+		return this;
+	}
+
+	/**
 	 * Pass a function to be called after this controller has been modified and loses focus.
 	 * @param {Function} callback
 	 * @returns {this}
