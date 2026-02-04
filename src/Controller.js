@@ -162,7 +162,9 @@ export default class Controller {
 	 * } ).trigger();
 	 */
 	trigger() {
-		this._callOnChange();
+		if ( this._onChange !== undefined ) {
+			this._onChange.call( this, this.getValue() );
+		}
 		return this;
 	}
 

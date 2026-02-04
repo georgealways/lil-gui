@@ -38,6 +38,20 @@ export default () => {
 	const controller2 = gui.add( { y: 10 }, 'y' );
 	controller2.trigger(); // Should not throw
 
+	// Test that trigger does NOT propagate to parent GUI onChange
+	const gui2 = new GUI();
+	const parentTracker = new CallTracker();
+	gui2.onChange( parentTracker.handler );
+
+	const controller3 = gui2.add( { z: 5 }, 'z' );
+	const childTracker = new CallTracker();
+	controller3.onChange( childTracker.handler );
+
+	controller3.trigger();
+
+	assert.strictEqual( childTracker.numCalls, 1, 'trigger: calls controller onChange' );
+	assert.strictEqual( parentTracker.numCalls, 0, 'trigger: does NOT call parent GUI onChange' );
+
 	// Test the use case from the issue
 	const state = {
 		partsVisible: false
