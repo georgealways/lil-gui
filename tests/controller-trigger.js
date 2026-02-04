@@ -28,6 +28,7 @@ export default () => {
 	controller.setValue( 100 );
 	controller.trigger();
 
+	// Expected: 1 (first trigger) + 1 (chainable trigger) + 1 (setValue onChange) + 1 (trigger after setValue)
 	const expectedCalls = 4;
 	assert.strictEqual( tracker.numCalls, expectedCalls,
 		'trigger: after setValue, both setValue onChange and trigger onChange are called' );
