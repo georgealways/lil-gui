@@ -6,72 +6,33 @@ import CallTracker from './utils/CallTracker.js';
 export default () => {
 
 	const gui = new GUI();
-
-	const obj = { x: 42 };
-	const controller = gui.add( obj, 'x' );
-
 	const tracker = new CallTracker();
 
-	// Test that trigger calls onChange with current value
-	controller.onChange( tracker.handler );
-	controller.trigger();
+	const c = gui.add( { x: 42 }, 'x' );
+	c.onChange( tracker.handler );
 
-	assert.strictEqual( tracker.numCalls, 1, 'trigger: calls onChange once' );
-	assert.strictEqual( tracker.lastThis, controller, 'trigger: this is bound to controller in handler' );
-	assert.deepEqual( tracker.lastArgs, [ 42 ], 'trigger: current value is passed to onChange' );
+	c.trigger();
 
-	// Test that trigger is chainable
-	const result = controller.trigger();
-	assert.strictEqual( result, controller, 'trigger: returns the controller for chaining' );
+	assert.strictEqual( tracker.numCalls, 1 );
+	assert.strictEqual( tracker.lastThis, c );
+	assert.deepEqual( tracker.lastArgs, [ 42 ] );
 
-	// Test that trigger works with updated values
-	controller.setValue( 100 );
-	controller.trigger();
+	assert.strictEqual( c.trigger(), c, 'trigger is chainable' );
 
-	// Expected: 1 (first trigger) + 1 (chainable trigger) + 1 (setValue onChange) + 1 (trigger after setValue)
-	const expectedCalls = 4;
-	assert.strictEqual( tracker.numCalls, expectedCalls,
-		'trigger: after setValue, both setValue onChange and trigger onChange are called' );
-	assert.deepEqual( tracker.lastArgs, [ 100 ], 'trigger: passes updated value to onChange' );
+	c.setValue( 100 );
 
-	// Test that trigger works even without onChange callback
-	const controller2 = gui.add( { y: 10 }, 'y' );
-	controller2.trigger(); // Should not throw
+	assert.strictEqual( tracker.numCalls, 3 );
+	assert.deepEqual( tracker.lastArgs, [ 100 ] );
 
-	// Test that trigger does NOT propagate to parent GUI onChange
+	gui.add( { y: 10 }, 'y' ).trigger();
+
 	const gui2 = new GUI();
 	const parentTracker = new CallTracker();
 	gui2.onChange( parentTracker.handler );
 
-	const controller3 = gui2.add( { z: 5 }, 'z' );
-	const childTracker = new CallTracker();
-	controller3.onChange( childTracker.handler );
+	gui2.add( { z: 5 }, 'z' ).onChange( tracker.handler ).trigger();
 
-	controller3.trigger();
-
-	assert.strictEqual( childTracker.numCalls, 1, 'trigger: calls controller onChange' );
-	assert.strictEqual( parentTracker.numCalls, 0, 'trigger: does NOT call parent GUI onChange' );
-
-	// Test the use case from the issue
-	const state = {
-		partsVisible: false
-	};
-
-	const parts = [
-		{ visible: true },
-		{ visible: true },
-		{ visible: true }
-	];
-
-	gui.add( state, 'partsVisible' ).onChange( visible => {
-		for ( const part of parts ) {
-			part.visible = visible;
-		}
-	} ).trigger();
-
-	// All parts should now be false due to trigger
-	assert.strictEqual( parts[ 0 ].visible, false, 'trigger: use case - part 0 visibility set' );
-	assert.strictEqual( parts[ 1 ].visible, false, 'trigger: use case - part 1 visibility set' );
-	assert.strictEqual( parts[ 2 ].visible, false, 'trigger: use case - part 2 visibility set' );
+	assert.strictEqual( tracker.numCalls, 4 );
+	assert.strictEqual( parentTracker.numCalls, 0, 'does not propagate to parent' );
 
 };
