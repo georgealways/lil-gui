@@ -28,11 +28,12 @@ export default () => {
 
 	const gui2 = new GUI();
 	const parentTracker = new CallTracker();
+	const childTracker = new CallTracker();
+
 	gui2.onChange( parentTracker.handler );
+	gui2.add( { z: 5 }, 'z' ).onChange( childTracker.handler ).trigger();
 
-	gui2.add( { z: 5 }, 'z' ).onChange( tracker.handler ).trigger();
-
-	assert.strictEqual( tracker.numCalls, 4 );
+	assert.strictEqual( childTracker.numCalls, 1 );
 	assert.strictEqual( parentTracker.numCalls, 0, 'does not propagate to parent' );
 
 };
