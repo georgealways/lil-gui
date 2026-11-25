@@ -212,7 +212,11 @@ export default class NumberController extends Controller {
 
 		const onMouseUp = () => {
 			this._setDraggingStyle( false, 'vertical' );
-			this._callOnFinishChange();
+			if ( testingForVerticalDrag ) {
+				this._callOnFinishChange();
+			} else {
+				this._clampAndFinishChange();
+			}
 			window.removeEventListener( 'mousemove', onMouseMove );
 			window.removeEventListener( 'mouseup', onMouseUp );
 		};
@@ -285,7 +289,7 @@ export default class NumberController extends Controller {
 		};
 
 		const mouseUp = () => {
-			this._callOnFinishChange();
+			this._clampAndFinishChange();
 			this._setDraggingStyle( false );
 			window.removeEventListener( 'mousemove', mouseMove );
 			window.removeEventListener( 'mouseup', mouseUp );
@@ -357,7 +361,7 @@ export default class NumberController extends Controller {
 		};
 
 		const onTouchEnd = () => {
-			this._callOnFinishChange();
+			this._clampAndFinishChange();
 			this._setDraggingStyle( false );
 			window.removeEventListener( 'touchmove', onTouchMove );
 			window.removeEventListener( 'touchend', onTouchEnd );
@@ -396,6 +400,17 @@ export default class NumberController extends Controller {
 		this.$slider.addEventListener( 'mousedown', mouseDown );
 		this.$slider.addEventListener( 'touchstart', onTouchStart, { passive: false } );
 		this.$slider.addEventListener( 'wheel', onWheel, { passive: false } );
+
+	}
+
+	_clampAndFinishChange() {
+
+		const currentValue = this.getValue();
+		const value = this._clamp( currentValue );
+		if ( value !== currentValue ) {
+			this.setValue( value );
+		}
+		this._callOnFinishChange();
 
 	}
 
