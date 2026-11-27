@@ -33,6 +33,15 @@ export default () => {
 		expectedValues: [ 13, 6, -1, -8, -15, -22 ]
 	} );
 
+	// adding min back cancels most of the value here: 0.30000000000000004 - 0.3 is 5.55e-17, not 0
+	stepTest( {
+		start: -0.3,
+		min: -0.3,
+		max: 1,
+		step: 0.1,
+		expectedValues: [ -0.2, -0.1, 0, 0.1, 0.2, 0.3 ]
+	} );
+
 	function stepTest( { start, min, max, step, expectedValues } ) {
 
 		const gui = new GUI();

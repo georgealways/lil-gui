@@ -482,9 +482,16 @@ export default class NumberController extends Controller {
 
 		value = Math.round( value / this._step ) * this._step;
 
+		// Adding the offset can cancel most of the value, as in 0.30000000000000004 - 0.3,
+		// so the rounding below is relative to the larger of the two, not to the result.
+		const magnitude = Math.max( Math.abs( value ), Math.abs( offset ) );
+
 		value += offset;
 
-		// Used to prevent "flyaway" decimals like 1.00000000000001
+		// Used to prevent "flyaway" decimals like 1.00000000000001, or 5.551115123125783e-17
+		// where the result should be 0
+		const digits = 14 - Math.floor( Math.log10( magnitude ) );
+		value = parseFloat( value.toFixed( Math.min( 100, Math.max( 0, digits ) ) ) );
 		value = parseFloat( value.toPrecision( 15 ) );
 
 		return value;
